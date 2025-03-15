@@ -190,6 +190,13 @@ public class Lord {
             lord.getStats().setSkillLevel(Skills.CYBERNETIC_AUGMENTATION, 1);
             lord.getStats().setSkillLevel(Skills.SENSORS, 1);
         }
+        //set custom skills
+        if (!template.customSkills.isEmpty()) {
+            try {
+                template.customSkills.forEach((skillName, skillLevel) -> lord.getStats().setSkillLevel(skillName, skillLevel));
+            } catch (Exception e) {
+            }
+        }
     }
 
 

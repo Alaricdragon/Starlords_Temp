@@ -1,12 +1,8 @@
 package starlords.person;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import lombok.SneakyThrows;
-import org.apache.log4j.Logger;
 import org.json.JSONObject;
-import starlords.controllers.LordController;
-import starlords.lunaSettings.StoredSettings;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -22,6 +18,7 @@ public final class LordTemplate {
     public final String flagShip;
     public final String lore;
     public final HashMap<String, Integer> shipPrefs;
+    public final HashMap<String, Integer> customSkills;
     public final String fief;
     public final String portrait;
     public final int level;
@@ -80,6 +77,14 @@ public final class LordTemplate {
             String key = (String) it.next();
             shipPrefs.put(key, prefJson.getInt(key));
         }
+        customSkills = new HashMap<>();
+        if (template.has("customSkills")) {
+            JSONObject skillJson = template.getJSONObject("customSkills");
+            for (Iterator it = skillJson.keys(); it.hasNext();) {
+                String key = (String) it.next();
+                customSkills.put(key, skillJson.getInt(key));
+            }
+        }
     }
     @SneakyThrows
     public LordTemplate(PosdoLordTemplate template) {
@@ -127,5 +132,6 @@ public final class LordTemplate {
         level = template.level;
         ranking = template.ranking;
         shipPrefs = template.shipPrefs;
+        customSkills = new HashMap<>();
     }
 }
