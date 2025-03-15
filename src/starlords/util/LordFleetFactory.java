@@ -1,6 +1,7 @@
 package starlords.util;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.AICoreOfficerPlugin;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
@@ -14,9 +15,7 @@ import com.fs.starfarer.api.fleet.FleetMemberType;
 import com.fs.starfarer.api.fleet.ShipRolePick;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetFactoryV3;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
-import com.fs.starfarer.api.impl.campaign.ids.Commodities;
-import com.fs.starfarer.api.impl.campaign.ids.HullMods;
-import com.fs.starfarer.api.impl.campaign.ids.Skills;
+import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.util.Misc;
 import starlords.person.Lord;
 import starlords.person.LordPersonality;
@@ -51,13 +50,19 @@ public class LordFleetFactory extends FleetFactoryV3 {
             }
             if (ship.isFlagship()) {
                 ship.setCaptain(lord.getLordAPI());
-            } else {
+            } else if (!Misc.isAutomated(ship)) {
                 PersonAPI officer = lord.getLordAPI().getFaction().createRandomPerson();
                 officer.setPersonality(lord.getTemplate().battlePersonality);
                 upskillOfficer(officer, true);
                 Misc.setUnremovable(officer, true);
                 lord.getLordAPI().getFleet().getFleetData().addOfficer(officer);
                 ship.setCaptain(officer);
+            } else {
+                //modify this so it's dynamic... eventually
+                AICoreOfficerPlugin plugin = Misc.getAICoreOfficerPlugin(Commodities.BETA_CORE);
+                PersonAPI aiOfficer = plugin.createPerson(Commodities.BETA_CORE, Factions.REMNANTS, new Random());
+                ship.setCaptain(aiOfficer);
+                Misc.setUnremovable(aiOfficer, true);
             }
         }
     }
