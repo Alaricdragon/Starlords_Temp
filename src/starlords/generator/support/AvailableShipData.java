@@ -16,7 +16,7 @@ import java.util.Set;
 
 public class AvailableShipData {
     public static final String HULLTYPE_CARRIER = "CARRIER", HULLTYPE_WARSHIP = "WARSHIP", HULLTYPE_PHASE = "PHASE", HULLTYPE_COMBATCIV = "COMBATCIV", HULLTYPE_TANKER = "TANKER", HULLTYPE_CARGO = "CARGO", HULLTYPE_PERSONNEL = "PERSONNEL", HULLTYPE_LINER = "LINER", HULLTYPE_TUG = "TUG", HULLTYPE_UTILITY = "UTILITY";
-    public static final String HULLSIZE_FRIGATE = ShipAPI.HullSize.FRIGATE.name(), HULLSIZE_DESTROYER = ShipAPI.HullSize.DESTROYER.name(), HULLSIZE_CRUISER = ShipAPI.HullSize.CRUISER.name(), HULLSIZE_CAPITALSHIP = ShipAPI.HullSize.CAPITAL_SHIP.name();
+    public static final String HULLSIZE_FIGHTER = ShipAPI.HullSize.FIGHTER.name(), HULLSIZE_FRIGATE = ShipAPI.HullSize.FRIGATE.name(), HULLSIZE_DESTROYER = ShipAPI.HullSize.DESTROYER.name(), HULLSIZE_CRUISER = ShipAPI.HullSize.CRUISER.name(), HULLSIZE_CAPITALSHIP = ShipAPI.HullSize.CAPITAL_SHIP.name();
     //this is going to hold 5 hashsets, each linking to a diffrent type of ship. thats warship, carrier, phase, combat civ, and civ.
     //NOTE: this will contain things on a vareant by vareant bases because WHAT THE FUCK how doe this even fucking work!?!?!!!!?
     @Getter
@@ -180,6 +180,9 @@ public class AvailableShipData {
         String hull = Global.getSettings().getVariant(vareantID).getHullSpec().getHullId();
         String size = Global.getSettings().getVariant(vareantID).getHullSpec().getHullSize().name();
         ShipData a = unorganizedShips.get(hull);
+        if (size == HULLSIZE_FIGHTER) {
+            size = HULLSIZE_FRIGATE;
+        };
         if(a == null){
             a = new ShipData(hull,size,type);
             unorganizedShips.put(hull,a);
