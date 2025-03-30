@@ -1,3 +1,7 @@
+V0.3.19 (in dev patch notes):
+    completed the iternal dialog system. read the readme for details writing condition lines.
+        -note: DialogSet.getLineWithInserts for getting a required line of dialog.
+        -note: DialogSet.insertData for any additional inserted strings into a line. feel free to use a lot of markets in your whats its. sob
 V0.3.18:
     fixed a crash caused by a modded faction having fighters as a ship type in its fleet doctrine. fighters will now count as frigates, as far as starlords is concerned.
 V0.3.17:
