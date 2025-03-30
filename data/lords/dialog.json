@@ -1,4 +1,103 @@
 {
+  "Cooperative": {
+    "priority": 1,
+    "rules":{
+      "relationWithPlayer": {
+        "min": 75,
+        "max": 100
+      }
+    },
+    "lines": {
+    }
+  },
+  "Friendly": {
+    "priority": 1,
+    "rules":{
+      "relationWithPlayer": {
+        "min": 50,
+        "max": 74
+      }
+    },
+    "lines": {
+    }
+  },
+  "Welcoming": {
+    "priority": 1,
+    "rules":{
+      "relationWithPlayer": {
+        "min": 25,
+        "max": 49
+      }
+    },
+    "lines": {
+    }
+  },
+  "Favorable": {
+    "priority": 1,
+    "rules":{
+      "relationWithPlayer": {
+        "min": 10,
+        "max": 25
+      }
+    },
+    "lines": {
+    }
+  },
+  "Neutral": {
+    "priority": 1,
+    "rules":{
+      "relationWithPlayer": {
+        "min": -9,
+        "max": 9
+      }
+    },
+    "lines": {
+    }
+  },
+  "Suspicious": {
+    "priority": 1,
+    "rules":{
+      "relationWithPlayer": {
+        "min": -24,
+        "max": -10
+      }
+    },
+    "lines": {
+    }
+  },
+  "Inhospitable": {
+    "priority": 1,
+    "rules":{
+      "relationWithPlayer": {
+        "min": -49,
+        "max": -25
+      }
+    },
+    "lines": {
+    }
+  },
+  "Hostile": {
+    "priority": 1,
+    "rules":{
+      "relationWithPlayer": {
+        "min": -74,
+        "max": -50
+      }
+    },
+    "lines": {
+    }
+  },
+  "Vengeful": {
+    "priority": 1,
+    "rules":{
+      "relationWithPlayer": {
+        "min": -100,
+        "max": -75
+      }
+    },
+    "lines": {
+    }
+  },
 
   "default": {
     "priority": 0,
