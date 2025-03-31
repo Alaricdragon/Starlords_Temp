@@ -259,6 +259,15 @@ public class DialogSet {
                 case "isAtFeast":
                     rules.add(addRule_isAtFeast(rulesTemp,key));
                     break;
+                case "playerSubject":
+                    rules.add(addRule_playerSubject(rulesTemp,key));
+                    break;
+                case "playerFactionMarital":
+                    rules.add(addRule_playerFactionMarital(rulesTemp,key));
+                    break;
+                case "lordFactionMarital":
+                    rules.add(addRule_lordFactionMarital(rulesTemp,key));
+                    break;
             }
         }
         return rules;
@@ -319,5 +328,17 @@ public class DialogSet {
     @SneakyThrows
     private static DialogRule_Base addRule_isAtFeast(JSONObject json, String key){
         return new DialogRule_isAtFeast(json.getBoolean(key));
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_playerSubject(JSONObject json, String key){
+        return new DialogRule_playerSubject(json.getBoolean(key));
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_playerFactionMarital(JSONObject json, String key){
+        return new DialogRule_playerFactionMarital(json.getBoolean(key));
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_lordFactionMarital(JSONObject json, String key){
+        return new DialogRule_lordFactionMarital(json.getBoolean(key));
     }
 }

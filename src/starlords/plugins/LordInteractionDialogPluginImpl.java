@@ -331,6 +331,8 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         optionSelected_NAMETEMP(optionText,optionData,player,willEngage,hostile,feast,option);
     }
     private void optionSelected_INIT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
+        /*ok, so im looking at this first group... and its split into a few parts.
+        * first of all, the 'greeting' string is just a generated tag. so like, oh shit.*/
         if (!hostile) {
             String greeting = "greeting_" + targetLord.getPersonality().toString().toLowerCase() + "_";
             if (feast != null) {
