@@ -93,71 +93,68 @@ public class DialogSet {
     }
     private static String getPlayerStringMods(String line, Lord lord){
         String data = Global.getSector().getPlayerFaction().getDisplayName();
-        line = insertData(line,"p0",data);
-
-        data = "";//Global.getSector().getPlayerFaction().getDisplayName();
-        line = insertData(line,"p1",data);
+        line = insertData(line,"%PLAYER_FACTION_NAME",data);
 
         data = Global.getSector().getPlayerPerson().getNameString();
-        line = insertData(line,"p2",data);
+        line = insertData(line,"%PLAYER_NAME",data);
 
         data = Global.getSector().getPlayerPerson().getManOrWoman();
-        line = insertData(line,"p3_0",data);
+        line = insertData(line,"%PLAYER_GENDER_MAN_OR_WOMEN",data);
 
         data = Global.getSector().getPlayerPerson().getHeOrShe();
-        line = insertData(line,"p3_1",data);
+        line = insertData(line,"%PLAYER_GENDER_HE_OR_SHE",data);
 
         data = Global.getSector().getPlayerPerson().getHimOrHer();
-        line = insertData(line,"p3_2",data);
+        line = insertData(line,"%PLAYER_GENDER_HIM_OR_HER",data);
 
         data = Global.getSector().getPlayerPerson().getHisOrHer();
-        line = insertData(line,"p3_3",data);
+        line = insertData(line,"%PLAYER_GENDER_HIS_OR_HER",data);
 
         data = Global.getSector().getPlayerPerson().getGender().name();
-        line = insertData(line,"p3_4",data);
+        line = insertData(line,"%PLAYER_GENDER_NAME",data);
 
         data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
         if (Global.getSector().getPlayerFleet().getFlagship() != null) data = Global.getSector().getPlayerFleet().getFlagship().getHullSpec().getHullName();
-        line = insertData(line,"p4",data);
+        line = insertData(line,"%PLAYER_FLAGSHIP_HULLNAME",data);
 
         data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
         if (Global.getSector().getPlayerFleet().getFlagship() != null) data = Global.getSector().getPlayerFleet().getFlagship().getShipName();
-        line = insertData(line,"p5",data);
+        line = insertData(line,"%PLAYER_FLAGSHIP_NAME",data);
 
         return line;
     }
     private static String getLordStringMods(String line, Lord lord){
         String data = lord.getFaction().getDisplayName();
-        line = insertData(line,"l0",data);
+        line = insertData(line,"%LORD_FACTION_NAME",data);
 
         data = Global.getSector().getFaction(lord.getTemplate().factionId).getDisplayName();//Global.getSector().getPlayerFaction().getDisplayName();
-        line = insertData(line,"l1",data);
+        line = insertData(line,"%LORD_STARTING_FACTION_NAME",data);
 
         data = lord.getLordAPI().getNameString();
-        line = insertData(line,"l2",data);
+        line = insertData(line,"%LORD_NAME",data);
 
         data = lord.getLordAPI().getManOrWoman();
-        line = insertData(line,"l3_0",data);
+        line = insertData(line,"%LORD_GENDER_MAN_OR_WOMEN",data);
 
         data = lord.getLordAPI().getHeOrShe();
-        line = insertData(line,"l3_1",data);
+        line = insertData(line,"%LORD_GENDER_HE_OR_SHE",data);
 
         data = lord.getLordAPI().getHimOrHer();
-        line = insertData(line,"l3_2",data);
+        line = insertData(line,"%LORD_GENDER_HIM_OR_HER",data);
 
         data = lord.getLordAPI().getHisOrHer();
-        line = insertData(line,"l3_3",data);
+        line = insertData(line,"%LORD_GENDER_HIS_OR_HER",data);
 
         data = lord.getLordAPI().getGender().name();
-        line = insertData(line,"l3_4",data);
+        line = insertData(line,"%LORD_GENDER_NAME",data);
 
         data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
         if (lord.getFleet().getFlagship() != null) data = lord.getFleet().getFlagship().getHullSpec().getHullName();
-        line = insertData(line,"l4",data);
+        line = insertData(line,"%LORD_FLAGSHIP_HULLNAME",data);
 
         data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
         if (lord.getFleet().getFlagship() != null) lord.getFleet().getFlagship().getShipName();
-        line = insertData(line,"p5",data);
+        line = insertData(line,"%LORD_FLAGSHIP_NAME",data);
         return line;
     }
 

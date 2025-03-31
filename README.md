@@ -79,7 +79,6 @@ After that, your lord should be created automatically upon starting a new game.
 
 ### Adding Custom SMods to lords
 If you're a modder, or just someone who likes S-Mods you might want to expand on the number of S-Mods are available in the generic starlords S-Mod pool. All you have to do is add another entry to the [SMods.json](https://github.com/Deluth-git/Starlords/blob/master/data/lords/SMods.json) file. A few notes:
-* "priority" is the priority of this dialog. should have a value of at least 1 the dialog with the highest priority that has all its "rule" reuqirements met will be used in any instance, unless the lord you are talking to has a at least one valid "dialogOverride" 
 * "rules" is each requirement that must be met before this set of S-Mods can be added to a given ships pull. every condition must be met for this to happen. conditions are as follows:
   * "hullmods" is the hullmods this set of Smods requires to meet requirements. Set to true for whitelist, and false to blacklist. To meet requirements, a ship must have at least one 'true' hullmod (if any are created in this rule), and no 'false' hullmods
   * "manufacture" is the manufactures this set requires to meet requirements. set to true for whitelist, and false for blacklist. To meet requirements, a ship must have a manufacture of one of the 'true'  manufacture (if any are created in this rule), and must not have a manufacture of the 'false' manufactures.
@@ -104,6 +103,7 @@ If you're a modder, or just someone who likes S-Mods you might want to expand on
 
 ### Adding Custom dialog to lords
 If you're a modder, or just someone who loves to write dialog for every starlord in your lords.json, you might want to create custom dialog lines with custom conditions for your starlords. All you have to do is add another entry to the [dialog.json](https://github.com/Deluth-git/Starlords/blob/master/data/lords/dialog.json) file. A few notes:
+* "priority" is the priority of this dialog. should have a value of at least 1 the dialog with the highest priority that has all its "rule" reuqirements met will be used in any instance, unless the lord you are talking to has a at least one valid "dialogOverride"
 * "rules" is each requirement that must be met for a set of dialog to be used by a given starlord. every condition must be met for this to happen. conditions are as follows:
   * "relationWithPlayer" is the relationship range that this lord must have with a player to meet requirements. set between a "min" and "max" value. range must be between -100 and 100.
   * "startingFaction" is the starting faction required to meet requirements. starting faction is the faction a lord was part of when they first spawned. set to true for whitelist, and false for blacklist. To meet requirements, a lord must have a starting faction of one of the 'true' factions (if any are created in this rule), and must not have a stating faction of the 'false' factions.
@@ -113,32 +113,28 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "hostileFaction" if set to true, the lord must be part of a faction hostile player to meet requirements. if set to false, the lord must not be part of a faction hostile player to meet requirements 
   * "isAtFeast" if set to true, the lord must be at a feast to meet requirements. if set to false, the lord must not be at a feast to meet requirements
 * "lines" is the dialog lines for every line a starlord speaks. you can also input a number of custom markers into your dialog that will be replaced with data automaticly. the markers are as follows:
-  *'p0' player faction name
-  *'p2' player name
-  *'p3_0' player 'man' or 'women'
-  *'p3_1' player "he" or "she"
-  *'p3_2' player "him" or "her"
-  *'p3_3' player "his" or "her"
-  *'p3_4' player gender
-  *'p3_5' player "he" or "she"
-  *'p3_6' player "he" or "she"
-  *'p4' player flagship ship hull name (return 'nothing' if the player has no flagship)
-  *'p5' player flagship name (returns 'nothing' if the player has no flagship)
+  * "%PLAYER_FACTION_NAME"
+  * "%PLAYER_NAME" 
+  * "%PLAYER_GENDER_MAN_OR_WOMEN"
+  * "%PLAYER_GENDER_HE_OR_SHE"
+  * "%PLAYER_GENDER_HIM_OR_HER"
+  * "%PLAYER_GENDER_HIS_OR_HER" player "his" or "her"
+  * "%PLAYER_GENDER_NAME" player gender
+  * "%PLAYER_FLAGSHIP_HULLNAME" player flagship ship hull name (return "nothing" if the player has no flagship)
+  * "%PLAYER_FLAGSHIP_NAME" player flagship name (returns "nothing" if the player has no flagship)
 
-  *'l0' lord faction name
-  *'l1' lords starting faction
-  *'l2' lord name
-  *'l3_0' lord 'man' or 'women'
-  *'l3_1' lord "he" or "she"
-  *'l3_2' lord "him" or "her"
-  *'l3_3' lord "his" or "her"
-  *'l3_4' lord gender
-  *'l3_5' lord "he" or "she"
-  *'l3_6' lord "he" or "she"
-  *'l4' lord flagship ship hull name (return 'nothing' if the lord has no flagship)
-  *'l5' lord flagship name (returns 'nothing' if the lord has no flagship)
+  * "%LORD_FACTION_NAME" 
+  * "%LORD_STARTING_FACTION_NAME"
+  * "%LORD_NAME"
+  * "%LORD_GENDER_MAN_OR_WOMEN"
+  * "%LORD_GENDER_HE_OR_SHE"
+  * "%LORD_GENDER_HIM_OR_HER"
+  * "%LORD_GENDER_HIS_OR_HER"
+  * "%LORD_GENDER_NAME"
+  * "%LORD_FLAGSHIP_HULLNAME" lord flagship ship hull name (return "nothing" if the lord has no flagship)
+  * "%LORD_FLAGSHIP_NAME" lord flagship name (returns "nothing" if the lord has no flagship)
   
-  *some lines will also use custom inputed data. in this case, they will use the 'c#' marker, with # being the order they are added to the line.
+  *some lines will also use custom inputed data. in this case, they will use the '%c#' marker, with # being the order they are added to the line.
 ### Credits
 Starsector team for developing the game\
 [Nexerelin](https://github.com/Histidine91/Nexerelin/tree/master) team's codebase for providing excellent references to many obscure parts of the Starsector API \
