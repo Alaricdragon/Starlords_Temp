@@ -1,3 +1,5 @@
+V0.3.19:
+    fixed a crash related to failing to get certain text parameters in lord dialog.
 V0.3.18:
     fixed a crash caused by a modded faction having fighters as a ship type in its fleet doctrine. fighters will now count as frigates, as far as starlords is concerned.
 V0.3.17:
