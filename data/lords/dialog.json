@@ -701,6 +701,27 @@
 
     },
     "lines": {
+      "current_task_desc_none": "I am still considering my next assignment.",
+      "current_task_desc_feast": "I am attending a feast at %c0.",
+      "current_task_desc_patrol": "We are scouting for the enemy around %c0. I will guard the areas near my home.",
+      "current_task_desc_collect_taxes": "I am collecting taxes from my administered areas. It has been too long since I have returned home, and I must see to my demesne.",
+      "current_task_desc_upgrade_fleet": "I am upgrading my fleet at %c0. I will need additional firepower to deal with threats to the realm.",
+      "current_task_desc_venture": "I am headed on a business venture to %c0. This will yield additional funds for maintaining and expanding my fleet.",
+      "current_task_desc_raid": "I am raiding %c0. We must keep up the pressure and cripple the enemy's war effort.",
+      "current_task_desc_defend": "I am flying to the defense of %c0. I've received word of enemy activity in the area.",
+      "current_task_desc_follow": "I am following %c0.",
+      "current_task_desc_companion": "I am serving as an officer in your fleet.",
+      "current_task_desc_campaign": "I am on campaign. The realm's navy is still being assembled.",
+      "current_task_desc_campaign2": "I am on campaign. Our current target is %c0.",
+
+
+      "cant_start_tournament": "Unfortunately, we need at least four lord sponsors in order to cover the organization fees and prize pool. Please check back later.",
+      "confirm_start_tournament": "Very well. If you're going to challenge me, I was looking for an excuse to brush up on my piloting skills anyway. I'll see you in the arena!",
+
+      "dedicate_tournament": "Oh my, I'm very touched that you were thinking of me.",
+      "dedicate_tournament_again": "Another tournament dedication? Well, I suppose it's always welcome...",
+
+
       "greeting_host_feast": "Welcome to my estate, %PLAYER_NAME. You are under my protection here; please make yourself at home.",
 
       "greetings_first": "(error) Nice to meet you. I am the one and only %LORD_NAME",
@@ -709,7 +730,23 @@
       "greetings_other": "(error) Hello again %PLAYER_NAME",
 
       "relation_increase": "Relations with %LORD_NAME increased by %c0.",
-      "relation_decrease": "Relations with %LORD_NAME decreased by %c0."
+      "relation_decrease": "Relations with %LORD_NAME decreased by %c0.",
+      "addedIntel": "Added intel on %LORD_NAME",
+
+
+
+      "option_speak_privately": "Ask to speak privately.",
+      "option_cutComLink": "Cut the comm link.",
+      "option_ask_current_task": "Ask about their current assignment.",
+      "option_ask_question": "Ask another question.",
+      "option_ask_location": "Ask about the location of someone.",
+      "option_ask_quest": "Ask if they have any tasks for you.",
+
+      "option_ask_tournament": "Ask to enter the feast tournament.",
+      "option_dedicate_tournament": "%LORD_NAME, my tournament victory goes out to you.",
+      "option_host_wedding": "Begin the wedding ceremony.",
+      "option_continue_to_tournament": "For honor and glory!",
+      "option_avoid_tournament": "Never mind"
     }
   }
 }

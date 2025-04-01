@@ -523,16 +523,20 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     }
     private void support_INIT_BASICOPTIONS(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         if (!targetLord.isKnownToPlayer()) {
-            textPanel.addPara("Added intel on " + targetLord.getLordAPI().getNameString(), Color.GREEN);
+            String a = DialogSet.getLineWithInserts(targetLord,"addedIntel");
+            textPanel.addPara(a, Color.GREEN);
             targetLord.setKnownToPlayer(true);
         }
-        options.addOption(StringUtil.getString(CATEGORY, "option_speak_privately"), OptionId.SPEAK_PRIVATELY);
-        options.addOption("Cut the comm link.", OptionId.LEAVE);
+        String a = DialogSet.getLineWithInserts(targetLord,"option_speak_privately");
+        options.addOption(a, OptionId.SPEAK_PRIVATELY);
+        a = DialogSet.getLineWithInserts(targetLord,"option_cutComLink");
+        options.addOption(a, OptionId.LEAVE);
+        options.setShortcut(OptionId.LEAVE, 1, false, false, false, true);
     }
     private void support_INIT_NOTHOSTILEOPTIONS(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
-        options.addOption(StringUtil.getString(CATEGORY, "option_ask_current_task"), OptionId.ASK_CURRENT_TASK);
-        options.addOption(StringUtil.getString(CATEGORY, "option_ask_question"), OptionId.ASK_QUESTION);
-        options.addOption(StringUtil.getString(CATEGORY, "option_suggest_action"), OptionId.SUGGEST_ACTION);
+        options.addOption(DialogSet.getLineWithInserts(targetLord, "option_ask_current_task"), OptionId.ASK_CURRENT_TASK);
+        options.addOption(DialogSet.getLineWithInserts(targetLord, "option_ask_question"), OptionId.ASK_QUESTION);
+        options.addOption(DialogSet.getLineWithInserts(targetLord, "option_suggest_action"), OptionId.SUGGEST_ACTION);
     }
     private void support_INIT_FEASTOPTIONS(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         if (!feast.getOriginator().isFeastInteracted()) {
@@ -555,19 +559,17 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
             }
         }
         if (!feast.isHeldTournament()) {
-            options.addOption(StringUtil.getString(CATEGORY, "option_ask_tournament"), OptionId.ASK_TOURNAMENT);
+            options.addOption(DialogSet.getLineWithInserts(targetLord, "option_ask_tournament"), OptionId.ASK_TOURNAMENT);
         }
         if (targetLord.isCourted() && feast.getTournamentWinner() != null
                 && !feast.isVictoryDedicated() && feast.getTournamentWinner().isPlayer()) {
-            options.addOption(StringUtil.getString(
-                    CATEGORY, "option_dedicate_tournament", targetLord.getLordAPI().getName().getFirst()),
-                    OptionId.DEDICATE_TOURNAMENT);
+            options.addOption(DialogSet.getLineWithInserts(targetLord, "option_dedicate_tournament"), OptionId.DEDICATE_TOURNAMENT);
         }
         if (feast.getWeddingCeremonyTarget() != null && !feast.getWeddingCeremonyTarget().isMarried()) {
             Lord spouse = feast.getWeddingCeremonyTarget();
-            options.addOption(StringUtil.getString(
-                    CATEGORY, "option_host_wedding", spouse.getLordAPI().getNameString()),
-                    OptionId.START_WEDDING);
+            String a = DialogSet.getLineWithInserts(targetLord, "option_host_wedding");
+            a = DialogSet.insertData(a,"%c0",spouse.getLordAPI().getNameString());
+            options.addOption(a, OptionId.START_WEDDING);
         }
     }
     private void optionSelected_INIT_FEAST_HOST(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
@@ -654,17 +656,11 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     }
     private void optionSelected_DEDICATE_TOURNAMENT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         if (targetLord.isDedicatedTournament()) {
-            textPanel.addPara((StringUtil.getString(CATEGORY, "dedicate_tournament_again")));
-            textPanel.addPara(StringUtil.getString(
-                    CATEGORY, "relation_increase",
-                    targetLord.getLordAPI().getNameString(), "5"), Color.GREEN);
-            targetLord.getLordAPI().getRelToPlayer().adjustRelationship(0.05f, null);
+            textPanel.addPara(DialogSet.getLineWithInserts(targetLord,"dedicate_tournament_again"));
+            applyRepIncrease(textPanel,targetLord,5);
         } else {
-            textPanel.addPara((StringUtil.getString(CATEGORY, "dedicate_tournament")));
-            textPanel.addPara(StringUtil.getString(
-                    CATEGORY, "relation_increase",
-                    targetLord.getLordAPI().getNameString(), "10"), Color.GREEN);
-            targetLord.getLordAPI().getRelToPlayer().adjustRelationship(0.1f, null);
+            textPanel.addPara(DialogSet.getLineWithInserts(targetLord,"dedicate_tournament"));
+            applyRepIncrease(textPanel,targetLord,10);
         }
         targetLord.setRomanticActions(targetLord.getRomanticActions() + 1);
         feast.setVictoryDedicated(true);
@@ -675,24 +671,20 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
                 if (feast.getOriginator().equals(lord) || feast.getParticipants().contains(lord)) {
                     decrease = 2;
                 }
-                textPanel.addPara(StringUtil.getString(
-                        CATEGORY, "relation_decrease",
-                        lord.getLordAPI().getNameString(), Integer.toString(decrease)), Color.RED);
-                lord.getLordAPI().getRelToPlayer().adjustRelationship(-0.01f * decrease, null);
+                applyRepDecrease(textPanel,lord,decrease);
             }
         }
         options.removeOption(OptionId.DEDICATE_TOURNAMENT);
     }
     private void optionSelected_ASK_TOURNAMENT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         if (feast == null || feast.getParticipants().size() < 3) {
-            textPanel.addPara(StringUtil.getString(CATEGORY, "cant_start_tournament"));
-
+            textPanel.addPara(DialogSet.getLineWithInserts(targetLord,"cant_start_tournament"));
         } else {
-            textPanel.addPara(StringUtil.getString(CATEGORY, "confirm_start_tournament"));
+            textPanel.addPara(DialogSet.getLineWithInserts(targetLord,"confirm_start_tournament"));
             options.clearOptions();
-            options.addOption(StringUtil.getString(CATEGORY, "option_continue_to_tournament"),
-                    OptionId.CONTINUE_TO_TOURNAMENT);
-            options.addOption("Never mind", OptionId.INIT);
+            options.addOption(DialogSet.getLineWithInserts(targetLord,"option_continue_to_tournament"),OptionId.CONTINUE_TO_TOURNAMENT);
+            options.addOption(DialogSet.getLineWithInserts(targetLord,"option_avoid_tournament"), OptionId.INIT);
+            options.setShortcut(OptionId.INIT, 1, false, false, false, true);
         }
     }
     private void optionSelected_CONTINUE_TO_TOURNAMENT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
@@ -728,7 +720,9 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         if (targetLord.getTarget() != null) {
             args = targetLord.getTarget().getName();
         }
-        textPanel.addParagraph(StringUtil.getString(CATEGORY, id, args));
+        String text = DialogSet.getLineWithInserts(targetLord,id);
+        text = DialogSet.insertData(text,"%n0",args);
+        textPanel.addParagraph(text);
     }
     private void optionSelected_ASK_QUESTION(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         options.clearOptions();
@@ -1618,7 +1612,10 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         line = DialogSet.insertData(line,"%c0",""+rep);
         textPanel.addPara(line, Color.GREEN);
     }
-    private void applyRepDecrease(Lord lord, int rep){
-
+    private void applyRepDecrease(TextPanelAPI textPanel,Lord lord, int rep){
+        lord.getLordAPI().getRelToPlayer().adjustRelationship((float) (rep*-0.01), null);
+        String line = DialogSet.getLineWithInserts(lord,"relation_decrease");
+        line = DialogSet.insertData(line,"%c0",""+rep);
+        textPanel.addPara(line, Color.RED);
     }
 }

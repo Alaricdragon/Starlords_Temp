@@ -157,9 +157,49 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "greetings_first"
     * "greetings_hostile"
     * "greetings_other"
-    * 
+    * "dedicate_tournament"
+    * "dedicate_tournament_again"
+    * "confirm_start_tournament"
+    * "cant_start_tournament"
+    * "current_task_desc_campaign2"
+    * "current_task_desc_campaign"
+    * "current_task_desc_companion"
+    * "current_task_desc_follow"
+    * "current_task_desc_defend"
+    * "current_task_desc_raid"
+    * "current_task_desc_venture"
+    * "current_task_desc_upgrade_fleet"
+    * "current_task_desc_collect_taxes"
+    * "current_task_desc_patrol"
+    * "current_task_desc_feast"
+    * "current_task_desc_none"
+    *
+    *
+    *
+    *
     * "relation_increase" %c0 represents amount of reputation gained
     * "relation_decrease" %c0 represents amount of reputation gained
+    * "addedIntel" 
+    *
+    * "option_speak_privately"
+    * "option_cutComLink"
+    * "option_ask_current_task"
+    * "option_ask_question"
+    * "option_ask_location"
+    * "option_ask_quest"
+    * "option_ask_tournament"
+    * "option_dedicate_tournament"
+    * "option_host_wedding" %c0 represents your new spouse name
+    * "option_continue_to_tournament"
+    * "option_avoid_tournament"
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
 ### Credits
 Starsector team for developing the game\
 [Nexerelin](https://github.com/Histidine91/Nexerelin/tree/master) team's codebase for providing excellent references to many obscure parts of the Starsector API \
