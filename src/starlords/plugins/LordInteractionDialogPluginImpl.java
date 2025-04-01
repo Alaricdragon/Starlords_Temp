@@ -28,6 +28,7 @@ import starlords.util.DefectionUtils;
 import starlords.util.GenderUtils;
 import starlords.util.StringUtil;
 import starlords.util.Utils;
+import starlords.util.dialogControler.DialogSet;
 
 import java.awt.*;
 import java.util.*;
@@ -332,7 +333,80 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     }
     private void optionSelected_INIT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         /*ok, so im looking at this first group... and its split into a few parts.
-        * first of all, the 'greeting' string is just a generated tag. so like, oh shit.*/
+        * first of all, the 'greeting' string is just a generated tag. so like, oh shit.
+        * ok, so the following dialog lines are in effect:
+        * NOTE: there is a function here relating to the rep gain of lords. should I change that? I could. and I think I will...
+        *   -relation_increase
+        *   -relation_decrease
+        *   ...so I have to give up hghlights, no wait do I...?
+        *   ...ok, so heres is what I can do:
+        *       1) create one new function in DialogSet, let it replace markers inputted markers with $String.
+        *       2) have this function output 2 things:
+        *           1: the new string (with replaced markers)
+        *           2: the order of the new inputed markers (based on position in string)
+        *       ADJSKASDKSADKAS:
+        *           -OK, SO I NEVER MAKE THIS MISTAKE AGAIN:
+        *           ALL THE TEXT ON RELATION CHANGES IS COLORED! THERE ARE NO HIGHLIGHTS!!!!
+        *           I WILL KEEP MY CODE, BUT FUCK ME IM MAD NOW ARG...
+        * both of said lines must be in the dialog plugin.
+        * greetings_ (one for each personality)
+        * ok, so, there is a function for gaining reputation gain. so like, should I arg...
+          !hostile
+            !greeted
+                feast
+                    feast_organizer
+                        greetings_upstanding_greeting_host_feast
+                        greetings_martial_greeting_host_feast
+                        greetings_calculating_greeting_host_feast
+                        greetings_quarrelsome_greeting_host_feast
+                    !feast_organizer
+                        greetings_upstanding_feast
+                        greetings_martial_feast
+                        greetings_calculating_feast
+                        greetings_quarrelsome_feast
+                !feast
+                    !firstContact
+                        marriedToPlayer
+                            greetings_upstanding_spouse
+                            greetings_martial_spouse
+                            greetings_calculating_spouse
+                            greetings_quarrelsome_spouse
+                        isSubject
+                            greetings_upstanding_subject
+                            greetings_martial_subject
+                            greetings_calculating_subject
+                            greetings_quarrelsome_subject
+                        rel -100 - -75
+                            greetings_upstanding_hated
+                            greetings_martial_hated
+                            greetings_calculating_hated
+                            greetings_quarrelsome_hated
+                        rel -74 - -25
+                            greetings_upstanding_disliked
+                            greetings_martial_disliked
+                            greetings_calculating_disliked
+                            greetings_quarrelsome_disliked
+                        rel -24 - 24
+                            greetings_upstanding_neutral
+                            greetings_martial_neutral
+                            greetings_calculating_neutral
+                            greetings_quarrelsome_neutral
+                        rel 25 - 74
+                            greetings_upstanding_friendly
+                            greetings_martial_friendly
+                            greetings_calculating_friendly
+                            greetings_quarrelsome_friendly
+                        rel 75 - 100
+                            greetings_upstanding_trusted
+                            greetings_martial_trusted
+                            greetings_calculating_trusted
+                            greetings_quarrelsome_trusted
+
+                    greetings_upstanding_
+                    greetings_martial_
+                    greetings_calculating_
+                    greetings_quarrelsome_
+        * */
         if (!hostile) {
             String greeting = "greeting_" + targetLord.getPersonality().toString().toLowerCase() + "_";
             if (feast != null) {
@@ -361,17 +435,21 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
             if (feast != null) {
                 if (!feast.getOriginator().isFeastInteracted()) {
                     feast.getOriginator().setFeastInteracted(true);
-                    feast.getOriginator().getLordAPI().getRelToPlayer().adjustRelationship(0.03f, null);
+                    applyRepIncrease(textPanel,feast.getOriginator(),3);
+                    /*feast.getOriginator().getLordAPI().getRelToPlayer().adjustRelationship(0.03f, null);
+
+
                     textPanel.addPara(StringUtil.getString(
                             CATEGORY, "relation_increase",
-                            feast.getOriginator().getLordAPI().getNameString(), "3"), Color.GREEN);
+                            feast.getOriginator().getLordAPI().getNameString(), "3"), Color.GREEN);*/
                 }
                 for (Lord lord : feast.getParticipants()) {
                     if (!lord.isFeastInteracted()) {
                         lord.setFeastInteracted(true);
-                        lord.getLordAPI().getRelToPlayer().adjustRelationship(0.02f, null);
+                        applyRepIncrease(textPanel,lord,2);
+                        /*lord.getLordAPI().getRelToPlayer().adjustRelationship(0.02f, null);
                         textPanel.addPara(StringUtil.getString(
-                                CATEGORY, "relation_increase", lord.getLordAPI().getNameString(), "2"), Color.GREEN);
+                                CATEGORY, "relation_increase", lord.getLordAPI().getNameString(), "2"), Color.GREEN);*/
                     }
                 }
                 if (!feast.isHeldTournament()) {
@@ -1370,5 +1448,15 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
             dialog.setPlugin(prevPlugin);
             prevPlugin.optionSelected(null, FleetInteractionDialogPluginImpl.OptionId.CUT_COMM);
         }
+    }
+
+    private void applyRepIncrease(TextPanelAPI textPanel, Lord lord, int rep){
+        lord.getLordAPI().getRelToPlayer().adjustRelationship((float) (rep*0.01), null);
+        String line = DialogSet.getLineWithInserts(lord,"relation_increase");
+        line = DialogSet.insertData(line,"%s",""+rep);
+        textPanel.addPara(line, Color.GREEN);
+    }
+    private void applyRepDecrease(Lord lord, int rep){
+        return ;
     }
 }

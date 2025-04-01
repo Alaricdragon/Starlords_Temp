@@ -1,5 +1,6 @@
 package starlords.util.dialogControler.dialogRull;
 
+import starlords.controllers.LordController;
 import starlords.person.Lord;
 import starlords.person.LordAction;
 
@@ -11,7 +12,9 @@ public class DialogRule_playerSubject extends DialogRule_Base {
 
     @Override
     public boolean condition(Lord lord) {
-        return feast == (lord.getFaction().isPlayerFaction());
+        boolean sameFaction = LordController.getPlayerLord().getFaction().equals(lord.getFaction());
+
+        return feast == (lord.getFaction().isPlayerFaction() && sameFaction);
     }
 
 }

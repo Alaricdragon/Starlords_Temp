@@ -116,13 +116,14 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "playerFactionMarital" if set to true, the player must be both part of the lords faction, and the marital of the lord to meet requirements. if set to false, must ether not be in the same faction, or the player must not be the martal to meet requirements
   * "lordFactionMarital" if set to true, the player must be both part of the lords faction, and the lord must be the marital to meet requirements. if set to false, must ether not be in the same faction, or the lord must not be the martal to meet requirements
   * "???playerLord???" (not compleateing this line, because I dont know if this is a thing. more data required)if set to true, the lord must be the lord of the player (and as such, the player must be part of the lords faction, and ) to meet requirements
+  * "???greated???" (??? maybe not? just have there own line for greetings? on the otherhand, that does restrict the possibility of hostile greetings, so maybe not.)(??? this is if this is the lords first greating to the player? I think? or is it the first greating in something else????)
 * "lines" is the dialog lines for every line a starlord speaks. you can also input a number of custom markers into your dialog that will be replaced with data automaticly. the markers are as follows:
   * "%PLAYER_FACTION_NAME"
   * "%PLAYER_NAME" 
   * "%PLAYER_GENDER_MAN_OR_WOMEN"
   * "%PLAYER_GENDER_HE_OR_SHE"
   * "%PLAYER_GENDER_HIM_OR_HER"
-  * "%PLAYER_GENDER_HIS_OR_HER" player "his" or "her"
+  * "%PLAYER_GENDER_HIS_OR_HER"
   * "%PLAYER_GENDER_NAME" player gender
   * "%PLAYER_FLAGSHIP_HULLNAME" player flagship ship hull name (return "nothing" if the player has no flagship)
   * "%PLAYER_FLAGSHIP_NAME" player flagship name (returns "nothing" if the player has no flagship)

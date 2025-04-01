@@ -175,6 +175,69 @@ public class DialogSet {
         return true;
     }
 
+    public static ArrayList<Object> getOrganizedReplacedMarkers(String line, String[] markers, String[] replacedData){
+        //this was built with the objective of working with the games base highlight system, allowing flexible marker positions with highlights.
+        //it was NEVER TESTED. at all. but I put a lot of work into it, so I will keep it just in case.
+        String replacedMarker= "%s";
+        ArrayList<Object> out = new ArrayList<>();
+
+        // get positions of each marker in line. gets an array to 'out' for each different marker.
+        ArrayList<ArrayList<Integer>> stringPos = getPositionOfMarkers(line,markers);
+
+        // organizes the markers into there positions in the inputted line.
+        int strings=0;
+        for (ArrayList<Integer> a : stringPos){
+            strings+=a.size();
+        }
+        String[] markerOutput = new String[strings];
+        int[] id = new int[strings];
+        int a = 0;
+        while(a < strings){
+            int b = 9999999;
+            int id2 = 0;
+            for (int c = 0; c < stringPos.size(); c++){
+                ArrayList<Integer> d = stringPos.get(c);
+                if (d.get(id[c]) < b){
+                    b = id[c];
+                    id2 = c;
+                }
+            }
+            markerOutput[a] = replacedData[id2];
+            a++;
+        }
+
+        //modify the primary string, so its markers are replaced with modified markers.
+        for (int b = 0; b < markers.length; b++){
+            line = insertData(line,markers[b],replacedMarker);
+        }
+        out.add(line);
+        out.add(markerOutput);
+        return out;
+    }
+    private static ArrayList<ArrayList<Integer>> getPositionOfMarkers(String line, String[] markers){
+        ArrayList<ArrayList<Integer>> out = new ArrayList<>();
+
+        for (String mark : markers) {
+            ArrayList<Integer> out2 = new ArrayList<>();
+            if (markAtStart(line, mark)) {
+                out2.add(0);
+            }
+            String[] lines = line.split(mark);
+            int pos = 0;
+            for (int a = 0; a < lines.length; a++) {
+                pos += lines.length;
+                out2.add(pos);
+            }
+            if (markAtEnd(line, mark)) {
+                out2.add(line.length()-1);
+            }
+            out.add(out2);
+        }
+
+
+        return out;
+    }
+
 
     @Getter
     private HashMap<String,String> dialog = new HashMap<>();
@@ -226,7 +289,6 @@ public class DialogSet {
     public boolean hasLine(String key){
         return dialog.containsKey(key);
     }
-
 
 
 

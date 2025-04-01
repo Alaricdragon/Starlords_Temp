@@ -105,7 +105,8 @@
 
     },
     "lines": {
-
+      "relation_increase": "Relations with %LORD_NAME increased by %s.",
+      "relation_decrease": "Relations with %LORD_NAME decreased by %s."
     }
   }
 }
