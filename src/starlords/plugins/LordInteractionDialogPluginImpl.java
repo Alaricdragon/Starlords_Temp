@@ -348,6 +348,16 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         *           -OK, SO I NEVER MAKE THIS MISTAKE AGAIN:
         *           ALL THE TEXT ON RELATION CHANGES IS COLORED! THERE ARE NO HIGHLIGHTS!!!!
         *           I WILL KEEP MY CODE, BUT FUCK ME IM MAD NOW ARG...
+        * NOTE: the default differences in greatings are from the following relationship numbers.
+        * -100 - 75,
+        * -74 - -50
+        * -49 - -25
+        * -24 - -10
+        * -9 - 9
+        * 10 - 24
+        * 25 - 49
+        * 50 - 74
+        * 75 - 100
         * both of said lines must be in the dialog plugin.
         * greetings_ (one for each personality)
         * ok, so, there is a function for gaining reputation gain. so like, should I arg...
@@ -401,13 +411,42 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
                             greetings_martial_trusted
                             greetings_calculating_trusted
                             greetings_quarrelsome_trusted
+                    firstContact
+                        greetings_upstanding_first
+                        greetings_martial_first
+                        greetings_calculating_first
+                        greetings_quarrelsome_first
+          isHostile
+                !greated
+                    greetings_upstanding
+                    greetings_martial
+                    greetings_calculating
+                    greetings_quarrelsome
 
-                    greetings_upstanding_
-                    greetings_martial_
-                    greetings_calculating_
-                    greetings_quarrelsome_
-        * */
+
+        */
+        if (hostile){
+            optionSelected_INIT_HOSTILE(optionText,optionData,player,willEngage,hostile,feast,option);
+            return;
+        }
+        if (feast != null){
+            if (feast.getOriginator().equals(targetLord)){
+                optionSelected_INIT_FEAST_HOST(optionText,optionData,player,willEngage,hostile,feast,option);
+                return;
+            }
+            optionSelected_INIT_FEAST(optionText,optionData,player,willEngage,hostile,feast,option);
+        }
+        if (targetLord.isKnownToPlayer()){
+            optionSelected_INIT_OTHER(optionText,optionData,player,willEngage,hostile,feast,option);
+            //note: have different texts in json for is married, or is subject, or otherwize.
+            return;
+        }
+        optionSelected_INIT_FIRSTCONTACT(optionText,optionData,player,willEngage,hostile,feast,option);
+
+
+
         if (!hostile) {
+            /*
             String greeting = "greeting_" + targetLord.getPersonality().toString().toLowerCase() + "_";
             if (feast != null) {
                 feast = EventController.getCurrentFeast(targetLord.getLordAPI().getFaction());
@@ -431,25 +470,16 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
             if (!hasGreeted) {
                 hasGreeted = true;
                 textPanel.addParagraph(StringUtil.getString(CATEGORY, greeting, player.getNameString()));
-            }
-            if (feast != null) {
+            }*/
+            /*if (feast != null) {
                 if (!feast.getOriginator().isFeastInteracted()) {
                     feast.getOriginator().setFeastInteracted(true);
                     applyRepIncrease(textPanel,feast.getOriginator(),3);
-                    /*feast.getOriginator().getLordAPI().getRelToPlayer().adjustRelationship(0.03f, null);
-
-
-                    textPanel.addPara(StringUtil.getString(
-                            CATEGORY, "relation_increase",
-                            feast.getOriginator().getLordAPI().getNameString(), "3"), Color.GREEN);*/
                 }
                 for (Lord lord : feast.getParticipants()) {
                     if (!lord.isFeastInteracted()) {
                         lord.setFeastInteracted(true);
                         applyRepIncrease(textPanel,lord,2);
-                        /*lord.getLordAPI().getRelToPlayer().adjustRelationship(0.02f, null);
-                        textPanel.addPara(StringUtil.getString(
-                                CATEGORY, "relation_increase", lord.getLordAPI().getNameString(), "2"), Color.GREEN);*/
                     }
                 }
                 if (!feast.isHeldTournament()) {
@@ -467,11 +497,12 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
                             CATEGORY, "option_host_wedding", spouse.getLordAPI().getNameString()),
                             OptionId.START_WEDDING);
                 }
-            }
-            options.addOption(StringUtil.getString(CATEGORY, "option_ask_current_task"), OptionId.ASK_CURRENT_TASK);
+            }*/
+            /*options.addOption(StringUtil.getString(CATEGORY, "option_ask_current_task"), OptionId.ASK_CURRENT_TASK);
             options.addOption(StringUtil.getString(CATEGORY, "option_ask_question"), OptionId.ASK_QUESTION);
-            options.addOption(StringUtil.getString(CATEGORY, "option_suggest_action"), OptionId.SUGGEST_ACTION);
+            options.addOption(StringUtil.getString(CATEGORY, "option_suggest_action"), OptionId.SUGGEST_ACTION);*/
         } else {
+            /*
             String greeting = "battle_" + targetLord.getPersonality().toString().toLowerCase();
             if (!hasGreeted) {
                 hasGreeted = true;
@@ -480,15 +511,146 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
             if (willEngage) {
                 options.addOption(StringUtil.getString(CATEGORY, "option_avoid_battle"), OptionId.SUGGEST_CEASEFIRE, Color.YELLOW, "-10 Relations if successful");
                 //options.setTooltip(OptionId.SUGGEST_CEASEFIRE, "-10 Relations if successful");
-            }
+            }*/
         }
-
+        /*
+        if (!targetLord.isKnownToPlayer()) {
+            textPanel.addPara("Added intel on " + targetLord.getLordAPI().getNameString(), Color.GREEN);
+            targetLord.setKnownToPlayer(true);
+        }
+        options.addOption(StringUtil.getString(CATEGORY, "option_speak_privately"), OptionId.SPEAK_PRIVATELY);
+        options.addOption("Cut the comm link.", OptionId.LEAVE);*/
+    }
+    private void support_INIT_BASICOPTIONS(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         if (!targetLord.isKnownToPlayer()) {
             textPanel.addPara("Added intel on " + targetLord.getLordAPI().getNameString(), Color.GREEN);
             targetLord.setKnownToPlayer(true);
         }
         options.addOption(StringUtil.getString(CATEGORY, "option_speak_privately"), OptionId.SPEAK_PRIVATELY);
         options.addOption("Cut the comm link.", OptionId.LEAVE);
+    }
+    private void support_INIT_NOTHOSTILEOPTIONS(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
+        options.addOption(StringUtil.getString(CATEGORY, "option_ask_current_task"), OptionId.ASK_CURRENT_TASK);
+        options.addOption(StringUtil.getString(CATEGORY, "option_ask_question"), OptionId.ASK_QUESTION);
+        options.addOption(StringUtil.getString(CATEGORY, "option_suggest_action"), OptionId.SUGGEST_ACTION);
+    }
+    private void support_INIT_FEASTOPTIONS(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
+        if (!feast.getOriginator().isFeastInteracted()) {
+            feast.getOriginator().setFeastInteracted(true);
+            applyRepIncrease(textPanel,feast.getOriginator(),3);
+                    /*feast.getOriginator().getLordAPI().getRelToPlayer().adjustRelationship(0.03f, null);
+
+
+                    textPanel.addPara(StringUtil.getString(
+                            CATEGORY, "relation_increase",
+                            feast.getOriginator().getLordAPI().getNameString(), "3"), Color.GREEN);*/
+        }
+        for (Lord lord : feast.getParticipants()) {
+            if (!lord.isFeastInteracted()) {
+                lord.setFeastInteracted(true);
+                applyRepIncrease(textPanel,lord,2);
+                        /*lord.getLordAPI().getRelToPlayer().adjustRelationship(0.02f, null);
+                        textPanel.addPara(StringUtil.getString(
+                                CATEGORY, "relation_increase", lord.getLordAPI().getNameString(), "2"), Color.GREEN);*/
+            }
+        }
+        if (!feast.isHeldTournament()) {
+            options.addOption(StringUtil.getString(CATEGORY, "option_ask_tournament"), OptionId.ASK_TOURNAMENT);
+        }
+        if (targetLord.isCourted() && feast.getTournamentWinner() != null
+                && !feast.isVictoryDedicated() && feast.getTournamentWinner().isPlayer()) {
+            options.addOption(StringUtil.getString(
+                    CATEGORY, "option_dedicate_tournament", targetLord.getLordAPI().getName().getFirst()),
+                    OptionId.DEDICATE_TOURNAMENT);
+        }
+        if (feast.getWeddingCeremonyTarget() != null && !feast.getWeddingCeremonyTarget().isMarried()) {
+            Lord spouse = feast.getWeddingCeremonyTarget();
+            options.addOption(StringUtil.getString(
+                    CATEGORY, "option_host_wedding", spouse.getLordAPI().getNameString()),
+                    OptionId.START_WEDDING);
+        }
+    }
+    private void optionSelected_INIT_FEAST_HOST(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
+        if (!hasGreeted){
+            hasGreeted = true;
+            textPanel.addParagraph(DialogSet.getLineWithInserts(targetLord,"greeting_host_feast"));
+        }
+        support_INIT_FEASTOPTIONS(optionText,optionData,player,willEngage,hostile,feast,option);
+        support_INIT_NOTHOSTILEOPTIONS(optionText,optionData,player,willEngage,hostile,feast,option);
+        support_INIT_BASICOPTIONS(optionText,optionData,player,willEngage,hostile,feast,option);
+    }
+    private void optionSelected_INIT_FEAST(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
+        if (!hasGreeted){
+            hasGreeted = true;
+            textPanel.addParagraph(DialogSet.getLineWithInserts(targetLord,"greeting_feast"));
+        }
+        support_INIT_FEASTOPTIONS(optionText,optionData,player,willEngage,hostile,feast,option);
+        support_INIT_NOTHOSTILEOPTIONS(optionText,optionData,player,willEngage,hostile,feast,option);
+        support_INIT_BASICOPTIONS(optionText,optionData,player,willEngage,hostile,feast,option);
+    }
+    private void optionSelected_INIT_FIRSTCONTACT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option) {
+        if (!hasGreeted) {
+            hasGreeted = true;
+            textPanel.addParagraph(DialogSet.getLineWithInserts(targetLord,"greetings_first"));
+        }
+        support_INIT_NOTHOSTILEOPTIONS(optionText,optionData,player,willEngage,hostile,feast,option);
+        support_INIT_BASICOPTIONS(optionText,optionData,player,willEngage,hostile,feast,option);
+    }
+    private void optionSelected_INIT_OTHER(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
+        if (!hasGreeted){
+            hasGreeted = true;
+            textPanel.addParagraph(DialogSet.getLineWithInserts(targetLord,"greetings_other"));
+            /*marriedToPlayer
+                greetings_upstanding_spouse
+                greetings_martial_spouse
+                greetings_calculating_spouse
+                greetings_quarrelsome_spouse
+            isSubject
+                greetings_upstanding_subject
+                greetings_martial_subject
+                greetings_calculating_subject
+                greetings_quarrelsome_subject
+            rel -100 - -75
+                greetings_upstanding_hated
+                greetings_martial_hated
+                greetings_calculating_hated
+                greetings_quarrelsome_hated
+            rel -74 - -25
+                greetings_upstanding_disliked
+                greetings_martial_disliked
+                greetings_calculating_disliked
+                greetings_quarrelsome_disliked
+            rel -24 - 24
+                greetings_upstanding_neutral
+                greetings_martial_neutral
+                greetings_calculating_neutral
+                greetings_quarrelsome_neutral
+            rel 25 - 74
+                greetings_upstanding_friendly
+                greetings_martial_friendly
+                greetings_calculating_friendly
+                greetings_quarrelsome_friendly
+            rel 75 - 100
+                greetings_upstanding_trusted
+                greetings_martial_trusted
+                greetings_calculating_trusted
+                greetings_quarrelsome_trusted*/
+        }
+        support_INIT_NOTHOSTILEOPTIONS(optionText,optionData,player,willEngage,hostile,feast,option);
+        support_INIT_BASICOPTIONS(optionText,optionData,player,willEngage,hostile,feast,option);
+    }
+    private void optionSelected_INIT_HOSTILE(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option) {
+        if (!hasGreeted){
+            String greeting = "battle_" + targetLord.getPersonality().toString().toLowerCase();
+            hasGreeted = true;
+            textPanel.addParagraph(DialogSet.getLineWithInserts(targetLord,"greetings_hostile"));
+            //put text here.
+        }
+        if (willEngage) {
+            options.addOption(StringUtil.getString(CATEGORY, "option_avoid_battle"), OptionId.SUGGEST_CEASEFIRE, Color.YELLOW, "-10 Relations if successful");
+            //options.setTooltip(OptionId.SUGGEST_CEASEFIRE, "-10 Relations if successful");
+        }
+        support_INIT_BASICOPTIONS(optionText,optionData,player,willEngage,hostile,feast,option);
     }
     private void optionSelected_DEDICATE_TOURNAMENT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         if (targetLord.isDedicatedTournament()) {
@@ -1453,10 +1615,10 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     private void applyRepIncrease(TextPanelAPI textPanel, Lord lord, int rep){
         lord.getLordAPI().getRelToPlayer().adjustRelationship((float) (rep*0.01), null);
         String line = DialogSet.getLineWithInserts(lord,"relation_increase");
-        line = DialogSet.insertData(line,"%s",""+rep);
+        line = DialogSet.insertData(line,"%c0",""+rep);
         textPanel.addPara(line, Color.GREEN);
     }
     private void applyRepDecrease(Lord lord, int rep){
-        return ;
+
     }
 }

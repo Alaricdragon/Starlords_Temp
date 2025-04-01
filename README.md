@@ -115,6 +115,17 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "playerSubject" if set to true, the lord must be part of the player faction (and as such, the player must be there ruler) to meet requirements. if set to false, the lord must not be part of the player faction to meet requirements.
   * "playerFactionMarital" if set to true, the player must be both part of the lords faction, and the marital of the lord to meet requirements. if set to false, must ether not be in the same faction, or the player must not be the martal to meet requirements
   * "lordFactionMarital" if set to true, the player must be both part of the lords faction, and the lord must be the marital to meet requirements. if set to false, must ether not be in the same faction, or the lord must not be the martal to meet requirements
+  * "lordPersonality": is the lord personality type this rule requires to meet requirements. set 'true' to all lord personality types you want to be allowed to meet requirements.
+    * "Upstanding"
+    * "Martial"
+    * "Calculating"
+    * "Quarrelsome"
+  * "lordBattlerPersonality": is the lord personality type this rule requires to meet requirements. set 'true' to all lord personality types you want to be allowed to meet requirements.
+    * "Reckless"
+    * "Aggressive"
+    * "Steady"
+    * "Cautious"
+    * "Timid"
   * "???playerLord???" (not compleateing this line, because I dont know if this is a thing. more data required)if set to true, the lord must be the lord of the player (and as such, the player must be part of the lords faction, and ) to meet requirements
   * "???greated???" (??? maybe not? just have there own line for greetings? on the otherhand, that does restrict the possibility of hostile greetings, so maybe not.)(??? this is if this is the lords first greating to the player? I think? or is it the first greating in something else????)
 * "lines" is the dialog lines for every line a starlord speaks. you can also input a number of custom markers into your dialog that will be replaced with data automaticly. the markers are as follows:
@@ -139,7 +150,16 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "%LORD_FLAGSHIP_HULLNAME" lord flagship ship hull name (return "nothing" if the lord has no flagship)
   * "%LORD_FLAGSHIP_NAME" lord flagship name (returns "nothing" if the lord has no flagship)
   
-  *some lines will also use custom inputed data. in this case, they will use the '%c#' marker, with # being the order they are added to the line.
+  *some lines will also use custom inputted data. in this case, they will use the '%c#' marker, with # being the order they are added to the line.
+  *available lines to override are follows:
+    * "greeting_host_feast"
+    * "greeting_feast"
+    * "greetings_first"
+    * "greetings_hostile"
+    * "greetings_other"
+    * 
+    * "relation_increase" %c0 represents amount of reputation gained
+    * "relation_decrease" %c0 represents amount of reputation gained
 ### Credits
 Starsector team for developing the game\
 [Nexerelin](https://github.com/Histidine91/Nexerelin/tree/master) team's codebase for providing excellent references to many obscure parts of the Starsector API \

@@ -1,112 +1,715 @@
 {
-  "Cooperative": {
-    "priority": 1,
+  "martial_marriedToPlayer": {
+    "priority": 4,
+    "rules": {
+      "lordPersonality": {
+        "Martial": true
+      },
+      "isMarriedToPlayer": true
+    },
+    "lines": {
+      "greetings_other":"%PLAYER_NAME, my dear. I've been swamped with paperwork today. When do I get to join you in exploring the stars?"
+    }
+  },
+  "calculating_marriedToPlayer": {
+    "priority": 4,
+    "rules": {
+      "lordPersonality": {
+        "Calculating": true
+      },
+      "isMarriedToPlayer": true
+    },
+    "lines": {
+      "greetings_other":"%PLAYER_NAME, my %PLAYER_NAME. The house's finances have been going as planned; you can count on me."
+    }
+  },
+  "quarrelsome_marriedToPlayer": {
+    "priority": 4,
+    "rules": {
+      "lordPersonality": {
+        "Quarrelsome": true
+      },
+      "isMarriedToPlayer": true
+    },
+    "lines": {
+      "greetings_other":"%PLAYER_NAME, my partner. I'm hoping that you're here to talk about how we bring down some of these bastards around us."
+    }
+  },
+  "upstanding_marriedToPlayer": {
+    "priority": 4,
+    "rules": {
+      "lordPersonality": {
+        "Upstanding": true
+      },
+      "isMarriedToPlayer": true
+    },
+    "lines": {
+      "greetings_other":"%PLAYER_NAME, my love. I hope that you are well. Be careful out there in your journeys."
+    }
+  },
+
+
+  "martial_subject": {
+    "priority": 3,
+    "rules": {
+      "lordPersonality": {
+        "Martial": true
+      },
+      "playerSubject": true
+    },
+    "lines": {
+      "greetings_other":"Greetings %PLAYER_NAME, my liege. My fleet stands at the ready."
+    }
+  },
+  "calculating_subject": {
+    "priority": 3,
+    "rules": {
+      "lordPersonality": {
+        "Calculating": true
+      },
+      "playerSubject": true
+    },
+    "lines": {
+      "greetings_other":"Greetings %PLAYER_NAME, my liege. Perfect timing, I had a list of proposals which I wish to discuss..."
+    }
+  },
+  "quarrelsome_subject": {
+    "priority": 3,
+    "rules": {
+      "lordPersonality": {
+          "Quarrelsome": true
+        },
+        "playerSubject": true
+      },
+    "lines": {
+      "greetings_other":"Greetings %PLAYER_NAME, my liege. Point me at someone and I will see them punished."
+    }
+  },
+  "upstanding_subject": {
+    "priority": 3,
+    "rules": {
+      "lordPersonality": {
+        "Upstanding": true
+      },
+      "playerSubject": true
+    },
+    "lines": {
+      "greetings_other":"Greetings %PLAYER_NAME, my liege. What is your command?"
+    }
+  },
+
+
+  "martial_Cooperative": {
+    "priority": 2,
     "rules":{
       "relationWithPlayer": {
         "min": 75,
         "max": 100
+      },
+      "lordPersonality": {
+        "Martial": true
       }
     },
     "lines": {
+      "greetings_other":"Hail, %PLAYER_NAME. Remind me next time we're at the space bar, I've got story to tell about my new scar. Ha!"
     }
   },
-  "Friendly": {
-    "priority": 1,
+  "martial_Friendly": {
+    "priority": 2,
     "rules":{
       "relationWithPlayer": {
         "min": 50,
         "max": 74
+      },
+      "lordPersonality": {
+        "Martial": true
       }
     },
     "lines": {
+      "greetings_other":"Hail, %PLAYER_NAME. Remind me next time we're at the space bar, I've got story to tell about my new scar. Ha!"
     }
   },
-  "Welcoming": {
-    "priority": 1,
+  "martial_Welcoming": {
+    "priority": 2,
     "rules":{
       "relationWithPlayer": {
         "min": 25,
         "max": 49
+      },
+      "lordPersonality": {
+        "Martial": true
       }
     },
     "lines": {
+      "greetings_other":"Hail, %PLAYER_NAME. Spare me a minute, for you must tell me of your latest adventures!"
     }
   },
-  "Favorable": {
-    "priority": 1,
+  "martial_Favorable": {
+    "priority": 2,
     "rules":{
       "relationWithPlayer": {
         "min": 10,
         "max": 25
+      },
+      "lordPersonality": {
+        "Martial": true
       }
     },
     "lines": {
+      "greetings_other":"Hail, %PLAYER_NAME. Spare me a minute, for you must tell me of your latest adventures!"
     }
   },
-  "Neutral": {
-    "priority": 1,
+  "martial_Neutral": {
+    "priority": 2,
     "rules":{
       "relationWithPlayer": {
         "min": -9,
         "max": 9
+      },
+      "lordPersonality": {
+        "Martial": true
       }
     },
     "lines": {
+      "greetings_other":"Good hunting, %PLAYER_NAME. May your armor hold fast and your missiles strike true."
     }
   },
-  "Suspicious": {
-    "priority": 1,
+  "martial_Suspicious": {
+    "priority": 2,
     "rules":{
       "relationWithPlayer": {
         "min": -24,
         "max": -10
+      },
+      "lordPersonality": {
+        "Martial": true
       }
     },
     "lines": {
+      "greetings_other":"Speak quickly %PLAYER_NAME. I'd prefer to avoid the shame of being seen in your presence."
     }
   },
-  "Inhospitable": {
-    "priority": 1,
+  "martial_Inhospitable": {
+    "priority": 2,
     "rules":{
       "relationWithPlayer": {
         "min": -49,
         "max": -25
+      },
+      "lordPersonality": {
+        "Martial": true
       }
     },
     "lines": {
+      "greetings_other":"Speak quickly %PLAYER_NAME. I'd prefer to avoid the shame of being seen in your presence."
     }
   },
-  "Hostile": {
-    "priority": 1,
+  "martial_Hostile": {
+    "priority": 2,
     "rules":{
       "relationWithPlayer": {
         "min": -74,
         "max": -50
+      },
+      "lordPersonality": {
+        "Martial": true
       }
     },
     "lines": {
+      "greetings_other":"Your presence is acknowledged, %PLAYER_NAME. I advise you choose your words carefully if you don't want a bullet in the skull."
     }
   },
-  "Vengeful": {
-    "priority": 1,
+  "martial_Vengeful": {
+    "priority": 2,
     "rules":{
       "relationWithPlayer": {
         "min": -100,
         "max": -75
+      },
+      "lordPersonality": {
+        "Martial": true
       }
     },
     "lines": {
+      "greetings_other":"Your presence is acknowledged, %PLAYER_NAME. I advise you choose your words carefully if you don't want a bullet in the skull."
     }
   },
 
+  "calculating_Cooperative": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": 75,
+        "max": 100
+      },
+      "lordPersonality": {
+        "Calculating": true
+      }
+    },
+    "lines": {
+      "greetings_other":"Good to see you, %PLAYER_NAME. Let us speak plainly."
+    }
+  },
+  "calculating_Friendly": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": 50,
+        "max": 74
+      },
+      "lordPersonality": {
+        "Calculating": true
+      }
+    },
+    "lines": {
+      "greetings_other":"Good to see you, %PLAYER_NAME. Let us speak plainly."
+    }
+  },
+  "calculating_Welcoming": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": 25,
+        "max": 49
+      },
+      "lordPersonality": {
+        "Calculating": true
+      }
+    },
+    "lines": {
+      "greetings_other":"Good to see you, %PLAYER_NAME. What can I do for you today?"
+    }
+  },
+  "calculating_Favorable": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": 10,
+        "max": 25
+      },
+      "lordPersonality": {
+        "Calculating": true
+      }
+    },
+    "lines": {
+      "greetings_other":"Good to see you, %PLAYER_NAME. What can I do for you today?"
+    }
+  },
+  "calculating_Neutral": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": -9,
+        "max": 9
+      },
+      "lordPersonality": {
+        "Calculating": true
+      }
+    },
+    "lines": {
+      "greetings_other":"Greetings %PLAYER_NAME, what news can you share from your travels?"
+    }
+  },
+  "calculating_Suspicious": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": -24,
+        "max": -10
+      },
+      "lordPersonality": {
+        "Calculating": true
+      }
+    },
+    "lines": {
+      "greetings_other":"I suppose it would be prudent for me to entertain you, %PLAYER_NAME, however much I would rather not."
+    }
+  },
+  "calculating_Inhospitable": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": -49,
+        "max": -25
+      },
+      "lordPersonality": {
+        "Calculating": true
+      }
+    },
+    "lines": {
+      "greetings_other":"I suppose it would be prudent for me to entertain you, %PLAYER_NAME, however much I would rather not."
+    }
+  },
+  "calculating_Hostile": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": -74,
+        "max": -50
+      },
+      "lordPersonality": {
+        "Calculating": true
+      }
+    },
+    "lines": {
+      "greetings_other":"You best have something interesting to make it worth me suffering your presence, %PLAYER_NAME"
+    }
+  },
+  "calculating_Vengeful": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": -100,
+        "max": -75
+      },
+      "lordPersonality": {
+        "Calculating": true
+      }
+    },
+    "lines": {
+      "greetings_other":"You best have something interesting to make it worth me suffering your presence, %PLAYER_NAME"
+    }
+  },
+
+  "quarrelsome_Cooperative": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": 75,
+        "max": 100
+      },
+      "lordPersonality": {
+        "Quarrelsome": true
+      }
+    },
+    "lines": {
+      "greetings_other":"%PLAYER_NAME, just the person I wanted to see. You sure are a breath of fresh air compared to the rest of these bastards."
+    }
+  },
+  "quarrelsome_Friendly": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": 50,
+        "max": 74
+      },
+      "lordPersonality": {
+        "Quarrelsome": true
+      }
+    },
+    "lines": {
+      "greetings_other":"%PLAYER_NAME, just the person I wanted to see. You sure are a breath of fresh air compared to the rest of these bastards."
+    }
+  },
+  "quarrelsome_Welcoming": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": 25,
+        "max": 49
+      },
+      "lordPersonality": {
+        "Quarrelsome": true
+      }
+    },
+    "lines": {
+      "greetings_other":"I'm pleasantly surprised that you haven't managed to get yourself killed yet, %PLAYER_NAME. Can't say I'm surprised at this point."
+    }
+  },
+  "quarrelsome_Favorable": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": 10,
+        "max": 25
+      },
+      "lordPersonality": {
+        "Quarrelsome": true
+      }
+    },
+    "lines": {
+      "greetings_other":"I'm pleasantly surprised that you haven't managed to get yourself killed yet, %PLAYER_NAME. Can't say I'm surprised at this point."
+    }
+  },
+  "quarrelsome_Neutral": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": -9,
+        "max": 9
+      },
+      "lordPersonality": {
+        "Quarrelsome": true
+      }
+    },
+    "lines": {
+      "greetings_other":"Well you caught me in a good mood, %PLAYER_NAME. What do you want?"
+    }
+  },
+  "quarrelsome_Suspicious": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": -24,
+        "max": -10
+      },
+      "lordPersonality": {
+        "Quarrelsome": true
+      }
+    },
+    "lines": {
+      "greetings_other":"%PLAYER_NAME, do yourself a favor and stay out of my way."
+    }
+  },
+  "quarrelsome_Inhospitable": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": -49,
+        "max": -25
+      },
+      "lordPersonality": {
+        "Quarrelsome": true
+      }
+    },
+    "lines": {
+      "greetings_other":"%PLAYER_NAME, do yourself a favor and stay out of my way."
+    }
+  },
+  "quarrelsome_Hostile": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": -74,
+        "max": -50
+      },
+      "lordPersonality": {
+        "Quarrelsome": true
+      }
+    },
+    "lines": {
+      "greetings_other":"Ah, %PLAYER_NAME, the snake dares to slither in the open. Convince me why I shouldn't open fire immediately."
+    }
+  },
+  "quarrelsome_Vengeful": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": -100,
+        "max": -75
+      },
+      "lordPersonality": {
+        "Quarrelsome": true
+      }
+    },
+    "lines": {
+      "greetings_other":"Ah, %PLAYER_NAME, the snake dares to slither in the open. Convince me why I shouldn't open fire immediately."
+    }
+  },
+
+  "upstanding_Cooperative": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": 75,
+        "max": 100
+      },
+      "lordPersonality": {
+        "Upstanding": true
+      }
+    },
+    "lines": {
+      "greetings_other":"%PLAYER_NAME, my dear friend. It is good to see you alive and well. What is it?"
+    }
+  },
+  "upstanding_Friendly": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": 50,
+        "max": 74
+      },
+      "lordPersonality": {
+        "Upstanding": true
+      }
+    },
+    "lines": {
+      "greetings_other":"%PLAYER_NAME, my dear friend. It is good to see you alive and well. What is it?"
+    }
+  },
+  "upstanding_Welcoming": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": 25,
+        "max": 49
+      },
+      "lordPersonality": {
+        "Upstanding": true
+      }
+    },
+    "lines": {
+      "greetings_other":"%PLAYER_NAME, my friend. It is good to see you alive and well. What is it?"
+    }
+  },
+  "upstanding_Favorable": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": 10,
+        "max": 25
+      },
+      "lordPersonality": {
+        "Upstanding": true
+      }
+    },
+    "lines": {
+      "greetings_other":"%PLAYER_NAME, my friend. It is good to see you alive and well. What is it?"
+    }
+  },
+  "upstanding_Neutral": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": -9,
+        "max": 9
+      },
+      "lordPersonality": {
+        "Upstanding": true
+      }
+    },
+    "lines": {
+      "greetings_other": "Good day %PLAYER_NAME, I trust that you've conducted yourself honorably since our last meeting."
+    }
+  },
+  "upstanding_Suspicious": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": -24,
+        "max": -10
+      },
+      "lordPersonality": {
+        "Upstanding": true
+      }
+    },
+    "lines": {
+      "greetings_other": "You are trying my patience, %PLAYER_NAME. Speak if you must."
+    }
+  },
+  "upstanding_Inhospitable": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": -49,
+        "max": -25
+      },
+      "lordPersonality": {
+        "Upstanding": true
+      }
+    },
+    "lines": {
+      "greetings_other": "You are trying my patience, %PLAYER_NAME. Speak if you must."
+    }
+  },
+  "upstanding_Hostile": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": -74,
+        "max": -50
+      },
+      "lordPersonality": {
+        "Upstanding": true
+      }
+    },
+    "lines": {
+      "greetings_other": "I have no need to speak to one of such low character as yourself, %PLAYER_NAME."
+    }
+  },
+  "upstanding_Vengeful": {
+    "priority": 2,
+    "rules":{
+      "relationWithPlayer": {
+        "min": -100,
+        "max": -75
+      },
+      "lordPersonality": {
+        "Upstanding": true
+      }
+    },
+    "lines": {
+      "greetings_other": "I have no need to speak to one of such low character as yourself, %PLAYER_NAME."
+    }
+  },
+
+  "martial": {
+    "priority": 1,
+    "rules": {
+      "lordPersonality": {
+        "Martial": true
+      }
+    },
+    "lines": {
+      "greeting_feast": "Fancy seeing you here, %PLAYER_NAME. Say, shall we join the tournament later?",
+      "greetings_first": "Well met! A fellow warrior I see; that fleet of yours definitely isn't just for show!",
+      "greetings_hostile":"%PLAYER_NAME! I've been waiting for the day that we might see which of us is the strongest. En garde!"
+    }
+  },
+  "calculating": {
+    "priority": 1,
+    "rules": {
+      "lordPersonality": {
+        "Calculating": true
+      }
+    },
+    "lines": {
+      "greeting_feast": "Good evening %PLAYER_NAME. I must say I'm impressed at the generosity of our host. This decor can't have been cheap.",
+      "greetings_first": "Ah, yes. At last we meet. You seem like a good person to know. Let us speak together from time to time.",
+      "greetings_hostile":"I have you cornered, %PLAYER_NAME. Surrender or die!"
+    }
+  },
+  "quarrelsome": {
+    "priority": 1,
+    "rules": {
+      "lordPersonality": {
+        "Quarrelsome": true
+      }
+    },
+    "lines": {
+      "greeting_feast": "Hey %PLAYER_NAME, can you believe the quality of the drinks here? I've found better wine in the cellar of a Luddic nun.",
+      "greetings_first": "I've heard of you. Well, I'm not one for bandying words, so if you have anything to say, out with it.",
+      "greetings_hostile":"You've caught me in a bad mood, %PLAYER_NAME. Turning your fleet to scrap metal might cheer me up though. Die!"
+    }
+  },
+  "upstanding": {
+    "priority": 1,
+    "rules": {
+      "lordPersonality": {
+        "Upstanding": true
+      }
+    },
+    "lines": {
+      "greeting_feast": "Greetings %PLAYER_NAME. Let us put our troubles to the morrow, for tonight we will feast and make merry.",
+      "greetings_first": "Peace to you, and always remember to temper your valor with mercy, your courage with honor.",
+      "greetings_hostile":"%PLAYER_NAME! Stand down now, if not for your own sake, at least for the sake of your crew."
+    }
+  },
   "default": {
     "priority": 0,
     "rules":{
 
     },
     "lines": {
-      "relation_increase": "Relations with %LORD_NAME increased by %s.",
-      "relation_decrease": "Relations with %LORD_NAME decreased by %s."
+      "greeting_host_feast": "Welcome to my estate, %PLAYER_NAME. You are under my protection here; please make yourself at home.",
+
+      "greetings_first": "(error) Nice to meet you. I am the one and only %LORD_NAME",
+      "greetings_feast": "(error) What a lovely feast right %PLAYER_NAME?",
+      "greetings_hostile": "(error) Oh look here. Its the one and only idiot who dares to stand in my way!",
+      "greetings_other": "(error) Hello again %PLAYER_NAME",
+
+      "relation_increase": "Relations with %LORD_NAME increased by %c0.",
+      "relation_decrease": "Relations with %LORD_NAME decreased by %c0."
     }
   }
 }

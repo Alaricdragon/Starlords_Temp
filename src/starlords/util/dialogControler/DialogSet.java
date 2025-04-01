@@ -47,7 +47,7 @@ public class DialogSet {
         return insertDefaltData(line,lord);
     }
     public static String insertData(String line, String mark, String replaced){
-        StringBuilder out = new StringBuilder();
+        /*StringBuilder out = new StringBuilder();
         if (markAtStart(line,mark)){
             out.append(replaced);
         }
@@ -58,8 +58,8 @@ public class DialogSet {
         }
         if (markAtEnd(line,mark)){
             out.append(replaced);
-        }
-        return out.toString();
+        }*/
+        return line.replaceAll(mark,replaced);
     }
 
     public static String insertDefaltData(String line, Lord lord){
@@ -167,7 +167,7 @@ public class DialogSet {
     }
     private static boolean markAtEnd(String line, String mark){
         int b = line.length() - 1;
-        for (int a = 0; a < mark.length(); a++){
+        for (int a = mark.length(); a >= 0; a--){
             if (b < 0) return false;
             if (line.charAt(b) != mark.charAt(a)) return false;
             b--;
@@ -330,6 +330,12 @@ public class DialogSet {
                 case "lordFactionMarital":
                     rules.add(addRule_lordFactionMarital(rulesTemp,key));
                     break;
+                case "lordPersonality":
+                    rules.add(addRule_personality(rulesTemp,key));
+                    break;
+                case "lordBattlerPersonality":
+                    rules.add(addRule_battlerPersonaility(rulesTemp,key));
+                    break;
             }
         }
         return rules;
@@ -402,5 +408,31 @@ public class DialogSet {
     @SneakyThrows
     private static DialogRule_Base addRule_lordFactionMarital(JSONObject json, String key){
         return new DialogRule_lordFactionMarital(json.getBoolean(key));
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_personality(JSONObject json,String key){
+        ArrayList<String> whiteList = new ArrayList<>();
+        JSONObject ruleAdded = json.getJSONObject(key);
+        for (Iterator it2 = ruleAdded.keys(); it2.hasNext();) {
+            String key2 = (String) it2.next();
+            if (ruleAdded.getBoolean(key2)){
+                whiteList.add(key2);
+                continue;
+            }
+        }
+        return new DialogRule_personaility(whiteList);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_battlerPersonaility(JSONObject json,String key){
+        ArrayList<String> whiteList = new ArrayList<>();
+        JSONObject ruleAdded = json.getJSONObject(key);
+        for (Iterator it2 = ruleAdded.keys(); it2.hasNext();) {
+            String key2 = (String) it2.next();
+            if (ruleAdded.getBoolean(key2)){
+                whiteList.add(key2);
+                continue;
+            }
+        }
+        return new DialogRule_battlePersonaility(whiteList);
     }
 }
