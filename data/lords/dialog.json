@@ -729,6 +729,21 @@
       "greetings_hostile": "(error) Oh look here. Its the one and only idiot who dares to stand in my way!",
       "greetings_other": "(error) Hello again %PLAYER_NAME",
 
+      "admiration_response_hate": "Oh, you're not joking? Well, at least this will be entertaining.",
+      "admiration_response_dislike": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+      "admiration_response_like": "You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
+
+
+      "spend_time_together1": "The tables at the feast are lined with dishes that sparkle under the soft glow of chandeliers, each plate a culinary masterpiece. You and %LORD_NAME sample exquisite butters infused with rare spices. %LORD_NAME begins sharing tales of narrow escapes and fierce battles fought on faraway stars. You respond with a grin, recounting a similarly audacious ambush. In that moment, the weight of your pasts feel lighter, buoyed by fine food and the warmth of camaraderie.",
+      "spend_time_together2": "You and %LORD_NAME walk along the grand halls of the feast. Gradually, you find yourselves drawn to the center of the bustling hall, where nobles step in an elegant dance. You take %LORD_NAME's hand and offer a dance, which %LORD_GENDER_HE_OR_SHE accepts after a moment's pause. Together you dance to the slow drone of the saxophone, losing yourself in the rhythm until several hours pass.",
+      "spend_time_together3": "Growing tired of the commotion of the feast, you and %LORD_NAME sneak out to the host's hangar. You spot a pair of racing ships in the corner, and after assuring the attendants that you have permission, you both get into a cockpit and rocket off into the void. %LORD_NAME executes a series of sharp turns and loops and you respond in kind, sending adrenaline surging through your veins as you both attempt more complex maneuvers to one-up each other. After an hour, the two of you touch down at the hangar, begrudgingly admitting that neither of you could gain the upper hand. The two of you slip back to the feast before your antics are noticed, with newly forged respect between you.",
+      "spend_time_together4": "You and %LORD_NAME slip away from the commotion of the feast and step onto the balcony. The night sky is sprawled before you, a canvas of twinkling stars, each a reminder of the once-glorious reach of humanity and its Icarian downfall. %LORD_NAME traces the outline of a distant nebula with %LORD_GENDER_HIS_OR_HER finger, reminiscing of simpler days when %LORD_GENDER_HE_OR_SHE hoped to explore the stars as a carefree spacer. You promise that when peace finally returns to the core worlds, the two of you will journey to the edges of the sector. Together, you'll forge a future where the full wonders of the cosmos can be experienced by humanity once more.",
+      "spend_time_together5": "As the gala’s vibrant chatter fades behind you, you and %LORD_NAME step into the cool night, the stars shimmering like distant jewels overhead. You meander along the manicured gardens of the host's opulent estate. %LORD_NAME begins sharing tales navigating treacherous politics in gilded halls, %LORD_GENDER_HIS_OR_HER laughter echoing softly in the stillness. You have no shortage of your own stories to tell, recounting how you decided to become a captain and secured your first ship and crew. The vastness of the universe feels a little smaller as you walk, the night growing richer with each revelation.",
+      "spend_time_together6": "Amid the lavish displays of the feast, you and %LORD_NAME wander over to a round table where a lively card game was in full swing, laughter and friendly banter filling the air. With a smirk, %LORD_GENDER_HE_OR_SHE tosses a handful of chips onto the pile, drawing the attention of the other players. You're also pulled into the game, but you quickly notice that %LORD_NAME is fully in their element. Despite your efforts, the best you can do is escape without major losses as %LORD_GENDER_HE_OR_SHE methodically cleans out the table. \n\"Thanks for that\", %LORD_NAME says teasingly. \"I really needed a punching bag to blow off some steam.\"",
+      "spend_time_together6_0": "Lost %c0 credits.",
+      "spend_time_together_after": "At the end of the evening, you prepare to part ways. This is your chance to present them with a gift.",
+      "spend_time_together_hint": "Your gift will significantly color their opinion of you. It's ok to give nothing if you aren't certain of their preferences.",
+
       "relation_increase": "Relations with %LORD_NAME increased by %c0.",
       "relation_decrease": "Relations with %LORD_NAME decreased by %c0.",
       "addedIntel": "Added intel on %LORD_NAME",
@@ -746,7 +761,20 @@
       "option_dedicate_tournament": "%LORD_NAME, my tournament victory goes out to you.",
       "option_host_wedding": "Begin the wedding ceremony.",
       "option_continue_to_tournament": "For honor and glory!",
-      "option_avoid_tournament": "Never mind"
+      "option_avoid_tournament": "Never mind",
+
+      "option_profess_admiration": "Profess your most ardent admiration.",
+      "option_ask_date": "Spend some time together at the feast.",
+      "option_ask_marriage": "Ask for %LORD_NAME's hand in marriage.",
+      "option_ask_leave_party": "Ask your %LORD_GENDER_HUSBAND_OR_WIFE to return to %LORD_GENDER_HIS_OR_HER own fleet.",
+      "option_ask_join_party": "Ask your %LORD_GENDER_HUSBAND_OR_WIFE to join your fleet.",
+      "option_sway_council_support": "Persuade them to support the currently debated proposal.",
+      "option_sway_council_oppose": "Persuade them to oppose the currently debated proposal.",
+      "option_sway_player": "Persuade them to support your proposal.",
+      "option_nevermind": "Never mind",
+
+      "option_give_gift": "Select a gift",
+      "option_dont_give_gift": "Just return to the feast"
     }
   }
 }

@@ -726,36 +726,32 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     }
     private void optionSelected_ASK_QUESTION(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         options.clearOptions();
-        options.addOption(StringUtil.getString(CATEGORY, "option_ask_location"), OptionId.ASK_LOCATION);
-        options.addOption(StringUtil.getString(CATEGORY, "option_ask_quest"), OptionId.ASK_QUEST);
+        options.addOption(DialogSet.getLineWithInserts(targetLord,"option_ask_location"), OptionId.ASK_LOCATION);
+        options.addOption(DialogSet.getLineWithInserts(targetLord, "option_ask_quest"), OptionId.ASK_QUEST);
         if (feast != null) {
             boolean playerIsMarried = LordController.getSpouse() != null;
             if (!feast.isProfessedAdmiration() && !targetLord.isCourted() && !playerIsMarried) {
-                options.addOption(StringUtil.getString(CATEGORY, "option_profess_admiration"),
+                options.addOption(DialogSet.getLineWithInserts(targetLord, "option_profess_admiration"),
                         OptionId.PROFESS_ADMIRATION);
             }
             if (targetLord.isCourted()) {
                 if (!feast.isHeldDate() && !playerIsMarried) {
-                    options.addOption(StringUtil.getString(CATEGORY, "option_ask_date"),
+                    options.addOption(DialogSet.getLineWithInserts(targetLord, "option_ask_date"),
                             OptionId.SUGGEST_DATE);
                 }
                 if (!targetLord.isMarried() && feast.getWeddingCeremonyTarget() == null
                         && !playerIsMarried) {
-                    options.addOption(StringUtil.getString(
-                            CATEGORY, "option_ask_marriage", targetLord.getLordAPI().getName().getFirst()),
+                    options.addOption(DialogSet.getLineWithInserts(targetLord, "option_ask_marriage"),
                             OptionId.SUGGEST_MARRIAGE);
                 }
             }
         }
         if (targetLord.isMarried()) {
             if (targetLord.getCurrAction() == LordAction.COMPANION) {
-                options.addOption(StringUtil.getString(CATEGORY, "option_ask_leave_party",
-                        GenderUtils.husbandOrWife(targetLord.getLordAPI(), false),
-                        GenderUtils.hisOrHer(targetLord.getLordAPI(), false)),
+                options.addOption(DialogSet.getLineWithInserts(targetLord, "option_ask_leave_party"),
                         OptionId.SUGGEST_LEAVE_PARTY);
             } else {
-                options.addOption(StringUtil.getString(CATEGORY, "option_ask_join_party",
-                        GenderUtils.husbandOrWife(targetLord.getLordAPI(), false)),
+                options.addOption(DialogSet.getLineWithInserts(targetLord, "option_ask_join_party"),
                         OptionId.SUGGEST_JOIN_PARTY);
             }
         }
@@ -767,22 +763,22 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
                     && !councilProposal.getPledgedFor().contains(targetLord.getLordAPI().getId())) {
                 String arg;
                 if (councilProposal.isPlayerSupports()) {
-                    arg = "support";
+                    options.addOption(DialogSet.getLineWithInserts(targetLord, "option_sway_council_support"), OptionId.SWAY_PROPOSAL_COUNCIL);
                     swayFor = true;
                 } else {
-                    arg = "oppose";
+                    options.addOption(DialogSet.getLineWithInserts(targetLord, "option_sway_council_oppose"), OptionId.SWAY_PROPOSAL_COUNCIL);
                     swayFor = false;
                 }
-                options.addOption(StringUtil.getString(CATEGORY, "option_sway_council", arg), OptionId.SWAY_PROPOSAL_COUNCIL);
             }
             LawProposal playerProposal = PoliticsController.getProposal(LordController.getPlayerLord());
             if (playerProposal != null && !playerProposal.equals(councilProposal)
                     && !playerProposal.getPledgedAgainst().contains(targetLord.getLordAPI().getId())
                     && !playerProposal.getPledgedFor().contains(targetLord.getLordAPI().getId())) {
-                options.addOption(StringUtil.getString(CATEGORY, "option_sway_player"), OptionId.SWAY_PROPOSAL_PLAYER);
+                options.addOption(DialogSet.getLineWithInserts(targetLord, "option_sway_player"), OptionId.SWAY_PROPOSAL_PLAYER);
             }
         }
-        options.addOption(StringUtil.getString(CATEGORY, "option_nevermind"), OptionId.INIT);
+        options.addOption(DialogSet.getLineWithInserts(targetLord,"option_nevermind"), OptionId.INIT);
+        options.setShortcut(OptionId.INIT, 1, false, false, false, true);
     }
     private void optionSelected_PROFESS_ADMIRATION(String optionText, Object optionData, PersonAPI player, boolean willEngage, boolean hostile, LordEvent feast,OptionId option){
         // 0 hate, 1 dislike, 2 like
@@ -817,24 +813,14 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
                 break;
         }
         if (likedLevel == 0) {
-            textPanel.addPara(StringUtil.getString(CATEGORY, "admiration_response_hate"));
-            textPanel.addPara(StringUtil.getString(
-                    CATEGORY, "relation_decrease",
-                    targetLord.getLordAPI().getNameString(), "10"), Color.RED);
-            targetLord.getLordAPI().getRelToPlayer().adjustRelationship(-0.1f, null);
+            textPanel.addPara(DialogSet.getLineWithInserts(targetLord, "admiration_response_hate"));
+            applyRepDecrease(textPanel,targetLord,10);
         } else if (likedLevel == 1) {
-            textPanel.addPara(StringUtil.getString(CATEGORY, "admiration_response_dislike"));
-            textPanel.addPara(StringUtil.getString(
-                    CATEGORY, "relation_decrease",
-                    targetLord.getLordAPI().getNameString(), "2"), Color.RED);
-            targetLord.getLordAPI().getRelToPlayer().adjustRelationship(-0.02f, null);
+            textPanel.addPara(DialogSet.getLineWithInserts(targetLord, "admiration_response_dislike"));
+            applyRepDecrease(textPanel,targetLord,2);
         } else {
-            textPanel.addPara(StringUtil.getString(
-                    CATEGORY, "admiration_response_like", GenderUtils.manOrWoman(player, false)));
-            textPanel.addPara(StringUtil.getString(
-                    CATEGORY, "relation_increase",
-                    targetLord.getLordAPI().getNameString(), "10"), Color.GREEN);
-            targetLord.getLordAPI().getRelToPlayer().adjustRelationship(0.1f, null);
+            textPanel.addPara(DialogSet.getLineWithInserts(targetLord, "admiration_response_like"));
+            applyRepIncrease(textPanel,targetLord,10);
         }
         targetLord.setCourted(true);
         feast.setProfessedAdmiration(true);
@@ -842,63 +828,46 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     }
     private void optionSelected_SUGGEST_DATE(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         int dateType = 1 + Utils.rand.nextInt(6);
-        String[] paraArgs;
+        int loss;
         switch(dateType) {
             case 1:
-            case 3:
-                paraArgs = new String[]{
-                        targetLord.getLordAPI().getNameString(),
-                        targetLord.getLordAPI().getName().getFirst()};
+                textPanel.addPara(DialogSet.getLineWithInserts(targetLord, "spend_time_together1"));
                 break;
             case 2:
-                paraArgs = new String[]{
-                        targetLord.getLordAPI().getNameString(),
-                        targetLord.getLordAPI().getName().getFirst(),
-                        GenderUtils.heOrShe(targetLord.getLordAPI(), false)};
+                textPanel.addPara(DialogSet.getLineWithInserts(targetLord, "spend_time_together2"));
+                break;
+            case 3:
+                textPanel.addPara(DialogSet.getLineWithInserts(targetLord, "spend_time_together3"));
                 break;
             case 4:
-                paraArgs = new String[]{
-                        targetLord.getLordAPI().getNameString(),
-                        targetLord.getLordAPI().getName().getFirst(),
-                        GenderUtils.hisOrHer(targetLord.getLordAPI(), false),
-                        GenderUtils.heOrShe(targetLord.getLordAPI(), false)};
+                textPanel.addPara(DialogSet.getLineWithInserts(targetLord, "spend_time_together4"));
                 break;
             case 5:
-                paraArgs = new String[]{
-                        targetLord.getLordAPI().getNameString(),
-                        targetLord.getLordAPI().getName().getFirst(),
-                        GenderUtils.hisOrHer(targetLord.getLordAPI(), false)};
+                textPanel.addPara(DialogSet.getLineWithInserts(targetLord, "spend_time_together5"));
                 break;
-            case 6:
             default:
-                paraArgs = new String[]{
-                        targetLord.getLordAPI().getNameString(),
-                        GenderUtils.heOrShe(targetLord.getLordAPI(), false),
-                        targetLord.getLordAPI().getName().getFirst(),
-                        GenderUtils.heOrShe(targetLord.getLordAPI(), false),
-                        targetLord.getLordAPI().getName().getFirst()};
+            case 6:
+                textPanel.addPara(DialogSet.getLineWithInserts(targetLord, "spend_time_together6"));
+                loss = (int) Math.min(200 + Utils.rand.nextInt(800),
+                        Global.getSector().getPlayerFleet().getCargo().getCredits().get());
+                Global.getSector().getPlayerFleet().getCargo().getCredits().subtract(loss);
+                String line = DialogSet.getLineWithInserts(targetLord,"spend_time_together6_0");
+                line = DialogSet.insertData(line,"%c0",line);
+                textPanel.addPara(line, Color.RED);
                 break;
         }
-        textPanel.addPara(StringUtil.getString(CATEGORY, "spend_time_together" + dateType, paraArgs));
-        if (dateType == 6) {
-            // this is the gambling one where you lose money
-            int loss = (int) Math.min(200 + Utils.rand.nextInt(800),
-                    Global.getSector().getPlayerFleet().getCargo().getCredits().get());
-            Global.getSector().getPlayerFleet().getCargo().getCredits().subtract(loss);
-            textPanel.addPara("Lost " + loss + " credits.", Color.RED);
-        }
-        textPanel.addPara(StringUtil.getString(
-                CATEGORY, "relation_increase",
-                targetLord.getLordAPI().getNameString(), "5"), Color.GREEN);
-        targetLord.getLordAPI().getRelToPlayer().adjustRelationship(0.05f, null);
-        textPanel.addPara(StringUtil.getString(CATEGORY, "spend_time_together_after"));
+
+        applyRepIncrease(textPanel,targetLord,5);
+
+        textPanel.addPara(DialogSet.getLineWithInserts(targetLord, "spend_time_together_after"));
         feast.setHeldDate(true);
         options.clearOptions();
-        options.addOption(StringUtil.getString(CATEGORY, "option_give_gift"), OptionId.OFFER_GIFT);
-        options.addOption(StringUtil.getString(CATEGORY, "option_dont_give_gift"), OptionId.ASK_QUESTION);
-        options.setTooltip(OptionId.OFFER_GIFT, StringUtil.getString(CATEGORY, "spend_time_together_hint"));
+        options.addOption(DialogSet.getLineWithInserts(targetLord, "option_give_gift"), OptionId.OFFER_GIFT);
+        options.addOption(DialogSet.getLineWithInserts(targetLord, "option_dont_give_gift"), OptionId.ASK_QUESTION);
+        options.setTooltip(OptionId.OFFER_GIFT, DialogSet.getLineWithInserts(targetLord, "spend_time_together_hint"));
     }
     private void optionSelected_OFFER_GIFT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
+        //TODO: there is a issue here. there are many more possible options that must be considered. I will need to add in a a way to add additional commodity that they might care for.
         nextState = OptionId.OFFER_GIFT_SELECTION;
         options.clearOptions();
         String clothing = targetLord.getLordAPI().getGender() == FullName.Gender.FEMALE ? "dress" : "suit";

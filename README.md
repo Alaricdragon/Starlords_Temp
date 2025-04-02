@@ -127,7 +127,6 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "Cautious"
     * "Timid"
   * "???playerLord???" (not compleateing this line, because I dont know if this is a thing. more data required)if set to true, the lord must be the lord of the player (and as such, the player must be part of the lords faction, and ) to meet requirements
-  * "???greated???" (??? maybe not? just have there own line for greetings? on the otherhand, that does restrict the possibility of hostile greetings, so maybe not.)(??? this is if this is the lords first greating to the player? I think? or is it the first greating in something else????)
 * "lines" is the dialog lines for every line a starlord speaks. you can also input a number of custom markers into your dialog that will be replaced with data automaticly. the markers are as follows:
   * "%PLAYER_FACTION_NAME"
   * "%PLAYER_NAME" 
@@ -135,6 +134,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "%PLAYER_GENDER_HE_OR_SHE"
   * "%PLAYER_GENDER_HIM_OR_HER"
   * "%PLAYER_GENDER_HIS_OR_HER"
+  * "%PLAYER_GENDER_HUSBAND_OR_WIFE"
   * "%PLAYER_GENDER_NAME" player gender
   * "%PLAYER_FLAGSHIP_HULLNAME" player flagship ship hull name (return "nothing" if the player has no flagship)
   * "%PLAYER_FLAGSHIP_NAME" player flagship name (returns "nothing" if the player has no flagship)
@@ -146,6 +146,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "%LORD_GENDER_HE_OR_SHE"
   * "%LORD_GENDER_HIM_OR_HER"
   * "%LORD_GENDER_HIS_OR_HER"
+  * "%LORD_GENDER_HUSBAND_OR_WIFE"
   * "%LORD_GENDER_NAME"
   * "%LORD_FLAGSHIP_HULLNAME" lord flagship ship hull name (return "nothing" if the lord has no flagship)
   * "%LORD_FLAGSHIP_NAME" lord flagship name (returns "nothing" if the lord has no flagship)
@@ -173,6 +174,18 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "current_task_desc_patrol"
     * "current_task_desc_feast"
     * "current_task_desc_none"
+    * "admiration_response_hate"
+    * "admiration_response_dislike"
+    * "admiration_response_like"
+    * "spend_time_together1"
+    * "spend_time_together2"
+    * "spend_time_together3"
+    * "spend_time_together4"
+    * "spend_time_together5"
+    * "spend_time_together6"
+    * "spend_time_together6_0"
+    * "spend_time_together_after"
+    * "spend_time_together_hint"
     *
     *
     *
@@ -186,12 +199,23 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "option_ask_current_task"
     * "option_ask_question"
     * "option_ask_location"
-    * "option_ask_quest"
     * "option_ask_tournament"
     * "option_dedicate_tournament"
     * "option_host_wedding" %c0 represents your new spouse name
     * "option_continue_to_tournament"
     * "option_avoid_tournament"
+    * "option_profess_admiration"
+    * "option_ask_date"
+    * "option_ask_marriage"
+    * "option_ask_leave_party"
+    * "option_ask_join_party"
+    * "option_sway_council_support"
+    * "option_sway_council_oppose"
+    * "option_sway_player"
+    * "option_nevermind"
+    * "option_give_gift"
+    * "option_dont_give_gift"
+    *
     *
     *
     *

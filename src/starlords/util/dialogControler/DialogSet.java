@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.person.Lord;
+import starlords.util.GenderUtils;
 import starlords.util.dialogControler.dialogRull.*;
 
 import java.util.ArrayList;
@@ -121,6 +122,8 @@ public class DialogSet {
         if (Global.getSector().getPlayerFleet().getFlagship() != null) data = Global.getSector().getPlayerFleet().getFlagship().getShipName();
         line = insertData(line,"%PLAYER_FLAGSHIP_NAME",data);
 
+        data = GenderUtils.husbandOrWife(Global.getSector().getPlayerPerson(), false);
+        line = insertData(line,"%PLAYER_GENDER_HUSBAND_OR_WIFE",data);
         return line;
     }
     private static String getLordStringMods(String line, Lord lord){
@@ -155,6 +158,9 @@ public class DialogSet {
         data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
         if (lord.getFleet().getFlagship() != null) lord.getFleet().getFlagship().getShipName();
         line = insertData(line,"%LORD_FLAGSHIP_NAME",data);
+
+        data = GenderUtils.husbandOrWife(lord.getLordAPI(), false);
+        line = insertData(line,"%LORD_GENDER_HUSBAND_OR_WIFE",data);
         return line;
     }
 
