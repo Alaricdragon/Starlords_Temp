@@ -1,15 +1,21 @@
 package starlords.util.dialogControler;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.RepLevel;
-import com.fs.starfarer.campaign.FactionManager;
+import com.fs.starfarer.api.campaign.CampaignFleetAPI;
+import com.fs.starfarer.api.campaign.OptionPanelAPI;
+import com.fs.starfarer.api.campaign.TextPanelAPI;
+import com.fs.starfarer.api.characters.PersonAPI;
+import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
+import starlords.controllers.LordController;
 import starlords.person.Lord;
 import starlords.util.GenderUtils;
 import starlords.util.dialogControler.dialogRull.*;
+import starlords.util.dialogControler.dialog_addon.*;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -28,19 +34,42 @@ public class DialogSet {
             new DialogSet(key2,jsonObject.getJSONObject(key2));
         }
     }
-    public static String getLine(Lord lord,String id){
+    public static void addParaWithInserts(String key, Lord lord, TextPanelAPI textPanel,OptionPanelAPI options){
+        //DialogSet.addParaWithInserts("ERROR",targetLord,textPanel,options);
+        //DialogSet.addOptionWithInserts("ERROR",null,null,targetLord,textPanel,options);
+        addParaWithInserts(key, lord, textPanel, options,new HashMap<>());
+    }
+    public static void addParaWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options,HashMap<String,String> markersReplaced){
+        DialogSet set = getSet(lord, key);
+        if (set == null) return;
+        set.applyLine(key, lord, textPanel, options,markersReplaced);
+    }
+    public static void addOptionWithInserts(String key,String hintKey, Object optionData, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options){
+        addOptionWithInserts(key,hintKey, optionData,lord, textPanel,options,new HashMap<>());
+    }
+    public static void addOptionWithInserts(String key, String hintKey, Object optionData, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, HashMap<String,String> markersReplaced){
+        DialogSet set = getSet(lord, key);
+        if (set == null) return;
+        set.applyOption(key,hintKey, lord, textPanel, optionData, options,markersReplaced);
+    }
+    private static DialogSet getSet(Lord lord,String id){
         for (LordDialogController a : lord.getTemplate().dialogOverride){
             if (a.canUseDialog(lord) && dialogSets.containsKey(a.dialogLink) && dialogSets.get(a.dialogLink).hasLine(id)){
-                return dialogSets.get(a.dialogLink).getLine(id);
+                return dialogSets.get(a.dialogLink);
             }
         }
         for (int a = organizedDialogSets.size() - 1; a >= 0; a--){
             for (DialogSet b : organizedDialogSets.get(a)){
                 if (b.canUseDialog(lord) && b.hasLine(id)){
-                    return b.getLine(id);
+                    return b;
                 }
             }
         }
+        return null;
+    }
+    public static String getLine(Lord lord,String id){
+        DialogSet set = getSet(lord, id);
+        if (set != null) return set.getLine(id);
         return "ERROR: unable to get line of dialog. id of: "+id;
     }
     public static String getLineWithInserts(Lord lord,String id){
@@ -62,37 +91,22 @@ public class DialogSet {
         }*/
         return line.replaceAll(mark,replaced);
     }
-
-    public static String insertDefaltData(String line, Lord lord){
-        //just repeat the 2 lines here with everything I want to get by default.
-        /*
-        -p0: player faction name
-        -p1: player partner name
-        -p2: player name
-        -p3_0: player getManOrWoman
-        -p3_1: player getHeOrShe
-        -p3_2: player getHimOrHer
-        -p3_3: player getHisOrHer
-        -p3_4: player getGender().name
-        -p4: player flagship????
-        -p4: player fleet name???? do I need this? 'your fleet'???
-        -p6:
-        -p7:
-        -p8:
-
-        -l0: lord faction name
-        -l1: lord partner name
-        -l2: lord name
-        -l3: lord gender
-        -l4: lord fleet name
-        -l5: lord flagship
-         */
-        line = getPlayerStringMods(line,lord);
-        line = getLordStringMods(line,lord);
-
+    public static String insertAdditionalData(String line,HashMap<String,String> markersReplaced){
+        for (String a : markersReplaced.keySet()){
+            line = insertData(line,a,markersReplaced.get(a));
+        }
         return line;
     }
+    public static String insertDefaltData(String line, Lord lord){
+        line = getPlayerStringMods(line,lord);
+        line = getPlayerPartnerStringMods(line,lord);
+        line = getLordStringMods(line,lord);
+        line = getLordPartnerStringMods(line,lord);
+        return line;
+    }
+
     private static String getPlayerStringMods(String line, Lord lord){
+
         String data = Global.getSector().getPlayerFaction().getDisplayName();
         line = insertData(line,"%PLAYER_FACTION_NAME",data);
 
@@ -114,16 +128,94 @@ public class DialogSet {
         data = Global.getSector().getPlayerPerson().getGender().name();
         line = insertData(line,"%PLAYER_GENDER_NAME",data);
 
+        FleetMemberAPI flownShip = getFlownShip(Global.getSector().getPlayerPerson(),Global.getSector().getPlayerFleet());
         data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
-        if (Global.getSector().getPlayerFleet().getFlagship() != null) data = Global.getSector().getPlayerFleet().getFlagship().getHullSpec().getHullName();
+        if (flownShip != null) data = flownShip.getHullSpec().getHullName();
         line = insertData(line,"%PLAYER_FLAGSHIP_HULLNAME",data);
 
         data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
-        if (Global.getSector().getPlayerFleet().getFlagship() != null) data = Global.getSector().getPlayerFleet().getFlagship().getShipName();
+        if (flownShip != null) data = flownShip.getShipName();
         line = insertData(line,"%PLAYER_FLAGSHIP_NAME",data);
 
         data = GenderUtils.husbandOrWife(Global.getSector().getPlayerPerson(), false);
         line = insertData(line,"%PLAYER_GENDER_HUSBAND_OR_WIFE",data);
+        return line;
+    }
+    private static String getPlayerPartnerStringMods(String line, Lord lord){
+        if (LordController.getPlayerLord().getSpouse() == null){
+            return getPlayerNoPartnerStringMods(line,lord);
+        }
+        lord = LordController.getLordById(LordController.getPlayerLord().getSpouse());
+        if (lord == null){
+            return getPlayerNoPartnerStringMods(line,lord);
+        }
+        String data = lord.getFaction().getDisplayName();
+        line = insertData(line,"%PLAYER_SPOUSE_FACTION_NAME",data);
+
+        data = lord.getLordAPI().getNameString();
+        line = insertData(line,"%PLAYER_SPOUSE_NAME",data);
+
+        data = lord.getLordAPI().getManOrWoman();
+        line = insertData(line,"%PLAYER_SPOUSE_GENDER_MAN_OR_WOMEN",data);
+
+        data = lord.getLordAPI().getHeOrShe();
+        line = insertData(line,"%PLAYER_SPOUSE_GENDER_HE_OR_SHE",data);
+
+        data = lord.getLordAPI().getHimOrHer();
+        line = insertData(line,"%PLAYER_SPOUSE_GENDER_HIM_OR_HER",data);
+
+        data = lord.getLordAPI().getHisOrHer();
+        line = insertData(line,"%PLAYER_SPOUSE_GENDER_HIS_OR_HER",data);
+
+        data = lord.getLordAPI().getGender().name();
+        line = insertData(line,"%PLAYER_SPOUSE_GENDER_NAME",data);
+
+        FleetMemberAPI flownShip = getFlownShip(lord.getLordAPI(),lord.getFleet());
+        data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
+        if (flownShip != null) data = flownShip.getHullSpec().getHullName();
+        line = insertData(line,"%PLAYER_SPOUSE_FLAGSHIP_HULLNAME",data);
+
+        data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
+        if (flownShip != null) data = flownShip.getShipName();
+        line = insertData(line,"%PLAYER_SPOUSE_FLAGSHIP_NAME",data);
+
+        data = GenderUtils.husbandOrWife(Global.getSector().getPlayerPerson(), false);
+        line = insertData(line,"%PLAYER_SPOUSE_GENDER_HUSBAND_OR_WIFE",data);
+        return line;
+    }
+    private static String getPlayerNoPartnerStringMods(String line, Lord lord){
+        String data = Global.getSector().getPlayerFaction().getDisplayName();
+        line = insertData(line,"%PLAYER_SPOUSE_FACTION_NAME",data);
+
+        data = Global.getSector().getPlayerPerson().getNameString();
+        line = insertData(line,"%PLAYER_SPOUSE_NAME",data);
+
+        data = Global.getSector().getPlayerPerson().getManOrWoman();
+        line = insertData(line,"%PLAYER_SPOUSE_GENDER_MAN_OR_WOMEN",data);
+
+        data = Global.getSector().getPlayerPerson().getHeOrShe();
+        line = insertData(line,"%PLAYER_SPOUSE_GENDER_HE_OR_SHE",data);
+
+        data = Global.getSector().getPlayerPerson().getHimOrHer();
+        line = insertData(line,"%PLAYER_SPOUSE_GENDER_HIM_OR_HER",data);
+
+        data = Global.getSector().getPlayerPerson().getHisOrHer();
+        line = insertData(line,"%PLAYER_SPOUSE_GENDER_HIS_OR_HER",data);
+
+        data = Global.getSector().getPlayerPerson().getGender().name();
+        line = insertData(line,"%PLAYER_SPOUSE_GENDER_NAME",data);
+
+        FleetMemberAPI flownShip = getFlownShip(Global.getSector().getPlayerPerson(),Global.getSector().getPlayerFleet());
+        data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
+        if (flownShip != null) data = flownShip.getHullSpec().getHullName();
+        line = insertData(line,"%PLAYER_SPOUSE_FLAGSHIP_HULLNAME",data);
+
+        data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
+        if (flownShip != null) data = flownShip.getShipName();
+        line = insertData(line,"%PLAYER_SPOUSE_FLAGSHIP_NAME",data);
+
+        data = GenderUtils.husbandOrWife(Global.getSector().getPlayerPerson(), false);
+        line = insertData(line,"%PLAYER_SPOUSE_GENDER_HUSBAND_OR_WIFE",data);
         return line;
     }
     private static String getLordStringMods(String line, Lord lord){
@@ -151,17 +243,113 @@ public class DialogSet {
         data = lord.getLordAPI().getGender().name();
         line = insertData(line,"%LORD_GENDER_NAME",data);
 
+        FleetMemberAPI flownShip = getFlownShip(lord.getLordAPI(),lord.getFleet());
         data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
-        if (lord.getFleet().getFlagship() != null) data = lord.getFleet().getFlagship().getHullSpec().getHullName();
+        if (flownShip != null) data = flownShip.getHullSpec().getHullName();
         line = insertData(line,"%LORD_FLAGSHIP_HULLNAME",data);
 
         data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
-        if (lord.getFleet().getFlagship() != null) lord.getFleet().getFlagship().getShipName();
+        if (flownShip != null) data = flownShip.getShipName();
         line = insertData(line,"%LORD_FLAGSHIP_NAME",data);
 
         data = GenderUtils.husbandOrWife(lord.getLordAPI(), false);
         line = insertData(line,"%LORD_GENDER_HUSBAND_OR_WIFE",data);
         return line;
+    }
+    private static String getLordPartnerStringMods(String line, Lord lord){
+        if (LordController.getPlayerLord().getSpouse() == null){
+            return getLordNoPartnerStringMods(line,lord);
+        }
+        Lord lordTemp = LordController.getLordById(LordController.getPlayerLord().getSpouse());
+        if (lordTemp == null){
+            return getLordNoPartnerStringMods(line,lord);
+        }
+        lord = lordTemp;
+        //PLAYER_SPOUSE_FACTION_NAME
+        String data = lord.getFaction().getDisplayName();
+        line = insertData(line,"%LORD_SPOUSE_FACTION_NAME",data);
+
+        data = Global.getSector().getFaction(lord.getTemplate().factionId).getDisplayName();//Global.getSector().getPlayerFaction().getDisplayName();
+        line = insertData(line,"%LORD_SPOUSE_STARTING_FACTION_NAME",data);
+
+        data = lord.getLordAPI().getNameString();
+        line = insertData(line,"%LORD_SPOUSE_NAME",data);
+
+        data = lord.getLordAPI().getManOrWoman();
+        line = insertData(line,"%LORD_SPOUSE_GENDER_MAN_OR_WOMEN",data);
+
+        data = lord.getLordAPI().getHeOrShe();
+        line = insertData(line,"%LORD_SPOUSE_GENDER_HE_OR_SHE",data);
+
+        data = lord.getLordAPI().getHimOrHer();
+        line = insertData(line,"%LORD_SPOUSE_GENDER_HIM_OR_HER",data);
+
+        data = lord.getLordAPI().getHisOrHer();
+        line = insertData(line,"%LORD_SPOUSE_GENDER_HIS_OR_HER",data);
+
+        data = lord.getLordAPI().getGender().name();
+        line = insertData(line,"%LORD_SPOUSE_GENDER_NAME",data);
+
+        FleetMemberAPI flownShip = getFlownShip(lord.getLordAPI(),lord.getFleet());
+        data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
+        if (flownShip != null) data = flownShip.getHullSpec().getHullName();
+        line = insertData(line,"%LORD_SPOUSE_FLAGSHIP_HULLNAME",data);
+
+        data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
+        if (flownShip != null) data = flownShip.getShipName();
+        line = insertData(line,"%LORD_SPOUSE_FLAGSHIP_NAME",data);
+
+        data = GenderUtils.husbandOrWife(lord.getLordAPI(), false);
+        line = insertData(line,"%LORD_SPOUSE_GENDER_HUSBAND_OR_WIFE",data);
+        return line;
+    }
+    private static String getLordNoPartnerStringMods(String line, Lord lord){
+        String data = lord.getFaction().getDisplayName();
+        line = insertData(line,"%LORD_SPOUSE_FACTION_NAME",data);
+
+        data = Global.getSector().getFaction(lord.getTemplate().factionId).getDisplayName();//Global.getSector().getPlayerFaction().getDisplayName();
+        line = insertData(line,"%LORD_SPOUSE_STARTING_FACTION_NAME",data);
+
+        data = lord.getLordAPI().getNameString();
+        line = insertData(line,"%LORD_SPOUSE_NAME",data);
+
+        data = lord.getLordAPI().getManOrWoman();
+        line = insertData(line,"%LORD_SPOUSE_GENDER_MAN_OR_WOMEN",data);
+
+        data = lord.getLordAPI().getHeOrShe();
+        line = insertData(line,"%LORD_SPOUSE_GENDER_HE_OR_SHE",data);
+
+        data = lord.getLordAPI().getHimOrHer();
+        line = insertData(line,"%LORD_SPOUSE_GENDER_HIM_OR_HER",data);
+
+        data = lord.getLordAPI().getHisOrHer();
+        line = insertData(line,"%LORD_SPOUSE_GENDER_HIS_OR_HER",data);
+
+        data = lord.getLordAPI().getGender().name();
+        line = insertData(line,"%LORD_SPOUSE_GENDER_NAME",data);
+
+        FleetMemberAPI flownShip = getFlownShip(lord.getLordAPI(),lord.getFleet());
+        data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
+        if (flownShip != null) data = flownShip.getHullSpec().getHullName();
+        line = insertData(line,"%LORD_SPOUSE_FLAGSHIP_HULLNAME",data);
+
+        data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
+        if (flownShip != null) data = flownShip.getShipName();
+        line = insertData(line,"%LORD_SPOUSE_FLAGSHIP_NAME",data);
+
+        data = GenderUtils.husbandOrWife(lord.getLordAPI(), false);
+        line = insertData(line,"%LORD_SPOUSE_GENDER_HUSBAND_OR_WIFE",data);
+        return line;
+    }
+    private static FleetMemberAPI getFlownShip(PersonAPI lord, CampaignFleetAPI fleet){
+        FleetMemberAPI output = fleet.getFlagship();
+        if (fleet.getFlagship().getCaptain().getId().equals(lord.getId())) return output;
+        for (FleetMemberAPI a : fleet.getFleetData().getMembersListCopy()){
+            if (a.getCaptain() != null && a.getCaptain().getId().equals(lord.getId())){
+                return a;
+            }
+        }
+        return null;
     }
 
     private static boolean markAtStart(String line, String mark){
@@ -248,6 +436,8 @@ public class DialogSet {
     @Getter
     private HashMap<String,String> dialog = new HashMap<>();
     private ArrayList<DialogRule_Base> rules = new ArrayList();
+    private HashMap<String,ArrayList<DialogAddon_Base>> addons = new HashMap<>();
+    private HashMap<String, Color> colorOverride = new HashMap<>();
     public DialogSet(String name,int priority){
         while (organizedDialogSets.size() < priority){
             organizedDialogSets.add(new ArrayList<>());
@@ -269,10 +459,19 @@ public class DialogSet {
             JSONObject lines = jsonObject.getJSONObject("lines");
             for (Iterator it = lines.keys(); it.hasNext();) {
                 String key = (String) it.next();
+                boolean isObject = true;
+                try{
+                    lines.getJSONObject(key);
+                }catch (Exception e){
+                    isObject = false;
+                }
+                if (isObject){
+                    getAddonFromJSon(key,lines.getJSONObject(key));
+                    continue;
+                }
                 addLine(key,lines.getString(key));
             }
         }
-
         if (jsonObject.has("priority")) priority = jsonObject.getInt("priority");
         while (organizedDialogSets.size() <= priority){
             organizedDialogSets.add(new ArrayList<>());
@@ -286,6 +485,37 @@ public class DialogSet {
         }
         return true;
     }
+    public void applyLine(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options,HashMap<String,String> markersReplaced){
+        //apply a paragraph of text for the current line
+        String line = this.getLine(key);
+        line = insertDefaltData(line,lord);
+        line = insertAdditionalData(line,markersReplaced);
+        if (colorOverride.containsKey(key)){
+            textPanel.addPara(line,colorOverride.get(key));
+        }else{
+            textPanel.addPara(line);
+        }
+        //add on all addons.
+        if (addons.containsKey(key)){
+            for (DialogAddon_Base a : addons.get(key)){
+                a.apply(textPanel,options,lord);
+            }
+        }
+    }
+    public void applyOption(String key,String hintKey, Lord lord, TextPanelAPI textPanel, Object optionData, OptionPanelAPI options,HashMap<String,String> markersReplaced){
+        String line = this.getLine(key);
+        line = insertDefaltData(line,lord);
+        line = insertAdditionalData(line,markersReplaced);
+        options.addOption(line, optionData);
+
+        if (hintKey != null){
+            line = this.getLine(hintKey);
+            line = insertDefaltData(line,lord);
+            line = insertAdditionalData(line,markersReplaced);
+            //add hint. only I dont remember howwwww.... =(
+        }
+
+    }
     public void addLine(String key,String line){
         dialog.put(key,line);
     }
@@ -296,9 +526,88 @@ public class DialogSet {
         return dialog.containsKey(key);
     }
 
+    @SneakyThrows
+    public void getAddonFromJSon(String key,JSONObject line) {
+        addLine(key, line.getString("line"));
+        if (line.has("addon")) {
+            JSONObject addons = line.getJSONObject("addon");
+            ArrayList<DialogAddon_Base> newAddons = new ArrayList();
+            for (Iterator it = addons.keys(); it.hasNext(); ) {
+                String key2 = (String) it.next();
+                DialogAddon_Base addon = null;
+                switch (key2) {
+                    case "repIncrease":
+                        addon = addAddon_repIncrease(addons, key2);
+                        break;
+                    case "repDecrease":
+                        addon = addAddon_repDecrease(addons, key2);
+                        break;
+                    case "creditsIncrease":
+                        addon = addAddon_creditsIncrease(addons, key2);
+                        break;
+                    case "creditsDecrease":
+                        addon = addAddon_creditsDecrease(addons, key2);
+                        break;
+                }
+                if (addon != null) newAddons.add(addon);
+            }
+            this.addons.put(key, newAddons);
+        }
+        if (line.has("color")){
+            boolean isArray = true;
+            try {
+                line.getJSONObject("color");
+            }catch (Exception e){
+                isArray = false;
+            }
+            if (isArray){
+                JSONObject color = line.getJSONObject("color");
+                int r=0,g=0,b=0,a=255;
+                if (color.has("r")) r = color.getInt("r");
+                if (color.has("g")) g = color.getInt("g");
+                if (color.has("b")) b = color.getInt("b");
+                if (color.has("a")) a = color.getInt("a");
+                colorOverride.put(key,new Color(r,g,b,a));
+            }else{
+                getColorDefault(key,line.getString("color"));
+            }
+        }
+    }
+    private void getColorDefault(String key, String color){
+        switch (color){
+            case "RED":{
+                colorOverride.put(key,Color.RED);
+                break;
+            }
+            case "GREEN":{
+                colorOverride.put(key,Color.GREEN);
+                break;
+            } case "YELLOW":{
+                colorOverride.put(key,Color.YELLOW);
+            }
+        }
+    }
 
-
-
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_repIncrease(JSONObject json, String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogAddon_repIncrease(json2.getInt("min"),json2.getInt("max"));
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_repDecrease(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogAddon_repDecrease(json2.getInt("min"),json2.getInt("max"));
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_creditsIncrease(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogAddon_creditIncrease(json2.getInt("min"),json2.getInt("max"));
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_creditsDecrease(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogAddon_creditDecrease(json2.getInt("min"),json2.getInt("max"));
+    }
 
     public static ArrayList<DialogRule_Base> getDialogFromJSon(JSONObject rulesTemp){
         ArrayList<DialogRule_Base> rules = new ArrayList<>();
@@ -317,6 +626,12 @@ public class DialogSet {
                     break;
                 case "isMarriedToPlayer":
                     rules.add(addRule_isMarriedToPlayer(rulesTemp,key));
+                    break;
+                case "isMarried":
+                    rules.add(addRule_isMarried(rulesTemp,key));
+                    break;
+                case "isPlayerMarried":
+                    rules.add(addRule_isPlayerMarried(rulesTemp,key));
                     break;
                 case "willEngage":
                     rules.add(addRule_willEngage(rulesTemp,key));
@@ -389,6 +704,14 @@ public class DialogSet {
     }
     @SneakyThrows
     private static DialogRule_Base addRule_isMarriedToPlayer(JSONObject json, String key){
+        return new DialogRule_isMarriedToPlayer(json.getBoolean(key));
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_isMarried(JSONObject json, String key){
+        return new DialogRule_isMarriedToPlayer(json.getBoolean(key));
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_isPlayerMarried(JSONObject json, String key){
         return new DialogRule_isMarriedToPlayer(json.getBoolean(key));
     }
     @SneakyThrows

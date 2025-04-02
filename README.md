@@ -104,11 +104,14 @@ If you're a modder, or just someone who likes S-Mods you might want to expand on
 ### Adding Custom dialog to lords
 If you're a modder, or just someone who loves to write dialog for every starlord in your lords.json, you might want to create custom dialog lines with custom conditions for your starlords. All you have to do is add another entry to the [dialog.json](https://github.com/Deluth-git/Starlords/blob/master/data/lords/dialog.json) file. A few notes:
 * "priority" is the priority of this dialog. should have a value of at least 1 the dialog with the highest priority that has all its "rule" reuqirements met will be used in any instance, unless the lord you are talking to has a at least one valid "dialogOverride"
+  * please note: if you intend for a dialog to only be used by certain lords, you should set the priority to 0. then it will never be used by anyone other than the lords set to use that dialog in particular
 * "rules" is each requirement that must be met for a set of dialog to be used by a given starlord. every condition must be met for this to happen. conditions are as follows:
   * "relationWithPlayer" is the relationship range that this lord must have with a player to meet requirements. set between a "min" and "max" value. range must be between -100 and 100.
   * "startingFaction" is the starting faction required to meet requirements. starting faction is the faction a lord was part of when they first spawned. set to true for whitelist, and false for blacklist. To meet requirements, a lord must have a starting faction of one of the 'true' factions (if any are created in this rule), and must not have a stating faction of the 'false' factions.
   * "currentFaction" is the current faction required to meet requirements. set to true for whitelist, and false for blacklist. To meet requirements, a lord must have a current faction of one of the 'true' factions (if any are created in this rule), and must not have a current faction of the 'false' factions.
   * "isMarriedToPlayer" if set to true, the lord must be married to the player to meet requirements. if set to false, the lord must not be married to the player to meet requirements
+  * "isMarried" if set to true, the lord must be married to meet requirements, if set to false, the lord must not be married to meet requirements.
+  * "isPlayerMarried" if set to true, the player must be married to meet requirements, if set to false, the player must not be married to meet requirements.
   * "willEngage" if set to true, the lord must be willing to attack the player to meet requirements. if set to false, they must be unwilling to attack to meet requirements
   * "hostileFaction" if set to true, the lord must be part of a faction hostile player to meet requirements. if set to false, the lord must not be part of a faction hostile player to meet requirements 
   * "isAtFeast" if set to true, the lord must be at a feast to meet requirements. if set to false, the lord must not be at a feast to meet requirements
@@ -126,8 +129,32 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "Steady"
     * "Cautious"
     * "Timid"
-  * "???playerLord???" (not compleateing this line, because I dont know if this is a thing. more data required)if set to true, the lord must be the lord of the player (and as such, the player must be part of the lords faction, and ) to meet requirements
-* "lines" is the dialog lines for every line a starlord speaks. you can also input a number of custom markers into your dialog that will be replaced with data automaticly. the markers are as follows:
+* "lines" is the dialog lines for every line a starlord speaks. this comes in 2 forms. the first, wish we will call basic, and the second, that we will call advanced:
+  * basic is simply a "lineID": "new string";
+  * advanced is more complicated. its a json object, that must include a "line" (to act as the normal lineID), but also additional json peramiters. "addons" are . the "addons" are as follows:
+    * "addons" additional conditions and effects that you can have run at the moment this line is ran. most 'addons' also add a line of dialog to show what effects they had. in addition, any "option_" line cannot use "addons"
+      * "repIncrease":
+          * "min": Integer
+          * "max": Integer
+      * "repDecrease": 
+          * "min": Integer
+          * "max": Integer
+      * "creditsIncrease": 
+          * "min": Integer
+          * "max": Integer
+      * "creditsDecrease": 
+          * "min": Integer
+          * "max": Integer
+    * "color" color override for this dialog line. not required. has 3 'preset' colors, but also the option for a custom color. cannot be used in any "option_" line.
+      * "RED"
+      * "GREEN"
+      * "YELLOW"
+      * optional array is as follows: (with a default value of 0 for r,b,g, and a default value of 255 for a.)
+      * "r"
+      * "g"
+      * "b"
+      * "a"
+  * for both basic and advanced lines, you can also input a number of custom markers into your dialog that will be replaced with data automaticly. the markers are as follows
   * "%PLAYER_FACTION_NAME"
   * "%PLAYER_NAME" 
   * "%PLAYER_GENDER_MAN_OR_WOMEN"
@@ -136,8 +163,21 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "%PLAYER_GENDER_HIS_OR_HER"
   * "%PLAYER_GENDER_HUSBAND_OR_WIFE"
   * "%PLAYER_GENDER_NAME" player gender
-  * "%PLAYER_FLAGSHIP_HULLNAME" player flagship ship hull name (return "nothing" if the player has no flagship)
-  * "%PLAYER_FLAGSHIP_NAME" player flagship name (returns "nothing" if the player has no flagship)
+  * "%PLAYER_FLAGSHIP_HULLNAME" player captioned ship hull name (return "nothing" if the player has no captioned ship)
+  * "%PLAYER_FLAGSHIP_NAME" player captioned ship name (returns "nothing" if the player has no captioned ship)
+
+  * Note: all %PLAYER_SPOUSE markers will instead return the players data if they are not married. so be careful using this to avoid confusion or accidental mockery
+  * "%PLAYER_SPOUSE_FACTION_NAME"
+  * "%PLAYER_SPOUSE_NAME"
+  * "%PLAYER_SPOUSE_GENDER_MAN_OR_WOMEN"
+  * "%PLAYER_SPOUSE_GENDER_HE_OR_SHE"
+  * "%PLAYER_SPOUSE_GENDER_HIM_OR_HER"
+  * "%PLAYER_SPOUSE_GENDER_HIS_OR_HER"
+  * "%PLAYER_SPOUSE_GENDER_HUSBAND_OR_WIFE"
+  * "%PLAYER_SPOUSE_GENDER_NAME" player gender
+  * "%PLAYER_SPOUSE_FLAGSHIP_HULLNAME" partners currently captioned ships hullname (return "nothing" if the partner has no captioned ship).
+  * "%PLAYER_SPOUSE_FLAGSHIP_NAME" partner captioned ship name (returns "nothing" if the partner has no captioned ship).
+
 
   * "%LORD_FACTION_NAME" 
   * "%LORD_STARTING_FACTION_NAME"
@@ -150,7 +190,20 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "%LORD_GENDER_NAME"
   * "%LORD_FLAGSHIP_HULLNAME" lord flagship ship hull name (return "nothing" if the lord has no flagship)
   * "%LORD_FLAGSHIP_NAME" lord flagship name (returns "nothing" if the lord has no flagship)
-  
+
+  * Note: all %LORD_SPOUSE markers will instead return the lords data if they are not married. so be careful using this to avoid confusion or accidental mockery
+  * "%LORD_SPOUSE_FACTION_NAME"
+  * "%LORD_SPOUSE_STARTING_FACTION_NAME"
+  * "%LORD_SPOUSE_NAME"
+  * "%LORD_SPOUSE_GENDER_MAN_OR_WOMEN"
+  * "%LORD_SPOUSE_GENDER_HE_OR_SHE"
+  * "%LORD_SPOUSE_GENDER_HIM_OR_HER"
+  * "%LORD_SPOUSE_GENDER_HIS_OR_HER"
+  * "%LORD_SPOUSE_GENDER_HUSBAND_OR_WIFE"
+  * "%LORD_SPOUSE_GENDER_NAME"
+  * "%LORD_SPOUSE_FLAGSHIP_HULLNAME" partner captioned ship hull name (return "nothing" if the partner has no captioned ship).
+  * "%LORD_SPOUSE_FLAGSHIP_NAME" partner captioned ship name (returns "nothing" if the partner has no captioned ship).
+
   *some lines will also use custom inputted data. in this case, they will use the '%c#' marker, with # being the order they are added to the line.
   *available lines to override are follows:
     * "greeting_host_feast"
@@ -186,7 +239,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "spend_time_together6_0"
     * "spend_time_together_after"
     * "spend_time_together_hint"
-    *
+    * "marriage_ceremony" %c0 is your new partners name, and %c1 is the name of the person hosting the ceremony
     *
     *
     *
@@ -194,6 +247,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "relation_decrease" %c0 represents amount of reputation gained
     * "addedIntel" 
     *
+    * "option_suggest_action"
     * "option_speak_privately"
     * "option_cutComLink"
     * "option_ask_current_task"

@@ -1,6 +1,6 @@
 {
   "martial_marriedToPlayer": {
-    "priority": 4,
+    "priority": 5,
     "rules": {
       "lordPersonality": {
         "Martial": true
@@ -12,7 +12,7 @@
     }
   },
   "calculating_marriedToPlayer": {
-    "priority": 4,
+    "priority": 5,
     "rules": {
       "lordPersonality": {
         "Calculating": true
@@ -24,7 +24,7 @@
     }
   },
   "quarrelsome_marriedToPlayer": {
-    "priority": 4,
+    "priority": 5,
     "rules": {
       "lordPersonality": {
         "Quarrelsome": true
@@ -50,7 +50,7 @@
 
 
   "martial_subject": {
-    "priority": 3,
+    "priority": 4,
     "rules": {
       "lordPersonality": {
         "Martial": true
@@ -62,7 +62,7 @@
     }
   },
   "calculating_subject": {
-    "priority": 3,
+    "priority": 4,
     "rules": {
       "lordPersonality": {
         "Calculating": true
@@ -74,7 +74,7 @@
     }
   },
   "quarrelsome_subject": {
-    "priority": 3,
+    "priority": 4,
     "rules": {
       "lordPersonality": {
           "Quarrelsome": true
@@ -86,7 +86,7 @@
     }
   },
   "upstanding_subject": {
-    "priority": 3,
+    "priority": 4,
     "rules": {
       "lordPersonality": {
         "Upstanding": true
@@ -100,7 +100,7 @@
 
 
   "martial_Cooperative": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": 75,
@@ -115,7 +115,7 @@
     }
   },
   "martial_Friendly": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": 50,
@@ -130,7 +130,7 @@
     }
   },
   "martial_Welcoming": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": 25,
@@ -145,7 +145,7 @@
     }
   },
   "martial_Favorable": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": 10,
@@ -160,7 +160,7 @@
     }
   },
   "martial_Neutral": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": -9,
@@ -175,7 +175,7 @@
     }
   },
   "martial_Suspicious": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": -24,
@@ -190,7 +190,7 @@
     }
   },
   "martial_Inhospitable": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": -49,
@@ -205,7 +205,7 @@
     }
   },
   "martial_Hostile": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": -74,
@@ -220,7 +220,7 @@
     }
   },
   "martial_Vengeful": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": -100,
@@ -236,7 +236,7 @@
   },
 
   "calculating_Cooperative": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": 75,
@@ -251,7 +251,7 @@
     }
   },
   "calculating_Friendly": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": 50,
@@ -266,7 +266,7 @@
     }
   },
   "calculating_Welcoming": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": 25,
@@ -281,7 +281,7 @@
     }
   },
   "calculating_Favorable": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": 10,
@@ -296,7 +296,7 @@
     }
   },
   "calculating_Neutral": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": -9,
@@ -311,7 +311,7 @@
     }
   },
   "calculating_Suspicious": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": -24,
@@ -326,7 +326,7 @@
     }
   },
   "calculating_Inhospitable": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": -49,
@@ -341,7 +341,7 @@
     }
   },
   "calculating_Hostile": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": -74,
@@ -356,7 +356,7 @@
     }
   },
   "calculating_Vengeful": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": -100,
@@ -372,7 +372,7 @@
   },
 
   "quarrelsome_Cooperative": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": 75,
@@ -387,7 +387,7 @@
     }
   },
   "quarrelsome_Friendly": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": 50,
@@ -402,7 +402,7 @@
     }
   },
   "quarrelsome_Welcoming": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": 25,
@@ -417,7 +417,7 @@
     }
   },
   "quarrelsome_Favorable": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": 10,
@@ -432,7 +432,7 @@
     }
   },
   "quarrelsome_Neutral": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": -9,
@@ -447,7 +447,7 @@
     }
   },
   "quarrelsome_Suspicious": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": -24,
@@ -462,7 +462,7 @@
     }
   },
   "quarrelsome_Inhospitable": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": -49,
@@ -477,7 +477,7 @@
     }
   },
   "quarrelsome_Hostile": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": -74,
@@ -492,7 +492,7 @@
     }
   },
   "quarrelsome_Vengeful": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": -100,
@@ -508,7 +508,7 @@
   },
 
   "upstanding_Cooperative": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": 75,
@@ -523,7 +523,7 @@
     }
   },
   "upstanding_Friendly": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": 50,
@@ -538,7 +538,7 @@
     }
   },
   "upstanding_Welcoming": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": 25,
@@ -553,7 +553,7 @@
     }
   },
   "upstanding_Favorable": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": 10,
@@ -568,7 +568,7 @@
     }
   },
   "upstanding_Neutral": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": -9,
@@ -583,7 +583,7 @@
     }
   },
   "upstanding_Suspicious": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": -24,
@@ -598,7 +598,7 @@
     }
   },
   "upstanding_Inhospitable": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": -49,
@@ -613,7 +613,7 @@
     }
   },
   "upstanding_Hostile": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": -74,
@@ -628,7 +628,7 @@
     }
   },
   "upstanding_Vengeful": {
-    "priority": 2,
+    "priority": 3,
     "rules":{
       "relationWithPlayer": {
         "min": -100,
@@ -644,7 +644,7 @@
   },
 
   "martial": {
-    "priority": 1,
+    "priority": 2,
     "rules": {
       "lordPersonality": {
         "Martial": true
@@ -657,7 +657,7 @@
     }
   },
   "calculating": {
-    "priority": 1,
+    "priority": 2,
     "rules": {
       "lordPersonality": {
         "Calculating": true
@@ -670,7 +670,7 @@
     }
   },
   "quarrelsome": {
-    "priority": 1,
+    "priority": 2,
     "rules": {
       "lordPersonality": {
         "Quarrelsome": true
@@ -683,7 +683,7 @@
     }
   },
   "upstanding": {
-    "priority": 1,
+    "priority": 2,
     "rules": {
       "lordPersonality": {
         "Upstanding": true
@@ -696,7 +696,7 @@
     }
   },
   "default": {
-    "priority": 0,
+    "priority": 1,
     "rules":{
 
     },
@@ -740,16 +740,23 @@
       "spend_time_together4": "You and %LORD_NAME slip away from the commotion of the feast and step onto the balcony. The night sky is sprawled before you, a canvas of twinkling stars, each a reminder of the once-glorious reach of humanity and its Icarian downfall. %LORD_NAME traces the outline of a distant nebula with %LORD_GENDER_HIS_OR_HER finger, reminiscing of simpler days when %LORD_GENDER_HE_OR_SHE hoped to explore the stars as a carefree spacer. You promise that when peace finally returns to the core worlds, the two of you will journey to the edges of the sector. Together, you'll forge a future where the full wonders of the cosmos can be experienced by humanity once more.",
       "spend_time_together5": "As the gala’s vibrant chatter fades behind you, you and %LORD_NAME step into the cool night, the stars shimmering like distant jewels overhead. You meander along the manicured gardens of the host's opulent estate. %LORD_NAME begins sharing tales navigating treacherous politics in gilded halls, %LORD_GENDER_HIS_OR_HER laughter echoing softly in the stillness. You have no shortage of your own stories to tell, recounting how you decided to become a captain and secured your first ship and crew. The vastness of the universe feels a little smaller as you walk, the night growing richer with each revelation.",
       "spend_time_together6": "Amid the lavish displays of the feast, you and %LORD_NAME wander over to a round table where a lively card game was in full swing, laughter and friendly banter filling the air. With a smirk, %LORD_GENDER_HE_OR_SHE tosses a handful of chips onto the pile, drawing the attention of the other players. You're also pulled into the game, but you quickly notice that %LORD_NAME is fully in their element. Despite your efforts, the best you can do is escape without major losses as %LORD_GENDER_HE_OR_SHE methodically cleans out the table. \n\"Thanks for that\", %LORD_NAME says teasingly. \"I really needed a punching bag to blow off some steam.\"",
-      "spend_time_together6_0": "Lost %c0 credits.",
       "spend_time_together_after": "At the end of the evening, you prepare to part ways. This is your chance to present them with a gift.",
       "spend_time_together_hint": "Your gift will significantly color their opinion of you. It's ok to give nothing if you aren't certain of their preferences.",
 
+      "marriage_ceremony": "The mood at the feast elevates as word spreads about the marriage between you and %c0. Your crew and comrades gather around you, offering their congratulations in turn. The host, %c1, officiates your union amidst cheers and celebration. You have gained an ally for life.",
+
       "relation_increase": "Relations with %LORD_NAME increased by %c0.",
       "relation_decrease": "Relations with %LORD_NAME decreased by %c0.",
-      "addedIntel": "Added intel on %LORD_NAME",
+      "credits_increase": "Gained %c0 credits.",
+      "credits_decrease": "Lost %c0 credits.",
+      "addedIntel": {
+        "line": "Added intel on %LORD_NAME",
+        "color": "GREEN"
+      },
 
 
 
+      "option_suggest_action": "Suggest a course of action.",
       "option_speak_privately": "Ask to speak privately.",
       "option_cutComLink": "Cut the comm link.",
       "option_ask_current_task": "Ask about their current assignment.",

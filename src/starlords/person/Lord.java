@@ -89,6 +89,9 @@ public class Lord {
     @Setter
     private boolean married;
 
+    @Setter
+    private String spouse;
+
     // number of romantic actions the player has performed for this lord
     @Setter
     private int romanticActions;
