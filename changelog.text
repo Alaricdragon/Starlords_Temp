@@ -1,3 +1,5 @@
+V0.3.20:
+    added crash protection to the raiding function.
 V0.3.19:
     fixed a crash related to failing to get certain text parameters in lord dialog.
 V0.3.18:
