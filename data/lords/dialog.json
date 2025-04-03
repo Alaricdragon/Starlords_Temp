@@ -718,8 +718,24 @@
       "cant_start_tournament": "Unfortunately, we need at least four lord sponsors in order to cover the organization fees and prize pool. Please check back later.",
       "confirm_start_tournament": "Very well. If you're going to challenge me, I was looking for an excuse to brush up on my piloting skills anyway. I'll see you in the arena!",
 
-      "dedicate_tournament": "Oh my, I'm very touched that you were thinking of me.",
-      "dedicate_tournament_again": "Another tournament dedication? Well, I suppose it's always welcome...",
+      "dedicate_tournament": {
+        "line": "Oh my, I'm very touched that you were thinking of me.",
+        "addons": {
+          "repIncrease": {
+            "max": 10,
+            "min": 10
+          }
+        }
+      },
+      "dedicate_tournament_again": {
+        "line": "Another tournament dedication? Well, I suppose it's always welcome...",
+        "addons": {
+          "repIncrease": {
+            "max": 5,
+            "min": 5
+          }
+        }
+      },
 
 
       "greeting_host_feast": "Welcome to my estate, %PLAYER_NAME. You are under my protection here; please make yourself at home.",
@@ -729,9 +745,27 @@
       "greetings_hostile": "(error) Oh look here. Its the one and only idiot who dares to stand in my way!",
       "greetings_other": "(error) Hello again %PLAYER_NAME",
 
-      "admiration_response_hate": "Oh, you're not joking? Well, at least this will be entertaining.",
-      "admiration_response_dislike": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
-      "admiration_response_like": "You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
+      "admiration_response_hate":{
+        "line":"Oh, you're not joking? Well, at least this will be entertaining.",
+        "repDecrease": {
+          "max": 10,
+          "min": 10
+        }
+      },
+      "admiration_response_dislike":{
+        "line":"Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+        "repDecrease": {
+          "max": 2,
+          "min": 2
+        }
+      },
+      "admiration_response_like": {
+        "line":"You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
+        "repIncrease": {
+          "max": 10,
+          "min": 10
+        }
+      },
 
 
       "spend_time_together1": "The tables at the feast are lined with dishes that sparkle under the soft glow of chandeliers, each plate a culinary masterpiece. You and %LORD_NAME sample exquisite butters infused with rare spices. %LORD_NAME begins sharing tales of narrow escapes and fierce battles fought on faraway stars. You respond with a grin, recounting a similarly audacious ambush. In that moment, the weight of your pasts feel lighter, buoyed by fine food and the warmth of camaraderie.",
@@ -755,6 +789,12 @@
       },
 
 
+
+      "option_avoid_battle": {
+        "line":"Hold your fire! I do not wish to fight you.",
+        "color": "YELLOW"
+      },
+      "tooltip_avoid_battle": "-10 Relations if successful",
 
       "option_suggest_action": "Suggest a course of action.",
       "option_speak_privately": "Ask to speak privately.",

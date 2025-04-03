@@ -411,7 +411,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     private void optionSelected_INIT_FIRSTCONTACT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option) {
         if (!hasGreeted) {
             hasGreeted = true;
-            textPanel.addParagraph(DialogSet.getLineWithInserts(targetLord,"greetings_first"));
+            DialogSet.addParaWithInserts("greetings_first",targetLord,textPanel,options);
         }
         support_INIT_NOTHOSTILEOPTIONS(optionText,optionData,player,willEngage,hostile,feast,option);
         support_INIT_BASICOPTIONS(optionText,optionData,player,willEngage,hostile,feast,option);
@@ -419,66 +419,27 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     private void optionSelected_INIT_OTHER(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         if (!hasGreeted){
             hasGreeted = true;
-            textPanel.addParagraph(DialogSet.getLineWithInserts(targetLord,"greetings_other"));
-            /*marriedToPlayer
-                greetings_upstanding_spouse
-                greetings_martial_spouse
-                greetings_calculating_spouse
-                greetings_quarrelsome_spouse
-            isSubject
-                greetings_upstanding_subject
-                greetings_martial_subject
-                greetings_calculating_subject
-                greetings_quarrelsome_subject
-            rel -100 - -75
-                greetings_upstanding_hated
-                greetings_martial_hated
-                greetings_calculating_hated
-                greetings_quarrelsome_hated
-            rel -74 - -25
-                greetings_upstanding_disliked
-                greetings_martial_disliked
-                greetings_calculating_disliked
-                greetings_quarrelsome_disliked
-            rel -24 - 24
-                greetings_upstanding_neutral
-                greetings_martial_neutral
-                greetings_calculating_neutral
-                greetings_quarrelsome_neutral
-            rel 25 - 74
-                greetings_upstanding_friendly
-                greetings_martial_friendly
-                greetings_calculating_friendly
-                greetings_quarrelsome_friendly
-            rel 75 - 100
-                greetings_upstanding_trusted
-                greetings_martial_trusted
-                greetings_calculating_trusted
-                greetings_quarrelsome_trusted*/
+            DialogSet.addParaWithInserts("greetings_other",targetLord,textPanel,options);
         }
         support_INIT_NOTHOSTILEOPTIONS(optionText,optionData,player,willEngage,hostile,feast,option);
         support_INIT_BASICOPTIONS(optionText,optionData,player,willEngage,hostile,feast,option);
     }
     private void optionSelected_INIT_HOSTILE(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option) {
         if (!hasGreeted){
-            String greeting = "battle_" + targetLord.getPersonality().toString().toLowerCase();
             hasGreeted = true;
-            textPanel.addParagraph(DialogSet.getLineWithInserts(targetLord,"greetings_hostile"));
+            DialogSet.addParaWithInserts("greetings_hostile",targetLord,textPanel,options);
             //put text here.
         }
         if (willEngage) {
-            options.addOption(StringUtil.getString(CATEGORY, "option_avoid_battle"), OptionId.SUGGEST_CEASEFIRE, Color.YELLOW, "-10 Relations if successful");
-            //options.setTooltip(OptionId.SUGGEST_CEASEFIRE, "-10 Relations if successful");
+            DialogSet.addOptionWithInserts("option_avoid_battle","tooltip_avoid_battle",OptionId.SUGGEST_CEASEFIRE,targetLord,textPanel,options);
         }
         support_INIT_BASICOPTIONS(optionText,optionData,player,willEngage,hostile,feast,option);
     }
     private void optionSelected_DEDICATE_TOURNAMENT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         if (targetLord.isDedicatedTournament()) {
-            textPanel.addPara(DialogSet.getLineWithInserts(targetLord,"dedicate_tournament_again"));
-            applyRepIncrease(textPanel,targetLord,5);
+            DialogSet.addParaWithInserts("dedicate_tournament_again",targetLord,textPanel,options);
         } else {
-            textPanel.addPara(DialogSet.getLineWithInserts(targetLord,"dedicate_tournament"));
-            applyRepIncrease(textPanel,targetLord,10);
+            DialogSet.addParaWithInserts("dedicate_tournament",targetLord,textPanel,options);
         }
         targetLord.setRomanticActions(targetLord.getRomanticActions() + 1);
         feast.setVictoryDedicated(true);
@@ -496,12 +457,12 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     }
     private void optionSelected_ASK_TOURNAMENT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         if (feast == null || feast.getParticipants().size() < 3) {
-            textPanel.addPara(DialogSet.getLineWithInserts(targetLord,"cant_start_tournament"));
+            DialogSet.addParaWithInserts("cant_start_tournament",targetLord,textPanel,options);
         } else {
-            textPanel.addPara(DialogSet.getLineWithInserts(targetLord,"confirm_start_tournament"));
+            DialogSet.addParaWithInserts("confirm_start_tournament",targetLord,textPanel,options);
             options.clearOptions();
-            options.addOption(DialogSet.getLineWithInserts(targetLord,"option_continue_to_tournament"),OptionId.CONTINUE_TO_TOURNAMENT);
-            options.addOption(DialogSet.getLineWithInserts(targetLord,"option_avoid_tournament"), OptionId.INIT);
+            DialogSet.addOptionWithInserts("option_continue_to_tournament",null,OptionId.CONTINUE_TO_TOURNAMENT,targetLord,textPanel,options);
+            DialogSet.addOptionWithInserts("option_avoid_tournament",null,OptionId.INIT,targetLord,textPanel,options);
             options.setShortcut(OptionId.INIT, 1, false, false, false, true);
         }
     }
@@ -538,39 +499,37 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         if (targetLord.getTarget() != null) {
             args = targetLord.getTarget().getName();
         }
-        String text = DialogSet.getLineWithInserts(targetLord,id);
+        /*String text = DialogSet.getLineWithInserts(targetLord,id);
         text = DialogSet.insertData(text,"%n0",args);
-        textPanel.addParagraph(text);
+        textPanel.addParagraph(text);*/
+        HashMap<String,String> inserts = new HashMap<>();
+        inserts.put("%n0",args);
+        DialogSet.addParaWithInserts(id,targetLord,textPanel,options,inserts);
     }
     private void optionSelected_ASK_QUESTION(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         options.clearOptions();
-        options.addOption(DialogSet.getLineWithInserts(targetLord,"option_ask_location"), OptionId.ASK_LOCATION);
-        options.addOption(DialogSet.getLineWithInserts(targetLord, "option_ask_quest"), OptionId.ASK_QUEST);
+        DialogSet.addOptionWithInserts("option_ask_location",null,OptionId.ASK_LOCATION,targetLord,textPanel,options);
+        DialogSet.addOptionWithInserts("option_ask_quest",null,OptionId.ASK_QUEST,targetLord,textPanel,options);
         if (feast != null) {
             boolean playerIsMarried = LordController.getSpouse() != null;
             if (!feast.isProfessedAdmiration() && !targetLord.isCourted() && !playerIsMarried) {
-                options.addOption(DialogSet.getLineWithInserts(targetLord, "option_profess_admiration"),
-                        OptionId.PROFESS_ADMIRATION);
+                DialogSet.addOptionWithInserts("option_profess_admiration",null,OptionId.PROFESS_ADMIRATION,targetLord,textPanel,options);
             }
             if (targetLord.isCourted()) {
                 if (!feast.isHeldDate() && !playerIsMarried) {
-                    options.addOption(DialogSet.getLineWithInserts(targetLord, "option_ask_date"),
-                            OptionId.SUGGEST_DATE);
+                    DialogSet.addOptionWithInserts("option_ask_date",null,OptionId.SUGGEST_DATE,targetLord,textPanel,options);
                 }
                 if (!targetLord.isMarried() && feast.getWeddingCeremonyTarget() == null
                         && !playerIsMarried) {
-                    options.addOption(DialogSet.getLineWithInserts(targetLord, "option_ask_marriage"),
-                            OptionId.SUGGEST_MARRIAGE);
+                    DialogSet.addOptionWithInserts("option_ask_marriage",null,OptionId.SUGGEST_MARRIAGE,targetLord,textPanel,options);
                 }
             }
         }
         if (targetLord.isMarried()) {
             if (targetLord.getCurrAction() == LordAction.COMPANION) {
-                options.addOption(DialogSet.getLineWithInserts(targetLord, "option_ask_leave_party"),
-                        OptionId.SUGGEST_LEAVE_PARTY);
+                DialogSet.addOptionWithInserts("option_ask_leave_party",null,OptionId.SUGGEST_LEAVE_PARTY,targetLord,textPanel,options);
             } else {
-                options.addOption(DialogSet.getLineWithInserts(targetLord, "option_ask_join_party"),
-                        OptionId.SUGGEST_JOIN_PARTY);
+                DialogSet.addOptionWithInserts("option_ask_join_party",null,OptionId.SUGGEST_JOIN_PARTY,targetLord,textPanel,options);
             }
         }
         FactionAPI faction = targetLord.getFaction();
@@ -579,27 +538,61 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
             if (councilProposal != null
                     && !councilProposal.getPledgedAgainst().contains(targetLord.getLordAPI().getId())
                     && !councilProposal.getPledgedFor().contains(targetLord.getLordAPI().getId())) {
-                String arg;
                 if (councilProposal.isPlayerSupports()) {
-                    options.addOption(DialogSet.getLineWithInserts(targetLord, "option_sway_council_support"), OptionId.SWAY_PROPOSAL_COUNCIL);
                     swayFor = true;
                 } else {
-                    options.addOption(DialogSet.getLineWithInserts(targetLord, "option_sway_council_oppose"), OptionId.SWAY_PROPOSAL_COUNCIL);
                     swayFor = false;
                 }
+                DialogSet.addOptionWithInserts("option_sway_council_oppose",null,OptionId.SWAY_PROPOSAL_COUNCIL,targetLord,textPanel,options);
             }
             LawProposal playerProposal = PoliticsController.getProposal(LordController.getPlayerLord());
             if (playerProposal != null && !playerProposal.equals(councilProposal)
                     && !playerProposal.getPledgedAgainst().contains(targetLord.getLordAPI().getId())
                     && !playerProposal.getPledgedFor().contains(targetLord.getLordAPI().getId())) {
-                options.addOption(DialogSet.getLineWithInserts(targetLord, "option_sway_player"), OptionId.SWAY_PROPOSAL_PLAYER);
+                DialogSet.addOptionWithInserts("option_sway_player",null,OptionId.SWAY_PROPOSAL_PLAYER,targetLord,textPanel,options);
             }
         }
-        options.addOption(DialogSet.getLineWithInserts(targetLord,"option_nevermind"), OptionId.INIT);
+        DialogSet.addOptionWithInserts("option_nevermind",null,OptionId.INIT,targetLord,textPanel,options);
         options.setShortcut(OptionId.INIT, 1, false, false, false, true);
     }
     private void optionSelected_PROFESS_ADMIRATION(String optionText, Object optionData, PersonAPI player, boolean willEngage, boolean hostile, LordEvent feast,OptionId option){
         // 0 hate, 1 dislike, 2 like
+        /*ok, so if I want to swap this PROFESS_ADMIRATION function from lines, into 1 conditional line, what conditions do I require?
+        * after calculation, the total additional conditions required are:
+        * 1) number of lords courted
+        * 2) player level
+        * 3) player rank
+        * 4) player credits.
+        * upstanding:
+        *   1) number of corted lords???? (WTF????)
+        *   2) rep level.
+        *   (in total, 4 options):
+        *       none met
+        *       rep level met
+        *       courted lords met?
+        *       rep level met + courted lords met.
+        * marital
+        *   1) rep level
+        *   2) player level
+        *   (in total, 4 options):
+        *       none met
+        *       rep level met
+        *       player level met
+        *       rep + player level met.
+        * calculating
+        *   player rank (0,1,2)
+        *   player credits (0,50000,2000000)
+        *   (in total, 6 options)
+        *   (0) rank 0, credits 0
+        *   (1) rank 1 credits 0
+        *   (1) rank 0 credits 50000
+        *   (2+) rank 2 credits 0
+        *   (2+) rank 1 credits 50000
+        *   (2+) rank 0 credits 2000000
+        * Quarrelsome
+        *   THIS ARE NO CONDITIONS!!!! WTF!?!?!?!
+        *   no wait this is funny to think of it omg lol.
+        * */
         int likedLevel = 0;
         switch (targetLord.getPersonality()) {
             case UPSTANDING:
@@ -631,14 +624,11 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
                 break;
         }
         if (likedLevel == 0) {
-            textPanel.addPara(DialogSet.getLineWithInserts(targetLord, "admiration_response_hate"));
-            applyRepDecrease(textPanel,targetLord,10);
+            DialogSet.addParaWithInserts("admiration_response_hate",targetLord,textPanel,options);
         } else if (likedLevel == 1) {
-            textPanel.addPara(DialogSet.getLineWithInserts(targetLord, "admiration_response_dislike"));
-            applyRepDecrease(textPanel,targetLord,2);
+            DialogSet.addParaWithInserts("admiration_response_dislike",targetLord,textPanel,options);
         } else {
-            textPanel.addPara(DialogSet.getLineWithInserts(targetLord, "admiration_response_like"));
-            applyRepIncrease(textPanel,targetLord,10);
+            DialogSet.addParaWithInserts("admiration_response_like",targetLord,textPanel,options);
         }
         targetLord.setCourted(true);
         feast.setProfessedAdmiration(true);

@@ -44,13 +44,13 @@ public class DialogSet {
         if (set == null) return;
         set.applyLine(key, lord, textPanel, options,markersReplaced);
     }
-    public static void addOptionWithInserts(String key,String hintKey, Object optionData, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options){
-        addOptionWithInserts(key,hintKey, optionData,lord, textPanel,options,new HashMap<>());
+    public static void addOptionWithInserts(String key,String tooltipKey, Object optionData, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options){
+        addOptionWithInserts(key,tooltipKey, optionData,lord, textPanel,options,new HashMap<>());
     }
-    public static void addOptionWithInserts(String key, String hintKey, Object optionData, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, HashMap<String,String> markersReplaced){
+    public static void addOptionWithInserts(String key, String tooltipKey, Object optionData, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, HashMap<String,String> markersReplaced){
         DialogSet set = getSet(lord, key);
         if (set == null) return;
-        set.applyOption(key,hintKey, lord, textPanel, optionData, options,markersReplaced);
+        set.applyOption(key,tooltipKey, lord, textPanel, optionData, options,markersReplaced);
     }
     private static DialogSet getSet(Lord lord,String id){
         for (LordDialogController a : lord.getTemplate().dialogOverride){
@@ -506,13 +506,24 @@ public class DialogSet {
         String line = this.getLine(key);
         line = insertDefaltData(line,lord);
         line = insertAdditionalData(line,markersReplaced);
-        options.addOption(line, optionData);
 
         if (hintKey != null){
-            line = this.getLine(hintKey);
-            line = insertDefaltData(line,lord);
-            line = insertAdditionalData(line,markersReplaced);
-            //add hint. only I dont remember howwwww.... =(
+            String line2 = this.getLine(hintKey);
+            line2 = insertDefaltData(line2,lord);
+            line2 = insertAdditionalData(line2,markersReplaced);
+            if (colorOverride.containsKey(key)) {
+                options.addOption(line, optionData,colorOverride.get(key), line2);
+            }else{
+                options.addOption(line, optionData, line2);
+            }
+            //is this even required????
+            options.setTooltip(optionData,line2);
+        }else{
+            if (colorOverride.containsKey(key)) {
+                options.addOption(line, optionData,colorOverride.get(key),"");
+            }else{
+                options.addOption(line, optionData);
+            }
         }
 
     }
@@ -657,6 +668,30 @@ public class DialogSet {
                 case "lordBattlerPersonality":
                     rules.add(addRule_battlerPersonaility(rulesTemp,key));
                     break;
+                case "playerWealth":
+                    rules.add(addRule_playerWealth(rulesTemp,key));
+                    break;
+                case "lordWealth":
+                    rules.add(addRule_lordWealth(rulesTemp,key));
+                    break;
+                case "playerLevel":
+                    rules.add(addRule_playerLevel(rulesTemp,key));
+                    break;
+                case "lordLevel":
+                    rules.add(addRule_lordLevel(rulesTemp,key));
+                    break;
+                case "playerRank":
+                    rules.add(addRule_playerRank(rulesTemp,key));
+                    break;
+                case "lordRank":
+                    rules.add(addRule_lordRank(rulesTemp,key));
+                    break;
+                case "lordsCourted":
+                    rules.add(addRule_lordsCourted(rulesTemp,key));
+                    break;
+                case "isLordCourtedByPlayer":
+                    rules.add(addRule_isLordCourtedByPlayer(rulesTemp,key));
+                    break;
             }
         }
         return rules;
@@ -708,7 +743,7 @@ public class DialogSet {
     }
     @SneakyThrows
     private static DialogRule_Base addRule_isMarried(JSONObject json, String key){
-        return new DialogRule_isMarriedToPlayer(json.getBoolean(key));
+        return new DialogRule_isMarried(json.getBoolean(key));
     }
     @SneakyThrows
     private static DialogRule_Base addRule_isPlayerMarried(JSONObject json, String key){
@@ -763,5 +798,46 @@ public class DialogSet {
             }
         }
         return new DialogRule_battlePersonaility(whiteList);
+    }
+
+    @SneakyThrows
+    private static DialogRule_Base addRule_lordLevel(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_lordLevel(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_lordRank(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_lordRank(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_lordsCourted(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_lordsCourted(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_lordWealth(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_lordWealth(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_playerLevel(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_playerLevel(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_playerRank(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_playerRank(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_playerWealth(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_playerWealth(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_isLordCourtedByPlayer(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_isLordCourtedByPlayer(json2);
     }
 }

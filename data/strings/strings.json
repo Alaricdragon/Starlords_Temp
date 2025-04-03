@@ -77,7 +77,6 @@
     "option_suggest_raid": "Raid an enemy market.",
     "option_suggest_patrol": "Defend a location from hostiles.",
     "option_suggest_upgrade": "The enemy is strong. Retreat and rebuild for now.",
-    "option_avoid_battle": "Hold your fire! I do not wish to fight you.",
     "option_ransom_prisoner": "Ransom prisoner for $string credits",
     "option_release_prisoner": "Release prisoner",
     "option_leave_prisoner": "[Leave] Enjoy your time in the oubliette.",

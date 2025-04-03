@@ -129,10 +129,18 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "Steady"
     * "Cautious"
     * "Timid"
+  * "playerWealth": is the number of credits the player must have to meet requirements. set between a "min" and "max" value. 
+  * "lordWealth": is the number of credits the lord must have to meet requirements. set between a "min" and "max" value.
+  * "playerLevel": is the level the player must be to meet requirements. set between a "min" and "max" value.
+  * "lordLevel": is the level the lord must be to meet requirements. set between a "min" and "max" value.
+  * "playerRank": is the number of rank the player must be to meet requirements. set between a "min" and "max" value. range should be between 0 and 2
+  * "lordRank": is the number of credits the player must have to meet requirements. set between a "min" and "max" value. range should be between 0 and 2
+  * "lordsCourted": is the number of lords the player must have has professed admiration to meet requirements. set between a "min" and "max" value.
+  * "isLordCourtedByPlayer": if set to true, the lord must have been professed to by the player to meet requirements. if set to false, the lord must not have been professed to by the player to meet requirements.
 * "lines" is the dialog lines for every line a starlord speaks. this comes in 2 forms. the first, wish we will call basic, and the second, that we will call advanced:
   * basic is simply a "lineID": "new string";
   * advanced is more complicated. its a json object, that must include a "line" (to act as the normal lineID), but also additional json peramiters. "addons" are . the "addons" are as follows:
-    * "addons" additional conditions and effects that you can have run at the moment this line is ran. most 'addons' also add a line of dialog to show what effects they had. in addition, any "option_" line cannot use "addons"
+    * "addons" additional conditions and effects that you can have run at the moment this line is ran. most 'addons' also add a line of dialog to show what effects they had. in addition, any "option_" and "tooltip_" line cannot use "addons"
       * "repIncrease":
           * "min": Integer
           * "max": Integer
@@ -145,7 +153,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "creditsDecrease": 
           * "min": Integer
           * "max": Integer
-    * "color" color override for this dialog line. not required. has 3 'preset' colors, but also the option for a custom color. cannot be used in any "option_" line.
+    * "color" color override for this dialog line. not required. has 3 'preset' colors, but also the option for a custom color. cannot be used in any "tooltip_" line.
       * "RED"
       * "GREEN"
       * "YELLOW"
@@ -165,7 +173,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "%PLAYER_GENDER_NAME" player gender
   * "%PLAYER_FLAGSHIP_HULLNAME" player captioned ship hull name (return "nothing" if the player has no captioned ship)
   * "%PLAYER_FLAGSHIP_NAME" player captioned ship name (returns "nothing" if the player has no captioned ship)
-
+  
   * Note: all %PLAYER_SPOUSE markers will instead return the players data if they are not married. so be careful using this to avoid confusion or accidental mockery
   * "%PLAYER_SPOUSE_FACTION_NAME"
   * "%PLAYER_SPOUSE_NAME"
@@ -177,7 +185,6 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "%PLAYER_SPOUSE_GENDER_NAME" player gender
   * "%PLAYER_SPOUSE_FLAGSHIP_HULLNAME" partners currently captioned ships hullname (return "nothing" if the partner has no captioned ship).
   * "%PLAYER_SPOUSE_FLAGSHIP_NAME" partner captioned ship name (returns "nothing" if the partner has no captioned ship).
-
 
   * "%LORD_FACTION_NAME" 
   * "%LORD_STARTING_FACTION_NAME"
@@ -246,6 +253,9 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "relation_increase" %c0 represents amount of reputation gained
     * "relation_decrease" %c0 represents amount of reputation gained
     * "addedIntel" 
+    *
+    * "option_avoid_battle"
+    * "tooltip_avoid_battle"
     *
     * "option_suggest_action"
     * "option_speak_privately"

@@ -2,14 +2,14 @@ package starlords.util.dialogControler.dialogRull;
 
 import starlords.person.Lord;
 
-public class DialogRule_isMarried extends DialogRule_Base {
+public class DialogRule_isLordCourtedByPlayer  extends DialogRule_Base {
     boolean isMarried;
-    public DialogRule_isMarried(boolean isMarried){
+    public DialogRule_isLordCourtedByPlayer(boolean isMarried){
         this.isMarried = isMarried;
     }
 
     @Override
     public boolean condition(Lord lord) {
-        return isMarried == lord.isMarried();
+        return isMarried == lord.isCourted();
     }
 }
