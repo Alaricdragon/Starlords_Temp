@@ -585,6 +585,10 @@ public class LordAI implements EveryFrameScript {
                     Pair<LordEvent, Integer> newWeight = EventController.getPreferredRaidAttack(lord);
                     // sometimes stop raids randomly so they dont go on forever
                     LordEvent raid = EventController.getCurrentRaid(lord);
+                    if (raid == null){
+                        chooseAssignment(lord);
+                        return;
+                    }
                     FactionAPI faction = lord.getFaction();
                     if (lord.equals(raid.getOriginator()) && raid.getTarget().getMarket() != null) {
                         if (Utils.isSomewhatClose(lord.getFleet(), raid.getTarget())) {
