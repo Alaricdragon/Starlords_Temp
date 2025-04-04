@@ -115,6 +115,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "willEngage" if set to true, the lord must be willing to attack the player to meet requirements. if set to false, they must be unwilling to attack to meet requirements
   * "hostileFaction" if set to true, the lord must be part of a faction hostile player to meet requirements. if set to false, the lord must not be part of a faction hostile player to meet requirements 
   * "isAtFeast" if set to true, the lord must be at a feast to meet requirements. if set to false, the lord must not be at a feast to meet requirements
+  * "isHostingFeast" if set to true, the lord must be at a feast and hosting it to meet requirements. if set to false, the lord must not be at a feast or not hosting it to meet requirements
   * "playerSubject" if set to true, the lord must be part of the player faction (and as such, the player must be there ruler) to meet requirements. if set to false, the lord must not be part of the player faction to meet requirements.
   * "playerFactionMarital" if set to true, the player must be both part of the lords faction, and the marital of the lord to meet requirements. if set to false, must ether not be in the same faction, or the player must not be the martal to meet requirements
   * "lordFactionMarital" if set to true, the player must be both part of the lords faction, and the lord must be the marital to meet requirements. if set to false, must ether not be in the same faction, or the lord must not be the martal to meet requirements
@@ -137,6 +138,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "lordRank": is the number of credits the player must have to meet requirements. set between a "min" and "max" value. range should be between 0 and 2
   * "lordsCourted": is the number of lords the player must have has professed admiration to meet requirements. set between a "min" and "max" value.
   * "isLordCourtedByPlayer": if set to true, the lord must have been professed to by the player to meet requirements. if set to false, the lord must not have been professed to by the player to meet requirements.
+  * "playerLordRomanceAction":  is the number of romantic actions the player must have had with the lord meet requirements. set between a "min" and "max" value. (romantic actions can be default, be gained by giving gifts, or dedecating tornament victorys)
 * "lines" is the dialog lines for every line a starlord speaks. this comes in 2 forms. the first, wish we will call basic, and the second, that we will call advanced:
   * basic is simply a "lineID": "new string";
   * advanced is more complicated. its a json object, that must include a "line" (to act as the normal lineID), but also additional json peramiters. "addons" are . the "addons" are as follows:
@@ -153,6 +155,14 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "creditsDecrease": 
           * "min": Integer
           * "max": Integer
+      * "romanceActionIncrease": note: does not add text indicators (also of note: one value of romanceAction represents a major romantic action)
+        * "min": Integer
+        * "max": Integer
+      * "romanceActionDecrease": note: does not add text indicators (also of note: one value of romanceAction represents a major romantic action)
+        * "min": Integer
+        * "max": Integer
+      * "additionalText": "lineID" adds an additional line of dialog, with the inputed name
+      * "startWedding": boolean if set to true, sets the current feast the player is at to a wedding ceremony (or howeer that works). will do nothing if not at a feast.
     * "color" color override for this dialog line. not required. has 3 'preset' colors, but also the option for a custom color. cannot be used in any "tooltip_" line.
       * "RED"
       * "GREEN"
@@ -211,6 +221,32 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "%LORD_SPOUSE_FLAGSHIP_HULLNAME" partner captioned ship hull name (return "nothing" if the partner has no captioned ship).
   * "%LORD_SPOUSE_FLAGSHIP_NAME" partner captioned ship name (returns "nothing" if the partner has no captioned ship).
 
+  * note: all %LORD_HOST markers will instead return the lord you are talking to if you are not at a feast. please use carefully, to avoid confusion or accidental gloating
+  * "%LORD_HOST_FACTION_NAME"
+  * "%LORD_HOST_STARTING_FACTION_NAME"
+  * "%LORD_HOST_NAME"
+  * "%LORD_HOST_GENDER_MAN_OR_WOMEN"
+  * "%LORD_HOST_GENDER_HE_OR_SHE"
+  * "%LORD_HOST_GENDER_HIM_OR_HER"
+  * "%LORD_HOST_GENDER_HIS_OR_HER"
+  * "%LORD_HOST_GENDER_HUSBAND_OR_WIFE"
+  * "%LORD_HOST_GENDER_NAME"
+  * "%LORD_HOST_FLAGSHIP_HULLNAME" lord flagship ship hull name (return "nothing" if the lord has no flagship)
+  * "%LORD_HOST_FLAGSHIP_NAME" lord flagship name (returns "nothing" if the lord has no flagship)
+
+  * Note: all %LORD_HOST_SPOUSE markers will instead return the lords data if they are not married. so be careful using this to avoid confusion or accidental mockery
+  * "%LORD_HOST_SPOUSE_FACTION_NAME"
+  * "%LORD_HOST_SPOUSE_STARTING_FACTION_NAME"
+  * "%LORD_HOST_SPOUSE_NAME"
+  * "%LORD_HOST_SPOUSE_GENDER_MAN_OR_WOMEN"
+  * "%LORD_HOST_SPOUSE_GENDER_HE_OR_SHE"
+  * "%LORD_HOST_SPOUSE_GENDER_HIM_OR_HER"
+  * "%LORD_HOST_SPOUSE_GENDER_HIS_OR_HER"
+  * "%LORD_HOST_SPOUSE_GENDER_HUSBAND_OR_WIFE"
+  * "%LORD_HOST_SPOUSE_GENDER_NAME"
+  * "%LORD_HOST_SPOUSE_FLAGSHIP_HULLNAME" partner captioned ship hull name (return "nothing" if the partner has no captioned ship).
+  * "%LORD_HOST_SPOUSE_FLAGSHIP_NAME" partner captioned ship name (returns "nothing" if the partner has no captioned ship).
+
   *some lines will also use custom inputted data. in this case, they will use the '%c#' marker, with # being the order they are added to the line.
   *available lines to override are follows:
     * "greeting_host_feast"
@@ -234,19 +270,22 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "current_task_desc_patrol"
     * "current_task_desc_feast"
     * "current_task_desc_none"
-    * "admiration_response_hate"
-    * "admiration_response_dislike"
-    * "admiration_response_like"
-    * "spend_time_together1"
-    * "spend_time_together2"
-    * "spend_time_together3"
-    * "spend_time_together4"
-    * "spend_time_together5"
-    * "spend_time_together6"
-    * "spend_time_together6_0"
+    * "admiration_response"
+    * "spend_time_together#" # is a value between 1 and 36. date is chosen randomly
     * "spend_time_together_after"
     * "spend_time_together_hint"
+    * "marriage_response"
+    * "accept_marriage_second"
+    * "refuse_marriage_hint"
     * "marriage_ceremony" %c0 is your new partners name, and %c1 is the name of the person hosting the ceremony
+    * "join_party_explanation"
+    * "leave_party_explanation"
+    *
+    *
+    *
+    *
+    *
+    *
     *
     *
     *
@@ -276,13 +315,13 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "option_sway_council_support"
     * "option_sway_council_oppose"
     * "option_sway_player"
-    * "option_nevermind"
+    * "option_nevermind_askQuestion"
     * "option_give_gift"
     * "option_dont_give_gift"
-    *
-    *
-    *
-    *
+    * "option_confirm_join_party"
+    * "option_nevermind_join_party"
+    * "option_confirm_leave_party"
+    * "option_nevermind_leave_party"
     *
     *
     *

@@ -6,8 +6,8 @@ import org.json.JSONObject;
 import starlords.person.Lord;
 
 public class DialogRule_playerLevel extends DialogRule_Base {
-    int max = 10000;
-    int min = 0;
+    int max = 2147483647;
+    int min = -2147483647;
     @SneakyThrows
     public DialogRule_playerLevel(JSONObject jsonObject){
         if (jsonObject.has("max")) max = jsonObject.getInt("max");

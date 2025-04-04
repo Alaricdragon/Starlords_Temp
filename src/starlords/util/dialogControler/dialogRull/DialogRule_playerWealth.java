@@ -7,7 +7,7 @@ import starlords.person.Lord;
 
 public class DialogRule_playerWealth extends DialogRule_Base {
     int max = 2147483647;
-    int min = -100;
+    int min = -2147483647;
     @SneakyThrows
     public DialogRule_playerWealth(JSONObject jsonObject){
         if (jsonObject.has("max")) max = jsonObject.getInt("max");

@@ -11,6 +11,29 @@
       "greetings_other":"%PLAYER_NAME, my dear. I've been swamped with paperwork today. When do I get to join you in exploring the stars?"
     }
   },
+  "martial_marriageAccept": {
+    "priority": 5,
+    "rules": {
+      "lordPersonality": {
+        "Martial": true
+      },
+      "playerLordRomanceAction": {
+        "min": 1
+      },
+      "relationWithPlayer": {
+        "min": 75
+      }
+    },
+    "lines": {
+      "marriage_response": {
+        "line": "I was hoping that you'd ask. The two of us will surely make an unstoppable team!",
+        "addons": {
+          "additionalText": "accept_marriage_second",
+          "startWedding": true
+        }
+      }
+    }
+  },
   "calculating_marriedToPlayer": {
     "priority": 5,
     "rules": {
@@ -21,6 +44,29 @@
     },
     "lines": {
       "greetings_other":"%PLAYER_NAME, my %PLAYER_NAME. The house's finances have been going as planned; you can count on me."
+    }
+  },
+  "calculating_marriageAccept": {
+    "priority": 5,
+    "rules": {
+      "lordPersonality": {
+        "Calculating": true
+      },
+      "playerLordRomanceAction": {
+        "min": 1
+      },
+      "relationWithPlayer": {
+        "min": 75
+      }
+    },
+    "lines": {
+      "marriage_response": {
+        "line": "I accept; the time is long overdue for us to join our houses together.",
+        "addons": {
+          "additionalText": "accept_marriage_second",
+          "startWedding": true
+        }
+      }
     }
   },
   "quarrelsome_marriedToPlayer": {
@@ -35,8 +81,31 @@
       "greetings_other":"%PLAYER_NAME, my partner. I'm hoping that you're here to talk about how we bring down some of these bastards around us."
     }
   },
+  "quarrelsome_marriageAccept": {
+    "priority": 5,
+    "rules": {
+      "lordPersonality": {
+        "Quarrelsome": true
+      },
+      "playerLordRomanceAction": {
+        "min": 1
+      },
+      "relationWithPlayer": {
+        "min": 75
+      }
+    },
+    "lines": {
+      "marriage_response": {
+        "line": "You know, you're not so bad. What the hell, let's do it.",
+        "addons": {
+          "additionalText": "accept_marriage_second",
+          "startWedding": true
+        }
+      }
+    }
+  },
   "upstanding_marriedToPlayer": {
-    "priority": 4,
+    "priority": 5,
     "rules": {
       "lordPersonality": {
         "Upstanding": true
@@ -47,8 +116,75 @@
       "greetings_other":"%PLAYER_NAME, my love. I hope that you are well. Be careful out there in your journeys."
     }
   },
+  "upstanding_marriageAccept": {
+    "priority": 5,
+    "rules": {
+      "lordPersonality": {
+        "Upstanding": true
+      },
+      "playerLordRomanceAction": {
+        "min": 1
+      },
+      "relationWithPlayer": {
+        "min": 75
+      }
+    },
+    "lines": {
+      "marriage_response": {
+        "line": "It would be the greatest honor a %LORD_GENDER_MAN_OR_WOMEN could have to marry you, %PLAYER_NAME.",
+        "addons": {
+          "additionalText": "accept_marriage_second",
+          "startWedding": true
+        }
+      }
+    }
+  },
 
 
+  "refuse_marriage_no_romance": {
+    "priority": 4,
+    "rules": {
+      "playerLordRomanceAction": {
+        "max": 0
+      },
+      "relationWithPlayer": {
+        "min": 75
+      }
+    },
+    "lines": {
+      "marriage_response": {
+        "line":"You seem like a wonderful %PLAYER_GENDER_MAN_OR_WOMEN, but I'd like to see some sincerity on your part first.",
+        "addons": {
+          "additionalText": "refuse_marriage_hint"
+        }
+      }
+    }
+  },
+
+  "martial_profess_admiration_like": {
+    "priority": 4,
+    "rules":{
+      "playerLevel": {
+        "min": 15
+      },
+      "lordPersonality": {
+        "Martial": true
+      },
+      "relationWithPlayer": {
+        "min": 10
+      }
+    },
+    "lines": {
+      "admiration_response": {
+        "line":"You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
+        "repIncrease": {
+          "max": 10,
+          "min": 10
+        }
+      }
+    }
+
+  },
   "martial_subject": {
     "priority": 4,
     "rules": {
@@ -59,6 +195,70 @@
     },
     "lines": {
       "greetings_other":"Greetings %PLAYER_NAME, my liege. My fleet stands at the ready."
+    }
+  },
+
+  "calculating_profess_admiration_like_2": {
+    "priority": 4,
+    "rules":{
+      "playerWealth": {
+        "min": 2000000
+      },
+      "lordPersonality": {
+        "Calculating": true
+      }
+    },
+    "lines": {
+      "admiration_response": {
+        "line":"You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
+        "repIncrease": {
+          "max": 10,
+          "min": 10
+        }
+      }
+    }
+  },
+  "calculating_profess_admiration_like_1": {
+    "priority": 4,
+    "rules":{
+      "playerRank": {
+        "min": 1
+      },
+      "playerWealth": {
+        "min": 500000
+      },
+      "lordPersonality": {
+        "Calculating": true
+      }
+    },
+    "lines": {
+      "admiration_response": {
+        "line":"You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
+        "repIncrease": {
+          "max": 10,
+          "min": 10
+        }
+      }
+    }
+  },
+  "calculating_profess_admiration_like_0": {
+    "priority": 4,
+    "rules":{
+      "playerRank": {
+        "min": 2
+      },
+      "lordPersonality": {
+        "Calculating": true
+      }
+    },
+    "lines": {
+      "admiration_response": {
+        "line":"You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
+        "repIncrease": {
+          "max": 10,
+          "min": 10
+        }
+      }
     }
   },
   "calculating_subject": {
@@ -73,6 +273,7 @@
       "greetings_other":"Greetings %PLAYER_NAME, my liege. Perfect timing, I had a list of proposals which I wish to discuss..."
     }
   },
+
   "quarrelsome_subject": {
     "priority": 4,
     "rules": {
@@ -83,6 +284,30 @@
       },
     "lines": {
       "greetings_other":"Greetings %PLAYER_NAME, my liege. Point me at someone and I will see them punished."
+    }
+  },
+
+  "upstanding_profess_admiration_like": {
+    "priority": 4,
+    "rules": {
+      "lordsCourted": {
+        "min": 1
+      },
+      "lordPersonality": {
+        "Upstanding": true
+      },
+      "relationWithPlayer": {
+        "min": 25
+      }
+    },
+    "lines": {
+      "admiration_response": {
+        "line": "You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
+        "repIncrease": {
+          "max": 10,
+          "min": 10
+        }
+      }
     }
   },
   "upstanding_subject": {
@@ -99,6 +324,28 @@
   },
 
 
+
+  "martial_profess_admiration_dislike_0": {
+    "priority": 3,
+    "rules":{
+      "playerLevel": {
+        "min": 15
+      },
+      "lordPersonality": {
+        "Martial": true
+      }
+    },
+    "lines": {
+      "admiration_response":{
+        "line":"Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+        "repDecrease": {
+          "max": 2,
+          "min": 2
+        }
+      }
+    }
+
+  },
   "martial_Cooperative": {
     "priority": 3,
     "rules":{
@@ -111,7 +358,14 @@
       }
     },
     "lines": {
-      "greetings_other":"Hail, %PLAYER_NAME. Remind me next time we're at the space bar, I've got story to tell about my new scar. Ha!"
+      "greetings_other":"Hail, %PLAYER_NAME. Remind me next time we're at the space bar, I've got story to tell about my new scar. Ha!",
+      "admiration_response":{
+        "line":"Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+        "repDecrease": {
+          "max": 2,
+          "min": 2
+        }
+      }
     }
   },
   "martial_Friendly": {
@@ -126,7 +380,15 @@
       }
     },
     "lines": {
-      "greetings_other":"Hail, %PLAYER_NAME. Remind me next time we're at the space bar, I've got story to tell about my new scar. Ha!"
+      "greetings_other":"Hail, %PLAYER_NAME. Remind me next time we're at the space bar, I've got story to tell about my new scar. Ha!",
+      "admiration_response":{
+        "line":"Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+        "repDecrease": {
+          "max": 2,
+          "min": 2
+        }
+      },
+      "marriage_response": "You seem like a wonderful %PLAYER_GENDER_MAN_OR_WOMEN, but I'd still like to get to know you a little better first."
     }
   },
   "martial_Welcoming": {
@@ -141,7 +403,23 @@
       }
     },
     "lines": {
-      "greetings_other":"Hail, %PLAYER_NAME. Spare me a minute, for you must tell me of your latest adventures!"
+      "greetings_other":"Hail, %PLAYER_NAME. Spare me a minute, for you must tell me of your latest adventures!",
+      "admiration_response":{
+        "line":"Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+        "repDecrease": {
+          "max": 2,
+          "min": 2
+        }
+      },
+      "marriage_response": {
+        "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
+        "addons": {
+          "repDecrease": {
+            "min": 10,
+            "max": 10
+          }
+        }
+      }
     }
   },
   "martial_Favorable": {
@@ -156,7 +434,23 @@
       }
     },
     "lines": {
-      "greetings_other":"Hail, %PLAYER_NAME. Spare me a minute, for you must tell me of your latest adventures!"
+      "greetings_other":"Hail, %PLAYER_NAME. Spare me a minute, for you must tell me of your latest adventures!",
+      "admiration_response":{
+        "line":"Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+        "repDecrease": {
+          "max": 2,
+          "min": 2
+        }
+      },
+      "marriage_response": {
+        "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
+        "addons": {
+          "repDecrease": {
+            "min": 10,
+            "max": 10
+          }
+        }
+      }
     }
   },
   "martial_Neutral": {
@@ -235,6 +529,49 @@
     }
   },
 
+
+  "calculating_profess_admiration_dislike_1": {
+    "priority": 3,
+    "rules":{
+      "playerRank": {
+        "min": 1
+      },
+      "lordPersonality": {
+        "Calculating": true
+      }
+    },
+    "lines": {
+      "admiration_response":{
+        "line":"Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+        "repDecrease": {
+          "max": 2,
+          "min": 2
+        }
+      }
+    }
+
+  },
+  "calculating_profess_admiration_dislike_0": {
+    "priority": 3,
+    "rules":{
+      "playerWealth": {
+        "min": 500000
+      },
+      "lordPersonality": {
+        "Calculating": true
+      }
+    },
+    "lines": {
+      "admiration_response":{
+        "line":"Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+        "repDecrease": {
+          "max": 2,
+          "min": 2
+        }
+      }
+    }
+
+  },
   "calculating_Cooperative": {
     "priority": 3,
     "rules":{
@@ -262,7 +599,8 @@
       }
     },
     "lines": {
-      "greetings_other":"Good to see you, %PLAYER_NAME. Let us speak plainly."
+      "greetings_other":"Good to see you, %PLAYER_NAME. Let us speak plainly.",
+      "marriage_response": "You seem like a wonderful %PLAYER_GENDER_MAN_OR_WOMEN, but I'd still like to get to know you a little better first."
     }
   },
   "calculating_Welcoming": {
@@ -277,7 +615,16 @@
       }
     },
     "lines": {
-      "greetings_other":"Good to see you, %PLAYER_NAME. What can I do for you today?"
+      "greetings_other":"Good to see you, %PLAYER_NAME. What can I do for you today?",
+      "marriage_response": {
+        "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
+        "addons": {
+          "repDecrease": {
+            "min": 10,
+            "max": 10
+          }
+        }
+      }
     }
   },
   "calculating_Favorable": {
@@ -292,7 +639,16 @@
       }
     },
     "lines": {
-      "greetings_other":"Good to see you, %PLAYER_NAME. What can I do for you today?"
+      "greetings_other":"Good to see you, %PLAYER_NAME. What can I do for you today?",
+      "marriage_response": {
+        "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
+        "addons": {
+          "repDecrease": {
+            "min": 10,
+            "max": 10
+          }
+        }
+      }
     }
   },
   "calculating_Neutral": {
@@ -371,6 +727,7 @@
     }
   },
 
+
   "quarrelsome_Cooperative": {
     "priority": 3,
     "rules":{
@@ -398,7 +755,8 @@
       }
     },
     "lines": {
-      "greetings_other":"%PLAYER_NAME, just the person I wanted to see. You sure are a breath of fresh air compared to the rest of these bastards."
+      "greetings_other":"%PLAYER_NAME, just the person I wanted to see. You sure are a breath of fresh air compared to the rest of these bastards.",
+      "marriage_response": "You seem like a wonderful %PLAYER_GENDER_MAN_OR_WOMEN, but I'd still like to get to know you a little better first."
     }
   },
   "quarrelsome_Welcoming": {
@@ -413,7 +771,16 @@
       }
     },
     "lines": {
-      "greetings_other":"I'm pleasantly surprised that you haven't managed to get yourself killed yet, %PLAYER_NAME. Can't say I'm surprised at this point."
+      "greetings_other":"I'm pleasantly surprised that you haven't managed to get yourself killed yet, %PLAYER_NAME. Can't say I'm surprised at this point.",
+      "marriage_response": {
+        "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
+        "addons": {
+          "repDecrease": {
+            "min": 10,
+            "max": 10
+          }
+        }
+      }
     }
   },
   "quarrelsome_Favorable": {
@@ -428,7 +795,16 @@
       }
     },
     "lines": {
-      "greetings_other":"I'm pleasantly surprised that you haven't managed to get yourself killed yet, %PLAYER_NAME. Can't say I'm surprised at this point."
+      "greetings_other":"I'm pleasantly surprised that you haven't managed to get yourself killed yet, %PLAYER_NAME. Can't say I'm surprised at this point.",
+      "marriage_response": {
+        "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
+        "addons": {
+          "repDecrease": {
+            "min": 10,
+            "max": 10
+          }
+        }
+      }
     }
   },
   "quarrelsome_Neutral": {
@@ -507,6 +883,27 @@
     }
   },
 
+  "upstanding_profess_admiration_dislike_0": {
+    "priority": 3,
+    "rules":{
+      "lordsCourted": {
+        "min": 1
+      },
+      "lordPersonality": {
+        "Upstanding": true
+      }
+    },
+    "lines": {
+      "admiration_response":{
+        "line":"Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+        "repDecrease": {
+          "max": 2,
+          "min": 2
+        }
+      }
+    }
+
+  },
   "upstanding_Cooperative": {
     "priority": 3,
     "rules":{
@@ -519,7 +916,14 @@
       }
     },
     "lines": {
-      "greetings_other":"%PLAYER_NAME, my dear friend. It is good to see you alive and well. What is it?"
+      "greetings_other":"%PLAYER_NAME, my dear friend. It is good to see you alive and well. What is it?",
+      "admiration_response":{
+        "line":"Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+        "repDecrease": {
+          "max": 2,
+          "min": 2
+        }
+      }
     }
   },
   "upstanding_Friendly": {
@@ -534,7 +938,15 @@
       }
     },
     "lines": {
-      "greetings_other":"%PLAYER_NAME, my dear friend. It is good to see you alive and well. What is it?"
+      "greetings_other":"%PLAYER_NAME, my dear friend. It is good to see you alive and well. What is it?",
+      "admiration_response":{
+        "line":"Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+        "repDecrease": {
+          "max": 2,
+          "min": 2
+        }
+      },
+      "marriage_response": "You seem like a wonderful %PLAYER_GENDER_MAN_OR_WOMEN, but I'd still like to get to know you a little better first."
     }
   },
   "upstanding_Welcoming": {
@@ -549,7 +961,23 @@
       }
     },
     "lines": {
-      "greetings_other":"%PLAYER_NAME, my friend. It is good to see you alive and well. What is it?"
+      "greetings_other":"%PLAYER_NAME, my friend. It is good to see you alive and well. What is it?",
+      "admiration_response":{
+        "line":"Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+        "repDecrease": {
+          "max": 2,
+          "min": 2
+        }
+      },
+      "marriage_response": {
+        "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
+        "addons": {
+          "repDecrease": {
+            "min": 10,
+            "max": 10
+          }
+        }
+      }
     }
   },
   "upstanding_Favorable": {
@@ -564,7 +992,16 @@
       }
     },
     "lines": {
-      "greetings_other":"%PLAYER_NAME, my friend. It is good to see you alive and well. What is it?"
+      "greetings_other":"%PLAYER_NAME, my friend. It is good to see you alive and well. What is it?",
+      "marriage_response": {
+        "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
+        "addons": {
+          "repDecrease": {
+            "min": 10,
+            "max": 10
+          }
+        }
+      }
     }
   },
   "upstanding_Neutral": {
@@ -643,6 +1080,16 @@
     }
   },
 
+
+  "isHost": {
+    "priority": 2,
+    "rules": {
+      "isHostingFeast": true
+    },
+    "lines": {
+      "accept_marriage_second": "Talk to me whenever you're ready and we'll start the ceremony."
+    }
+  },
   "martial": {
     "priority": 2,
     "rules": {
@@ -724,6 +1171,10 @@
           "repIncrease": {
             "max": 10,
             "min": 10
+          },
+          "romanceActionIncrease": {
+            "min": 1,
+            "max": 1
           }
         }
       },
@@ -733,6 +1184,10 @@
           "repIncrease": {
             "max": 5,
             "min": 5
+          },
+          "romanceActionIncrease": {
+            "min": 1,
+            "max": 1
           }
         }
       },
@@ -745,44 +1200,415 @@
       "greetings_hostile": "(error) Oh look here. Its the one and only idiot who dares to stand in my way!",
       "greetings_other": "(error) Hello again %PLAYER_NAME",
 
-      "admiration_response_hate":{
+      "admiration_response":{
         "line":"Oh, you're not joking? Well, at least this will be entertaining.",
         "repDecrease": {
           "max": 10,
           "min": 10
         }
       },
-      "admiration_response_dislike":{
-        "line":"Thank you, you're too kind. Er, it's getting quite late, I must be going...",
-        "repDecrease": {
-          "max": 2,
-          "min": 2
+
+      "spend_time_together1":{
+        "line": "The tables at the feast are lined with dishes that sparkle under the soft glow of chandeliers, each plate a culinary masterpiece. You and %LORD_NAME sample exquisite butters infused with rare spices. %LORD_NAME begins sharing tales of narrow escapes and fierce battles fought on faraway stars. You respond with a grin, recounting a similarly audacious ambush. In that moment, the weight of your pasts feel lighter, buoyed by fine food and the warmth of camaraderie.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
         }
       },
-      "admiration_response_like": {
-        "line":"You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
-        "repIncrease": {
-          "max": 10,
-          "min": 10
+      "spend_time_together2":{
+        "line": "The tables at the feast are lined with dishes that sparkle under the soft glow of chandeliers, each plate a culinary masterpiece. You and %LORD_NAME sample exquisite butters infused with rare spices. %LORD_NAME begins sharing tales of narrow escapes and fierce battles fought on faraway stars. You respond with a grin, recounting a similarly audacious ambush. In that moment, the weight of your pasts feel lighter, buoyed by fine food and the warmth of camaraderie.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together3":{
+        "line": "The tables at the feast are lined with dishes that sparkle under the soft glow of chandeliers, each plate a culinary masterpiece. You and %LORD_NAME sample exquisite butters infused with rare spices. %LORD_NAME begins sharing tales of narrow escapes and fierce battles fought on faraway stars. You respond with a grin, recounting a similarly audacious ambush. In that moment, the weight of your pasts feel lighter, buoyed by fine food and the warmth of camaraderie.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together4":{
+        "line": "The tables at the feast are lined with dishes that sparkle under the soft glow of chandeliers, each plate a culinary masterpiece. You and %LORD_NAME sample exquisite butters infused with rare spices. %LORD_NAME begins sharing tales of narrow escapes and fierce battles fought on faraway stars. You respond with a grin, recounting a similarly audacious ambush. In that moment, the weight of your pasts feel lighter, buoyed by fine food and the warmth of camaraderie.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together5":{
+        "line": "The tables at the feast are lined with dishes that sparkle under the soft glow of chandeliers, each plate a culinary masterpiece. You and %LORD_NAME sample exquisite butters infused with rare spices. %LORD_NAME begins sharing tales of narrow escapes and fierce battles fought on faraway stars. You respond with a grin, recounting a similarly audacious ambush. In that moment, the weight of your pasts feel lighter, buoyed by fine food and the warmth of camaraderie.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together6":{
+        "line": "The tables at the feast are lined with dishes that sparkle under the soft glow of chandeliers, each plate a culinary masterpiece. You and %LORD_NAME sample exquisite butters infused with rare spices. %LORD_NAME begins sharing tales of narrow escapes and fierce battles fought on faraway stars. You respond with a grin, recounting a similarly audacious ambush. In that moment, the weight of your pasts feel lighter, buoyed by fine food and the warmth of camaraderie.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
         }
       },
 
+      "spend_time_together7": {
+        "line":"You and %LORD_NAME walk along the grand halls of the feast. Gradually, you find yourselves drawn to the center of the bustling hall, where nobles step in an elegant dance. You take %LORD_NAME's hand and offer a dance, which %LORD_GENDER_HE_OR_SHE accepts after a moment's pause. Together you dance to the slow drone of the saxophone, losing yourself in the rhythm until several hours pass.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together8": {
+        "line":"You and %LORD_NAME walk along the grand halls of the feast. Gradually, you find yourselves drawn to the center of the bustling hall, where nobles step in an elegant dance. You take %LORD_NAME's hand and offer a dance, which %LORD_GENDER_HE_OR_SHE accepts after a moment's pause. Together you dance to the slow drone of the saxophone, losing yourself in the rhythm until several hours pass.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together9": {
+        "line":"You and %LORD_NAME walk along the grand halls of the feast. Gradually, you find yourselves drawn to the center of the bustling hall, where nobles step in an elegant dance. You take %LORD_NAME's hand and offer a dance, which %LORD_GENDER_HE_OR_SHE accepts after a moment's pause. Together you dance to the slow drone of the saxophone, losing yourself in the rhythm until several hours pass.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together10": {
+        "line":"You and %LORD_NAME walk along the grand halls of the feast. Gradually, you find yourselves drawn to the center of the bustling hall, where nobles step in an elegant dance. You take %LORD_NAME's hand and offer a dance, which %LORD_GENDER_HE_OR_SHE accepts after a moment's pause. Together you dance to the slow drone of the saxophone, losing yourself in the rhythm until several hours pass.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together11": {
+        "line":"You and %LORD_NAME walk along the grand halls of the feast. Gradually, you find yourselves drawn to the center of the bustling hall, where nobles step in an elegant dance. You take %LORD_NAME's hand and offer a dance, which %LORD_GENDER_HE_OR_SHE accepts after a moment's pause. Together you dance to the slow drone of the saxophone, losing yourself in the rhythm until several hours pass.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together12": {
+        "line":"You and %LORD_NAME walk along the grand halls of the feast. Gradually, you find yourselves drawn to the center of the bustling hall, where nobles step in an elegant dance. You take %LORD_NAME's hand and offer a dance, which %LORD_GENDER_HE_OR_SHE accepts after a moment's pause. Together you dance to the slow drone of the saxophone, losing yourself in the rhythm until several hours pass.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
 
-      "spend_time_together1": "The tables at the feast are lined with dishes that sparkle under the soft glow of chandeliers, each plate a culinary masterpiece. You and %LORD_NAME sample exquisite butters infused with rare spices. %LORD_NAME begins sharing tales of narrow escapes and fierce battles fought on faraway stars. You respond with a grin, recounting a similarly audacious ambush. In that moment, the weight of your pasts feel lighter, buoyed by fine food and the warmth of camaraderie.",
-      "spend_time_together2": "You and %LORD_NAME walk along the grand halls of the feast. Gradually, you find yourselves drawn to the center of the bustling hall, where nobles step in an elegant dance. You take %LORD_NAME's hand and offer a dance, which %LORD_GENDER_HE_OR_SHE accepts after a moment's pause. Together you dance to the slow drone of the saxophone, losing yourself in the rhythm until several hours pass.",
-      "spend_time_together3": "Growing tired of the commotion of the feast, you and %LORD_NAME sneak out to the host's hangar. You spot a pair of racing ships in the corner, and after assuring the attendants that you have permission, you both get into a cockpit and rocket off into the void. %LORD_NAME executes a series of sharp turns and loops and you respond in kind, sending adrenaline surging through your veins as you both attempt more complex maneuvers to one-up each other. After an hour, the two of you touch down at the hangar, begrudgingly admitting that neither of you could gain the upper hand. The two of you slip back to the feast before your antics are noticed, with newly forged respect between you.",
-      "spend_time_together4": "You and %LORD_NAME slip away from the commotion of the feast and step onto the balcony. The night sky is sprawled before you, a canvas of twinkling stars, each a reminder of the once-glorious reach of humanity and its Icarian downfall. %LORD_NAME traces the outline of a distant nebula with %LORD_GENDER_HIS_OR_HER finger, reminiscing of simpler days when %LORD_GENDER_HE_OR_SHE hoped to explore the stars as a carefree spacer. You promise that when peace finally returns to the core worlds, the two of you will journey to the edges of the sector. Together, you'll forge a future where the full wonders of the cosmos can be experienced by humanity once more.",
-      "spend_time_together5": "As the gala’s vibrant chatter fades behind you, you and %LORD_NAME step into the cool night, the stars shimmering like distant jewels overhead. You meander along the manicured gardens of the host's opulent estate. %LORD_NAME begins sharing tales navigating treacherous politics in gilded halls, %LORD_GENDER_HIS_OR_HER laughter echoing softly in the stillness. You have no shortage of your own stories to tell, recounting how you decided to become a captain and secured your first ship and crew. The vastness of the universe feels a little smaller as you walk, the night growing richer with each revelation.",
-      "spend_time_together6": "Amid the lavish displays of the feast, you and %LORD_NAME wander over to a round table where a lively card game was in full swing, laughter and friendly banter filling the air. With a smirk, %LORD_GENDER_HE_OR_SHE tosses a handful of chips onto the pile, drawing the attention of the other players. You're also pulled into the game, but you quickly notice that %LORD_NAME is fully in their element. Despite your efforts, the best you can do is escape without major losses as %LORD_GENDER_HE_OR_SHE methodically cleans out the table. \n\"Thanks for that\", %LORD_NAME says teasingly. \"I really needed a punching bag to blow off some steam.\"",
+      "spend_time_together13": {
+        "line":"Growing tired of the commotion of the feast, you and %LORD_NAME sneak out to the host's hangar. You spot a pair of racing ships in the corner, and after assuring the attendants that you have permission, you both get into a cockpit and rocket off into the void. %LORD_NAME executes a series of sharp turns and loops and you respond in kind, sending adrenaline surging through your veins as you both attempt more complex maneuvers to one-up each other. After an hour, the two of you touch down at the hangar, begrudgingly admitting that neither of you could gain the upper hand. The two of you slip back to the feast before your antics are noticed, with newly forged respect between you.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together14": {
+        "line":"Growing tired of the commotion of the feast, you and %LORD_NAME sneak out to the host's hangar. You spot a pair of racing ships in the corner, and after assuring the attendants that you have permission, you both get into a cockpit and rocket off into the void. %LORD_NAME executes a series of sharp turns and loops and you respond in kind, sending adrenaline surging through your veins as you both attempt more complex maneuvers to one-up each other. After an hour, the two of you touch down at the hangar, begrudgingly admitting that neither of you could gain the upper hand. The two of you slip back to the feast before your antics are noticed, with newly forged respect between you.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together15": {
+        "line":"Growing tired of the commotion of the feast, you and %LORD_NAME sneak out to the host's hangar. You spot a pair of racing ships in the corner, and after assuring the attendants that you have permission, you both get into a cockpit and rocket off into the void. %LORD_NAME executes a series of sharp turns and loops and you respond in kind, sending adrenaline surging through your veins as you both attempt more complex maneuvers to one-up each other. After an hour, the two of you touch down at the hangar, begrudgingly admitting that neither of you could gain the upper hand. The two of you slip back to the feast before your antics are noticed, with newly forged respect between you.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together16": {
+        "line":"Growing tired of the commotion of the feast, you and %LORD_NAME sneak out to the host's hangar. You spot a pair of racing ships in the corner, and after assuring the attendants that you have permission, you both get into a cockpit and rocket off into the void. %LORD_NAME executes a series of sharp turns and loops and you respond in kind, sending adrenaline surging through your veins as you both attempt more complex maneuvers to one-up each other. After an hour, the two of you touch down at the hangar, begrudgingly admitting that neither of you could gain the upper hand. The two of you slip back to the feast before your antics are noticed, with newly forged respect between you.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together17": {
+        "line":"Growing tired of the commotion of the feast, you and %LORD_NAME sneak out to the host's hangar. You spot a pair of racing ships in the corner, and after assuring the attendants that you have permission, you both get into a cockpit and rocket off into the void. %LORD_NAME executes a series of sharp turns and loops and you respond in kind, sending adrenaline surging through your veins as you both attempt more complex maneuvers to one-up each other. After an hour, the two of you touch down at the hangar, begrudgingly admitting that neither of you could gain the upper hand. The two of you slip back to the feast before your antics are noticed, with newly forged respect between you.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together18": {
+        "line":"Growing tired of the commotion of the feast, you and %LORD_NAME sneak out to the host's hangar. You spot a pair of racing ships in the corner, and after assuring the attendants that you have permission, you both get into a cockpit and rocket off into the void. %LORD_NAME executes a series of sharp turns and loops and you respond in kind, sending adrenaline surging through your veins as you both attempt more complex maneuvers to one-up each other. After an hour, the two of you touch down at the hangar, begrudgingly admitting that neither of you could gain the upper hand. The two of you slip back to the feast before your antics are noticed, with newly forged respect between you.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+
+      "spend_time_together19": {
+        "line":"You and %LORD_NAME slip away from the commotion of the feast and step onto the balcony. The night sky is sprawled before you, a canvas of twinkling stars, each a reminder of the once-glorious reach of humanity and its Icarian downfall. %LORD_NAME traces the outline of a distant nebula with %LORD_GENDER_HIS_OR_HER finger, reminiscing of simpler days when %LORD_GENDER_HE_OR_SHE hoped to explore the stars as a carefree spacer. You promise that when peace finally returns to the core worlds, the two of you will journey to the edges of the sector. Together, you'll forge a future where the full wonders of the cosmos can be experienced by humanity once more.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together20": {
+        "line":"You and %LORD_NAME slip away from the commotion of the feast and step onto the balcony. The night sky is sprawled before you, a canvas of twinkling stars, each a reminder of the once-glorious reach of humanity and its Icarian downfall. %LORD_NAME traces the outline of a distant nebula with %LORD_GENDER_HIS_OR_HER finger, reminiscing of simpler days when %LORD_GENDER_HE_OR_SHE hoped to explore the stars as a carefree spacer. You promise that when peace finally returns to the core worlds, the two of you will journey to the edges of the sector. Together, you'll forge a future where the full wonders of the cosmos can be experienced by humanity once more.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together21": {
+        "line":"You and %LORD_NAME slip away from the commotion of the feast and step onto the balcony. The night sky is sprawled before you, a canvas of twinkling stars, each a reminder of the once-glorious reach of humanity and its Icarian downfall. %LORD_NAME traces the outline of a distant nebula with %LORD_GENDER_HIS_OR_HER finger, reminiscing of simpler days when %LORD_GENDER_HE_OR_SHE hoped to explore the stars as a carefree spacer. You promise that when peace finally returns to the core worlds, the two of you will journey to the edges of the sector. Together, you'll forge a future where the full wonders of the cosmos can be experienced by humanity once more.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together22": {
+        "line":"You and %LORD_NAME slip away from the commotion of the feast and step onto the balcony. The night sky is sprawled before you, a canvas of twinkling stars, each a reminder of the once-glorious reach of humanity and its Icarian downfall. %LORD_NAME traces the outline of a distant nebula with %LORD_GENDER_HIS_OR_HER finger, reminiscing of simpler days when %LORD_GENDER_HE_OR_SHE hoped to explore the stars as a carefree spacer. You promise that when peace finally returns to the core worlds, the two of you will journey to the edges of the sector. Together, you'll forge a future where the full wonders of the cosmos can be experienced by humanity once more.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together23": {
+        "line":"You and %LORD_NAME slip away from the commotion of the feast and step onto the balcony. The night sky is sprawled before you, a canvas of twinkling stars, each a reminder of the once-glorious reach of humanity and its Icarian downfall. %LORD_NAME traces the outline of a distant nebula with %LORD_GENDER_HIS_OR_HER finger, reminiscing of simpler days when %LORD_GENDER_HE_OR_SHE hoped to explore the stars as a carefree spacer. You promise that when peace finally returns to the core worlds, the two of you will journey to the edges of the sector. Together, you'll forge a future where the full wonders of the cosmos can be experienced by humanity once more.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together24": {
+        "line":"You and %LORD_NAME slip away from the commotion of the feast and step onto the balcony. The night sky is sprawled before you, a canvas of twinkling stars, each a reminder of the once-glorious reach of humanity and its Icarian downfall. %LORD_NAME traces the outline of a distant nebula with %LORD_GENDER_HIS_OR_HER finger, reminiscing of simpler days when %LORD_GENDER_HE_OR_SHE hoped to explore the stars as a carefree spacer. You promise that when peace finally returns to the core worlds, the two of you will journey to the edges of the sector. Together, you'll forge a future where the full wonders of the cosmos can be experienced by humanity once more.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+
+      "spend_time_together25": {
+        "line":"As the gala’s vibrant chatter fades behind you, you and %LORD_NAME step into the cool night, the stars shimmering like distant jewels overhead. You meander along the manicured gardens of the host's opulent estate. %LORD_NAME begins sharing tales navigating treacherous politics in gilded halls, %LORD_GENDER_HIS_OR_HER laughter echoing softly in the stillness. You have no shortage of your own stories to tell, recounting how you decided to become a captain and secured your first ship and crew. The vastness of the universe feels a little smaller as you walk, the night growing richer with each revelation.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together26": {
+        "line":"As the gala’s vibrant chatter fades behind you, you and %LORD_NAME step into the cool night, the stars shimmering like distant jewels overhead. You meander along the manicured gardens of the host's opulent estate. %LORD_NAME begins sharing tales navigating treacherous politics in gilded halls, %LORD_GENDER_HIS_OR_HER laughter echoing softly in the stillness. You have no shortage of your own stories to tell, recounting how you decided to become a captain and secured your first ship and crew. The vastness of the universe feels a little smaller as you walk, the night growing richer with each revelation.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together27": {
+        "line":"As the gala’s vibrant chatter fades behind you, you and %LORD_NAME step into the cool night, the stars shimmering like distant jewels overhead. You meander along the manicured gardens of the host's opulent estate. %LORD_NAME begins sharing tales navigating treacherous politics in gilded halls, %LORD_GENDER_HIS_OR_HER laughter echoing softly in the stillness. You have no shortage of your own stories to tell, recounting how you decided to become a captain and secured your first ship and crew. The vastness of the universe feels a little smaller as you walk, the night growing richer with each revelation.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together28": {
+        "line":"As the gala’s vibrant chatter fades behind you, you and %LORD_NAME step into the cool night, the stars shimmering like distant jewels overhead. You meander along the manicured gardens of the host's opulent estate. %LORD_NAME begins sharing tales navigating treacherous politics in gilded halls, %LORD_GENDER_HIS_OR_HER laughter echoing softly in the stillness. You have no shortage of your own stories to tell, recounting how you decided to become a captain and secured your first ship and crew. The vastness of the universe feels a little smaller as you walk, the night growing richer with each revelation.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together29": {
+        "line":"As the gala’s vibrant chatter fades behind you, you and %LORD_NAME step into the cool night, the stars shimmering like distant jewels overhead. You meander along the manicured gardens of the host's opulent estate. %LORD_NAME begins sharing tales navigating treacherous politics in gilded halls, %LORD_GENDER_HIS_OR_HER laughter echoing softly in the stillness. You have no shortage of your own stories to tell, recounting how you decided to become a captain and secured your first ship and crew. The vastness of the universe feels a little smaller as you walk, the night growing richer with each revelation.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+      "spend_time_together30": {
+        "line":"As the gala’s vibrant chatter fades behind you, you and %LORD_NAME step into the cool night, the stars shimmering like distant jewels overhead. You meander along the manicured gardens of the host's opulent estate. %LORD_NAME begins sharing tales navigating treacherous politics in gilded halls, %LORD_GENDER_HIS_OR_HER laughter echoing softly in the stillness. You have no shortage of your own stories to tell, recounting how you decided to become a captain and secured your first ship and crew. The vastness of the universe feels a little smaller as you walk, the night growing richer with each revelation.",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          }
+        }
+      },
+
+      "spend_time_together31": {
+        "line":"Amid the lavish displays of the feast, you and %LORD_NAME wander over to a round table where a lively card game was in full swing, laughter and friendly banter filling the air. With a smirk, %LORD_GENDER_HE_OR_SHE tosses a handful of chips onto the pile, drawing the attention of the other players. You're also pulled into the game, but you quickly notice that %LORD_NAME is fully in their element. Despite your efforts, the best you can do is escape without major losses as %LORD_GENDER_HE_OR_SHE methodically cleans out the table. \n\"Thanks for that\", %LORD_NAME says teasingly. \"I really needed a punching bag to blow off some steam.\"",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          },
+          "creditsDecrease": {
+            "max": 1000,
+            "min": 200
+          }
+        }
+      },
+      "spend_time_together32": {
+        "line":"Amid the lavish displays of the feast, you and %LORD_NAME wander over to a round table where a lively card game was in full swing, laughter and friendly banter filling the air. With a smirk, %LORD_GENDER_HE_OR_SHE tosses a handful of chips onto the pile, drawing the attention of the other players. You're also pulled into the game, but you quickly notice that %LORD_NAME is fully in their element. Despite your efforts, the best you can do is escape without major losses as %LORD_GENDER_HE_OR_SHE methodically cleans out the table. \n\"Thanks for that\", %LORD_NAME says teasingly. \"I really needed a punching bag to blow off some steam.\"",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          },
+          "creditsDecrease": {
+            "max": 1000,
+            "min": 200
+          }
+        }
+      },
+      "spend_time_together33": {
+        "line":"Amid the lavish displays of the feast, you and %LORD_NAME wander over to a round table where a lively card game was in full swing, laughter and friendly banter filling the air. With a smirk, %LORD_GENDER_HE_OR_SHE tosses a handful of chips onto the pile, drawing the attention of the other players. You're also pulled into the game, but you quickly notice that %LORD_NAME is fully in their element. Despite your efforts, the best you can do is escape without major losses as %LORD_GENDER_HE_OR_SHE methodically cleans out the table. \n\"Thanks for that\", %LORD_NAME says teasingly. \"I really needed a punching bag to blow off some steam.\"",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          },
+          "creditsDecrease": {
+            "max": 1000,
+            "min": 200
+          }
+        }
+      },
+      "spend_time_together34": {
+        "line":"Amid the lavish displays of the feast, you and %LORD_NAME wander over to a round table where a lively card game was in full swing, laughter and friendly banter filling the air. With a smirk, %LORD_GENDER_HE_OR_SHE tosses a handful of chips onto the pile, drawing the attention of the other players. You're also pulled into the game, but you quickly notice that %LORD_NAME is fully in their element. Despite your efforts, the best you can do is escape without major losses as %LORD_GENDER_HE_OR_SHE methodically cleans out the table. \n\"Thanks for that\", %LORD_NAME says teasingly. \"I really needed a punching bag to blow off some steam.\"",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          },
+          "creditsDecrease": {
+            "max": 1000,
+            "min": 200
+          }
+        }
+      },
+      "spend_time_together35": {
+        "line":"Amid the lavish displays of the feast, you and %LORD_NAME wander over to a round table where a lively card game was in full swing, laughter and friendly banter filling the air. With a smirk, %LORD_GENDER_HE_OR_SHE tosses a handful of chips onto the pile, drawing the attention of the other players. You're also pulled into the game, but you quickly notice that %LORD_NAME is fully in their element. Despite your efforts, the best you can do is escape without major losses as %LORD_GENDER_HE_OR_SHE methodically cleans out the table. \n\"Thanks for that\", %LORD_NAME says teasingly. \"I really needed a punching bag to blow off some steam.\"",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          },
+          "creditsDecrease": {
+            "max": 1000,
+            "min": 200
+          }
+        }
+      },
+      "spend_time_together36": {
+        "line":"Amid the lavish displays of the feast, you and %LORD_NAME wander over to a round table where a lively card game was in full swing, laughter and friendly banter filling the air. With a smirk, %LORD_GENDER_HE_OR_SHE tosses a handful of chips onto the pile, drawing the attention of the other players. You're also pulled into the game, but you quickly notice that %LORD_NAME is fully in their element. Despite your efforts, the best you can do is escape without major losses as %LORD_GENDER_HE_OR_SHE methodically cleans out the table. \n\"Thanks for that\", %LORD_NAME says teasingly. \"I really needed a punching bag to blow off some steam.\"",
+        "addons": {
+          "repIncrease": {
+            "min": 5,
+            "max": 5
+          },
+          "creditsDecrease": {
+            "max": 1000,
+            "min": 200
+          }
+        }
+      },
+
       "spend_time_together_after": "At the end of the evening, you prepare to part ways. This is your chance to present them with a gift.",
       "spend_time_together_hint": "Your gift will significantly color their opinion of you. It's ok to give nothing if you aren't certain of their preferences.",
 
+      "marriage_response": "Did you confuse me with someone else? I'm going to pretend that you didn't say that.",
+      "accept_marriage_second": "Let's ask our host %LORD_HOST_NAME to arrange a ceremony for us at once!",
+      "refuse_marriage_hint": {
+        "line": "This lord expects you to do something romantic for them first.",
+        "color": "YELLOW"
+      },
+
       "marriage_ceremony": "The mood at the feast elevates as word spreads about the marriage between you and %c0. Your crew and comrades gather around you, offering their congratulations in turn. The host, %c1, officiates your union amidst cheers and celebration. You have gained an ally for life.",
 
-      "relation_increase": "Relations with %LORD_NAME increased by %c0.",
-      "relation_decrease": "Relations with %LORD_NAME decreased by %c0.",
-      "credits_increase": "Gained %c0 credits.",
-      "credits_decrease": "Lost %c0 credits.",
+      "join_party_explanation": "Of course my dear, I'd love to join up with you. I'd have to disband my own fleet though; is that what you want?",
+      "leave_party_explanation": "Of course my dear, I can go back to my own fleet if that's what you think is best.",
+
+      "for_refuse_sway": "I'm sorry, but I've already made up my mind on the matter.",
+      "for_accept_sway_bargain": "We have a deal then. I'll do as you ask.",
+      "for_accept_sway_redundant": "Er... I already agree with you, though I must say that our talk has reinforced my view.",
+      "for_accept_sway": "Of course friend, now that you explain it that way, I agree with you.",
+      "for_bargain_sway_support": "Hmm... I don't mind lending you a hand, but I have my own proposal that I would expect you to support in return.",
+      "for_bargain_sway_money": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+
+      "against_refuse_sway": "I'm sorry, but I've already made up my mind on the matter.",
+      "against_accept_sway_bargain": "We have a deal then. I'll do as you ask.",
+      "against_accept_sway_redundant": "Er... I already agree with you, though I must say that our talk has reinforced my view.",
+      "against_accept_sway": "Of course friend, now that you explain it that way, I agree with you.",
+      "against_bargain_sway_support": "Hmm... I don't mind lending you a hand, but I have my own proposal that I would expect you to support in return.",
+      "against_bargain_sway_money": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+
+
+
+      "relation_increase": {
+        "line": "Relations with %LORD_NAME increased by %c0.",
+        "color": "GREEN"
+      },
+      "relation_decrease": {
+        "line": "Relations with %LORD_NAME decreased by %c0.",
+        "color": "RED"
+      },
+      "credits_increase": {
+        "line": "Gained %c0 credits.",
+        "color": "GREEN"
+      },
+      "credits_decrease": {
+        "line": "Lost %c0 credits.",
+        "color": "RED"
+      },
       "addedIntel": {
         "line": "Added intel on %LORD_NAME",
         "color": "GREEN"
@@ -818,10 +1644,16 @@
       "option_sway_council_support": "Persuade them to support the currently debated proposal.",
       "option_sway_council_oppose": "Persuade them to oppose the currently debated proposal.",
       "option_sway_player": "Persuade them to support your proposal.",
-      "option_nevermind": "Never mind",
+      "option_nevermind_askQuestion": "Never mind",
 
       "option_give_gift": "Select a gift",
-      "option_dont_give_gift": "Just return to the feast"
+      "option_dont_give_gift": "Just return to the feast",
+
+      "option_confirm_join_party": "Confirm",
+      "option_nevermind_join_party": "Never mind",
+
+      "option_confirm_leave_party": "Confirm",
+      "option_nevermind_leave_party": "Never mind"
     }
   }
 }

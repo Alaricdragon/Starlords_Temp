@@ -9,8 +9,10 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
+import starlords.controllers.EventController;
 import starlords.controllers.LordController;
 import starlords.person.Lord;
+import starlords.person.LordAction;
 import starlords.util.GenderUtils;
 import starlords.util.dialogControler.dialogRull.*;
 import starlords.util.dialogControler.dialog_addon.*;
@@ -102,6 +104,8 @@ public class DialogSet {
         line = getPlayerPartnerStringMods(line,lord);
         line = getLordStringMods(line,lord);
         line = getLordPartnerStringMods(line,lord);
+        line = getHostLordStringMods(line,lord);
+        line = getHostLordPartnerStringMods(line,lord);
         return line;
     }
 
@@ -257,10 +261,10 @@ public class DialogSet {
         return line;
     }
     private static String getLordPartnerStringMods(String line, Lord lord){
-        if (LordController.getPlayerLord().getSpouse() == null){
+        if (lord.getSpouse() == null){
             return getLordNoPartnerStringMods(line,lord);
         }
-        Lord lordTemp = LordController.getLordById(LordController.getPlayerLord().getSpouse());
+        Lord lordTemp = LordController.getLordById(lord.getSpouse());
         if (lordTemp == null){
             return getLordNoPartnerStringMods(line,lord);
         }
@@ -304,6 +308,147 @@ public class DialogSet {
         return line;
     }
     private static String getLordNoPartnerStringMods(String line, Lord lord){
+        String data = lord.getFaction().getDisplayName();
+        line = insertData(line,"%LORD_SPOUSE_FACTION_NAME",data);
+
+        data = Global.getSector().getFaction(lord.getTemplate().factionId).getDisplayName();//Global.getSector().getPlayerFaction().getDisplayName();
+        line = insertData(line,"%LORD_SPOUSE_STARTING_FACTION_NAME",data);
+
+        data = lord.getLordAPI().getNameString();
+        line = insertData(line,"%LORD_SPOUSE_NAME",data);
+
+        data = lord.getLordAPI().getManOrWoman();
+        line = insertData(line,"%LORD_SPOUSE_GENDER_MAN_OR_WOMEN",data);
+
+        data = lord.getLordAPI().getHeOrShe();
+        line = insertData(line,"%LORD_SPOUSE_GENDER_HE_OR_SHE",data);
+
+        data = lord.getLordAPI().getHimOrHer();
+        line = insertData(line,"%LORD_SPOUSE_GENDER_HIM_OR_HER",data);
+
+        data = lord.getLordAPI().getHisOrHer();
+        line = insertData(line,"%LORD_SPOUSE_GENDER_HIS_OR_HER",data);
+
+        data = lord.getLordAPI().getGender().name();
+        line = insertData(line,"%LORD_SPOUSE_GENDER_NAME",data);
+
+        FleetMemberAPI flownShip = getFlownShip(lord.getLordAPI(),lord.getFleet());
+        data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
+        if (flownShip != null) data = flownShip.getHullSpec().getHullName();
+        line = insertData(line,"%LORD_SPOUSE_FLAGSHIP_HULLNAME",data);
+
+        data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
+        if (flownShip != null) data = flownShip.getShipName();
+        line = insertData(line,"%LORD_SPOUSE_FLAGSHIP_NAME",data);
+
+        data = GenderUtils.husbandOrWife(lord.getLordAPI(), false);
+        line = insertData(line,"%LORD_SPOUSE_GENDER_HUSBAND_OR_WIFE",data);
+        return line;
+    }
+    private static String getHostLordStringMods(String line, Lord lord){
+        boolean check = EventController.getCurrentFeast(lord.getLordAPI().getFaction()) != null && EventController.getCurrentFeast(lord.getLordAPI().getFaction()).getOriginator() != null;
+        if (check){
+            Lord temp = EventController.getCurrentFeast(lord.getLordAPI().getFaction()).getOriginator();
+            if (temp != null) lord = temp;
+        }
+        String data = lord.getFaction().getDisplayName();
+        line = insertData(line,"%LORD_HOST_FACTION_NAME",data);
+
+        data = Global.getSector().getFaction(lord.getTemplate().factionId).getDisplayName();//Global.getSector().getPlayerFaction().getDisplayName();
+        line = insertData(line,"%LORD_HOST_STARTING_FACTION_NAME",data);
+
+        data = lord.getLordAPI().getNameString();
+        line = insertData(line,"%LORD_HOST_NAME",data);
+
+        data = lord.getLordAPI().getManOrWoman();
+        line = insertData(line,"%LORD_HOST_GENDER_MAN_OR_WOMEN",data);
+
+        data = lord.getLordAPI().getHeOrShe();
+        line = insertData(line,"%LORD_HOST_GENDER_HE_OR_SHE",data);
+
+        data = lord.getLordAPI().getHimOrHer();
+        line = insertData(line,"%LORD_HOST_GENDER_HIM_OR_HER",data);
+
+        data = lord.getLordAPI().getHisOrHer();
+        line = insertData(line,"%LORD_HOST_GENDER_HIS_OR_HER",data);
+
+        data = lord.getLordAPI().getGender().name();
+        line = insertData(line,"%LORD_HOST_GENDER_NAME",data);
+
+        FleetMemberAPI flownShip = getFlownShip(lord.getLordAPI(),lord.getFleet());
+        data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
+        if (flownShip != null) data = flownShip.getHullSpec().getHullName();
+        line = insertData(line,"%LORD_HOST_FLAGSHIP_HULLNAME",data);
+
+        data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
+        if (flownShip != null) data = flownShip.getShipName();
+        line = insertData(line,"%LORD_HOST_FLAGSHIP_NAME",data);
+
+        data = GenderUtils.husbandOrWife(lord.getLordAPI(), false);
+        line = insertData(line,"%LORD_HOST_GENDER_HUSBAND_OR_WIFE",data);
+        return line;
+    }
+    private static String getHostLordPartnerStringMods(String line, Lord lord){
+        boolean check = EventController.getCurrentFeast(lord.getLordAPI().getFaction()) != null && EventController.getCurrentFeast(lord.getLordAPI().getFaction()).getOriginator() != null;
+        if (check){
+            Lord temp = EventController.getCurrentFeast(lord.getLordAPI().getFaction()).getOriginator();
+            if (temp != null) lord = temp;
+        }
+        if (lord.getSpouse() == null){
+            return getLordNoPartnerStringMods(line,lord);
+        }
+        Lord lordTemp = LordController.getLordById(lord.getSpouse());
+        if (lordTemp == null){
+            return getHostLordNoPartnerStringMods(line,lord);
+        }
+        lord = lordTemp;
+        //PLAYER_SPOUSE_FACTION_NAME
+        String data = lord.getFaction().getDisplayName();
+        line = insertData(line,"%LORD_HOST_SPOUSE_FACTION_NAME",data);
+
+        data = Global.getSector().getFaction(lord.getTemplate().factionId).getDisplayName();//Global.getSector().getPlayerFaction().getDisplayName();
+        line = insertData(line,"%LORD_HOST_SPOUSE_STARTING_FACTION_NAME",data);
+
+        data = lord.getLordAPI().getNameString();
+        line = insertData(line,"%LORD_HOST_SPOUSE_NAME",data);
+
+        data = lord.getLordAPI().getManOrWoman();
+        line = insertData(line,"%LORD_HOST_SPOUSE_GENDER_MAN_OR_WOMEN",data);
+
+        data = lord.getLordAPI().getHeOrShe();
+        line = insertData(line,"%LORD_HOST_SPOUSE_GENDER_HE_OR_SHE",data);
+
+        data = lord.getLordAPI().getHimOrHer();
+        line = insertData(line,"%LORD_HOST_SPOUSE_GENDER_HIM_OR_HER",data);
+
+        data = lord.getLordAPI().getHisOrHer();
+        line = insertData(line,"%LORD_HOST_SPOUSE_GENDER_HIS_OR_HER",data);
+
+        data = lord.getLordAPI().getGender().name();
+        line = insertData(line,"%LORD_HOST_SPOUSE_GENDER_NAME",data);
+
+        FleetMemberAPI flownShip = getFlownShip(lord.getLordAPI(),lord.getFleet());
+        data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
+        if (flownShip != null) data = flownShip.getHullSpec().getHullName();
+        line = insertData(line,"%LORD_HOST_SPOUSE_FLAGSHIP_HULLNAME",data);
+
+        data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
+        if (flownShip != null) data = flownShip.getShipName();
+        line = insertData(line,"%LORD_HOST_SPOUSE_FLAGSHIP_NAME",data);
+
+        data = GenderUtils.husbandOrWife(lord.getLordAPI(), false);
+        line = insertData(line,"%LORD_HOST_SPOUSE_GENDER_HUSBAND_OR_WIFE",data);
+        return line;
+    }
+    private static String getHostLordNoPartnerStringMods(String line, Lord lord){
+        boolean check = EventController.getCurrentFeast(lord.getLordAPI().getFaction()) != null && EventController.getCurrentFeast(lord.getLordAPI().getFaction()).getOriginator() != null;
+        if (check){
+            Lord temp = EventController.getCurrentFeast(lord.getLordAPI().getFaction()).getOriginator();
+            if (temp != null) lord = temp;
+        }
+        if (lord.getSpouse() == null){
+            return getLordNoPartnerStringMods(line,lord);
+        }
         String data = lord.getFaction().getDisplayName();
         line = insertData(line,"%LORD_SPOUSE_FACTION_NAME",data);
 
@@ -559,6 +704,18 @@ public class DialogSet {
                     case "creditsDecrease":
                         addon = addAddon_creditsDecrease(addons, key2);
                         break;
+                    case "romanceActionIncrease":
+                        addon = addAddon_romanceActionIncrease(addons, key2);
+                        break;
+                    case "romanceActionDecrease":
+                        addon = addAddon_romanceActionDecrease(addons, key2);
+                        break;
+                    case "additionalText":
+                        addon = addAddon_additionalText(addons,key2);
+                        break;
+                    case "startWedding":
+                        addon = addAddon_startWedding(addons,key2);
+                        break;
                 }
                 if (addon != null) newAddons.add(addon);
             }
@@ -619,6 +776,27 @@ public class DialogSet {
         JSONObject json2 = json.getJSONObject(key);
         return new DialogAddon_creditDecrease(json2.getInt("min"),json2.getInt("max"));
     }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_romanceActionIncrease(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogAddon_romanticActionIncrease(json2.getInt("min"),json2.getInt("max"));
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_romanceActionDecrease(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogAddon_romanticActionDecrease(json2.getInt("min"),json2.getInt("max"));
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_additionalText(JSONObject json,String key){
+        String json2 = json.getString(key);
+        return new DialogAddon_additionalText(json2);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_startWedding(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        if (!json2) return null;
+        return new DialogAddon_startWedding();
+    }
 
     public static ArrayList<DialogRule_Base> getDialogFromJSon(JSONObject rulesTemp){
         ArrayList<DialogRule_Base> rules = new ArrayList<>();
@@ -652,6 +830,9 @@ public class DialogSet {
                     break;
                 case "isAtFeast":
                     rules.add(addRule_isAtFeast(rulesTemp,key));
+                    break;
+                case "isHostingFeast":
+                    rules.add(addRule_isHostingFeast(rulesTemp,key));
                     break;
                 case "playerSubject":
                     rules.add(addRule_playerSubject(rulesTemp,key));
@@ -691,6 +872,9 @@ public class DialogSet {
                     break;
                 case "isLordCourtedByPlayer":
                     rules.add(addRule_isLordCourtedByPlayer(rulesTemp,key));
+                    break;
+                case "playerLordRomanceAction":
+                    rules.add(addRule_playerLordRomanceAction(rulesTemp,key));
                     break;
             }
         }
@@ -762,6 +946,10 @@ public class DialogSet {
         return new DialogRule_isAtFeast(json.getBoolean(key));
     }
     @SneakyThrows
+    private static DialogRule_Base addRule_isHostingFeast(JSONObject json, String key){
+        return new DialogRule_isHostingFeast(json.getBoolean(key));
+    }
+    @SneakyThrows
     private static DialogRule_Base addRule_playerSubject(JSONObject json, String key){
         return new DialogRule_playerSubject(json.getBoolean(key));
     }
@@ -799,7 +987,6 @@ public class DialogSet {
         }
         return new DialogRule_battlePersonaility(whiteList);
     }
-
     @SneakyThrows
     private static DialogRule_Base addRule_lordLevel(JSONObject json,String key){
         JSONObject json2 = json.getJSONObject(key);
@@ -839,5 +1026,10 @@ public class DialogSet {
     private static DialogRule_Base addRule_isLordCourtedByPlayer(JSONObject json,String key){
         boolean json2 = json.getBoolean(key);
         return new DialogRule_isLordCourtedByPlayer(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_playerLordRomanceAction(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_playerLordRomanceAction(json2);
     }
 }

@@ -5,8 +5,8 @@ import org.json.JSONObject;
 import starlords.person.Lord;
 
 public class DialogRule_lordWealth extends DialogRule_Base {
-    int max = 1000000000;
-    int min = -1000000;
+    int max = 2147483647;
+    int min = -2147483647;
     @SneakyThrows
     public DialogRule_lordWealth(JSONObject jsonObject){
         if (jsonObject.has("max")) max = jsonObject.getInt("max");

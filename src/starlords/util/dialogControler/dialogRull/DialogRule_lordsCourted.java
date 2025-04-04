@@ -6,8 +6,8 @@ import starlords.controllers.LordController;
 import starlords.person.Lord;
 
 public class DialogRule_lordsCourted extends DialogRule_Base {
-    int max = 1000000;
-    int min = 0;
+    int max = 2147483647;
+    int min = -2147483647;
     @SneakyThrows
     public DialogRule_lordsCourted(JSONObject jsonObject){
         if (jsonObject.has("max")) max = jsonObject.getInt("max");

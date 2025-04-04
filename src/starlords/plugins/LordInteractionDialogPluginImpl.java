@@ -441,7 +441,6 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         } else {
             DialogSet.addParaWithInserts("dedicate_tournament",targetLord,textPanel,options);
         }
-        targetLord.setRomanticActions(targetLord.getRomanticActions() + 1);
         feast.setVictoryDedicated(true);
         // other courted lords get jealous
         for (Lord lord: LordController.getLordsList()) {
@@ -539,11 +538,12 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
                     && !councilProposal.getPledgedAgainst().contains(targetLord.getLordAPI().getId())
                     && !councilProposal.getPledgedFor().contains(targetLord.getLordAPI().getId())) {
                 if (councilProposal.isPlayerSupports()) {
+                    DialogSet.addOptionWithInserts("option_sway_council_support",null,OptionId.SWAY_PROPOSAL_COUNCIL,targetLord,textPanel,options);
                     swayFor = true;
                 } else {
+                    DialogSet.addOptionWithInserts("option_sway_council_oppose",null,OptionId.SWAY_PROPOSAL_COUNCIL,targetLord,textPanel,options);
                     swayFor = false;
                 }
-                DialogSet.addOptionWithInserts("option_sway_council_oppose",null,OptionId.SWAY_PROPOSAL_COUNCIL,targetLord,textPanel,options);
             }
             LawProposal playerProposal = PoliticsController.getProposal(LordController.getPlayerLord());
             if (playerProposal != null && !playerProposal.equals(councilProposal)
@@ -552,127 +552,24 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
                 DialogSet.addOptionWithInserts("option_sway_player",null,OptionId.SWAY_PROPOSAL_PLAYER,targetLord,textPanel,options);
             }
         }
-        DialogSet.addOptionWithInserts("option_nevermind",null,OptionId.INIT,targetLord,textPanel,options);
+        DialogSet.addOptionWithInserts("option_nevermind_askQuestion",null,OptionId.INIT,targetLord,textPanel,options);
         options.setShortcut(OptionId.INIT, 1, false, false, false, true);
     }
     private void optionSelected_PROFESS_ADMIRATION(String optionText, Object optionData, PersonAPI player, boolean willEngage, boolean hostile, LordEvent feast,OptionId option){
-        // 0 hate, 1 dislike, 2 like
-        /*ok, so if I want to swap this PROFESS_ADMIRATION function from lines, into 1 conditional line, what conditions do I require?
-        * after calculation, the total additional conditions required are:
-        * 1) number of lords courted
-        * 2) player level
-        * 3) player rank
-        * 4) player credits.
-        * upstanding:
-        *   1) number of corted lords???? (WTF????)
-        *   2) rep level.
-        *   (in total, 4 options):
-        *       none met
-        *       rep level met
-        *       courted lords met?
-        *       rep level met + courted lords met.
-        * marital
-        *   1) rep level
-        *   2) player level
-        *   (in total, 4 options):
-        *       none met
-        *       rep level met
-        *       player level met
-        *       rep + player level met.
-        * calculating
-        *   player rank (0,1,2)
-        *   player credits (0,50000,2000000)
-        *   (in total, 6 options)
-        *   (0) rank 0, credits 0
-        *   (1) rank 1 credits 0
-        *   (1) rank 0 credits 50000
-        *   (2+) rank 2 credits 0
-        *   (2+) rank 1 credits 50000
-        *   (2+) rank 0 credits 2000000
-        * Quarrelsome
-        *   THIS ARE NO CONDITIONS!!!! WTF!?!?!?!
-        *   no wait this is funny to think of it omg lol.
-        * */
-        int likedLevel = 0;
-        switch (targetLord.getPersonality()) {
-            case UPSTANDING:
-                if (targetLord.getLordAPI().getRelToPlayer().isAtWorst(RepLevel.WELCOMING)) {
-                    likedLevel += 1;
-                }
-                int numCourted = 0;
-                for (Lord lord : LordController.getLordsList()) {
-                    if (lord.isCourted()) numCourted += 1;
-                }
-                if (numCourted <= 1) likedLevel += 1;
-                break;
-            case MARTIAL:
-                if (targetLord.getLordAPI().getRelToPlayer().isAtWorst(RepLevel.FAVORABLE)) {
-                    likedLevel += 1;
-                }
-                if (player.getStats().getLevel() >= 15) {
-                    likedLevel += 1;
-                }
-                break;
-            case CALCULATING:
-                likedLevel += LordController.getPlayerLord().getRanking();
-                int playerCredits = (int) Global.getSector().getPlayerFleet().getCargo().getCredits().get();
-                if (playerCredits > 2000000) {
-                    likedLevel += 2;
-                } else if (playerCredits > 500000) {
-                    likedLevel += 1;
-                }
-                break;
-        }
-        if (likedLevel == 0) {
-            DialogSet.addParaWithInserts("admiration_response_hate",targetLord,textPanel,options);
-        } else if (likedLevel == 1) {
-            DialogSet.addParaWithInserts("admiration_response_dislike",targetLord,textPanel,options);
-        } else {
-            DialogSet.addParaWithInserts("admiration_response_like",targetLord,textPanel,options);
-        }
+        DialogSet.addParaWithInserts("admiration_response",targetLord,textPanel,options);
         targetLord.setCourted(true);
         feast.setProfessedAdmiration(true);
         optionSelected(null, OptionId.ASK_QUESTION);
     }
     private void optionSelected_SUGGEST_DATE(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
-        int dateType = 1 + Utils.rand.nextInt(6);
+        int dateType = 1 + Utils.rand.nextInt(36);
         int loss;
-        switch(dateType) {
-            case 1:
-                textPanel.addPara(DialogSet.getLineWithInserts(targetLord, "spend_time_together1"));
-                break;
-            case 2:
-                textPanel.addPara(DialogSet.getLineWithInserts(targetLord, "spend_time_together2"));
-                break;
-            case 3:
-                textPanel.addPara(DialogSet.getLineWithInserts(targetLord, "spend_time_together3"));
-                break;
-            case 4:
-                textPanel.addPara(DialogSet.getLineWithInserts(targetLord, "spend_time_together4"));
-                break;
-            case 5:
-                textPanel.addPara(DialogSet.getLineWithInserts(targetLord, "spend_time_together5"));
-                break;
-            default:
-            case 6:
-                textPanel.addPara(DialogSet.getLineWithInserts(targetLord, "spend_time_together6"));
-                loss = (int) Math.min(200 + Utils.rand.nextInt(800),
-                        Global.getSector().getPlayerFleet().getCargo().getCredits().get());
-                Global.getSector().getPlayerFleet().getCargo().getCredits().subtract(loss);
-                String line = DialogSet.getLineWithInserts(targetLord,"spend_time_together6_0");
-                line = DialogSet.insertData(line,"%c0",line);
-                textPanel.addPara(line, Color.RED);
-                break;
-        }
-
-        applyRepIncrease(textPanel,targetLord,5);
-
-        textPanel.addPara(DialogSet.getLineWithInserts(targetLord, "spend_time_together_after"));
+        DialogSet.addParaWithInserts("spend_time_together"+dateType,targetLord,textPanel,options);
+        DialogSet.addParaWithInserts("spend_time_together_after"+dateType,targetLord,textPanel,options);
         feast.setHeldDate(true);
         options.clearOptions();
-        options.addOption(DialogSet.getLineWithInserts(targetLord, "option_give_gift"), OptionId.OFFER_GIFT);
-        options.addOption(DialogSet.getLineWithInserts(targetLord, "option_dont_give_gift"), OptionId.ASK_QUESTION);
-        options.setTooltip(OptionId.OFFER_GIFT, DialogSet.getLineWithInserts(targetLord, "spend_time_together_hint"));
+        DialogSet.addOptionWithInserts("option_give_gift","spend_time_together_hint",OptionId.OFFER_GIFT,targetLord,textPanel,options);
+        DialogSet.addOptionWithInserts("option_dont_give_gift",null,OptionId.ASK_QUESTION,targetLord,textPanel,options);
     }
     private void optionSelected_OFFER_GIFT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         //TODO: there is a issue here. there are many more possible options that must be considered. I will need to add in a a way to add additional commodity that they might care for.
@@ -744,10 +641,10 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
                 && !feast.getParticipants().isEmpty()) {
             hostName = feast.getParticipants().get(0).getLordAPI().getNameString();
         }
-        String line = DialogSet.getLineWithInserts(targetLord,"marriage_ceremony");
-        line = DialogSet.insertData(line,"%c0",feast.getWeddingCeremonyTarget().getLordAPI().getNameString());
-        line = DialogSet.insertData(line,"%c1",hostName);
-        textPanel.addPara(line);
+        HashMap<String,String> inserts = new HashMap<>();
+        inserts.put("%c0",feast.getWeddingCeremonyTarget().getLordAPI().getNameString());
+        inserts.put("%c1",hostName);
+        DialogSet.addParaWithInserts("marriage_ceremony",targetLord,textPanel,options,inserts);
         feast.getWeddingCeremonyTarget().setMarried(true);
         feast.getWeddingCeremonyTarget().setSpouse(Global.getSector().getPlayerPerson().getId());
         LordController.getPlayerLord().setMarried(true);
@@ -771,66 +668,46 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
                     -> lose 10 rep
                 other:
                     -> refuse_marriage_joke
-         */
-        if (targetLord.getLordAPI().getRelToPlayer().isAtWorst(RepLevel.COOPERATIVE)) {
-            if (targetLord.getRomanticActions() > 0) {
-                feast.setWeddingCeremonyTarget(targetLord);
-                textPanel.addPara(StringUtil.getString(
-                        CATEGORY, "accept_marriage_" + targetLord.getPersonality().toString().toLowerCase(),
-                        GenderUtils.manOrWoman(player, false), player.getName().getFirst()));
-                if (targetLord.equals(feast.getOriginator())) {
-                    textPanel.addPara(StringUtil.getString(CATEGORY, "accept_marriage_is_host"));
-                } else {
-                    textPanel.addPara(StringUtil.getString(
-                            CATEGORY, "accept_marriage_see_host",
-                            feast.getOriginator().getLordAPI().getNameString()));
-                }
-            } else {
-                textPanel.addPara(StringUtil.getString(
-                        CATEGORY, "refuse_marriage_no_gift", GenderUtils.manOrWoman(player, false)));
-                textPanel.addPara(StringUtil.getString(CATEGORY, "refuse_marriage_no_gift_hint"), Color.YELLOW);
-            }
-        } else {
-            // different rejection message depending on relations
-            if (targetLord.getLordAPI().getRelToPlayer().isAtWorst(RepLevel.FRIENDLY)) {
-                textPanel.addPara(StringUtil.getString(
-                        CATEGORY, "refuse_marriage_mild", GenderUtils.manOrWoman(player, false)));
-            } else if (targetLord.getLordAPI().getRelToPlayer().isAtWorst(RepLevel.FAVORABLE)) {
-                textPanel.addPara(StringUtil.getString(CATEGORY, "refuse_marriage_harsh"));
-                applyRepDecrease(textPanel,targetLord,10);
 
-            } else {
-                textPanel.addPara(StringUtil.getString(CATEGORY, "refuse_marriage_joke"));
-            }
-        }
+         lines:
+            seeHost:
+                (x)isHost -> accept_marriage_is_host
+                (x)!isHost -> accept_marriage_see_host
+            marray:
+                (x)rep: COOPERATIVE + romance min 1
+                    accept_marriage_+personality
+                    addons:
+                        marry
+                        exstra line: seeHost
+                (x)rep: min: 75 + romance max 0
+                    refuse_marriage_no_gift
+                    addons:
+                        refuse_marriage_no_gift_hint
+                (x) rep: max: 74, min: 50
+                    refuse_marriage_mild
+                (x)rem: max 49, min: 10
+                    refuse_marriage_harsh
+                    addons: -10 rep
+                (x)other:
+                    refuse_marriage_joke
+
+         */
+        DialogSet.addParaWithInserts("marriage_response",targetLord,textPanel,options);
         optionSelected(null, OptionId.ASK_QUESTION);
     }
-    private void support_SUGGEST_MARRIAGE_ACSEPT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
-
-    }
-    private void support_SUGGEST_MARRIAGE_REFUSE_LACKOFROMANCE(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
-
-    }
-    private void support_SUGGEST_MARRIAGE_REFUSE_DONTLIKE(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
-
-    }
-    private void support_SUGGEST_MARRIAGE_REFUSE_FRIENDZONE(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
-
-    }
-    private void support_SUGGEST_MARRIAGE_REFUSE_JOKE(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
-
-    }
     private void optionSelected_SUGGEST_JOIN_PARTY(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
-        textPanel.addPara(StringUtil.getString(CATEGORY, "join_party_explanation"));
+        DialogSet.addParaWithInserts("join_party_explanation",targetLord,textPanel,options);
         options.clearOptions();
-        options.addOption("Confirm", OptionId.CONFIRM_TOGGLE_PARTY);
-        options.addOption(StringUtil.getString(CATEGORY, "option_nevermind"), OptionId.ASK_QUESTION);
+        DialogSet.addOptionWithInserts("option_confirm_join_party",null,OptionId.CONFIRM_TOGGLE_PARTY,targetLord,textPanel,options);
+        DialogSet.addOptionWithInserts("option_nevermind_join_party",null,OptionId.ASK_QUESTION,targetLord,textPanel,options);
+        options.setShortcut(OptionId.ASK_QUESTION, 1, false, false, false, true);
     }
     private void optionSelected_SUGGEST_LEAVE_PARTY(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
-        textPanel.addPara(StringUtil.getString(CATEGORY, "leave_party_explanation"));
+        DialogSet.addParaWithInserts("leave_party_explanation",targetLord,textPanel,options);
         options.clearOptions();
-        options.addOption("Confirm", OptionId.CONFIRM_TOGGLE_PARTY);
-        options.addOption(StringUtil.getString(CATEGORY, "option_nevermind"), OptionId.ASK_QUESTION);
+        DialogSet.addOptionWithInserts("option_confirm_leave_party",null,OptionId.CONFIRM_TOGGLE_PARTY,targetLord,textPanel,options);
+        DialogSet.addOptionWithInserts("option_nevermind_leave_party",null,OptionId.ASK_QUESTION,targetLord,textPanel,options);
+        options.setShortcut(OptionId.ASK_QUESTION, 1, false, false, false, true);
     }
     private void optionSelected_CONFIRM_TOGGLE_PARTY(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         if (targetLord.getCurrAction() == LordAction.COMPANION) {
@@ -865,13 +742,38 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         optionSelected(null, OptionId.ASK_QUESTION);
     }
     private void optionSelected_SWAY_PROPOSAL_COUNCIL(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
+        /*this function is a god damed mess. what the fuck.
+        * for real, what the hell is this?!!!
+        * so, what conditions and addons would I need to devide this into the lowest number of lines possable?
+        * 1), we can devide this function into 2. one for swaying player, the other for swaying lord, even though they are mostly the same, having diffrent factions could help.
+        *   -note: the condition that controls this is swayFor.
+        * so, first of all: opinion. is opinion is the following EQ:
+        *   PoliticsController.getApproval(targetLord, proposal, false).one
+        *   *-1 if player proposal.
+        *
+        * lord will refuse if:
+        *   opinion is less then -20
+        *
+        * 4 diffrent paras:
+        *   1) accept (reluctant and happily) (random number < agree chance)
+        *   2) bargain (force player to accept something of theres for support) (random number < bargainChance chance)
+        *   3) bribe (force player to give credits for support) (random number < bribe chance)
+        *   4) refuse (other) */
         FactionAPI faction = targetLord.getFaction();
         if (option == OptionId.SWAY_PROPOSAL_PLAYER) {
             proposal = PoliticsController.getProposal(LordController.getPlayerLord());
             swayFor = true;
+            //swayFor
+            support_SWAY_PROPOSAL_COUNCIL_FOR( optionText,  optionData, player, willEngage, hostile,  feast, option);
         } else {
             proposal = PoliticsController.getCurrProposal(faction);
+            swayFor = false;
+            //!swayFor
+            support_SWAY_PROPOSAL_COUNCIL_AGAINST( optionText,  optionData, player, willEngage, hostile,  feast, option);
         }
+    }
+    private void support_SWAY_PROPOSAL_COUNCIL_AGAINST(String optionText, Object optionData, PersonAPI player, boolean willEngage, boolean hostile, LordEvent feast, OptionId option){
+        FactionAPI faction = targetLord.getFaction();
         int opinion = PoliticsController.getApproval(targetLord, proposal, false).one;
         // lord can either agree/refuse outright, suggest a bribe, or suggest player support their proposal
         Random rand = new Random(targetLord.getLordAPI().getId().hashCode()
@@ -881,7 +783,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         int agreeChance = 0;
         int bribeChance = 0;
         int bargainChance = 0;
-        if (!swayFor) opinion *= -1;
+        opinion *= -1;
         if (!targetLord.isSwayed() && opinion > -20) {
             agreeChance = 10 * (relation / 10 + opinion + 12); // agree at -10 or above
             bribeChance = 25 + relation;
@@ -907,18 +809,20 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         targetLord.setSwayed(true);
         if (rand.nextInt(100) < agreeChance) {
             if (opinion > 0) {
+                //DialogSet.addParaWithInserts("against_accept_sway_redundant",targetLord,textPanel,options);
                 textPanel.addPara(StringUtil.getString(CATEGORY, "option_accept_sway_redundant"));
             } else {
+                //DialogSet.addParaWithInserts("against_accept_sway",targetLord,textPanel,options);
                 textPanel.addPara(StringUtil.getString(CATEGORY, "option_accept_sway"));
             }
-            if (swayFor) {
-                proposal.getPledgedFor().add(targetLord.getLordAPI().getId());
-            } else {
-                proposal.getPledgedAgainst().add(targetLord.getLordAPI().getId());
-            }
+            proposal.getPledgedAgainst().add(targetLord.getLordAPI().getId());
             PoliticsController.updateProposal(proposal);
             optionSelected(null, OptionId.ASK_QUESTION);
         } else if (rand.nextInt(100) < bargainChance) {
+            //DialogSet.addParaWithInserts("ERROR",targetLord,textPanel,options);
+            options.clearOptions();
+            //DialogSet.addOptionWithInserts("against_bargain_sway_support",null,null,targetLord,textPanel,options);
+            //DialogSet.addOptionWithInserts("ERROR",null,null,targetLord,textPanel,options);
             textPanel.addPara(StringUtil.getString(CATEGORY, "option_bargain_sway_support"));
             options.clearOptions();
             bargainAmount = "proposal"; // TODO make some flags
@@ -927,6 +831,10 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
 
 
         } else if (rand.nextInt(100) < bribeChance) {
+            //DialogSet.addParaWithInserts("against_bargain_sway_money",targetLord,textPanel,options);
+            options.clearOptions();
+            //DialogSet.addOptionWithInserts("ERROR",null,null,targetLord,textPanel,options);
+            //DialogSet.addOptionWithInserts("ERROR",null,null,targetLord,textPanel,options);
             textPanel.addPara(StringUtil.getString(CATEGORY, "option_bargain_sway_money"));
             bargainAmount = "credits";
             options.clearOptions();
@@ -939,6 +847,86 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
             options.addOption("Refuse", OptionId.ASK_QUESTION);
 
         } else {
+            //DialogSet.addParaWithInserts("ERROR",targetLord,textPanel,options);
+            textPanel.addPara(StringUtil.getString(CATEGORY, "option_refuse_sway"));
+            optionSelected(null, OptionId.ASK_QUESTION);
+        }
+    }
+    private void support_SWAY_PROPOSAL_COUNCIL_FOR(String optionText, Object optionData, PersonAPI player, boolean willEngage, boolean hostile, LordEvent feast, OptionId option){
+        FactionAPI faction = targetLord.getFaction();
+        int opinion = PoliticsController.getApproval(targetLord, proposal, false).one;
+        // lord can either agree/refuse outright, suggest a bribe, or suggest player support their proposal
+        Random rand = new Random(targetLord.getLordAPI().getId().hashCode()
+                + Global.getSector().getClock().getTimestamp());
+        LawProposal lordProposal = PoliticsController.getProposal(targetLord);
+        int relation = RelationController.getRelation(targetLord, LordController.getPlayerLord());
+        int agreeChance = 0;
+        int bribeChance = 0;
+        int bargainChance = 0;
+        if (!targetLord.isSwayed() && opinion > -20) {
+            agreeChance = 10 * (relation / 10 + opinion + 12); // agree at -10 or above
+            bribeChance = 25 + relation;
+            switch (targetLord.getPersonality()) {
+                case UPSTANDING:
+                    bribeChance /= 4;
+                    break;
+                case MARTIAL:
+                    bribeChance /= 2;
+                    break;
+                case CALCULATING:
+                    bribeChance *= 2;
+                    break;
+            }
+            // lord needs a proposal worth supporting to bargain
+            if (lordProposal != null && lordProposal.getSupporters().size() > 1
+                    && !lordProposal.isPlayerSupports()
+                    && relation > Utils.getThreshold(RepLevel.SUSPICIOUS)) {
+                bargainChance = 100;
+            }
+        }
+
+        targetLord.setSwayed(true);
+        if (rand.nextInt(100) < agreeChance) {
+            if (opinion > 0) {
+                //DialogSet.addParaWithInserts("ERROR",targetLord,textPanel,options);
+                textPanel.addPara(StringUtil.getString(CATEGORY, "option_accept_sway_redundant"));
+            } else {
+                //DialogSet.addParaWithInserts("ERROR",targetLord,textPanel,options);
+                textPanel.addPara(StringUtil.getString(CATEGORY, "option_accept_sway"));
+            }
+            proposal.getPledgedFor().add(targetLord.getLordAPI().getId());
+            PoliticsController.updateProposal(proposal);
+            optionSelected(null, OptionId.ASK_QUESTION);
+        } else if (rand.nextInt(100) < bargainChance) {
+            //DialogSet.addParaWithInserts("ERROR",targetLord,textPanel,options);
+            options.clearOptions();
+            //DialogSet.addOptionWithInserts("ERROR",null,null,targetLord,textPanel,options);
+            //DialogSet.addOptionWithInserts("ERROR",null,null,targetLord,textPanel,options);
+            textPanel.addPara(StringUtil.getString(CATEGORY, "option_bargain_sway_support"));
+            options.clearOptions();
+            bargainAmount = "proposal"; // TODO make some flags
+            options.addOption("Pledge to support proposal: " + lordProposal.getTitle(), OptionId.SWAY_PROPOSAL_BARGAIN);
+            options.addOption("Refuse", OptionId.ASK_QUESTION);
+
+
+        } else if (rand.nextInt(100) < bribeChance) {
+            //DialogSet.addParaWithInserts("ERROR",targetLord,textPanel,options);
+            options.clearOptions();
+            //DialogSet.addOptionWithInserts("ERROR",null,null,targetLord,textPanel,options);
+            //DialogSet.addOptionWithInserts("ERROR",null,null,targetLord,textPanel,options);
+            textPanel.addPara(StringUtil.getString(CATEGORY, "option_bargain_sway_money"));
+            bargainAmount = "credits";
+            options.clearOptions();
+            options.addOption("Offer 100,000 credits", OptionId.SWAY_PROPOSAL_BARGAIN);
+            float playerWealth = Global.getSector().getPlayerFleet().getCargo().getCredits().get();
+            if (playerWealth < 100000) {
+                options.setEnabled(OptionId.SWAY_PROPOSAL_BARGAIN, false);
+                options.setTooltip(OptionId.SWAY_PROPOSAL_BARGAIN, "Insufficient funds.");
+            }
+            options.addOption("Refuse", OptionId.ASK_QUESTION);
+
+        } else {
+            //DialogSet.addParaWithInserts("ERROR",targetLord,textPanel,options);
             textPanel.addPara(StringUtil.getString(CATEGORY, "option_refuse_sway"));
             optionSelected(null, OptionId.ASK_QUESTION);
         }
