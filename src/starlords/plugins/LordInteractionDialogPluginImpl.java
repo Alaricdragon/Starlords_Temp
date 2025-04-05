@@ -190,7 +190,6 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     }
 
     private boolean optionSelected_NEW(String optionText, Object optionData){
-        //I am not doing this right now. I simply cannot even do this at all arg.
         if (optionData instanceof DialogOption){
             DialogOption data = (DialogOption) optionData;
             String selectedOption = data.optionID;
@@ -202,10 +201,10 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
                     optionSelected_exitDialog();
                     break;
                 default:
-                    DialogSet.addParaWithInserts(selectedOption,targetLord,textPanel,options);
+                    DialogSet.addParaWithInserts(selectedOption,targetLord,textPanel,options,dialog);
                     break;
             }
-            if (data != null) data.applyAddons(textPanel,options,targetLord);
+            if (data != null) data.applyAddons(textPanel,options,dialog,targetLord);
             return true;
         }
         return false;
@@ -356,46 +355,16 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     }
 
     private void optionSelected_greetings(String selectedOption){
-        /*ok, I cant believe im going to say this, but here's the plan:
-        * 1) we are going to merge all the greetings, into one super greeting. its basicly set anyways...
-        *   -for options:
-        *       1) make sure options have rules like 'is hostile' or 'if feast' or 'is feast host', or 'firstMeeting'.
-        *           rules and addons needed:
-        *               rules: isFirstMeeting (always set 'hasmet' to true after meeting).
-        *               addons: none -OR- do I add on the
-        *                   -I considerd things like 'dedecate turnament' addon, and I will need that, but not in the option. only in the line itself.
-        *       2) make sure all lines have additional rules and priority. they should be in the following order:
-        *           1) hostile (only 4 greetings, for personalitys)
-        *           2) feast (only 5 greetings. one for host, others for personalitys)
-        *           3) first (only 4 greetings, for personalitys)
-        *           4) other (many greetings.)
-        *       3)(done) make a single unified optionSet using the "show"{} conditions to only allow certain option to appear at certain times.
-        *       4) rename all greetings_ lines to greetings.
-        * */
-        /*
-        if (hostile){
-            selectedOption = "greetings_hostile";
-        }else if(feast != null){
-            if (targetLord == organzier) {
-                selectedOption = "greeting_host_feast";
-            }else{
-                selectedOption = "greeting_feast";
-            }
-        }else if(targetLord.isKnownToPlayer()){
-            selectedOption = "greetings_first";
-        }else{
-            selectedOption = "greetings_other";
-        }*/
         boolean isFeast = targetLord.getCurrAction() == LordAction.FEAST;
         LordEvent feast = isFeast ? EventController.getCurrentFeast(targetLord.getLordAPI().getFaction()) : null;
         //only run greetings if player has not yet heard them this conversation
-        DialogSet.addParaWithInserts(selectedOption,targetLord,textPanel,options,hasGreeted);
+        DialogSet.addParaWithInserts(selectedOption,targetLord,textPanel,options,dialog,hasGreeted);
         if (!hasGreeted){
             hasGreeted = true;
         }
         //if lord is newly met, add intil on lord.
         if (!targetLord.isKnownToPlayer()) {
-            DialogSet.addParaWithInserts("addedIntel",targetLord,textPanel,options);
+            DialogSet.addParaWithInserts("addedIntel",targetLord,textPanel,options,dialog);
             targetLord.setKnownToPlayer(true);
         }
         //if this is a feast, apply rep gained.
@@ -412,7 +381,6 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
             }
         }
     }
-
     private void optionSelected_exitDialog(){
         if (prevPlugin.equals(this)) {
             dialog.dismiss();
@@ -545,7 +513,8 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
             Lord spouse = feast.getWeddingCeremonyTarget();
             HashMap<String,String> inserts = new HashMap<>();
             inserts.put("%c0",spouse.getLordAPI().getNameString());
-            DialogSet.addOptionWithInserts("option_host_wedding",null,OptionId.START_WEDDING,targetLord,textPanel,options,inserts);
+            //NOTE: this hidden line is only hidden because I broke it somehow.
+            //DialogSet.addOptionWithInserts("option_host_wedding",null,OptionId.START_WEDDING,targetLord,textPanel,options,inserts);
         }
     }
 
@@ -615,6 +584,26 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         options.removeOption(OptionId.DEDICATE_TOURNAMENT);
     }
     private void optionSelected_ASK_TOURNAMENT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
+        /*what do I required:
+        * conditions:
+        *   (done) number of lords in feast
+        * addons:
+        *   (done) start tournament
+        *
+        * merged lines:
+        *   cant_start_tournament
+        *   confirm_start_tournament
+        *   into:
+        *   start_tournament
+        * options:
+        *   defalt:
+        *       option_continue_to_tournament
+        *       option_avoid_tournament
+        *   inside same group as "cant_start_tournament"
+        *       optionSet: [] (AKA empty option set.)
+        *
+        * */
+
         if (feast == null || feast.getParticipants().size() < 3) {
             DialogSet.addParaWithInserts("cant_start_tournament",targetLord,textPanel,options);
         } else {

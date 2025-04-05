@@ -143,8 +143,10 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "playerTournamentVictory": always returns false if: not at a feast. if set to true, the player must have won the tournament at the current feast. if set to false, the player must have not won a tournament current feast. 
   * "lordTournamentVictory": always returns false if: not at a feast. if set to true, the lord must have won the tournament at the current feast. if set to false, the lord must have not won a tournament at the current feast.
   * "playerTournamentVictoryDedicated": always returns false, if: not at a feast, or the player has not won the tournament there. if set to true, the player must has already dedicated there victory at the tournament. if set to false, the player must have not already dedicated there victory at the tournament
+  * "tournamentDedicatedToLord": always returns false if: not at a feast. if set to true, the lord must be the one the tournament is dedicated to. if set to false, the lord must not be the one the tournament is dedicated to
   * "feastIsHostingWedding": if set to true, the lord must both be at a feast, and there must be a wedding being hosted there. if set to faslse, the lord must be at a feast, and a wedding must not be hosted there.
   * "firstMeeting": if set to true, this must be your first time meeting this starlord. if set to false, you must have met this starlord before.
+  * "lordsInFeast": always returns false if: not at a feast. is the number of lords that must be at the current feast to meet requirements. set between a "min" and "max" value. range should be at least 0
   * basic is simply a "lineID": "new string";
   * advanced is more complicated. its a json object, that must include a "line" (to act as the normal lineID), but also additional json peramiters. "addons" are . the "addons" are as follows:
     * "addons" additional conditions and effects that you can have run at the moment this line is ran. most 'addons' also add a line of dialog to show what effects they had. any "option_" will only run addons after the option is selected. and "tooltip_" line cannot use "addons"
@@ -168,6 +170,8 @@ If you're a modder, or just someone who loves to write dialog for every starlord
         * "max": Integer
       * "additionalText": "lineID" adds an additional line of dialog, with the inputed name
       * "startWedding": boolean if set to true, sets the current feast the player is at to a wedding ceremony (or howeer that works). will do nothing if not at a feast.
+      * "dedicateTournamentVictoryToLord": boolean. if set to true, dedicates your tournament victory to the target lord. only runs if you are at a feast, and won the tournament.
+      * "startTournament": boolean. if set to true, starts a Tournament. 
     * "color" color override for this dialog line. not required. has 3 'preset' colors, but also the option for a custom color. cannot be used in any "tooltip_" line.
       * "RED"
       * "GREEN"
@@ -264,7 +268,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "greeting"
       * "option_avoid_battle" :           OptionId.SUGGEST_CEASEFIRE
       * "option_ask_tournament" :         OptionId.ASK_TOURNAMENT
-      * "option_dedicate_tournament" :    OptionId.DEDICATE_TOURNAMENT
+      * "option_dedicate_tournament" :    "dedicate_tournament"
       * "option_host_wedding" :           OptionId.START_WEDDING
       * "option_ask_current_task" :       OptionId.ASK_CURRENT_TASK
       * "option_ask_question" :           OptionId.ASK_QUESTION
@@ -272,7 +276,16 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "option_speak_privately" :        OptionId.SPEAK_PRIVATELY
       * "option_cutComLink" :             "exitDialog"
       
+    * "dedicate_tournament"
+      * copys 'greeting' options
+    
 
+
+
+
+
+
+    * ---old data. here for refrenece as I slowly cut though the code and finish things.
     * "greeting_host_feast"
       * "option_ask_tournament" :         OptionId.ASK_TOURNAMENT
       * "option_dedicate_tournament" :    OptionId.DEDICATE_TOURNAMENT

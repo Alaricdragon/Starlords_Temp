@@ -1,5 +1,6 @@
 package starlords.util.dialogControler;
 
+import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.OptionPanelAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
 import starlords.person.Lord;
@@ -14,10 +15,10 @@ public class DialogOption {
         this.optionID = optionID;
         this.addons=addons;
     }
-    public void applyAddons(TextPanelAPI textPanel, OptionPanelAPI options, Lord lord){
+    public void applyAddons(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord){
         if (addons == null) return;
         for (DialogAddon_Base a : addons){
-            a.apply(textPanel, options, lord);
+            a.apply(textPanel, options, dialog,lord);
         }
     }
 }

@@ -1,6 +1,7 @@
 package starlords.util.dialogControler.dialog_addon;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.OptionPanelAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
 import starlords.person.Lord;
@@ -17,13 +18,13 @@ public class DialogAddon_creditIncrease extends DialogAddon_Base{
         this.min = min;
     }
     @Override
-    public void apply(TextPanelAPI textPanel, OptionPanelAPI options, Lord lord){
+    public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord){
         int change = min + Utils.rand.nextInt(max - min);
         Global.getSector().getPlayerFleet().getCargo().getCredits().add(change);
 
         HashMap<String,String> inserts = new HashMap<>();
         inserts.put("%c0",""+change);
-        DialogSet.addParaWithInserts("credits_increase",lord,textPanel,options);
+        DialogSet.addParaWithInserts("credits_increase",lord,textPanel,options,dialog);
 
     }
 }
