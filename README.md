@@ -139,10 +139,15 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "lordsCourted": is the number of lords the player must have has professed admiration to meet requirements. set between a "min" and "max" value.
   * "isLordCourtedByPlayer": if set to true, the lord must have been professed to by the player to meet requirements. if set to false, the lord must not have been professed to by the player to meet requirements.
   * "playerLordRomanceAction":  is the number of romantic actions the player must have had with the lord meet requirements. set between a "min" and "max" value. (romantic actions can be default, be gained by giving gifts, or dedecating tornament victorys)
-* "lines" is the dialog lines for every line a starlord speaks. this comes in 2 forms. the first, wish we will call basic, and the second, that we will call advanced:
+  * "availableTournament" : always returns false if: not at a feast. if set to true, the lord must be at a feast that has yet to have a tournament. if set to false, the tournament must have already happened
+  * "playerTournamentVictory": always returns false if: not at a feast. if set to true, the player must have won the tournament at the current feast. if set to false, the player must have not won a tournament current feast. 
+  * "lordTournamentVictory": always returns false if: not at a feast. if set to true, the lord must have won the tournament at the current feast. if set to false, the lord must have not won a tournament at the current feast.
+  * "playerTournamentVictoryDedicated": always returns false, if: not at a feast, or the player has not won the tournament there. if set to true, the player must has already dedicated there victory at the tournament. if set to false, the player must have not already dedicated there victory at the tournament
+  * "feastIsHostingWedding": if set to true, the lord must both be at a feast, and there must be a wedding being hosted there. if set to faslse, the lord must be at a feast, and a wedding must not be hosted there.
+  * "firstMeeting": if set to true, this must be your first time meeting this starlord. if set to false, you must have met this starlord before.
   * basic is simply a "lineID": "new string";
   * advanced is more complicated. its a json object, that must include a "line" (to act as the normal lineID), but also additional json peramiters. "addons" are . the "addons" are as follows:
-    * "addons" additional conditions and effects that you can have run at the moment this line is ran. most 'addons' also add a line of dialog to show what effects they had. in addition, any "option_" and "tooltip_" line cannot use "addons"
+    * "addons" additional conditions and effects that you can have run at the moment this line is ran. most 'addons' also add a line of dialog to show what effects they had. any "option_" will only run addons after the option is selected. and "tooltip_" line cannot use "addons"
       * "repIncrease":
           * "min": Integer
           * "max": Integer
@@ -172,6 +177,13 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "g"
       * "b"
       * "a"
+    * "options" is an jsonArray containing the lineID's of any option or option set that this line should run. please note, that most lines by default have a entry in the [default_dialog_options.json](https://github.com/Deluth-git/Starlords/blob/master/data/lords/default_dialog_options.json) file
+    * "show" is an jsonObject that contains the same functions as 'rules', but instead of determining if a line can be ran, if all "show" any show functions ar efalse, and this line is selected, it will not be shown. for "option_"'s, if this line is selected and the 'hide' is true, it will not be ran.
+    * "optionData" is the link to a line that happens when you click this option. if called as a line, and no options are selected for this line, it will automaticly load the linked line. 
+    * "hint" is the hover over hint that happens when you hover only an option. only works if this line is called as an option
+    * "shortcut" : "shortcutLey" if this is set to one of the acsepted value, will add a hotkey to an option. only works for "option_" lines. possable options are:
+      * "ESCAPE"
+    * "lines" is the dialog lines for every line a starlord speaks. this comes in 2 forms. the first, wish we will call basic, and the second, that we will call advanced:
   * for both basic and advanced lines, you can also input a number of custom markers into your dialog that will be replaced with data automaticly. the markers are as follows
   * "%PLAYER_FACTION_NAME"
   * "%PLAYER_NAME" 
@@ -249,6 +261,62 @@ If you're a modder, or just someone who loves to write dialog for every starlord
 
   *some lines will also use custom inputted data. in this case, they will use the '%c#' marker, with # being the order they are added to the line.
   *available lines to override are follows:
+    * "greeting"
+      * "option_avoid_battle" :           OptionId.SUGGEST_CEASEFIRE
+      * "option_ask_tournament" :         OptionId.ASK_TOURNAMENT
+      * "option_dedicate_tournament" :    OptionId.DEDICATE_TOURNAMENT
+      * "option_host_wedding" :           OptionId.START_WEDDING
+      * "option_ask_current_task" :       OptionId.ASK_CURRENT_TASK
+      * "option_ask_question" :           OptionId.ASK_QUESTION
+      * "option_suggest_action" :         OptionId.SUGGEST_ACTION
+      * "option_speak_privately" :        OptionId.SPEAK_PRIVATELY
+      * "option_cutComLink" :             "exitDialog"
+      
+
+    * "greeting_host_feast"
+      * "option_ask_tournament" :         OptionId.ASK_TOURNAMENT
+      * "option_dedicate_tournament" :    OptionId.DEDICATE_TOURNAMENT
+      * "option_host_wedding" :           OptionId.START_WEDDING
+      * "option_ask_current_task" :       OptionId.ASK_CURRENT_TASK
+      * "option_ask_question" :           OptionId.ASK_QUESTION
+      * "option_suggest_action" :         OptionId.SUGGEST_ACTION
+      * "option_speak_privately" :        OptionId.SPEAK_PRIVATELY
+      * "option_cutComLink" :             exitDialog
+    * "greeting_feast"
+      * "option_ask_tournament" :         OptionId.ASK_TOURNAMENT
+      * "option_dedicate_tournament" :    OptionId.DEDICATE_TOURNAMENT
+      * "option_host_wedding" :           OptionId.START_WEDDING
+      * "option_ask_current_task" :       OptionId.ASK_CURRENT_TASK
+      * "option_ask_question" :           OptionId.ASK_QUESTION
+      * "option_suggest_action" :         OptionId.SUGGEST_ACTION
+      * "option_speak_privately" :        OptionId.SPEAK_PRIVATELY
+      * "option_cutComLink" :             exitDialog
+    * "greetings_first"
+      * "option_ask_current_task" :       OptionId.ASK_CURRENT_TASK
+      * "option_ask_question" :           OptionId.ASK_QUESTION
+      * "option_suggest_action" :         OptionId.SUGGEST_ACTION
+      * "option_speak_privately" :        OptionId.SPEAK_PRIVATELY
+      * "option_cutComLink" :             exitDialog
+    * "greetings_other"
+      * "option_ask_current_task" :       OptionId.ASK_CURRENT_TASK
+      * "option_ask_question" :           OptionId.ASK_QUESTION
+      * "option_suggest_action" :         OptionId.SUGGEST_ACTION
+      * "option_speak_privately" :        OptionId.SPEAK_PRIVATELY
+      * "option_cutComLink" :             exitDialog
+    * "greetings_hostile"
+      * "option_avoid_battle" :           OptionId.SUGGEST_CEASEFIRE
+      * "option_speak_privately" :        OptionId.SPEAK_PRIVATELY
+      * "option_cutComLink" :             exitDialog
+
+
+
+
+
+
+
+
+
+
     * "greeting_host_feast"
     * "greeting_feast"
     * "greetings_first"

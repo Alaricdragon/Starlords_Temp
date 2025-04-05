@@ -438,8 +438,7 @@ public class StoredSettings {
         JSONObject json = Global.getSettings().getMergedJSONForMod("data/lords/SMods.json",Constants.MOD_ID);
         SModSet.applySModSets(json);
 
-        json = Global.getSettings().getMergedJSONForMod("data/lords/dialog.json",Constants.MOD_ID);
-        DialogSet.setup(json);
+        DialogSet.setup();
     }
 
 

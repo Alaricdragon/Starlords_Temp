@@ -28,6 +28,7 @@ import starlords.util.DefectionUtils;
 import starlords.util.GenderUtils;
 import starlords.util.StringUtil;
 import starlords.util.Utils;
+import starlords.util.dialogControler.DialogOption;
 import starlords.util.dialogControler.DialogSet;
 
 import java.awt.*;
@@ -41,7 +42,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
 
     public static Logger log = Global.getLogger(LordInteractionDialogPluginImpl.class);
     static String CATEGORY = "starlords_lords_dialog";
-    enum OptionId {
+    public enum OptionId {
         INIT,
         START_WEDDING,
         DEDICATE_TOURNAMENT,
@@ -118,21 +119,99 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
 
         lordsReference = new HashMap<>();
         targetLord = LordController.getLordById(lordFleet.getCommander().getId());
-        optionSelected(null, OptionId.INIT);
+        DialogOption option = new DialogOption("greeting",new ArrayList<>());
+        optionSelected(null, option);
     }
 
     @Override
     public void optionSelected(String optionText, Object optionData) {
-        OptionId option;
+        OptionId option = null;
         if (optionData instanceof OptionId) {
             option = (OptionId) optionData;
         } else if (nextState != null) {
             option = nextState;
-        } else {
+        }
+        if (optionSelected_NEW(optionText,optionData)){
+            nextState = null;
             return;
         }
-
         nextState = null;
+
+        optionSelected_OLD(optionText,optionData,option);
+    }
+
+    @Override
+    public void optionMousedOver(String optionText, Object optionData) {
+
+    }
+
+    @Override
+    public void advance(float amount) {
+
+    }
+
+    @Override
+    public void backFromEngagement(EngagementResultAPI battleResult) {
+
+    }
+
+    @Override
+    public Object getContext() {
+        return null;
+    }
+
+    @Override
+    public Map<String, MemoryAPI> getMemoryMap() {
+        return null;
+    }
+
+    private String relToString(int rel) {
+        if (rel <= -100 * RepLevel.HOSTILE.getMax()) {
+            return "hated";
+        } else if (rel <= -100 * RepLevel.SUSPICIOUS.getMax()) {
+            return "disliked";
+        } else if (rel <= 100 * RepLevel.FAVORABLE.getMax()) {
+            return "neutral";
+        } else if (rel <= 100 * RepLevel.WELCOMING.getMax()) {
+            return "friendly";
+        } else {
+            return "trusted";
+        }
+    }
+
+    private void displayAcceptSuggestAction() {
+        if (targetLord.getFaction().isPlayerFaction()) {
+            textPanel.addParagraph(StringUtil.getString(
+                    CATEGORY, "accept_suggest_action_subject",
+                    GenderUtils.sirOrMaam(Global.getSector().getPlayerPerson(), false)));
+        } else {
+            textPanel.addParagraph(StringUtil.getString(CATEGORY, "accept_suggest_action"));
+        }
+    }
+
+    private boolean optionSelected_NEW(String optionText, Object optionData){
+        //I am not doing this right now. I simply cannot even do this at all arg.
+        if (optionData instanceof DialogOption){
+            DialogOption data = (DialogOption) optionData;
+            String selectedOption = data.optionID;
+            switch (selectedOption){
+                case "greeting":
+                    optionSelected_greetings(selectedOption);
+                    break;
+                case "exitDialog":
+                    optionSelected_exitDialog();
+                    break;
+                default:
+                    DialogSet.addParaWithInserts(selectedOption,targetLord,textPanel,options);
+                    break;
+            }
+            if (data != null) data.applyAddons(textPanel,options,targetLord);
+            return true;
+        }
+        return false;
+    }
+
+    private void optionSelected_OLD(String optionText, Object optionData,OptionId option){
         boolean willEngage = false;
         boolean hostile = false;
         if (lordFleet.getFaction().isHostileTo(Global.getSector().getPlayerFleet().getFaction())) {
@@ -276,62 +355,141 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         }
     }
 
-    @Override
-    public void optionMousedOver(String optionText, Object optionData) {
-
-    }
-
-    @Override
-    public void advance(float amount) {
-
-    }
-
-    @Override
-    public void backFromEngagement(EngagementResultAPI battleResult) {
-
-    }
-
-    @Override
-    public Object getContext() {
-        return null;
-    }
-
-    @Override
-    public Map<String, MemoryAPI> getMemoryMap() {
-        return null;
-    }
-
-    private String relToString(int rel) {
-        if (rel <= -100 * RepLevel.HOSTILE.getMax()) {
-            return "hated";
-        } else if (rel <= -100 * RepLevel.SUSPICIOUS.getMax()) {
-            return "disliked";
-        } else if (rel <= 100 * RepLevel.FAVORABLE.getMax()) {
-            return "neutral";
-        } else if (rel <= 100 * RepLevel.WELCOMING.getMax()) {
-            return "friendly";
-        } else {
-            return "trusted";
+    private void optionSelected_greetings(String selectedOption){
+        /*ok, I cant believe im going to say this, but here's the plan:
+        * 1) we are going to merge all the greetings, into one super greeting. its basicly set anyways...
+        *   -for options:
+        *       1) make sure options have rules like 'is hostile' or 'if feast' or 'is feast host', or 'firstMeeting'.
+        *           rules and addons needed:
+        *               rules: isFirstMeeting (always set 'hasmet' to true after meeting).
+        *               addons: none -OR- do I add on the
+        *                   -I considerd things like 'dedecate turnament' addon, and I will need that, but not in the option. only in the line itself.
+        *       2) make sure all lines have additional rules and priority. they should be in the following order:
+        *           1) hostile (only 4 greetings, for personalitys)
+        *           2) feast (only 5 greetings. one for host, others for personalitys)
+        *           3) first (only 4 greetings, for personalitys)
+        *           4) other (many greetings.)
+        *       3)(done) make a single unified optionSet using the "show"{} conditions to only allow certain option to appear at certain times.
+        *       4) rename all greetings_ lines to greetings.
+        * */
+        /*
+        if (hostile){
+            selectedOption = "greetings_hostile";
+        }else if(feast != null){
+            if (targetLord == organzier) {
+                selectedOption = "greeting_host_feast";
+            }else{
+                selectedOption = "greeting_feast";
+            }
+        }else if(targetLord.isKnownToPlayer()){
+            selectedOption = "greetings_first";
+        }else{
+            selectedOption = "greetings_other";
+        }*/
+        boolean isFeast = targetLord.getCurrAction() == LordAction.FEAST;
+        LordEvent feast = isFeast ? EventController.getCurrentFeast(targetLord.getLordAPI().getFaction()) : null;
+        //only run greetings if player has not yet heard them this conversation
+        DialogSet.addParaWithInserts(selectedOption,targetLord,textPanel,options,hasGreeted);
+        if (!hasGreeted){
+            hasGreeted = true;
+        }
+        //if lord is newly met, add intil on lord.
+        if (!targetLord.isKnownToPlayer()) {
+            DialogSet.addParaWithInserts("addedIntel",targetLord,textPanel,options);
+            targetLord.setKnownToPlayer(true);
+        }
+        //if this is a feast, apply rep gained.
+        if(feast != null) {
+            if (!feast.getOriginator().isFeastInteracted()) {
+                feast.getOriginator().setFeastInteracted(true);
+                applyRepIncrease(textPanel, feast.getOriginator(), 3);
+            }
+            for (Lord lord : feast.getParticipants()) {
+                if (!lord.isFeastInteracted()) {
+                    lord.setFeastInteracted(true);
+                    applyRepIncrease(textPanel, lord, 2);
+                }
+            }
         }
     }
 
-    private void displayAcceptSuggestAction() {
-        if (targetLord.getFaction().isPlayerFaction()) {
-            textPanel.addParagraph(StringUtil.getString(
-                    CATEGORY, "accept_suggest_action_subject",
-                    GenderUtils.sirOrMaam(Global.getSector().getPlayerPerson(), false)));
+    private void optionSelected_exitDialog(){
+        if (prevPlugin.equals(this)) {
+            dialog.dismiss();
         } else {
-            textPanel.addParagraph(StringUtil.getString(CATEGORY, "accept_suggest_action"));
+            dialog.setPlugin(prevPlugin);
+            prevPlugin.optionSelected(null, FleetInteractionDialogPluginImpl.OptionId.CUT_COMM);
         }
     }
-
-
 
 
     private void optionSelected_NAMETEMP(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         optionSelected_NAMETEMP(optionText,optionData,player,willEngage,hostile,feast,option);
     }
     private void optionSelected_INIT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
+        /*ok, so order of liness:
+            OK. OK OK OK OK OK OK OK OK OK OK.
+            WHAT THE FUCK AM I DOING?
+            there is no ponit in attempting to go for a full upfront singelarity of data here:
+            NEW PLAN:
+                1) keep most of the conditional likes (like the 5 or whatever greeting types here). this has to use a custom line or 3 anyways.
+                2) DO NOT attempt to run every little peace of code though the newly built data system. ONLY RUN WHAT OPTIONS NEED TO BE RAN. there is no ponit in anything else.
+                    -I am not fucking joking you rude person! respect your past work! yes, its not perfect, but it fucking works, so lets keep it that fucking way!
+
+                what I am going to do:
+                1) build the default_dialog_options and the dialogSets data as planed.
+                2) add the required conditions to make that work, for fucks sakes.
+
+            the first thing we need to do is get the available options:
+                (options in the following order: hostile, feast, none hostile, always)
+                hostile:
+                    (willEngage == true) willEngage : option_avoid_battle : OptionId.SUGGEST_CEASEFIRE
+                    option_speak_privately : OptionId.SPEAK_PRIVATELY
+                    option_cutComLink : OptionId.LEAVE
+                host_feast:
+                feast:
+                    if(not yet has tournament)
+                        option_ask_tournament : OptionId.ASK_TOURNAMENT
+                    if(lord is courted, player won tournament, victory ! dedecated)
+                        option_dedicate_tournament : OptionId.DEDICATE_TOURNAMENT
+                    if(feast.isHostingWedding)
+                        inserts.put("%c0",spouse.getLordAPI().getNameString());
+                        option_host_wedding : OptionId.START_WEDDING
+
+                    option_ask_current_task : OptionId.ASK_CURRENT_TASK
+                    option_ask_question : OptionId.ASK_QUESTION
+                    option_suggest_action : OptionId.SUGGEST_ACTION
+                    option_speak_privately : OptionId.SPEAK_PRIVATELY
+                    option_cutComLink : OptionId.LEAVE
+                first:
+                other:
+                    option_ask_current_task : OptionId.ASK_CURRENT_TASK
+                    option_ask_question : OptionId.ASK_QUESTION
+                    option_suggest_action : OptionId.SUGGEST_ACTION
+                    option_speak_privately : OptionId.SPEAK_PRIVATELY
+                    option_cutComLink : OptionId.LEAVE
+
+
+
+
+
+                always: (no condition)
+                    DialogSet.addOptionWithInserts("option_speak_privately",null,OptionId.SPEAK_PRIVATELY,targetLord,textPanel,options);
+                    DialogSet.addOptionWithInserts("option_cutComLink",null,OptionId.LEAVE,targetLord,textPanel,options);
+                none hostile: (no conditions (again))
+                    DialogSet.addOptionWithInserts("option_ask_current_task",null,OptionId.ASK_CURRENT_TASK,targetLord,textPanel,options);
+                    DialogSet.addOptionWithInserts("option_ask_question",null,OptionId.ASK_QUESTION,targetLord,textPanel,options);
+                    DialogSet.addOptionWithInserts("option_suggest_action",null,OptionId.SUGGEST_ACTION,targetLord,textPanel,options);
+                feast dialog: (conditions)
+                    if(not yet has tournament)
+                        DialogSet.addOptionWithInserts("option_ask_tournament",null,OptionId.ASK_TOURNAMENT,targetLord,textPanel,options);
+                    if(lord is courted, player won tournament, victory ! dedecated)
+                        DialogSet.addOptionWithInserts("option_dedicate_tournament",null,OptionId.DEDICATE_TOURNAMENT,targetLord,textPanel,options);
+                    if(feast.isHostingWedding)
+                        inserts.put("%c0",spouse.getLordAPI().getNameString());
+                        DialogSet.addOptionWithInserts("option_host_wedding",null,OptionId.START_WEDDING,targetLord,textPanel,options,inserts);
+
+        */
         if (hostile){
             optionSelected_INIT_HOSTILE(optionText,optionData,player,willEngage,hostile,feast,option);
             return;
@@ -390,6 +548,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
             DialogSet.addOptionWithInserts("option_host_wedding",null,OptionId.START_WEDDING,targetLord,textPanel,options,inserts);
         }
     }
+
     private void optionSelected_INIT_FEAST_HOST(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         if (!hasGreeted){
             hasGreeted = true;
@@ -435,6 +594,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         }
         support_INIT_BASICOPTIONS(optionText,optionData,player,willEngage,hostile,feast,option);
     }
+
     private void optionSelected_DEDICATE_TOURNAMENT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         if (targetLord.isDedicatedTournament()) {
             DialogSet.addParaWithInserts("dedicate_tournament_again",targetLord,textPanel,options);

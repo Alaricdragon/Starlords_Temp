@@ -1,4 +1,167 @@
 {
+  "martial_hostile": {
+    "priority": 8,
+    "rules": {
+      "lordPersonality": {
+        "Martial": true
+      },
+      "hostileFaction": true
+    },
+    "lines": {
+      "greeting":"%PLAYER_NAME! I've been waiting for the day that we might see which of us is the strongest. En garde!"
+    }
+  },
+  "calculating_hostile": {
+    "priority": 8,
+    "rules": {
+      "lordPersonality": {
+        "Calculating": true
+      },
+      "hostileFaction": true
+    },
+    "lines": {
+      "greeting":"I have you cornered, %PLAYER_NAME. Surrender or die!"
+    }
+  },
+  "quarrelsome_hostile": {
+    "priority": 8,
+    "rules": {
+      "lordPersonality": {
+        "Quarrelsome": true
+      },
+      "hostileFaction": true
+    },
+    "lines": {
+      "greeting":"You've caught me in a bad mood, %PLAYER_NAME. Turning your fleet to scrap metal might cheer me up though. Die!"
+    }
+  },
+  "upstanding_hostile": {
+    "priority": 8,
+    "rules": {
+      "lordPersonality": {
+        "Upstanding": true
+      },
+      "hostileFaction": true
+    },
+    "lines": {
+      "greeting":"%PLAYER_NAME! Stand down now, if not for your own sake, at least for the sake of your crew."
+    }
+  },
+
+  "martial_first": {
+    "priority": 7,
+    "rules": {
+      "lordPersonality": {
+        "Martial": true
+      },
+      "firstMeeting": true
+    },
+    "lines": {
+      "greeting": "Well met! A fellow warrior I see; that fleet of yours definitely isn't just for show!"
+    }
+  },
+  "calculating_first": {
+    "priority": 7,
+    "rules": {
+      "lordPersonality": {
+        "Calculating": true
+      },
+      "firstMeeting": true
+    },
+    "lines": {
+      "greeting": "Ah, yes. At last we meet. You seem like a good person to know. Let us speak together from time to time."
+    }
+  },
+  "quarrelsome_first": {
+    "priority": 7,
+    "rules": {
+      "lordPersonality": {
+        "Quarrelsome": true
+      },
+      "firstMeeting": true
+    },
+    "lines": {
+      "greeting": "I've heard of you. Well, I'm not one for bandying words, so if you have anything to say, out with it."
+    }
+  },
+  "upstanding_first": {
+    "priority": 7,
+    "rules": {
+      "lordPersonality": {
+        "Upstanding": true
+      },
+      "firstMeeting": true
+    },
+    "lines": {
+      "greeting": "Peace to you, and always remember to temper your valor with mercy, your courage with honor."
+    }
+  },
+
+  "isHost_feast": {
+    "priority": 6,
+    "rules": {
+      "isHostingFeast": true,
+      "isAtFeast": true
+    },
+    "lines": {
+      "accept_marriage_second": "Talk to me whenever you're ready and we'll start the ceremony.",
+      "greeting": "Welcome to my estate, %PLAYER_NAME. You are under my protection here; please make yourself at home."
+    }
+  },
+  "martial_feast": {
+    "priority": 6,
+    "rules": {
+      "lordPersonality": {
+        "Martial": true
+      },
+      "isHostingFeast": false,
+      "isAtFeast": true
+    },
+    "lines": {
+      "greeting": "Fancy seeing you here, %PLAYER_NAME. Say, shall we join the tournament later?"
+    }
+  },
+  "calculating_feast": {
+    "priority": 6,
+    "rules": {
+      "lordPersonality": {
+        "Calculating": true
+      },
+      "isHostingFeast": false,
+      "isAtFeast": true
+    },
+    "lines": {
+      "greeting": "Good evening %PLAYER_NAME. I must say I'm impressed at the generosity of our host. This decor can't have been cheap."
+    }
+  },
+  "quarrelsome_feast": {
+    "priority": 6,
+    "rules": {
+      "lordPersonality": {
+        "Quarrelsome": true
+      },
+      "isHostingFeast": false,
+      "isAtFeast": true
+    },
+    "lines": {
+      "greeting": "Hey %PLAYER_NAME, can you believe the quality of the drinks here? I've found better wine in the cellar of a Luddic nun."
+    }
+  },
+  "upstanding_feast": {
+    "priority": 6,
+    "rules": {
+      "lordPersonality": {
+        "Upstanding": true
+      },
+      "isHostingFeast": false,
+      "isAtFeast": true
+    },
+    "lines": {
+      "greeting": "Greetings %PLAYER_NAME. Let us put our troubles to the morrow, for tonight we will feast and make merry."
+    }
+  },
+
+
   "martial_marriedToPlayer": {
     "priority": 5,
     "rules": {
@@ -8,7 +171,7 @@
       "isMarriedToPlayer": true
     },
     "lines": {
-      "greetings_other":"%PLAYER_NAME, my dear. I've been swamped with paperwork today. When do I get to join you in exploring the stars?"
+      "greeting":"%PLAYER_NAME, my dear. I've been swamped with paperwork today. When do I get to join you in exploring the stars?"
     }
   },
   "martial_marriageAccept": {
@@ -43,7 +206,7 @@
       "isMarriedToPlayer": true
     },
     "lines": {
-      "greetings_other":"%PLAYER_NAME, my %PLAYER_NAME. The house's finances have been going as planned; you can count on me."
+      "greeting":"%PLAYER_NAME, my %PLAYER_NAME. The house's finances have been going as planned; you can count on me."
     }
   },
   "calculating_marriageAccept": {
@@ -78,7 +241,7 @@
       "isMarriedToPlayer": true
     },
     "lines": {
-      "greetings_other":"%PLAYER_NAME, my partner. I'm hoping that you're here to talk about how we bring down some of these bastards around us."
+      "greeting":"%PLAYER_NAME, my partner. I'm hoping that you're here to talk about how we bring down some of these bastards around us."
     }
   },
   "quarrelsome_marriageAccept": {
@@ -113,7 +276,7 @@
       "isMarriedToPlayer": true
     },
     "lines": {
-      "greetings_other":"%PLAYER_NAME, my love. I hope that you are well. Be careful out there in your journeys."
+      "greeting":"%PLAYER_NAME, my love. I hope that you are well. Be careful out there in your journeys."
     }
   },
   "upstanding_marriageAccept": {
@@ -194,7 +357,7 @@
       "playerSubject": true
     },
     "lines": {
-      "greetings_other":"Greetings %PLAYER_NAME, my liege. My fleet stands at the ready."
+      "greeting":"Greetings %PLAYER_NAME, my liege. My fleet stands at the ready."
     }
   },
 
@@ -270,7 +433,7 @@
       "playerSubject": true
     },
     "lines": {
-      "greetings_other":"Greetings %PLAYER_NAME, my liege. Perfect timing, I had a list of proposals which I wish to discuss..."
+      "greeting":"Greetings %PLAYER_NAME, my liege. Perfect timing, I had a list of proposals which I wish to discuss..."
     }
   },
 
@@ -283,7 +446,7 @@
         "playerSubject": true
       },
     "lines": {
-      "greetings_other":"Greetings %PLAYER_NAME, my liege. Point me at someone and I will see them punished."
+      "greeting":"Greetings %PLAYER_NAME, my liege. Point me at someone and I will see them punished."
     }
   },
 
@@ -319,7 +482,7 @@
       "playerSubject": true
     },
     "lines": {
-      "greetings_other":"Greetings %PLAYER_NAME, my liege. What is your command?"
+      "greeting":"Greetings %PLAYER_NAME, my liege. What is your command?"
     }
   },
 
@@ -358,7 +521,7 @@
       }
     },
     "lines": {
-      "greetings_other":"Hail, %PLAYER_NAME. Remind me next time we're at the space bar, I've got story to tell about my new scar. Ha!",
+      "greeting":"Hail, %PLAYER_NAME. Remind me next time we're at the space bar, I've got story to tell about my new scar. Ha!",
       "admiration_response":{
         "line":"Thank you, you're too kind. Er, it's getting quite late, I must be going...",
         "repDecrease": {
@@ -380,7 +543,7 @@
       }
     },
     "lines": {
-      "greetings_other":"Hail, %PLAYER_NAME. Remind me next time we're at the space bar, I've got story to tell about my new scar. Ha!",
+      "greeting":"Hail, %PLAYER_NAME. Remind me next time we're at the space bar, I've got story to tell about my new scar. Ha!",
       "admiration_response":{
         "line":"Thank you, you're too kind. Er, it's getting quite late, I must be going...",
         "repDecrease": {
@@ -403,7 +566,7 @@
       }
     },
     "lines": {
-      "greetings_other":"Hail, %PLAYER_NAME. Spare me a minute, for you must tell me of your latest adventures!",
+      "greeting":"Hail, %PLAYER_NAME. Spare me a minute, for you must tell me of your latest adventures!",
       "admiration_response":{
         "line":"Thank you, you're too kind. Er, it's getting quite late, I must be going...",
         "repDecrease": {
@@ -434,7 +597,7 @@
       }
     },
     "lines": {
-      "greetings_other":"Hail, %PLAYER_NAME. Spare me a minute, for you must tell me of your latest adventures!",
+      "greeting":"Hail, %PLAYER_NAME. Spare me a minute, for you must tell me of your latest adventures!",
       "admiration_response":{
         "line":"Thank you, you're too kind. Er, it's getting quite late, I must be going...",
         "repDecrease": {
@@ -465,7 +628,7 @@
       }
     },
     "lines": {
-      "greetings_other":"Good hunting, %PLAYER_NAME. May your armor hold fast and your missiles strike true."
+      "greeting":"Good hunting, %PLAYER_NAME. May your armor hold fast and your missiles strike true."
     }
   },
   "martial_Suspicious": {
@@ -480,7 +643,7 @@
       }
     },
     "lines": {
-      "greetings_other":"Speak quickly %PLAYER_NAME. I'd prefer to avoid the shame of being seen in your presence."
+      "greeting":"Speak quickly %PLAYER_NAME. I'd prefer to avoid the shame of being seen in your presence."
     }
   },
   "martial_Inhospitable": {
@@ -495,7 +658,7 @@
       }
     },
     "lines": {
-      "greetings_other":"Speak quickly %PLAYER_NAME. I'd prefer to avoid the shame of being seen in your presence."
+      "greeting":"Speak quickly %PLAYER_NAME. I'd prefer to avoid the shame of being seen in your presence."
     }
   },
   "martial_Hostile": {
@@ -510,7 +673,7 @@
       }
     },
     "lines": {
-      "greetings_other":"Your presence is acknowledged, %PLAYER_NAME. I advise you choose your words carefully if you don't want a bullet in the skull."
+      "greeting":"Your presence is acknowledged, %PLAYER_NAME. I advise you choose your words carefully if you don't want a bullet in the skull."
     }
   },
   "martial_Vengeful": {
@@ -525,7 +688,7 @@
       }
     },
     "lines": {
-      "greetings_other":"Your presence is acknowledged, %PLAYER_NAME. I advise you choose your words carefully if you don't want a bullet in the skull."
+      "greeting":"Your presence is acknowledged, %PLAYER_NAME. I advise you choose your words carefully if you don't want a bullet in the skull."
     }
   },
 
@@ -584,7 +747,7 @@
       }
     },
     "lines": {
-      "greetings_other":"Good to see you, %PLAYER_NAME. Let us speak plainly."
+      "greeting":"Good to see you, %PLAYER_NAME. Let us speak plainly."
     }
   },
   "calculating_Friendly": {
@@ -599,7 +762,7 @@
       }
     },
     "lines": {
-      "greetings_other":"Good to see you, %PLAYER_NAME. Let us speak plainly.",
+      "greeting":"Good to see you, %PLAYER_NAME. Let us speak plainly.",
       "marriage_response": "You seem like a wonderful %PLAYER_GENDER_MAN_OR_WOMEN, but I'd still like to get to know you a little better first."
     }
   },
@@ -615,7 +778,7 @@
       }
     },
     "lines": {
-      "greetings_other":"Good to see you, %PLAYER_NAME. What can I do for you today?",
+      "greeting":"Good to see you, %PLAYER_NAME. What can I do for you today?",
       "marriage_response": {
         "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
         "addons": {
@@ -639,7 +802,7 @@
       }
     },
     "lines": {
-      "greetings_other":"Good to see you, %PLAYER_NAME. What can I do for you today?",
+      "greeting":"Good to see you, %PLAYER_NAME. What can I do for you today?",
       "marriage_response": {
         "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
         "addons": {
@@ -663,7 +826,7 @@
       }
     },
     "lines": {
-      "greetings_other":"Greetings %PLAYER_NAME, what news can you share from your travels?"
+      "greeting":"Greetings %PLAYER_NAME, what news can you share from your travels?"
     }
   },
   "calculating_Suspicious": {
@@ -678,7 +841,7 @@
       }
     },
     "lines": {
-      "greetings_other":"I suppose it would be prudent for me to entertain you, %PLAYER_NAME, however much I would rather not."
+      "greeting":"I suppose it would be prudent for me to entertain you, %PLAYER_NAME, however much I would rather not."
     }
   },
   "calculating_Inhospitable": {
@@ -693,7 +856,7 @@
       }
     },
     "lines": {
-      "greetings_other":"I suppose it would be prudent for me to entertain you, %PLAYER_NAME, however much I would rather not."
+      "greeting":"I suppose it would be prudent for me to entertain you, %PLAYER_NAME, however much I would rather not."
     }
   },
   "calculating_Hostile": {
@@ -708,7 +871,7 @@
       }
     },
     "lines": {
-      "greetings_other":"You best have something interesting to make it worth me suffering your presence, %PLAYER_NAME"
+      "greeting":"You best have something interesting to make it worth me suffering your presence, %PLAYER_NAME"
     }
   },
   "calculating_Vengeful": {
@@ -723,7 +886,7 @@
       }
     },
     "lines": {
-      "greetings_other":"You best have something interesting to make it worth me suffering your presence, %PLAYER_NAME"
+      "greeting":"You best have something interesting to make it worth me suffering your presence, %PLAYER_NAME"
     }
   },
 
@@ -740,7 +903,7 @@
       }
     },
     "lines": {
-      "greetings_other":"%PLAYER_NAME, just the person I wanted to see. You sure are a breath of fresh air compared to the rest of these bastards."
+      "greeting":"%PLAYER_NAME, just the person I wanted to see. You sure are a breath of fresh air compared to the rest of these bastards."
     }
   },
   "quarrelsome_Friendly": {
@@ -755,7 +918,7 @@
       }
     },
     "lines": {
-      "greetings_other":"%PLAYER_NAME, just the person I wanted to see. You sure are a breath of fresh air compared to the rest of these bastards.",
+      "greeting":"%PLAYER_NAME, just the person I wanted to see. You sure are a breath of fresh air compared to the rest of these bastards.",
       "marriage_response": "You seem like a wonderful %PLAYER_GENDER_MAN_OR_WOMEN, but I'd still like to get to know you a little better first."
     }
   },
@@ -771,7 +934,7 @@
       }
     },
     "lines": {
-      "greetings_other":"I'm pleasantly surprised that you haven't managed to get yourself killed yet, %PLAYER_NAME. Can't say I'm surprised at this point.",
+      "greeting":"I'm pleasantly surprised that you haven't managed to get yourself killed yet, %PLAYER_NAME. Can't say I'm surprised at this point.",
       "marriage_response": {
         "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
         "addons": {
@@ -795,7 +958,7 @@
       }
     },
     "lines": {
-      "greetings_other":"I'm pleasantly surprised that you haven't managed to get yourself killed yet, %PLAYER_NAME. Can't say I'm surprised at this point.",
+      "greeting":"I'm pleasantly surprised that you haven't managed to get yourself killed yet, %PLAYER_NAME. Can't say I'm surprised at this point.",
       "marriage_response": {
         "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
         "addons": {
@@ -819,7 +982,7 @@
       }
     },
     "lines": {
-      "greetings_other":"Well you caught me in a good mood, %PLAYER_NAME. What do you want?"
+      "greeting":"Well you caught me in a good mood, %PLAYER_NAME. What do you want?"
     }
   },
   "quarrelsome_Suspicious": {
@@ -834,7 +997,7 @@
       }
     },
     "lines": {
-      "greetings_other":"%PLAYER_NAME, do yourself a favor and stay out of my way."
+      "greeting":"%PLAYER_NAME, do yourself a favor and stay out of my way."
     }
   },
   "quarrelsome_Inhospitable": {
@@ -849,7 +1012,7 @@
       }
     },
     "lines": {
-      "greetings_other":"%PLAYER_NAME, do yourself a favor and stay out of my way."
+      "greeting":"%PLAYER_NAME, do yourself a favor and stay out of my way."
     }
   },
   "quarrelsome_Hostile": {
@@ -864,7 +1027,7 @@
       }
     },
     "lines": {
-      "greetings_other":"Ah, %PLAYER_NAME, the snake dares to slither in the open. Convince me why I shouldn't open fire immediately."
+      "greeting":"Ah, %PLAYER_NAME, the snake dares to slither in the open. Convince me why I shouldn't open fire immediately."
     }
   },
   "quarrelsome_Vengeful": {
@@ -879,7 +1042,7 @@
       }
     },
     "lines": {
-      "greetings_other":"Ah, %PLAYER_NAME, the snake dares to slither in the open. Convince me why I shouldn't open fire immediately."
+      "greeting":"Ah, %PLAYER_NAME, the snake dares to slither in the open. Convince me why I shouldn't open fire immediately."
     }
   },
 
@@ -916,7 +1079,7 @@
       }
     },
     "lines": {
-      "greetings_other":"%PLAYER_NAME, my dear friend. It is good to see you alive and well. What is it?",
+      "greeting":"%PLAYER_NAME, my dear friend. It is good to see you alive and well. What is it?",
       "admiration_response":{
         "line":"Thank you, you're too kind. Er, it's getting quite late, I must be going...",
         "repDecrease": {
@@ -938,7 +1101,7 @@
       }
     },
     "lines": {
-      "greetings_other":"%PLAYER_NAME, my dear friend. It is good to see you alive and well. What is it?",
+      "greeting":"%PLAYER_NAME, my dear friend. It is good to see you alive and well. What is it?",
       "admiration_response":{
         "line":"Thank you, you're too kind. Er, it's getting quite late, I must be going...",
         "repDecrease": {
@@ -961,7 +1124,7 @@
       }
     },
     "lines": {
-      "greetings_other":"%PLAYER_NAME, my friend. It is good to see you alive and well. What is it?",
+      "greeting":"%PLAYER_NAME, my friend. It is good to see you alive and well. What is it?",
       "admiration_response":{
         "line":"Thank you, you're too kind. Er, it's getting quite late, I must be going...",
         "repDecrease": {
@@ -992,7 +1155,7 @@
       }
     },
     "lines": {
-      "greetings_other":"%PLAYER_NAME, my friend. It is good to see you alive and well. What is it?",
+      "greeting":"%PLAYER_NAME, my friend. It is good to see you alive and well. What is it?",
       "marriage_response": {
         "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
         "addons": {
@@ -1016,7 +1179,7 @@
       }
     },
     "lines": {
-      "greetings_other": "Good day %PLAYER_NAME, I trust that you've conducted yourself honorably since our last meeting."
+      "greeting": "Good day %PLAYER_NAME, I trust that you've conducted yourself honorably since our last meeting."
     }
   },
   "upstanding_Suspicious": {
@@ -1031,7 +1194,7 @@
       }
     },
     "lines": {
-      "greetings_other": "You are trying my patience, %PLAYER_NAME. Speak if you must."
+      "greeting": "You are trying my patience, %PLAYER_NAME. Speak if you must."
     }
   },
   "upstanding_Inhospitable": {
@@ -1046,7 +1209,7 @@
       }
     },
     "lines": {
-      "greetings_other": "You are trying my patience, %PLAYER_NAME. Speak if you must."
+      "greeting": "You are trying my patience, %PLAYER_NAME. Speak if you must."
     }
   },
   "upstanding_Hostile": {
@@ -1061,7 +1224,7 @@
       }
     },
     "lines": {
-      "greetings_other": "I have no need to speak to one of such low character as yourself, %PLAYER_NAME."
+      "greeting": "I have no need to speak to one of such low character as yourself, %PLAYER_NAME."
     }
   },
   "upstanding_Vengeful": {
@@ -1076,20 +1239,11 @@
       }
     },
     "lines": {
-      "greetings_other": "I have no need to speak to one of such low character as yourself, %PLAYER_NAME."
+      "greeting": "I have no need to speak to one of such low character as yourself, %PLAYER_NAME."
     }
   },
 
 
-  "isHost": {
-    "priority": 2,
-    "rules": {
-      "isHostingFeast": true
-    },
-    "lines": {
-      "accept_marriage_second": "Talk to me whenever you're ready and we'll start the ceremony."
-    }
-  },
   "martial": {
     "priority": 2,
     "rules": {
@@ -1098,9 +1252,6 @@
       }
     },
     "lines": {
-      "greeting_feast": "Fancy seeing you here, %PLAYER_NAME. Say, shall we join the tournament later?",
-      "greetings_first": "Well met! A fellow warrior I see; that fleet of yours definitely isn't just for show!",
-      "greetings_hostile":"%PLAYER_NAME! I've been waiting for the day that we might see which of us is the strongest. En garde!"
     }
   },
   "calculating": {
@@ -1111,9 +1262,6 @@
       }
     },
     "lines": {
-      "greeting_feast": "Good evening %PLAYER_NAME. I must say I'm impressed at the generosity of our host. This decor can't have been cheap.",
-      "greetings_first": "Ah, yes. At last we meet. You seem like a good person to know. Let us speak together from time to time.",
-      "greetings_hostile":"I have you cornered, %PLAYER_NAME. Surrender or die!"
     }
   },
   "quarrelsome": {
@@ -1124,9 +1272,6 @@
       }
     },
     "lines": {
-      "greeting_feast": "Hey %PLAYER_NAME, can you believe the quality of the drinks here? I've found better wine in the cellar of a Luddic nun.",
-      "greetings_first": "I've heard of you. Well, I'm not one for bandying words, so if you have anything to say, out with it.",
-      "greetings_hostile":"You've caught me in a bad mood, %PLAYER_NAME. Turning your fleet to scrap metal might cheer me up though. Die!"
     }
   },
   "upstanding": {
@@ -1137,9 +1282,6 @@
       }
     },
     "lines": {
-      "greeting_feast": "Greetings %PLAYER_NAME. Let us put our troubles to the morrow, for tonight we will feast and make merry.",
-      "greetings_first": "Peace to you, and always remember to temper your valor with mercy, your courage with honor.",
-      "greetings_hostile":"%PLAYER_NAME! Stand down now, if not for your own sake, at least for the sake of your crew."
     }
   },
   "default": {
@@ -1192,13 +1334,7 @@
         }
       },
 
-
-      "greeting_host_feast": "Welcome to my estate, %PLAYER_NAME. You are under my protection here; please make yourself at home.",
-
-      "greetings_first": "(error) Nice to meet you. I am the one and only %LORD_NAME",
-      "greetings_feast": "(error) What a lovely feast right %PLAYER_NAME?",
-      "greetings_hostile": "(error) Oh look here. Its the one and only idiot who dares to stand in my way!",
-      "greetings_other": "(error) Hello again %PLAYER_NAME",
+      "greeting": "(error) Hello %PLAYER_NAME",
 
       "admiration_response":{
         "line":"Oh, you're not joking? Well, at least this will be entertaining.",
@@ -1614,25 +1750,84 @@
         "color": "GREEN"
       },
 
+      "optionSet_greeting": {
+      "options": ["option_avoid_battle","option_ask_tournament","option_dedicate_tournament","option_host_wedding","option_ask_current_task","option_ask_question","option_suggest_action","option_speak_privately","option_cutComLink"]
+    },
 
 
       "option_avoid_battle": {
         "line":"Hold your fire! I do not wish to fight you.",
-        "color": "YELLOW"
+        "color": "YELLOW",
+        "hint": "-10 Relations if successful",
+        "optionData" : "ERROR",
+        "show": {
+          "willEngage": true
+        }
       },
-      "tooltip_avoid_battle": "-10 Relations if successful",
 
       "option_suggest_action": "Suggest a course of action.",
-      "option_speak_privately": "Ask to speak privately.",
-      "option_cutComLink": "Cut the comm link.",
-      "option_ask_current_task": "Ask about their current assignment.",
-      "option_ask_question": "Ask another question.",
-      "option_ask_location": "Ask about the location of someone.",
+      "option_speak_privately": {
+        "line": "Ask to speak privately.",
+        "optionData" : "ERROR"
+      },
+      "option_cutComLink": {
+        "line":"Cut the comm link.",
+        "optionData" : "exitDialog",
+        "shortcut": "ESCAPE"
+      },
+      "option_ask_current_task": {
+        "line" : "Ask about their current assignment.",
+        "optionData" : "ERROR",
+        "show": {
+          "hostileFaction": false
+        }
+      },
+      "option_ask_question": {
+        "line": "Ask another question.",
+        "optionData" : "ERROR",
+        "show": {
+          "hostileFaction": false
+        }
+      },
+      "option_ask_location": {
+        "line": "Ask about the location of someone.",
+        "optionData": "ERROR",
+        "show": {
+          "hostileFaction": false
+        }
+      },
+
       "option_ask_quest": "Ask if they have any tasks for you.",
 
-      "option_ask_tournament": "Ask to enter the feast tournament.",
-      "option_dedicate_tournament": "%LORD_NAME, my tournament victory goes out to you.",
-      "option_host_wedding": "Begin the wedding ceremony.",
+      "option_ask_tournament": {
+        "line":"Ask to enter the feast tournament.",
+        "optionData" : "ERROR",
+        "show": {
+          "isAtFeast": true,
+          "availableTournament": true,
+          "hostileFaction": false
+        }
+      },
+      "option_dedicate_tournament": {
+        "line":"%LORD_NAME, my tournament victory goes out to you.",
+        "optionData" : "ERROR",
+        "show": {
+          "isAtFeast": true,
+          "isLordCourtedByPlayer": true,
+          "playerTournamentVictoryDedicated": false,
+          "hostileFaction": false
+        }
+      },
+      "option_host_wedding": {
+        "line":"Begin the wedding ceremony.",
+        "optionData" : "ERROR",
+        "show": {
+          "isAtFeast": true,
+          "feastIsHostingWedding": true,
+          "hostileFaction": false
+        }
+      },
+
       "option_continue_to_tournament": "For honor and glory!",
       "option_avoid_tournament": "Never mind",
 
