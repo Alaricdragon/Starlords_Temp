@@ -162,6 +162,13 @@ public class LordEvent {
 
     public FactionAPI getFaction() {
         if (originator != null) return originator.getFaction();
-        return baseRaidIntel.getFaction();
+        if (baseRaidIntel != null) return baseRaidIntel.getFaction();
+        for (Lord a : participants){
+            if (a != null && a.getFaction() != null) return a.getFaction();
+        }
+        for (Lord a : opposition){
+            if (a != null && a.getFaction() != null) return a.getFaction();
+        }
+        return Global.getSector().getFaction("independent");
     }
 }
