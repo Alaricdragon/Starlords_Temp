@@ -101,6 +101,10 @@ public class Lord {
     @Setter
     private CampaignFleetAPI oldFleet;
 
+    // stores reference to lords fleet, so when the lord does not have there own flagship, they can still get there own fleet
+    @Setter
+    private CampaignFleetAPI backupFleet;
+
     // Creates a lord from scratch, only run at campaign start
     public Lord(LordTemplate template) {
         FullName.Gender gender = template.isMale ? FullName.Gender.MALE : FullName.Gender.FEMALE;
@@ -272,7 +276,9 @@ public class Lord {
 
     public CampaignFleetAPI getFleet() {
         if (isPlayer) return Global.getSector().getPlayerFleet();
-        return lordAPI.getFleet();
+        if (lordAPI.getFleet() != null) return lordAPI.getFleet();
+        if (backupFleet != null && backupFleet.isAlive()) return backupFleet;
+        return null;
     }
 
     public boolean isMarshal() {

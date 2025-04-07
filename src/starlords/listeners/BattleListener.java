@@ -56,6 +56,7 @@ public class BattleListener extends BaseCampaignEventListener {
             loserTotalFP += loser.getFleetPoints();
             Lord lord = LordController.getLordOrPlayerById(loser.getCommander().getId());
             if (lord != null) {
+                backupLordFleet(loser,lord);
                 loserLords.add(lord);
                 // make lords just die if they get down to a couple frigates
                 if (!lord.isPlayer() && loser.getFleetPoints() < LORD_DEFEATED_IF_UNDER) maybeCaptured.add(lord);
@@ -77,6 +78,7 @@ public class BattleListener extends BaseCampaignEventListener {
             // record kills and level up officers
             Lord lord = LordController.getLordOrPlayerById(winner.getCommander().getId());
             if (lord == null) continue;
+            backupLordFleet(winner,lord);
             lord.recordKills(kills * winner.getFleetPoints() / totalFP);
             // maybe improve relations with other lords
             for (Lord alliedLord : winnerLords) {
@@ -280,6 +282,13 @@ public class BattleListener extends BaseCampaignEventListener {
                 ship.getCaptain().getStats().setLevel(currLevel + 1);
                 LordFleetFactory.upskillOfficer(ship.getCaptain(), true);
             }
+        }
+    }
+
+    private void backupLordFleet(CampaignFleetAPI fleet,Lord lord){
+        lord.setBackupFleet(null);
+        if (lord.getFleet() == null && !fleet.getFleetData().getMembersListCopy().isEmpty() && fleet.isAlive()){
+            lord.setBackupFleet(fleet);
         }
     }
 }
