@@ -1,3 +1,8 @@
+V0.3.21:
+    NOT save compatible with any older version
+    fixes:
+        added a additional layer of protection to the LordEvent .getFaction function. it should be more robust now.
+        -hopefully- fixed the issue were destroying a starlords flagship in hyperspace, but not killing the full fleet, would result in a crash (sometimes).
 V0.3.20:
     added crash protection to the raiding function.
 V0.3.19:
