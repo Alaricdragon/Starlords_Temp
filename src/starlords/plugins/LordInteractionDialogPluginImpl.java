@@ -200,6 +200,13 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
                 case "exitDialog":
                     optionSelected_exitDialog();
                     break;
+                case "":
+                    break;
+                case "current_task_desc":
+                    optionSelected_askCurrentTask(selectedOption);
+                    break;
+                case "selectedOption":
+                    optionSelected_suggestData(selectedOption);
                 default:
                     DialogSet.addParaWithInserts(selectedOption,targetLord,textPanel,options,dialog);
                     break;
@@ -380,6 +387,26 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
                 }
             }
         }
+    }
+    private void optionSelected_askCurrentTask(String selectedOption){
+        //ok, so: the link to this needs to be set as 'current_task_desc'.
+        //the options for this needs to be set to: 'greetings'.
+        String args = "";
+        if (targetLord.getCurrAction() != null) {
+            selectedOption += "_" + targetLord.getCurrAction().base.toString().toLowerCase();
+        }else{
+            selectedOption += "_none";
+        }
+        if (targetLord.getTarget() != null) {
+            args = targetLord.getTarget().getName();
+        }
+        HashMap<String,String> inserts = new HashMap<>();
+        inserts.put("%c0",args);
+        DialogSet.addParaWithInserts(selectedOption,targetLord,textPanel,options,dialog,false,inserts);
+    }
+    private void optionSelected_suggestData(String selectedOption){
+        int dateType = 1 + Utils.rand.nextInt(36);
+        DialogSet.addParaWithInserts(selectedOption+dateType,targetLord,textPanel,options,dialog);
     }
     private void optionSelected_exitDialog(){
         if (prevPlugin.equals(this)) {
@@ -584,26 +611,6 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         options.removeOption(OptionId.DEDICATE_TOURNAMENT);
     }
     private void optionSelected_ASK_TOURNAMENT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
-        /*what do I required:
-        * conditions:
-        *   (done) number of lords in feast
-        * addons:
-        *   (done) start tournament
-        *
-        * merged lines:
-        *   cant_start_tournament
-        *   confirm_start_tournament
-        *   into:
-        *   start_tournament
-        * options:
-        *   defalt:
-        *       option_continue_to_tournament
-        *       option_avoid_tournament
-        *   inside same group as "cant_start_tournament"
-        *       optionSet: [] (AKA empty option set.)
-        *
-        * */
-
         if (feast == null || feast.getParticipants().size() < 3) {
             DialogSet.addParaWithInserts("cant_start_tournament",targetLord,textPanel,options);
         } else {
@@ -639,6 +646,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         });
     }
     private void optionSelected_ASK_CURRENT_TASK(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
+
         String id = "current_task_desc_none";
         String args = "";
         if (targetLord.getCurrAction() != null) {
@@ -714,7 +722,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         int dateType = 1 + Utils.rand.nextInt(36);
         int loss;
         DialogSet.addParaWithInserts("spend_time_together"+dateType,targetLord,textPanel,options);
-        DialogSet.addParaWithInserts("spend_time_together_after"+dateType,targetLord,textPanel,options);
+        DialogSet.addParaWithInserts("spend_time_together_after",targetLord,textPanel,options);
         feast.setHeldDate(true);
         options.clearOptions();
         DialogSet.addOptionWithInserts("option_give_gift","spend_time_together_hint",OptionId.OFFER_GIFT,targetLord,textPanel,options);

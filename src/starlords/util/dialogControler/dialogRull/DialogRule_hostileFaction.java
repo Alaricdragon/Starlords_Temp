@@ -1,6 +1,8 @@
 package starlords.util.dialogControler.dialogRull;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.FactionAPI;
+import com.fs.starfarer.api.util.Misc;
 import starlords.person.Lord;
 
 public class DialogRule_hostileFaction extends DialogRule_Base {
@@ -11,7 +13,9 @@ public class DialogRule_hostileFaction extends DialogRule_Base {
 
     @Override
     public boolean condition(Lord lord) {
-        boolean hostile = lord.getFaction().isHostileTo(Global.getSector().getPlayerFleet().getFaction());
+        FactionAPI faction = Misc.getCommissionFaction();
+        if (faction == null) faction = Global.getSector().getPlayerFaction();
+        boolean hostile = lord.getFaction().isHostileTo(faction);
         return this.hostile == hostile;
     }
 }

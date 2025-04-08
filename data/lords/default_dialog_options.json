@@ -1,4 +1,8 @@
 {
   "greeting": "optionSet_greeting",
-  "dedicate_tournament": "optionSet_greeting"
+  "dedicate_tournament": "optionSet_dedicate_tournament",
+  "start_tournament": "optionSet_start_tournament",
+  "ask_question": "optionSet_askQuestion",
+  "admiration_response": "optionSet_admiration_response",
+  "spend_time_together": "optionSet_spend_time_together"
 }

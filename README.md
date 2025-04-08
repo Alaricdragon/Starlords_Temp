@@ -119,6 +119,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "playerSubject" if set to true, the lord must be part of the player faction (and as such, the player must be there ruler) to meet requirements. if set to false, the lord must not be part of the player faction to meet requirements.
   * "playerFactionMarital" if set to true, the player must be both part of the lords faction, and the marital of the lord to meet requirements. if set to false, must ether not be in the same faction, or the player must not be the martal to meet requirements
   * "lordFactionMarital" if set to true, the player must be both part of the lords faction, and the lord must be the marital to meet requirements. if set to false, must ether not be in the same faction, or the lord must not be the martal to meet requirements
+  * "lordAndPlayerSameFaction" if set to false, the lord and player must not be part of the same faction to meet requirements. if set to ture, the lord and player must be part of the same faction to meet requirements.
   * "lordPersonality": is the lord personality type this rule requires to meet requirements. set 'true' to all lord personality types you want to be allowed to meet requirements.
     * "Upstanding"
     * "Martial"
@@ -147,6 +148,18 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "feastIsHostingWedding": if set to true, the lord must both be at a feast, and there must be a wedding being hosted there. if set to faslse, the lord must be at a feast, and a wedding must not be hosted there.
   * "firstMeeting": if set to true, this must be your first time meeting this starlord. if set to false, you must have met this starlord before.
   * "lordsInFeast": always returns false if: not at a feast. is the number of lords that must be at the current feast to meet requirements. set between a "min" and "max" value. range should be at least 0
+  * "hasProfessedAdmirationThisFeast": always returns false if: not at a feast. if set to false, you must have not professed admiration this feast to meet requirements. if set to true, you must have already professed admiration this feast to meet requirements.
+  * "hasHeldDateThisFeast": always returns false if: not at a feast. if set to false, you must have not heald a date this feast to meet requirements. if set to true, you must have already head a date this feast to meet requirements.
+  * "lordPledgedSupport_forActiveProposal": always returns false if the lords faction is not voting on anything. if set to false, the lord must not promised opposition to the active proposal. if set to true, the lord must have promised support for the active proposal.
+  * "lordPledgedSupport_againstActiveProposal": always returns false if the lords faction is not voting on anything. if set to false, the lord must not have promised support for the active proposal. if set to true, the lord must have promised opposition of the active proposal.
+  * "lordPledgedSupport_forPlayerProposal":  always returns false if the player has no proposal. if set to false, the lord must not have promised support for the players proposal. if set to true, the lord must have promised support for the players proposal.
+  * "lordPledgedSupport_againstPlayerProposal": always returns false if the has no proposal. if set to false, the lord must not promised opposition to the players proposal. if set to true, the lord must have promised opposition of the players proposal.
+  * "playerProposalExists": if set to false, the player must not have a proposal to meet requirements. if set to true, the player must have a proposal to meet requirements.
+  * "lordProposalExists": if set to false, the lord must not have a proposal to meet requirements. if set to true, the lord must have a proposal to meet requirements.
+  * "lordFactionHasActiveConsole": if set to false, the lords faction must not be actively voting on a proposal. if set to true, the lords faction must be voting on a proposal
+  * "playerFactionHasActiveConsole": if set to false, the players faction must not be actively voting on a proposal. if set to true, the players faction must be voting on a proposal 
+  * "lordActingInPlayerFleet": if set to false, the lord must not be in the player fleet to meet requirements. if set to true, the lord must be in the player fleet to meet requirements.
+
   * basic is simply a "lineID": "new string";
   * advanced is more complicated. its a json object, that must include a "line" (to act as the normal lineID), but also additional json peramiters. "addons" are . the "addons" are as follows:
     * "addons" additional conditions and effects that you can have run at the moment this line is ran. most 'addons' also add a line of dialog to show what effects they had. any "option_" will only run addons after the option is selected. and "tooltip_" line cannot use "addons"
@@ -172,6 +185,9 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "startWedding": boolean if set to true, sets the current feast the player is at to a wedding ceremony (or howeer that works). will do nothing if not at a feast.
       * "dedicateTournamentVictoryToLord": boolean. if set to true, dedicates your tournament victory to the target lord. only runs if you are at a feast, and won the tournament.
       * "startTournament": boolean. if set to true, starts a Tournament. 
+      * "setHeldDate": boolean. sets if you have held a data this feast.  
+      * "setProfessedAdmiration": boolean. sets if you have held professed admiration this feast.
+      * "setCourted" : boolean. sets whether you are courting this lord. setting this to true lets you do romance =)
     * "color" color override for this dialog line. not required. has 3 'preset' colors, but also the option for a custom color. cannot be used in any "tooltip_" line.
       * "RED"
       * "GREEN"
@@ -270,18 +286,43 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "option_ask_tournament" :         OptionId.ASK_TOURNAMENT
       * "option_dedicate_tournament" :    "dedicate_tournament"
       * "option_host_wedding" :           OptionId.START_WEDDING
-      * "option_ask_current_task" :       OptionId.ASK_CURRENT_TASK
-      * "option_ask_question" :           OptionId.ASK_QUESTION
+      * "option_ask_current_task" :       "current_task_desc"
+      * "option_ask_question" :           "ask_question"
       * "option_suggest_action" :         OptionId.SUGGEST_ACTION
       * "option_speak_privately" :        OptionId.SPEAK_PRIVATELY
       * "option_cutComLink" :             "exitDialog"
       
     * "dedicate_tournament"
       * copys 'greeting' options
+  
+    * "start_tournament":
+      * "option_continue_to_tournament" : -opens tournament-
+      * "option_avoid_tournament" :       "greeting"
     
+    * "current_task_desc":
+      * '%c0' is the lords current target name.
+      * null options (keeps options that are up when loaded.)
 
+    * "ask_question"
+      * "option_ask_location" :         "OptionId.ASK_LOCATION"
+      * "option_ask_quest" :            "OptionId.ASK_QUEST"
+      * "option_profess_admiration" :   "admiration_response"
+      * "option_ask_date" :             "spend_time_together"
+      * "option_ask_marriage" :         "OptionId.SUGGEST_MARRIAGE"
+      * "option_ask_leave_party" :      "OptionId.SUGGEST_LEAVE_PARTY"
+      * "option_ask_join_party" :       "OptionId.SUGGEST_JOIN_PARTY"
+      * "option_sway_council_support" : "OptionId.SWAY_PROPOSAL_COUNCIL"
+      * "option_sway_council_oppose" :  "OptionId.SWAY_PROPOSAL_COUNCIL"
+      * "option_sway_player" :          "OptionId.SWAY_PROPOSAL_PLAYER"
+      * "option_nevermind_askQuestion" :"greeting"
 
+    * "admiration_response"
+      * copys 'ask_question' options
 
+    * "spend_time_together"
+      * "option_give_gift" :            "OptionId.OFFER_GIFT"
+      * "option_dont_give_gift" :       "OptionId.ASK_QUESTION"
+    
 
 
 

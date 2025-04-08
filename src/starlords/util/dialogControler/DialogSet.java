@@ -16,7 +16,6 @@ import starlords.controllers.EventController;
 import starlords.controllers.LordController;
 import starlords.lunaSettings.StoredSettings;
 import starlords.person.Lord;
-import starlords.plugins.LordInteractionDialogPluginImpl;
 import starlords.util.Constants;
 import starlords.util.GenderUtils;
 import starlords.util.dialogControler.dialogRull.*;
@@ -704,7 +703,7 @@ public class DialogSet {
         //apply a paragraph of text for the current line
         if (shouldHide(key,textPanel,options,lord)) return;
         String line = this.getLine(key);
-        if (line != null && !shouldHide(key, textPanel, options, lord) && !forceHide) {
+        if (line != null && !line.equals("") && !shouldHide(key, textPanel, options, lord) && !forceHide) {
             line = insertDefaltData(line, lord);
             line = insertAdditionalData(line, markersReplaced);
             if (colorOverride.containsKey(key)) {
@@ -725,6 +724,7 @@ public class DialogSet {
             }
         }
         //add on all options
+        log.info("attempting to add options from line" + key);
         boolean builtOptions = false;
         if (additionalOptions.containsKey(key)){
             log.info("ADDITIONAL OPTIONS: adding options from key of: " + key);
@@ -733,7 +733,7 @@ public class DialogSet {
                 builtOptions = true;
             }
             for (String a : additionalOptions.get(key)){
-                log.info("  ADDITIONAL OPTIONS: a single option of key: "+key);
+                log.info("  ADDITIONAL OPTIONS: a single option of key: "+a);
                 addOptionWithInserts(a,lord,textPanel,options,dialog,markersReplaced);
             }
         }else if (defaltOptionSets.containsKey(key)){
@@ -752,43 +752,67 @@ public class DialogSet {
         applyOption(key,lord,textPanel,optionData,options,dialog,markersReplaced);
     }
     public void applyOption(String key, Lord lord, TextPanelAPI textPanel,Object optionData,OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
+        Logger log = Global.getLogger(StoredSettings.class);
         String line = this.getLine(key);
-        if (shouldHide(key, textPanel, options, lord) || line == null || !dialogOptionData.containsKey(key)) return;
+        if (!shouldHide(key, textPanel, options, lord) && line != null) {
+            line = insertDefaltData(line, lord);
+            line = insertAdditionalData(line, markersReplaced);
+            if (hint.containsKey(key)) {
+                String line2 = hint.get(key);
+                line2 = insertDefaltData(line2, lord);
+                line2 = insertAdditionalData(line2, markersReplaced);
+                if (colorOverride.containsKey(key)) {
+                    options.addOption(line, optionData, colorOverride.get(key), line2);
+                } else {
+                    options.addOption(line, optionData, line2);
+                }
+                //is this even required????
+                options.setTooltip(optionData, line2);
+            } else {
+                if (colorOverride.containsKey(key)) {
+                    options.addOption(line, optionData, colorOverride.get(key), "");
+                } else {
+                    options.addOption(line, optionData);
+                }
+            }
+            if (shotcut.containsKey(key)) {
+                switch (shotcut.get(key)) {
+                    case "ESCAPE":
+                        options.setShortcut(optionData, 1, false, false, false, false);
+                        break;
+                    case "CONTROL":
+                        //I am unsure how to do this, tbh.
+                        break;
+                    case "ALT":
+                        break;
+                    case "SHIFT":
+                        break;
+                }
+            }
+        }
+        //log.info("attempting to add options from options" + key);
+        boolean builtOptions = false;
+        if (additionalOptions.containsKey(key)) {
+            //log.info("ADDITIONAL OPTIONS: adding options from key of: " + key);
+            if (additionalOptions.get(key).size() != 0) {
+                options.clearOptions();
+                builtOptions = true;
+            }
+            for (String a : additionalOptions.get(key)) {
+                //log.info("  ADDITIONAL OPTIONS: a single option of key: " + a);
+                addOptionWithInserts(a, lord, textPanel, options, dialog, markersReplaced);
+            }
+        } else if (defaltOptionSets.containsKey(key)) {
+            //log.info("getting default options from, to key: " + key + ", " + defaltOptionSets.get(key));
+            addParaWithInserts(defaltOptionSets.get(key), lord, textPanel, options, dialog, false, markersReplaced);
+            builtOptions = true;
+        }
+        if (!builtOptions) {
+            //log.info("got no options from key of: " + key);
+            //???????? unknown process.
+        //what I would attempt to do here is run the optionData of the line. effectively, just changing lines directly after. this can be done with chained lines though?
+        }
 
-        line = insertDefaltData(line,lord);
-        line = insertAdditionalData(line,markersReplaced);
-        if (hint.containsKey(key)){
-            String line2 = hint.get(key);
-            line2 = insertDefaltData(line2,lord);
-            line2 = insertAdditionalData(line2,markersReplaced);
-            if (colorOverride.containsKey(key)) {
-                options.addOption(line, optionData,colorOverride.get(key), line2);
-            }else{
-                options.addOption(line, optionData, line2);
-            }
-            //is this even required????
-            options.setTooltip(optionData,line2);
-        }else{
-            if (colorOverride.containsKey(key)) {
-                options.addOption(line, optionData,colorOverride.get(key),"");
-            }else{
-                options.addOption(line, optionData);
-            }
-        }
-        if (shotcut.containsKey(key)){
-            switch (shotcut.get(key)){
-                case "ESCAPE":
-                    options.setShortcut(optionData,1, false, false, false,false);
-                    break;
-                case "CONTROL":
-                    //I am unsure how to do this, tbh.
-                    break;
-                case "ALT":
-                    break;
-                case "SHIFT":
-                    break;
-            }
-        }
     }
     public void applyOptionOLD(String key,String hintKey, Lord lord, TextPanelAPI textPanel, Object optionData, OptionPanelAPI options,HashMap<String,String> markersReplaced){
         String line = this.getLine(key);
@@ -876,6 +900,14 @@ public class DialogSet {
                     case "startTournament":
                         addon = addAddon_startTournament(addons,key2);
                         break;
+                    case "setHeldDate":
+                        addon = addAddon_setHeldDate(addons,key2);
+                        break;
+                    case "setProfessedAdmiration":
+                        addon = addAddon_setProfessedAdmirationThisFeast(addons,key2);
+                        break;
+                    case "setCourted":
+                        addon = addAddon_setCourted(addons,key2);
                 }
                 if (addon != null) newAddons.add(addon);
             }
@@ -991,6 +1023,21 @@ public class DialogSet {
         if (!json2) return null;
         return new DialogAddon_startTournament();
     }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_setHeldDate(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogAddon_setHeldDate(json2);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_setProfessedAdmirationThisFeast(JSONObject json, String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogAddon_setProfessedAdmirationThisFeast(json2);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_setCourted(JSONObject json, String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogAddon_setCourted(json2);
+    }
 
 
     public static ArrayList<DialogRule_Base> getDialogFromJSon(JSONObject rulesTemp){
@@ -1094,6 +1141,42 @@ public class DialogSet {
                     break;
                 case "lordsInFeast":
                     rules.add(addRule_lordsInFeast(rulesTemp,key));
+                    break;
+                case "hasProfessedAdmirationThisFeast":
+                    rules.add(addRule_hasProfessedAdmirationThisFeast(rulesTemp,key));
+                    break;
+                case "hasHeldDateThisFeast":
+                    rules.add(addRule_hasHeldDateThisFeast(rulesTemp,key));
+                    break;
+                case "lordPledgedSupport_forActiveProposal":
+                    rules.add(addRule_lordPledgedSupport_forActiveProposal(rulesTemp,key));
+                    break;
+                case "lordPledgedSupport_againstActiveProposal":
+                    rules.add(addRule_lordPledgedSupport_againstActiveProposal(rulesTemp,key));
+                    break;
+                case "lordPledgedSupport_forPlayerProposal":
+                    rules.add(addRule_lordPledgedSupport_forPlayerProposal(rulesTemp,key));
+                    break;
+                case "lordPledgedSupport_againstPlayerProposal":
+                    rules.add(addRule_lordPledgedSupport_againstPlayerProposal(rulesTemp,key));
+                    break;
+                case "playerProposalExists":
+                    rules.add(addRule_playerProposalExists(rulesTemp,key));
+                    break;
+                case "lordProposalExists":
+                    rules.add(addRule_lordProposalExists(rulesTemp,key));
+                    break;
+                case "lordFactionHasActiveConsole":
+                    rules.add(addRule_lordFactionHasActiveConsole(rulesTemp,key));
+                    break;
+                case "playerFactionHasActiveConsole":
+                    rules.add(addRule_playerFactionHasActiveConsole(rulesTemp,key));
+                    break;
+                case "lordActingInPlayerFleet":
+                    rules.add(addRule_lordActingInPlayerFleet(rulesTemp,key));
+                    break;
+                case "lordAndPlayerSameFaction":
+                    rules.add(addRule_lordAndPlayerSameFaction(rulesTemp,key));
                     break;
             }
         }
@@ -1283,5 +1366,65 @@ public class DialogSet {
     private static DialogRule_Base addRule_lordsInFeast(JSONObject json,String key){
         JSONObject json2 = json.getJSONObject(key);
         return new DialogRule_lordsInFeast(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_hasProfessedAdmirationThisFeast(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_hasProfessedAdmirationThisFeast(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_hasHeldDateThisFeast(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_hasHeldDateThisFeast(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_lordPledgedSupport_forActiveProposal(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_lordPledgedSupport_forActiveProposal(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_lordPledgedSupport_againstActiveProposal(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_lordPledgedSupport_againstActiveProposal(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_lordPledgedSupport_forPlayerProposal(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_lordPledgedSupport_forPlayerProposal(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_lordPledgedSupport_againstPlayerProposal(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_lordPledgedSupport_againstPlayerProposal(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_playerProposalExists(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_playerProposalExists(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_lordProposalExists(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_lordProposalExists(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_lordFactionHasActiveConsole(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_lordFactionHasActiveConsole(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_playerFactionHasActiveConsole(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_playerFactionHasActiveConsole(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_lordActingInPlayerFleet(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_lordActingInPlayerFleet(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_lordAndPlayerSameFaction(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_lordAndPlayerSameFaction(json2);
     }
 }
