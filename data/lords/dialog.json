@@ -1303,6 +1303,244 @@
     }
   },
 
+  "favItem_alpha_core": {
+    "priority": 2,
+    "rules": {
+      "lordsFavItem": {
+        "alpha_core": true
+      }
+    },
+    "lines": {
+      "option_gift_alpha_core": {
+        "line": "An alpha core",
+        "optionData": "likeGift_alpha_core",
+        "hint": "give 1 alpha_core to %LORD_NAME",
+        "addons": {
+          "repIncrease": {
+            "min": 10,
+            "max": 10
+          },
+          "removeCommoditysFromPlayerFleet": {
+            "alpha_core": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        },
+        "enable": {
+          "PlayerHasCommodity": {
+            "alpha_core": {
+              "min": 1
+            }
+          }
+        }
+      }
+    }
+  },
+  "favItem_hand_weapons": {
+    "priority": 2,
+    "rules": {
+      "lordsFavItem": {
+        "hand_weapons": true
+      }
+    },
+    "lines": {
+      "option_gift_hand_weapons": {
+        "line": "A high-quality handgun",
+        "optionData": "likeGift_hand_weapons",
+        "hint": "give 100 hand_weapons to %LORD_NAME",
+        "addons": {
+          "repIncrease": {
+            "min": 10,
+            "max": 10
+          },
+          "removeCommoditysFromPlayerFleet": {
+            "hand_weapons": {
+              "min": 100,
+              "max": 100
+            }
+          }
+        },
+        "enable": {
+          "PlayerHasCommodity": {
+            "hand_weapons": {
+              "min": 100
+            }
+          }
+        }
+      }
+    }
+  },
+  "favItem_food": {
+    "priority": 2,
+    "rules": {
+      "lordsFavItem": {
+        "food": true
+      }
+    },
+    "lines": {
+      "option_gift_food": {
+        "line": "A butter sampler platter",
+        "optionData": "likeGift_food",
+        "hint": "give 100 food to %LORD_NAME",
+        "addons": {
+          "repIncrease": {
+            "min": 10,
+            "max": 10
+          },
+          "removeCommoditysFromPlayerFleet": {
+            "food": {
+              "min": 100,
+              "max": 100
+            }
+          }
+        },
+        "enable": {
+          "PlayerHasCommodity": {
+            "food": {
+              "min": 100
+            }
+          }
+        }
+      }
+    }
+  },
+  "favItem_luxury_goods": {
+    "priority": 2,
+    "rules": {
+      "lordsFavItem": {
+        "luxury_goods": true
+      }
+    },
+    "lines": {
+      "option_gift_luxury_goods": {
+        "line": "The latest luxury %LORD_GENDER_SUIT_OR_DRESS from Chicomoztoc",
+        "optionData": "likeGift_luxury_goods",
+        "hint": "give 100 luxury_goods to %LORD_NAME",
+        "addons": {
+          "repIncrease": {
+            "min": 10,
+            "max": 10
+          },
+          "removeCommoditysFromPlayerFleet": {
+            "luxury_goods": {
+              "min": 100,
+              "max": 100
+            }
+          }
+        },
+        "enable": {
+          "PlayerHasCommodity": {
+            "luxury_goods": {
+              "min": 100
+            }
+          }
+        }
+      }
+    }
+  },
+  "favItem_lobster": {
+    "priority": 2,
+    "rules": {
+      "lordsFavItem": {
+        "lobster": true
+      }
+    },
+    "lines": {
+      "option_gift_lobster": {
+        "line": "Fresh Volturnian Lobster",
+        "optionData": "likeGift_lobster",
+        "hint": "give 100 lobster to %LORD_NAME",
+        "addons": {
+          "repIncrease": {
+            "min": 10,
+            "max": 10
+          },
+          "removeCommoditysFromPlayerFleet": {
+            "lobster": {
+              "min": 100,
+              "max": 100
+            }
+          }
+        },
+        "enable": {
+          "PlayerHasCommodity": {
+            "lobster": {
+              "min": 100
+            }
+          }
+        }
+      }
+    }
+  },
+  "favItem_drugs": {
+    "priority": 2,
+    "rules": {
+      "lordsFavItem": {
+        "drugs": true
+      }
+    },
+    "lines": {
+      "option_gift_drugs": {
+        "line": "A pack of psychedelics",
+        "optionData": "likeGift_drugs",
+        "hint": "give 100 drugs to %LORD_NAME",
+        "addons": {
+          "repIncrease": {
+            "min": 10,
+            "max": 10
+          },
+          "removeCommoditysFromPlayerFleet": {
+            "drugs": {
+              "min": 100,
+              "max": 100
+            }
+          }
+        },
+        "enable": {
+          "PlayerHasCommodity": {
+            "drugs": {
+              "min": 100
+            }
+          }
+        }
+      }
+    }
+  },
+  "favItem_domestic_goods": {
+    "priority": 2,
+    "rules": {
+      "lordsFavItem": {
+        "domestic_goods": true
+      }
+    },
+    "lines": {
+      "option_gift_domestic_goods": {
+        "line": "The latest Tri-pad DLC",
+        "optionData": "likeGift_domestic_goods",
+        "hint": "give 100 domestic_goods to %LORD_NAME",
+        "addons": {
+          "repIncrease": {
+            "min": 10,
+            "max": 10
+          },
+          "removeCommoditysFromPlayerFleet": {
+            "domestic_goods": {
+              "min": 100,
+              "max": 100
+            }
+          }
+        },
+        "enable": {
+          "PlayerHasCommodity": {
+            "domestic_goods": {
+              "min": 100
+            }
+          }
+        }
+      }
+    }
+  },
   "atLeast3Lords":{
     "priority": 2,
     "rules": {
@@ -1836,7 +2074,12 @@
         "color": "YELLOW"
       },
 
-      "marriage_ceremony": "The mood at the feast elevates as word spreads about the marriage between you and %c0. Your crew and comrades gather around you, offering their congratulations in turn. The host, %c1, officiates your union amidst cheers and celebration. You have gained an ally for life.",
+      "marriage_ceremony": {
+        "line":"The mood at the feast elevates as word spreads about the marriage between you and %WEDDING_TARGET_NAME. Your crew and comrades gather around you, offering their congratulations in turn. The host, %LORD_HOST_NAME, officiates your union amidst cheers and celebration. You have gained an ally for life.",
+        "addons": {
+          "wedPlayerToWeddingTarget": true
+        }
+      },
 
       "join_party_explanation": "Of course my dear, I'd love to join up with you. I'd have to disband my own fleet though; is that what you want?",
       "leave_party_explanation": "Of course my dear, I can go back to my own fleet if that's what you think is best.",
@@ -1855,7 +2098,21 @@
       "against_bargain_sway_support": "Hmm... I don't mind lending you a hand, but I have my own proposal that I would expect you to support in return.",
       "against_bargain_sway_money": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
 
-
+      "give_gift": "",
+      "dislikeGift_alpha_core": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+      "dislikeGift_hand_weapons": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+      "dislikeGift_food": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+      "dislikeGift_luxury_goods": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+      "dislikeGift_lobster": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+      "dislikeGift_drugs": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+      "dislikeGift_domestic_goods": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+      "likeGift_alpha_core": "What a thoughtful gift. I'm touched that you know me so well.",
+      "likeGift_hand_weapons": "What a thoughtful gift. I'm touched that you know me so well.",
+      "likeGift_food": "What a thoughtful gift. I'm touched that you know me so well.",
+      "likeGift_luxury_goods": "What a thoughtful gift. I'm touched that you know me so well.",
+      "likeGift_lobster": "What a thoughtful gift. I'm touched that you know me so well.",
+      "likeGift_drugs": "What a thoughtful gift. I'm touched that you know me so well.",
+      "likeGift_domestic_goods": "What a thoughtful gift. I'm touched that you know me so well.",
 
       "relation_increase": {
         "line": "Relations with %LORD_NAME increased by %c0.",
@@ -1877,6 +2134,14 @@
         "line": "Added intel on %LORD_NAME",
         "color": "GREEN"
       },
+      "item_added": {
+        "line": "gained %c0 %c1.",
+        "color": "GREEN"
+      },
+      "item_lost": {
+        "line": "Lost %c0 %c1.",
+        "color": "RED"
+      },
 
       "optionSet_greeting": {
         "options": [
@@ -1892,6 +2157,11 @@
         ]
       },
       "optionSet_dedicate_tournament": {
+        "options": [
+          "optionSet_greeting"
+        ]
+      },
+      "optionSet_marriage_ceremony": {
         "options": [
           "optionSet_greeting"
         ]
@@ -1929,7 +2199,7 @@
       },
       "option_host_wedding": {
         "line":"Begin the wedding ceremony.",
-        "optionData" : "ERROR",
+        "optionData" : "marriage_ceremony",
         "show": {
           "isAtFeast": true,
           "feastIsHostingWedding": true,
@@ -2003,6 +2273,60 @@
           "optionSet_askQuestion"
         ]
       },
+      "optionSet_dislike_gift": {
+        "options": ["optionSet_askQuestion"]
+      },
+      "optionSet_dislike_alpha_core": {
+        "options": ["optionSet_dislike_gift"]
+      },
+      "optionSet_dislike_hand_weapons": {
+        "options": ["optionSet_dislike_gift"]
+      },
+      "optionSet_dislike_food": {
+        "options": ["optionSet_dislike_gift"]
+      },
+      "optionSet_dislike_luxury_goods": {
+        "options": ["optionSet_dislike_gift"]
+      },
+      "optionSet_dislike_lobster": {
+        "options": ["optionSet_dislike_gift"]
+      },
+      "optionSet_dislike_drugs": {
+        "options": ["optionSet_dislike_gift"]
+      },
+      "optionSet_dislike_domestic_goods": {
+        "options": ["optionSet_dislike_gift"]
+      },
+      "optionSet_like_gift": {
+        "options": ["optionSet_askQuestion"]
+      },
+      "optionSet_like_alpha_core": {
+        "options": ["optionSet_like_gift"]
+      },
+      "optionSet_like_hand_weapons": {
+        "options": ["optionSet_like_gift"]
+      },
+      "optionSet_like_food": {
+        "options": ["optionSet_like_gift"]
+      },
+      "optionSet_like_luxury_goods": {
+        "options": ["optionSet_like_gift"]
+      },
+      "optionSet_like_lobster": {
+        "options": ["optionSet_like_gift"]
+      },
+      "optionSet_like_drugs": {
+        "options": ["optionSet_like_gift"]
+      },
+      "optionSet_like_domestic_goods": {
+        "options": ["optionSet_dislike_gift"]
+      },
+      "optionSet_marriage_response": {
+        "options": [
+          "optionSet_askQuestion"
+        ]
+      },
+
       "option_ask_location": {
         "line": "Ask about the location of someone.",
         "optionData": "ERROR"
@@ -2033,7 +2357,7 @@
       },
       "option_ask_marriage": {
         "line":"Ask for %LORD_NAME's hand in marriage.",
-        "optionData": "ERROR",
+        "optionData": "marriage_response",
         "show": {
           "isMarried": false,
           "isPlayerMarried": false,
@@ -2044,7 +2368,7 @@
       },
       "option_ask_leave_party": {
         "line":"Ask your %LORD_GENDER_HUSBAND_OR_WIFE to return to %LORD_GENDER_HIS_OR_HER own fleet.",
-        "optionData": "ERROR",
+        "optionData": "leave_party_explanation",
         "show": {
           "isMarriedToPlayer": true,
           "lordActingInPlayerFleet": true
@@ -2052,7 +2376,7 @@
       },
       "option_ask_join_party": {
         "line":"Ask your %LORD_GENDER_HUSBAND_OR_WIFE to join your fleet.",
-        "optionData": "ERROR",
+        "optionData": "join_party_explanation",
         "show": {
           "isMarriedToPlayer": true,
           "lordActingInPlayerFleet": false
@@ -2102,19 +2426,235 @@
       },
       "option_give_gift": {
         "line":"Select a gift",
-        "optionData": "ERROR",
+        "optionData": "give_gift",
         "hint": "Your gift will significantly color their opinion of you. It's ok to give nothing if you aren't certain of their preferences."
       },
       "option_dont_give_gift": {
         "line":"Just return to the feast",
-        "optionData": "ERROR"
+        "optionData": "ask_question"
       },
 
-      "option_confirm_join_party": "Confirm",
-      "option_nevermind_join_party": "Never mind",
+      "optionSet_give_gift": {
+        "optionData" : [
+          "option_gift_alpha_core",
+          "option_gift_hand_weapons",
+          "option_gift_food",
+          "option_gift_luxury_goods",
+          "option_gift_lobster",
+          "option_gift_drugs",
+          "option_gift_domestic_goods",
+          "options_give_gift_exit"]
+      },
+      "option_gift_alpha_core": {
+        "line": "An alpha core",
+        "optionData": "dislikeGift_alpha_core",
+        "hint": "give 1 alpha_core to %LORD_NAME",
+        "addons": {
+          "repDecrease": {
+            "min": 10,
+            "max": 10
+          },
+          "removeCommoditysFromPlayerFleet": {
+            "alpha_core": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        },
+        "enable": {
+          "PlayerHasCommodity": {
+            "alpha_core": {
+              "min": 1
+            }
+          }
+        }
+      },
+      "option_gift_hand_weapons": {
+        "line": "A high-quality handgun",
+        "optionData": "dislikeGift_hand_weapons",
+        "hint": "give 100 hand_weapons to %LORD_NAME",
+        "addons": {
+          "repDecrease": {
+            "min": 10,
+            "max": 10
+          },
+          "removeCommoditysFromPlayerFleet": {
+            "hand_weapons": {
+              "min": 100,
+              "max": 100
+            }
+          }
+        },
+        "enable": {
+          "PlayerHasCommodity": {
+            "hand_weapons": {
+              "min": 100
+            }
+          }
+        }
+      },
+      "option_gift_food": {
+        "line": "A butter sampler platter",
+        "optionData": "dislikeGift_food",
+        "hint": "give 100 food to %LORD_NAME",
+        "addons": {
+          "repDecrease": {
+            "min": 10,
+            "max": 10
+          },
+          "removeCommoditysFromPlayerFleet": {
+            "food": {
+              "min": 100,
+              "max": 100
+            }
+          }
+        },
+        "enable": {
+          "PlayerHasCommodity": {
+            "food": {
+              "min": 100
+            }
+          }
+        }
+      },
+      "option_gift_luxury_goods": {
+        "line": "The latest luxury %LORD_GENDER_SUIT_OR_DRESS from Chicomoztoc",
+        "optionData": "dislikeGift_luxury_goods",
+        "hint": "give 100 luxury_goods to %LORD_NAME",
+        "addons": {
+          "repDecrease": {
+            "min": 10,
+            "max": 10
+          },
+          "removeCommoditysFromPlayerFleet": {
+            "luxury_goods": {
+              "min": 100,
+              "max": 100
+            }
+          }
+        },
+        "enable": {
+          "PlayerHasCommodity": {
+            "luxury_goods": {
+              "min": 100
+            }
+          }
+        }
+      },
+      "option_gift_lobster": {
+        "line": "Fresh Volturnian Lobster",
+        "optionData": "dislikeGift_lobster",
+        "hint": "give 100 lobster to %LORD_NAME",
+        "addons": {
+          "repDecrease": {
+            "min": 10,
+            "max": 10
+          },
+          "removeCommoditysFromPlayerFleet": {
+            "lobster": {
+              "min": 100,
+              "max": 100
+            }
+          }
+        },
+        "enable": {
+          "PlayerHasCommodity": {
+            "lobster": {
+              "min": 100
+            }
+          }
+        }
+      },
+      "option_gift_drugs": {
+        "line": "A pack of psychedelics",
+        "optionData": "dislikeGift_drugs",
+        "hint": "give 100 drugs to %LORD_NAME",
+        "addons": {
+          "repDecrease": {
+            "min": 10,
+            "max": 10
+          },
+          "removeCommoditysFromPlayerFleet": {
+            "drugs": {
+              "min": 100,
+              "max": 100
+            }
+          }
+        },
+        "enable": {
+          "PlayerHasCommodity": {
+            "drugs": {
+              "min": 100
+            }
+          }
+        }
+      },
+      "option_gift_domestic_goods": {
+        "line": "The latest Tri-pad DLC",
+        "optionData": "dislikeGift_domestic_goods",
+        "hint": "give 100 domestic_goods to %LORD_NAME",
+        "addons": {
+          "repDecrease": {
+            "min": 10,
+            "max": 10
+          },
+          "removeCommoditysFromPlayerFleet": {
+            "domestic_goods": {
+              "min": 100,
+              "max": 100
+            }
+          }
+        },
+        "enable": {
+          "PlayerHasCommodity": {
+            "domestic_goods": {
+              "min": 100
+            }
+          }
+        }
+      },
+      "options_give_gift_exit": {
+        "line":"Never Mind",
+        "optionData": "ask_question"
+      },
 
-      "option_confirm_leave_party": "Confirm",
-      "option_nevermind_leave_party": "Never mind"
+      "optionSet_join_party_explanation": {
+        "optionData" : [
+          "option_confirm_join_party",
+          "option_nevermind_join_party"
+        ]
+      },
+      "option_confirm_join_party": {
+        "line":"Confirm",
+        "optionData": "ask_question",
+        "addons": {
+          "setInPlayerFleet": true
+        }
+      },
+      "option_nevermind_join_party": {
+        "line":"Never mind",
+        "optionData": "ask_question",
+        "shortcut": "ESCAPE"
+      },
+
+      "optionSet_leave_party_explanation": {
+        "optionData" : [
+          "option_confirm_leave_party",
+          "option_nevermind_leave_party"
+        ]
+      },
+      "option_confirm_leave_party": {
+        "line":"Confirm",
+        "optionData": "ask_question",
+        "addons": {
+          "setInPlayerFleet": false
+        }
+      },
+      "option_nevermind_leave_party": {
+        "line":"Never mind",
+        "optionData": "ask_question",
+        "shortcut": "ESCAPE"
+      }
     }
   }
 }

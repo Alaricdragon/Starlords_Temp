@@ -729,7 +729,6 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         DialogSet.addOptionWithInserts("option_dont_give_gift",null,OptionId.ASK_QUESTION,targetLord,textPanel,options);
     }
     private void optionSelected_OFFER_GIFT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
-        //TODO: there is a issue here. there are many more possible options that must be considered. I will need to add in a a way to add additional commodity that they might care for.
         nextState = OptionId.OFFER_GIFT_SELECTION;
         options.clearOptions();
         String clothing = targetLord.getLordAPI().getGender() == FullName.Gender.FEMALE ? "dress" : "suit";
@@ -809,46 +808,6 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         optionSelected(null, OptionId.INIT);
     }
     private void optionSelected_SUGGEST_MARRIAGE(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
-        /*2 messages: acsept and reject marage.
-        // accept has the following:
-        //  base accept: (require at lest COOPERATIVE and at least 1 romantic actions.)
-        //      -> is host
-        //      -> see host
-        //  base refuse: (COOPERATIVE and 0 romantic actions)
-                COOPERATIVE and 0 romance
-                    -> refuse_marriage_no_gift
-                    -> refuse_marriage_no_gift_hint
-                at worst friendly
-                    -> refuse_marriage_mild
-                at worst FAVORABLE
-                    -> refuse_marriage_harsh
-                    -> lose 10 rep
-                other:
-                    -> refuse_marriage_joke
-
-         lines:
-            seeHost:
-                (x)isHost -> accept_marriage_is_host
-                (x)!isHost -> accept_marriage_see_host
-            marray:
-                (x)rep: COOPERATIVE + romance min 1
-                    accept_marriage_+personality
-                    addons:
-                        marry
-                        exstra line: seeHost
-                (x)rep: min: 75 + romance max 0
-                    refuse_marriage_no_gift
-                    addons:
-                        refuse_marriage_no_gift_hint
-                (x) rep: max: 74, min: 50
-                    refuse_marriage_mild
-                (x)rem: max 49, min: 10
-                    refuse_marriage_harsh
-                    addons: -10 rep
-                (x)other:
-                    refuse_marriage_joke
-
-         */
         DialogSet.addParaWithInserts("marriage_response",targetLord,textPanel,options);
         optionSelected(null, OptionId.ASK_QUESTION);
     }
@@ -915,7 +874,19 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         *   1) accept (reluctant and happily) (random number < agree chance)
         *   2) bargain (force player to accept something of theres for support) (random number < bargainChance chance)
         *   3) bribe (force player to give credits for support) (random number < bribe chance)
-        *   4) refuse (other) */
+        *   4) refuse (other)
+        *
+        * ok... ok. so it is time.
+        * this is the reason I built the fucking option system. its now time to rumble. and its going to be hard. what are the options?
+        *   1) accept (reluctant and happily) (random number < agree chance)
+        *   2) bargain (force player to accept something of theres for support) (random number < bargainChance chance)
+        *   3) bribe (force player to give credits for support) (random number < bribe chance)
+        *   4) refuse (other)
+        * conditions required:
+        *
+        * addons required:
+        *
+         */
         FactionAPI faction = targetLord.getFaction();
         if (option == OptionId.SWAY_PROPOSAL_PLAYER) {
             proposal = PoliticsController.getProposal(LordController.getPlayerLord());

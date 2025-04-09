@@ -146,6 +146,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "playerTournamentVictoryDedicated": always returns false, if: not at a feast, or the player has not won the tournament there. if set to true, the player must has already dedicated there victory at the tournament. if set to false, the player must have not already dedicated there victory at the tournament
   * "tournamentDedicatedToLord": always returns false if: not at a feast. if set to true, the lord must be the one the tournament is dedicated to. if set to false, the lord must not be the one the tournament is dedicated to
   * "feastIsHostingWedding": if set to true, the lord must both be at a feast, and there must be a wedding being hosted there. if set to faslse, the lord must be at a feast, and a wedding must not be hosted there.
+  * "isWeddingTarget": always reutrns false if not at a feast, or feast is not hosting a wedding. if set to false, the lord no must be being married at this feast. if set to true, the lord be getting married this feast.
   * "firstMeeting": if set to true, this must be your first time meeting this starlord. if set to false, you must have met this starlord before.
   * "lordsInFeast": always returns false if: not at a feast. is the number of lords that must be at the current feast to meet requirements. set between a "min" and "max" value. range should be at least 0
   * "hasProfessedAdmirationThisFeast": always returns false if: not at a feast. if set to false, you must have not professed admiration this feast to meet requirements. if set to true, you must have already professed admiration this feast to meet requirements.
@@ -159,7 +160,8 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "lordFactionHasActiveConsole": if set to false, the lords faction must not be actively voting on a proposal. if set to true, the lords faction must be voting on a proposal
   * "playerFactionHasActiveConsole": if set to false, the players faction must not be actively voting on a proposal. if set to true, the players faction must be voting on a proposal 
   * "lordActingInPlayerFleet": if set to false, the lord must not be in the player fleet to meet requirements. if set to true, the lord must be in the player fleet to meet requirements.
-
+  * "playerHasCommodity": is a jsonObject contining a set of commodityID's, each with a min and max value. player must have between the min and max value of each commoidty in there cargo bay to meet requirements.
+  * "lordsFavItem": is the lord fav item required to meet requirements. set to true for whitelist, and false for blacklist. To meet requirements, a lord must have a fav item of one of the 'true' fav items (if any are created in this rule), and must not have a fav item of the 'false' fav items. 
   * basic is simply a "lineID": "new string";
   * advanced is more complicated. its a json object, that must include a "line" (to act as the normal lineID), but also additional json peramiters. "addons" are . the "addons" are as follows:
     * "addons" additional conditions and effects that you can have run at the moment this line is ran. most 'addons' also add a line of dialog to show what effects they had. any "option_" will only run addons after the option is selected. and "tooltip_" line cannot use "addons"
@@ -181,13 +183,24 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "romanceActionDecrease": note: does not add text indicators (also of note: one value of romanceAction represents a major romantic action)
         * "min": Integer
         * "max": Integer
+      * "removeCommoditysFromPlayerFleet": 
+        * "commodityID..."
+          * "min": Integer
+          * "max": Integer
+      * "addCommoditysToPlayerFleet":
+        * "commodityID..."
+          * "min": Integer
+          * "max": Integer
       * "additionalText": "lineID" adds an additional line of dialog, with the inputed name
-      * "startWedding": boolean if set to true, sets the current feast the player is at to a wedding ceremony (or howeer that works). will do nothing if not at a feast.
+      * "wedPlayerToLord": boolean. if set to true, marry's the lord and player. if set to false, and the player and lord are married, un-marry's the lord and player.
+      * "wedPlayerToWeddingTarget": boolean. if set to true, marry's the wedding target and player. if set to false, and the player and wedding target are married, un-marry's the wedding target and player.
+      * "startWedding": boolean. if set to true, sets the current feast the player is at to a wedding ceremony (or howeer that works). will do nothing if not at a feast.
       * "dedicateTournamentVictoryToLord": boolean. if set to true, dedicates your tournament victory to the target lord. only runs if you are at a feast, and won the tournament.
       * "startTournament": boolean. if set to true, starts a Tournament. 
       * "setHeldDate": boolean. sets if you have held a data this feast.  
       * "setProfessedAdmiration": boolean. sets if you have held professed admiration this feast.
       * "setCourted" : boolean. sets whether you are courting this lord. setting this to true lets you do romance =)
+      * "setInPlayerFleet": boolean. sets wether or not this lord is in the player fleet, or in their own fleet.
     * "color" color override for this dialog line. not required. has 3 'preset' colors, but also the option for a custom color. cannot be used in any "tooltip_" line.
       * "RED"
       * "GREEN"
@@ -198,86 +211,38 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "b"
       * "a"
     * "options" is an jsonArray containing the lineID's of any option or option set that this line should run. please note, that most lines by default have a entry in the [default_dialog_options.json](https://github.com/Deluth-git/Starlords/blob/master/data/lords/default_dialog_options.json) file
-    * "show" is an jsonObject that contains the same functions as 'rules', but instead of determining if a line can be ran, if all "show" any show functions ar efalse, and this line is selected, it will not be shown. for "option_"'s, if this line is selected and the 'hide' is true, it will not be ran.
+    * "show" is an jsonObject that contains the same functions as 'rules', but instead of determining if a line can be ran, if any conditions in the object are false, and this line is selected, it will not be shown. for "option_"'s, if this line is selected and the 'hide' is true, it will not be ran.
+    * "enable": (only effects 'option_' lines) is a jsonObject that contains the same functions as 'rules', but instead of determining if a line can be ran. if any conditions in this object are false, and this option will be greyed out and unable to be used.
     * "optionData" is the link to a line that happens when you click this option. if called as a line, and no options are selected for this line, it will automaticly load the linked line. 
     * "hint" is the hover over hint that happens when you hover only an option. only works if this line is called as an option
     * "shortcut" : "shortcutLey" if this is set to one of the acsepted value, will add a hotkey to an option. only works for "option_" lines. possable options are:
       * "ESCAPE"
     * "lines" is the dialog lines for every line a starlord speaks. this comes in 2 forms. the first, wish we will call basic, and the second, that we will call advanced:
   * for both basic and advanced lines, you can also input a number of custom markers into your dialog that will be replaced with data automaticly. the markers are as follows
-  * "%PLAYER_FACTION_NAME"
-  * "%PLAYER_NAME" 
-  * "%PLAYER_GENDER_MAN_OR_WOMEN"
-  * "%PLAYER_GENDER_HE_OR_SHE"
-  * "%PLAYER_GENDER_HIM_OR_HER"
-  * "%PLAYER_GENDER_HIS_OR_HER"
-  * "%PLAYER_GENDER_HUSBAND_OR_WIFE"
-  * "%PLAYER_GENDER_NAME" player gender
-  * "%PLAYER_FLAGSHIP_HULLNAME" player captioned ship hull name (return "nothing" if the player has no captioned ship)
-  * "%PLAYER_FLAGSHIP_NAME" player captioned ship name (returns "nothing" if the player has no captioned ship)
-  
-  * Note: all %PLAYER_SPOUSE markers will instead return the players data if they are not married. so be careful using this to avoid confusion or accidental mockery
-  * "%PLAYER_SPOUSE_FACTION_NAME"
-  * "%PLAYER_SPOUSE_NAME"
-  * "%PLAYER_SPOUSE_GENDER_MAN_OR_WOMEN"
-  * "%PLAYER_SPOUSE_GENDER_HE_OR_SHE"
-  * "%PLAYER_SPOUSE_GENDER_HIM_OR_HER"
-  * "%PLAYER_SPOUSE_GENDER_HIS_OR_HER"
-  * "%PLAYER_SPOUSE_GENDER_HUSBAND_OR_WIFE"
-  * "%PLAYER_SPOUSE_GENDER_NAME" player gender
-  * "%PLAYER_SPOUSE_FLAGSHIP_HULLNAME" partners currently captioned ships hullname (return "nothing" if the partner has no captioned ship).
-  * "%PLAYER_SPOUSE_FLAGSHIP_NAME" partner captioned ship name (returns "nothing" if the partner has no captioned ship).
-
-  * "%LORD_FACTION_NAME" 
-  * "%LORD_STARTING_FACTION_NAME"
-  * "%LORD_NAME"
-  * "%LORD_GENDER_MAN_OR_WOMEN"
-  * "%LORD_GENDER_HE_OR_SHE"
-  * "%LORD_GENDER_HIM_OR_HER"
-  * "%LORD_GENDER_HIS_OR_HER"
-  * "%LORD_GENDER_HUSBAND_OR_WIFE"
-  * "%LORD_GENDER_NAME"
-  * "%LORD_FLAGSHIP_HULLNAME" lord flagship ship hull name (return "nothing" if the lord has no flagship)
-  * "%LORD_FLAGSHIP_NAME" lord flagship name (returns "nothing" if the lord has no flagship)
-
-  * Note: all %LORD_SPOUSE markers will instead return the lords data if they are not married. so be careful using this to avoid confusion or accidental mockery
-  * "%LORD_SPOUSE_FACTION_NAME"
-  * "%LORD_SPOUSE_STARTING_FACTION_NAME"
-  * "%LORD_SPOUSE_NAME"
-  * "%LORD_SPOUSE_GENDER_MAN_OR_WOMEN"
-  * "%LORD_SPOUSE_GENDER_HE_OR_SHE"
-  * "%LORD_SPOUSE_GENDER_HIM_OR_HER"
-  * "%LORD_SPOUSE_GENDER_HIS_OR_HER"
-  * "%LORD_SPOUSE_GENDER_HUSBAND_OR_WIFE"
-  * "%LORD_SPOUSE_GENDER_NAME"
-  * "%LORD_SPOUSE_FLAGSHIP_HULLNAME" partner captioned ship hull name (return "nothing" if the partner has no captioned ship).
-  * "%LORD_SPOUSE_FLAGSHIP_NAME" partner captioned ship name (returns "nothing" if the partner has no captioned ship).
-
-  * note: all %LORD_HOST markers will instead return the lord you are talking to if you are not at a feast. please use carefully, to avoid confusion or accidental gloating
-  * "%LORD_HOST_FACTION_NAME"
-  * "%LORD_HOST_STARTING_FACTION_NAME"
-  * "%LORD_HOST_NAME"
-  * "%LORD_HOST_GENDER_MAN_OR_WOMEN"
-  * "%LORD_HOST_GENDER_HE_OR_SHE"
-  * "%LORD_HOST_GENDER_HIM_OR_HER"
-  * "%LORD_HOST_GENDER_HIS_OR_HER"
-  * "%LORD_HOST_GENDER_HUSBAND_OR_WIFE"
-  * "%LORD_HOST_GENDER_NAME"
-  * "%LORD_HOST_FLAGSHIP_HULLNAME" lord flagship ship hull name (return "nothing" if the lord has no flagship)
-  * "%LORD_HOST_FLAGSHIP_NAME" lord flagship name (returns "nothing" if the lord has no flagship)
-
-  * Note: all %LORD_HOST_SPOUSE markers will instead return the lords data if they are not married. so be careful using this to avoid confusion or accidental mockery
-  * "%LORD_HOST_SPOUSE_FACTION_NAME"
-  * "%LORD_HOST_SPOUSE_STARTING_FACTION_NAME"
-  * "%LORD_HOST_SPOUSE_NAME"
-  * "%LORD_HOST_SPOUSE_GENDER_MAN_OR_WOMEN"
-  * "%LORD_HOST_SPOUSE_GENDER_HE_OR_SHE"
-  * "%LORD_HOST_SPOUSE_GENDER_HIM_OR_HER"
-  * "%LORD_HOST_SPOUSE_GENDER_HIS_OR_HER"
-  * "%LORD_HOST_SPOUSE_GENDER_HUSBAND_OR_WIFE"
-  * "%LORD_HOST_SPOUSE_GENDER_NAME"
-  * "%LORD_HOST_SPOUSE_FLAGSHIP_HULLNAME" partner captioned ship hull name (return "nothing" if the partner has no captioned ship).
-  * "%LORD_HOST_SPOUSE_FLAGSHIP_NAME" partner captioned ship name (returns "nothing" if the partner has no captioned ship).
+  * there are a few diffrent targets for markers. the targets are:
+    * PLAYER
+    * PLAYER_SPOUSE (note: will backup to PLAYER if player has no spouse)
+    * LORD
+    * LORD_SPOUSE (note: will backup to LORD if LORD has no spouse)
+    * LORD_HOST (note: will backup to LORD if not at feast, or organizer does not exsist)
+    * LORD_HOST_SPOUSE (note: will backup to LORD_HOST if organizer does not have a spouse)
+    * WEDDING_TARGET (note: will backup to LORD if not at a wedding)
+    * WEDDING_TARGET_SPOUSE (note: will backup to WEDDING_TARGET if wedding target has no spouse)
+  markers of the following. (replace TARGET with diffrent target types at will)
+      * "%TARGET_FACTION_NAME" 
+      * "%TARGET_STARTING_FACTION_NAME"
+      * "%TARGET_NAME"
+      * "%TARGET_NAME_FIRST"
+      * "%TARGET_NAME_LAST"
+      * "%TARGET_GENDER_MAN_OR_WOMEN"
+      * "%TARGET_GENDER_HE_OR_SHE"
+      * "%TARGET_GENDER_HIM_OR_HER"
+      * "%TARGET_GENDER_HIS_OR_HER"
+      * "%TARGET_GENDER_HUSBAND_OR_WIFE"
+      * "%TARGET_GENDER_SUIT_OR_DRESS"
+      * "%TARGET_GENDER_NAME"
+      * "%TARGET_FLAGSHIP_HULLNAME" target flagship ship hull name (return "nothing" if the target has no flagship)
+      * "%TARGET_FLAGSHIP_NAME" target flagship name (returns "nothing" if the target has no flagship)
 
   *some lines will also use custom inputted data. in this case, they will use the '%c#' marker, with # being the order they are added to the line.
   *available lines to override are follows:
@@ -285,7 +250,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "option_avoid_battle" :           OptionId.SUGGEST_CEASEFIRE
       * "option_ask_tournament" :         OptionId.ASK_TOURNAMENT
       * "option_dedicate_tournament" :    "dedicate_tournament"
-      * "option_host_wedding" :           OptionId.START_WEDDING
+      * "option_host_wedding" :           "marriage_ceremony"
       * "option_ask_current_task" :       "current_task_desc"
       * "option_ask_question" :           "ask_question"
       * "option_suggest_action" :         OptionId.SUGGEST_ACTION
@@ -308,9 +273,9 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "option_ask_quest" :            "OptionId.ASK_QUEST"
       * "option_profess_admiration" :   "admiration_response"
       * "option_ask_date" :             "spend_time_together"
-      * "option_ask_marriage" :         "OptionId.SUGGEST_MARRIAGE"
-      * "option_ask_leave_party" :      "OptionId.SUGGEST_LEAVE_PARTY"
-      * "option_ask_join_party" :       "OptionId.SUGGEST_JOIN_PARTY"
+      * "option_ask_marriage" :         "marriage_response"
+      * "option_ask_leave_party" :      "leave_party_explanation"
+      * "option_ask_join_party" :       "join_party_explanation"
       * "option_sway_council_support" : "OptionId.SWAY_PROPOSAL_COUNCIL"
       * "option_sway_council_oppose" :  "OptionId.SWAY_PROPOSAL_COUNCIL"
       * "option_sway_player" :          "OptionId.SWAY_PROPOSAL_PLAYER"
@@ -320,10 +285,66 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * copys 'ask_question' options
 
     * "spend_time_together"
-      * "option_give_gift" :            "OptionId.OFFER_GIFT"
-      * "option_dont_give_gift" :       "OptionId.ASK_QUESTION"
+      * "option_give_gift" :            "give_gift"
+      * "option_dont_give_gift" :       "ask_question"
     
+    * "give_gift"
+      * "option_gift_alpha_core" :      "dislikeGift_alpha_core" || "likeGift_alpha_core"
+      * "option_gift_hand_weapons" :    "dislikeGift_hand_weapons" || "likeGift_hand_weapons"
+      * "option_gift_food" :            "dislikeGift_food" || "likeGift_food"
+      * "option_gift_luxury_goods" :    "dislikeGift_luxury_goods" || "likeGift_luxury_goods"
+      * "option_gift_lobster" :         "dislikeGift_lobster" || "likeGift_lobster"
+      * "option_gift_drugs" :           "dislikeGift_drugs" || "likeGift_drugs"
+      * "option_gift_domestic_goods" :  "dislikeGift_domestic_goods" || "likeGift_domestic_goods"
+      * "options_give_gift_exit" :      "ask_question"
 
+    * "dislikeGift_alpha_core"
+      * copys 'ask_question' options
+    * "dislikeGift_alpha_core"
+      * copys 'ask_question' options
+    * "dislikeGift_hand_weapons"
+      * copys 'ask_question' options
+    * "dislikeGift_food"
+      * copys 'ask_question' options
+    * "dislikeGift_luxury_goods"
+      * copys 'ask_question' options
+    * "dislikeGift_lobster"
+      * copys 'ask_question' options
+    * "dislikeGift_drugs"
+      * copys 'ask_question' options
+    * "dislikeGift_domestic_goods"
+      * copys 'ask_question' options
+
+    * "likeGift_alpha_core"
+      * copys 'ask_question' options
+    * "likeGift_alpha_core"
+      * copys 'ask_question' options
+    * "likeGift_hand_weapons"
+      * copys 'ask_question' options
+    * "likeGift_food"
+      * copys 'ask_question' options
+    * "likeGift_luxury_goods"
+      * copys 'ask_question' options
+    * "likeGift_lobster"
+      * copys 'ask_question' options
+    * "likeGift_drugs"
+      * copys 'ask_question' options
+    * "likeGift_domestic_goods"
+      * copys 'ask_question' options
+
+    * "marriage_ceremony"
+        * copys 'greeting' options
+
+    * "marriage_response"
+        * copys 'ask_question' options
+
+    * "join_party_explanation"
+        * "option_confirm_join_party": ask_question
+        * "option_nevermind_join_party": ask_question
+    
+    * "leave_party_explanation"
+        * "option_confirm_leave_party": ask_question
+        * "option_nevermind_leave_party": ask_question
 
 
     * ---old data. here for refrenece as I slowly cut though the code and finish things.

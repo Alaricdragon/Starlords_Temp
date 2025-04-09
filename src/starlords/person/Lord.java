@@ -104,6 +104,9 @@ public class Lord {
     @Setter
     private CampaignFleetAPI oldFleet;
 
+    //because it budged me that the god dammed way to decide weather or not you were a dress or not arg....
+    @Setter
+    private String formalWear;
     // Creates a lord from scratch, only run at campaign start
     public Lord(LordTemplate template) {
         FullName.Gender gender = template.isMale ? FullName.Gender.MALE : FullName.Gender.FEMALE;
@@ -286,6 +289,15 @@ public class Lord {
     // 1 is the expected level, 2 is higher, 0 is lower
     public float getMilitaryLevel() {
         return (float) (1 + Math.tanh((getFleet().getFleetPoints() - 200f) / 100));
+    }
+
+    public String getFormalWear(){
+        if (formalWear != null) return formalWear;
+        String CATEGORY = "starlords_lords_dialog";
+        String a = StringUtil.getString(CATEGORY, "lordGenderDress");
+        String b = StringUtil.getString(CATEGORY, "lordGenderSuit");
+        String clothing = getLordAPI().getGender() == FullName.Gender.FEMALE ? a : b;
+        return clothing;
     }
 
     public void setCurrAction(LordAction action) {

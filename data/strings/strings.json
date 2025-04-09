@@ -1,5 +1,7 @@
 {
   "starlords_lords_dialog": {
+    "lordGenderDress": "dress",
+    "lordGenderSuit": "suit",
 
     "greeting_upstanding_imprisoned": "I am at your mercy. Grant me the honours of war, and do yourself credit!",
     "greeting_martial_imprisoned": "You may have bested me, but when we next clash, I assure you that it won't happen again.",
@@ -78,8 +80,6 @@
     "ask_patrol_location": "Where should I defend?",
 
 
-    "receive_gift_like": "What a thoughtful gift. I'm touched that you know me so well.",
-    "receive_gift_dislike": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
     "prepare_advise_friend_gift": "Oh? If I know them well, I can offer some advice.",
     "advise_friend_gift": "For as long as I've known $string, they've always been a connoisseur of $string."
   },

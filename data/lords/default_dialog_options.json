@@ -4,5 +4,26 @@
   "start_tournament": "optionSet_start_tournament",
   "ask_question": "optionSet_askQuestion",
   "admiration_response": "optionSet_admiration_response",
-  "spend_time_together": "optionSet_spend_time_together"
+  "spend_time_together": "optionSet_spend_time_together",
+  "give_gift": "optionSet_give_gift",
+
+  "dislikeGift_alpha_core": "optionSet_dislike_alpha_core",
+  "dislikeGift_hand_weapons": "optionSet_dislikeGift_hand_weapons",
+  "dislikeGift_food": "optionSet_dislikeGift_food",
+  "dislikeGift_luxury_goods": "optionSet_dislikeGift_luxury_goods",
+  "dislikeGift_lobster": "optionSet_dislikeGift_lobster",
+  "dislikeGift_drugs": "optionSet_dislikeGift_drugs",
+  "dislikeGift_domestic_goods": "optionSet_dislikeGift_domestic_goods",
+  "likeGift_alpha_core": "optionSet_like_alpha_core",
+  "likeGift_hand_weapons": "optionSet_likeGift_hand_weapons",
+  "likeGift_food": "optionSet_likeGift_food",
+  "likeGift_luxury_goods": "optionSet_likeGift_luxury_goods",
+  "likeGift_lobster": "optionSet_likeGift_lobster",
+  "likeGift_drugs": "optionSet_likeGift_drugs",
+  "likeGift_domestic_goods": "optionSet_likeGift_domestic_goods",
+
+  "marriage_ceremony": "optionSet_marriage_ceremony",
+  "marriage_response": "optionSet_marriage_response",
+  "join_party_explanation": "optionSet_join_party_explanation",
+  "leave_party_explanation": "optionSet_leave_party_explanation"
 }
