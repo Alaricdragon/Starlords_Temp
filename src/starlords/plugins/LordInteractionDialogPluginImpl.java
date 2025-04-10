@@ -193,6 +193,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         if (optionData instanceof DialogOption){
             DialogOption data = (DialogOption) optionData;
             String selectedOption = data.optionID;
+            data.applyAddons(textPanel,options,dialog,targetLord);
             switch (selectedOption){
                 case "greeting":
                     optionSelected_greetings(selectedOption);
@@ -211,7 +212,6 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
                     DialogSet.addParaWithInserts(selectedOption,targetLord,textPanel,options,dialog);
                     break;
             }
-            if (data != null) data.applyAddons(textPanel,options,dialog,targetLord);
             return true;
         }
         return false;

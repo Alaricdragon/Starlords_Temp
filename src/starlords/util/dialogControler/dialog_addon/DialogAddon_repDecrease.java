@@ -18,12 +18,14 @@ public class DialogAddon_repDecrease extends DialogAddon_Base{
     }
     @Override
     public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord){
-        int change = min + Utils.rand.nextInt(max - min);
+        int ranChange = max - min;
+        if (ranChange > 0) ranChange = Utils.rand.nextInt(ranChange);
+        int change = min + ranChange;
         lord.getLordAPI().getRelToPlayer().adjustRelationship((float) (change*-0.01), null);
 
         HashMap<String,String> inserts = new HashMap<>();
         inserts.put("%c0",""+change);
-        DialogSet.addParaWithInserts("relation_decrease",lord,textPanel,options,dialog);
+        DialogSet.addParaWithInserts("relation_decrease",lord,textPanel,options,dialog,false,inserts);
 
     }
 }

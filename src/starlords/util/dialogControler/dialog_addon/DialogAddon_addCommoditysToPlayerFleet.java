@@ -20,13 +20,15 @@ public class DialogAddon_addCommoditysToPlayerFleet extends DialogAddon_Base{
     }
     @Override
     public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord){
-        int change = min + Utils.rand.nextInt(max - min);
+        int ranChange = max - min;
+        if (ranChange > 0) ranChange = Utils.rand.nextInt(ranChange);
+        int change = min + ranChange;
         Global.getSector().getPlayerFleet().getCargo().removeCommodity(item,(change));
 
         HashMap<String,String> inserts = new HashMap<>();
         inserts.put("%c0",""+change);
         inserts.put("%c1",item);
-        DialogSet.addParaWithInserts("item_lost",lord,textPanel,options,dialog);
+        DialogSet.addParaWithInserts("item_lost",lord,textPanel,options,dialog,false,inserts);
 
     }
 }

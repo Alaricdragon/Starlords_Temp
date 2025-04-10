@@ -709,9 +709,9 @@ public class DialogSet {
         }else{
             addLine(key,null);
         }
-        if (line.has("addon")) {
-            JSONObject addons = line.getJSONObject("addon");
-            ArrayList<DialogAddon_Base> newAddons = new ArrayList();
+        if (line.has("addons")) {
+            JSONObject addons = line.getJSONObject("addons");
+            ArrayList<DialogAddon_Base> newAddons = new ArrayList<DialogAddon_Base>();
             for (Iterator it = addons.keys(); it.hasNext(); ) {
                 String key2 = (String) it.next();
                 DialogAddon_Base addon = null;
@@ -941,7 +941,7 @@ public class DialogSet {
         JSONObject json2 = json.getJSONObject(key);
         for (Iterator it2 = json2.keys(); it2.hasNext();) {
             String key2 = (String) it2.next();
-            JSONObject json3 = json2.getJSONObject("key2");
+            JSONObject json3 = json2.getJSONObject(key2);
             out.add(new DialogAddon_removeCommoditysFromPlayerFleet(key2,json3.getInt("min"),json3.getInt("max")));
         }
         return out;
@@ -952,7 +952,7 @@ public class DialogSet {
         JSONObject json2 = json.getJSONObject(key);
         for (Iterator it2 = json2.keys(); it2.hasNext();) {
             String key2 = (String) it2.next();
-            JSONObject json3 = json2.getJSONObject("key2");
+            JSONObject json3 = json2.getJSONObject(key2);
             out.add(new DialogAddon_addCommoditysToPlayerFleet(key2,json3.getInt("min"),json3.getInt("max")));
         }
         return out;
