@@ -161,8 +161,27 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "playerFactionHasActiveConsole": if set to false, the players faction must not be actively voting on a proposal. if set to true, the players faction must be voting on a proposal 
   * "lordActingInPlayerFleet": if set to false, the lord must not be in the player fleet to meet requirements. if set to true, the lord must be in the player fleet to meet requirements.
   * "playerHasCommodity": is a jsonObject contining a set of commodityID's, each with a min and max value. player must have between the min and max value of each commoidty in there cargo bay to meet requirements.
-  * "lordsFavItem": is the lord fav item required to meet requirements. set to true for whitelist, and false for blacklist. To meet requirements, a lord must have a fav item of one of the 'true' fav items (if any are created in this rule), and must not have a fav item of the 'false' fav items. 
-  * basic is simply a "lineID": "new string";
+  * "lordsFavItem": is the lord fav item required to meet requirements. set to true for whitelist, and false for blacklist. To meet requirements, a lord must have a fav item of one of the 'true' fav items (if any are created in this rule), and must not have a fav item of the 'false' fav items.
+  * "optionOfCurrProposal": is the option of the current proposal the lord must have to meet requirements. set between a "min" and "max" value.
+  * "optionOfPlayerProposal": is the option of the player proposal the lord must have to meet requirements. set between a "min" and "max" value.
+  * "isSwayed": if set to false, the player must have not swayed the lord to support or oppose a proposal. if set to ture, the player must have done
+  * "lordProposalSupporters": always returns false if: lord does not have a proposal active. is the number of supports the lords proposal must have to meet requirements. set between a "min" and "max" value.
+  * "lordProposalOpposers": always returns false if: lord does not have a proposal active. is the number of opposers the lords proposal must have to meet requirements. set between a "min" and "max" value.
+  * "lordProposalPlayerSupports": always returns false if: lord does not have a proposal active. if set to false, the player must not support the lords proposal to meet requirements. if set true, the player must support the lords propossal to meet requirements
+  * "playerProposalSupporters": always returns false if: player does not have a proposal active in the lords faction. is the number of supports the players proposal must have to meet requirements. set between a "min" and "max" value.
+  * "playerProposalOpposers": always returns false if: player does not have a proposal active in the lords faction. is the number of opposers the players proposal must have to meet requirements. set between a "min" and "max" value.
+  * "playerProposalLordSupports": always returns false if: player does not have a proposal active in the lords faction. if set to false, the lord must not support the players proposal. if set to true, the lord must support the players proposal
+  * "curProposalSupporters": always returns false if: there is no active proposal in the lords counsel. is the number of supports the lords factions current proposal must have to meet requirements. set between a "min" and "max" value.
+  * "curProposalOpposers": always returns false if: there is no active proposal in the lords counsel. is the number of supports the lord factions current proposal must have to meet requirements. set between a "min" and "max" value.
+  * "curProposalPlayerSupports": always returns false if: there is no active proposal in the lords counsel. if set to false, the player must not support the current proposal. if set to true, the player must support the current proposal
+  * "curProposalLordSupports": always returns false if: there is no active proposal in the lords counsel. if set to false, the lord must not support the current proposal. if set to true, the lord must support the current proposal
+  * "random": returns true if a random number (called 'range') is less then the total value of all other inputted values.
+    * "range": Integer. this is the range the random number will have
+    * "base": Integer. this is the base value
+    * "playerLordRelation": float. this is playerLordRelation * value.
+    * "opinionOfCurrProposal": float. this is the lords opinion of the current proposal in its faction * value
+    * "opinionOfPlayerProposal": float. this is the lords opinion of the players proposal in its faction * value
+* basic is simply a "lineID": "new string";
   * advanced is more complicated. its a json object, that must include a "line" (to act as the normal lineID), but also additional json peramiters. "addons" are . the "addons" are as follows:
     * "addons" additional conditions and effects that you can have run at the moment this line is ran. most 'addons' also add a line of dialog to show what effects they had. any "option_" will only run addons after the option is selected. and "tooltip_" line cannot use "addons"
       * "repIncrease":
@@ -175,6 +194,12 @@ If you're a modder, or just someone who loves to write dialog for every starlord
           * "min": Integer
           * "max": Integer
       * "creditsDecrease": 
+          * "min": Integer
+          * "max": Integer
+      * "giveCreditsToLord"
+          * "min": Integer
+          * "max": Integer
+      * "takeCreditsFromLord"
           * "min": Integer
           * "max": Integer
       * "romanceActionIncrease": note: does not add text indicators (also of note: one value of romanceAction represents a major romantic action)
@@ -200,7 +225,12 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "setHeldDate": boolean. sets if you have held a data this feast.  
       * "setProfessedAdmiration": boolean. sets if you have held professed admiration this feast.
       * "setCourted" : boolean. sets whether you are courting this lord. setting this to true lets you do romance =)
-      * "setInPlayerFleet": boolean. sets wether or not this lord is in the player fleet, or in their own fleet.
+      * "setInPlayerFleet": boolean. sets whether this lord is in the player fleet, or in their own fleet.
+      * "setPledgedFor_CurrentProposal": boolean. sets whether the lord you are talking to has pledged support for the current proposal or not.
+      * "setPledgedAgainst_CurrentProposal": boolean. sets whether the lord you are talking to has pledged opposition for the current proposal or not.
+      * "setPledgedFor_PlayerProposal": boolean. sets whether the lord you are talking to has pledged support for the player proposal or not. 
+      * "setPledgedAgainst_PlayerProposal": boolean. sets whether the lord you are talking to has pledged support for the player proposal or not.
+      * "setSwayed": boolean. sets whether the lord you are talking to has been swayed or not. if so, they cannot be swayed until the next proposal.
     * "color" color override for this dialog line. not required. has 3 'preset' colors, but also the option for a custom color. cannot be used in any "tooltip_" line.
       * "RED"
       * "GREEN"
@@ -243,6 +273,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "%TARGET_GENDER_NAME"
       * "%TARGET_FLAGSHIP_HULLNAME" target flagship ship hull name (return "nothing" if the target has no flagship)
       * "%TARGET_FLAGSHIP_NAME" target flagship name (returns "nothing" if the target has no flagship)
+      * "%TARGET_PROPOSAL_NAME" target proposal name (returns "nothing" if the target has no active proposal)
 
   *some lines will also use custom inputted data. in this case, they will use the '%c#' marker, with # being the order they are added to the line.
   *available lines to override are follows:
@@ -276,7 +307,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "option_ask_marriage" :         "marriage_response"
       * "option_ask_leave_party" :      "leave_party_explanation"
       * "option_ask_join_party" :       "join_party_explanation"
-      * "option_sway_council_support" : "OptionId.SWAY_PROPOSAL_COUNCIL"
+      * "option_sway_council_support" : "swayProposal_forCounsel"
       * "option_sway_council_oppose" :  "OptionId.SWAY_PROPOSAL_COUNCIL"
       * "option_sway_player" :          "OptionId.SWAY_PROPOSAL_PLAYER"
       * "option_nevermind_askQuestion" :"greeting"
@@ -339,49 +370,38 @@ If you're a modder, or just someone who loves to write dialog for every starlord
         * copys 'ask_question' options
 
     * "join_party_explanation"
-        * "option_confirm_join_party": ask_question
-        * "option_nevermind_join_party": ask_question
+        * "option_confirm_join_party": "ask_question"
+        * "option_nevermind_join_party": "ask_question"
     
     * "leave_party_explanation"
-        * "option_confirm_leave_party": ask_question
-        * "option_nevermind_leave_party": ask_question
+        * "option_confirm_leave_party": "ask_question"
+        * "option_nevermind_leave_party": "ask_question"
 
-
-    * ---old data. here for refrenece as I slowly cut though the code and finish things.
-    * "greeting_host_feast"
-      * "option_ask_tournament" :         OptionId.ASK_TOURNAMENT
-      * "option_dedicate_tournament" :    OptionId.DEDICATE_TOURNAMENT
-      * "option_host_wedding" :           OptionId.START_WEDDING
-      * "option_ask_current_task" :       OptionId.ASK_CURRENT_TASK
-      * "option_ask_question" :           OptionId.ASK_QUESTION
-      * "option_suggest_action" :         OptionId.SUGGEST_ACTION
-      * "option_speak_privately" :        OptionId.SPEAK_PRIVATELY
-      * "option_cutComLink" :             exitDialog
-    * "greeting_feast"
-      * "option_ask_tournament" :         OptionId.ASK_TOURNAMENT
-      * "option_dedicate_tournament" :    OptionId.DEDICATE_TOURNAMENT
-      * "option_host_wedding" :           OptionId.START_WEDDING
-      * "option_ask_current_task" :       OptionId.ASK_CURRENT_TASK
-      * "option_ask_question" :           OptionId.ASK_QUESTION
-      * "option_suggest_action" :         OptionId.SUGGEST_ACTION
-      * "option_speak_privately" :        OptionId.SPEAK_PRIVATELY
-      * "option_cutComLink" :             exitDialog
-    * "greetings_first"
-      * "option_ask_current_task" :       OptionId.ASK_CURRENT_TASK
-      * "option_ask_question" :           OptionId.ASK_QUESTION
-      * "option_suggest_action" :         OptionId.SUGGEST_ACTION
-      * "option_speak_privately" :        OptionId.SPEAK_PRIVATELY
-      * "option_cutComLink" :             exitDialog
-    * "greetings_other"
-      * "option_ask_current_task" :       OptionId.ASK_CURRENT_TASK
-      * "option_ask_question" :           OptionId.ASK_QUESTION
-      * "option_suggest_action" :         OptionId.SUGGEST_ACTION
-      * "option_speak_privately" :        OptionId.SPEAK_PRIVATELY
-      * "option_cutComLink" :             exitDialog
-    * "greetings_hostile"
-      * "option_avoid_battle" :           OptionId.SUGGEST_CEASEFIRE
-      * "option_speak_privately" :        OptionId.SPEAK_PRIVATELY
-      * "option_cutComLink" :             exitDialog
+    * "swayProposal_forCounsel":
+      * copys 'ask_question' options
+      ||
+      * "swayProposal_forCounsel_Bribe_accept": OptionId.SWAY_PROPOSAL_BARGAIN
+      * "swayProposal_forCounsel_Bribe_refuse": "ask_question" 
+      ||
+      *
+      *
+      ||
+      *
+      *
+    * "swayProposal_againstCounsel":
+        * copys 'ask_question' options
+        ||
+    * "swayProposal_forPlayer": 
+        * copys 'ask_question' options
+      ||
+        *
+        *
+      ||
+        *
+        *
+      ||
+        *
+        *
 
 
 
@@ -392,84 +412,6 @@ If you're a modder, or just someone who loves to write dialog for every starlord
 
 
 
-    * "greeting_host_feast"
-    * "greeting_feast"
-    * "greetings_first"
-    * "greetings_hostile"
-    * "greetings_other"
-    * "dedicate_tournament"
-    * "dedicate_tournament_again"
-    * "confirm_start_tournament"
-    * "cant_start_tournament"
-    * "current_task_desc_campaign2"
-    * "current_task_desc_campaign"
-    * "current_task_desc_companion"
-    * "current_task_desc_follow"
-    * "current_task_desc_defend"
-    * "current_task_desc_raid"
-    * "current_task_desc_venture"
-    * "current_task_desc_upgrade_fleet"
-    * "current_task_desc_collect_taxes"
-    * "current_task_desc_patrol"
-    * "current_task_desc_feast"
-    * "current_task_desc_none"
-    * "admiration_response"
-    * "spend_time_together#" # is a value between 1 and 36. date is chosen randomly
-    * "spend_time_together_after"
-    * "spend_time_together_hint"
-    * "marriage_response"
-    * "accept_marriage_second"
-    * "refuse_marriage_hint"
-    * "marriage_ceremony" %c0 is your new partners name, and %c1 is the name of the person hosting the ceremony
-    * "join_party_explanation"
-    * "leave_party_explanation"
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    * "relation_increase" %c0 represents amount of reputation gained
-    * "relation_decrease" %c0 represents amount of reputation gained
-    * "addedIntel" 
-    *
-    * "option_avoid_battle"
-    * "tooltip_avoid_battle"
-    *
-    * "option_suggest_action"
-    * "option_speak_privately"
-    * "option_cutComLink"
-    * "option_ask_current_task"
-    * "option_ask_question"
-    * "option_ask_location"
-    * "option_ask_tournament"
-    * "option_dedicate_tournament"
-    * "option_host_wedding" %c0 represents your new spouse name
-    * "option_continue_to_tournament"
-    * "option_avoid_tournament"
-    * "option_profess_admiration"
-    * "option_ask_date"
-    * "option_ask_marriage"
-    * "option_ask_leave_party"
-    * "option_ask_join_party"
-    * "option_sway_council_support"
-    * "option_sway_council_oppose"
-    * "option_sway_player"
-    * "option_nevermind_askQuestion"
-    * "option_give_gift"
-    * "option_dont_give_gift"
-    * "option_confirm_join_party"
-    * "option_nevermind_join_party"
-    * "option_confirm_leave_party"
-    * "option_nevermind_leave_party"
-    *
-    *
-    *
-    *
-    *
 ### Credits
 Starsector team for developing the game\
 [Nexerelin](https://github.com/Histidine91/Nexerelin/tree/master) team's codebase for providing excellent references to many obscure parts of the Starsector API \

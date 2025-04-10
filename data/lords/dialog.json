@@ -503,7 +503,23 @@
   },
 
 
-
+  "swayProposal_forCounsel_bargain": {
+    "priority": 3,
+    "rules": {
+      "opinionOfCurrProposal": {
+        "min": -20
+      }
+    },
+    "lines": {
+      "swayProposal_forCounsel": {
+        "line":"Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+        "options": [
+          "swayProposal_forCounsel_Bargain_accept",
+          "swayProposal_forCounsel_Bargain_refuse"
+        ]
+      }
+    }
+  },
   "martial_profess_admiration_dislike_0": {
     "priority": 3,
     "rules":{
@@ -728,7 +744,6 @@
     }
   },
 
-
   "calculating_profess_admiration_dislike_1": {
     "priority": 3,
     "rules":{
@@ -933,7 +948,6 @@
       "greeting":"You best have something interesting to make it worth me suffering your presence, %PLAYER_NAME"
     }
   },
-
 
   "quarrelsome_Cooperative": {
     "priority": 3,
@@ -1303,6 +1317,308 @@
     }
   },
 
+
+
+  "swayProposal_forPlayer_bribe_upstanding":{
+    "priority": 2,
+    "rules": {
+      "lordPersonality": {
+        "Upstanding": true
+      },
+      "opinionOfCurrProposal": {
+        "min": -20
+      },
+      "random": {
+        "range": 400,
+        "base": 25,
+        "playerLordRelation": 1
+      }
+    },
+    "lines": {
+      "swayProposal_forPlayer": {
+        "line":"Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+        "options": [
+          "swayProposal_forPlayer_Bribe_accept",
+          "swayProposal_forPlayer_Bribe_refuse"
+        ]
+      }
+    }
+  },
+  "swayProposal_forPlayer_bribe_martial":{
+    "priority": 2,
+    "rules": {
+      "lordPersonality": {
+        "Martial": true
+      },
+      "opinionOfCurrProposal": {
+        "min": -20
+      },
+      "random": {
+        "range": 200,
+        "base": 25,
+        "playerLordRelation": 1
+      }
+    },
+    "lines": {
+      "swayProposal_forPlayer": {
+        "line":"Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+        "options": [
+          "swayProposal_forPlayer_Bribe_accept",
+          "swayProposal_forPlayer_Bribe_refuse"
+        ]
+      }
+    }
+  },
+  "swayProposal_forPlayer_bribe_quarrelsome":{
+    "priority": 2,
+    "rules": {
+      "lordPersonality": {
+        "Quarrelsome": true
+      },
+      "opinionOfCurrProposal": {
+        "min": -20
+      },
+      "random": {
+        "range": 100,
+        "base": 25,
+        "playerLordRelation": 1
+      }
+    },
+    "lines": {
+      "swayProposal_forPlayer": {
+        "line":"Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+        "options": [
+          "swayProposal_forPlayer_Bribe_accept",
+          "swayProposal_forPlayer_Bribe_refuse"
+        ]
+      }
+    }
+  },
+  "swayProposal_forPlayer_bribe_calculating":{
+    "priority": 2,
+    "rules": {
+      "lordPersonality": {
+        "Calculating": true
+      },
+      "opinionOfCurrProposal": {
+        "min": -20
+      },
+      "random": {
+        "range": 50,
+        "base": 25,
+        "playerLordRelation": 1
+      }
+    },
+    "lines": {
+      "swayProposal_forCounsel": {
+        "line":"Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+        "options": [
+          "swayProposal_forCounsel_Bribe_accept",
+          "swayProposal_forCounsel_Bribe_refuse"
+        ]
+      }
+    }
+  },
+  "swayProposal_againstCounsel_bribe_upstanding":{
+    "priority": 2,
+    "rules": {
+      "lordPersonality": {
+        "Upstanding": true
+      },
+      "opinionOfCurrProposal": {
+        "max": 20
+      },
+      "random": {
+        "range": 400,
+        "base": 25,
+        "playerLordRelation": 1
+      }
+    },
+    "lines": {
+      "swayProposal_againstCounsel": {
+        "line":"Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+        "options": [
+          "swayProposal_againstCounsel_Bribe_accept",
+          "swayProposal_againstCounsel_Bribe_refuse"
+        ]
+      }
+    }
+  },
+  "swayProposal_againstCounsel_bribe_martial":{
+    "priority": 2,
+    "rules": {
+      "lordPersonality": {
+        "Martial": true
+      },
+      "opinionOfCurrProposal": {
+        "max": 20
+      },
+      "random": {
+        "range": 200,
+        "base": 25,
+        "playerLordRelation": 1
+      }
+    },
+    "lines": {
+      "swayProposal_againstCounsel": {
+        "line":"Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+        "options": [
+          "swayProposal_againstCounsel_Bribe_accept",
+          "swayProposal_againstCounsel_Bribe_refuse"
+        ]
+      }
+    }
+  },
+  "swayProposal_againstCounsel_bribe_quarrelsome":{
+    "priority": 2,
+    "rules": {
+      "lordPersonality": {
+        "Quarrelsome": true
+      },
+      "opinionOfCurrProposal": {
+        "max": 20
+      },
+      "random": {
+        "range": 100,
+        "base": 25,
+        "playerLordRelation": 1
+      }
+    },
+    "lines": {
+      "swayProposal_againstCounsel": {
+        "line":"Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+        "options": [
+          "swayProposal_againstCounsel_Bribe_accept",
+          "swayProposal_againstCounsel_Bribe_refuse"
+        ]
+      }
+    }
+  },
+  "swayProposal_againstCounsel_bribe_calculating":{
+    "priority": 2,
+    "rules": {
+      "lordPersonality": {
+        "Calculating": true
+      },
+      "opinionOfCurrProposal": {
+        "max": 20
+      },
+      "random": {
+        "range": 50,
+        "base": 25,
+        "playerLordRelation": 1
+      }
+    },
+    "lines": {
+      "swayProposal_forCounsel": {
+        "line":"Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+        "options": [
+          "swayProposal_forCounsel_Bribe_accept",
+          "swayProposal_forCounsel_Bribe_refuse"
+        ]
+      }
+    }
+  },
+  "swayProposal_forCounsel_bribe_upstanding":{
+    "priority": 2,
+    "rules": {
+      "lordPersonality": {
+        "Upstanding": true
+      },
+      "opinionOfCurrProposal": {
+        "min": -20
+      },
+      "random": {
+        "range": 400,
+        "base": 25,
+        "playerLordRelation": 1
+      }
+    },
+    "lines": {
+      "swayProposal_forCounsel": {
+        "line":"Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+        "options": [
+          "swayProposal_forCounsel_Bribe_accept",
+          "swayProposal_forCounsel_Bribe_refuse"
+        ]
+      }
+    }
+  },
+  "swayProposal_forCounsel_bribe_martial":{
+    "priority": 2,
+    "rules": {
+      "lordPersonality": {
+        "Martial": true
+      },
+      "opinionOfCurrProposal": {
+        "min": -20
+      },
+      "random": {
+        "range": 200,
+        "base": 25,
+        "playerLordRelation": 1
+      }
+    },
+    "lines": {
+      "swayProposal_forCounsel": {
+        "line":"Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+        "options": [
+          "swayProposal_forCounsel_Bribe_accept",
+          "swayProposal_forCounsel_Bribe_refuse"
+        ]
+      }
+    }
+  },
+  "swayProposal_forCounsel_bribe_quarrelsome":{
+    "priority": 2,
+    "rules": {
+      "lordPersonality": {
+        "Quarrelsome": true
+      },
+      "opinionOfCurrProposal": {
+        "min": -20
+      },
+      "random": {
+        "range": 100,
+        "base": 25,
+        "playerLordRelation": 1
+      }
+    },
+    "lines": {
+      "swayProposal_forCounsel": {
+        "line":"Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+        "options": [
+          "swayProposal_forCounsel_Bribe_accept",
+          "swayProposal_forCounsel_Bribe_refuse"
+        ]
+      }
+    }
+  },
+  "swayProposal_forCounsel_bribe_calculating":{
+    "priority": 2,
+    "rules": {
+      "lordPersonality": {
+        "Calculating": true
+      },
+      "opinionOfCurrProposal": {
+        "min": -20
+      },
+      "random": {
+        "range": 50,
+        "base": 25,
+        "playerLordRelation": 1
+      }
+    },
+    "lines": {
+      "swayProposal_forCounsel": {
+        "line":"Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+        "options": [
+          "swayProposal_forCounsel_Bribe_accept",
+          "swayProposal_forCounsel_Bribe_refuse"
+        ]
+      }
+    }
+  },
   "favItem_alpha_core": {
     "priority": 2,
     "rules": {
@@ -2084,19 +2400,19 @@
       "join_party_explanation": "Of course my dear, I'd love to join up with you. I'd have to disband my own fleet though; is that what you want?",
       "leave_party_explanation": "Of course my dear, I can go back to my own fleet if that's what you think is best.",
 
-      "for_refuse_sway": "I'm sorry, but I've already made up my mind on the matter.",
+      "swayProposal_forCounsel": "I'm sorry, but I've already made up my mind on the matter.",
       "for_accept_sway_bargain": "We have a deal then. I'll do as you ask.",
-      "for_accept_sway_redundant": "Er... I already agree with you, though I must say that our talk has reinforced my view.",
-      "for_accept_sway": "Of course friend, now that you explain it that way, I agree with you.",
+      "swayProposal_forCounsel": "Er... I already agree with you, though I must say that our talk has reinforced my view.",
+      "swayProposal_forCounsel": "Of course friend, now that you explain it that way, I agree with you.",
       "for_bargain_sway_support": "Hmm... I don't mind lending you a hand, but I have my own proposal that I would expect you to support in return.",
-      "for_bargain_sway_money": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
 
-      "against_refuse_sway": "I'm sorry, but I've already made up my mind on the matter.",
-      "against_accept_sway_bargain": "We have a deal then. I'll do as you ask.",
-      "against_accept_sway_redundant": "Er... I already agree with you, though I must say that our talk has reinforced my view.",
+
+      "swayProposal_forPlayer": "I'm sorry, but I've already made up my mind on the matter.",
+
+
+      "swayProposal_againstCounsel": "I'm sorry, but I've already made up my mind on the matter.",
       "against_accept_sway": "Of course friend, now that you explain it that way, I agree with you.",
       "against_bargain_sway_support": "Hmm... I don't mind lending you a hand, but I have my own proposal that I would expect you to support in return.",
-      "against_bargain_sway_money": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
 
       "give_gift": "",
       "dislikeGift_alpha_core": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
@@ -2384,32 +2700,44 @@
       },
       "option_sway_council_support": {
         "line":"Persuade them to support the currently debated proposal.",
-        "optionData": "ERROR",
+        "optionData": "swayProposal_forCounsel",
         "show": {
+          "isSwayed": false,
           "lordAndPlayerSameFaction": true,
           "lordFactionHasActiveConsole": true,
           "lordPledgedSupport_forActiveProposal": false,
           "lordPledgedSupport_againstActiveProposal": false
+        },
+        "addons": {
+          "setSwayed": true
         }
       },
       "option_sway_council_oppose": {
         "line":"Persuade them to oppose the currently debated proposal.",
         "optionData": "ERROR",
         "show": {
+          "isSwayed": false,
           "lordAndPlayerSameFaction": true,
           "lordFactionHasActiveConsole": true,
           "lordPledgedSupport_forActiveProposal": false,
           "lordPledgedSupport_againstActiveProposal": false
+        },
+        "addons": {
+          "setSwayed": true
         }
       },
       "option_sway_player": {
         "line":"Persuade them to support your proposal.",
         "optionData": "ERROR",
         "show": {
+          "isSwayed": false,
           "lordAndPlayerSameFaction": true,
           "playerProposalExists": true,
           "lordPledgedSupport_forPlayerProposal": false,
           "lordPledgedSupport_againstPlayerProposal": false
+        },
+        "addons": {
+          "setSwayed": true
         }
       },
       "option_nevermind_askQuestion": {
@@ -2435,7 +2763,7 @@
       },
 
       "optionSet_give_gift": {
-        "optionData" : [
+        "options" : [
           "option_gift_alpha_core",
           "option_gift_hand_weapons",
           "option_gift_food",
@@ -2619,7 +2947,7 @@
       },
 
       "optionSet_join_party_explanation": {
-        "optionData" : [
+        "options" : [
           "option_confirm_join_party",
           "option_nevermind_join_party"
         ]
@@ -2638,7 +2966,7 @@
       },
 
       "optionSet_leave_party_explanation": {
-        "optionData" : [
+        "options" : [
           "option_confirm_leave_party",
           "option_nevermind_leave_party"
         ]
@@ -2652,6 +2980,93 @@
       },
       "option_nevermind_leave_party": {
         "line":"Never mind",
+        "optionData": "ask_question",
+        "shortcut": "ESCAPE"
+      },
+
+      "optionSet_swayProposal_forCounsel": {
+        "options": ["ask_question"]
+      },
+      "swayProposal_forCounsel_Bribe_accept": {
+        "line": "Offer 100,000 credits",
+        "optionData": "ERROR",
+        "enable": {
+          "playerWealth": {
+            "min": 100000
+          }
+        },
+        "addons": {
+          "giveCreditsToLord": {
+            "min": 100000,
+            "max": 100000
+          },
+          "setPledgedFor_CurrentProposal": true
+        }
+      },
+      "swayProposal_forCounsel_Bribe_refuse": {
+        "line": "Refuse",
+        "optionData": "ask_question",
+        "shortcut": "ESCAPE"
+      },
+      "swayProposal_forCounsel_Bargain_accept": {
+        "line": "Pledge to support proposal: %LORD_PROPOSAL_NAME",
+        "optionData": "ERROR",
+        "addons": {
+          "setPledgedFor_CurrentProposal": true
+        }
+      },
+      "swayProposal_forCounsel_Bargain_refuse": {
+        "line": "Refuse",
+        "optionData": "ask_question",
+        "shortcut": "ESCAPE"
+      },
+
+      "optionSet_swayProposal_againstCounsel": {
+        "options": ["ask_question"]
+      },
+      "swayProposal_againstCounsel_Bribe_accept": {
+        "line": "Offer 100,000 credits",
+        "optionData": "ERROR",
+        "enable": {
+          "playerWealth": {
+            "min": 100000
+          }
+        },
+        "addons": {
+          "giveCreditsToLord": {
+            "min": 100000,
+            "max": 100000
+          },
+          "setPledgedAgainst_CurrentProposal": true
+        }
+      },
+      "swayProposal_againstCounsel_Bribe_refuse": {
+        "line": "Refuse",
+        "optionData": "ask_question",
+        "shortcut": "ESCAPE"
+      },
+
+      "optionSet_swayProposal_forPlayer": {
+        "options": ["ask_question"]
+      },
+      "swayProposal_forPlayer_Bribe_accept": {
+        "line": "Offer 100,000 credits",
+        "optionData": "ERROR",
+        "enable": {
+          "playerWealth": {
+            "min": 100000
+          }
+        },
+        "addons": {
+          "giveCreditsToLord": {
+            "min": 100000,
+            "max": 100000
+          },
+          "setPledgedFor_PlayerProposal": true
+        }
+      },
+      "swayProposal_forPlayer_Bribe_refuse": {
+        "line": "Refuse",
         "optionData": "ask_question",
         "shortcut": "ESCAPE"
       }

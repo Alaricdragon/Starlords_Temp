@@ -14,6 +14,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import starlords.controllers.EventController;
 import starlords.controllers.LordController;
+import starlords.controllers.PoliticsController;
+import starlords.faction.LawProposal;
 import starlords.lunaSettings.StoredSettings;
 import starlords.person.Lord;
 import starlords.util.Constants;
@@ -222,6 +224,11 @@ public class DialogSet {
 
         data = GenderUtils.husbandOrWife(Global.getSector().getPlayerPerson(), false);
         line = insertData(line,"%PLAYER_GENDER_HUSBAND_OR_WIFE",data);
+
+        data = "nothing";
+        LawProposal lordProposal = PoliticsController.getProposal(lord);
+        if (lordProposal != null) data = lordProposal.getTitle();
+        line = insertData(line,"%PLAYER_PROPOSAL_NAME",data);
         return line;
     }
     private static String getPlayerPartnerStringMods(String line, Lord lord){
@@ -270,6 +277,11 @@ public class DialogSet {
 
         data = GenderUtils.husbandOrWife(Global.getSector().getPlayerPerson(), false);
         line = insertData(line,"%PLAYER_SPOUSE_GENDER_HUSBAND_OR_WIFE",data);
+
+        data = "nothing";
+        LawProposal lordProposal = PoliticsController.getProposal(lord);
+        if (lordProposal != null) data = lordProposal.getTitle();
+        line = insertData(line,"%PLAYER_SPOUSE_PROPOSAL_NAME",data);
         return line;
     }
     private static String getLordStringMods(String line, Lord lord){
@@ -367,6 +379,11 @@ public class DialogSet {
 
         data = GenderUtils.husbandOrWife(lord.getLordAPI(), false);
         line = insertData(line,"%"+key+"GENDER_HUSBAND_OR_WIFE",data);
+
+        data = "nothing";
+        LawProposal lordProposal = PoliticsController.getProposal(lord);
+        if (lordProposal != null) data = lordProposal.getTitle();
+        line = insertData(line,"%"+key+"PROPOSAL_NAME",data);
         return line;
     }
 
@@ -757,6 +774,27 @@ public class DialogSet {
                     case "setInPlayerFleet":
                         addon = addAddon_setInPlayerFleet(addons,key2);
                         break;
+                    case "setPledgedFor_CurrentProposal":
+                        addon = addAddon_setPledgedFor_CurrentProposal(addons,key2);
+                        break;
+                    case "setPledgedAgainst_CurrentProposal":
+                        addon = addAddon_setPledgedAgainst_CurrentProposal(addons,key2);
+                        break;
+                    case "setPledgedFor_PlayerProposal":
+                        addon = addAddon_setPledgedFor_PlayerProposal(addons,key2);
+                        break;
+                    case "setPledgedAgainst_PlayerProposal":
+                        addon = addAddon_setPledgedAgainst_PlayerProposal(addons,key2);
+                        break;
+                    case "setSwayed":
+                        addon = addAddon_setSwayed(addons,key2);
+                        break;
+                    case "giveCreditsToLord":
+                        addon = addAddon_giveCreditsToLord(addons,key2);
+                        break;
+                    case "takeCreditsFromLord":
+                        addon = addAddon_takeCreditsFromLord(addons,key2);
+                        break;
                 }
                 if (addon != null) newAddons.add(addon);
             }
@@ -929,6 +967,41 @@ public class DialogSet {
         if (json2) return new DialogAddon_setInPlayerFleetTrue();
         return new DialogAddon_setInPlayerFleetFalse();
     }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_setPledgedFor_CurrentProposal(JSONObject json, String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogAddon_setPledgedFor_CurrentProposal(json2);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_setPledgedAgainst_CurrentProposal(JSONObject json, String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogAddon_setPledgedAgainst_CurrentProposal(json2);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_setPledgedFor_PlayerProposal(JSONObject json, String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogAddon_setPledgedFor_PlayerProposal(json2);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_setPledgedAgainst_PlayerProposal(JSONObject json, String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogAddon_setPledgedAgainst_PlayerProposal(json2);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_setSwayed(JSONObject json, String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogAddon_setSwayed(json2);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_giveCreditsToLord(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogAddon_giveCreditsToLord(json2.getInt("min"),json2.getInt("max"));
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_takeCreditsFromLord(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogAddon_takeCreditsFromLord(json2.getInt("min"),json2.getInt("max"));
+    }
 
     public static ArrayList<DialogRule_Base> getDialogFromJSon(JSONObject rulesTemp){
         ArrayList<DialogRule_Base> rules = new ArrayList<>();
@@ -1076,6 +1149,48 @@ public class DialogSet {
                     break;
                 case "isWeddingTarget":
                     rules.add(addRule_isWeddingTarget(rulesTemp,key));
+                    break;
+                case "optionOfCurrProposal":
+                    rules.add(addRule_optionOfCurrProposal(rulesTemp,key));
+                    break;
+                case "optionOfPlayerProposal":
+                    rules.add(addRule_optionOfPlayerProposal(rulesTemp,key));
+                    break;
+                case "isSwayed":
+                    rules.add(addRule_isSwayed(rulesTemp,key));
+                    break;
+                case "lordProposalSupporters":
+                    rules.add(addRule_lordProposalSupporters(rulesTemp,key));
+                    break;
+                case "lordProposalOpposers":
+                    rules.add(addRule_lordProposalOpposers(rulesTemp,key));
+                    break;
+                case "lordProposalPlayerSupports":
+                    rules.add(addRule_lordProposalPlayerSupports(rulesTemp,key));
+                    break;
+                case "playerProposalSupporters":
+                    rules.add(addRule_playerProposalSupporters(rulesTemp,key));
+                    break;
+                case "playerProposalOpposers":
+                    rules.add(addRule_playerProposalOpposers(rulesTemp,key));
+                    break;
+                case "playerProposalLordSupports":
+                    rules.add(addRule_playerProposalLordSupports(rulesTemp,key));
+                    break;
+                case "curProposalSupporters":
+                    rules.add(addRule_curProposalSupporters(rulesTemp,key));
+                    break;
+                case "curProposalOpposers":
+                    rules.add(addRule_curProposalOpposers(rulesTemp,key));
+                    break;
+                case "curProposalPlayerSupports":
+                    rules.add(addRule_curProposalPlayerSupports(rulesTemp,key));
+                    break;
+                case "curProposalLordSupports":
+                    rules.add(addRule_curProposalLordSupports(rulesTemp,key));
+                    break;
+                case "random":
+                    rules.add(addRule_random(rulesTemp,key));
                     break;
             }
         }
@@ -1358,5 +1473,75 @@ public class DialogSet {
     private static DialogRule_Base addRule_isWeddingTarget(JSONObject json,String key){
         boolean json2 = json.getBoolean(key);
         return new DialogRule_isWeddingTarget(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_optionOfCurrProposal(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_optionOfCurrProposal(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_optionOfPlayerProposal(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_optionOfPlayerProposal(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_isSwayed(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_isSwayed(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_lordProposalSupporters(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_lordProposalSupporters(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_lordProposalOpposers(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_lordProposalOpposers(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_lordProposalPlayerSupports(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_lordProposalPlayerSupports(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_playerProposalSupporters(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_playerProposalSupporters(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_playerProposalOpposers(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_playerProposalOpposers(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_playerProposalLordSupports(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_playerProposalLordSupports(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_curProposalSupporters(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_curProposalSupporters(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_curProposalOpposers(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_curProposalOpposers(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_curProposalPlayerSupports(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_curProposalPlayerSupports(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_curProposalLordSupports(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_curProposalLordSupports(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_random(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_random(json2);
     }
 }

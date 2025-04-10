@@ -6,7 +6,7 @@ import starlords.person.Lord;
 import starlords.person.LordAction;
 import starlords.person.LordEvent;
 
-public class DialogRule_isWeddingTarget  extends DialogRule_Base {
+public class DialogRule_isWeddingTarget extends DialogRule_Base {
     boolean isMarried;
     public DialogRule_isWeddingTarget(boolean isMarried){
         this.isMarried = isMarried;

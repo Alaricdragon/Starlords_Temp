@@ -859,33 +859,270 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     }
     private void optionSelected_SWAY_PROPOSAL_COUNCIL(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         /*this function is a god damed mess. what the fuck.
-        * for real, what the hell is this?!!!
-        * so, what conditions and addons would I need to devide this into the lowest number of lines possable?
-        * 1), we can devide this function into 2. one for swaying player, the other for swaying lord, even though they are mostly the same, having diffrent factions could help.
-        *   -note: the condition that controls this is swayFor.
-        * so, first of all: opinion. is opinion is the following EQ:
-        *   PoliticsController.getApproval(targetLord, proposal, false).one
-        *   *-1 if player proposal.
-        *
-        * lord will refuse if:
-        *   opinion is less then -20
-        *
-        * 4 diffrent paras:
-        *   1) accept (reluctant and happily) (random number < agree chance)
-        *   2) bargain (force player to accept something of theres for support) (random number < bargainChance chance)
-        *   3) bribe (force player to give credits for support) (random number < bribe chance)
-        *   4) refuse (other)
         *
         * ok... ok. so it is time.
         * this is the reason I built the fucking option system. its now time to rumble. and its going to be hard. what are the options?
+        *   there are 3 option sets. one for if you are supporting a proposal, one for if you are against it, and one for supporting the player proposal. they are all the same options in effect.
+        *   note: I am doing all 3 at once. I will do each options options as well each time.
+        *   status:
+        *   accepted: NOT DONE.
+        *   bargain: NOT DONE
+        *   bribe: done
+        *   "swayProposal_forCounsel"
+        *       acceptHappy
+        *           P: 4
+        *           conditions:
+        *               optionOfCurrProposal: min 0
+        *               random:
+        *                  range 100
+        *                   base 12
+        *                   relation: 1
+        *                   opinion of curr proposal: 10
+        *       acceptReluctant
+        *           P: 4
+        *           conditions:
+        *               optionOfCurrProposal: max -1, min -20
+        *               random:
+        *                  range 100
+        *                  base 12
+        *                  relation: 1
+        *                  opinion of curr proposal: 10
+        *       bargain
+        *           P: 3
+        *           conditions:
+        *               optionOfCurrProposal: min 20
+        *               lordProposalPlayerSupports : false
+        *               playerLordRelation: (min -24)
+        *               lordProposalPlayerSupports: min: 2
+        *               lordProposalExists: true
+        *
+        *       bribe_upstanding
+        *           P: 2
+        *           conditions:
+        *               lordPersonality: Upstanding: true
+        *               optionOfCurrProposal: min 20
+        *               random
+        *                  range: 400
+        *                  base 25
+        *                  relation: 1
+        *       bribe_martial
+        *           P: 2
+        *           conditions:
+        *               lordPersonality: Martial: true
+        *               optionOfCurrProposal: min 20
+        *               random
+        *                  range: 200
+        *                  base 25
+        *                  relation: 1
+        *       bribe_quarrelsome
+        *           P: 2
+        *           conditions:
+        *               lordPersonality: Quarrelsome: true
+        *               optionOfCurrProposal: min 20
+        *               random
+        *                  range: 100
+        *                  base 25
+        *                  relation: 1
+        *       bribe_calculating
+        *           P: 2
+        *           conditions:
+        *               lordPersonality: Calculating: true
+        *               optionOfCurrProposal: min 20
+        *               random
+        *                  range: 50
+        *                  base 25
+        *                  relation: 1
+        *       refuse
+        *           P: 1
+        *           conditions: none
+        *
+        *
+        *
+        *
+         *   "swayProposal_againstCounsel"
+         *       acceptHappy
+         *           conditions:
+         *               optionOfCurrProposal: max 0
+         *               random:
+         *                  range 100
+         *                   base 12
+         *                   relation: 1
+         *                   opinion of curr proposal: -10
+         *       acceptReluctant
+         *           conditions:
+         *               optionOfCurrProposal: min 1, max 20
+         *               random:
+         *                  range 100
+         *                  base 12
+         *                  relation: 1
+         *                  opinion of curr proposal: -10
+         *       bargain
+         *           conditions:
+         *               optionOfCurrProposal: max 20
+         *               lordProposalPlayerSupports : false
+         *               playerLordRelation: (min -24)
+         *               lordProposalPlayerSupports: min: 2
+         *               lordProposalExists: true
+         *
+         *       bribe_upstanding
+         *           conditions:
+         *               lordPersonality: Upstanding: true
+         *               opinionOfCurrProposal: max 20
+         *               random
+         *                  range: 400
+         *                  base 25
+         *                  relation: 1
+         *       bribe_martial
+         *           conditions:
+         *               lordPersonality: Martial: true
+         *               opinionOfCurrProposal: max 20
+         *               random
+         *                  range: 200
+         *                  base 25
+         *                  relation: 1
+         *       bribe_quarrelsome
+         *           conditions:
+         *               lordPersonality: Quarrelsome: true
+         *               opinionOfCurrProposal: max 20
+         *               random
+         *                  range: 100
+         *                  base 25
+         *                  relation: 1
+         *       bribe_calculating
+         *           conditions:
+         *               lordPersonality: Calculating: true
+         *               opinionOfCurrProposal: max 20
+         *               random
+         *                  range: 50
+         *                  base 25
+         *                  relation: 1
+         *       refuse
+         *           conditions: none
+         *
+         *
+         *
+         *
+         *   "swayProposal_forPlayer"
+         *       acceptHappy
+         *           conditions:
+         *               opinionOfPlayerProposal: min 0
+         *               random:
+         *                  range 100
+         *                   base 12
+         *                   relation: 1
+         *                   opinion of curr proposal: 10
+         *       acceptReluctant
+         *           conditions:
+         *               opinionOfPlayerProposal: max -1, min -20
+         *               random:
+         *                  range 100
+         *                  base 12
+         *                  relation: 1
+         *                  opinion of curr proposal: 10
+         *       bargain
+         *           conditions:
+         *               optionOfPlayerProposal: min 20
+         *               lordProposalPlayerSupports : false
+         *               playerLordRelation: (min -24)
+         *               lordProposalPlayerSupports: min: 2
+         *               lordProposalExists: true
+         *
+         *       bribe_upstanding
+         *           conditions:
+         *               lordPersonality: Upstanding: true
+         *               opinionOfPlayerProposal: min 20
+         *               random
+         *                  range: 400
+         *                  base 25
+         *                  relation: 1
+         *       bribe_martial
+         *           conditions:
+         *               lordPersonality: Martial: true
+         *               opinionOfPlayerProposal: min 20
+         *               random
+         *                  range: 200
+         *                  base 25
+         *                  relation: 1
+         *       bribe_quarrelsome
+         *           conditions:
+         *               lordPersonality: Quarrelsome: true
+         *               opinionOfPlayerProposal: min 20
+         *               random
+         *                  range: 100
+         *                  base 25
+         *                  relation: 1
+         *       bribe_calculating
+         *           conditions:
+         *               lordPersonality: Calculating: true
+         *               opinionOfPlayerProposal: min 20
+         *               random
+         *                  range: 50
+         *                  base 25
+         *                  relation: 1
+         *       refuse
+         *           conditions: none
+        *   "swayProposal_againstCounsel"
+        *   "swayProposal_forPlayer"
+        *   !!!note: voting against proposal swaps the opion by -1. this means that ARG. that measn that when
+        *       voting for,
+        *           min option needs to be -20
+        *       voting aginst,
+        *           max option needs to be +20.
+        *           random option *-1 of base
+        *      so, by this logic, what can I do arg.... asdas... sigh...
+        *
         *   1) accept (reluctant and happily) (random number < agree chance)
+        *       conditions -> extra text (happily, reluctant)
+        *           isSwayed: false
+        *           optionOfCurrProposal (min -20)
+        *           random:
+        *               range 100
+        *               base 12
+        *               relation: 1
+        *               opinion of curr proposal: 10
+        *       happily:
+        *           opinion of curr proposal: min 0
+        *       reluctant:
+        *
         *   2) bargain (force player to accept something of theres for support) (random number < bargainChance chance)
+        *       conditions
+        *           isSwayed: false
+        *           optionOfCurrProposal (min -20)
+        *           lordProposalPlayerSupports : false
+        *           playerLordRelation: (min -24)
         *   3) bribe (force player to give credits for support) (random number < bribe chance)
+        *       conditions
+        *           isSwayed: false
+        *           optionOfCurrProposal (min -20)
+        *           random:
+        *               (upstanding) range 400
+        *               (martal) range 200
+        *               (quarrsom) range 100
+        *               (calculating) range 50
+        *               base 25
+        *               relation: 1
+        *
         *   4) refuse (other)
-        * conditions required:
+        *       conitions
+        *           null
+        * (DONE (dksaldsa)) conditions required:
+        *   isSwayed
+        * //this can be done later. simple to do, but hard to get the rest of the implementation done
+        *   isSwayedPlayerProposal
+        *   isSwayedLordProposal
         *
-        * addons required:
+        * (done) addons required:
+        *   setSwayed (add this to the options that select this.)
+        * //this can be done later. simple to do, but hard to get the rest of the implementation done
+        *   setSwayedPlayerProposal (add this to the options that select this.)
+        *   setSwayedLordProposal (add this to the options that select this.)
         *
+        *   setPlayerSupportForLordProposal: boolean
+        *   setPlayerSupportForCurProposal: boolean
+        *
+        * additional data required:
+        *   xxx_proposalName
+        *   current_proposalName
          */
         FactionAPI faction = targetLord.getFaction();
         if (option == OptionId.SWAY_PROPOSAL_PLAYER) {

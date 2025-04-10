@@ -25,5 +25,9 @@
   "marriage_ceremony": "optionSet_marriage_ceremony",
   "marriage_response": "optionSet_marriage_response",
   "join_party_explanation": "optionSet_join_party_explanation",
-  "leave_party_explanation": "optionSet_leave_party_explanation"
+  "leave_party_explanation": "optionSet_leave_party_explanation",
+
+  "swayProposal_forCounsel": "optionSet_swayProposal_forCounsel",
+  "swayProposal_againstCounsel": "optionSet_swayProposal_againstCounsel",
+  "swayProposal_forPlayer": "optionSet_swayProposal_forPlayer"
 }
