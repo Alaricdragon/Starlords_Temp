@@ -233,7 +233,8 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "setPlayerSupportForLordProposal": boolean. sets weather the player is currently supporting the lords proposal, or is opposed to the lords proposal.
       * "setPlayerSupportForCurProposal": boolean. sets weather the player is currently supporting the current proposal or is opposed to the current proposal.
       * "setSwayed": boolean. sets whether the lord you are talking to has been swayed or not. if so, they cannot be swayed until the next proposal.
-    
+      * "askForLordLocations": boolean. when set to true, will run additional options for each starlord in the lords faction. when clicked on, will run askForLordLocation.
+      * "askForLordLocation": Lord data. cannot be used from the Json file. when ran, will display the location of a starlord. 
     * "color" color override for this dialog line. not required. has 3 'preset' colors, but also the option for a custom color. cannot be used in any "tooltip_" line.
       * "RED"
       * "GREEN"
@@ -303,7 +304,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * null options (keeps options that are up when loaded.)
 
     * "ask_question"
-      * "option_ask_location" :         "OptionId.ASK_LOCATION"
+      * "option_ask_location" :         "accept_ask_location"
       * "option_ask_quest" :            "OptionId.ASK_QUEST"
       * "option_profess_admiration" :   "admiration_response"
       * "option_ask_date" :             "spend_time_together"
@@ -417,7 +418,11 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * copys 'ask_question' options
     * "swayProposal_againstCounsel_acceptBargain"
       * copys 'ask_question' options
-
+    
+    * "accept_ask_location"
+        * runs a special bit of code, getting all available lords as options : "option_askALordsLocation"
+        * after a lord is clicked on, displays the lords location, then runs : "greeting" 
+        * "option_nevermind_accept_ask_location": "greeting"
 
 
 

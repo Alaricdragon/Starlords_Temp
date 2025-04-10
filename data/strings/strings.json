@@ -46,7 +46,6 @@
     "consider_suggest_action_spouse": "Is something the matter, dear?",
     "consider_suggest_action_subject": "At your command, my liege.",
     "accept_speak_privately": "Very well, what did you wish to discuss?",
-    "accept_ask_location": "Who did you wish to inquire about?",
     "accept_suggest_action": "I will follow your suggestion.",
     "accept_suggest_action_subject": "At once, $string.",
 

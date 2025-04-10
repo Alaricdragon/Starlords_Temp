@@ -322,7 +322,8 @@
       "swayProposal_forCounsel": {
         "line":"Of course friend, now that you explain it that way, I agree with you.",
         "addons": {
-          "setPledgedFor_CurrentProposal": true
+          "setPledgedFor_CurrentProposal": true,
+          "setSwayed": true
         }
       }
     }
@@ -345,7 +346,8 @@
       "swayProposal_forCounsel": {
         "line":"Er... I already agree with you, though I must say that our talk has reinforced my view.",
         "addons": {
-          "setPledgedFor_CurrentProposal": true
+          "setPledgedFor_CurrentProposal": true,
+          "setSwayed": true
         }
       }
     }
@@ -367,7 +369,8 @@
       "swayProposal_againstCounsel": {
         "line":"Of course friend, now that you explain it that way, I agree with you.",
         "addons": {
-          "setPledgedAgainst_CurrentProposal": true
+          "setPledgedAgainst_CurrentProposal": true,
+          "setSwayed": true
         }
       }
     }
@@ -390,7 +393,8 @@
       "swayProposal_againstCounsel": {
         "line":"Er... I already agree with you, though I must say that our talk has reinforced my view.",
         "addons": {
-          "setPledgedAgainst_CurrentProposal": true
+          "setPledgedAgainst_CurrentProposal": true,
+          "setSwayed": true
         }
       }
     }
@@ -412,7 +416,8 @@
       "swayProposal_forPlayer": {
         "line":"Of course friend, now that you explain it that way, I agree with you.",
         "addons": {
-          "setPledgedFor_PlayerProposal": true
+          "setPledgedFor_PlayerProposal": true,
+          "setSwayed": true
         }
       }
     }
@@ -435,7 +440,8 @@
       "swayProposal_forPlayer": {
         "line":"Er... I already agree with you, though I must say that our talk has reinforced my view.",
         "addons": {
-          "setPledgedFor_PlayerProposal": true
+          "setPledgedFor_PlayerProposal": true,
+          "setSwayed": true
         }
       }
     }
@@ -2600,15 +2606,30 @@
       "join_party_explanation": "Of course my dear, I'd love to join up with you. I'd have to disband my own fleet though; is that what you want?",
       "leave_party_explanation": "Of course my dear, I can go back to my own fleet if that's what you think is best.",
 
-      "swayProposal_forCounsel": "I'm sorry, but I've already made up my mind on the matter.",
+      "swayProposal_forCounsel": {
+        "line":"I'm sorry, but I've already made up my mind on the matter.",
+        "addons": {
+          "setSwayed": true
+        }
+      },
       "swayProposal_forCounsel_acceptBribe": "We have a deal then. I'll do as you ask.",
       "swayProposal_forCounsel_acceptBargain": "We have a deal then. I'll do as you ask.",
 
-      "swayProposal_forPlayer": "I'm sorry, but I've already made up my mind on the matter.",
+      "swayProposal_forPlayer": {
+        "line":"I'm sorry, but I've already made up my mind on the matter.",
+        "addons": {
+          "setSwayed": true
+        }
+      },
       "swayProposal_forPlayer_acceptBribe": "We have a deal then. I'll do as you ask.",
       "swayProposal_forPlayer_acceptBargain": "We have a deal then. I'll do as you ask.",
 
-      "swayProposal_againstCounsel": "I'm sorry, but I've already made up my mind on the matter.",
+      "swayProposal_againstCounsel": {
+        "line":"I'm sorry, but I've already made up my mind on the matter.",
+        "addons": {
+          "setSwayed": true
+        }
+      },
       "swayProposal_againstCounsel_acceptBribe": "We have a deal then. I'll do as you ask.",
       "swayProposal_againstCounsel_acceptBargain": "We have a deal then. I'll do as you ask.",
 
@@ -2627,6 +2648,13 @@
       "likeGift_lobster": "What a thoughtful gift. I'm touched that you know me so well.",
       "likeGift_drugs": "What a thoughtful gift. I'm touched that you know me so well.",
       "likeGift_domestic_goods": "What a thoughtful gift. I'm touched that you know me so well.",
+
+      "accept_ask_location": {
+        "line":"Who did you wish to inquire about?",
+        "addons": {
+          "askForLordLocations": true
+        }
+      },
 
       "relation_increase": {
         "line": "Relations with %LORD_NAME increased by %c0.",
@@ -2655,6 +2683,19 @@
       "item_lost": {
         "line": "Lost %c0 %c1.",
         "color": "RED"
+      },
+      "option_askALordsLocation": "%c0 %c1",
+      "foundLordsLocation": {
+        "line":"I heard that %c0 %c1 was last sighted around %c2",
+        "options": [
+          "optionSet_greeting"
+        ]
+      },
+      "failedToFindLordsLocation": {
+        "line":"I don't know where %c0 %c1 is",
+        "options": [
+          "optionSet_greeting"
+        ]
       },
 
       "optionSet_greeting": {
@@ -2870,10 +2911,15 @@
           "optionSet_askQuestion"
         ]
       },
+      "optionSet_askALordsLocation": {
+        "options": [
+          "optionSet_askQuestion"
+        ]
+      },
 
       "option_ask_location": {
         "line": "Ask about the location of someone.",
-        "optionData": "ERROR"
+        "optionData": "accept_ask_location"
       },
       "option_ask_quest": {
         "line": "Ask if they have any tasks for you.",
@@ -3213,7 +3259,7 @@
       },
 
       "optionSet_swayProposal_forCounsel": {
-        "options": ["ask_question"]
+        "options": ["optionSet_askQuestion"]
       },
       "swayProposal_forCounsel_Bribe_accept": {
         "line": "Offer 100,000 credits",
@@ -3251,7 +3297,7 @@
       },
 
       "optionSet_swayProposal_againstCounsel": {
-        "options": ["ask_question"]
+        "options": ["optionSet_askQuestion"]
       },
       "swayProposal_againstCounsel_Bribe_accept": {
         "line": "Offer 100,000 credits",
@@ -3289,7 +3335,7 @@
       },
 
       "optionSet_swayProposal_forPlayer": {
-        "options": ["ask_question"]
+        "options": ["optionSet_askQuestion"]
       },
       "swayProposal_forPlayer_Bribe_accept": {
         "line": "Offer 100,000 credits",
@@ -3323,6 +3369,12 @@
       "swayProposal_forPlayer_Bargain_refuse": {
         "line": "Refuse",
         "optionData": "ask_question",
+        "shortcut": "ESCAPE"
+      },
+
+      "option_nevermind_accept_ask_location": {
+        "line":"Never mind",
+        "optionData": "greeting",
         "shortcut": "ESCAPE"
       }
     }

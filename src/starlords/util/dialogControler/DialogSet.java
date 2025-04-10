@@ -91,14 +91,15 @@ public class DialogSet {
         if (set == null) return;
         //set.applyLine(key, lord, textPanel, options,false,markersReplaced);
     }
-    public static void addOptionWithInserts(String key,String tooltipKey, Object optionData, InteractionDialogAPI dialog, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options){
-        //addOptionWithInserts(key,tooltipKey, optionData,lord, textPanel,options,new HashMap<>());
-        addOptionWithInserts(key,lord, textPanel,options,dialog,new HashMap<String,String>());
-    }
     public static void addOptionWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced){
         DialogSet set = getSet(lord, key);
         if (set == null) return;
         set.applyOption(key,  lord,  textPanel,  options,dialog, markersReplaced);
+    }
+    public static void addOptionWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced,DialogOption optionData){
+        DialogSet set = getSet(lord, key);
+        if (set == null) return;
+        set.applyOption(key,  lord,  textPanel,optionData, options,dialog, markersReplaced);
     }
     @Deprecated
     public static void addOptionWithInserts(String key, String tooltipKey, Object optionData, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options){
@@ -551,17 +552,6 @@ public class DialogSet {
                 textPanel.addPara(line);
             }
         }
-        //add on all addons.
-        if (addons.containsKey(key)){
-            for (DialogAddon_Base a : addons.get(key)){
-                a.apply(textPanel,options,dialog,lord);
-            }
-        }
-        if (additionalOptions.containsKey(key)){
-            for (String a : additionalOptions.get(key)){
-                addOptionWithInserts(a, lord, textPanel, options,dialog,markersReplaced);
-            }
-        }
         //add on all options
         log.info("attempting to add options from line" + key);
         boolean builtOptions = false;
@@ -584,6 +574,12 @@ public class DialogSet {
             log.info("got no options from key of: "+key);
             //???????? unknown process.
             //what I would attempt to do here is run the optionData of the line. effectively, just changing lines directly after. this can be done with chained lines though?
+        }
+        //add on all addons.
+        if (addons.containsKey(key)){
+            for (DialogAddon_Base a : addons.get(key)){
+                a.apply(textPanel,options,dialog,lord);
+            }
         }
     }
     public void applyOption(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
@@ -801,6 +797,12 @@ public class DialogSet {
                     case "setPlayerSupportForCurProposal":
                         addon = addAddon_setPlayerSupportForCurProposal(addons,key2);
                         break;
+                    case "askForLordLocations":
+                        addon = addAddon_askForLordLocations(addons,key2);
+                        break;
+                    /*case "askForLordLocation":
+                        addon = addAddon_askForLordLocation(addons,key2);
+                        break;*/
                 }
                 if (addon != null) newAddons.add(addon);
             }
@@ -1018,6 +1020,18 @@ public class DialogSet {
         boolean json2 = json.getBoolean(key);
         return new DialogAddon_setPlayerSupportForCurProposal(json2);
     }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_askForLordLocations(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        if (!json2) return null;
+        return new DialogAddon_askForLordLocations();
+    }
+    /*@SneakyThrows
+    private static DialogAddon_Base addAddon_askForLordLocation(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        if (!json2) return null;
+        return new DialogAddon_askForLordLocation();
+    }*/
 
 
     public static ArrayList<DialogRule_Base> getDialogFromJSon(JSONObject rulesTemp){

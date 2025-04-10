@@ -35,5 +35,6 @@
   "swayProposal_againstCounsel_acceptBribe": "optionSet_swayProposal_againstCounsel_acceptBribe",
   "swayProposal_forCounsel_acceptBargain": "optionSet_swayProposal_forCounsel_acceptBargain",
   "swayProposal_forPlayer_acceptBargain": "optionSet_swayProposal_forPlayer_acceptBargain",
-  "swayProposal_againstCounsel_acceptBargain": "optionSet_swayProposal_againstCounsel_acceptBargain"
+  "swayProposal_againstCounsel_acceptBargain": "optionSet_swayProposal_againstCounsel_acceptBargain",
+
 }
