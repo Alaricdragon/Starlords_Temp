@@ -1,5 +1,6 @@
 package starlords.ai;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.OrbitalStationAPI;
@@ -8,9 +9,11 @@ import com.fs.starfarer.api.campaign.ai.StrategicModulePlugin;
 import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.TimeoutTracker;
+import org.apache.log4j.Logger;
 import starlords.controllers.EventController;
 import starlords.controllers.LordController;
 import lombok.Setter;
+import starlords.lunaSettings.StoredSettings;
 import starlords.person.Lord;
 import starlords.person.LordEvent;
 import starlords.util.Utils;
@@ -103,31 +106,34 @@ public class LordStrategicModule implements StrategicModulePlugin {
                 seen.add(otherFleet);
                 enemyFp += otherFleet.getFleetPoints();
             }
-            for (CampaignFleetAPI fleet : Misc.getNearbyFleets(lord.getFleet(), 600)) {
-                if (!seen.contains(fleet)) {
-                    seen.add(fleet);
-                    if (fleet.getFaction().isHostileTo(faction)
-                            && !fleet.getFaction().isHostileTo(targetFaction)) {
-                        enemyFp += fleet.getFleetPoints();
-                    } else if (fleet.getFaction().isHostileTo(targetFaction)
-                            && !fleet.getFaction().isHostileTo(faction)) {
-                        alliedFp += fleet.getFleetPoints();
+            if ((lord.getFleet() != null && lord.getFleet().getContainingLocation() != null) && (other != null && other.getContainingLocation() != null)){
+                //todo: this if statment is for when 'lord.getFleet()' or 'other' '.getContainingLocation()' is null, because that causes crashes
+                //please note: this can cause some really bad issues. but hopefully this can.. just work.
+                for (CampaignFleetAPI fleet : Misc.getNearbyFleets(lord.getFleet(), 600)) {
+                    if (!seen.contains(fleet)) {
+                        seen.add(fleet);
+                        if (fleet.getFaction().isHostileTo(faction)
+                                && !fleet.getFaction().isHostileTo(targetFaction)) {
+                            enemyFp += fleet.getFleetPoints();
+                        } else if (fleet.getFaction().isHostileTo(targetFaction)
+                                && !fleet.getFaction().isHostileTo(faction)) {
+                            alliedFp += fleet.getFleetPoints();
+                        }
+                    }
+                }
+                for (CampaignFleetAPI fleet : Misc.getNearbyFleets(other, 600)) {
+                    if (!seen.contains(fleet)) {
+                        seen.add(fleet);
+                        if (fleet.getFaction().isHostileTo(faction)
+                                && !fleet.getFaction().isHostileTo(targetFaction)) {
+                            enemyFp += fleet.getFleetPoints();
+                        } else if (fleet.getFaction().isHostileTo(targetFaction)
+                                && !fleet.getFaction().isHostileTo(faction)) {
+                            alliedFp += fleet.getFleetPoints();
+                        }
                     }
                 }
             }
-            for (CampaignFleetAPI fleet : Misc.getNearbyFleets(other, 600)) {
-                if (!seen.contains(fleet)) {
-                    seen.add(fleet);
-                    if (fleet.getFaction().isHostileTo(faction)
-                            && !fleet.getFaction().isHostileTo(targetFaction)) {
-                        enemyFp += fleet.getFleetPoints();
-                    } else if (fleet.getFaction().isHostileTo(targetFaction)
-                            && !fleet.getFaction().isHostileTo(faction)) {
-                        alliedFp += fleet.getFleetPoints();
-                    }
-                }
-            }
-
             float thres;
             switch (lord.getPersonality()) {
                 case MARTIAL:
