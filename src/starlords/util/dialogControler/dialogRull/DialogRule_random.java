@@ -20,8 +20,7 @@ public class DialogRule_random extends DialogRule_Base {
     @SneakyThrows
     public DialogRule_random(JSONObject jsonObject) {
         range = jsonObject.getInt("range");
-        JSONObject lines = jsonObject.getJSONObject("values");
-        for (Iterator it = lines.keys(); it.hasNext(); ) {
+        for (Iterator it = jsonObject.keys(); it.hasNext(); ) {
             String key = (String) it.next();
             double value = jsonObject.getDouble(key);
             switch (key){

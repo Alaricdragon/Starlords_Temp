@@ -865,8 +865,8 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         *   there are 3 option sets. one for if you are supporting a proposal, one for if you are against it, and one for supporting the player proposal. they are all the same options in effect.
         *   note: I am doing all 3 at once. I will do each options options as well each time.
         *   status:
-        *   accepted: NOT DONE.
-        *   bargain: NOT DONE
+        *   accepted: done....?
+        *   bargain: done
         *   bribe: done
         *   "swayProposal_forCounsel"
         *       acceptHappy
@@ -1117,12 +1117,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         *   setSwayedPlayerProposal (add this to the options that select this.)
         *   setSwayedLordProposal (add this to the options that select this.)
         *
-        *   setPlayerSupportForLordProposal: boolean
-        *   setPlayerSupportForCurProposal: boolean
-        *
-        * additional data required:
-        *   xxx_proposalName
-        *   current_proposalName
+        *   ALSO OF NOTE: the resalts of some of the buttons (mainly, the ones related to bribeing), can be moved to addons.
          */
         FactionAPI faction = targetLord.getFaction();
         if (option == OptionId.SWAY_PROPOSAL_PLAYER) {

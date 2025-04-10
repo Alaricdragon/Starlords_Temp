@@ -795,6 +795,12 @@ public class DialogSet {
                     case "takeCreditsFromLord":
                         addon = addAddon_takeCreditsFromLord(addons,key2);
                         break;
+                    case "setPlayerSupportForLordProposal":
+                        addon = addAddon_setPlayerSupportForLordProposal(addons,key2);
+                        break;
+                    case "setPlayerSupportForCurProposal":
+                        addon = addAddon_setPlayerSupportForCurProposal(addons,key2);
+                        break;
                 }
                 if (addon != null) newAddons.add(addon);
             }
@@ -1002,6 +1008,17 @@ public class DialogSet {
         JSONObject json2 = json.getJSONObject(key);
         return new DialogAddon_takeCreditsFromLord(json2.getInt("min"),json2.getInt("max"));
     }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_setPlayerSupportForLordProposal(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogAddon_setPlayerSupportForLordProposal(json2);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_setPlayerSupportForCurProposal(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogAddon_setPlayerSupportForCurProposal(json2);
+    }
+
 
     public static ArrayList<DialogRule_Base> getDialogFromJSon(JSONObject rulesTemp){
         ArrayList<DialogRule_Base> rules = new ArrayList<>();

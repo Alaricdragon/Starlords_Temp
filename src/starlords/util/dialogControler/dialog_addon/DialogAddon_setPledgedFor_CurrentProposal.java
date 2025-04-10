@@ -19,11 +19,13 @@ public class DialogAddon_setPledgedFor_CurrentProposal extends DialogAddon_Base{
         if (hadDate) proposal.getPledgedAgainst().remove(lord.getLordAPI().getId());
         if (hadDate && !proposal.getPledgedFor().contains(lord.getLordAPI().getId())){
             proposal.getPledgedFor().add(lord.getLordAPI().getId());
+            PoliticsController.updateProposal(proposal);
             return;
         }
         if (!hadDate){
             proposal.getPledgedFor().remove(lord.getLordAPI().getId());
         }
+        PoliticsController.updateProposal(proposal);
     }
 
 }

@@ -230,7 +230,10 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "setPledgedAgainst_CurrentProposal": boolean. sets whether the lord you are talking to has pledged opposition for the current proposal or not.
       * "setPledgedFor_PlayerProposal": boolean. sets whether the lord you are talking to has pledged support for the player proposal or not. 
       * "setPledgedAgainst_PlayerProposal": boolean. sets whether the lord you are talking to has pledged support for the player proposal or not.
+      * "setPlayerSupportForLordProposal": boolean. sets weather the player is currently supporting the lords proposal, or is opposed to the lords proposal.
+      * "setPlayerSupportForCurProposal": boolean. sets weather the player is currently supporting the current proposal or is opposed to the current proposal.
       * "setSwayed": boolean. sets whether the lord you are talking to has been swayed or not. if so, they cannot be swayed until the next proposal.
+    
     * "color" color override for this dialog line. not required. has 3 'preset' colors, but also the option for a custom color. cannot be used in any "tooltip_" line.
       * "RED"
       * "GREEN"
@@ -308,8 +311,8 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "option_ask_leave_party" :      "leave_party_explanation"
       * "option_ask_join_party" :       "join_party_explanation"
       * "option_sway_council_support" : "swayProposal_forCounsel"
-      * "option_sway_council_oppose" :  "OptionId.SWAY_PROPOSAL_COUNCIL"
-      * "option_sway_player" :          "OptionId.SWAY_PROPOSAL_PLAYER"
+      * "option_sway_council_oppose" :  "swayProposal_againstCounsel"
+      * "option_sway_player" :          "swayProposal_forPlayer"
       * "option_nevermind_askQuestion" :"greeting"
 
     * "admiration_response"
@@ -379,30 +382,41 @@ If you're a modder, or just someone who loves to write dialog for every starlord
 
     * "swayProposal_forCounsel":
       * copys 'ask_question' options
-      ||
-      * "swayProposal_forCounsel_Bribe_accept": OptionId.SWAY_PROPOSAL_BARGAIN
+      * ||
+      * "swayProposal_forCounsel_Bribe_accept": "swayProposal_forCounsel_acceptBribe"
       * "swayProposal_forCounsel_Bribe_refuse": "ask_question" 
-      ||
-      *
-      *
-      ||
-      *
-      *
+      * ||
+      * "swayProposal_forCounsel_Bargain_accept"
+      * "swayProposal_forCounsel_Bargain_refuse"
     * "swayProposal_againstCounsel":
-        * copys 'ask_question' options
-        ||
-    * "swayProposal_forPlayer": 
-        * copys 'ask_question' options
-      ||
-        *
-        *
-      ||
-        *
-        *
-      ||
-        *
-        *
+      * copys 'ask_question' options
+      * ||
+      * "swayProposal_againstCounsel_Bribe_accept": "swayProposal_againstCounsel_acceptBribe"
+      * "swayProposal_againstCounsel_Bribe_refuse": "ask_question"
+      * ||
+      * "swayProposal_againstCounsel_Bargain_accept"
+      * "swayProposal_againstCounsel_Bargain_refuse"
+    * "swayProposal_forPlayer":
+      * copys 'ask_question' options
+      * ||
+      * "swayProposal_forPlayer_Bribe_accept": "swayProposal_forPlayer_acceptBribe"
+      * "swayProposal_forPlayer_Bribe_refuse": "ask_question"
+      * ||
+      * "swayProposal_forPlayer_Bargain_accept"
+      * "swayProposal_forPlayer_Bargain_refuse"
 
+    * "swayProposal_forCounsel_acceptBribe"
+        * copys 'ask_question' options
+    * "swayProposal_forPlayer_acceptBribe"
+        * copys 'ask_question' options
+    * "swayProposal_againstCounsel_acceptBribe"
+        * copys 'ask_question' options
+    * "swayProposal_forCounsel_acceptBargain"
+      * copys 'ask_question' options
+    * "swayProposal_forPlayer_acceptBargain"
+      * copys 'ask_question' options
+    * "swayProposal_againstCounsel_acceptBargain"
+      * copys 'ask_question' options
 
 
 

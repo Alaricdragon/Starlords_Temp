@@ -12,6 +12,7 @@ public class DialogRule_random_opinionOfPlayerProposal extends DialogRule_random
     @Override
     public double value(Lord lord) {
         LawProposal proposal = PoliticsController.getProposal(LordController.getPlayerLord());
+        if (proposal == null) return 0;
         int opinion = PoliticsController.getApproval(lord, proposal, false).one;
         return super.value(lord) * opinion;
     }
