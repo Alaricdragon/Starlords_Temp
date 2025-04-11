@@ -1,3 +1,6 @@
+V0.3.22:
+    fixes:
+        added some random crash protection to the LordStrategicModule. this should prevent crashes when a lord's 'getContainingLocation' is null. (im still confused about that) although this might cause unintended issues with starlords ignoring threats in systems were .getContainingLocation() is null.
 V0.3.21:
     NOT save compatible with any older version
     fixes:
