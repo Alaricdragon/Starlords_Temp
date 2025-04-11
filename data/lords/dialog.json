@@ -7,7 +7,353 @@
       }
     },
     "lines": {
-
+      "upstanding_hostile": {
+        "priority": 8,
+        "rules": {
+          "hostileFaction": true
+        },
+        "lines": {
+          "greeting": "%PLAYER_NAME! Stand down now, if not for your own sake, at least for the sake of your crew."
+        }
+      },
+      "upstanding_first": {
+        "priority": 7,
+        "rules": {
+          "firstMeeting": true
+        },
+        "lines": {
+          "greeting": "Peace to you, and always remember to temper your valor with mercy, your courage with honor."
+        }
+      },
+      "upstanding_feast": {
+        "priority": 6,
+        "rules": {
+          "isHostingFeast": false,
+          "isAtFeast": true
+        },
+        "lines": {
+          "greeting": "Greetings %PLAYER_NAME. Let us put our troubles to the morrow, for tonight we will feast and make merry."
+        }
+      },
+      "upstanding_marriedToPlayer": {
+        "priority": 5,
+        "rules": {
+          "isMarriedToPlayer": true
+        },
+        "lines": {
+          "greeting": "%PLAYER_NAME, my love. I hope that you are well. Be careful out there in your journeys."
+        }
+      },
+      "upstanding_marriageAccept": {
+        "priority": 5,
+        "rules": {
+          "playerLordRomanceAction": {
+            "min": 1
+          },
+          "relationWithPlayer": {
+            "min": 75
+          }
+        },
+        "lines": {
+          "marriage_response": {
+            "line": "It would be the greatest honor a %LORD_GENDER_MAN_OR_WOMEN could have to marry you, %PLAYER_NAME.",
+            "addons": {
+              "additionalText": "accept_marriage_second",
+              "startWedding": true
+            }
+          }
+        }
+      },
+      "upstanding_profess_admiration_like": {
+        "priority": 4,
+        "rules": {
+          "lordsCourted": {
+            "min": 1
+          },
+          "relationWithPlayer": {
+            "min": 25
+          }
+        },
+        "lines": {
+          "admiration_response": {
+            "line": "You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
+            "addons": {
+              "setProfessedAdmiration": true,
+              "setCourted": true,
+              "repIncrease": {
+                "max": 10,
+                "min": 10
+              }
+            }
+          }
+        }
+      },
+      "upstanding_subject": {
+        "priority": 4,
+        "rules": {
+          "playerSubject": true
+        },
+        "lines": {
+          "greeting": "Greetings %PLAYER_NAME, my liege. What is your command?"
+        }
+      },
+      "upstanding_profess_admiration_dislike_0": {
+        "priority": 3,
+        "rules": {
+          "lordsCourted": {
+            "min": 1
+          }
+        },
+        "lines": {
+          "admiration_response": {
+            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+            "addons": {
+              "setProfessedAdmiration": true,
+              "setCourted": true,
+              "repDecrease": {
+                "max": 2,
+                "min": 2
+              }
+            }
+          }
+        }
+      },
+      "upstanding_Cooperative": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 75,
+            "max": 100
+          }
+        },
+        "lines": {
+          "greeting": "%PLAYER_NAME, my dear friend. It is good to see you alive and well. What is it?",
+          "admiration_response": {
+            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+            "addons": {
+              "setProfessedAdmiration": true,
+              "setCourted": true,
+              "repDecrease": {
+                "max": 2,
+                "min": 2
+              }
+            }
+          }
+        }
+      },
+      "upstanding_Friendly": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 50,
+            "max": 74
+          }
+        },
+        "lines": {
+          "greeting": "%PLAYER_NAME, my dear friend. It is good to see you alive and well. What is it?",
+          "admiration_response": {
+            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+            "addons": {
+              "setProfessedAdmiration": true,
+              "setCourted": true,
+              "repDecrease": {
+                "max": 2,
+                "min": 2
+              }
+            }
+          },
+          "marriage_response": "You seem like a wonderful %PLAYER_GENDER_MAN_OR_WOMEN, but I'd still like to get to know you a little better first."
+        }
+      },
+      "upstanding_Welcoming": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 25,
+            "max": 49
+          }
+        },
+        "lines": {
+          "greeting": "%PLAYER_NAME, my friend. It is good to see you alive and well. What is it?",
+          "admiration_response": {
+            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+            "addons": {
+              "setProfessedAdmiration": true,
+              "setCourted": true,
+              "repDecrease": {
+                "max": 2,
+                "min": 2
+              }
+            }
+          },
+          "marriage_response": {
+            "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
+            "addons": {
+              "repDecrease": {
+                "min": 10,
+                "max": 10
+              }
+            }
+          }
+        }
+      },
+      "upstanding_Favorable": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 10,
+            "max": 25
+          }
+        },
+        "lines": {
+          "greeting": "%PLAYER_NAME, my friend. It is good to see you alive and well. What is it?",
+          "marriage_response": {
+            "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
+            "addons": {
+              "repDecrease": {
+                "min": 10,
+                "max": 10
+              }
+            }
+          }
+        }
+      },
+      "upstanding_Neutral": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -9,
+            "max": 9
+          }
+        },
+        "lines": {
+          "greeting": "Good day %PLAYER_NAME, I trust that you've conducted yourself honorably since our last meeting."
+        }
+      },
+      "upstanding_Suspicious": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -24,
+            "max": -10
+          }
+        },
+        "lines": {
+          "greeting": "You are trying my patience, %PLAYER_NAME. Speak if you must."
+        }
+      },
+      "upstanding_Inhospitable": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -49,
+            "max": -25
+          }
+        },
+        "lines": {
+          "greeting": "You are trying my patience, %PLAYER_NAME. Speak if you must."
+        }
+      },
+      "upstanding_Hostile": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -74,
+            "max": -50
+          }
+        },
+        "lines": {
+          "greeting": "I have no need to speak to one of such low character as yourself, %PLAYER_NAME."
+        }
+      },
+      "upstanding_Vengeful": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -100,
+            "max": -75
+          }
+        },
+        "lines": {
+          "greeting": "I have no need to speak to one of such low character as yourself, %PLAYER_NAME."
+        }
+      },
+      "swayProposal_forPlayer_bribe_upstanding": {
+        "priority": 2,
+        "rules": {
+          "optionOfPlayerProposal": {
+            "min": -20
+          },
+          "random": {
+            "range": 400,
+            "base": 25,
+            "playerLordRelation": 1
+          }
+        },
+        "lines": {
+          "swayProposal_forPlayer": {
+            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+            "options": [
+              "swayProposal_forPlayer_Bribe_accept",
+              "swayProposal_forPlayer_Bribe_refuse"
+            ]
+          }
+        }
+      },
+      "swayProposal_againstCounsel_bribe_upstanding": {
+        "priority": 2,
+        "rules": {
+          "opinionOfCurrProposal": {
+            "max": 20
+          },
+          "random": {
+            "range": 400,
+            "base": 25,
+            "playerLordRelation": 1
+          }
+        },
+        "lines": {
+          "swayProposal_againstCounsel": {
+            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+            "options": [
+              "swayProposal_againstCounsel_Bribe_accept",
+              "swayProposal_againstCounsel_Bribe_refuse"
+            ]
+          }
+        }
+      },
+      "swayProposal_forCounsel_bribe_upstanding": {
+        "priority": 2,
+        "rules": {
+          "opinionOfCurrProposal": {
+            "min": -20
+          },
+          "random": {
+            "range": 400,
+            "base": 25,
+            "playerLordRelation": 1
+          }
+        },
+        "lines": {
+          "swayProposal_forCounsel": {
+            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+            "options": [
+              "swayProposal_forCounsel_Bribe_accept",
+              "swayProposal_forCounsel_Bribe_refuse"
+            ]
+          }
+        }
+      },
+      "upstanding": {
+        "priority": 2,
+        "rules": {
+          "lordPersonality": {
+            "Upstanding": true
+          }
+        },
+        "lines": {
+        }
+      }
     }
   },
   "quarrelsome": {
@@ -18,175 +364,27 @@
       }
     },
     "lines": {
-
-    }
-  },
-  "martial": {
-    "priority": 1,
-    "rules": {
-      "lordPersonality": {
-        "Martial": true
-      }
-    },
-    "lines": {
-
-    }
-  },
-  "calculating": {
-    "priority": 1,
-    "rules": {
-      "lordPersonality": {
-        "Calculating": true
-      }
-    },
-    "lines": {
-
-    }
-  },
-  "default": {
-    "priority": 0,
-    "rules": {},
-    "lines": {
-      "martial_hostile": {
-        "priority": 8,
-        "rules": {
-          "lordPersonality": {
-            "Martial": true
-          },
-          "hostileFaction": true
-        },
-        "lines": {
-          "greeting": "%PLAYER_NAME! I've been waiting for the day that we might see which of us is the strongest. En garde!"
-        }
-      },
-      "calculating_hostile": {
-        "priority": 8,
-        "rules": {
-          "lordPersonality": {
-            "Calculating": true
-          },
-          "hostileFaction": true
-        },
-        "lines": {
-          "greeting": "I have you cornered, %PLAYER_NAME. Surrender or die!"
-        }
-      },
       "quarrelsome_hostile": {
         "priority": 8,
         "rules": {
-          "lordPersonality": {
-            "Quarrelsome": true
-          },
           "hostileFaction": true
         },
         "lines": {
           "greeting": "You've caught me in a bad mood, %PLAYER_NAME. Turning your fleet to scrap metal might cheer me up though. Die!"
         }
       },
-      "upstanding_hostile": {
-        "priority": 8,
-        "rules": {
-          "lordPersonality": {
-            "Upstanding": true
-          },
-          "hostileFaction": true
-        },
-        "lines": {
-          "greeting": "%PLAYER_NAME! Stand down now, if not for your own sake, at least for the sake of your crew."
-        }
-      },
-      "martial_first": {
-        "priority": 7,
-        "rules": {
-          "lordPersonality": {
-            "Martial": true
-          },
-          "firstMeeting": true
-        },
-        "lines": {
-          "greeting": "Well met! A fellow warrior I see; that fleet of yours definitely isn't just for show!"
-        }
-      },
-      "calculating_first": {
-        "priority": 7,
-        "rules": {
-          "lordPersonality": {
-            "Calculating": true
-          },
-          "firstMeeting": true
-        },
-        "lines": {
-          "greeting": "Ah, yes. At last we meet. You seem like a good person to know. Let us speak together from time to time."
-        }
-      },
       "quarrelsome_first": {
         "priority": 7,
         "rules": {
-          "lordPersonality": {
-            "Quarrelsome": true
-          },
           "firstMeeting": true
         },
         "lines": {
           "greeting": "I've heard of you. Well, I'm not one for bandying words, so if you have anything to say, out with it."
         }
       },
-      "upstanding_first": {
-        "priority": 7,
-        "rules": {
-          "lordPersonality": {
-            "Upstanding": true
-          },
-          "firstMeeting": true
-        },
-        "lines": {
-          "greeting": "Peace to you, and always remember to temper your valor with mercy, your courage with honor."
-        }
-      },
-
-      "isHost_feast": {
-        "priority": 6,
-        "rules": {
-          "isHostingFeast": true,
-          "isAtFeast": true
-        },
-        "lines": {
-          "accept_marriage_second": "Talk to me whenever you're ready and we'll start the ceremony.",
-          "greeting": "Welcome to my estate, %PLAYER_NAME. You are under my protection here; please make yourself at home."
-        }
-      },
-      "martial_feast": {
-        "priority": 6,
-        "rules": {
-          "lordPersonality": {
-            "Martial": true
-          },
-          "isHostingFeast": false,
-          "isAtFeast": true
-        },
-        "lines": {
-          "greeting": "Fancy seeing you here, %PLAYER_NAME. Say, shall we join the tournament later?"
-        }
-      },
-      "calculating_feast": {
-        "priority": 6,
-        "rules": {
-          "lordPersonality": {
-            "Calculating": true
-          },
-          "isHostingFeast": false,
-          "isAtFeast": true
-        },
-        "lines": {
-          "greeting": "Good evening %PLAYER_NAME. I must say I'm impressed at the generosity of our host. This decor can't have been cheap."
-        }
-      },
       "quarrelsome_feast": {
         "priority": 6,
         "rules": {
-          "lordPersonality": {
-            "Quarrelsome": true
-          },
           "isHostingFeast": false,
           "isAtFeast": true
         },
@@ -194,96 +392,9 @@
           "greeting": "Hey %PLAYER_NAME, can you believe the quality of the drinks here? I've found better wine in the cellar of a Luddic nun."
         }
       },
-      "upstanding_feast": {
-        "priority": 6,
-        "rules": {
-          "lordPersonality": {
-            "Upstanding": true
-          },
-          "isHostingFeast": false,
-          "isAtFeast": true
-        },
-        "lines": {
-          "greeting": "Greetings %PLAYER_NAME. Let us put our troubles to the morrow, for tonight we will feast and make merry."
-        }
-      },
-
-      "martial_marriedToPlayer": {
-        "priority": 5,
-        "rules": {
-          "lordPersonality": {
-            "Martial": true
-          },
-          "isMarriedToPlayer": true
-        },
-        "lines": {
-          "greeting": "%PLAYER_NAME, my dear. I've been swamped with paperwork today. When do I get to join you in exploring the stars?"
-        }
-      },
-      "martial_marriageAccept": {
-        "priority": 5,
-        "rules": {
-          "lordPersonality": {
-            "Martial": true
-          },
-          "playerLordRomanceAction": {
-            "min": 1
-          },
-          "relationWithPlayer": {
-            "min": 75
-          }
-        },
-        "lines": {
-          "marriage_response": {
-            "line": "I was hoping that you'd ask. The two of us will surely make an unstoppable team!",
-            "addons": {
-              "additionalText": "accept_marriage_second",
-              "startWedding": true
-            }
-          }
-        }
-      },
-      "calculating_marriedToPlayer": {
-        "priority": 5,
-        "rules": {
-          "lordPersonality": {
-            "Calculating": true
-          },
-          "isMarriedToPlayer": true
-        },
-        "lines": {
-          "greeting": "%PLAYER_NAME, my %PLAYER_NAME. The house's finances have been going as planned; you can count on me."
-        }
-      },
-      "calculating_marriageAccept": {
-        "priority": 5,
-        "rules": {
-          "lordPersonality": {
-            "Calculating": true
-          },
-          "playerLordRomanceAction": {
-            "min": 1
-          },
-          "relationWithPlayer": {
-            "min": 75
-          }
-        },
-        "lines": {
-          "marriage_response": {
-            "line": "I accept; the time is long overdue for us to join our houses together.",
-            "addons": {
-              "additionalText": "accept_marriage_second",
-              "startWedding": true
-            }
-          }
-        }
-      },
       "quarrelsome_marriedToPlayer": {
         "priority": 5,
         "rules": {
-          "lordPersonality": {
-            "Quarrelsome": true
-          },
           "isMarriedToPlayer": true
         },
         "lines": {
@@ -293,9 +404,6 @@
       "quarrelsome_marriageAccept": {
         "priority": 5,
         "rules": {
-          "lordPersonality": {
-            "Quarrelsome": true
-          },
           "playerLordRomanceAction": {
             "min": 1
           },
@@ -313,24 +421,268 @@
           }
         }
       },
-      "upstanding_marriedToPlayer": {
-        "priority": 5,
+      "quarrelsome_subject": {
+        "priority": 4,
+        "rules": {
+          "playerSubject": true
+        },
+        "lines": {
+          "greeting": "Greetings %PLAYER_NAME, my liege. Point me at someone and I will see them punished."
+        }
+      },
+      "quarrelsome_Cooperative": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 75,
+            "max": 100
+          }
+        },
+        "lines": {
+          "greeting": "%PLAYER_NAME, just the person I wanted to see. You sure are a breath of fresh air compared to the rest of these bastards."
+        }
+      },
+      "quarrelsome_Friendly": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 50,
+            "max": 74
+          }
+        },
+        "lines": {
+          "greeting": "%PLAYER_NAME, just the person I wanted to see. You sure are a breath of fresh air compared to the rest of these bastards.",
+          "marriage_response": "You seem like a wonderful %PLAYER_GENDER_MAN_OR_WOMEN, but I'd still like to get to know you a little better first."
+        }
+      },
+      "quarrelsome_Welcoming": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 25,
+            "max": 49
+          }
+        },
+        "lines": {
+          "greeting": "I'm pleasantly surprised that you haven't managed to get yourself killed yet, %PLAYER_NAME. Can't say I'm surprised at this point.",
+          "marriage_response": {
+            "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
+            "addons": {
+              "repDecrease": {
+                "min": 10,
+                "max": 10
+              }
+            }
+          }
+        }
+      },
+      "quarrelsome_Favorable": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 10,
+            "max": 25
+          }
+        },
+        "lines": {
+          "greeting": "I'm pleasantly surprised that you haven't managed to get yourself killed yet, %PLAYER_NAME. Can't say I'm surprised at this point.",
+          "marriage_response": {
+            "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
+            "addons": {
+              "repDecrease": {
+                "min": 10,
+                "max": 10
+              }
+            }
+          }
+        }
+      },
+      "quarrelsome_Neutral": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -9,
+            "max": 9
+          }
+        },
+        "lines": {
+          "greeting": "Well you caught me in a good mood, %PLAYER_NAME. What do you want?"
+        }
+      },
+      "quarrelsome_Suspicious": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -24,
+            "max": -10
+          }
+        },
+        "lines": {
+          "greeting": "%PLAYER_NAME, do yourself a favor and stay out of my way."
+        }
+      },
+      "quarrelsome_Inhospitable": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -49,
+            "max": -25
+          }
+        },
+        "lines": {
+          "greeting": "%PLAYER_NAME, do yourself a favor and stay out of my way."
+        }
+      },
+      "quarrelsome_Hostile": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -74,
+            "max": -50
+          }
+        },
+        "lines": {
+          "greeting": "Ah, %PLAYER_NAME, the snake dares to slither in the open. Convince me why I shouldn't open fire immediately."
+        }
+      },
+      "quarrelsome_Vengeful": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -100,
+            "max": -75
+          }
+        },
+        "lines": {
+          "greeting": "Ah, %PLAYER_NAME, the snake dares to slither in the open. Convince me why I shouldn't open fire immediately."
+        }
+      },
+      "swayProposal_forPlayer_bribe_quarrelsome": {
+        "priority": 2,
+        "rules": {
+          "optionOfPlayerProposal": {
+            "min": -20
+          },
+          "random": {
+            "range": 100,
+            "base": 25,
+            "playerLordRelation": 1
+          }
+        },
+        "lines": {
+          "swayProposal_forPlayer": {
+            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+            "options": [
+              "swayProposal_forPlayer_Bribe_accept",
+              "swayProposal_forPlayer_Bribe_refuse"
+            ]
+          }
+        }
+      },
+      "swayProposal_againstCounsel_bribe_quarrelsome": {
+        "priority": 2,
+        "rules": {
+          "opinionOfCurrProposal": {
+            "max": 20
+          },
+          "random": {
+            "range": 100,
+            "base": 25,
+            "playerLordRelation": 1
+          }
+        },
+        "lines": {
+          "swayProposal_againstCounsel": {
+            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+            "options": [
+              "swayProposal_againstCounsel_Bribe_accept",
+              "swayProposal_againstCounsel_Bribe_refuse"
+            ]
+          }
+        }
+      },
+      "swayProposal_forCounsel_bribe_quarrelsome": {
+        "priority": 2,
+        "rules": {
+          "opinionOfCurrProposal": {
+            "min": -20
+          },
+          "random": {
+            "range": 100,
+            "base": 25,
+            "playerLordRelation": 1
+          }
+        },
+        "lines": {
+          "swayProposal_forCounsel": {
+            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+            "options": [
+              "swayProposal_forCounsel_Bribe_accept",
+              "swayProposal_forCounsel_Bribe_refuse"
+            ]
+          }
+        }
+      },
+      "quarrelsome": {
+        "priority": 2,
         "rules": {
           "lordPersonality": {
-            "Upstanding": true
-          },
+            "Quarrelsome": true
+          }
+        },
+        "lines": {
+        }
+      }
+    }
+  },
+  "martial": {
+    "priority": 1,
+    "rules": {
+      "lordPersonality": {
+        "Martial": true
+      }
+    },
+    "lines": {
+      "martial_hostile": {
+        "priority": 8,
+        "rules": {
+          "hostileFaction": true
+        },
+        "lines": {
+          "greeting": "%PLAYER_NAME! I've been waiting for the day that we might see which of us is the strongest. En garde!"
+        }
+      },
+      "martial_first": {
+        "priority": 7,
+        "rules": {
+          "firstMeeting": true
+        },
+        "lines": {
+          "greeting": "Well met! A fellow warrior I see; that fleet of yours definitely isn't just for show!"
+        }
+      },
+      "martial_feast": {
+        "priority": 6,
+        "rules": {
+          "isHostingFeast": false,
+          "isAtFeast": true
+        },
+        "lines": {
+          "greeting": "Fancy seeing you here, %PLAYER_NAME. Say, shall we join the tournament later?"
+        }
+      },
+      "martial_marriedToPlayer": {
+        "priority": 5,
+        "rules": {
           "isMarriedToPlayer": true
         },
         "lines": {
-          "greeting": "%PLAYER_NAME, my love. I hope that you are well. Be careful out there in your journeys."
+          "greeting": "%PLAYER_NAME, my dear. I've been swamped with paperwork today. When do I get to join you in exploring the stars?"
         }
       },
-      "upstanding_marriageAccept": {
+      "martial_marriageAccept": {
         "priority": 5,
         "rules": {
-          "lordPersonality": {
-            "Upstanding": true
-          },
           "playerLordRomanceAction": {
             "min": 1
           },
@@ -340,12 +692,709 @@
         },
         "lines": {
           "marriage_response": {
-            "line": "It would be the greatest honor a %LORD_GENDER_MAN_OR_WOMEN could have to marry you, %PLAYER_NAME.",
+            "line": "I was hoping that you'd ask. The two of us will surely make an unstoppable team!",
             "addons": {
               "additionalText": "accept_marriage_second",
               "startWedding": true
             }
           }
+        }
+      },
+      "martial_profess_admiration_like": {
+        "priority": 4,
+        "rules": {
+          "playerLevel": {
+            "min": 15
+          },
+          "relationWithPlayer": {
+            "min": 10
+          }
+        },
+        "lines": {
+          "admiration_response": {
+            "line": "You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
+            "repIncrease": {
+              "max": 10,
+              "min": 10
+            }
+          }
+        }
+      },
+      "martial_subject": {
+        "priority": 4,
+        "rules": {
+          "playerSubject": true
+        },
+        "lines": {
+          "greeting": "Greetings %PLAYER_NAME, my liege. My fleet stands at the ready."
+        }
+      },
+      "martial_profess_admiration_dislike_0": {
+        "priority": 3,
+        "rules": {
+          "playerLevel": {
+            "min": 15
+          }
+        },
+        "lines": {
+          "admiration_response": {
+            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+            "addons": {
+              "setProfessedAdmiration": true,
+              "setCourted": true,
+              "repDecrease": {
+                "max": 2,
+                "min": 2
+              }
+            }
+          }
+        }
+      },
+      "martial_Cooperative": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 75,
+            "max": 100
+          }
+        },
+        "lines": {
+          "greeting": "Hail, %PLAYER_NAME. Remind me next time we're at the space bar, I've got story to tell about my new scar. Ha!",
+          "admiration_response": {
+            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+            "addons": {
+              "setProfessedAdmiration": true,
+              "setCourted": true,
+              "repDecrease": {
+                "max": 2,
+                "min": 2
+              }
+            }
+          }
+        }
+      },
+      "martial_Friendly": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 50,
+            "max": 74
+          }
+        },
+        "lines": {
+          "greeting": "Hail, %PLAYER_NAME. Remind me next time we're at the space bar, I've got story to tell about my new scar. Ha!",
+          "admiration_response": {
+            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+            "addons": {
+              "setProfessedAdmiration": true,
+              "setCourted": true,
+              "repDecrease": {
+                "max": 2,
+                "min": 2
+              }
+            }
+          },
+          "marriage_response": "You seem like a wonderful %PLAYER_GENDER_MAN_OR_WOMEN, but I'd still like to get to know you a little better first."
+        }
+      },
+      "martial_Welcoming": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 25,
+            "max": 49
+          }
+        },
+        "lines": {
+          "greeting": "Hail, %PLAYER_NAME. Spare me a minute, for you must tell me of your latest adventures!",
+          "admiration_response": {
+            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+            "addons": {
+              "setProfessedAdmiration": true,
+              "setCourted": true,
+              "repDecrease": {
+                "max": 2,
+                "min": 2
+              }
+            }
+          },
+          "marriage_response": {
+            "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
+            "addons": {
+              "repDecrease": {
+                "min": 10,
+                "max": 10
+              }
+            }
+          }
+        }
+      },
+      "martial_Favorable": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 10,
+            "max": 25
+          }
+        },
+        "lines": {
+          "greeting": "Hail, %PLAYER_NAME. Spare me a minute, for you must tell me of your latest adventures!",
+          "admiration_response": {
+            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+            "addons": {
+              "setProfessedAdmiration": true,
+              "setCourted": true,
+              "repDecrease": {
+                "max": 2,
+                "min": 2
+              }
+            }
+          },
+          "marriage_response": {
+            "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
+            "addons": {
+              "repDecrease": {
+                "min": 10,
+                "max": 10
+              }
+            }
+          }
+        }
+      },
+      "martial_Neutral": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -9,
+            "max": 9
+          }
+        },
+        "lines": {
+          "greeting": "Good hunting, %PLAYER_NAME. May your armor hold fast and your missiles strike true."
+        }
+      },
+      "martial_Suspicious": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -24,
+            "max": -10
+          }
+        },
+        "lines": {
+          "greeting": "Speak quickly %PLAYER_NAME. I'd prefer to avoid the shame of being seen in your presence."
+        }
+      },
+      "martial_Inhospitable": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -49,
+            "max": -25
+          }
+        },
+        "lines": {
+          "greeting": "Speak quickly %PLAYER_NAME. I'd prefer to avoid the shame of being seen in your presence."
+        }
+      },
+      "martial_Hostile": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -74,
+            "max": -50
+          }
+        },
+        "lines": {
+          "greeting": "Your presence is acknowledged, %PLAYER_NAME. I advise you choose your words carefully if you don't want a bullet in the skull."
+        }
+      },
+      "martial_Vengeful": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -100,
+            "max": -75
+          }
+        },
+        "lines": {
+          "greeting": "Your presence is acknowledged, %PLAYER_NAME. I advise you choose your words carefully if you don't want a bullet in the skull."
+        }
+      },
+      "swayProposal_forPlayer_bribe_martial": {
+        "priority": 2,
+        "rules": {
+          "optionOfPlayerProposal": {
+            "min": -20
+          },
+          "random": {
+            "range": 200,
+            "base": 25,
+            "playerLordRelation": 1
+          }
+        },
+        "lines": {
+          "swayProposal_forPlayer": {
+            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+            "options": [
+              "swayProposal_forPlayer_Bribe_accept",
+              "swayProposal_forPlayer_Bribe_refuse"
+            ]
+          }
+        }
+      },
+      "swayProposal_againstCounsel_bribe_martial": {
+        "priority": 2,
+        "rules": {
+          "opinionOfCurrProposal": {
+            "max": 20
+          },
+          "random": {
+            "range": 200,
+            "base": 25,
+            "playerLordRelation": 1
+          }
+        },
+        "lines": {
+          "swayProposal_againstCounsel": {
+            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+            "options": [
+              "swayProposal_againstCounsel_Bribe_accept",
+              "swayProposal_againstCounsel_Bribe_refuse"
+            ]
+          }
+        }
+      },
+      "swayProposal_forCounsel_bribe_martial": {
+        "priority": 2,
+        "rules": {
+          "opinionOfCurrProposal": {
+            "min": -20
+          },
+          "random": {
+            "range": 200,
+            "base": 25,
+            "playerLordRelation": 1
+          }
+        },
+        "lines": {
+          "swayProposal_forCounsel": {
+            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+            "options": [
+              "swayProposal_forCounsel_Bribe_accept",
+              "swayProposal_forCounsel_Bribe_refuse"
+            ]
+          }
+        }
+      },
+      "martial": {
+        "priority": 2,
+        "rules": {
+        },
+        "lines": {
+        }
+      }
+    }
+  },
+  "calculating": {
+    "priority": 1,
+    "rules": {
+      "lordPersonality": {
+        "Calculating": true
+      }
+    },
+    "lines": {
+      "calculating_hostile": {
+        "priority": 8,
+        "rules": {
+          "hostileFaction": true
+        },
+        "lines": {
+          "greeting": "I have you cornered, %PLAYER_NAME. Surrender or die!"
+        }
+      },
+      "calculating_first": {
+        "priority": 7,
+        "rules": {
+          "firstMeeting": true
+        },
+        "lines": {
+          "greeting": "Ah, yes. At last we meet. You seem like a good person to know. Let us speak together from time to time."
+        }
+      },
+      "calculating_feast": {
+        "priority": 6,
+        "rules": {
+          "isHostingFeast": false,
+          "isAtFeast": true
+        },
+        "lines": {
+          "greeting": "Good evening %PLAYER_NAME. I must say I'm impressed at the generosity of our host. This decor can't have been cheap."
+        }
+      },
+      "calculating_marriedToPlayer": {
+        "priority": 5,
+        "rules": {
+          "isMarriedToPlayer": true
+        },
+        "lines": {
+          "greeting": "%PLAYER_NAME, my %PLAYER_NAME. The house's finances have been going as planned; you can count on me."
+        }
+      },
+      "calculating_marriageAccept": {
+        "priority": 5,
+        "rules": {
+          "playerLordRomanceAction": {
+            "min": 1
+          },
+          "relationWithPlayer": {
+            "min": 75
+          }
+        },
+        "lines": {
+          "marriage_response": {
+            "line": "I accept; the time is long overdue for us to join our houses together.",
+            "addons": {
+              "additionalText": "accept_marriage_second",
+              "startWedding": true
+            }
+          }
+        }
+      },
+      "calculating_profess_admiration_like_2": {
+        "priority": 4,
+        "rules": {
+          "playerWealth": {
+            "min": 2000000
+          }
+        },
+        "lines": {
+          "admiration_response": {
+            "line": "You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
+            "addons": {
+              "setProfessedAdmiration": true,
+              "setCourted": true,
+              "repIncrease": {
+                "max": 10,
+                "min": 10
+              }
+            }
+          }
+        }
+      },
+      "calculating_profess_admiration_like_1": {
+        "priority": 4,
+        "rules": {
+          "playerRank": {
+            "min": 1
+          },
+          "playerWealth": {
+            "min": 500000
+          }
+
+        },
+        "lines": {
+          "admiration_response": {
+            "line": "You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
+            "addons": {
+              "setProfessedAdmiration": true,
+              "setCourted": true,
+              "repIncrease": {
+                "max": 10,
+                "min": 10
+              }
+            }
+          }
+        }
+      },
+      "calculating_profess_admiration_like_0": {
+        "priority": 4,
+        "rules": {
+          "playerRank": {
+            "min": 2
+          }
+
+        },
+        "lines": {
+          "admiration_response": {
+            "line": "You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
+            "addons": {
+              "setProfessedAdmiration": true,
+              "setCourted": true,
+              "repIncrease": {
+                "max": 10,
+                "min": 10
+              }
+            }
+          }
+        }
+      },
+      "calculating_subject": {
+        "priority": 4,
+        "rules": {
+          "playerSubject": true
+        },
+        "lines": {
+          "greeting": "Greetings %PLAYER_NAME, my liege. Perfect timing, I had a list of proposals which I wish to discuss..."
+        }
+      },
+      "calculating_profess_admiration_dislike_1": {
+        "priority": 3,
+        "rules": {
+          "playerRank": {
+            "min": 1
+          }
+        },
+        "lines": {
+          "admiration_response": {
+            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+            "addons": {
+              "setProfessedAdmiration": true,
+              "setCourted": true,
+              "repDecrease": {
+                "max": 2,
+                "min": 2
+              }
+            }
+          }
+        }
+      },
+      "calculating_profess_admiration_dislike_0": {
+        "priority": 3,
+        "rules": {
+          "playerWealth": {
+            "min": 500000
+          }
+        },
+        "lines": {
+          "admiration_response": {
+            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+            "addons": {
+              "setProfessedAdmiration": true,
+              "setCourted": true,
+              "repDecrease": {
+                "max": 2,
+                "min": 2
+              }
+            }
+          }
+        }
+      },
+      "calculating_Cooperative": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 75,
+            "max": 100
+          }
+        },
+        "lines": {
+          "greeting": "Good to see you, %PLAYER_NAME. Let us speak plainly."
+        }
+      },
+      "calculating_Friendly": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 50,
+            "max": 74
+          }
+        },
+        "lines": {
+          "greeting": "Good to see you, %PLAYER_NAME. Let us speak plainly.",
+          "marriage_response": "You seem like a wonderful %PLAYER_GENDER_MAN_OR_WOMEN, but I'd still like to get to know you a little better first."
+        }
+      },
+      "calculating_Welcoming": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 25,
+            "max": 49
+          }
+        },
+        "lines": {
+          "greeting": "Good to see you, %PLAYER_NAME. What can I do for you today?",
+          "marriage_response": {
+            "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
+            "addons": {
+              "repDecrease": {
+                "min": 10,
+                "max": 10
+              }
+            }
+          }
+        }
+      },
+      "calculating_Favorable": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 10,
+            "max": 25
+          }
+        },
+        "lines": {
+          "greeting": "Good to see you, %PLAYER_NAME. What can I do for you today?",
+          "marriage_response": {
+            "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
+            "addons": {
+              "repDecrease": {
+                "min": 10,
+                "max": 10
+              }
+            }
+          }
+        }
+      },
+      "calculating_Neutral": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -9,
+            "max": 9
+          }
+        },
+        "lines": {
+          "greeting": "Greetings %PLAYER_NAME, what news can you share from your travels?"
+        }
+      },
+      "calculating_Suspicious": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -24,
+            "max": -10
+          }
+        },
+        "lines": {
+          "greeting": "I suppose it would be prudent for me to entertain you, %PLAYER_NAME, however much I would rather not."
+        }
+      },
+      "calculating_Inhospitable": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -49,
+            "max": -25
+          }
+        },
+        "lines": {
+          "greeting": "I suppose it would be prudent for me to entertain you, %PLAYER_NAME, however much I would rather not."
+        }
+      },
+      "calculating_Hostile": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -74,
+            "max": -50
+          }
+        },
+        "lines": {
+          "greeting": "You best have something interesting to make it worth me suffering your presence, %PLAYER_NAME"
+        }
+      },
+      "calculating_Vengeful": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -100,
+            "max": -75
+          }
+        },
+        "lines": {
+          "greeting": "You best have something interesting to make it worth me suffering your presence, %PLAYER_NAME"
+        }
+      },
+      "swayProposal_forPlayer_bribe_calculating": {
+        "priority": 2,
+        "rules": {
+          "optionOfPlayerProposal": {
+            "min": -20
+          },
+          "random": {
+            "range": 50,
+            "base": 25,
+            "playerLordRelation": 1
+          }
+        },
+        "lines": {
+          "swayProposal_forCounsel": {
+            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+            "options": [
+              "swayProposal_forCounsel_Bribe_accept",
+              "swayProposal_forCounsel_Bribe_refuse"
+            ]
+          }
+        }
+      },
+      "swayProposal_againstCounsel_bribe_calculating": {
+        "priority": 2,
+        "rules": {
+          "opinionOfCurrProposal": {
+            "max": 20
+          },
+          "random": {
+            "range": 50,
+            "base": 25,
+            "playerLordRelation": 1
+          }
+        },
+        "lines": {
+          "swayProposal_forCounsel": {
+            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+            "options": [
+              "swayProposal_forCounsel_Bribe_accept",
+              "swayProposal_forCounsel_Bribe_refuse"
+            ]
+          }
+        }
+      },
+      "swayProposal_forCounsel_bribe_calculating": {
+        "priority": 2,
+        "rules": {
+          "opinionOfCurrProposal": {
+            "min": -20
+          },
+          "random": {
+            "range": 50,
+            "base": 25,
+            "playerLordRelation": 1
+          }
+        },
+        "lines": {
+          "swayProposal_forCounsel": {
+            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+            "options": [
+              "swayProposal_forCounsel_Bribe_accept",
+              "swayProposal_forCounsel_Bribe_refuse"
+            ]
+          }
+        }
+      },
+      "calculating": {
+        "priority": 2,
+        "rules": {
+        },
+        "lines": {
+        }
+      }
+    }
+  },
+  "default": {
+    "priority": 0,
+    "rules": {},
+    "lines": {
+      "isHost_feast": {
+        "priority": 6,
+        "rules": {
+          "isHostingFeast": true,
+          "isAtFeast": true
+        },
+        "lines": {
+          "accept_marriage_second": "Talk to me whenever you're ready and we'll start the ceremony.",
+          "greeting": "Welcome to my estate, %PLAYER_NAME. You are under my protection here; please make yourself at home."
         }
       },
 
@@ -509,179 +1558,6 @@
           }
         }
       },
-      "martial_profess_admiration_like": {
-        "priority": 4,
-        "rules": {
-          "playerLevel": {
-            "min": 15
-          },
-          "lordPersonality": {
-            "Martial": true
-          },
-          "relationWithPlayer": {
-            "min": 10
-          }
-        },
-        "lines": {
-          "admiration_response": {
-            "line": "You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
-            "repIncrease": {
-              "max": 10,
-              "min": 10
-            }
-          }
-        }
-      },
-      "martial_subject": {
-        "priority": 4,
-        "rules": {
-          "lordPersonality": {
-            "Martial": true
-          },
-          "playerSubject": true
-        },
-        "lines": {
-          "greeting": "Greetings %PLAYER_NAME, my liege. My fleet stands at the ready."
-        }
-      },
-      "calculating_profess_admiration_like_2": {
-        "priority": 4,
-        "rules": {
-          "playerWealth": {
-            "min": 2000000
-          },
-          "lordPersonality": {
-            "Calculating": true
-          }
-        },
-        "lines": {
-          "admiration_response": {
-            "line": "You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
-            "addons": {
-              "setProfessedAdmiration": true,
-              "setCourted": true,
-              "repIncrease": {
-                "max": 10,
-                "min": 10
-              }
-            }
-          }
-        }
-      },
-      "calculating_profess_admiration_like_1": {
-        "priority": 4,
-        "rules": {
-          "playerRank": {
-            "min": 1
-          },
-          "playerWealth": {
-            "min": 500000
-          },
-          "lordPersonality": {
-            "Calculating": true
-          }
-        },
-        "lines": {
-          "admiration_response": {
-            "line": "You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
-            "addons": {
-              "setProfessedAdmiration": true,
-              "setCourted": true,
-              "repIncrease": {
-                "max": 10,
-                "min": 10
-              }
-            }
-          }
-        }
-      },
-      "calculating_profess_admiration_like_0": {
-        "priority": 4,
-        "rules": {
-          "playerRank": {
-            "min": 2
-          },
-          "lordPersonality": {
-            "Calculating": true
-          }
-        },
-        "lines": {
-          "admiration_response": {
-            "line": "You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
-            "addons": {
-              "setProfessedAdmiration": true,
-              "setCourted": true,
-              "repIncrease": {
-                "max": 10,
-                "min": 10
-              }
-            }
-          }
-        }
-      },
-      "calculating_subject": {
-        "priority": 4,
-        "rules": {
-          "lordPersonality": {
-            "Calculating": true
-          },
-          "playerSubject": true
-        },
-        "lines": {
-          "greeting": "Greetings %PLAYER_NAME, my liege. Perfect timing, I had a list of proposals which I wish to discuss..."
-        }
-      },
-      "quarrelsome_subject": {
-        "priority": 4,
-        "rules": {
-          "lordPersonality": {
-            "Quarrelsome": true
-          },
-          "playerSubject": true
-        },
-        "lines": {
-          "greeting": "Greetings %PLAYER_NAME, my liege. Point me at someone and I will see them punished."
-        }
-      },
-      "upstanding_profess_admiration_like": {
-        "priority": 4,
-        "rules": {
-          "lordsCourted": {
-            "min": 1
-          },
-          "lordPersonality": {
-            "Upstanding": true
-          },
-          "relationWithPlayer": {
-            "min": 25
-          }
-        },
-        "lines": {
-          "admiration_response": {
-            "line": "You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
-            "addons": {
-              "setProfessedAdmiration": true,
-              "setCourted": true,
-              "repIncrease": {
-                "max": 10,
-                "min": 10
-              }
-            }
-          }
-        }
-      },
-      "upstanding_subject": {
-        "priority": 4,
-        "rules": {
-          "lordPersonality": {
-            "Upstanding": true
-          },
-          "playerSubject": true
-        },
-        "lines": {
-          "greeting": "Greetings %PLAYER_NAME, my liege. What is your command?"
-        }
-      },
 
       "swayProposal_forCounsel_bargain": {
         "priority": 3,
@@ -758,1096 +1634,7 @@
           }
         }
       },
-      "martial_profess_admiration_dislike_0": {
-        "priority": 3,
-        "rules": {
-          "playerLevel": {
-            "min": 15
-          },
-          "lordPersonality": {
-            "Martial": true
-          }
-        },
-        "lines": {
-          "admiration_response": {
-            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
-            "addons": {
-              "setProfessedAdmiration": true,
-              "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
-              }
-            }
-          }
-        }
-      },
-      "martial_Cooperative": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": 75,
-            "max": 100
-          },
-          "lordPersonality": {
-            "Martial": true
-          }
-        },
-        "lines": {
-          "greeting": "Hail, %PLAYER_NAME. Remind me next time we're at the space bar, I've got story to tell about my new scar. Ha!",
-          "admiration_response": {
-            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
-            "addons": {
-              "setProfessedAdmiration": true,
-              "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
-              }
-            }
-          }
-        }
-      },
-      "martial_Friendly": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": 50,
-            "max": 74
-          },
-          "lordPersonality": {
-            "Martial": true
-          }
-        },
-        "lines": {
-          "greeting": "Hail, %PLAYER_NAME. Remind me next time we're at the space bar, I've got story to tell about my new scar. Ha!",
-          "admiration_response": {
-            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
-            "addons": {
-              "setProfessedAdmiration": true,
-              "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
-              }
-            }
-          },
-          "marriage_response": "You seem like a wonderful %PLAYER_GENDER_MAN_OR_WOMEN, but I'd still like to get to know you a little better first."
-        }
-      },
-      "martial_Welcoming": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": 25,
-            "max": 49
-          },
-          "lordPersonality": {
-            "Martial": true
-          }
-        },
-        "lines": {
-          "greeting": "Hail, %PLAYER_NAME. Spare me a minute, for you must tell me of your latest adventures!",
-          "admiration_response": {
-            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
-            "addons": {
-              "setProfessedAdmiration": true,
-              "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
-              }
-            }
-          },
-          "marriage_response": {
-            "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
-            "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              }
-            }
-          }
-        }
-      },
-      "martial_Favorable": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": 10,
-            "max": 25
-          },
-          "lordPersonality": {
-            "Martial": true
-          }
-        },
-        "lines": {
-          "greeting": "Hail, %PLAYER_NAME. Spare me a minute, for you must tell me of your latest adventures!",
-          "admiration_response": {
-            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
-            "addons": {
-              "setProfessedAdmiration": true,
-              "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
-              }
-            }
-          },
-          "marriage_response": {
-            "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
-            "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              }
-            }
-          }
-        }
-      },
-      "martial_Neutral": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": -9,
-            "max": 9
-          },
-          "lordPersonality": {
-            "Martial": true
-          }
-        },
-        "lines": {
-          "greeting": "Good hunting, %PLAYER_NAME. May your armor hold fast and your missiles strike true."
-        }
-      },
-      "martial_Suspicious": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": -24,
-            "max": -10
-          },
-          "lordPersonality": {
-            "Martial": true
-          }
-        },
-        "lines": {
-          "greeting": "Speak quickly %PLAYER_NAME. I'd prefer to avoid the shame of being seen in your presence."
-        }
-      },
-      "martial_Inhospitable": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": -49,
-            "max": -25
-          },
-          "lordPersonality": {
-            "Martial": true
-          }
-        },
-        "lines": {
-          "greeting": "Speak quickly %PLAYER_NAME. I'd prefer to avoid the shame of being seen in your presence."
-        }
-      },
-      "martial_Hostile": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": -74,
-            "max": -50
-          },
-          "lordPersonality": {
-            "Martial": true
-          }
-        },
-        "lines": {
-          "greeting": "Your presence is acknowledged, %PLAYER_NAME. I advise you choose your words carefully if you don't want a bullet in the skull."
-        }
-      },
-      "martial_Vengeful": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": -100,
-            "max": -75
-          },
-          "lordPersonality": {
-            "Martial": true
-          }
-        },
-        "lines": {
-          "greeting": "Your presence is acknowledged, %PLAYER_NAME. I advise you choose your words carefully if you don't want a bullet in the skull."
-        }
-      },
-      "calculating_profess_admiration_dislike_1": {
-        "priority": 3,
-        "rules": {
-          "playerRank": {
-            "min": 1
-          },
-          "lordPersonality": {
-            "Calculating": true
-          }
-        },
-        "lines": {
-          "admiration_response": {
-            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
-            "addons": {
-              "setProfessedAdmiration": true,
-              "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
-              }
-            }
-          }
-        }
-      },
-      "calculating_profess_admiration_dislike_0": {
-        "priority": 3,
-        "rules": {
-          "playerWealth": {
-            "min": 500000
-          },
-          "lordPersonality": {
-            "Calculating": true
-          }
-        },
-        "lines": {
-          "admiration_response": {
-            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
-            "addons": {
-              "setProfessedAdmiration": true,
-              "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
-              }
-            }
-          }
-        }
-      },
-      "calculating_Cooperative": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": 75,
-            "max": 100
-          },
-          "lordPersonality": {
-            "Calculating": true
-          }
-        },
-        "lines": {
-          "greeting": "Good to see you, %PLAYER_NAME. Let us speak plainly."
-        }
-      },
-      "calculating_Friendly": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": 50,
-            "max": 74
-          },
-          "lordPersonality": {
-            "Calculating": true
-          }
-        },
-        "lines": {
-          "greeting": "Good to see you, %PLAYER_NAME. Let us speak plainly.",
-          "marriage_response": "You seem like a wonderful %PLAYER_GENDER_MAN_OR_WOMEN, but I'd still like to get to know you a little better first."
-        }
-      },
-      "calculating_Welcoming": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": 25,
-            "max": 49
-          },
-          "lordPersonality": {
-            "Calculating": true
-          }
-        },
-        "lines": {
-          "greeting": "Good to see you, %PLAYER_NAME. What can I do for you today?",
-          "marriage_response": {
-            "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
-            "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              }
-            }
-          }
-        }
-      },
-      "calculating_Favorable": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": 10,
-            "max": 25
-          },
-          "lordPersonality": {
-            "Calculating": true
-          }
-        },
-        "lines": {
-          "greeting": "Good to see you, %PLAYER_NAME. What can I do for you today?",
-          "marriage_response": {
-            "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
-            "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              }
-            }
-          }
-        }
-      },
-      "calculating_Neutral": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": -9,
-            "max": 9
-          },
-          "lordPersonality": {
-            "Calculating": true
-          }
-        },
-        "lines": {
-          "greeting": "Greetings %PLAYER_NAME, what news can you share from your travels?"
-        }
-      },
-      "calculating_Suspicious": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": -24,
-            "max": -10
-          },
-          "lordPersonality": {
-            "Calculating": true
-          }
-        },
-        "lines": {
-          "greeting": "I suppose it would be prudent for me to entertain you, %PLAYER_NAME, however much I would rather not."
-        }
-      },
-      "calculating_Inhospitable": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": -49,
-            "max": -25
-          },
-          "lordPersonality": {
-            "Calculating": true
-          }
-        },
-        "lines": {
-          "greeting": "I suppose it would be prudent for me to entertain you, %PLAYER_NAME, however much I would rather not."
-        }
-      },
-      "calculating_Hostile": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": -74,
-            "max": -50
-          },
-          "lordPersonality": {
-            "Calculating": true
-          }
-        },
-        "lines": {
-          "greeting": "You best have something interesting to make it worth me suffering your presence, %PLAYER_NAME"
-        }
-      },
-      "calculating_Vengeful": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": -100,
-            "max": -75
-          },
-          "lordPersonality": {
-            "Calculating": true
-          }
-        },
-        "lines": {
-          "greeting": "You best have something interesting to make it worth me suffering your presence, %PLAYER_NAME"
-        }
-      },
-      "quarrelsome_Cooperative": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": 75,
-            "max": 100
-          },
-          "lordPersonality": {
-            "Quarrelsome": true
-          }
-        },
-        "lines": {
-          "greeting": "%PLAYER_NAME, just the person I wanted to see. You sure are a breath of fresh air compared to the rest of these bastards."
-        }
-      },
-      "quarrelsome_Friendly": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": 50,
-            "max": 74
-          },
-          "lordPersonality": {
-            "Quarrelsome": true
-          }
-        },
-        "lines": {
-          "greeting": "%PLAYER_NAME, just the person I wanted to see. You sure are a breath of fresh air compared to the rest of these bastards.",
-          "marriage_response": "You seem like a wonderful %PLAYER_GENDER_MAN_OR_WOMEN, but I'd still like to get to know you a little better first."
-        }
-      },
-      "quarrelsome_Welcoming": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": 25,
-            "max": 49
-          },
-          "lordPersonality": {
-            "Quarrelsome": true
-          }
-        },
-        "lines": {
-          "greeting": "I'm pleasantly surprised that you haven't managed to get yourself killed yet, %PLAYER_NAME. Can't say I'm surprised at this point.",
-          "marriage_response": {
-            "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
-            "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              }
-            }
-          }
-        }
-      },
-      "quarrelsome_Favorable": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": 10,
-            "max": 25
-          },
-          "lordPersonality": {
-            "Quarrelsome": true
-          }
-        },
-        "lines": {
-          "greeting": "I'm pleasantly surprised that you haven't managed to get yourself killed yet, %PLAYER_NAME. Can't say I'm surprised at this point.",
-          "marriage_response": {
-            "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
-            "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              }
-            }
-          }
-        }
-      },
-      "quarrelsome_Neutral": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": -9,
-            "max": 9
-          },
-          "lordPersonality": {
-            "Quarrelsome": true
-          }
-        },
-        "lines": {
-          "greeting": "Well you caught me in a good mood, %PLAYER_NAME. What do you want?"
-        }
-      },
-      "quarrelsome_Suspicious": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": -24,
-            "max": -10
-          },
-          "lordPersonality": {
-            "Quarrelsome": true
-          }
-        },
-        "lines": {
-          "greeting": "%PLAYER_NAME, do yourself a favor and stay out of my way."
-        }
-      },
-      "quarrelsome_Inhospitable": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": -49,
-            "max": -25
-          },
-          "lordPersonality": {
-            "Quarrelsome": true
-          }
-        },
-        "lines": {
-          "greeting": "%PLAYER_NAME, do yourself a favor and stay out of my way."
-        }
-      },
-      "quarrelsome_Hostile": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": -74,
-            "max": -50
-          },
-          "lordPersonality": {
-            "Quarrelsome": true
-          }
-        },
-        "lines": {
-          "greeting": "Ah, %PLAYER_NAME, the snake dares to slither in the open. Convince me why I shouldn't open fire immediately."
-        }
-      },
-      "quarrelsome_Vengeful": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": -100,
-            "max": -75
-          },
-          "lordPersonality": {
-            "Quarrelsome": true
-          }
-        },
-        "lines": {
-          "greeting": "Ah, %PLAYER_NAME, the snake dares to slither in the open. Convince me why I shouldn't open fire immediately."
-        }
-      },
-      "upstanding_profess_admiration_dislike_0": {
-        "priority": 3,
-        "rules": {
-          "lordsCourted": {
-            "min": 1
-          },
-          "lordPersonality": {
-            "Upstanding": true
-          }
-        },
-        "lines": {
-          "admiration_response": {
-            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
-            "addons": {
-              "setProfessedAdmiration": true,
-              "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
-              }
-            }
-          }
-        }
-      },
-      "upstanding_Cooperative": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": 75,
-            "max": 100
-          },
-          "lordPersonality": {
-            "Upstanding": true
-          }
-        },
-        "lines": {
-          "greeting": "%PLAYER_NAME, my dear friend. It is good to see you alive and well. What is it?",
-          "admiration_response": {
-            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
-            "addons": {
-              "setProfessedAdmiration": true,
-              "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
-              }
-            }
-          }
-        }
-      },
-      "upstanding_Friendly": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": 50,
-            "max": 74
-          },
-          "lordPersonality": {
-            "Upstanding": true
-          }
-        },
-        "lines": {
-          "greeting": "%PLAYER_NAME, my dear friend. It is good to see you alive and well. What is it?",
-          "admiration_response": {
-            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
-            "addons": {
-              "setProfessedAdmiration": true,
-              "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
-              }
-            }
-          },
-          "marriage_response": "You seem like a wonderful %PLAYER_GENDER_MAN_OR_WOMEN, but I'd still like to get to know you a little better first."
-        }
-      },
-      "upstanding_Welcoming": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": 25,
-            "max": 49
-          },
-          "lordPersonality": {
-            "Upstanding": true
-          }
-        },
-        "lines": {
-          "greeting": "%PLAYER_NAME, my friend. It is good to see you alive and well. What is it?",
-          "admiration_response": {
-            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
-            "addons": {
-              "setProfessedAdmiration": true,
-              "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
-              }
-            }
-          },
-          "marriage_response": {
-            "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
-            "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              }
-            }
-          }
-        }
-      },
-      "upstanding_Favorable": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": 10,
-            "max": 25
-          },
-          "lordPersonality": {
-            "Upstanding": true
-          }
-        },
-        "lines": {
-          "greeting": "%PLAYER_NAME, my friend. It is good to see you alive and well. What is it?",
-          "marriage_response": {
-            "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
-            "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              }
-            }
-          }
-        }
-      },
-      "upstanding_Neutral": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": -9,
-            "max": 9
-          },
-          "lordPersonality": {
-            "Upstanding": true
-          }
-        },
-        "lines": {
-          "greeting": "Good day %PLAYER_NAME, I trust that you've conducted yourself honorably since our last meeting."
-        }
-      },
-      "upstanding_Suspicious": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": -24,
-            "max": -10
-          },
-          "lordPersonality": {
-            "Upstanding": true
-          }
-        },
-        "lines": {
-          "greeting": "You are trying my patience, %PLAYER_NAME. Speak if you must."
-        }
-      },
-      "upstanding_Inhospitable": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": -49,
-            "max": -25
-          },
-          "lordPersonality": {
-            "Upstanding": true
-          }
-        },
-        "lines": {
-          "greeting": "You are trying my patience, %PLAYER_NAME. Speak if you must."
-        }
-      },
-      "upstanding_Hostile": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": -74,
-            "max": -50
-          },
-          "lordPersonality": {
-            "Upstanding": true
-          }
-        },
-        "lines": {
-          "greeting": "I have no need to speak to one of such low character as yourself, %PLAYER_NAME."
-        }
-      },
-      "upstanding_Vengeful": {
-        "priority": 3,
-        "rules": {
-          "relationWithPlayer": {
-            "min": -100,
-            "max": -75
-          },
-          "lordPersonality": {
-            "Upstanding": true
-          }
-        },
-        "lines": {
-          "greeting": "I have no need to speak to one of such low character as yourself, %PLAYER_NAME."
-        }
-      },
 
-      "swayProposal_forPlayer_bribe_upstanding": {
-        "priority": 2,
-        "rules": {
-          "lordPersonality": {
-            "Upstanding": true
-          },
-          "optionOfPlayerProposal": {
-            "min": -20
-          },
-          "random": {
-            "range": 400,
-            "base": 25,
-            "playerLordRelation": 1
-          }
-        },
-        "lines": {
-          "swayProposal_forPlayer": {
-            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
-            "options": [
-              "swayProposal_forPlayer_Bribe_accept",
-              "swayProposal_forPlayer_Bribe_refuse"
-            ]
-          }
-        }
-      },
-      "swayProposal_forPlayer_bribe_martial": {
-        "priority": 2,
-        "rules": {
-          "lordPersonality": {
-            "Martial": true
-          },
-          "optionOfPlayerProposal": {
-            "min": -20
-          },
-          "random": {
-            "range": 200,
-            "base": 25,
-            "playerLordRelation": 1
-          }
-        },
-        "lines": {
-          "swayProposal_forPlayer": {
-            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
-            "options": [
-              "swayProposal_forPlayer_Bribe_accept",
-              "swayProposal_forPlayer_Bribe_refuse"
-            ]
-          }
-        }
-      },
-      "swayProposal_forPlayer_bribe_quarrelsome": {
-        "priority": 2,
-        "rules": {
-          "lordPersonality": {
-            "Quarrelsome": true
-          },
-          "optionOfPlayerProposal": {
-            "min": -20
-          },
-          "random": {
-            "range": 100,
-            "base": 25,
-            "playerLordRelation": 1
-          }
-        },
-        "lines": {
-          "swayProposal_forPlayer": {
-            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
-            "options": [
-              "swayProposal_forPlayer_Bribe_accept",
-              "swayProposal_forPlayer_Bribe_refuse"
-            ]
-          }
-        }
-      },
-      "swayProposal_forPlayer_bribe_calculating": {
-        "priority": 2,
-        "rules": {
-          "lordPersonality": {
-            "Calculating": true
-          },
-          "optionOfPlayerProposal": {
-            "min": -20
-          },
-          "random": {
-            "range": 50,
-            "base": 25,
-            "playerLordRelation": 1
-          }
-        },
-        "lines": {
-          "swayProposal_forCounsel": {
-            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
-            "options": [
-              "swayProposal_forCounsel_Bribe_accept",
-              "swayProposal_forCounsel_Bribe_refuse"
-            ]
-          }
-        }
-      },
-      "swayProposal_againstCounsel_bribe_upstanding": {
-        "priority": 2,
-        "rules": {
-          "lordPersonality": {
-            "Upstanding": true
-          },
-          "opinionOfCurrProposal": {
-            "max": 20
-          },
-          "random": {
-            "range": 400,
-            "base": 25,
-            "playerLordRelation": 1
-          }
-        },
-        "lines": {
-          "swayProposal_againstCounsel": {
-            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
-            "options": [
-              "swayProposal_againstCounsel_Bribe_accept",
-              "swayProposal_againstCounsel_Bribe_refuse"
-            ]
-          }
-        }
-      },
-      "swayProposal_againstCounsel_bribe_martial": {
-        "priority": 2,
-        "rules": {
-          "lordPersonality": {
-            "Martial": true
-          },
-          "opinionOfCurrProposal": {
-            "max": 20
-          },
-          "random": {
-            "range": 200,
-            "base": 25,
-            "playerLordRelation": 1
-          }
-        },
-        "lines": {
-          "swayProposal_againstCounsel": {
-            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
-            "options": [
-              "swayProposal_againstCounsel_Bribe_accept",
-              "swayProposal_againstCounsel_Bribe_refuse"
-            ]
-          }
-        }
-      },
-      "swayProposal_againstCounsel_bribe_quarrelsome": {
-        "priority": 2,
-        "rules": {
-          "lordPersonality": {
-            "Quarrelsome": true
-          },
-          "opinionOfCurrProposal": {
-            "max": 20
-          },
-          "random": {
-            "range": 100,
-            "base": 25,
-            "playerLordRelation": 1
-          }
-        },
-        "lines": {
-          "swayProposal_againstCounsel": {
-            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
-            "options": [
-              "swayProposal_againstCounsel_Bribe_accept",
-              "swayProposal_againstCounsel_Bribe_refuse"
-            ]
-          }
-        }
-      },
-      "swayProposal_againstCounsel_bribe_calculating": {
-        "priority": 2,
-        "rules": {
-          "lordPersonality": {
-            "Calculating": true
-          },
-          "opinionOfCurrProposal": {
-            "max": 20
-          },
-          "random": {
-            "range": 50,
-            "base": 25,
-            "playerLordRelation": 1
-          }
-        },
-        "lines": {
-          "swayProposal_forCounsel": {
-            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
-            "options": [
-              "swayProposal_forCounsel_Bribe_accept",
-              "swayProposal_forCounsel_Bribe_refuse"
-            ]
-          }
-        }
-      },
-      "swayProposal_forCounsel_bribe_upstanding": {
-        "priority": 2,
-        "rules": {
-          "lordPersonality": {
-            "Upstanding": true
-          },
-          "opinionOfCurrProposal": {
-            "min": -20
-          },
-          "random": {
-            "range": 400,
-            "base": 25,
-            "playerLordRelation": 1
-          }
-        },
-        "lines": {
-          "swayProposal_forCounsel": {
-            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
-            "options": [
-              "swayProposal_forCounsel_Bribe_accept",
-              "swayProposal_forCounsel_Bribe_refuse"
-            ]
-          }
-        }
-      },
-      "swayProposal_forCounsel_bribe_martial": {
-        "priority": 2,
-        "rules": {
-          "lordPersonality": {
-            "Martial": true
-          },
-          "opinionOfCurrProposal": {
-            "min": -20
-          },
-          "random": {
-            "range": 200,
-            "base": 25,
-            "playerLordRelation": 1
-          }
-        },
-        "lines": {
-          "swayProposal_forCounsel": {
-            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
-            "options": [
-              "swayProposal_forCounsel_Bribe_accept",
-              "swayProposal_forCounsel_Bribe_refuse"
-            ]
-          }
-        }
-      },
-      "swayProposal_forCounsel_bribe_quarrelsome": {
-        "priority": 2,
-        "rules": {
-          "lordPersonality": {
-            "Quarrelsome": true
-          },
-          "opinionOfCurrProposal": {
-            "min": -20
-          },
-          "random": {
-            "range": 100,
-            "base": 25,
-            "playerLordRelation": 1
-          }
-        },
-        "lines": {
-          "swayProposal_forCounsel": {
-            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
-            "options": [
-              "swayProposal_forCounsel_Bribe_accept",
-              "swayProposal_forCounsel_Bribe_refuse"
-            ]
-          }
-        }
-      },
-      "swayProposal_forCounsel_bribe_calculating": {
-        "priority": 2,
-        "rules": {
-          "lordPersonality": {
-            "Calculating": true
-          },
-          "opinionOfCurrProposal": {
-            "min": -20
-          },
-          "random": {
-            "range": 50,
-            "base": 25,
-            "playerLordRelation": 1
-          }
-        },
-        "lines": {
-          "swayProposal_forCounsel": {
-            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
-            "options": [
-              "swayProposal_forCounsel_Bribe_accept",
-              "swayProposal_forCounsel_Bribe_refuse"
-            ]
-          }
-        }
-      },
       "favItem_alpha_core": {
         "priority": 2,
         "rules": {
@@ -2110,46 +1897,6 @@
               "optionSet_start_tournament"
             ]
           }
-        }
-      },
-      "martial": {
-        "priority": 2,
-        "rules": {
-          "lordPersonality": {
-            "Martial": true
-          }
-        },
-        "lines": {
-        }
-      },
-      "calculating": {
-        "priority": 2,
-        "rules": {
-          "lordPersonality": {
-            "Calculating": true
-          }
-        },
-        "lines": {
-        }
-      },
-      "quarrelsome": {
-        "priority": 2,
-        "rules": {
-          "lordPersonality": {
-            "Quarrelsome": true
-          }
-        },
-        "lines": {
-        }
-      },
-      "upstanding": {
-        "priority": 2,
-        "rules": {
-          "lordPersonality": {
-            "Upstanding": true
-          }
-        },
-        "lines": {
         }
       },
       "tournament_dedicatedToLord": {

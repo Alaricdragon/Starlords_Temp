@@ -71,7 +71,7 @@ If you're a modder or just want to put your own characters into the game, all yo
 * "flagshipForceCustomSMods"  set this as false to allow the 'customLordSMods' to be used alongside the normally selected SMods. if set to true, or unset, the flahship will attempt to add every hullmod in 'customLordSMods' first
 * "preferredItem" can be any of `domestic_goods`, `food`, `luxury_goods`, `drugs`, `hand_weapons`, `alpha_core`, or `lobster`.
 * "executiveOfficers" for custom second in command officer layouts. It is a json object where the id is the officer's aptitude, and the value a list of his chosen skills. Skills will continue to be added at random until the executive officers are fully leveled up if they are not specified. 
-* "dialogOverride" for custom lord dialogs. Is is a json object were the id is the dialog id (matched to the id of a object in the dialog.json) the value is a list of rules. lord will attempt to use the matching dialogs lines, if and only if, the rules in this object are met (ignoring the rules stored in the dialog.json's object.). for data on rules, see 'Adding Custom dialog to lords' -> "rules".
+* "dialogOverride" for custom lord dialogs. Is is a json array were the id is the dialog id (matched to the id of a object in the dialog.json). will attempt to run said Dialogs, but will also run the normal dialogs if the line it is looking for does not exsist in the inputed Dialogs (or if the lord fails to meet the requirements for the wanted line)
 * Flagship and ship preferences must contain valid ship variant ids. You can find these under the `/data/variants` folder of `starsector-core` or any mod directories.
 * Faction and fief will be automatically converted to lower case. Ship variants are case-sensitive.
 

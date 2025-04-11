@@ -162,6 +162,7 @@ public class DialogSet {
             if (out != null) return out;
         }
         for (int a = organizedDialogs.size() - 1; a > 0; a--){
+            //never runs Dialogs with a priority of 0. they are reserved for dialogOverrides.
             for(LordDialog b : organizedDialogs.get(a)) {
                 DialogSet out = b.getSet(lord,id);
                 if (out != null) return out;
