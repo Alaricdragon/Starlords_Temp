@@ -20,6 +20,7 @@ import starlords.lunaSettings.StoredSettings;
 import starlords.person.Lord;
 import starlords.util.Constants;
 import starlords.util.GenderUtils;
+import starlords.util.Utils;
 import starlords.util.dialogControler.dialogRull.*;
 import starlords.util.dialogControler.dialog_addon.*;
 
@@ -79,6 +80,26 @@ public class DialogSet {
         }
         set.applyLine(key, lord, textPanel, options,dialog,forceHide,markersReplaced);
     }
+    public static void addParaWithInserts(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog){
+        //DialogSet.addParaWithInserts("ERROR",targetLord,textPanel,options);
+        //DialogSet.addOptionWithInserts("ERROR",null,null,targetLord,textPanel,options);
+        //addParaWithInserts(key, lord, textPanel, options,new HashMap<String,String>());
+        addParaWithInserts(key, lord,targetLord, textPanel, options,dialog,false);
+    }
+    public static void addParaWithInserts(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog,boolean forceHide){
+        //DialogSet.addParaWithInserts("ERROR",targetLord,textPanel,options);
+        //DialogSet.addOptionWithInserts("ERROR",null,null,targetLord,textPanel,options);
+        addParaWithInserts(key, lord,targetLord, textPanel, options,dialog,forceHide,new HashMap<String,String>());
+    }
+    public static void addParaWithInserts(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog,boolean forceHide,HashMap<String,String> markersReplaced) {
+        DialogSet set = getSet(lord, key);
+        if (set == null) {
+            Logger log = Global.getLogger(DialogSet.class);
+            log.info("ERROR: FAILED TO GET DIALOG SET OF KEY: "+key);
+            return;
+        }
+        set.applyLine(key, lord,targetLord, textPanel, options,dialog,forceHide,markersReplaced);
+    }
     @Deprecated
     public static void addParaWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options,HashMap<String,String> markersReplaced){
         DialogSet set = getSet(lord, key);
@@ -100,6 +121,16 @@ public class DialogSet {
         DialogSet set = getSet(lord, key);
         if (set == null) return;
         set.applyOption(key,  lord,  textPanel,optionData, options,dialog, markersReplaced);
+    }
+    public static void addOptionWithInserts(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced){
+        DialogSet set = getSet(lord, key);
+        if (set == null) return;
+        set.applyOption(key,  lord,targetLord,  textPanel,  options,dialog, markersReplaced);
+    }
+    public static void addOptionWithInserts(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced,DialogOption optionData){
+        DialogSet set = getSet(lord, key);
+        if (set == null) return;
+        set.applyOption(key,  lord,targetLord,  textPanel,optionData, options,dialog, markersReplaced);
     }
     @Deprecated
     public static void addOptionWithInserts(String key, String tooltipKey, Object optionData, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options){
@@ -140,9 +171,10 @@ public class DialogSet {
         if (set != null) return set.getLine(id);
         return "ERROR: unable to get line of dialog. id of: "+id;
     }
+    @Deprecated
     public static String getLineWithInserts(Lord lord,String id){
         String line = getLine(lord,id);
-        return insertDefaltData(line,lord);
+        return "";//insertDefaltData(line,lord);
     }
     public static String insertData(String line, String mark, String replaced){
         /*StringBuilder out = new StringBuilder();
@@ -165,7 +197,7 @@ public class DialogSet {
         }
         return line;
     }
-    public static String insertDefaltData(String line, Lord lord){
+    public static String insertDefaltData(String line, Lord lord,Lord targetLord){
         line = getPlayerStringMods(line,lord);
         line = getPlayerPartnerStringMods(line,lord);
 
@@ -177,6 +209,9 @@ public class DialogSet {
 
         line = getWeddingTargetLordStringMods(line,lord);
         line = getWeddingTargetPartnerStringMods(line,lord);
+
+        line = getSecondLordStringMods(line,lord,targetLord);
+        line = getSecondLordPartnerStringMods(line,lord,targetLord);
         return line;
     }
 
@@ -192,6 +227,10 @@ public class DialogSet {
 
         data = Global.getSector().getPlayerPerson().getName().getLast();
         line = insertData(line,"%PLAYER_NAME_LAST",data);
+
+        data = LordController.getPlayerLord().getTitle();
+        if (data == null) data = "";
+        line = insertData(line,"%PLAYER_TITLE",data);
 
         data = Global.getSector().getPlayerPerson().getManOrWoman();
         line = insertData(line,"%PLAYER_GENDER_MAN_OR_WOMEN",data);
@@ -230,6 +269,10 @@ public class DialogSet {
         LawProposal lordProposal = PoliticsController.getProposal(lord);
         if (lordProposal != null) data = lordProposal.getTitle();
         line = insertData(line,"%PLAYER_PROPOSAL_NAME",data);
+
+        data = "nowhere";
+        if (Global.getSector().getPlayerFleet() != null && Utils.getNearbyDescription(Global.getSector().getPlayerFleet()) != null) data = Utils.getNearbyDescription(Global.getSector().getPlayerFleet());
+        line = insertData(line,"%PLAYER_FLEET_LOCATION",data);
         return line;
     }
     private static String getPlayerPartnerStringMods(String line, Lord lord){
@@ -248,6 +291,10 @@ public class DialogSet {
 
         data = Global.getSector().getPlayerPerson().getName().getLast();
         line = insertData(line,"%PLAYER_SPOUSE_NAME_LAST",data);
+
+        data = LordController.getPlayerLord().getTitle();
+        if (data == null) data = "";
+        line = insertData(line,"%PLAYER_SPOUSE_TITLE",data);
 
         data = Global.getSector().getPlayerPerson().getManOrWoman();
         line = insertData(line,"%PLAYER_SPOUSE_GENDER_MAN_OR_WOMEN",data);
@@ -283,6 +330,10 @@ public class DialogSet {
         LawProposal lordProposal = PoliticsController.getProposal(lord);
         if (lordProposal != null) data = lordProposal.getTitle();
         line = insertData(line,"%PLAYER_SPOUSE_PROPOSAL_NAME",data);
+
+        data = "nowhere";
+        if (Global.getSector().getPlayerFleet() != null && Utils.getNearbyDescription(Global.getSector().getPlayerFleet()) != null) data = Utils.getNearbyDescription(Global.getSector().getPlayerFleet());
+        line = insertData(line,"%PLAYER_SPOUSE_FLEET_LOCATION",data);
         return line;
     }
     private static String getLordStringMods(String line, Lord lord){
@@ -318,7 +369,7 @@ public class DialogSet {
             Lord temp = EventController.getCurrentFeast(lord.getLordAPI().getFaction()).getWeddingCeremonyTarget();
             if (temp != null) lord = temp;
         }
-        return get_StringMods(line,lord,"WEDDING_TARGET");
+        return get_StringMods(line,lord,"WEDDING_TARGET_");
     }
     private static String getWeddingTargetPartnerStringMods(String line, Lord lord){
         boolean check = EventController.getCurrentFeast(lord.getLordAPI().getFaction()) != null;
@@ -331,9 +382,17 @@ public class DialogSet {
                 }
             }
         }
-        return get_StringMods(line,lord,"WEDDING_TARGET_SPOUSE");
+        return get_StringMods(line,lord,"WEDDING_TARGET_SPOUSE_");
     }
-
+    private static String getSecondLordStringMods(String line,Lord lord,Lord targetLord){
+        if (targetLord != null) lord = targetLord;
+        return get_StringMods(line,lord,"SECOND_LORD_");
+    }
+    private static String getSecondLordPartnerStringMods(String line,Lord lord,Lord targetLord){
+        if (targetLord != null) lord = targetLord;
+        if (lord.getSpouse() != null) lord = LordController.getLordById(lord.getSpouse());
+        return get_StringMods(line,lord,"SECOND_LORD_SPOUSE");
+    }
 
     private static String get_StringMods(String line, Lord lord, String key){
         String data = lord.getFaction().getDisplayName();
@@ -345,11 +404,14 @@ public class DialogSet {
         data = lord.getLordAPI().getNameString();
         line = insertData(line,"%"+key+"NAME",data);
 
-        data = Global.getSector().getPlayerPerson().getName().getFirst();
+        data = lord.getLordAPI().getName().getFirst();
         line = insertData(line,"%"+key+"NAME_FIRST",data);
 
-        data = Global.getSector().getPlayerPerson().getName().getLast();
+        data = lord.getLordAPI().getName().getLast();
         line = insertData(line,"%"+key+"NAME_LAST",data);
+
+        data = lord.getTitle();
+        line = insertData(line,"%"+key+"TITLE",data);
 
         data = lord.getLordAPI().getManOrWoman();
         line = insertData(line,"%"+key+"GENDER_MAN_OR_WOMEN",data);
@@ -385,6 +447,10 @@ public class DialogSet {
         LawProposal lordProposal = PoliticsController.getProposal(lord);
         if (lordProposal != null) data = lordProposal.getTitle();
         line = insertData(line,"%"+key+"PROPOSAL_NAME",data);
+
+        data = "nowhere";
+        if (lord.getLordAPI().getFleet() != null && Utils.getNearbyDescription(lord.getLordAPI().getFleet()) != null) data = Utils.getNearbyDescription(lord.getLordAPI().getFleet());
+        line = insertData(line,"%"+key+"FLEET_LOCATION",data);
         return line;
     }
 
@@ -483,6 +549,7 @@ public class DialogSet {
     @Getter
     private HashMap<String,String> dialog = new HashMap<>();
     private HashMap<String,String> dialogOptionData = new HashMap<>();
+    private HashMap<String,DialogGroupOption> advancedDialogOptionData = new HashMap<>();
     private HashMap<String,String> hint = new HashMap<>();
     private HashMap<String,String> shotcut = new HashMap<>();
     private ArrayList<DialogRule_Base> rules = new ArrayList();
@@ -539,12 +606,15 @@ public class DialogSet {
         return true;
     }
     public void applyLine(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, boolean forceHide, HashMap<String,String> markersReplaced){
+        applyLine(key, lord,null, textPanel, options, dialog, forceHide, markersReplaced);
+    }
+    public void applyLine(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, boolean forceHide, HashMap<String,String> markersReplaced){
         Logger log = Global.getLogger(StoredSettings.class);
         //apply a paragraph of text for the current line
         if (shouldHide(key,textPanel,options,lord)) return;
         String line = this.getLine(key);
         if (line != null && !line.equals("") && !shouldHide(key, textPanel, options, lord) && !forceHide) {
-            line = insertDefaltData(line, lord);
+            line = insertDefaltData(line, lord,targetLord);
             line = insertAdditionalData(line, markersReplaced);
             if (colorOverride.containsKey(key)) {
                 textPanel.addPara(line, colorOverride.get(key));
@@ -563,11 +633,11 @@ public class DialogSet {
             }
             for (String a : additionalOptions.get(key)){
                 log.info("  ADDITIONAL OPTIONS: a single option of key: "+a);
-                addOptionWithInserts(a,lord,textPanel,options,dialog,markersReplaced);
+                addOptionWithInserts(a,lord,targetLord,textPanel,options,dialog,markersReplaced);
             }
         }else if (defaltOptionSets.containsKey(key)){
             log.info("getting default options from, to key: "+key+", "+defaltOptionSets.get(key));
-            addParaWithInserts(defaltOptionSets.get(key),lord,textPanel,options,dialog,false,markersReplaced);
+            addParaWithInserts(defaltOptionSets.get(key),lord,targetLord,textPanel,options,dialog,false,markersReplaced);
             builtOptions = true;
         }
         if (!builtOptions){
@@ -586,15 +656,34 @@ public class DialogSet {
         DialogOption optionData = new DialogOption(dialogOptionData.get(key),addons.get(key));
         applyOption(key,lord,textPanel,optionData,options,dialog,markersReplaced);
     }
+    public void applyOption(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
+        DialogOption optionData = new DialogOption(dialogOptionData.get(key),addons.get(key));
+        applyOption(key,lord,targetLord,textPanel,optionData,options,dialog,markersReplaced);
+    }
     public void applyOption(String key, Lord lord, TextPanelAPI textPanel,Object optionData,OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
+        applyOption(key, lord,null, textPanel, optionData, options, dialog, markersReplaced);
+    }
+    public void applyOption(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel,Object optionData,OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
+        Logger log = Global.getLogger(StoredSettings.class);
+        log.info("  checking option of key: "+key);
+        if (advancedDialogOptionData.containsKey(key)){
+            log.info("  attempting to add advanced option for: "+key);
+            advancedDialogOptionData.get(key).applyOptions(lord,textPanel,options,dialog,markersReplaced);
+        }else{
+            log.info("  attempting to add basic option for: "+key);
+            applyOptionSingle(key, lord, targetLord, textPanel, optionData, options, dialog, markersReplaced);
+        }
+    }
+    public void applyOptionSingle(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel,Object optionData,OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
         Logger log = Global.getLogger(StoredSettings.class);
         String line = this.getLine(key);
         if (!shouldHide(key, textPanel, options, lord) && line != null) {
-            line = insertDefaltData(line, lord);
+            log.info("adding option of key: "+key);
+            line = insertDefaltData(line, lord,targetLord);
             line = insertAdditionalData(line, markersReplaced);
             if (hint.containsKey(key)) {
                 String line2 = hint.get(key);
-                line2 = insertDefaltData(line2, lord);
+                line2 = insertDefaltData(line2, lord,targetLord);
                 line2 = insertAdditionalData(line2, markersReplaced);
                 if (colorOverride.containsKey(key)) {
                     options.addOption(line, optionData, colorOverride.get(key), line2);
@@ -646,35 +735,11 @@ public class DialogSet {
         if (!builtOptions) {
             //log.info("got no options from key of: " + key);
             //???????? unknown process.
-        //what I would attempt to do here is run the optionData of the line. effectively, just changing lines directly after. this can be done with chained lines though?
+            //what I would attempt to do here is run the optionData of the line. effectively, just changing lines directly after. this can be done with chained lines though?
         }
 
     }
-    public void applyOptionOLD(String key,String hintKey, Lord lord, TextPanelAPI textPanel, Object optionData, OptionPanelAPI options,HashMap<String,String> markersReplaced){
-        String line = this.getLine(key);
-        line = insertDefaltData(line,lord);
-        line = insertAdditionalData(line,markersReplaced);
 
-        if (hintKey != null){
-            String line2 = this.getLine(hintKey);
-            line2 = insertDefaltData(line2,lord);
-            line2 = insertAdditionalData(line2,markersReplaced);
-            if (colorOverride.containsKey(key)) {
-                options.addOption(line, optionData,colorOverride.get(key), line2);
-            }else{
-                options.addOption(line, optionData, line2);
-            }
-            //is this even required????
-            options.setTooltip(optionData,line2);
-        }else{
-            if (colorOverride.containsKey(key)) {
-                options.addOption(line, optionData,colorOverride.get(key),"");
-            }else{
-                options.addOption(line, optionData);
-            }
-        }
-
-    }
     private boolean shouldHide(String key,TextPanelAPI textPanel,OptionPanelAPI options,Lord lord){
         if (!hide.containsKey(key) || hide.get(key).size() == 0) return false;
         for (DialogRule_Base a : hide.get(key)){
@@ -797,9 +862,9 @@ public class DialogSet {
                     case "setPlayerSupportForCurProposal":
                         addon = addAddon_setPlayerSupportForCurProposal(addons,key2);
                         break;
-                    case "askForLordLocations":
+                    /*case "askForLordLocations":
                         addon = addAddon_askForLordLocations(addons,key2);
-                        break;
+                        break;*/
                     /*case "askForLordLocation":
                         addon = addAddon_askForLordLocation(addons,key2);
                         break;*/
@@ -845,7 +910,20 @@ public class DialogSet {
             additionalOptions.put(key,optionsTemp);
         }
         if (line.has("optionData")){
-            dialogOptionData.put(key,line.getString("optionData"));
+            boolean isObject = true;
+            try{
+                line.getJSONObject("optionData");
+            }catch (Exception e){
+                isObject = false;
+            }
+            if (isObject){
+                JSONObject optionData = line.getJSONObject("optionData");
+                ArrayList<DialogRule_Base> tempa = getDialogFromJSon(optionData.getJSONObject("rules"));
+                String tempb = optionData.getString("optionData");
+                advancedDialogOptionData.put(key,new DialogGroupOption(tempa,tempb));
+            }else {
+                dialogOptionData.put(key, line.getString("optionData"));
+            }
         }
         if (line.has("hint")){
             hint.put(key,line.getString("hint"));
@@ -1020,12 +1098,12 @@ public class DialogSet {
         boolean json2 = json.getBoolean(key);
         return new DialogAddon_setPlayerSupportForCurProposal(json2);
     }
-    @SneakyThrows
+    /*@SneakyThrows
     private static DialogAddon_Base addAddon_askForLordLocations(JSONObject json,String key){
         boolean json2 = json.getBoolean(key);
         if (!json2) return null;
         return new DialogAddon_askForLordLocations();
-    }
+    }*/
     /*@SneakyThrows
     private static DialogAddon_Base addAddon_askForLordLocation(JSONObject json,String key){
         boolean json2 = json.getBoolean(key);
@@ -1222,6 +1300,15 @@ public class DialogSet {
                     break;
                 case "random":
                     rules.add(addRule_random(rulesTemp,key));
+                    break;
+                case "lordFleetIsAlive":
+                    rules.add(addRule_lordFleetIsAlive(rulesTemp,key));
+                    break;
+                case "relationsBetweenLords":
+                    rules.add(addRule_relationsBetweenLords(rulesTemp,key));
+                    break;
+                case "lordAndTargetSameFaction":
+                    rules.add(addRule_lordAndTargetSameFaction(rulesTemp,key));
                     break;
             }
         }
@@ -1574,5 +1661,20 @@ public class DialogSet {
     private static DialogRule_Base addRule_random(JSONObject json,String key){
         JSONObject json2 = json.getJSONObject(key);
         return new DialogRule_random(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_lordFleetIsAlive(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_lordFleetIsAlive(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_relationsBetweenLords(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_relationsBetweenLords(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_lordAndTargetSameFaction(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_lordAndTargetSameFaction(json2);
     }
 }

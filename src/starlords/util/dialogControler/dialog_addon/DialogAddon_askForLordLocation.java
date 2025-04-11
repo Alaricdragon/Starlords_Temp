@@ -16,6 +16,7 @@ public class DialogAddon_askForLordLocation extends DialogAddon_Base {
     }
     @Override
     public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord) {
+        //NO LONGER IN USE.
         if (savedLord != null && savedLord.getLordAPI().getFleet().isAlive()) {
             HashMap<String,String> insirts = new HashMap<>();
             insirts.put("%c0",savedLord.getTitle());

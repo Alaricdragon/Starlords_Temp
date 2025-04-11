@@ -18,6 +18,7 @@ import java.util.HashMap;
 public class DialogAddon_askForLordLocations extends DialogAddon_Base {
     @Override
     public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord){
+        //NO LONGER IN USE!!!
         options.clearOptions();
         //Logger log = Global.getLogger(StoredSettings.class);
         //log.info("ADDING LORD SEARCH OPTIONS");

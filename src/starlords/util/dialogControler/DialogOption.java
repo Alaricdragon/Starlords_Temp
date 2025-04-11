@@ -14,6 +14,11 @@ import java.util.ArrayList;
 public class DialogOption {
     public String optionID;
     ArrayList<DialogAddon_Base> addons;
+    Lord targetLord;
+    public DialogOption(String optionID, ArrayList<DialogAddon_Base> addons,Lord targetLord){
+        this(optionID, addons);
+        this.targetLord = targetLord;
+    }
     public DialogOption(String optionID, ArrayList<DialogAddon_Base> addons){
         this.optionID = optionID;
         this.addons=addons;
@@ -28,7 +33,7 @@ public class DialogOption {
         if (addons == null) return;
         for (DialogAddon_Base a : addons){
             log.info("  applying addon from option of class name: "+a.getClass().getName());
-            a.apply(textPanel, options, dialog,lord);
+            a.apply(textPanel, options, dialog,lord,targetLord);
         }
     }
 }

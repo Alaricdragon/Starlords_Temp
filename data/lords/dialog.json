@@ -2684,19 +2684,6 @@
         "line": "Lost %c0 %c1.",
         "color": "RED"
       },
-      "option_askALordsLocation": "%c0 %c1",
-      "foundLordsLocation": {
-        "line":"I heard that %c0 %c1 was last sighted around %c2",
-        "options": [
-          "optionSet_greeting"
-        ]
-      },
-      "failedToFindLordsLocation": {
-        "line":"I don't know where %c0 %c1 is",
-        "options": [
-          "optionSet_greeting"
-        ]
-      },
 
       "optionSet_greeting": {
         "options": [
@@ -3372,6 +3359,22 @@
         "shortcut": "ESCAPE"
       },
 
+      "optionSet_accept_ask_location": {
+        "options": ["optionSet_LordLocationFinder","option_nevermind_accept_ask_location"]
+      },
+      "optionSet_LordLocationFinder": {
+        "optionData": {
+          "optionData": "option_LordLocation",
+          "rules": {
+            "lordFleetIsAlive": true,
+            "lordAndTargetSameFaction": true
+          }
+        }
+      },
+      "option_LordLocation": {
+        "line": "%SECOND_LORD_TITLE %SECOND_LORD_NAME",
+        "optionData": "ERROR"
+      },
       "option_nevermind_accept_ask_location": {
         "line":"Never mind",
         "optionData": "greeting",

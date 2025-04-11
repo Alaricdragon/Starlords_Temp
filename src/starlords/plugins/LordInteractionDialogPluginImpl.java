@@ -1050,6 +1050,35 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         optionSelected(null, OptionId.ASK_QUESTION);
     }
     private void optionSelected_ASK_LOCATION(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
+        /*ok.... ok. fuck
+        * so...
+        * I need the way
+        * so here the plan:
+        * 1) (done)make it so all conditions and addons have a second lord slot, called second lord, in its data.
+        *   -note: this was set to be optional
+        * 2) (done)make it so all instances of getting or checking lines can take in a second lord input.
+        * 3) (done)make it so add para and add option have a second lord slot as a option.
+        * 4) (done)make it so the optionData input has the option of being a jsonObject. it will contain the following:
+        *   -when optionData is gotten as a object, it will go through every single lord in game. if a lord meets all conditionData data, it will be added to a list of TARGET_LORDS
+        *   -this list will have each lord added as a optionData. the string and conditions will be based around that TARGET_LORD.
+        *   1) a optionData: String value
+        *       -this is the optionData that will be loaded for all the starlords.
+        *   2) a conditionData:
+        *       this is a condition data were lord_0 is the second lord, and TARGET_LORD is the first lord in data.
+        *
+        * string data:
+        *   TARGET_LORD
+        *   TARGET_LORD_SPOUSE
+        *
+        *   _LOCATION (nothing if null)
+        *
+        * conditions:
+        *   -only usable in advanced option data.
+        *       relationsBetweenLords(lordA,lordB)
+        *       targetLordSameFactionAsLord()
+        *   fleetIsAlive.
+        *   */
+
         textPanel.addParagraph(StringUtil.getString(CATEGORY, "accept_ask_location"));
         options.clearOptions();
         lordsReference.clear();

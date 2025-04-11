@@ -181,6 +181,10 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "playerLordRelation": float. this is playerLordRelation * value.
     * "opinionOfCurrProposal": float. this is the lords opinion of the current proposal in its faction * value
     * "opinionOfPlayerProposal": float. this is the lords opinion of the players proposal in its faction * value
+  * "lordFleetIsAlive" if set to false, the lords fleet must not be alive to meet requirements. if set to true, the lords fleet must be alive to meet requirements.
+  * the following options only work if used in an option called by advanced option data.
+    * "relationsBetweenLords": is the relationship range that this lord must have with the target lord to meet requirements. set between a "min" and "max" value. range must be between -100 and 100.
+    * "lordAndTargetSameFaction": if set to false, the lord and target must not be part of the same faction to meet requirements. if set to ture, the lord and target must be part of the same faction to meet requirements.
 * basic is simply a "lineID": "new string";
   * advanced is more complicated. its a json object, that must include a "line" (to act as the normal lineID), but also additional json peramiters. "addons" are . the "addons" are as follows:
     * "addons" additional conditions and effects that you can have run at the moment this line is ran. most 'addons' also add a line of dialog to show what effects they had. any "option_" will only run addons after the option is selected. and "tooltip_" line cannot use "addons"
@@ -233,8 +237,8 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "setPlayerSupportForLordProposal": boolean. sets weather the player is currently supporting the lords proposal, or is opposed to the lords proposal.
       * "setPlayerSupportForCurProposal": boolean. sets weather the player is currently supporting the current proposal or is opposed to the current proposal.
       * "setSwayed": boolean. sets whether the lord you are talking to has been swayed or not. if so, they cannot be swayed until the next proposal.
-      * "askForLordLocations": boolean. when set to true, will run additional options for each starlord in the lords faction. when clicked on, will run askForLordLocation.
-      * "askForLordLocation": Lord data. cannot be used from the Json file. when ran, will display the location of a starlord. 
+      * !!!!to be removed "askForLordLocations": boolean. when set to true, will run additional options for each starlord in the lords faction. when clicked on, will run askForLordLocation.
+      * !!!!to be removed "askForLordLocation": Lord data. cannot be used from the Json file. when ran, will display the location of a starlord. 
     * "color" color override for this dialog line. not required. has 3 'preset' colors, but also the option for a custom color. cannot be used in any "tooltip_" line.
       * "RED"
       * "GREEN"
@@ -247,8 +251,11 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "options" is an jsonArray containing the lineID's of any option or option set that this line should run. please note, that most lines by default have a entry in the [default_dialog_options.json](https://github.com/Deluth-git/Starlords/blob/master/data/lords/default_dialog_options.json) file
     * "show" is an jsonObject that contains the same functions as 'rules', but instead of determining if a line can be ran, if any conditions in the object are false, and this line is selected, it will not be shown. for "option_"'s, if this line is selected and the 'hide' is true, it will not be ran.
     * "enable": (only effects 'option_' lines) is a jsonObject that contains the same functions as 'rules', but instead of determining if a line can be ran. if any conditions in this object are false, and this option will be greyed out and unable to be used.
-    * "optionData" is the link to a line that happens when you click this option. if called as a line, and no options are selected for this line, it will automaticly load the linked line. 
-    * "hint" is the hover over hint that happens when you hover only an option. only works if this line is called as an option
+    * "optionData": is the line to a line that happens when you click this option. if called as a line, and no options are selected for this line, it will automaticly load the linked line. 
+    * "optionData": is the advanced option data form. this form runs through the intier lord list, and any lord matching 'conditions' will have an option added with the targetLord as data.
+      * "optionData": is the line to a line that happens when you click this option(s)
+      * "rules": is the rules that are required for each starlord in the game to be shown. 
+    * "hint": is the hover over hint that happens when you hover only an option. only works if this line is called as an option
     * "shortcut" : "shortcutLey" if this is set to one of the acsepted value, will add a hotkey to an option. only works for "option_" lines. possable options are:
       * "ESCAPE"
     * "lines" is the dialog lines for every line a starlord speaks. this comes in 2 forms. the first, wish we will call basic, and the second, that we will call advanced:
@@ -262,12 +269,15 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * LORD_HOST_SPOUSE (note: will backup to LORD_HOST if organizer does not have a spouse)
     * WEDDING_TARGET (note: will backup to LORD if not at a wedding)
     * WEDDING_TARGET_SPOUSE (note: will backup to WEDDING_TARGET if wedding target has no spouse)
+    * SECOND_LORD (note: will backup to LORD if not at feast, or organizer does not exsist)
+    * SECOND_LORD_SPOUSE (note: will backup to LORD_HOST if organizer does not have a spouse)
   markers of the following. (replace TARGET with diffrent target types at will)
       * "%TARGET_FACTION_NAME" 
       * "%TARGET_STARTING_FACTION_NAME"
       * "%TARGET_NAME"
       * "%TARGET_NAME_FIRST"
       * "%TARGET_NAME_LAST"
+      * "%TARGET_TITLE"
       * "%TARGET_GENDER_MAN_OR_WOMEN"
       * "%TARGET_GENDER_HE_OR_SHE"
       * "%TARGET_GENDER_HIM_OR_HER"
@@ -278,6 +288,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "%TARGET_FLAGSHIP_HULLNAME" target flagship ship hull name (return "nothing" if the target has no flagship)
       * "%TARGET_FLAGSHIP_NAME" target flagship name (returns "nothing" if the target has no flagship)
       * "%TARGET_PROPOSAL_NAME" target proposal name (returns "nothing" if the target has no active proposal)
+      * "%TARGET_FLEET_LOCATION" target fleet location (returns "nowere" if target fleet location cannot be found)
 
   *some lines will also use custom inputted data. in this case, they will use the '%c#' marker, with # being the order they are added to the line.
   *available lines to override are follows:
@@ -424,7 +435,18 @@ If you're a modder, or just someone who loves to write dialog for every starlord
         * after a lord is clicked on, displays the lords location, then runs : "greeting" 
         * "option_nevermind_accept_ask_location": "greeting"
 
-
+      "foundLordsLocation": {
+        "line":"I heard that %c0 %c1 was last sighted around %c2",
+        "options": [
+          "optionSet_greeting"
+        ]
+      },
+      "failedToFindLordsLocation": {
+        "line":"I don't know where %c0 %c1 is",
+        "options": [
+          "optionSet_greeting"
+        ]
+      },
 
 
 
