@@ -42,7 +42,7 @@ public final class LordTemplate {
     public final int ranking;
     public final String preferredItemId;
 
-    public final ArrayList<LordDialogController> dialogOverride;
+    public final ArrayList<String> dialogOverride;
     @SneakyThrows
     public LordTemplate(String name, JSONObject template){
         this.name = name;
@@ -139,10 +139,9 @@ public final class LordTemplate {
         forceLordSMods = !(template.has("flagshipForceCustomSMods") && !template.getBoolean("flagshipForceCustomSMods"));
         dialogOverride = new ArrayList<>();
         if (template.has("dialogOverride")){
-            JSONObject dialogConditions = template.getJSONObject("dialogOverride");
-            for (Iterator it = dialogConditions.keys(); it.hasNext();) {
-                String key = (String) it.next();
-                dialogOverride.add(new LordDialogController(key,dialogConditions.getJSONObject(key)));
+            JSONArray dialogConditions = template.getJSONArray("dialogOverride");
+            for (int a = 0; a < dialogConditions.length(); a++){
+                dialogOverride.add(dialogConditions.getString(a));
             }
         }
     }

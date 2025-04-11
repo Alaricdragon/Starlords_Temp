@@ -31,11 +31,16 @@ import java.util.Iterator;
 
 public class DialogSet {
     //for getting dialog types with a search
-    private static HashMap<String,DialogSet> dialogSets = new HashMap<>();
+    //private static HashMap<String,DialogSet> dialogSets = new HashMap<>();
     //for getting organized dialog data
-    private static ArrayList<ArrayList<DialogSet>> organizedDialogSets = new ArrayList<>();
+    //private static ArrayList<ArrayList<DialogSet>> organizedDialogSets = new ArrayList<>();
+    //for getting dialog with a search
+    public static HashMap<String,LordDialog> dialogs = new HashMap<>();
+    //for getting organized dialog data
+    public static ArrayList<ArrayList<LordDialog>> organizedDialogs = new ArrayList<>();
     //for getting the default option set of any given line.
     private static HashMap<String,String> defaltOptionSets = new HashMap<>();
+    private static LordDialog backup;
     @SneakyThrows
     public static void setup(){
         setupA();
@@ -44,11 +49,11 @@ public class DialogSet {
     @SneakyThrows
     private static void setupA(){
         JSONObject jsonObject = Global.getSettings().getMergedJSONForMod("data/lords/dialog.json", Constants.MOD_ID);
-        dialogSets = new HashMap<>();
-        organizedDialogSets = new ArrayList<>();
+        dialogs = new HashMap<>();
+        organizedDialogs = new ArrayList<>();
         for (Iterator it2 = jsonObject.keys(); it2.hasNext();) {
             String key2 = (String) it2.next();
-            new DialogSet(key2,jsonObject.getJSONObject(key2));
+            new LordDialog(key2,jsonObject.getJSONObject(key2));
         }
     }
     @SneakyThrows
@@ -152,18 +157,18 @@ public class DialogSet {
     }
 
     private static DialogSet getSet(Lord lord,String id){
-        for (LordDialogController a : lord.getTemplate().dialogOverride){
-            if (a.canUseDialog(lord) && dialogSets.containsKey(a.dialogLink) && dialogSets.get(a.dialogLink).hasLine(id)){
-                return dialogSets.get(a.dialogLink);
+        for (String a : lord.getTemplate().dialogOverride){
+            DialogSet out = dialogs.get(a).getSet(lord,id);
+            if (out != null) return out;
+        }
+        for (int a = organizedDialogs.size() - 1; a > 0; a--){
+            for(LordDialog b : organizedDialogs.get(a)) {
+                DialogSet out = b.getSet(lord,id);
+                if (out != null) return out;
             }
         }
-        for (int a = organizedDialogSets.size() - 1; a >= 0; a--){
-            for (DialogSet b : organizedDialogSets.get(a)){
-                if (b.canUseDialog(lord) && b.hasLine(id)){
-                    return b;
-                }
-            }
-        }
+        DialogSet out = dialogs.get("default").getSet(lord,id);
+        if (out != null) return out;
         return null;
     }
     public static String getLine(Lord lord,String id){
@@ -210,8 +215,8 @@ public class DialogSet {
         line = getWeddingTargetLordStringMods(line,lord);
         line = getWeddingTargetPartnerStringMods(line,lord);
 
-        line = getSecondLordStringMods(line,lord,targetLord);
-        line = getSecondLordPartnerStringMods(line,lord,targetLord);
+        line = getSecondLordStringMods(line,targetLord);
+        line = getSecondLordPartnerStringMods(line,targetLord);
         return line;
     }
 
@@ -277,7 +282,7 @@ public class DialogSet {
     }
     private static String getPlayerPartnerStringMods(String line, Lord lord){
         if (LordController.getPlayerLord().getSpouse() != null) return get_StringMods(line,LordController.getLordById(LordController.getPlayerLord().getSpouse()),"PLAYER_SPOUSE_");
-        return getPlayerNoPartnerStringMods(line,lord);
+        return get_null_StringMods(line,"PLAYER_SPOUSE_");
     }
     private static String getPlayerNoPartnerStringMods(String line, Lord lord){
         String data = Global.getSector().getPlayerFaction().getDisplayName();
@@ -340,16 +345,20 @@ public class DialogSet {
         return get_StringMods(line,lord,"LORD_");
     }
     private static String getLordPartnerStringMods(String line, Lord lord){
-        if (lord.getSpouse() != null) lord = LordController.getLordById(lord.getSpouse());
+        if (lord.getSpouse() == null) return get_null_StringMods(line,"LORD_SPOUSE_");
+        lord = LordController.getLordById(lord.getSpouse());
         return get_StringMods(line,lord,"LORD_SPOUSE_");
     }
     private static String getHostLordStringMods(String line, Lord lord){
         boolean check = EventController.getCurrentFeast(lord.getLordAPI().getFaction()) != null && EventController.getCurrentFeast(lord.getLordAPI().getFaction()).getOriginator() != null;
         if (check){
             Lord temp = EventController.getCurrentFeast(lord.getLordAPI().getFaction()).getOriginator();
-            if (temp != null) lord = temp;
+            if (temp != null){
+                lord = temp;
+                return get_StringMods(line,lord,"LORD_HOST_");
+            }
         }
-        return get_StringMods(line,lord,"LORD_HOST_");
+        return get_null_StringMods(line,"LORD_HOST_");
     }
     private static String getHostLordPartnerStringMods(String line, Lord lord){
         boolean check = EventController.getCurrentFeast(lord.getLordAPI().getFaction()) != null && EventController.getCurrentFeast(lord.getLordAPI().getFaction()).getOriginator() != null;
@@ -357,19 +366,21 @@ public class DialogSet {
             Lord temp = EventController.getCurrentFeast(lord.getLordAPI().getFaction()).getOriginator();
             if (temp != null) {
                 lord = temp;
-                if (lord.getSpouse() != null) lord = LordController.getLordById(lord.getSpouse());
+                if (lord.getSpouse() != null){
+                    lord = LordController.getLordById(lord.getSpouse());
+                    return get_StringMods(line,lord,"LORD_HOST_SPOUSE_");
+                }
             }
-            return get_StringMods(line,lord,"LORD_HOST_SPOUSE_");
         }
-        return get_StringMods(line,lord,"LORD_HOST_SPOUSE_");
+        return get_null_StringMods(line,"LORD_HOST_SPOUSE_");
     }
     private static String getWeddingTargetLordStringMods(String line, Lord lord){
         boolean check = EventController.getCurrentFeast(lord.getLordAPI().getFaction()) != null;
         if (check){
             Lord temp = EventController.getCurrentFeast(lord.getLordAPI().getFaction()).getWeddingCeremonyTarget();
-            if (temp != null) lord = temp;
+            if (temp != null) get_StringMods(line,lord,"WEDDING_TARGET_");
         }
-        return get_StringMods(line,lord,"WEDDING_TARGET_");
+        return get_null_StringMods(line,"WEDDING_TARGET_");
     }
     private static String getWeddingTargetPartnerStringMods(String line, Lord lord){
         boolean check = EventController.getCurrentFeast(lord.getLordAPI().getFaction()) != null;
@@ -379,19 +390,20 @@ public class DialogSet {
                 lord = temp;
                 if (lord.getSpouse() != null){
                     lord = LordController.getLordById(lord.getSpouse());
+                    return get_StringMods(line,lord,"WEDDING_TARGET_SPOUSE_");
                 }
             }
         }
-        return get_StringMods(line,lord,"WEDDING_TARGET_SPOUSE_");
+        return get_null_StringMods(line,"WEDDING_TARGET_SPOUSE_");
     }
-    private static String getSecondLordStringMods(String line,Lord lord,Lord targetLord){
-        if (targetLord != null) lord = targetLord;
-        return get_StringMods(line,lord,"SECOND_LORD_");
+    private static String getSecondLordStringMods(String line,Lord targetLord){
+        if (targetLord == null) return get_null_StringMods(line,"SECOND_LORD_");
+        return get_StringMods(line,targetLord,"SECOND_LORD_");
     }
-    private static String getSecondLordPartnerStringMods(String line,Lord lord,Lord targetLord){
-        if (targetLord != null) lord = targetLord;
-        if (lord.getSpouse() != null) lord = LordController.getLordById(lord.getSpouse());
-        return get_StringMods(line,lord,"SECOND_LORD_SPOUSE");
+    private static String getSecondLordPartnerStringMods(String line,Lord targetLord){
+        if (targetLord == null || targetLord.getSpouse() == null) return get_null_StringMods(line,"SECOND_LORD_SPOUSE_");
+        targetLord = LordController.getLordById(targetLord.getSpouse());
+        return get_StringMods(line,targetLord,"SECOND_LORD_SPOUSE_");
     }
 
     private static String get_StringMods(String line, Lord lord, String key){
@@ -450,6 +462,43 @@ public class DialogSet {
 
         data = "nowhere";
         if (lord.getLordAPI().getFleet() != null && Utils.getNearbyDescription(lord.getLordAPI().getFleet()) != null) data = Utils.getNearbyDescription(lord.getLordAPI().getFleet());
+        line = insertData(line,"%"+key+"FLEET_LOCATION",data);
+        return line;
+    }
+    private static String get_null_StringMods(String line, String key){
+        String data = "ERROR: failed to get date of: '"+key+"'";
+        line = insertData(line,"%"+key+"FACTION_NAME",data);
+
+        line = insertData(line,"%"+key+"STARTING_FACTION_NAME",data);
+
+        line = insertData(line,"%"+key+"NAME",data);
+
+        line = insertData(line,"%"+key+"NAME_FIRST",data);
+
+        line = insertData(line,"%"+key+"NAME_LAST",data);
+
+        line = insertData(line,"%"+key+"TITLE",data);
+
+        line = insertData(line,"%"+key+"GENDER_MAN_OR_WOMEN",data);
+
+        line = insertData(line,"%"+key+"GENDER_HE_OR_SHE",data);
+
+        line = insertData(line,"%"+key+"GENDER_HIM_OR_HER",data);
+
+        line = insertData(line,"%"+key+"GENDER_HIS_OR_HER",data);
+
+        line = insertData(line,"%"+key+"GENDER_SUIT_OR_DRESS",data);
+
+        line = insertData(line,"%"+key+"GENDER_NAME",data);
+
+        line = insertData(line,"%"+key+"FLAGSHIP_HULLNAME",data);
+
+        line = insertData(line,"%"+key+"FLAGSHIP_NAME",data);
+
+        line = insertData(line,"%"+key+"GENDER_HUSBAND_OR_WIFE",data);
+
+        line = insertData(line,"%"+key+"PROPOSAL_NAME",data);
+
         line = insertData(line,"%"+key+"FLEET_LOCATION",data);
         return line;
     }
@@ -558,15 +607,15 @@ public class DialogSet {
     private HashMap<String,ArrayList<String>> additionalOptions = new HashMap<>();
     private HashMap<String,ArrayList<DialogAddon_Base>> addons = new HashMap<>();
     private HashMap<String, Color> colorOverride = new HashMap<>();
-    public DialogSet(String name,int priority){
-        while (organizedDialogSets.size() < priority){
-            organizedDialogSets.add(new ArrayList<>());
+    public DialogSet(String name,int priority,LordDialog dialog){
+        while (dialog.organizedDialogSets.size() < priority){
+            dialog.organizedDialogSets.add(new ArrayList<>());
         }
-        organizedDialogSets.get(priority).add(this);
-        dialogSets.put(name,this);
+        dialog.organizedDialogSets.get(priority).add(this);
+        //dialogSets.put(name,this);
     }
     @SneakyThrows
-    public DialogSet(String name,JSONObject jsonObject){
+    public DialogSet(String name,JSONObject jsonObject,LordDialog dialog){
         int priority = 2;
 
         //add conditions
@@ -593,11 +642,10 @@ public class DialogSet {
             }
         }
         if (jsonObject.has("priority")) priority = jsonObject.getInt("priority");
-        while (organizedDialogSets.size() <= priority){
-            organizedDialogSets.add(new ArrayList<>());
+        while (dialog.organizedDialogSets.size() <= priority){
+            dialog.organizedDialogSets.add(new ArrayList<>());
         }
-        organizedDialogSets.get(priority).add(this);
-        dialogSets.put(name,this);
+        dialog.organizedDialogSets.get(priority).add(this);
     }
     public boolean canUseDialog(Lord lord){
         for (DialogRule_Base a : rules){
@@ -657,7 +705,7 @@ public class DialogSet {
         applyOption(key,lord,textPanel,optionData,options,dialog,markersReplaced);
     }
     public void applyOption(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
-        DialogOption optionData = new DialogOption(dialogOptionData.get(key),addons.get(key));
+        DialogOption optionData = new DialogOption(dialogOptionData.get(key),addons.get(key),targetLord);
         applyOption(key,lord,targetLord,textPanel,optionData,options,dialog,markersReplaced);
     }
     public void applyOption(String key, Lord lord, TextPanelAPI textPanel,Object optionData,OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
@@ -1310,6 +1358,9 @@ public class DialogSet {
                 case "lordAndTargetSameFaction":
                     rules.add(addRule_lordAndTargetSameFaction(rulesTemp,key));
                     break;
+                case "isInteractingLord":
+                    rules.add(addRule_isInteractingLord(rulesTemp,key));
+                    break;
             }
         }
         return rules;
@@ -1676,5 +1727,10 @@ public class DialogSet {
     private static DialogRule_Base addRule_lordAndTargetSameFaction(JSONObject json,String key){
         boolean json2 = json.getBoolean(key);
         return new DialogRule_lordAndTargetSameFaction(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_isInteractingLord(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_isInteractingLord(json2);
     }
 }

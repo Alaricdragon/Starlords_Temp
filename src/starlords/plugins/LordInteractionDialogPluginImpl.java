@@ -194,9 +194,11 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
             DialogOption data = (DialogOption) optionData;
             data.applyAddons(textPanel,options,dialog,targetLord);
             String selectedOption = data.optionID;
+
+            Lord secondLord = data.getTargetLord();
             switch (selectedOption){
                 case "greeting":
-                    optionSelected_greetings(selectedOption);
+                    optionSelected_greetings(selectedOption,secondLord);
                     break;
                 case "exitDialog":
                     optionSelected_exitDialog();
@@ -204,13 +206,13 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
                 case "":
                     break;
                 case "current_task_desc":
-                    optionSelected_askCurrentTask(selectedOption);
+                    optionSelected_askCurrentTask(selectedOption,secondLord);
                     break;
                 case "selectedOption":
-                    optionSelected_suggestDate(selectedOption);
+                    optionSelected_suggestDate(selectedOption,secondLord);
                     break;
                 default:
-                    DialogSet.addParaWithInserts(selectedOption,targetLord,textPanel,options,dialog);
+                    DialogSet.addParaWithInserts(selectedOption,targetLord,secondLord,textPanel,options,dialog);
                     break;
             }
             return true;
@@ -362,11 +364,11 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         }
     }
 
-    private void optionSelected_greetings(String selectedOption){
+    private void optionSelected_greetings(String selectedOption,Lord secondLord){
         boolean isFeast = targetLord.getCurrAction() == LordAction.FEAST;
         LordEvent feast = isFeast ? EventController.getCurrentFeast(targetLord.getLordAPI().getFaction()) : null;
         //only run greetings if player has not yet heard them this conversation
-        DialogSet.addParaWithInserts(selectedOption,targetLord,textPanel,options,dialog,hasGreeted);
+        DialogSet.addParaWithInserts(selectedOption,targetLord,secondLord,textPanel,options,dialog,hasGreeted);
         if (!hasGreeted){
             hasGreeted = true;
         }
@@ -389,7 +391,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
             }
         }
     }
-    private void optionSelected_askCurrentTask(String selectedOption){
+    private void optionSelected_askCurrentTask(String selectedOption,Lord secondLord){
         //ok, so: the link to this needs to be set as 'current_task_desc'.
         //the options for this needs to be set to: 'greetings'.
         String args = "";
@@ -403,11 +405,11 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         }
         HashMap<String,String> inserts = new HashMap<>();
         inserts.put("%c0",args);
-        DialogSet.addParaWithInserts(selectedOption,targetLord,textPanel,options,dialog,false,inserts);
+        DialogSet.addParaWithInserts(selectedOption,targetLord,secondLord,textPanel,options,dialog,false,inserts);
     }
-    private void optionSelected_suggestDate(String selectedOption){
+    private void optionSelected_suggestDate(String selectedOption,Lord secondLord){
         int dateType = 1 + Utils.rand.nextInt(36);
-        DialogSet.addParaWithInserts(selectedOption+dateType,targetLord,textPanel,options,dialog);
+        DialogSet.addParaWithInserts(selectedOption+dateType,targetLord,secondLord,textPanel,options,dialog);
     }
     private void optionSelected_exitDialog(){
         if (prevPlugin.equals(this)) {
@@ -1050,35 +1052,6 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         optionSelected(null, OptionId.ASK_QUESTION);
     }
     private void optionSelected_ASK_LOCATION(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
-        /*ok.... ok. fuck
-        * so...
-        * I need the way
-        * so here the plan:
-        * 1) (done)make it so all conditions and addons have a second lord slot, called second lord, in its data.
-        *   -note: this was set to be optional
-        * 2) (done)make it so all instances of getting or checking lines can take in a second lord input.
-        * 3) (done)make it so add para and add option have a second lord slot as a option.
-        * 4) (done)make it so the optionData input has the option of being a jsonObject. it will contain the following:
-        *   -when optionData is gotten as a object, it will go through every single lord in game. if a lord meets all conditionData data, it will be added to a list of TARGET_LORDS
-        *   -this list will have each lord added as a optionData. the string and conditions will be based around that TARGET_LORD.
-        *   1) a optionData: String value
-        *       -this is the optionData that will be loaded for all the starlords.
-        *   2) a conditionData:
-        *       this is a condition data were lord_0 is the second lord, and TARGET_LORD is the first lord in data.
-        *
-        * string data:
-        *   TARGET_LORD
-        *   TARGET_LORD_SPOUSE
-        *
-        *   _LOCATION (nothing if null)
-        *
-        * conditions:
-        *   -only usable in advanced option data.
-        *       relationsBetweenLords(lordA,lordB)
-        *       targetLordSameFactionAsLord()
-        *   fleetIsAlive.
-        *   */
-
         textPanel.addParagraph(StringUtil.getString(CATEGORY, "accept_ask_location"));
         options.clearOptions();
         lordsReference.clear();

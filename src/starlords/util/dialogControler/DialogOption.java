@@ -4,6 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.OptionPanelAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
+import lombok.Getter;
 import org.apache.log4j.Logger;
 import starlords.lunaSettings.StoredSettings;
 import starlords.person.Lord;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 public class DialogOption {
     public String optionID;
     ArrayList<DialogAddon_Base> addons;
+    @Getter
     Lord targetLord;
     public DialogOption(String optionID, ArrayList<DialogAddon_Base> addons,Lord targetLord){
         this(optionID, addons);

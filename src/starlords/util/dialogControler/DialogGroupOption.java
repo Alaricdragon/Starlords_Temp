@@ -7,6 +7,7 @@ import com.fs.starfarer.api.campaign.TextPanelAPI;
 import org.apache.log4j.Logger;
 import starlords.controllers.LordController;
 import starlords.person.Lord;
+import starlords.util.Utils;
 import starlords.util.dialogControler.dialogRull.DialogRule_Base;
 
 import java.util.ArrayList;
@@ -27,16 +28,15 @@ public class DialogGroupOption {
     }
     public void applyOptions(Lord pastLord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced){
         Logger log = Global.getLogger(DialogGroupOption.class);
-        log.info("getting additional options....");
         ArrayList<Lord> goodLords = new ArrayList<>();
         for (Lord lord : LordController.getLordsList()){
             if (canAddLord(lord,pastLord)){
-                log.info("  adding lord named "+lord.getLordAPI().getNameString());
                 goodLords.add(lord);
             }
         }
+        Utils.canonicalLordSort(goodLords);
         for (Lord lord : goodLords){
-            log.info("  adding option of key, lord: "+ line +", "+lord.getLordAPI().getNameString());
+            log.info("  adding a group option of key, lord: "+ line +", "+lord.getLordAPI().getNameString());
             DialogSet.addOptionWithInserts(line,pastLord,lord,textPanel,options,dialog,markersReplaced);
         }
     }

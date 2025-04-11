@@ -103,8 +103,12 @@ If you're a modder, or just someone who likes S-Mods you might want to expand on
 
 ### Adding Custom dialog to lords
 If you're a modder, or just someone who loves to write dialog for every starlord in your lords.json, you might want to create custom dialog lines with custom conditions for your starlords. All you have to do is add another entry to the [dialog.json](https://github.com/Deluth-git/Starlords/blob/master/data/lords/dialog.json) file. A few notes:
-* "priority" is the priority of this dialog. should have a value of at least 1 the dialog with the highest priority that has all its "rule" reuqirements met will be used in any instance, unless the lord you are talking to has a at least one valid "dialogOverride"
-  * please note: if you intend for a dialog to only be used by certain lords, you should set the priority to 0. then it will never be used by anyone other than the lords set to use that dialog in particular
+* the dialog.json is made out of 'dialogs'. each 'dialog' has a "priority", "rules", and "lines" inputs.
+  * "priority": is a integer. it is the order that the game will attempt to grab a line from dialog (provided that the line exists in a dialogSet in this dialog). if set to 0, only a lords "dialogOverride" data can be used to grab this dialog. (with the exseption of the "default" dialog, wish is used as a backup.)
+  * "rules": is a jsonObject. the 'rules' contents can be seen below. all 'rules' must meet requirements on a starlord to function.
+  * "lines": is a list of dialog sets. each dialog set can have their own priority, lines, and rules. 
+* each "dialog" contains a list of "dialog sets". if the "dialogs" rules are true, the game will attempt to get the highest priority dialogset that is true withen it.
+* "priority" is the priority of this dialog. should have a value of at least 0 the dialog with the highest priority that has all its "rule" reuqirements met will be used in any instance, unless the lord you are talking to has a at least one valid "dialogOverride"
 * "rules" is each requirement that must be met for a set of dialog to be used by a given starlord. every condition must be met for this to happen. conditions are as follows:
   * "relationWithPlayer" is the relationship range that this lord must have with a player to meet requirements. set between a "min" and "max" value. range must be between -100 and 100.
   * "startingFaction" is the starting faction required to meet requirements. starting faction is the faction a lord was part of when they first spawned. set to true for whitelist, and false for blacklist. To meet requirements, a lord must have a starting faction of one of the 'true' factions (if any are created in this rule), and must not have a stating faction of the 'false' factions.
@@ -185,6 +189,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * the following options only work if used in an option called by advanced option data.
     * "relationsBetweenLords": is the relationship range that this lord must have with the target lord to meet requirements. set between a "min" and "max" value. range must be between -100 and 100.
     * "lordAndTargetSameFaction": if set to false, the lord and target must not be part of the same faction to meet requirements. if set to ture, the lord and target must be part of the same faction to meet requirements.
+    * "isInteractingLord": if set to false, the lord and target must not be the same to meet requirements. if set to true, the lord and target must be the same to meet requirements.
 * basic is simply a "lineID": "new string";
   * advanced is more complicated. its a json object, that must include a "line" (to act as the normal lineID), but also additional json peramiters. "addons" are . the "addons" are as follows:
     * "addons" additional conditions and effects that you can have run at the moment this line is ran. most 'addons' also add a line of dialog to show what effects they had. any "option_" will only run addons after the option is selected. and "tooltip_" line cannot use "addons"
@@ -237,8 +242,6 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "setPlayerSupportForLordProposal": boolean. sets weather the player is currently supporting the lords proposal, or is opposed to the lords proposal.
       * "setPlayerSupportForCurProposal": boolean. sets weather the player is currently supporting the current proposal or is opposed to the current proposal.
       * "setSwayed": boolean. sets whether the lord you are talking to has been swayed or not. if so, they cannot be swayed until the next proposal.
-      * !!!!to be removed "askForLordLocations": boolean. when set to true, will run additional options for each starlord in the lords faction. when clicked on, will run askForLordLocation.
-      * !!!!to be removed "askForLordLocation": Lord data. cannot be used from the Json file. when ran, will display the location of a starlord. 
     * "color" color override for this dialog line. not required. has 3 'preset' colors, but also the option for a custom color. cannot be used in any "tooltip_" line.
       * "RED"
       * "GREEN"
@@ -252,7 +255,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "show" is an jsonObject that contains the same functions as 'rules', but instead of determining if a line can be ran, if any conditions in the object are false, and this line is selected, it will not be shown. for "option_"'s, if this line is selected and the 'hide' is true, it will not be ran.
     * "enable": (only effects 'option_' lines) is a jsonObject that contains the same functions as 'rules', but instead of determining if a line can be ran. if any conditions in this object are false, and this option will be greyed out and unable to be used.
     * "optionData": is the line to a line that happens when you click this option. if called as a line, and no options are selected for this line, it will automaticly load the linked line. 
-    * "optionData": is the advanced option data form. this form runs through the intier lord list, and any lord matching 'conditions' will have an option added with the targetLord as data.
+    * "optionData": is the advanced option data form. this form runs through the intier lord list, and any lord matching 'conditions' will have an option added with themselves as the targetLord.
       * "optionData": is the line to a line that happens when you click this option(s)
       * "rules": is the rules that are required for each starlord in the game to be shown. 
     * "hint": is the hover over hint that happens when you hover only an option. only works if this line is called as an option
@@ -262,15 +265,15 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * for both basic and advanced lines, you can also input a number of custom markers into your dialog that will be replaced with data automaticly. the markers are as follows
   * there are a few diffrent targets for markers. the targets are:
     * PLAYER
-    * PLAYER_SPOUSE (note: will backup to PLAYER if player has no spouse)
+    * PLAYER_SPOUSE 
     * LORD
-    * LORD_SPOUSE (note: will backup to LORD if LORD has no spouse)
-    * LORD_HOST (note: will backup to LORD if not at feast, or organizer does not exsist)
-    * LORD_HOST_SPOUSE (note: will backup to LORD_HOST if organizer does not have a spouse)
-    * WEDDING_TARGET (note: will backup to LORD if not at a wedding)
-    * WEDDING_TARGET_SPOUSE (note: will backup to WEDDING_TARGET if wedding target has no spouse)
-    * SECOND_LORD (note: will backup to LORD if not at feast, or organizer does not exsist)
-    * SECOND_LORD_SPOUSE (note: will backup to LORD_HOST if organizer does not have a spouse)
+    * LORD_SPOUSE 
+    * LORD_HOST 
+    * LORD_HOST_SPOUSE 
+    * WEDDING_TARGET 
+    * WEDDING_TARGET_SPOUSE 
+    * SECOND_LORD 
+    * SECOND_LORD_SPOUSE 
   markers of the following. (replace TARGET with diffrent target types at will)
       * "%TARGET_FACTION_NAME" 
       * "%TARGET_STARTING_FACTION_NAME"
@@ -431,22 +434,9 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * copys 'ask_question' options
     
     * "accept_ask_location"
-        * runs a special bit of code, getting all available lords as options : "option_askALordsLocation"
-        * after a lord is clicked on, displays the lords location, then runs : "greeting" 
-        * "option_nevermind_accept_ask_location": "greeting"
-
-      "foundLordsLocation": {
-        "line":"I heard that %c0 %c1 was last sighted around %c2",
-        "options": [
-          "optionSet_greeting"
-        ]
-      },
-      "failedToFindLordsLocation": {
-        "line":"I don't know where %c0 %c1 is",
-        "options": [
-          "optionSet_greeting"
-        ]
-      },
+        * "optionSet_LordLocationFinder": "option_LordLocation" : "LordLocation"
+        * "option_nevermind_accept_ask_location" : option_nevermind_accept_ask_location
+      
 
 
 
