@@ -279,68 +279,15 @@ public class DialogSet {
         data = "nowhere";
         if (Global.getSector().getPlayerFleet() != null && Utils.getNearbyDescription(Global.getSector().getPlayerFleet()) != null) data = Utils.getNearbyDescription(Global.getSector().getPlayerFleet());
         line = insertData(line,"%PLAYER_FLEET_LOCATION",data);
+
+        data = "noone";
+        if (LordController.getPlayerLord().getLiegeName() != null) data = LordController.getPlayerLord().getLiegeName();
+        line = insertData(line,"%PLAYER_LIEGE_NAME",data);
         return line;
     }
     private static String getPlayerPartnerStringMods(String line, Lord lord){
         if (LordController.getPlayerLord().getSpouse() != null) return get_StringMods(line,LordController.getLordById(LordController.getPlayerLord().getSpouse()),"PLAYER_SPOUSE_");
         return get_null_StringMods(line,"PLAYER_SPOUSE_");
-    }
-    private static String getPlayerNoPartnerStringMods(String line, Lord lord){
-        String data = Global.getSector().getPlayerFaction().getDisplayName();
-        line = insertData(line,"%PLAYER_SPOUSE_FACTION_NAME",data);
-
-        data = Global.getSector().getPlayerPerson().getNameString();
-        line = insertData(line,"%PLAYER_SPOUSE_NAME",data);
-
-        data = Global.getSector().getPlayerPerson().getName().getFirst();
-        line = insertData(line,"%PLAYER_SPOUSE_NAME_FIRST",data);
-
-        data = Global.getSector().getPlayerPerson().getName().getLast();
-        line = insertData(line,"%PLAYER_SPOUSE_NAME_LAST",data);
-
-        data = LordController.getPlayerLord().getTitle();
-        if (data == null) data = "";
-        line = insertData(line,"%PLAYER_SPOUSE_TITLE",data);
-
-        data = Global.getSector().getPlayerPerson().getManOrWoman();
-        line = insertData(line,"%PLAYER_SPOUSE_GENDER_MAN_OR_WOMEN",data);
-
-        data = Global.getSector().getPlayerPerson().getHeOrShe();
-        line = insertData(line,"%PLAYER_SPOUSE_GENDER_HE_OR_SHE",data);
-
-        data = Global.getSector().getPlayerPerson().getHimOrHer();
-        line = insertData(line,"%PLAYER_SPOUSE_GENDER_HIM_OR_HER",data);
-
-        data = Global.getSector().getPlayerPerson().getHisOrHer();
-        line = insertData(line,"%PLAYER_SPOUSE_GENDER_HIS_OR_HER",data);
-
-        data = LordController.getPlayerLord().getFormalWear();
-        line = insertData(line,"%PLAYER_SPOUSE_GENDER_SUIT_OR_DRESS",data);
-
-        data = Global.getSector().getPlayerPerson().getGender().name();
-        line = insertData(line,"%PLAYER_SPOUSE_GENDER_NAME",data);
-
-        FleetMemberAPI flownShip = getFlownShip(Global.getSector().getPlayerPerson(),Global.getSector().getPlayerFleet());
-        data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
-        if (flownShip != null) data = flownShip.getHullSpec().getHullName();
-        line = insertData(line,"%PLAYER_SPOUSE_FLAGSHIP_HULLNAME",data);
-
-        data = "nothing";//todo: move this, like everything else, into the strings file. for modality of different languages.
-        if (flownShip != null) data = flownShip.getShipName();
-        line = insertData(line,"%PLAYER_SPOUSE_FLAGSHIP_NAME",data);
-
-        data = GenderUtils.husbandOrWife(Global.getSector().getPlayerPerson(), false);
-        line = insertData(line,"%PLAYER_SPOUSE_GENDER_HUSBAND_OR_WIFE",data);
-
-        data = "nothing";
-        LawProposal lordProposal = PoliticsController.getProposal(lord);
-        if (lordProposal != null) data = lordProposal.getTitle();
-        line = insertData(line,"%PLAYER_SPOUSE_PROPOSAL_NAME",data);
-
-        data = "nowhere";
-        if (Global.getSector().getPlayerFleet() != null && Utils.getNearbyDescription(Global.getSector().getPlayerFleet()) != null) data = Utils.getNearbyDescription(Global.getSector().getPlayerFleet());
-        line = insertData(line,"%PLAYER_SPOUSE_FLEET_LOCATION",data);
-        return line;
     }
     private static String getLordStringMods(String line, Lord lord){
         return get_StringMods(line,lord,"LORD_");
@@ -464,6 +411,10 @@ public class DialogSet {
         data = "nowhere";
         if (lord.getLordAPI().getFleet() != null && Utils.getNearbyDescription(lord.getLordAPI().getFleet()) != null) data = Utils.getNearbyDescription(lord.getLordAPI().getFleet());
         line = insertData(line,"%"+key+"FLEET_LOCATION",data);
+
+        data = "noone";
+        if (lord.getLiegeName() != null) data = lord.getLiegeName();
+        line = insertData(line,"%"+key+"LIEGE_NAME",data);
         return line;
     }
     private static String get_null_StringMods(String line, String key){
@@ -501,6 +452,8 @@ public class DialogSet {
         line = insertData(line,"%"+key+"PROPOSAL_NAME",data);
 
         line = insertData(line,"%"+key+"FLEET_LOCATION",data);
+
+        line = insertData(line,"%"+key+"LIEGE_NAME",data);
         return line;
     }
 
@@ -1362,6 +1315,15 @@ public class DialogSet {
                 case "isInteractingLord":
                     rules.add(addRule_isInteractingLord(rulesTemp,key));
                     break;
+                case "lordHasLiege":
+                    rules.add(addRule_lordHasLiege(rulesTemp,key));
+                    break;
+                case "playerHasLiege":
+                    rules.add(addRule_playerHasLiege(rulesTemp,key));
+                    break;
+                case "validLordNumbers":
+                    rules.add(addRule_validLordNumbers(rulesTemp,key));
+                    break;
             }
         }
         return rules;
@@ -1734,4 +1696,21 @@ public class DialogSet {
         boolean json2 = json.getBoolean(key);
         return new DialogRule_isInteractingLord(json2);
     }
+    @SneakyThrows
+    private static DialogRule_Base addRule_lordHasLiege(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_lordHasLiege(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_playerHasLiege(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_playerHasLiege(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_validLordNumbers(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_validLordNumbers(json2);
+    }
+
+
 }

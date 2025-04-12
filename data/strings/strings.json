@@ -35,17 +35,12 @@
     "relation_decrease": "Relations with $string decreased by $string.",
     "no_quest_available": "I have no tasks that need attending to at this time.",
     "quest_available": "I do have one issue to take care of. I've transferred the relevant information if you're interested.",
-    "refuse_speak_privately_upstanding": "Do not take this amiss, but I would prefer to conduct our affairs out in the open.",
-    "refuse_speak_privately_martial": "Forgive me, but I'm not one for going off in corners to plot.",
-    "refuse_speak_privately_calculating": "Erm... Let's keep our affairs out in the open, for the time being.",
-    "refuse_speak_privately_quarrelsome": "Bah. I don't like you that much. I'm not going to go plot with you in some corner.",
     "refuse_suggest_action_relations": "I'm sorry, but I don't know you well enough.",
     "refuse_suggest_action_busy": "I'm sorry, but I have other matters to attend to.",
     "refuse_suggest_action": "I'm sorry, but I'm unable to do that.",
     "consider_suggest_action": "Very well, I'm listening. But if this goes poorly, I will hold you responsible.",
     "consider_suggest_action_spouse": "Is something the matter, dear?",
     "consider_suggest_action_subject": "At your command, my liege.",
-    "accept_speak_privately": "Very well, what did you wish to discuss?",
     "accept_suggest_action": "I will follow your suggestion.",
     "accept_suggest_action_subject": "At once, $string.",
 
@@ -63,10 +58,6 @@
     "accept_defect": "You are right, $string. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail $string, rightful ruler of the sector!",
     "refuse_defect": "I cannot betray our leader. I will keep this conversation to myself for sake of our friendship, but do not speak of this again.",
 
-    "option_ask_worldview": "What do you think, in general terms, about the current state of affairs in the realm?",
-    "option_ask_liege_opinion": "How do you feel about $string?",
-    "option_ask_liege_opinion_decentralized": "How do you feel about your current conditions?",
-    "option_ask_friend_preferences": "Ask for information about a lord you're courting",
     "option_stop_follow_me": "Stop following me.",
     "option_follow_me": "Follow me.",
     "option_suggest_raid": "Raid an enemy market.",
@@ -79,7 +70,6 @@
     "ask_patrol_location": "Where should I defend?",
 
 
-    "prepare_advise_friend_gift": "Oh? If I know them well, I can offer some advice.",
     "advise_friend_gift": "For as long as I've known $string, they've always been a connoisseur of $string."
   },
   "starlords_ui": {

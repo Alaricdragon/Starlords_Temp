@@ -38,5 +38,7 @@
   "swayProposal_againstCounsel_acceptBargain": "optionSet_swayProposal_againstCounsel_acceptBargain",
 
   "accept_ask_location": "optionSet_accept_ask_location",
-  "LordLocation": "optionSet_LordLocation"
+  "LordLocation": "optionSet_LordLocation",
+
+  "speak_privately": "optionSet_speak_privately"
 }

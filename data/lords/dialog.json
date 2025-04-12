@@ -345,13 +345,14 @@
         }
       },
       "upstanding": {
-        "priority": 2,
+        "priority": 1,
         "rules": {
           "lordPersonality": {
             "Upstanding": true
           }
         },
         "lines": {
+          "speak_privately": "Do not take this amiss, but I would prefer to conduct our affairs out in the open."
         }
       }
     }
@@ -624,13 +625,14 @@
         }
       },
       "quarrelsome": {
-        "priority": 2,
+        "priority": 1,
         "rules": {
           "lordPersonality": {
             "Quarrelsome": true
           }
         },
         "lines": {
+          "speak_privately": "Bah. I don't like you that much. I'm not going to go plot with you in some corner."
         }
       }
     }
@@ -988,10 +990,11 @@
         }
       },
       "martial": {
-        "priority": 2,
+        "priority": 1,
         "rules": {
         },
         "lines": {
+          "speak_privately": "Forgive me, but I'm not one for going off in corners to plot."
         }
       }
     }
@@ -1307,6 +1310,25 @@
           "greeting": "You best have something interesting to make it worth me suffering your presence, %PLAYER_NAME"
         }
       },
+      "will_speakPrivately": {
+        "priority": 2,
+        "rules": {
+          "relationWithPlayer": {
+            "min": "15"
+          }
+        },
+        "lines": {
+          "speak_privately": {
+            "line": "Very well, what did you wish to discuss?",
+            "options": [
+              "option_ask_worldview",
+              "option_ask_liege_opinion",
+              "optionSet_ask_friend_preferences",
+              "speak_privately_exit"
+            ]
+          }
+        }
+      },
       "swayProposal_forPlayer_bribe_calculating": {
         "priority": 2,
         "rules": {
@@ -1374,10 +1396,11 @@
         }
       },
       "calculating": {
-        "priority": 2,
+        "priority": 1,
         "rules": {
         },
         "lines": {
+          "speak_privately": "Erm... Let's keep our affairs out in the open, for the time being."
         }
       }
     }
@@ -1635,6 +1658,21 @@
         }
       },
 
+      "hasLiege": {
+        "priority": 2,
+        "rules": {
+          "lordHasLiege": true
+        },
+        "lines": {
+          "option_ask_liege_opinion": {
+            "show": {
+              "lordAndPlayerSameFaction": false
+            },
+            "line": "How do you feel about %LORD_LIEGE_NAME?",
+            "optionData": "ERROR"
+          }
+        }
+      },
       "favItem_alpha_core": {
         "priority": 2,
         "rules": {
@@ -2400,6 +2438,7 @@
           },
           "join_party_explanation": "Of course my dear, I'd love to join up with you. I'd have to disband my own fleet though; is that what you want?",
           "leave_party_explanation": "Of course my dear, I can go back to my own fleet if that's what you think is best.",
+
           "swayProposal_forCounsel": {
             "line": "I'm sorry, but I've already made up my mind on the matter.",
             "addons": {
@@ -2424,6 +2463,7 @@
           },
           "swayProposal_againstCounsel_acceptBribe": "We have a deal then. I'll do as you ask.",
           "swayProposal_againstCounsel_acceptBargain": "We have a deal then. I'll do as you ask.",
+
           "give_gift": "",
           "dislikeGift_alpha_core": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
           "dislikeGift_hand_weapons": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
@@ -2441,6 +2481,8 @@
           "likeGift_domestic_goods": "What a thoughtful gift. I'm touched that you know me so well.",
           "accept_ask_location": "Who did you wish to inquire about?",
           "LordLocation": "I don't know where %SECOND_LORD_TITLE %SECOND_LORD_NAME is",
+          "speak_privately": "(error) im sorry, but I don't think so.",
+
           "relation_increase": {
             "line": "Relations with %LORD_NAME increased by %c0.",
             "color": "GREEN"
@@ -2557,13 +2599,14 @@
           },
           "option_speak_privately": {
             "line": "Ask to speak privately.",
-            "optionData": "ERROR"
+            "optionData": "speak_privately"
           },
           "option_cutComLink": {
             "line": "Cut the comm link.",
             "optionData": "exitDialog",
             "shortcut": "ESCAPE"
           },
+
           "optionSet_start_tournament": {
             "options": [
               "option_avoid_tournament"
@@ -2581,6 +2624,7 @@
             "optionData": "greeting",
             "shortcut": "ESCAPE"
           },
+
           "optionSet_askQuestion": {
             "options": [
               "option_ask_location",
@@ -2822,6 +2866,7 @@
             "optionData": "greeting",
             "shortcut": "ESCAPE"
           },
+
           "optionSet_spend_time_together": {
             "options": [
               "option_give_gift",
@@ -2837,6 +2882,7 @@
             "line": "Just return to the feast",
             "optionData": "ask_question"
           },
+
           "optionSet_give_gift": {
             "options": [
               "option_gift_alpha_core",
@@ -3021,6 +3067,7 @@
             "line": "Never Mind",
             "optionData": "ask_question"
           },
+
           "optionSet_join_party_explanation": {
             "options": [
               "option_confirm_join_party",
@@ -3039,6 +3086,7 @@
             "optionData": "ask_question",
             "shortcut": "ESCAPE"
           },
+
           "optionSet_leave_party_explanation": {
             "options": [
               "option_confirm_leave_party",
@@ -3057,6 +3105,7 @@
             "optionData": "ask_question",
             "shortcut": "ESCAPE"
           },
+
           "optionSet_swayProposal_forCounsel": {
             "options": [
               "optionSet_askQuestion"
@@ -3096,6 +3145,7 @@
             "optionData": "ask_question",
             "shortcut": "ESCAPE"
           },
+
           "optionSet_swayProposal_againstCounsel": {
             "options": [
               "optionSet_askQuestion"
@@ -3135,6 +3185,7 @@
             "optionData": "ask_question",
             "shortcut": "ESCAPE"
           },
+
           "optionSet_swayProposal_forPlayer": {
             "options": [
               "optionSet_askQuestion"
@@ -3174,6 +3225,7 @@
             "optionData": "ask_question",
             "shortcut": "ESCAPE"
           },
+
           "optionSet_accept_ask_location": {
             "options": [
               "optionSet_LordLocationFinder",
@@ -3195,6 +3247,61 @@
             "optionData": "LordLocation"
           },
           "option_nevermind_accept_ask_location": {
+            "line": "Never mind",
+            "optionData": "greeting",
+            "shortcut": "ESCAPE"
+          },
+
+          "optionSet_speak_privately": {
+            "options": [
+              "greeting"
+            ]
+          },
+          "option_ask_worldview": {
+            "line": "What do you think, in general terms, about the current state of affairs in the realm?",
+            "optionData": "ERROR"
+          },
+          "option_ask_liege_opinion": {
+            "show": {
+              "lordAndPlayerSameFaction": false
+            },
+            "option_ask_liege_opinion": "How do you feel about $string?",
+            "line": "How do you feel about your current conditions?",
+            "optionData": "ERROR"
+          },
+          "optionSet_ask_friend_preferences": {
+            "line": "Ask for information about a lord you're courting",
+            "addons": {
+              "additionalText": "Oh? If I know them well, I can offer some advice."
+            },
+            "show": {
+              "validLordNumbers": {
+                "min": 1,
+                "rules": {
+                  "isLordCourtedByPlayer": true,
+                  "relationsBetweenLords": {
+                    "min": 30
+                  },
+                  "isInteractingLord": false
+                }
+              }
+            },
+            "optionData": {
+              "optionData":"option_ask_friend_preferences",
+              "rules": {
+                "isLordCourtedByPlayer": true,
+                "relationsBetweenLords": {
+                  "min": 30
+                },
+                "isInteractingLord": false
+              }
+            }
+          },
+          "option_ask_friend_preferences": {
+            "line": "%SECOND_LORD_NAME",
+            "optionData": "ERROR"
+          },
+          "speak_privately_exit": {
             "line": "Never mind",
             "optionData": "greeting",
             "shortcut": "ESCAPE"

@@ -185,8 +185,11 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "playerLordRelation": float. this is playerLordRelation * value.
     * "opinionOfCurrProposal": float. this is the lords opinion of the current proposal in its faction * value
     * "opinionOfPlayerProposal": float. this is the lords opinion of the players proposal in its faction * value
-  * "lordFleetIsAlive" if set to false, the lords fleet must not be alive to meet requirements. if set to true, the lords fleet must be alive to meet requirements.
-  * the following options only work if used in an option called by advanced option data.
+  * "lordFleetIsAlive": if set to false, the lords fleet must not be alive to meet requirements. if set to true, the lords fleet must be alive to meet requirements.
+  * "lordHasLiege": if set to false, the lords faction must not have a leage to meet requirements. if set to true, the lords faction must have a leage to meet requirements.
+  * "playerHasLiege": if set to false, the players faction must not have a leage to meet requirements. if set to true, the players faction must have a leage to meet requirements.
+  * "validLordNumbers": this is a jsonArray with 3 parts: "min", "max", "rules". what this does is it looks at all starlords in the game, and the number of lords that meet all "rule" requirements must be between the "min" and "max" values.
+  * the following options only work if used in an option called by advanced option data, or if used in the "validLordNumbers" rule.
     * "relationsBetweenLords": is the relationship range that this lord must have with the target lord to meet requirements. set between a "min" and "max" value. range must be between -100 and 100.
     * "lordAndTargetSameFaction": if set to false, the lord and target must not be part of the same faction to meet requirements. if set to ture, the lord and target must be part of the same faction to meet requirements.
     * "isInteractingLord": if set to false, the lord and target must not be the same to meet requirements. if set to true, the lord and target must be the same to meet requirements.
@@ -265,7 +268,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * for both basic and advanced lines, you can also input a number of custom markers into your dialog that will be replaced with data automaticly. the markers are as follows
   * there are a few diffrent targets for markers. the targets are:
     * PLAYER
-    * PLAYER_SPOUSE 
+    * PLAYER_SPOUSE
     * LORD
     * LORD_SPOUSE 
     * LORD_HOST 
@@ -273,7 +276,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * WEDDING_TARGET 
     * WEDDING_TARGET_SPOUSE 
     * SECOND_LORD 
-    * SECOND_LORD_SPOUSE 
+    * SECOND_LORD_SPOUSE
   markers of the following. (replace TARGET with diffrent target types at will)
       * "%TARGET_FACTION_NAME" 
       * "%TARGET_STARTING_FACTION_NAME"
@@ -292,7 +295,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "%TARGET_FLAGSHIP_NAME" target flagship name (returns "nothing" if the target has no flagship)
       * "%TARGET_PROPOSAL_NAME" target proposal name (returns "nothing" if the target has no active proposal)
       * "%TARGET_FLEET_LOCATION" target fleet location (returns "nowere" if target fleet location cannot be found)
-
+      * "%TARGET_LIEGE_NAME" the name of the leader of this faction. do to -reasons- this might often be null
   *some lines will also use custom inputted data. in this case, they will use the '%c#' marker, with # being the order they are added to the line.
   *available lines to override are follows:
     * "greeting"
@@ -303,7 +306,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "option_ask_current_task" :       "current_task_desc"
       * "option_ask_question" :           "ask_question"
       * "option_suggest_action" :         OptionId.SUGGEST_ACTION
-      * "option_speak_privately" :        OptionId.SPEAK_PRIVATELY
+      * "option_speak_privately" :        "speak_privately"
       * "option_cutComLink" :             "exitDialog"
       
     * "dedicate_tournament"
@@ -436,7 +439,13 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "accept_ask_location"
         * "optionSet_LordLocationFinder": "option_LordLocation" : "LordLocation"
         * "option_nevermind_accept_ask_location" : option_nevermind_accept_ask_location
-      
+     
+    * "speak_privately"
+      * "if the lord won't speak to you": copys 'greeting' options
+      * "option_ask_worldview" : "OptionId.ASK_WORLDVIEW"
+      * "option_ask_liege_opinion" : "OptionId.ASK_LIEGE_OPINION"
+      * "optionSet_ask_friend_preferences" : "option_ask_friend_preferences" : "OptionId.ASK_FRIEND_FAVORITE_GIFT"
+      * "speak_privately_exit" : "greeting"
 
 
 

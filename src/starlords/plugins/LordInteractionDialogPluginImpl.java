@@ -1096,17 +1096,46 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
                 case QUARRELSOME:
                     rep min: RepLevel.FAVORABLE);
         *
-        * conditions:
+        * (done) conditions:
         *   lordHasLiege
         *   playerHasLiege
-        *   willSpeakPrivately???
         *
-        *   Friends being courted. {min,max}
-        *       this needs improvements:
-        *           insead, have this allow for all rules. then, return any lords that meet rule requirements.
-        * data:
-        *   lordLiege
-        *   playerLiege*/
+        *   //ok, so: this would work by looking at all lords, and getting the number of valid lords. then, it would be true if that vale is between min / max.
+        *   validLordNumbers{
+        *       "min": int
+        *       "max": int
+        *       "rules" : {
+        *
+        *       }
+        *   }
+        * show:
+        *   in DialogGroupOption: run 'show' on the target lord...? (does that even work...???????)
+        *   ok... so... does it???????
+        *   ... no. it could be used to hide the resalting options, HOWEVER: it cannot be used to hide the shown option.
+        *   so.. I need the following:
+        * (done)line data:
+        *   TARGET_LEAGE_NAME
+        *
+        * lines:
+        *   if(will speek privitly): "accept_speak_privately"
+        *   (done) else: "refuse_speak_privately_PERSONALITY
+        *       -returns to greetings options.
+        *
+        * options (only if "accept_speak_privately"):
+        *   (done)!same faction
+        *       lord has ledge
+        *           "option_ask_liege_opinion": OptionId.ASK_LIEGE_OPINION
+        *       lord no ledge
+        *           "option_ask_liege_opinion_decentralized": OptionId.ASK_LIEGE_OPINION
+        *   (done)---lord has firend that player corted---
+        *       "option_ask_friend_preferences" : OptionId.ASK_FRIEND_FAVORITE_GIFT
+        *   (done)nevermind: OptionId.INIT
+        * will not speak privately:
+        *   (done)copys OptionId.INIT
+        *
+        *
+        * NOTE: (DONE) every lord has there own 'im not talking to you' dialog. I will need to add that to all starlords.
+        * */
 
         if (targetLord.willSpeakPrivately()) {
             options.clearOptions();
