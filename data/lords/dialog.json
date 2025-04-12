@@ -278,6 +278,25 @@
           "greeting": "I have no need to speak to one of such low character as yourself, %PLAYER_NAME."
         }
       },
+      "will_speakPrivately": {
+        "priority": 2,
+        "rules": {
+          "relationWithPlayer": {
+            "min": "30"
+          }
+        },
+        "lines": {
+          "speak_privately": "Very well, what did you wish to discuss?",
+          "optionSet_speak_privately": {
+            "options": [
+              "option_ask_worldview",
+              "option_ask_liege_opinion",
+              "optionSet_ask_friend_preferences",
+              "speak_privately_exit"
+            ]
+          }
+        }
+      },
       "swayProposal_forPlayer_bribe_upstanding": {
         "priority": 2,
         "rules": {
@@ -556,6 +575,25 @@
         },
         "lines": {
           "greeting": "Ah, %PLAYER_NAME, the snake dares to slither in the open. Convince me why I shouldn't open fire immediately."
+        }
+      },
+      "will_speakPrivately": {
+        "priority": 2,
+        "rules": {
+          "relationWithPlayer": {
+            "min": "10"
+          }
+        },
+        "lines": {
+          "speak_privately": "Very well, what did you wish to discuss?",
+          "optionSet_speak_privately": {
+            "options": [
+              "option_ask_worldview",
+              "option_ask_liege_opinion",
+              "optionSet_ask_friend_preferences",
+              "speak_privately_exit"
+            ]
+          }
         }
       },
       "swayProposal_forPlayer_bribe_quarrelsome": {
@@ -921,6 +959,25 @@
         },
         "lines": {
           "greeting": "Your presence is acknowledged, %PLAYER_NAME. I advise you choose your words carefully if you don't want a bullet in the skull."
+        }
+      },
+      "will_speakPrivately": {
+        "priority": 2,
+        "rules": {
+          "relationWithPlayer": {
+            "min": "25"
+          }
+        },
+        "lines": {
+          "speak_privately": "Very well, what did you wish to discuss?",
+          "optionSet_speak_privately": {
+            "options": [
+              "option_ask_worldview",
+              "option_ask_liege_opinion",
+              "optionSet_ask_friend_preferences",
+              "speak_privately_exit"
+            ]
+          }
         }
       },
       "swayProposal_forPlayer_bribe_martial": {
@@ -1318,8 +1375,8 @@
           }
         },
         "lines": {
-          "speak_privately": {
-            "line": "Very well, what did you wish to discuss?",
+          "speak_privately": "Very well, what did you wish to discuss?",
+          "optionSet_speak_privately": {
             "options": [
               "option_ask_worldview",
               "option_ask_liege_opinion",
@@ -1914,7 +1971,9 @@
       "fleetIsAlive": {
         "priority": 2,
         "rules": {
-          "lordFleetIsAlive": true
+          "targetLord": {
+            "lordFleetIsAlive": true
+          }
         },
         "lines": {
           "LordLocation": "I heard that %SECOND_LORD_TITLE %SECOND_LORD_NAME was last sighted around %SECOND_LORD_FLEET_LOCATION"
@@ -3236,8 +3295,10 @@
             "optionData": {
               "optionData": "option_LordLocation",
               "rules": {
-                "lordFleetIsAlive": true,
-                "lordAndTargetSameFaction": true,
+                "targetLord": {
+                  "lordFleetIsAlive": true,
+                  "lordAndTargetSameFaction": true
+                },
                 "isInteractingLord": false
               }
             }
@@ -3278,9 +3339,11 @@
               "validLordNumbers": {
                 "min": 1,
                 "rules": {
-                  "isLordCourtedByPlayer": true,
-                  "relationsBetweenLords": {
-                    "min": 30
+                  "targetLord": {
+                    "isLordCourtedByPlayer": true,
+                    "relationsBetweenLords": {
+                      "min": 30
+                    }
                   },
                   "isInteractingLord": false
                 }
@@ -3289,9 +3352,11 @@
             "optionData": {
               "optionData":"option_ask_friend_preferences",
               "rules": {
-                "isLordCourtedByPlayer": true,
-                "relationsBetweenLords": {
-                  "min": 30
+                "targetLord": {
+                  "isLordCourtedByPlayer": true,
+                  "relationsBetweenLords": {
+                    "min": 30
+                  }
                 },
                 "isInteractingLord": false
               }

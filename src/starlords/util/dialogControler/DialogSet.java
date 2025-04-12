@@ -77,7 +77,7 @@ public class DialogSet {
         addParaWithInserts(key, lord, textPanel, options,dialog,forceHide,new HashMap<String,String>());
     }
     public static void addParaWithInserts(String key, Lord lord, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog,boolean forceHide,HashMap<String,String> markersReplaced) {
-        DialogSet set = getSet(lord, key);
+        DialogSet set = getSet(lord,null, key);
         if (set == null) {
             Logger log = Global.getLogger(DialogSet.class);
             log.info("ERROR: FAILED TO GET DIALOG SET OF KEY: "+key);
@@ -97,7 +97,7 @@ public class DialogSet {
         addParaWithInserts(key, lord,targetLord, textPanel, options,dialog,forceHide,new HashMap<String,String>());
     }
     public static void addParaWithInserts(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog,boolean forceHide,HashMap<String,String> markersReplaced) {
-        DialogSet set = getSet(lord, key);
+        DialogSet set = getSet(lord,targetLord, key);
         if (set == null) {
             Logger log = Global.getLogger(DialogSet.class);
             log.info("ERROR: FAILED TO GET DIALOG SET OF KEY: "+key);
@@ -107,79 +107,79 @@ public class DialogSet {
     }
     @Deprecated
     public static void addParaWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options,HashMap<String,String> markersReplaced){
-        DialogSet set = getSet(lord, key);
+        DialogSet set = getSet(lord,null, key);
         if (set == null) return;
         //set.applyLine(key, lord, textPanel, options,false,markersReplaced);
     }
     @Deprecated
     public static void addParaWithInserts(String key, Lord lord, TextPanelAPI textPanel,OptionPanelAPI options){
-        DialogSet set = getSet(lord, key);
+        DialogSet set = getSet(lord,null, key);
         if (set == null) return;
         //set.applyLine(key, lord, textPanel, options,false,markersReplaced);
     }
     public static void addOptionWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced){
-        DialogSet set = getSet(lord, key);
+        DialogSet set = getSet(lord,null, key);
         if (set == null) return;
         set.applyOption(key,  lord,  textPanel,  options,dialog, markersReplaced);
     }
     public static void addOptionWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced,DialogOption optionData){
-        DialogSet set = getSet(lord, key);
+        DialogSet set = getSet(lord,null, key);
         if (set == null) return;
         set.applyOption(key,  lord,  textPanel,optionData, options,dialog, markersReplaced);
     }
     public static void addOptionWithInserts(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced){
-        DialogSet set = getSet(lord, key);
+        DialogSet set = getSet(lord,targetLord, key);
         if (set == null) return;
         set.applyOption(key,  lord,targetLord,  textPanel,  options,dialog, markersReplaced);
     }
     public static void addOptionWithInserts(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced,DialogOption optionData){
-        DialogSet set = getSet(lord, key);
+        DialogSet set = getSet(lord,targetLord, key);
         if (set == null) return;
         set.applyOption(key,  lord,targetLord,  textPanel,optionData, options,dialog, markersReplaced);
     }
     @Deprecated
     public static void addOptionWithInserts(String key, String tooltipKey, Object optionData, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options){
-        DialogSet set = getSet(lord, key);
+        DialogSet set = getSet(lord,null, key);
         if (set == null) return;
         //set.applyOptionOLD(key,tooltipKey, lord, textPanel, optionData, options,markersReplaced);
     }
     @Deprecated
     public static void addOptionWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, HashMap<String,String> markersReplaced){
-        DialogSet set = getSet(lord, key);
+        DialogSet set = getSet(lord,null, key);
         if (set == null) return;
         //set.applyOption(key,  lord,  textPanel,  options,dialog, markersReplaced);
     }
     @Deprecated
     public static void addOptionWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options){
-        DialogSet set = getSet(lord, key);
+        DialogSet set = getSet(lord,null, key);
         if (set == null) return;
         //set.applyOption(key,  lord,  textPanel,  options,dialog, markersReplaced);
     }
 
-    private static DialogSet getSet(Lord lord,String id){
+    private static DialogSet getSet(Lord lord,Lord targetLord,String id){
         for (String a : lord.getTemplate().dialogOverride){
-            DialogSet out = dialogs.get(a).getSet(lord,id);
+            DialogSet out = dialogs.get(a).getSet(lord,targetLord,id);
             if (out != null) return out;
         }
         for (int a = organizedDialogs.size() - 1; a > 0; a--){
             //never runs Dialogs with a priority of 0. they are reserved for dialogOverrides.
             for(LordDialog b : organizedDialogs.get(a)) {
-                DialogSet out = b.getSet(lord,id);
+                DialogSet out = b.getSet(lord,targetLord,id);
                 if (out != null) return out;
             }
         }
-        DialogSet out = dialogs.get("default").getSet(lord,id);
+        DialogSet out = dialogs.get("default").getSet(lord,targetLord,id);
         if (out != null) return out;
         return null;
     }
-    public static String getLine(Lord lord,String id){
-        DialogSet set = getSet(lord, id);
+    public static String getLine(Lord lord,Lord targetLord,String id){
+        DialogSet set = getSet(lord,targetLord, id);
         if (set != null) return set.getLine(id);
         return "ERROR: unable to get line of dialog. id of: "+id;
     }
     @Deprecated
     public static String getLineWithInserts(Lord lord,String id){
-        String line = getLine(lord,id);
+        //String line = getLine(lord,null,id);
         return "";//insertDefaltData(line,lord);
     }
     public static String insertData(String line, String mark, String replaced){
@@ -575,7 +575,7 @@ public class DialogSet {
         //add conditions
         if (jsonObject.has("rules")){
             JSONObject rulesTemp = jsonObject.getJSONObject("rules");
-            rules = getDialogFromJSon(rulesTemp);
+            rules = getDialogRulesFromJSon(rulesTemp);
         }
         //add lines
         if (jsonObject.has("lines")){
@@ -601,9 +601,9 @@ public class DialogSet {
         }
         dialog.organizedDialogSets.get(priority).add(this);
     }
-    public boolean canUseDialog(Lord lord){
+    public boolean canUseDialog(Lord lord,Lord targetLord){
         for (DialogRule_Base a : rules){
-            if (!a.condition(lord)) return false;
+            if (!a.condition(lord,targetLord)) return false;
         }
         return true;
     }
@@ -774,106 +774,7 @@ public class DialogSet {
         }
         if (line.has("addons")) {
             JSONObject addons = line.getJSONObject("addons");
-            ArrayList<DialogAddon_Base> newAddons = new ArrayList<DialogAddon_Base>();
-            for (Iterator it = addons.keys(); it.hasNext(); ) {
-                String key2 = (String) it.next();
-                DialogAddon_Base addon = null;
-                switch (key2) {
-                    case "repIncrease":
-                        addon = addAddon_repIncrease(addons, key2);
-                        break;
-                    case "repDecrease":
-                        addon = addAddon_repDecrease(addons, key2);
-                        break;
-                    case "creditsIncrease":
-                        addon = addAddon_creditsIncrease(addons, key2);
-                        break;
-                    case "creditsDecrease":
-                        addon = addAddon_creditsDecrease(addons, key2);
-                        break;
-                    case "romanceActionIncrease":
-                        addon = addAddon_romanceActionIncrease(addons, key2);
-                        break;
-                    case "romanceActionDecrease":
-                        addon = addAddon_romanceActionDecrease(addons, key2);
-                        break;
-                    case "additionalText":
-                        addon = addAddon_additionalText(addons,key2);
-                        break;
-                    case "startWedding":
-                        addon = addAddon_startWedding(addons,key2);
-                        break;
-                    case "dedicateTournamentVictoryToLord":
-                        addon = addAddon_dedicateTournamentVictoryToLord(addons,key2);
-                        break;
-                    case "startTournament":
-                        addon = addAddon_startTournament(addons,key2);
-                        break;
-                    case "setHeldDate":
-                        addon = addAddon_setHeldDate(addons,key2);
-                        break;
-                    case "setProfessedAdmiration":
-                        addon = addAddon_setProfessedAdmirationThisFeast(addons,key2);
-                        break;
-                    case "setCourted":
-                        addon = addAddon_setCourted(addons,key2);
-                        break;
-                    case "removeCommoditysFromPlayerFleet":
-                        for(DialogAddon_Base a : addAddon_removeCommoditysFromPlayerFleet(addons,key2)){
-                            if (a != null) newAddons.add(a);
-                        }
-                        break;
-                    case "addCommoditysToPlayerFleet":
-                        for(DialogAddon_Base a : addAddon_addCommoditysToPlayerFleet(addons,key2)){
-                            if (a != null) newAddons.add(a);
-                        }
-                        break;
-                    case "wedPlayerToLord":
-                        addon = addAddon_wedPlayerToLord(addons,key2);
-                        break;
-                    case "wedPlayerToWeddingTarget":
-                        addon = addAddon_wedPlayerToWeddingTarget(addons,key2);
-                        break;
-                    case "setInPlayerFleet":
-                        addon = addAddon_setInPlayerFleet(addons,key2);
-                        break;
-                    case "setPledgedFor_CurrentProposal":
-                        addon = addAddon_setPledgedFor_CurrentProposal(addons,key2);
-                        break;
-                    case "setPledgedAgainst_CurrentProposal":
-                        addon = addAddon_setPledgedAgainst_CurrentProposal(addons,key2);
-                        break;
-                    case "setPledgedFor_PlayerProposal":
-                        addon = addAddon_setPledgedFor_PlayerProposal(addons,key2);
-                        break;
-                    case "setPledgedAgainst_PlayerProposal":
-                        addon = addAddon_setPledgedAgainst_PlayerProposal(addons,key2);
-                        break;
-                    case "setSwayed":
-                        addon = addAddon_setSwayed(addons,key2);
-                        break;
-                    case "giveCreditsToLord":
-                        addon = addAddon_giveCreditsToLord(addons,key2);
-                        break;
-                    case "takeCreditsFromLord":
-                        addon = addAddon_takeCreditsFromLord(addons,key2);
-                        break;
-                    case "setPlayerSupportForLordProposal":
-                        addon = addAddon_setPlayerSupportForLordProposal(addons,key2);
-                        break;
-                    case "setPlayerSupportForCurProposal":
-                        addon = addAddon_setPlayerSupportForCurProposal(addons,key2);
-                        break;
-                    /*case "askForLordLocations":
-                        addon = addAddon_askForLordLocations(addons,key2);
-                        break;*/
-                    /*case "askForLordLocation":
-                        addon = addAddon_askForLordLocation(addons,key2);
-                        break;*/
-                }
-                if (addon != null) newAddons.add(addon);
-            }
-            this.addons.put(key, newAddons);
+            this.addons.put(key, getDialogAddonsFromJSon(addons));
         }
         if (line.has("color")){
             boolean isArray = true;
@@ -896,11 +797,11 @@ public class DialogSet {
         }
         if (line.has("show")){
             JSONObject rulesTemp = line.getJSONObject("show");
-            hide.put(key,getDialogFromJSon(rulesTemp));
+            hide.put(key, getDialogRulesFromJSon(rulesTemp));
         }
         if (line.has("enable")){
             JSONObject rulesTemp = line.getJSONObject("enable");
-            enable.put(key,getDialogFromJSon(rulesTemp));
+            enable.put(key, getDialogRulesFromJSon(rulesTemp));
         }
         if (line.has("options")){
             //JSONObject options = line.getJSONObject("options");
@@ -920,7 +821,7 @@ public class DialogSet {
             }
             if (isObject){
                 JSONObject optionData = line.getJSONObject("optionData");
-                ArrayList<DialogRule_Base> tempa = getDialogFromJSon(optionData.getJSONObject("rules"));
+                ArrayList<DialogRule_Base> tempa = getDialogRulesFromJSon(optionData.getJSONObject("rules"));
                 String tempb = optionData.getString("optionData");
                 advancedDialogOptionData.put(key,new DialogGroupOption(tempa,tempb));
             }else {
@@ -949,6 +850,106 @@ public class DialogSet {
         }
     }
 
+    @SneakyThrows
+    public static ArrayList<DialogAddon_Base> getDialogAddonsFromJSon(JSONObject addons){
+        ArrayList<DialogAddon_Base> newAddons = new ArrayList<DialogAddon_Base>();
+        for (Iterator it = addons.keys(); it.hasNext(); ) {
+            String key2 = (String) it.next();
+            DialogAddon_Base addon = null;
+            switch (key2) {
+                case "repIncrease":
+                    addon = addAddon_repIncrease(addons, key2);
+                    break;
+                case "repDecrease":
+                    addon = addAddon_repDecrease(addons, key2);
+                    break;
+                case "creditsIncrease":
+                    addon = addAddon_creditsIncrease(addons, key2);
+                    break;
+                case "creditsDecrease":
+                    addon = addAddon_creditsDecrease(addons, key2);
+                    break;
+                case "romanceActionIncrease":
+                    addon = addAddon_romanceActionIncrease(addons, key2);
+                    break;
+                case "romanceActionDecrease":
+                    addon = addAddon_romanceActionDecrease(addons, key2);
+                    break;
+                case "additionalText":
+                    addon = addAddon_additionalText(addons,key2);
+                    break;
+                case "startWedding":
+                    addon = addAddon_startWedding(addons,key2);
+                    break;
+                case "dedicateTournamentVictoryToLord":
+                    addon = addAddon_dedicateTournamentVictoryToLord(addons,key2);
+                    break;
+                case "startTournament":
+                    addon = addAddon_startTournament(addons,key2);
+                    break;
+                case "setHeldDate":
+                    addon = addAddon_setHeldDate(addons,key2);
+                    break;
+                case "setProfessedAdmiration":
+                    addon = addAddon_setProfessedAdmirationThisFeast(addons,key2);
+                    break;
+                case "setCourted":
+                    addon = addAddon_setCourted(addons,key2);
+                    break;
+                case "removeCommoditysFromPlayerFleet":
+                    for(DialogAddon_Base a : addAddon_removeCommoditysFromPlayerFleet(addons,key2)){
+                        if (a != null) newAddons.add(a);
+                    }
+                    break;
+                case "addCommoditysToPlayerFleet":
+                    for(DialogAddon_Base a : addAddon_addCommoditysToPlayerFleet(addons,key2)){
+                        if (a != null) newAddons.add(a);
+                    }
+                    break;
+                case "wedPlayerToLord":
+                    addon = addAddon_wedPlayerToLord(addons,key2);
+                    break;
+                case "wedPlayerToWeddingTarget":
+                    addon = addAddon_wedPlayerToWeddingTarget(addons,key2);
+                    break;
+                case "setInPlayerFleet":
+                    addon = addAddon_setInPlayerFleet(addons,key2);
+                    break;
+                case "setPledgedFor_CurrentProposal":
+                    addon = addAddon_setPledgedFor_CurrentProposal(addons,key2);
+                    break;
+                case "setPledgedAgainst_CurrentProposal":
+                    addon = addAddon_setPledgedAgainst_CurrentProposal(addons,key2);
+                    break;
+                case "setPledgedFor_PlayerProposal":
+                    addon = addAddon_setPledgedFor_PlayerProposal(addons,key2);
+                    break;
+                case "setPledgedAgainst_PlayerProposal":
+                    addon = addAddon_setPledgedAgainst_PlayerProposal(addons,key2);
+                    break;
+                case "setSwayed":
+                    addon = addAddon_setSwayed(addons,key2);
+                    break;
+                case "giveCreditsToLord":
+                    addon = addAddon_giveCreditsToLord(addons,key2);
+                    break;
+                case "takeCreditsFromLord":
+                    addon = addAddon_takeCreditsFromLord(addons,key2);
+                    break;
+                case "setPlayerSupportForLordProposal":
+                    addon = addAddon_setPlayerSupportForLordProposal(addons,key2);
+                    break;
+                case "setPlayerSupportForCurProposal":
+                    addon = addAddon_setPlayerSupportForCurProposal(addons,key2);
+                    break;
+                case "targetLord":
+                    addon = addAddon_targetLord(addons,key2);
+                    break;
+            }
+            if (addon != null) newAddons.add(addon);
+        }
+        return newAddons;
+    }
     @SneakyThrows
     private static DialogAddon_Base addAddon_repIncrease(JSONObject json, String key){
         JSONObject json2 = json.getJSONObject(key);
@@ -1100,21 +1101,15 @@ public class DialogSet {
         boolean json2 = json.getBoolean(key);
         return new DialogAddon_setPlayerSupportForCurProposal(json2);
     }
-    /*@SneakyThrows
-    private static DialogAddon_Base addAddon_askForLordLocations(JSONObject json,String key){
-        boolean json2 = json.getBoolean(key);
-        if (!json2) return null;
-        return new DialogAddon_askForLordLocations();
-    }*/
-    /*@SneakyThrows
-    private static DialogAddon_Base addAddon_askForLordLocation(JSONObject json,String key){
-        boolean json2 = json.getBoolean(key);
-        if (!json2) return null;
-        return new DialogAddon_askForLordLocation();
-    }*/
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_targetLord(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogAddon_targetLord(json2);
+    }
 
 
-    public static ArrayList<DialogRule_Base> getDialogFromJSon(JSONObject rulesTemp){
+
+    public static ArrayList<DialogRule_Base> getDialogRulesFromJSon(JSONObject rulesTemp){
         ArrayList<DialogRule_Base> rules = new ArrayList<>();
         for (Iterator it = rulesTemp.keys(); it.hasNext();) {
             String key = (String) it.next();
@@ -1323,6 +1318,9 @@ public class DialogSet {
                     break;
                 case "validLordNumbers":
                     rules.add(addRule_validLordNumbers(rulesTemp,key));
+                    break;
+                case "targetLord":
+                    rules.add(addRule_targetLord(rulesTemp,key));
                     break;
             }
         }
@@ -1710,6 +1708,11 @@ public class DialogSet {
     private static DialogRule_Base addRule_validLordNumbers(JSONObject json,String key){
         JSONObject json2 = json.getJSONObject(key);
         return new DialogRule_validLordNumbers(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_targetLord(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_targetLord(json2);
     }
 
 

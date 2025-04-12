@@ -14,7 +14,7 @@ public class LordDialogController {
     }
     public LordDialogController(String dialogLink, JSONObject jsonObject){
         this.dialogLink = dialogLink;
-        rules = DialogSet.getDialogFromJSon(jsonObject);
+        rules = DialogSet.getDialogRulesFromJSon(jsonObject);
     }
     public boolean canUseDialog(Lord lord){
         for (DialogRule_Base a : rules){

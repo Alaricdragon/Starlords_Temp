@@ -30,7 +30,7 @@ public class DialogGroupOption {
         Logger log = Global.getLogger(DialogGroupOption.class);
         ArrayList<Lord> goodLords = new ArrayList<>();
         for (Lord lord : LordController.getLordsList()){
-            if (canAddLord(lord,pastLord)){
+            if (canAddLord(pastLord,lord)){
                 goodLords.add(lord);
             }
         }

@@ -16,21 +16,21 @@ public class DialogRule_validLordNumbers extends DialogRule_Base {
     public DialogRule_validLordNumbers(JSONObject jsonObject){
         if (jsonObject.has("max")) max = jsonObject.getInt("max");
         if (jsonObject.has("min")) min = jsonObject.getInt("min");
-        rules = DialogSet.getDialogFromJSon(jsonObject.getJSONObject("rules"));
+        rules = DialogSet.getDialogRulesFromJSon(jsonObject.getJSONObject("rules"));
     }
 
     @Override
     public boolean condition(Lord lord) {
         int rel = 0;
         for (Lord lord2 : LordController.getLordsList()){
-            if (isLordValid(lord2)) rel++;
+            if (isLordValid(lord,lord2)) rel++;
         }
         if (min <= rel && rel <= max) return true;
         return false;
     }
-    private boolean isLordValid(Lord lord){
+    private boolean isLordValid(Lord lord,Lord lord2){
         for (DialogRule_Base a: rules){
-            if (!a.condition(lord)) return false;
+            if (!a.condition(lord,lord2)) return false;
         }
         return true;
     }

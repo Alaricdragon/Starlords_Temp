@@ -1083,6 +1083,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     }
     private void optionSelected_SPEAK_PRIVATELY(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         /*ok... ok, what is required here?
+        * COMPLEAT
         *
         *   will speak privately:
         *       note: there is a offset by ID % 5. this requires a new condition. something like asdsadsadsasad...
@@ -1165,6 +1166,14 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         }
     }
     private void optionSelected_ASK_WORLDVIEW(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
+        /*4 diffretn strings, just for basic data on lords.
+        * have the additional line addon: one line link to updated lord info. if lord info not known, have the data not be null.
+        * addons:
+        *   (the 2 addons)
+        *   set personality known: true / false
+        *       includes a bit of data that add text for updated lord personality --provided
+        * conditions:
+        *   isPersonalityKnown*/
         textPanel.addParagraph(StringUtil.getString(
                 CATEGORY, "worldview_" + targetLord.getPersonality().toString().toLowerCase()));
         if (!targetLord.isPersonalityKnown()) {
