@@ -1,5 +1,6 @@
 package starlords.person;
 
+import com.fs.starfarer.api.util.Misc;
 import lombok.Setter;
 import starlords.ai.LordStrategicModule;
 import com.fs.starfarer.api.Global;
@@ -275,12 +276,16 @@ public class Lord {
     }
 
     public CampaignFleetAPI getFleet() {
-        if (isPlayer) return Global.getSector().getPlayerFleet();
-        if (lordAPI.getFleet() != null) return lordAPI.getFleet();
-        if (backupFleet != null && backupFleet.isAlive()) return backupFleet;
+        if (isPlayer) return checkAccuracyOfFleet(Global.getSector().getPlayerFleet());
+        if (lordAPI.getFleet() != null) return checkAccuracyOfFleet(lordAPI.getFleet());
+
+        if (backupFleet != null && backupFleet.isAlive()) return checkAccuracyOfFleet(backupFleet);
         return null;
     }
-
+    private CampaignFleetAPI checkAccuracyOfFleet(CampaignFleetAPI fleet){
+        //todo: make this find if the fleet is broken and fix it. and the fleet is proboly broken a lot. arg...
+        return fleet;
+    }
     public boolean isMarshal() {
         return lordAPI.getId().equals(PoliticsController.getLaws(getFaction()).getMarshal());
     }
