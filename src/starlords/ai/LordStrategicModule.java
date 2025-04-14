@@ -94,6 +94,13 @@ public class LordStrategicModule implements StrategicModulePlugin {
     public boolean isAllowedToEvade(SectorEntityToken other) {
         boolean ret =  base.isAllowedToEvade(other);
         Lord lord = LordController.getLordById(lordId);
+        if (lord.getFleet().getContainingLocation() == null){
+            for (CampaignFleetAPI fleet : Misc.getNearbyFleets(other, 600)){
+                if (lord.getFleet().getCommander() == fleet.getCommander()){
+                    lord.getLordAPI().setFleet(fleet);
+                }
+            }
+        }
         FactionAPI faction = lord.getFaction();
         FactionAPI targetFaction = other.getFaction();
         if (!lord.getFleet().getMemoryWithoutUpdate().getBoolean(MemFlags.FLEET_IGNORES_OTHER_FLEETS)) {
