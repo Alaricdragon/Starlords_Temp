@@ -191,6 +191,9 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
 
     private boolean optionSelected_NEW(String optionText, Object optionData){
         if (optionData instanceof DialogOption){
+            if (prevPlugin.equals(this) && !visual.isShowingPersonInfo(targetLord.getLordAPI())) {
+                visual.showPersonInfo(targetLord.getLordAPI(), false, true);
+            }
             DialogOption data = (DialogOption) optionData;
             data.applyAddons(textPanel,options,dialog,targetLord);
             String selectedOption = data.optionID;
@@ -1166,14 +1169,6 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         }
     }
     private void optionSelected_ASK_WORLDVIEW(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
-        /*4 diffretn strings, just for basic data on lords.
-        * have the additional line addon: one line link to updated lord info. if lord info not known, have the data not be null.
-        * addons:
-        *   (the 2 addons)
-        *   set personality known: true / false
-        *       includes a bit of data that add text for updated lord personality --provided
-        * conditions:
-        *   isPersonalityKnown*/
         textPanel.addParagraph(StringUtil.getString(
                 CATEGORY, "worldview_" + targetLord.getPersonality().toString().toLowerCase()));
         if (!targetLord.isPersonalityKnown()) {
@@ -1241,6 +1236,53 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         optionSelected(null, OptionId.INIT);
     }
     private void optionSelected_SUGGEST_DEFECT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
+        /*ok... ok: so:
+        * this has to be done with 'justify_defect. there are a lot of possibility here.
+        * first: the bargain. this is simple. it just opens a new window. so that cannot be held here. HOWEVER: it then opens justify defect.
+        * second, items upstanding, martial, and quarrelsome:
+        *   each one of said options can be made into its own thing. they have there own options and calculations. so we now have 4:
+        *   calculating:
+        *   upstanding:
+        *   martal:
+        *   quarrelsome:
+        *   each one of said calulations determins how must the lord is OK with changing factions based on your own marits.
+        * NEXT, it goes through a list of dialog. I can chain the dialog together. I can also do this, or I can create a list of each possable dialog. the total number of dialogs would be:
+        *   X 4 from your initial options
+        *   X 4 from 'justification'
+        *   X 2 from 'legitimacy of your faction'
+        *   X 2 from 'campairing faction relationship levels
+        *   X 2 from 'relationship with own faction lord'
+        *   (for a total of 128 lines. or 14 lines of linked dialog)
+        * NEXT, it goes to the 'conform' phase. this is also complicated.
+        *   first, it does a calculation to determine if they accept or not. (if not, -10 rep, leave dialog)
+        *       -Global.getSoundPlayer().playUISound("ui_rep_drop", 1, 1); (I would like to have this arg.)
+        *   if acsepted:
+        *       Global.getSoundPlayer().playUISound("ui_char_level_up", 1, 1);
+        *       runs accept_defect line
+        *       defects lord
+        *       THEN if you gave a bribe, that bribe is paid. (be it credits or relation)
+        * so knowing this, I require the following:
+        *   rules:
+        *       compute justification
+        *           -this requires a massive amount of data. I need to read: 'DefectionUtils.computeClaimJustification'
+        *       compute legitimacy
+        *           -again, a lot of data required. I need to read: 'DefectionUtils.computeFactionLegitimacy'
+        *       lord relations with.. something
+        *           -more data. read 'DefectionUtils.computeRelativeFactionPreference'
+        *       AGAIN, more lord relations
+        *           -more data. read 'DefectionUtils.computeRelativeLordPreference'
+        *       lastly, the justification type needs to be the same as the inputted justification. (and you require a good 'claim strangth').
+        *           -this needs something along the lines of allowing me to save data on the LordInteraction dialog plugin. this will require a spicle rule for storing temp data for the conversation.
+        *
+        *       so, in total I require a lot of rules.
+        *           -I need rules to store data on the conversation, as well as conditions to receive them.
+        *               -I should also use this chance to add memery key rules/addons, as well as lord tag rules/addons.
+        *               -this will be really important for preforming the bribe calculations.
+        *           -I need to retrofit the 'random' data calculations. this needs to beable to AT LEAST handle 100% of the defection calculations.
+        *   addons:
+        *       defect lord to faction : faction || {faction, Rank} (rank will default to zero).
+        *       play sound
+        * this opens a god damed mess.*/
         textPanel.addParagraph(StringUtil.getString(CATEGORY, "consider_defect"));
         nextState = OptionId.JUSTIFY_DEFECT;
         options.clearOptions();

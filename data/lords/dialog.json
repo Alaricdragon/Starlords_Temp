@@ -371,6 +371,12 @@
           }
         },
         "lines": {
+          "worldview": {
+            "line":"In these difficult times, order and hierarchy are necessary to keep the peace and prevent the war of all against all, yet that must not blind us to the possibility of injustice.",
+            "addons": {
+              "additionalText": "learnedWorldview"
+            }
+          },
           "speak_privately": "Do not take this amiss, but I would prefer to conduct our affairs out in the open."
         }
       }
@@ -670,6 +676,12 @@
           }
         },
         "lines": {
+          "worldview": {
+            "line":"My philosophy is simple: it is better to be the wolf than the lamb. I try to make sure that the ones who wrong me learn to regret it.",
+            "addons": {
+              "additionalText": "learnedWorldview"
+            }
+          },
           "speak_privately": "Bah. I don't like you that much. I'm not going to go plot with you in some corner."
         }
       }
@@ -1051,6 +1063,12 @@
         "rules": {
         },
         "lines": {
+          "worldview": {
+            "line":"My sword is at the disposal of my rightful liege, so long as he upholds his duty to me.",
+            "addons": {
+              "additionalText": "learnedWorldview"
+            }
+          },
           "speak_privately": "Forgive me, but I'm not one for going off in corners to plot."
         }
       }
@@ -1124,56 +1142,26 @@
       "calculating_profess_admiration_like_2": {
         "priority": 4,
         "rules": {
-          "playerWealth": {
-            "min": 2000000
-          }
-        },
-        "lines": {
-          "admiration_response": {
-            "line": "You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
-            "addons": {
-              "setProfessedAdmiration": true,
-              "setCourted": true,
-              "repIncrease": {
-                "max": 10,
-                "min": 10
+          "or": [
+            {
+              "playerWealth": {
+                "min": 2000000
+              }
+            },
+            {
+              "playerRank": {
+                "min": 1
+              },
+              "playerWealth": {
+                "min": 500000
+              }
+            },
+            {
+              "playerRank": {
+                "min": 2
               }
             }
-          }
-        }
-      },
-      "calculating_profess_admiration_like_1": {
-        "priority": 4,
-        "rules": {
-          "playerRank": {
-            "min": 1
-          },
-          "playerWealth": {
-            "min": 500000
-          }
-
-        },
-        "lines": {
-          "admiration_response": {
-            "line": "You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
-            "addons": {
-              "setProfessedAdmiration": true,
-              "setCourted": true,
-              "repIncrease": {
-                "max": 10,
-                "min": 10
-              }
-            }
-          }
-        }
-      },
-      "calculating_profess_admiration_like_0": {
-        "priority": 4,
-        "rules": {
-          "playerRank": {
-            "min": 2
-          }
-
+          ]
         },
         "lines": {
           "admiration_response": {
@@ -1201,30 +1189,18 @@
       "calculating_profess_admiration_dislike_1": {
         "priority": 3,
         "rules": {
-          "playerRank": {
-            "min": 1
-          }
-        },
-        "lines": {
-          "admiration_response": {
-            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
-            "addons": {
-              "setProfessedAdmiration": true,
-              "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
+          "or": [
+            {
+              "playerRank": {
+                "min": 1
+              }
+            },
+            {
+              "playerWealth": {
+                "min": 500000
               }
             }
-          }
-        }
-      },
-      "calculating_profess_admiration_dislike_0": {
-        "priority": 3,
-        "rules": {
-          "playerWealth": {
-            "min": 500000
-          }
+          ]
         },
         "lines": {
           "admiration_response": {
@@ -1457,6 +1433,12 @@
         "rules": {
         },
         "lines": {
+          "worldview": {
+            "line":"Well, it's a harsh world, and it is our lot to face harsh choices. Each of us must remain vigilant of our own interests, yet I do not mind aiding those who will help me in return.",
+            "addons": {
+              "additionalText": "learnedWorldview"
+            }
+          },
           "speak_privately": "Erm... Let's keep our affairs out in the open, for the time being."
         }
       }
@@ -1715,6 +1697,267 @@
         }
       },
 
+
+      "doesNotHaveLiege_Cooperative": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 75,
+            "max": 100
+          },
+          "lordHasLiege" : false
+        },
+        "lines": {
+          "liege_opinion": "I have influence and wealth that rivals that of many kings. I'm quite satisfied with the state of affairs."
+        }
+      },
+      "doesNotHaveLiege_Friendly": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 50,
+            "max": 74
+          },
+          "lordHasLiege" : false
+        },
+        "lines": {
+          "liege_opinion": "I have influence and wealth that rivals that of many kings. I'm quite satisfied with the state of affairs."
+        }
+      },
+      "doesNotHaveLiege_Welcoming": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 25,
+            "max": 49
+          },
+          "lordHasLiege" : false
+        },
+        "lines": {
+          "liege_opinion": "Life is not without challenge, but my operations are slowly expanding with each passing day."
+        }
+      },
+      "doesNotHaveLiege_Favorable": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 10,
+            "max": 25
+          },
+          "lordHasLiege" : false
+        },
+        "lines": {
+          "liege_opinion": "Life is not without challenge, but my operations are slowly expanding with each passing day."
+        }
+      },
+      "doesNotHaveLiege_Neutral": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -9,
+            "max": 9
+          },
+          "lordHasLiege" : false
+        },
+        "lines": {
+          "liege_opinion": "Life is as it always has been in the sector, full of danger but also opportunity."
+        }
+      },
+      "doesNotHaveLiege_Suspicious": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -24,
+            "max": -10
+          },
+          "lordHasLiege" : false
+        },
+        "lines": {
+          "liege_opinion": "It's no secret that our fleet has fallen on hard times, though we still have plenty of fight left."
+        }
+      },
+      "doesNotHaveLiege_Inhospitable": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -49,
+            "max": -25
+          },
+          "lordHasLiege" : false
+        },
+        "lines": {
+          "liege_opinion": "It's no secret that our fleet has fallen on hard times, though we still have plenty of fight left."
+        }
+      },
+      "doesNotHaveLiege_Hostile": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -74,
+            "max": -50
+          },
+          "lordHasLiege" : false
+        },
+        "lines": {
+          "liege_opinion": "To be frank, things have been harsh on us. It's struggle just to make sure my crew doesn't starve."
+        }
+      },
+      "doesNotHaveLiege_Vengeful": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -100,
+            "max": -75
+          },
+          "lordHasLiege" : false
+        },
+        "lines": {
+          "liege_opinion": "To be frank, things have been harsh on us. It's struggle just to make sure my crew doesn't starve."
+        }
+      },
+
+      "hasLiege_Cooperative": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 75,
+            "max": 100
+          },
+          "lordHasLiege" : true
+        },
+        "lines": {
+          "liege_opinion": "%LORD_LIEGE_NAME is my trusted friend and role model. They are a paragon of what it means to be a leader."
+        }
+      },
+      "hasLiege_Friendly": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 50,
+            "max": 74
+          },
+          "lordHasLiege" : true
+        },
+        "lines": {
+          "liege_opinion": "%LORD_LIEGE_NAME is my trusted friend and role model. They are a paragon of what it means to be a leader."
+        }
+      },
+      "hasLiege_Welcoming": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 25,
+            "max": 49
+          },
+          "lordHasLiege" : true
+        },
+        "lines": {
+          "liege_opinion": "I have no quarrel with %LORD_LIEGE_NAME. They treat their subordinates with a firm but fair hand."
+        }
+      },
+      "hasLiege_Favorable": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 10,
+            "max": 25
+          },
+          "lordHasLiege" : true
+        },
+        "lines": {
+          "liege_opinion": "I have no quarrel with %LORD_LIEGE_NAME. They treat their subordinates with a firm but fair hand."
+        }
+      },
+      "hasLiege_Neutral": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -9,
+            "max": 9
+          },
+          "lordHasLiege" : true
+        },
+        "lines": {
+          "liege_opinion": "%LORD_LIEGE_NAME is my liege. That's all I'll say on the matter."
+        }
+      },
+      "hasLiege_Suspicious": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -24,
+            "max": -10
+          },
+          "lordHasLiege" : true
+        },
+        "lines": {
+          "liege_opinion": "It's no secret that I have been unhappy with %LORD_LIEGE_NAME."
+        }
+      },
+      "hasLiege_Inhospitable": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -49,
+            "max": -25
+          },
+          "lordHasLiege" : true
+        },
+        "lines": {
+          "liege_opinion": "It's no secret that I have been unhappy with %LORD_LIEGE_NAME."
+        }
+      },
+      "hasLiege_Hostile": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -74,
+            "max": -50
+          },
+          "lordHasLiege" : true
+        },
+        "lines": {
+          "liege_opinion": "I've been waiting for any chance to escape the iron fist of %LORD_LIEGE_NAME. Might you have any ideas?"
+        }
+      },
+      "hasLiege_Vengeful": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -100,
+            "max": -75
+          },
+          "lordHasLiege" : true
+        },
+        "lines": {
+          "liege_opinion": "I've been waiting for any chance to escape the iron fist of %LORD_LIEGE_NAME. Might you have any ideas?"
+        }
+      },
+
+      "suggestDefection": {
+        "priority": 2,
+        "rules": {
+          "lordAndPlayerSameFaction": false,
+          "or": [
+            {
+              "isMarriedToPlayer": true
+            },
+            {
+              "lordLoyalty": {
+                "max": 10
+              }
+            }
+          ]
+        },
+        "lines": {
+          "optionSet_liege_opinion": {
+            "options": [
+              "option_suggest_defect",
+              "option_liege_opinion_exit"
+            ]
+          }
+        }
+      },
       "hasLiege": {
         "priority": 2,
         "rules": {
@@ -1725,9 +1968,100 @@
             "show": {
               "lordAndPlayerSameFaction": false
             },
-            "line": "How do you feel about %LORD_LIEGE_NAME?",
-            "optionData": "ERROR"
+            "line": "How do you feel about your current conditions?",
+            "optionData": "liege_opinion"
           }
+        }
+      },
+      "target_favItem_alpha_core": {
+        "priority": 2,
+        "rules": {
+          "SECOND_LORD": {
+            "lordsFavItem": {
+              "alpha_core": true
+            }
+          }
+        },
+        "lines": {
+          "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of AI research."
+        }
+      },
+      "target_favItem_hand_weapons": {
+        "priority": 2,
+        "rules": {
+          "SECOND_LORD": {
+            "lordsFavItem": {
+              "hand_weapons": true
+            }
+          }
+        },
+        "lines": {
+          "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of rare weapons."
+        }
+      },
+      "target_favItem_food": {
+        "priority": 2,
+        "rules": {
+          "SECOND_LORD": {
+            "lordsFavItem": {
+              "food": true
+            }
+          }
+        },
+        "lines": {
+          "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of exotic butters."
+        }
+      },
+      "target_favItem_luxury_goods": {
+        "priority": 2,
+        "rules": {
+          "SECOND_LORD": {
+            "lordsFavItem": {
+              "luxury_goods": true
+            }
+          }
+        },
+        "lines": {
+          "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of fashion."
+        }
+      },
+      "target_favItem_lobster": {
+        "priority": 2,
+        "rules": {
+          "SECOND_LORD": {
+            "lordsFavItem": {
+              "lobster": true
+            }
+          }
+        },
+        "lines": {
+          "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of Sindrian delicacies."
+        }
+      },
+      "target_favItem_drugs": {
+        "priority": 2,
+        "rules": {
+          "SECOND_LORD": {
+            "lordsFavItem": {
+              "drugs": true
+            }
+          }
+        },
+        "lines": {
+          "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of drugs."
+        }
+      },
+      "target_favItem_domestic_goods": {
+        "priority": 2,
+        "rules": {
+          "SECOND_LORD": {
+            "lordsFavItem": {
+              "domestic_goods": true
+            }
+          }
+        },
+        "lines": {
+          "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of technological gadgets."
         }
       },
       "favItem_alpha_core": {
@@ -1971,7 +2305,7 @@
       "fleetIsAlive": {
         "priority": 2,
         "rules": {
-          "targetLord": {
+          "SECOND_LORD": {
             "lordFleetIsAlive": true
           }
         },
@@ -2399,7 +2733,7 @@
                 "min": 5,
                 "max": 5
               },
-              "creditsDecrease": {
+              "giveCreditsToLord": {
                 "max": 1000,
                 "min": 200
               },
@@ -2414,7 +2748,7 @@
                 "min": 5,
                 "max": 5
               },
-              "creditsDecrease": {
+              "giveCreditsToLord": {
                 "max": 1000,
                 "min": 200
               },
@@ -2429,7 +2763,7 @@
                 "min": 5,
                 "max": 5
               },
-              "creditsDecrease": {
+              "giveCreditsToLord": {
                 "max": 1000,
                 "min": 200
               },
@@ -2444,7 +2778,7 @@
                 "min": 5,
                 "max": 5
               },
-              "creditsDecrease": {
+              "giveCreditsToLord": {
                 "max": 1000,
                 "min": 200
               },
@@ -2459,7 +2793,7 @@
                 "min": 5,
                 "max": 5
               },
-              "creditsDecrease": {
+              "giveCreditsToLord": {
                 "max": 1000,
                 "min": 200
               },
@@ -2474,7 +2808,7 @@
                 "min": 5,
                 "max": 5
               },
-              "creditsDecrease": {
+              "giveCreditsToLord": {
                 "max": 1000,
                 "min": 200
               },
@@ -2541,6 +2875,10 @@
           "accept_ask_location": "Who did you wish to inquire about?",
           "LordLocation": "I don't know where %SECOND_LORD_TITLE %SECOND_LORD_NAME is",
           "speak_privately": "(error) im sorry, but I don't think so.",
+          "worldview": "(error) Is the world not wonderful? sigh.. why are we even talking again...",
+          "liege_opinion": "(error) %LORD_NAME bursts into tears. You look on in shock as for hours and hours %LORD_GENDER_HE_OR_SHE spends hours talking about random insignificantint things",
+          "ask_friend_fav_gift": "(error) I will be truthful with you %PLAYER_NAME; %SECOND_LORD_NAME is very hard to please. Good luck.",
+
 
           "relation_increase": {
             "line": "Relations with %LORD_NAME increased by %c0.",
@@ -2570,6 +2908,17 @@
             "line": "Lost %c0 %c1.",
             "color": "RED"
           },
+          "learnedWorldview": {
+            "show": {
+              "isPersonalityKnown": false
+            },
+            "line": "Updated lord info!",
+            "color": "GREEN",
+            "addons": {
+              "setPersonalityKnown": true
+            }
+          },
+
           "optionSet_greeting": {
             "options": [
               "option_avoid_battle",
@@ -2594,6 +2943,11 @@
             ]
           },
           "optionSet_LordLocation": {
+            "options": [
+              "optionSet_greeting"
+            ]
+          },
+          "optionSet_ask_friend_fav_gift": {
             "options": [
               "optionSet_greeting"
             ]
@@ -3295,7 +3649,7 @@
             "optionData": {
               "optionData": "option_LordLocation",
               "rules": {
-                "targetLord": {
+                "SECOND_LORD": {
                   "lordFleetIsAlive": true,
                   "lordAndTargetSameFaction": true
                 },
@@ -3318,17 +3672,26 @@
               "greeting"
             ]
           },
+          "optionSet_worldview": {
+            "options": [
+              "optionSet_speak_privately"
+            ]
+          },
+          "optionSet_liege_opinion": {
+            "options": [
+              "optionSet_speak_privately"
+            ]
+          },
           "option_ask_worldview": {
             "line": "What do you think, in general terms, about the current state of affairs in the realm?",
-            "optionData": "ERROR"
+            "optionData": "worldview"
           },
           "option_ask_liege_opinion": {
             "show": {
-              "lordAndPlayerSameFaction": false
+              "playerSubject": false
             },
-            "option_ask_liege_opinion": "How do you feel about $string?",
-            "line": "How do you feel about your current conditions?",
-            "optionData": "ERROR"
+            "line": "How do you feel about %LORD_LIEGE_NAME",
+            "optionData": "liege_opinion"
           },
           "optionSet_ask_friend_preferences": {
             "line": "Ask for information about a lord you're courting",
@@ -3339,7 +3702,7 @@
               "validLordNumbers": {
                 "min": 1,
                 "rules": {
-                  "targetLord": {
+                  "SECOND_LORD": {
                     "isLordCourtedByPlayer": true,
                     "relationsBetweenLords": {
                       "min": 30
@@ -3352,7 +3715,7 @@
             "optionData": {
               "optionData":"option_ask_friend_preferences",
               "rules": {
-                "targetLord": {
+                "SECOND_LORD": {
                   "isLordCourtedByPlayer": true,
                   "relationsBetweenLords": {
                     "min": 30
@@ -3368,6 +3731,15 @@
           },
           "speak_privately_exit": {
             "line": "Never mind",
+            "optionData": "greeting",
+            "shortcut": "ESCAPE"
+          },
+          "option_suggest_defect": {
+            "line":  "I'd like to ask for your support in uniting the sector under %PLAYER_FACTION_NAME.",
+            "optionData": "ERROR"
+          },
+          "option_liege_opinion_exit": {
+            "line": "Interesting.",
             "optionData": "greeting",
             "shortcut": "ESCAPE"
           }

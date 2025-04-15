@@ -8,20 +8,6 @@
     "greeting_calculating_imprisoned": "I have had much time in captivity to reflect on our battle. In our next encounter, I will not lose so easily.",
     "greeting_quarrelsome_imprisoned": "To think that I've been captured by you dogs. Ach, the shame of it!",
 
-    "worldview_upstanding": "In these difficult times, order and hierarchy are necessary to keep the peace and prevent the war of all against all, yet that must not blind us to the possibility of injustice.",
-    "worldview_martial": "My sword is at the disposal of my rightful liege, so long as he upholds his duty to me.",
-    "worldview_calculating": "Well, it's a harsh world, and it is our lot to face harsh choices. Each of us must remain vigilant of our own interests, yet I do not mind aiding those who will help me in return.",
-    "worldview_quarrelsome": "My philosophy is simple: it is better to be the wolf than the lamb. I try to make sure that the ones who wrong me learn to regret it.",
-    "liege_opinion_hated": "I've been waiting for any chance to escape the iron fist of $string. Might you have any ideas?",
-    "liege_opinion_disliked": "It's no secret that I have been unhappy with $string.",
-    "liege_opinion_neutral": "$string is my liege. That's all I'll say on the matter.",
-    "liege_opinion_friendly": "I have no quarrel with $string. They treat their subordinates with a firm but fair hand.",
-    "liege_opinion_trusted": "$string is my trusted friend and role model. They are a paragon of what it means to be a leader.",
-    "liege_opinion_decentralized_hated": "To be frank, things have been harsh on us. It's struggle just to make sure my crew doesn't starve.",
-    "liege_opinion_decentralized_disliked": "It's no secret that our fleet has fallen on hard times, though we still have plenty of fight left.",
-    "liege_opinion_decentralized_neutral": "Life is as it always has been in the sector, full of danger but also opportunity.",
-    "liege_opinion_decentralized_friendly": "Life is not without challenge, but my operations are slowly expanding with each passing day.",
-    "liege_opinion_decentralized_trusted": "I have influence and wealth that rivals that of many kings. I'm quite satisfied with the state of affairs.",
     "release_upstanding": "You are indeed a $string of honour. I shall not forget this!",
     "release_martial": "You are indeed a $string of honour. I shall not forget this!",
     "release_calculating": "Am I? You are a good $string. I will try to find a way to repay you.",
@@ -44,7 +30,6 @@
     "accept_suggest_action": "I will follow your suggestion.",
     "accept_suggest_action_subject": "At once, $string.",
 
-    "suggest_defect": "I'd like to ask for your support in uniting the sector under $string.",
     "confirm_suggest_defect": "It's time for you to make a decision.",
     "abort_suggest_defect": "You don't have to respond now, but think on my proposal.",
     "bargain_defect": "And pray tell, what are you offering to justify that claim?",
@@ -70,7 +55,6 @@
     "ask_patrol_location": "Where should I defend?",
 
 
-    "advise_friend_gift": "For as long as I've known $string, they've always been a connoisseur of $string."
   },
   "starlords_ui": {
     "lords_category": "Lords",

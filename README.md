@@ -110,7 +110,15 @@ If you're a modder, or just someone who loves to write dialog for every starlord
 * each "dialog" contains a list of "dialog sets". if the "dialogs" rules are true, the game will attempt to get the highest priority dialogset that is true withen it.
 * "priority" is the priority of this dialog. should have a value of at least 0 the dialog with the highest priority that has all its "rule" reuqirements met will be used in any instance, unless the lord you are talking to has a at least one valid "dialogOverride"
 * "rules" is each requirement that must be met for a set of dialog to be used by a given starlord. every condition must be met for this to happen. conditions are as follows:
-  * "targetLord" always returns false if: target lord is unset. runs the contained 'rules' json object, for the target lord instead of the interacting lord
+  * "SECOND_LORD" always returns false if: target lord is unset. runs the contained 'rules' json object, for the target lord instead of the interacting lord
+  * "SECOND_LORD_SPOUSE" always returns false if: no target lord has been set this interaction, or the second lord has no spouse. runs the contained 'rules' json object, for the SECOND_LORD_SPOUSE lord instead of the interacting lord
+  * "PLAYER_SPOUSE" always returns false if: the player is not married. runs the contained 'rules' json object, for the PLAYER_SPOUSE lord instead of the interacting lord
+  * "LORD_SPOUSE" always returns false if: the lord you are talking to is not married. runs the contained 'rules' json object, for the LORD_SPOUSE lord instead of the interacting lord
+  * "LORD_HOST" always returns false if: you are not at a feast, or the feast has no living host. runs the contained 'rules' json object, for the LORD_HOST lord instead of the interacting lord
+  * "LORD_HOST_SPOUSE" always returns false if: you are not at a feast, or the host of the feast has no spouse. runs the contained 'rules' json object, for the LORD_HOST_SPOUSE lord instead of the interacting lord
+  * "WEDDING_TARGET" always returns false if: you are not at a wedding, or the wedding target does not exsist. runs the contained 'rules' json object, for the WEDDING_TARGET lord instead of the interacting lord
+  * "WEDDING_TARGET_SPOUSE" always returns false if: you are not at a wedding, or the wedding target has no spouse. runs the contained 'rules' json object, for the WEDDING_TARGET_SPOUSE lord instead of the interacting lord
+  * "or" contains a jsonArray, were each item in the array is a 'rules' jsonObject. if any of the contained 'rules' jsonObjects have all there rules return true, this condition returns true.
   * "relationWithPlayer" is the relationship range that this lord must have with a player to meet requirements. set between a "min" and "max" value. range must be between -100 and 100.
   * "startingFaction" is the starting faction required to meet requirements. starting faction is the faction a lord was part of when they first spawned. set to true for whitelist, and false for blacklist. To meet requirements, a lord must have a starting faction of one of the 'true' factions (if any are created in this rule), and must not have a stating faction of the 'false' factions.
   * "currentFaction" is the current faction required to meet requirements. set to true for whitelist, and false for blacklist. To meet requirements, a lord must have a current faction of one of the 'true' factions (if any are created in this rule), and must not have a current faction of the 'false' factions.
@@ -190,6 +198,8 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "lordHasLiege": if set to false, the lords faction must not have a leage to meet requirements. if set to true, the lords faction must have a leage to meet requirements.
   * "playerHasLiege": if set to false, the players faction must not have a leage to meet requirements. if set to true, the players faction must have a leage to meet requirements.
   * "validLordNumbers": this is a jsonArray with 3 parts: "min", "max", "rules". what this does is it looks at all starlords in the game, and the number of lords that meet all "rule" requirements must be between the "min" and "max" values.
+  * "isPersonalityKnown": if set to false, you must have not know the starlords personality to meet requirements. if set to true, you must know the starlords personality to meet requirements.
+  * "lordLoyalty": is the relationship range that this lord must have with there faction to meet requirements. set between a "min" and "max" value. range must be between -100 and 100.
   * the following options only work if used in an option called by advanced option data, or if used in the "validLordNumbers" rule.
     * "relationsBetweenLords": is the relationship range that this lord must have with the target lord to meet requirements. set between a "min" and "max" value. range must be between -100 and 100.
     * "lordAndTargetSameFaction": if set to false, the lord and target must not be part of the same faction to meet requirements. if set to ture, the lord and target must be part of the same faction to meet requirements.
@@ -247,6 +257,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "setPlayerSupportForLordProposal": boolean. sets weather the player is currently supporting the lords proposal, or is opposed to the lords proposal.
       * "setPlayerSupportForCurProposal": boolean. sets weather the player is currently supporting the current proposal or is opposed to the current proposal.
       * "setSwayed": boolean. sets whether the lord you are talking to has been swayed or not. if so, they cannot be swayed until the next proposal.
+      * "setPersonalityKnown": boolean. sets weather the player knows this lords personality.
     * "color" color override for this dialog line. not required. has 3 'preset' colors, but also the option for a custom color. cannot be used in any "tooltip_" line.
       * "RED"
       * "GREEN"
@@ -406,24 +417,24 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "swayProposal_forCounsel_Bribe_accept": "swayProposal_forCounsel_acceptBribe"
       * "swayProposal_forCounsel_Bribe_refuse": "ask_question" 
       * ||
-      * "swayProposal_forCounsel_Bargain_accept"
-      * "swayProposal_forCounsel_Bargain_refuse"
+      * "swayProposal_forCounsel_Bargain_accept": "swayProposal_forCounsel_acceptBargain"
+      * "swayProposal_forCounsel_Bargain_refuse": "ask_question"
     * "swayProposal_againstCounsel":
       * copys 'ask_question' options
       * ||
       * "swayProposal_againstCounsel_Bribe_accept": "swayProposal_againstCounsel_acceptBribe"
       * "swayProposal_againstCounsel_Bribe_refuse": "ask_question"
       * ||
-      * "swayProposal_againstCounsel_Bargain_accept"
-      * "swayProposal_againstCounsel_Bargain_refuse"
+      * "swayProposal_againstCounsel_Bargain_accept": "swayProposal_againstCounsel_acceptBargain"
+      * "swayProposal_againstCounsel_Bargain_refuse": "ask_question"
     * "swayProposal_forPlayer":
       * copys 'ask_question' options
       * ||
       * "swayProposal_forPlayer_Bribe_accept": "swayProposal_forPlayer_acceptBribe"
       * "swayProposal_forPlayer_Bribe_refuse": "ask_question"
       * ||
-      * "swayProposal_forPlayer_Bargain_accept"
-      * "swayProposal_forPlayer_Bargain_refuse"
+      * "swayProposal_forPlayer_Bargain_accept": swayProposal_forPlayer_acceptBargain
+      * "swayProposal_forPlayer_Bargain_refuse": "ask_question"
 
     * "swayProposal_forCounsel_acceptBribe"
         * copys 'ask_question' options
@@ -444,15 +455,24 @@ If you're a modder, or just someone who loves to write dialog for every starlord
      
     * "speak_privately"
       * "if the lord won't speak to you": copys 'greeting' options
-      * "option_ask_worldview" : "OptionId.ASK_WORLDVIEW"
-      * "option_ask_liege_opinion" : "OptionId.ASK_LIEGE_OPINION"
-      * "optionSet_ask_friend_preferences" : "option_ask_friend_preferences" : "OptionId.ASK_FRIEND_FAVORITE_GIFT"
+      * "option_ask_worldview" : "worldview"
+      * "option_ask_liege_opinion" : liege_opinion
+      * "optionSet_ask_friend_preferences" : "option_ask_friend_preferences" : "ask_friend_fav_gift"
       * "speak_privately_exit" : "greeting"
 
+    * "worldview"
+      * may run additional line: "learnedWorldview"
+      * copys 'speak_privately' options
+  
+    * "liege_opinion"
+      * copys 'speak_privately' options
+      * ||
+      * "option_suggest_defect" : OptionId.SUGGEST_DEFECT
+      * "option_liege_opinion_exit" : "greeting"
 
-
-
-
+    * "ask_friend_fav_gift":
+      * copys 'greeting' options
+      
 
 ### Credits
 Starsector team for developing the game\

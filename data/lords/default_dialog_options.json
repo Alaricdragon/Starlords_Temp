@@ -40,5 +40,8 @@
   "accept_ask_location": "optionSet_accept_ask_location",
   "LordLocation": "optionSet_LordLocation",
 
-  "speak_privately": "optionSet_speak_privately"
+  "speak_privately": "optionSet_speak_privately",
+  "worldview": "optionSet_worldview",
+  "liege_opinion": "optionSet_liege_opinion",
+  "ask_friend_fav_gift": "optionSet_ask_friend_fav_gift"
 }

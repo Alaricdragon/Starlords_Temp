@@ -945,6 +945,9 @@ public class DialogSet {
                 case "targetLord":
                     addon = addAddon_targetLord(addons,key2);
                     break;
+                case "setPersonalityKnown":
+                    addon = addAddon_setPersonalityKnown(addons,key2);
+                    break;
             }
             if (addon != null) newAddons.add(addon);
         }
@@ -1106,7 +1109,11 @@ public class DialogSet {
         JSONObject json2 = json.getJSONObject(key);
         return new DialogAddon_targetLord(json2);
     }
-
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_setPersonalityKnown(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogAddon_setPersonalityKnown(json2);
+    }
 
 
     public static ArrayList<DialogRule_Base> getDialogRulesFromJSon(JSONObject rulesTemp){
@@ -1319,8 +1326,38 @@ public class DialogSet {
                 case "validLordNumbers":
                     rules.add(addRule_validLordNumbers(rulesTemp,key));
                     break;
-                case "targetLord":
+                case "SECOND_LORD":
                     rules.add(addRule_targetLord(rulesTemp,key));
+                    break;
+                case "isPersonalityKnown":
+                    rules.add(addRule_isPersonalityKnown(rulesTemp,key));
+                    break;
+                case "or":
+                    rules.add(addRule_or(rulesTemp,key));
+                    break;
+                case "SECOND_LORD_SPOUSE":
+                    rules.add(addRule_SECOND_LORD_SPOUSE(rulesTemp,key));
+                    break;
+                case "PLAYER_SPOUSE":
+                    rules.add(addRule_PLAYER_SPOUSE(rulesTemp,key));
+                    break;
+                case "LORD_SPOUSE":
+                    rules.add(addRule_LORD_SPOUSE(rulesTemp,key));
+                    break;
+                case "LORD_HOST":
+                    rules.add(addRule_LORD_HOST(rulesTemp,key));
+                    break;
+                case "LORD_HOST_SPOUSE":
+                    rules.add(addRule_LORD_HOST_SPOUSE(rulesTemp,key));
+                    break;
+                case "WEDDING_TARGET":
+                    rules.add(addRule_WEDDING_TARGET(rulesTemp,key));
+                    break;
+                case "WEDDING_TARGET_SPOUSE":
+                    rules.add(addRule_WEDDING_TARGET_SPOUSE(rulesTemp,key));
+                    break;
+                case "lordLoyalty":
+                    rules.add(addRule_lordLoyalty(rulesTemp,key));
                     break;
             }
         }
@@ -1714,6 +1751,54 @@ public class DialogSet {
         JSONObject json2 = json.getJSONObject(key);
         return new DialogRule_targetLord(json2);
     }
-
-
+    @SneakyThrows
+    private static DialogRule_Base addRule_isPersonalityKnown(JSONObject json,String key){
+        boolean json2 = json.getBoolean(key);
+        return new DialogRule_isPersonalityKnown(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_or(JSONObject json,String key){
+        JSONArray json2 = json.getJSONArray(key);
+        return new DialogRule_or(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_SECOND_LORD_SPOUSE(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_SECOND_LORD_SPOUSE(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_PLAYER_SPOUSE(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_PLAYER_SPOUSE(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_LORD_SPOUSE(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_LORD_SPOUSE(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_LORD_HOST(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_LORD_HOST(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_LORD_HOST_SPOUSE(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_LORD_HOST_SPOUSE(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_WEDDING_TARGET(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_WEDDING_TARGET(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_WEDDING_TARGET_SPOUSE(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_WEDDING_TARGET_SPOUSE(json2);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_lordLoyalty(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogRule_lordLoyalty(json2);
+    }
 }
