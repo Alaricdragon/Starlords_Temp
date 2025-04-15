@@ -1,5 +1,5 @@
 V0.3.23:
-    fixes (thanks AlexRednic for this fix!)
+    fixes (thanks Aleksandros for this fix!)
         fixed lords AI breaking at random when a fleets containing location is null.
 V0.3.22:
     fixes:
