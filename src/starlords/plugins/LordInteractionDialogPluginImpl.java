@@ -28,6 +28,7 @@ import starlords.util.DefectionUtils;
 import starlords.util.GenderUtils;
 import starlords.util.StringUtil;
 import starlords.util.Utils;
+import starlords.util.dialogControler.DialogDataHolder;
 import starlords.util.dialogControler.DialogOption;
 import starlords.util.dialogControler.DialogSet;
 
@@ -39,7 +40,7 @@ import static starlords.ai.LordAI.BUSY_REASON;
 import static starlords.util.Constants.*;
 
 public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin {
-
+    public static DialogDataHolder DATA_HOLDER = new DialogDataHolder();
     public static Logger log = Global.getLogger(LordInteractionDialogPluginImpl.class);
     static String CATEGORY = "starlords_lords_dialog";
     public enum OptionId {
@@ -119,6 +120,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
 
         lordsReference = new HashMap<>();
         targetLord = LordController.getLordById(lordFleet.getCommander().getId());
+        if (!DATA_HOLDER.getTargetID().equals(targetLord.getLordAPI().getId()))DATA_HOLDER = new DialogDataHolder();
         DialogOption option = new DialogOption("greeting",new ArrayList<>());
         optionSelected(null, option);
     }
@@ -1253,6 +1255,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         *   X 2 from 'campairing faction relationship levels
         *   X 2 from 'relationship with own faction lord'
         *   (for a total of 128 lines. or 14 lines of linked dialog)
+        *   (note: I have changed additionalText to allow for more lines. this is usefull here.)
         * NEXT, it goes to the 'conform' phase. this is also complicated.
         *   first, it does a calculation to determine if they accept or not. (if not, -10 rep, leave dialog)
         *       -Global.getSoundPlayer().playUISound("ui_rep_drop", 1, 1); (I would like to have this arg.)
@@ -1275,13 +1278,14 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         *           -this needs something along the lines of allowing me to save data on the LordInteraction dialog plugin. this will require a spicle rule for storing temp data for the conversation.
         *
         *       so, in total I require a lot of rules.
-        *           -I need rules to store data on the conversation, as well as conditions to receive them.
+        *           -(rules done. conditions still required.)I need rules to store data on the conversation, as well as conditions to receive them.
         *               -I should also use this chance to add memery key rules/addons, as well as lord tag rules/addons.
         *               -this will be really important for preforming the bribe calculations.
         *           -I need to retrofit the 'random' data calculations. this needs to beable to AT LEAST handle 100% of the defection calculations.
         *   addons:
         *       defect lord to faction : faction || {faction, Rank} (rank will default to zero).
         *       play sound
+        *       (done)cahnge "additionText" to allow for JsonArray input.
         * this opens a god damed mess.*/
         textPanel.addParagraph(StringUtil.getString(CATEGORY, "consider_defect"));
         nextState = OptionId.JUSTIFY_DEFECT;

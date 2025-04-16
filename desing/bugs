@@ -1,0 +1,31 @@
+NOTE: I forgot to record the original list, so there are some bugs missing from this.
+1) starlord AI:
+    a) starlords will sometimes charge straight to there death when fighting other starlords.
+    b) starlords fleet can be set to some random fleet at a random location. the process of this happing is completely unknown.
+           -currently, as a temp fix, 'AlexRednicon' put this in the Lords Straticic Moduel
+               if (lord.getFleet().getContainingLocation() == null){
+                   for (CampaignFleetAPI fleet : Misc.getNearbyFleets(other, 600)){
+                       if (lord.getFleet().getCommander() == fleet.getCommander()){
+                           lord.getLordAPI().setFleet(fleet);
+                       }
+                   }
+               }
+           HOWEVER: this fix needs to be applyed to the fleet 100% of the time somehow...? (does this even effect fleeets all the time?)
+    c) starlords are always attacking in colonly crises buildup.
+           -I need to change this so they only attack when the crisis fleet is coming.
+           -it would be better if I could do it so the lords fleets came at the same time as the crises fleet.
+    d) Utils.canBeAttacked(MarketAPI)
+        d.0) needs to ignore nexerlin outposts (dont look at markets less then size 3)?
+        d.1) needs to ignore markets with no industrys (another issue to fix)
+2) tornaments:
+    a) with Aod QoL instaled, you cant fight in tornaments hosted by your own faction
+    b) possible tournament ships include things like station and ship moduels.
+    c) if you fly your own ship, it will remove the officer from that ship when the tornament ends.
+    d) sometimes doing a tournament will drain all your ships CR. this seems to be fixed after combat. this should be improved somehow.
+3) generator:
+    a) a lords fav item needs to be limited to the available fav items
+    b) lords seem to be using ships not part of the main faction blueprints a lot. this should be fixed?
+    c) on game start, with exstra lords for all faction on, it seems to create to many starlords? (needs testing)
+    d) life and death system seems to create starlords to fast. I will need to look into this.
+4) life and death system:
+    a) a lords / players spouse needs to be unset when there partner dies.

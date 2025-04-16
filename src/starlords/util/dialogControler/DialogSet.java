@@ -948,6 +948,15 @@ public class DialogSet {
                 case "setPersonalityKnown":
                     addon = addAddon_setPersonalityKnown(addons,key2);
                     break;
+                case "setDialogData":
+                    addon = addAddon_setDialogData(addons,key2);
+                    break;
+                case "setMemoryData":
+                    addon = addAddon_setMemoryData(addons,key2);
+                    break;
+                case "setLordTags":
+                    addon = addAddon_setLordTags(addons,key2);
+                    break;
             }
             if (addon != null) newAddons.add(addon);
         }
@@ -985,8 +994,7 @@ public class DialogSet {
     }
     @SneakyThrows
     private static DialogAddon_Base addAddon_additionalText(JSONObject json,String key){
-        String json2 = json.getString(key);
-        return new DialogAddon_additionalText(json2);
+        return new DialogAddon_additionalText(json,key);
     }
     @SneakyThrows
     private static DialogAddon_Base addAddon_startWedding(JSONObject json,String key){
@@ -1114,7 +1122,21 @@ public class DialogSet {
         boolean json2 = json.getBoolean(key);
         return new DialogAddon_setPersonalityKnown(json2);
     }
-
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_setDialogData(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogAddon_setDialogData(json2);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_setMemoryData(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogAddon_setMemoryData(json2);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_setLordTags(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogAddon_setLordTags(json2);
+    }
 
     public static ArrayList<DialogRule_Base> getDialogRulesFromJSon(JSONObject rulesTemp){
         ArrayList<DialogRule_Base> rules = new ArrayList<>();
