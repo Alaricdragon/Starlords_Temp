@@ -240,7 +240,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
         * "commodityID..."
           * "min": Integer
           * "max": Integer
-      * "additionalText": "lineID" adds an additional line of dialog, with the inputed name
+      * "additionalText": "lineID" adds an additional line of dialog, with the inputed name. also take a jsonArray as input, running each inputed line in sequence.
       * "wedPlayerToLord": boolean. if set to true, marry's the lord and player. if set to false, and the player and lord are married, un-marry's the lord and player.
       * "wedPlayerToWeddingTarget": boolean. if set to true, marry's the wedding target and player. if set to false, and the player and wedding target are married, un-marry's the wedding target and player.
       * "startWedding": boolean. if set to true, sets the current feast the player is at to a wedding ceremony (or howeer that works). will do nothing if not at a feast.
@@ -258,6 +258,11 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "setPlayerSupportForCurProposal": boolean. sets weather the player is currently supporting the current proposal or is opposed to the current proposal.
       * "setSwayed": boolean. sets whether the lord you are talking to has been swayed or not. if so, they cannot be swayed until the next proposal.
       * "setPersonalityKnown": boolean. sets weather the player knows this lords personality.
+      * "setDialogData": jsonObject. sets data that is stored in the dialog, and is deleted when the interaction ends.
+        * each line is "dataID" : String || boolean || integer || JsonObject {min,max}
+      * "setMemoryData": jsonObject. sets memory key data. memory is held in the save file, and will remain forever. please keep in mind, chose your memorys dataID wisely. your dataID must start with '$', and should not be the same as ANY OTHER MEMEORY IN THE GAME. be carefull.
+        * each line is "dataID" : String || boolean || integer || JsonObject {min,max}
+      * "setLordTags": jsonObject. were each item is 'tagName' : boolean. set to true to add a tag, false to remove it. tags will remain on a starlord until removed.
     * "color" color override for this dialog line. not required. has 3 'preset' colors, but also the option for a custom color. cannot be used in any "tooltip_" line.
       * "RED"
       * "GREEN"
@@ -467,9 +472,16 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "liege_opinion"
       * copys 'speak_privately' options
       * ||
-      * "option_suggest_defect" : OptionId.SUGGEST_DEFECT
+      * "option_suggest_defect" : consider_defect
       * "option_liege_opinion_exit" : "greeting"
-
+    
+    * "consider_defect"
+      * "option_suggest_defection_calculating" : OptionId.BARGAIN_DEFECT -> OptionId.JUSTIFY_DEFECT
+      * "option_suggest_defection_upstanding" : OptionId.JUSTIFY_DEFECT
+      * "option_suggest_defection_martial" : OptionId.JUSTIFY_DEFECT
+      * "option_suggest_defection_quarrelsome" : OptionId.JUSTIFY_DEFECT
+      * "option_suggest_defection_abort" : "greeting"
+      
     * "ask_friend_fav_gift":
       * copys 'greeting' options
       

@@ -43,5 +43,6 @@
   "speak_privately": "optionSet_speak_privately",
   "worldview": "optionSet_worldview",
   "liege_opinion": "optionSet_liege_opinion",
-  "ask_friend_fav_gift": "optionSet_ask_friend_fav_gift"
+  "ask_friend_fav_gift": "optionSet_ask_friend_fav_gift",
+  "consider_defect": "optionSet_consider_defect"
 }

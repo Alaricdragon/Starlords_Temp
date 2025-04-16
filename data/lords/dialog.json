@@ -2878,7 +2878,7 @@
           "worldview": "(error) Is the world not wonderful? sigh.. why are we even talking again...",
           "liege_opinion": "(error) %LORD_NAME bursts into tears. You look on in shock as for hours and hours %LORD_GENDER_HE_OR_SHE spends hours talking about random insignificantint things",
           "ask_friend_fav_gift": "(error) I will be truthful with you %PLAYER_NAME; %SECOND_LORD_NAME is very hard to please. Good luck.",
-
+          "consider_defect": "Oh? You speak of treason, friend. Why should I let you say another word?",
 
           "relation_increase": {
             "line": "Relations with %LORD_NAME increased by %c0.",
@@ -3740,6 +3740,37 @@
           },
           "option_liege_opinion_exit": {
             "line": "Interesting.",
+            "optionData": "greeting",
+            "shortcut": "ESCAPE"
+          },
+
+          "optionSet_consider_defect": {
+            "options": [
+              "option_suggest_defection_calculating",
+              "option_suggest_defection_upstanding",
+              "option_suggest_defection_martial",
+              "option_suggest_defection_quarrelsome",
+              "option_suggest_defection_abort"
+            ]
+          },
+          "option_suggest_defection_calculating": {
+            "line": "I will make it well worth your time.",
+            "optionData": "ERROR"
+          },
+          "option_suggest_defection_upstanding": {
+            "line": "Only I can bring peace to citizens of the sector.",
+            "optionData": "ERROR"
+          },
+          "option_suggest_defection_martial": {
+            "line": "In times of turmoil, might makes right. And I am the strongest.",
+            "optionData": "ERROR"
+          },
+          "option_suggest_defection_quarrelsome": {
+            "line": "With me, you'll have your revenge on those who wronged you.",
+            "optionData": "ERROR"
+          },
+          "option_suggest_defection_abort": {
+            "line": "Lighten up, it was just a joke.",
             "optionData": "greeting",
             "shortcut": "ESCAPE"
           }
