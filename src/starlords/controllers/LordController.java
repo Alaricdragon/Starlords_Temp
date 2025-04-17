@@ -24,6 +24,7 @@ import starlords.util.Utils;
 import java.util.*;
 
 import static starlords.util.Constants.DEBUG_MODE;
+import static starlords.util.Constants.STARLORD_ADDITIONAL_MEMORY_KEY;
 
 public class LordController {
 
@@ -157,6 +158,10 @@ public class LordController {
 
         //remove the lord from the intel plugins.
         LordsIntelPlugin.removeProfile(lord);
+
+        //removes any additional lord data from memory
+        String key = STARLORD_ADDITIONAL_MEMORY_KEY+lord.getLordAPI().getId();
+        Global.getSector().getMemory().set(key,null,1);
 
         //also this. dont know if it helps or not though.
         ensureLordOrder();

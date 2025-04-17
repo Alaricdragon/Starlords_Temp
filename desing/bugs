@@ -29,3 +29,6 @@ NOTE: I forgot to record the original list, so there are some bugs missing from 
     d) life and death system seems to create starlords to fast. I will need to look into this.
 4) life and death system:
     a) a lords / players spouse needs to be unset when there partner dies.
+5) additional lord generator:
+    a) I need to remove the T2, T1 lords from settings. T2 and T1 lords are not how powerfull the lords are, its how important the lord is to a faction.
+       instead, I should just make sure each faction fills the lord slots in order of having 1 T2, and 3 T1 lords, before the rest are T0.

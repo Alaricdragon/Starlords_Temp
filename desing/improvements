@@ -102,11 +102,13 @@ features:
         -) VN sector when???? (for real though, we are so close to VN sector at this point. like, we can already romance for gods sake!)
 misc improvements:
     1) s-mod improvements:
-        1.1) I want to go into the SMods.json and add a bunch of Smod possabilitys
-        1.2) I need to add additional rules for the Smods. rules I have thought of are the following:
+        1.0) I want to go into the SMods.json and add a bunch of Smod possabilitys
+        1.1) I need to add additional rules for the Smods. rules I have thought of are the following:
             -) wepon mount types, and sizes
             -) shiled arc, spead, efisahncy, so on
             -) active wepons with ammo.
+    2) exstra lords:
+        2.0) add a option that allow the exstra lord generator to remove lords from the game, provided its higher then the wanted amount of starlords.
 settings:
     1) lord fleet settings
         1.0) max fleet size (DP)

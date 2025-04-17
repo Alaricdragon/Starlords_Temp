@@ -957,6 +957,9 @@ public class DialogSet {
                 case "setLordTags":
                     addon = addAddon_setLordTags(addons,key2);
                     break;
+                case "setLordMemoryData":
+                    addon = addAddon_setLordMemoryData(addons,key2);
+                    break;
             }
             if (addon != null) newAddons.add(addon);
         }
@@ -1137,6 +1140,12 @@ public class DialogSet {
         JSONObject json2 = json.getJSONObject(key);
         return new DialogAddon_setLordTags(json2);
     }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_setLordMemoryData(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        return new DialogAddon_setLordMemoryData(json2);
+    }
+
 
     public static ArrayList<DialogRule_Base> getDialogRulesFromJSon(JSONObject rulesTemp){
         ArrayList<DialogRule_Base> rules = new ArrayList<>();

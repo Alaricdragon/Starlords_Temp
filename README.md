@@ -262,6 +262,8 @@ If you're a modder, or just someone who loves to write dialog for every starlord
         * each line is "dataID" : String || boolean || integer || JsonObject {min,max}
       * "setMemoryData": jsonObject. sets memory key data. memory is held in the save file, and will remain forever. please keep in mind, chose your memorys dataID wisely. your dataID must start with '$', and should not be the same as ANY OTHER MEMEORY IN THE GAME. be carefull.
         * each line is "dataID" : String || boolean || integer || JsonObject {min,max}
+      * "setLordMemoryData": jsonObject. sets memory key data, linked to the interacted starlord. memory is held in the save file, and will remain forever, or until the starlord dies. each starlords memory is stored in "$STARLORDS_LORD_ADDITIONAL_MEMORY_%lordID". (were lordID is the ID tied to the lord). so try not to grab that directly please.
+        * each line is "dataID" : String || boolean || integer || JsonObject {min,max}
       * "setLordTags": jsonObject. were each item is 'tagName' : boolean. set to true to add a tag, false to remove it. tags will remain on a starlord until removed.
     * "color" color override for this dialog line. not required. has 3 'preset' colors, but also the option for a custom color. cannot be used in any "tooltip_" line.
       * "RED"
