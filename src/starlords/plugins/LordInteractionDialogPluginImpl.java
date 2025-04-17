@@ -1238,55 +1238,6 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         optionSelected(null, OptionId.INIT);
     }
     private void optionSelected_SUGGEST_DEFECT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
-        /*ok... ok: so:
-        * this has to be done with 'justify_defect. there are a lot of possibility here.
-        * first: the bargain. this is simple. it just opens a new window. so that cannot be held here. HOWEVER: it then opens justify defect.
-        * second, items upstanding, martial, and quarrelsome:
-        *   each one of said options can be made into its own thing. they have there own options and calculations. so we now have 4:
-        *   calculating:
-        *   upstanding:
-        *   martal:
-        *   quarrelsome:
-        *   each one of said calulations determins how must the lord is OK with changing factions based on your own marits.
-        * NEXT, it goes through a list of dialog. I can chain the dialog together. I can also do this, or I can create a list of each possable dialog. the total number of dialogs would be:
-        *   X 4 from your initial options
-        *   X 4 from 'justification'
-        *   X 2 from 'legitimacy of your faction'
-        *   X 2 from 'campairing faction relationship levels
-        *   X 2 from 'relationship with own faction lord'
-        *   (for a total of 128 lines. or 14 lines of linked dialog)
-        *   (note: I have changed additionalText to allow for more lines. this is usefull here.)
-        * NEXT, it goes to the 'conform' phase. this is also complicated.
-        *   first, it does a calculation to determine if they accept or not. (if not, -10 rep, leave dialog)
-        *       -Global.getSoundPlayer().playUISound("ui_rep_drop", 1, 1); (I would like to have this arg.)
-        *   if acsepted:
-        *       Global.getSoundPlayer().playUISound("ui_char_level_up", 1, 1);
-        *       runs accept_defect line
-        *       defects lord
-        *       THEN if you gave a bribe, that bribe is paid. (be it credits or relation)
-        * so knowing this, I require the following:
-        *   rules:
-        *       compute justification
-        *           -this requires a massive amount of data. I need to read: 'DefectionUtils.computeClaimJustification'
-        *       compute legitimacy
-        *           -again, a lot of data required. I need to read: 'DefectionUtils.computeFactionLegitimacy'
-        *       lord relations with.. something
-        *           -more data. read 'DefectionUtils.computeRelativeFactionPreference'
-        *       AGAIN, more lord relations
-        *           -more data. read 'DefectionUtils.computeRelativeLordPreference'
-        *       lastly, the justification type needs to be the same as the inputted justification. (and you require a good 'claim strangth').
-        *           -this needs something along the lines of allowing me to save data on the LordInteraction dialog plugin. this will require a spicle rule for storing temp data for the conversation.
-        *
-        *       so, in total I require a lot of rules.
-        *           -(rules done. conditions still required.)I need rules to store data on the conversation, as well as conditions to receive them.
-        *               -I should also use this chance to add memery key rules/addons, as well as lord tag rules/addons.
-        *               -this will be really important for preforming the bribe calculations.
-        *           -I need to retrofit the 'random' data calculations. this needs to beable to AT LEAST handle 100% of the defection calculations.
-        *   addons:
-        *       defect lord to faction : faction || {faction, Rank} (rank will default to zero).
-        *       play sound
-        *       (done)cahnge "additionText" to allow for JsonArray input.
-        * this opens a god damed mess.*/
         textPanel.addParagraph(StringUtil.getString(CATEGORY, "consider_defect"));
         nextState = OptionId.JUSTIFY_DEFECT;
         options.clearOptions();
@@ -1297,6 +1248,77 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         options.addOption(StringUtil.getString(CATEGORY, "suggest_defection_abort"), OptionId.INIT);
     }
     private void optionSelected_JUSTIFY_DEFECT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
+        /*ok... ok: so:
+         * this has to be done with 'justify_defect. there are a lot of possibility here.
+         * first: the bargain. this is simple. it just opens a new window. so that cannot be held here. HOWEVER: it then opens justify defect.
+         * second, items upstanding, martial, and quarrelsome:
+         *   each one of said options can be made into its own thing. they have there own options and calculations. so we now have 4:
+         *   calculating:
+         *   upstanding:
+         *   martal:
+         *   quarrelsome:
+         *   each one of said calulations determins how must the lord is OK with changing factions based on your own marits.
+         * NEXT, it goes through a list of dialog. I can chain the dialog together. I can also do this, or I can create a list of each possable dialog. the total number of dialogs would be:
+         *   X 4 from your initial options
+         *   X 4 from 'justification'
+         *   X 2 from 'legitimacy of your faction'
+         *   X 2 from 'campairing faction relationship levels
+         *   X 2 from 'relationship with own faction lord'
+         *   (for a total of 128 lines. or 14 lines of linked dialog)
+         *   (note: I have changed additionalText to allow for more lines. this is usefull here.)
+         * NEXT, it goes to the 'conform' phase. this is also complicated.
+         *   first, it does a calculation to determine if they accept or not. (if not, -10 rep, leave dialog)
+         *       -Global.getSoundPlayer().playUISound("ui_rep_drop", 1, 1); (I would like to have this arg.)
+         *   if acsepted:
+         *       Global.getSoundPlayer().playUISound("ui_char_level_up", 1, 1);
+         *       runs accept_defect line
+         *       defects lord
+         *       THEN if you gave a bribe, that bribe is paid. (be it credits or relation)
+         * so knowing this, I require the following:
+         *   rules:
+         *       compute justification
+         *           -this requires a massive amount of data. I need to read: 'DefectionUtils.computeClaimJustification'
+         *       compute legitimacy
+         *           -again, a lot of data required. I need to read: 'DefectionUtils.computeFactionLegitimacy'
+         *       lord relations with.. something
+         *           -more data. read 'DefectionUtils.computeRelativeFactionPreference'
+         *       AGAIN, more lord relations
+         *           -more data. read 'DefectionUtils.computeRelativeLordPreference'
+         *       lastly, the justification type needs to be the same as the inputted justification. (and you require a good 'claim strangth').
+         *           -this needs something along the lines of allowing me to save data on the LordInteraction dialog plugin. this will require a spicle rule for storing temp data for the conversation.
+         *
+         *       so, in total I require a lot of rules.
+         *           -(done.)I need rules to store data on the conversation, as well as conditions to receive them.
+         *               -I should also use this chance to add memery key rules/addons, as well as lord tag rules/addons.
+         *               -this will be really important for preforming the bribe calculations.
+         *           -(see 'new system: dialog values.')I need to retrofit the 'random' data calculations. this needs to beable to AT LEAST handle 100% of the defection calculations.
+         *   addons:
+         *       defect lord to faction : faction || {faction, Rank} (rank will default to zero).
+         *       play sound
+         *       (done)cahnge "additionText" to allow for JsonArray input.
+         * this opens a god damed mess.
+         * (done primary class. still need supporting classes, and custom dialogrule.)new system: dialog values:
+         *  dialog values can have multible diffrent 'value' json objects inputed. the outputed resolts is teh sum of all the numbers.
+         *  each number holds the following possable stats:
+         *      mutli: double. defalt 1
+         *      base: int. defalt 0.
+         *      the EQ used to compute one 'value' is (base + VALUE)*multi
+         * possable values are as follows:
+         *  base (just a number that is added to the output)
+         *  playerLord relation
+         *  lordTarget relation
+         *  lordLoyalty
+         *  . . . (get more as needed)
+         *  conditional value: (this can hold one of 2 things)
+         *      a) {"rule" : rulesObject, "value": valueObject || int}
+         *      b) [{"rule","value"},{"rule","value",{"rule","value"}...}] (this is a json Array holding the conditional value object.)
+         * useage is as follows:
+         *  frist, I can use this as the min / max value in all min / max conditions (merge them into one class)
+         *  secondly, I can use this at any time were you can set a value (some addons have this), or add a value between min / max.
+         * supporting data:
+         *  first, I need to go into addons that set a value and make them all inharent a class, that lets them have there min / max values be a dialog values.
+         *  second, I need to go into conditions that compair values (min/max) and make them all inharent a class, that lets the min / max values be a dialog values.
+         *  lastly, for both first and second, I need to make it so they can also acsept a inputed value, and not just max and min.*/
         // compute justification strength
         // upstanding checks player colony stability and count, marshal checks player level and fleet size,
         // calculating does bribes, quarrelsome auto-passes

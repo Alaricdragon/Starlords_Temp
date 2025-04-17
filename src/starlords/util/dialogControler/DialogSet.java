@@ -1390,6 +1390,18 @@ public class DialogSet {
                 case "lordLoyalty":
                     rules.add(addRule_lordLoyalty(rulesTemp,key));
                     break;
+                case "getDialogData":
+                    rules.addAll(addRule_getDialogData(rulesTemp,key));
+                    break;
+                case "getMemoryData":
+                    rules.addAll(addRule_getMemoryData(rulesTemp,key));
+                    break;
+                case "getLordMemoryData":
+                    rules.addAll(addRule_getLordMemoryData(rulesTemp,key));
+                    break;
+                case "LordTags":
+                    rules.addAll(addRule_LordTags(rulesTemp,key));
+                    break;
             }
         }
         return rules;
@@ -1831,5 +1843,78 @@ public class DialogSet {
     private static DialogRule_Base addRule_lordLoyalty(JSONObject json,String key){
         JSONObject json2 = json.getJSONObject(key);
         return new DialogRule_lordLoyalty(json2);
+    }
+    @SneakyThrows
+    private static ArrayList<DialogRule_Base> addRule_getDialogData(JSONObject json,String key){
+        /*OH BOY, i SURE HOPE THIS WORKS!!!!*/
+        JSONObject json2 = json.getJSONObject(key);
+        ArrayList<DialogRule_Base> rules = new ArrayList<>();
+        for (Iterator it = json2.keys(); it.hasNext();) {
+            String key2 = (String) it.next();
+            if (json2.get(key2) instanceof Boolean){
+                rules.add(new DialogRule_getDialogData_boolean(key2,json2.getBoolean(key2)));
+                continue;
+            }
+            if (json2.get(key2) instanceof JSONObject && ((json2.getJSONObject(key2).has("min") && json2.getJSONObject(key2).get("min") instanceof Integer) || (json2.getJSONObject(key2).has("max") && json2.getJSONObject(key2).get("max") instanceof Integer))){
+                rules.add(new DialogRule_getDialogData_int(key2,json2.getJSONObject(key2)));
+                continue;
+            }
+            rules.add(new DialogRule_getDialogData_string(key2,json2.getJSONObject(key2)));
+        }
+        return rules;
+    }
+    @SneakyThrows
+    private static ArrayList<DialogRule_Base> addRule_getMemoryData(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        ArrayList<DialogRule_Base> rules = new ArrayList<>();
+        for (Iterator it = json2.keys(); it.hasNext();) {
+            String key2 = (String) it.next();
+            if (json2.get(key2) instanceof Boolean){
+                rules.add(new DialogRule_getMemoryData_boolean(key2,json2.getBoolean(key2)));
+                continue;
+            }
+            if (json2.get(key2) instanceof JSONObject && ((json2.getJSONObject(key2).has("min") && json2.getJSONObject(key2).get("min") instanceof Integer) || (json2.getJSONObject(key2).has("max") && json2.getJSONObject(key2).get("max") instanceof Integer))){
+                rules.add(new DialogRule_getMemoryData_int(key2,json2.getJSONObject(key2)));
+                continue;
+            }
+            rules.add(new DialogRule_getMemoryData_string(key2,json2.getJSONObject(key2)));
+        }
+        return rules;
+    }
+    @SneakyThrows
+    private static ArrayList<DialogRule_Base> addRule_getLordMemoryData(JSONObject json,String key){
+        JSONObject json2 = json.getJSONObject(key);
+        ArrayList<DialogRule_Base> rules = new ArrayList<>();
+        for (Iterator it = json2.keys(); it.hasNext();) {
+            String key2 = (String) it.next();
+            if (json2.get(key2) instanceof Boolean){
+                rules.add(new DialogRule_getLordMemoryData_boolean(key2,json2.getBoolean(key2)));
+                continue;
+            }
+            if (json2.get(key2) instanceof JSONObject && ((json2.getJSONObject(key2).has("min") && json2.getJSONObject(key2).get("min") instanceof Integer) || (json2.getJSONObject(key2).has("max") && json2.getJSONObject(key2).get("max") instanceof Integer))){
+                rules.add(new DialogRule_getLordMemoryData_int(key2,json2.getJSONObject(key2)));
+                continue;
+            }
+            rules.add(new DialogRule_getLordMemoryData_string(key2,json2.getJSONObject(key2)));
+        }
+        return rules;
+    }
+    @SneakyThrows
+    private static ArrayList<DialogRule_Base> addRule_LordTags(JSONObject json,String key){
+        ArrayList<DialogRule_Base> rules = new ArrayList<>();
+        ArrayList<String> whiteList = new ArrayList<>();
+        ArrayList<String> blackList = new ArrayList<>();
+        JSONObject ruleAdded = json.getJSONObject(key);
+        for (Iterator it2 = ruleAdded.keys(); it2.hasNext();) {
+            String key2 = (String) it2.next();
+            if (ruleAdded.getBoolean(key2)){
+                whiteList.add(key2);
+                continue;
+            }
+            blackList.add(key2);
+        }
+        if (whiteList.size() != 0) rules.add(new DialogRule_LordTags_whitelist(whiteList));
+        if (blackList.size() != 0) rules.add(new DialogRule_LordTags_blacklist(blackList));
+        return rules;
     }
 }

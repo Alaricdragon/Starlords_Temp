@@ -3,20 +3,18 @@ package starlords.util.dialogControler.dialogRull;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.person.Lord;
+import starlords.util.dialogControler.dialogRull.bases.DialogRule_minmax;
 
-public class DialogRule_lordWealth extends DialogRule_Base {
-    int max = 2147483647;
-    int min = -2147483647;
+public class DialogRule_lordWealth extends DialogRule_minmax {
     @SneakyThrows
-    public DialogRule_lordWealth(JSONObject jsonObject){
-        if (jsonObject.has("max")) max = jsonObject.getInt("max");
-        if (jsonObject.has("min")) min = jsonObject.getInt("min");
+    public DialogRule_lordWealth(JSONObject jsonObject,String key){
+        super(jsonObject, key);
     }
 
     @Override
-    public boolean condition(Lord lord) {
-        float rel = lord.getWealth();
-        if (min <= rel && rel <= max) return true;
-        return false;
+    protected int getValue(Lord lord, Lord targetLord) {
+        int rel = (int) lord.getWealth();
+        return rel;
     }
+
 }

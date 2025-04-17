@@ -4,24 +4,20 @@ import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.controllers.LordController;
 import starlords.person.Lord;
+import starlords.util.dialogControler.dialogRull.bases.DialogRule_minmax;
 
-public class DialogRule_lordsCourted extends DialogRule_Base {
-    int max = 2147483647;
-    int min = -2147483647;
+public class DialogRule_lordsCourted extends DialogRule_minmax {
     @SneakyThrows
-    public DialogRule_lordsCourted(JSONObject jsonObject){
-        if (jsonObject.has("max")) max = jsonObject.getInt("max");
-        if (jsonObject.has("min")) min = jsonObject.getInt("min");
+    public DialogRule_lordsCourted(JSONObject jsonObject,String key){
+        super(jsonObject,key);
     }
 
     @Override
-    public boolean condition(Lord lord) {
+    protected int getValue(Lord lord, Lord targetLord) {
         int numCourted = 0;
         for (Lord lord2 : LordController.getLordsList()) {
             if (lord2.isCourted()) numCourted += 1;
-            if (numCourted > max) return false;
         }
-        if (min <= numCourted && numCourted <= max) return true;
-        return false;
+        return numCourted;
     }
 }

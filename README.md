@@ -200,6 +200,19 @@ If you're a modder, or just someone who loves to write dialog for every starlord
   * "validLordNumbers": this is a jsonArray with 3 parts: "min", "max", "rules". what this does is it looks at all starlords in the game, and the number of lords that meet all "rule" requirements must be between the "min" and "max" values.
   * "isPersonalityKnown": if set to false, you must have not know the starlords personality to meet requirements. if set to true, you must know the starlords personality to meet requirements.
   * "lordLoyalty": is the relationship range that this lord must have with there faction to meet requirements. set between a "min" and "max" value. range must be between -100 and 100.
+  * "getDialogData": jsonObject gets a list of 'dialog data". for each different type of data, the requirements are different.
+    * "dataID" : jsonObject. is the string data required to meet requirements. set to true for strings you require this memory to be, and false for strings this memory must be. To meet requirements, the string must match all of the 'true' strings, and not match any of the 'false' strings. if a string of the dataID does not exist, treats the string as though it is ""
+    * "dataID" : jsonObject. {"min","max"} is the integer data required to meet requirements. the value must be between min and max. if a Integer of the dataID does not exist, treats the integer as if it was 0.
+    * "dataID" : boolean.  is the boolean value of this data required to meet requirements. if set to true, the boolean must also be true. if set to false, the boolean data must also be false. if a boolean of the dataID does not exist, treats the boolean as though it is false.
+  * "getMemoryData": jsonObject gets a list of 'game memory data;. for each different type of data, the requirements are different. (keep in mind: this can get any data in starsectors memory. data ID must start with '$' or it might break something)
+    * "dataID" : jsonObject. is the string data required to meet requirements. set to true for strings you require this memory to be, and false for strings this memory must be. To meet requirements, the string must match all of the 'true' strings, and not match any of the 'false' strings. if a string of the dataID does not exist, treats the string as though it is ""
+    * "dataID" : jsonObject. {"min","max"} is the integer data required to meet requirements. the value must be between min and max. if a Integer of the dataID does not exist, treats the integer as if it was 0.
+    * "dataID" : boolean.  is the boolean value of this data required to meet requirements. if set to true, the boolean must also be true. if set to false, the boolean data must also be false. if a boolean of the dataID does not exist, treats the boolean as though it is false.
+  * "getLordMemoryData": jsonObject gets a list of 'lord memory data". for each different type of data, the requirements are different.
+    * "dataID" : jsonObject. is the string data required to meet requirements. set to true for strings you require this memory to be, and false for strings this memory must be. To meet requirements, the string must match all of the 'true' strings, and not match any of the 'false' strings. if a string of the dataID does not exist, treats the string as though it is ""
+    * "dataID" : jsonObject. {"min","max"} is the integer data required to meet requirements. the value must be between min and max. if a Integer of the dataID does not exist, treats the integer as if it was 0.
+    * "dataID" : boolean.  is the boolean value of this data required to meet requirements. if set to true, the boolean must also be true. if set to false, the boolean data must also be false. if a boolean of the dataID does not exist, treats the boolean as though it is false.
+  * "LordTags": is the tags that need to be attached to the lord person to meet requirements. set to true for whitelist, and false for blacklist. To meet requirements, a lord must have a tags of one of the 'true' tags (if any are created in this rule), and must not have a tag of the 'false' tags.
   * the following options only work if used in an option called by advanced option data, or if used in the "validLordNumbers" rule.
     * "relationsBetweenLords": is the relationship range that this lord must have with the target lord to meet requirements. set between a "min" and "max" value. range must be between -100 and 100.
     * "lordAndTargetSameFaction": if set to false, the lord and target must not be part of the same faction to meet requirements. if set to ture, the lord and target must be part of the same faction to meet requirements.
@@ -285,6 +298,32 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "shortcut" : "shortcutLey" if this is set to one of the acsepted value, will add a hotkey to an option. only works for "option_" lines. possable options are:
       * "ESCAPE"
     * "lines" is the dialog lines for every line a starlord speaks. this comes in 2 forms. the first, wish we will call basic, and the second, that we will call advanced:
+  * "dialogValue": jsonObject. a 'dialogValue' is something that is only called by certain functions, and is basically a inputed value. you can add the following functions to this object:
+    * "base" : Intiger. is a static number added to the dialogValues output.
+    * "multi" : double. is a multiplayer for the dialogs value final output.
+    * please note: every following 'value' can hold the following data: "base" and "multi". the eq used is: (valueOfFunction + base)*multi. 
+    * "relationWithPlayer": multi. is the relation the lord has to the player.
+    * "lordLoyalty": multi. is the relation the lord has with there faction.
+    * "playerWealth": multi. is the number of credits the player has
+    * "lordWealth": multi. is the number of credits the lord has
+    * "playerLevel": multi. is the level of the player
+    * "lordLevel": multi. is the level of the lord
+    * "playerRank": multi. is the rank of the player
+    * "lordRank": multi. is the rank of the lord
+    * "playerLordRomanceAction": multi. is the number of romantic actions the lord and player have had
+    * "lordsInFeast": multi. is the number of lords at the current feast (0 if the interacting lord is not at a feast)
+    * "lordProposalSupporters": multi. is the number of lords supporting the interacting lords current proposal.
+    * "lordProposalOpposers": multi. is the number of lords opposing the interacting lords current proposal.
+    * "playerProposalSupporters": multi. is the number of lords supporting the players current proposal.
+    * "playerProposalOpposers": multi. is the number of lords opposing the player current proposal.
+    * "curProposalSupporters": multi. is the number of lords supporting the current proposal.
+    * "curProposalOpposers": multi. is the number of lords supporting the current proposal.
+    * "validLordNumbers": "base":int, "multi":double, "rules":rule JsonObject. what this does is it looks at all starlords in the game, and the number of lords that meet all "rule" requirements.
+    * "conditionalValue": "base":int, "dialogValue": dialogvalue JsonObject, "multi":double, "rules":rule JsonObject. this runs the inputed 'rules' json object, and if the requirements are met, it will output its value.
+    * "conditionalValue": jsonArray. this jsonArray holds a list of 'conditionalValue' objects. it then returns the sum of all the conditionalValues.
+    * "DialogData": jsonObject, were each object is structured as "dialogID":{"base":int, "multi":double}. if the linked dialog data is not a int, it will be ignored
+    * "MemoryData": jsonObject, were each object is structured as "MemoryID":{"base":int, "multi":double}. if the linked memoryID is not a int, it will be ignored (keep in mind: this can get any data in starsectors memory. data ID must start with '$' or it might break something)
+    * "LordMemoryData": jsonObject, were each object is structured as "lordMemoryID":{"base":int, "multi":double}. if the linked lord data is not a int, it will be ignored
   * for both basic and advanced lines, you can also input a number of custom markers into your dialog that will be replaced with data automaticly. the markers are as follows
   * there are a few diffrent targets for markers. the targets are:
     * PLAYER
