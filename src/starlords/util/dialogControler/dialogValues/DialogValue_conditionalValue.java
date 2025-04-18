@@ -21,7 +21,7 @@ public class DialogValue_conditionalValue extends DialogValue_base{
     @SneakyThrows
     public DialogValue_conditionalValue(JSONObject json){
         super(json);
-        if (json.has("dialogValue")) list = new DialogValuesList(json.getJSONObject("dialogValue"));
+        if (json.has("dialogValue")) list = new DialogValuesList(json,"dialogValue");
         if (json.has("rules")) rules = DialogSet.getDialogRulesFromJSon(json.getJSONObject("rules"));
     }
 

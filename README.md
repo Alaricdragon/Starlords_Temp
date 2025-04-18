@@ -211,15 +211,15 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "opinionOfPlayerProposal": float. this is the lords opinion of the players proposal in its faction * value
   * "getDialogData": jsonObject gets a list of 'dialog data". for each different type of data, the requirements are different.
     * "dataID" : jsonObject. is the string data required to meet requirements. set to true for strings you require this memory to be, and false for strings this memory must be. To meet requirements, the string must match all of the 'true' strings, and not match any of the 'false' strings. if a string of the dataID does not exist, treats the string as though it is ""
-    * "dataID" : jsonObject. {"min","max"} is the integer data required to meet requirements. the value must be between min and max. if a Integer of the dataID does not exist, treats the integer as if it was 0.
+    * "dataID" : jsonObject. {"min","max"} is the value rules required to meet requirements.
     * "dataID" : boolean.  is the boolean value of this data required to meet requirements. if set to true, the boolean must also be true. if set to false, the boolean data must also be false. if a boolean of the dataID does not exist, treats the boolean as though it is false.
   * "getMemoryData": jsonObject gets a list of 'game memory data;. for each different type of data, the requirements are different. (keep in mind: this can get any data in starsectors memory. data ID must start with '$' or it might break something)
     * "dataID" : jsonObject. is the string data required to meet requirements. set to true for strings you require this memory to be, and false for strings this memory must be. To meet requirements, the string must match all of the 'true' strings, and not match any of the 'false' strings. if a string of the dataID does not exist, treats the string as though it is ""
-    * "dataID" : jsonObject. {"min","max"} is the integer data required to meet requirements. the value must be between min and max. if a Integer of the dataID does not exist, treats the integer as if it was 0.
+    * "dataID" : jsonObject. {"min","max"} is the value rules required to meet requirements.
     * "dataID" : boolean.  is the boolean value of this data required to meet requirements. if set to true, the boolean must also be true. if set to false, the boolean data must also be false. if a boolean of the dataID does not exist, treats the boolean as though it is false.
   * "getLordMemoryData": jsonObject gets a list of 'lord memory data". for each different type of data, the requirements are different.
     * "dataID" : jsonObject. is the string data required to meet requirements. set to true for strings you require this memory to be, and false for strings this memory must be. To meet requirements, the string must match all of the 'true' strings, and not match any of the 'false' strings. if a string of the dataID does not exist, treats the string as though it is ""
-    * "dataID" : jsonObject. {"min","max"} is the integer data required to meet requirements. the value must be between min and max. if a Integer of the dataID does not exist, treats the integer as if it was 0.
+    * "dataID" : jsonObject. {"min","max"} is the value rules required to meet requirements.
     * "dataID" : boolean.  is the boolean value of this data required to meet requirements. if set to true, the boolean must also be true. if set to false, the boolean data must also be false. if a boolean of the dataID does not exist, treats the boolean as though it is false.
   * the following options only work if used in an option called by advanced option data, or if used in the "validLordNumbers" rule.
     * "relationsBetweenLords": is the relationship range that this lord must have with the target lord to meet requirements. set between a "min" and "max" value. range must be between -100 and 100.
@@ -228,39 +228,17 @@ If you're a modder, or just someone who loves to write dialog for every starlord
 * basic is simply a "lineID": "new string";
   * advanced is more complicated. its a json object, that must include a "line" (to act as the normal lineID), but also additional json peramiters. "addons" are . the "addons" are as follows:
     * "addons" additional conditions and effects that you can have run at the moment this line is ran. most 'addons' also add a line of dialog to show what effects they had. any "option_" will only run addons after the option is selected. and "tooltip_" line cannot use "addons"
-      * "targetLord" does nothing if: target lord is unset. runs the contained 'addon' json object, for the target lord instead of the interacting lord
-      * "repIncrease":
-          * "min": Integer
-          * "max": Integer
-      * "repDecrease": 
-          * "min": Integer
-          * "max": Integer
-      * "creditsIncrease": 
-          * "min": Integer
-          * "max": Integer
-      * "creditsDecrease": 
-          * "min": Integer
-          * "max": Integer
-      * "giveCreditsToLord"
-          * "min": Integer
-          * "max": Integer
-      * "takeCreditsFromLord"
-          * "min": Integer
-          * "max": Integer
-      * "romanceActionIncrease": note: does not add text indicators (also of note: one value of romanceAction represents a major romantic action)
-        * "min": Integer
-        * "max": Integer
-      * "romanceActionDecrease": note: does not add text indicators (also of note: one value of romanceAction represents a major romantic action)
-        * "min": Integer
-        * "max": Integer
-      * "removeCommoditysFromPlayerFleet": 
-        * "commodityID..."
-          * "min": Integer
-          * "max": Integer
-      * "addCommoditysToPlayerFleet":
-        * "commodityID..."
-          * "min": Integer
-          * "max": Integer
+      * targets:
+        * "targetLord" does nothing if: target lord is unset. runs the contained 'addon' json object, for the target lord instead of the interacting lord
+      * value changes: value changes can contain the following data:
+        * Integer: the value that will be added / removed from a given stat. if min and max are both set, the value will be a random number between the 2.
+        * dialogValue: a dialog value json object. the return value of the dialog value is what the item must have to meet requirements.
+        * {"min","max"}: were "min" and "max" can be a Integer, or a dialogValue. 
+        * "repChange" changes the relation between the lord and player
+        * "creditsChange" changes the amount of credits the player has.
+        * "exchangeCreditsWithLord" gives / takes credits from a lord. a negative value gives, a positive value removes.
+        * "romanceChange" changes the stored romance value between the lord and player.
+        * "changeCommoditysInPlayersFleet" holds a jsonObject of commoditys, were the value is how mush this commoidity changes. the value follows the same rules as any other value addon.
       * "additionalText": "lineID" adds an additional line of dialog, with the inputed name. also take a jsonArray as input, running each inputed line in sequence.
       * "wedPlayerToLord": boolean. if set to true, marry's the lord and player. if set to false, and the player and lord are married, un-marry's the lord and player.
       * "wedPlayerToWeddingTarget": boolean. if set to true, marry's the wedding target and player. if set to false, and the player and wedding target are married, un-marry's the wedding target and player.
@@ -279,12 +257,12 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "setPlayerSupportForCurProposal": boolean. sets weather the player is currently supporting the current proposal or is opposed to the current proposal.
       * "setSwayed": boolean. sets whether the lord you are talking to has been swayed or not. if so, they cannot be swayed until the next proposal.
       * "setPersonalityKnown": boolean. sets weather the player knows this lords personality.
-      * "setDialogData": jsonObject. sets data that is stored in the dialog, and is deleted when the interaction ends.
-        * each line is "dataID" : String || boolean || integer || JsonObject {min,max}
-      * "setMemoryData": jsonObject. sets memory key data. memory is held in the save file, and will remain forever. please keep in mind, chose your memorys dataID wisely. your dataID must start with '$', and should not be the same as ANY OTHER MEMEORY IN THE GAME. be carefull.
-        * each line is "dataID" : String || boolean || integer || JsonObject {min,max}
-      * "setLordMemoryData": jsonObject. sets memory key data, linked to the interacted starlord. memory is held in the save file, and will remain forever, or until the starlord dies. each starlords memory is stored in "$STARLORDS_LORD_ADDITIONAL_MEMORY_%lordID". (were lordID is the ID tied to the lord). so try not to grab that directly please.
-        * each line is "dataID" : String || boolean || integer || JsonObject {min,max}
+      * "setDialogData": jsonObject. sets data that is stored in the dialog, and is deleted when the interaction ends. if a jsonObject with a min/max is one of its lines, it acts as a increase to the value.
+        * each line is "dataID" : String || boolean || integer/dialogValue || JsonObject {min: integer/dialogValue,max: integer/dialogValue}
+      * "setMemoryData": jsonObject. sets memory key data. memory is held in the save file, and will remain forever. please keep in mind, chose your memorys dataID wisely. your dataID must start with '$', and should not be the same as ANY OTHER MEMEORY IN THE GAME. be carefull. if a jsonObject with a min/max is one of its lines, it acts as a increase to the value.
+        * each line is "dataID" : String || boolean || integer/dialogValue || JsonObject {min: integer/dialogValue,max: integer/dialogValue}
+      * "setLordMemoryData": jsonObject. sets memory key data, linked to the interacted starlord. memory is held in the save file, and will remain forever, or until the starlord dies. each starlords memory is stored in "$STARLORDS_LORD_ADDITIONAL_MEMORY_%lordID". (were lordID is the ID tied to the lord). so try not to grab that directly please. if a jsonObject with a min/max is one of its lines, it acts as a increase to the value.
+        * each line is "dataID" : String || boolean || integer/dialogValue || JsonObject {min: integer/dialogValue,max: integer/dialogValue}
       * "setLordTags": jsonObject. were each item is 'tagName' : boolean. set to true to add a tag, false to remove it. tags will remain on a starlord until removed.
     * "color" color override for this dialog line. not required. has 3 'preset' colors, but also the option for a custom color. cannot be used in any "tooltip_" line.
       * "RED"

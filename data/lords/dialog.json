@@ -80,10 +80,7 @@
             "addons": {
               "setProfessedAdmiration": true,
               "setCourted": true,
-              "repIncrease": {
-                "max": 10,
-                "min": 10
-              }
+              "repChange": 10
             }
           }
         }
@@ -110,10 +107,7 @@
             "addons": {
               "setProfessedAdmiration": true,
               "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
-              }
+              "repChange": -2
             }
           }
         }
@@ -133,10 +127,7 @@
             "addons": {
               "setProfessedAdmiration": true,
               "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
-              }
+              "repChange": -2
             }
           }
         }
@@ -156,10 +147,7 @@
             "addons": {
               "setProfessedAdmiration": true,
               "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
-              }
+              "repChange": -2
             }
           },
           "marriage_response": "You seem like a wonderful %PLAYER_GENDER_MAN_OR_WOMEN, but I'd still like to get to know you a little better first."
@@ -180,19 +168,13 @@
             "addons": {
               "setProfessedAdmiration": true,
               "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
-              }
+              "repChange": -2
             }
           },
           "marriage_response": {
             "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
             "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              }
+              "repChange": -10
             }
           }
         }
@@ -210,10 +192,7 @@
           "marriage_response": {
             "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
             "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              }
+              "repChange": -10
             }
           }
         }
@@ -494,10 +473,7 @@
           "marriage_response": {
             "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
             "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              }
+              "repChange": -10
             }
           }
         }
@@ -515,10 +491,7 @@
           "marriage_response": {
             "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
             "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              }
+              "repChange": -10
             }
           }
         }
@@ -765,10 +738,7 @@
         "lines": {
           "admiration_response": {
             "line": "You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
-            "repIncrease": {
-              "max": 10,
-              "min": 10
-            }
+            "repChange": 10
           }
         }
       },
@@ -794,10 +764,7 @@
             "addons": {
               "setProfessedAdmiration": true,
               "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
-              }
+              "repChange": -2
             }
           }
         }
@@ -817,10 +784,7 @@
             "addons": {
               "setProfessedAdmiration": true,
               "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
-              }
+              "repChange": -2
             }
           }
         }
@@ -840,10 +804,7 @@
             "addons": {
               "setProfessedAdmiration": true,
               "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
-              }
+              "repChange": -2
             }
           },
           "marriage_response": "You seem like a wonderful %PLAYER_GENDER_MAN_OR_WOMEN, but I'd still like to get to know you a little better first."
@@ -864,19 +825,13 @@
             "addons": {
               "setProfessedAdmiration": true,
               "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
-              }
+              "repChange": -2
             }
           },
           "marriage_response": {
             "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
             "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              }
+              "repChange": -10
             }
           }
         }
@@ -896,19 +851,13 @@
             "addons": {
               "setProfessedAdmiration": true,
               "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
-              }
+              "repChange": -2
             }
           },
           "marriage_response": {
             "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
             "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              }
+              "repChange": -10
             }
           }
         }
@@ -1169,10 +1118,7 @@
             "addons": {
               "setProfessedAdmiration": true,
               "setCourted": true,
-              "repIncrease": {
-                "max": 10,
-                "min": 10
-              }
+              "repChange": 10
             }
           }
         }
@@ -1208,10 +1154,7 @@
             "addons": {
               "setProfessedAdmiration": true,
               "setCourted": true,
-              "repDecrease": {
-                "max": 2,
-                "min": 2
-              }
+              "repChange": -2
             }
           }
         }
@@ -1254,10 +1197,7 @@
           "marriage_response": {
             "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
             "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              }
+              "repChange": -10
             }
           }
         }
@@ -1275,10 +1215,7 @@
           "marriage_response": {
             "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
             "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              }
+              "repChange": -10
             }
           }
         }
@@ -2077,16 +2014,11 @@
             "optionData": "likeGift_alpha_core",
             "hint": "give 1 alpha_core to %LORD_NAME",
             "addons": {
-              "repIncrease": {
-                "min": 10,
-                "max": 10
+              "repChange": 10,
+              "changeCommoditysInPlayersFleet": {
+                "alpha_core": -1
               },
-              "removeCommoditysFromPlayerFleet": {
-                "alpha_core": {
-                  "min": 1,
-                  "max": 1
-                }
-              }
+              "romanceChange": 1
             },
             "enable": {
               "PlayerHasCommodity": {
@@ -2111,16 +2043,11 @@
             "optionData": "likeGift_hand_weapons",
             "hint": "give 100 hand_weapons to %LORD_NAME",
             "addons": {
-              "repIncrease": {
-                "min": 10,
-                "max": 10
+              "repChange": 10,
+              "changeCommoditysInPlayersFleet": {
+                "hand_weapons": -100
               },
-              "removeCommoditysFromPlayerFleet": {
-                "hand_weapons": {
-                  "min": 100,
-                  "max": 100
-                }
-              }
+              "romanceChange": 1
             },
             "enable": {
               "PlayerHasCommodity": {
@@ -2145,16 +2072,11 @@
             "optionData": "likeGift_food",
             "hint": "give 100 food to %LORD_NAME",
             "addons": {
-              "repIncrease": {
-                "min": 10,
-                "max": 10
+              "repChange": 10,
+              "changeCommoditysInPlayersFleet": {
+                "food": -100
               },
-              "removeCommoditysFromPlayerFleet": {
-                "food": {
-                  "min": 100,
-                  "max": 100
-                }
-              }
+              "romanceChange": 1
             },
             "enable": {
               "PlayerHasCommodity": {
@@ -2179,16 +2101,11 @@
             "optionData": "likeGift_luxury_goods",
             "hint": "give 100 luxury_goods to %LORD_NAME",
             "addons": {
-              "repIncrease": {
-                "min": 10,
-                "max": 10
+              "repChange": 10,
+              "changeCommoditysInPlayersFleet": {
+                "luxury_goods": -100
               },
-              "removeCommoditysFromPlayerFleet": {
-                "luxury_goods": {
-                  "min": 100,
-                  "max": 100
-                }
-              }
+              "romanceChange": 1
             },
             "enable": {
               "PlayerHasCommodity": {
@@ -2213,16 +2130,11 @@
             "optionData": "likeGift_lobster",
             "hint": "give 100 lobster to %LORD_NAME",
             "addons": {
-              "repIncrease": {
-                "min": 10,
-                "max": 10
+              "repChange": 10,
+              "changeCommoditysInPlayersFleet": {
+                "lobster": -100
               },
-              "removeCommoditysFromPlayerFleet": {
-                "lobster": {
-                  "min": 100,
-                  "max": 100
-                }
-              }
+              "romanceChange": 1
             },
             "enable": {
               "PlayerHasCommodity": {
@@ -2247,16 +2159,11 @@
             "optionData": "likeGift_drugs",
             "hint": "give 100 drugs to %LORD_NAME",
             "addons": {
-              "repIncrease": {
-                "min": 10,
-                "max": 10
+              "repChange": 10,
+              "changeCommoditysInPlayersFleet": {
+                "drugs": -100
               },
-              "removeCommoditysFromPlayerFleet": {
-                "drugs": {
-                  "min": 100,
-                  "max": 100
-                }
-              }
+              "romanceChange": 1
             },
             "enable": {
               "PlayerHasCommodity": {
@@ -2281,16 +2188,11 @@
             "optionData": "likeGift_domestic_goods",
             "hint": "give 100 domestic_goods to %LORD_NAME",
             "addons": {
-              "repIncrease": {
-                "min": 10,
-                "max": 10
+              "repChange": 10,
+              "changeCommoditysInPlayersFleet": {
+                "domestic_goods": -100
               },
-              "removeCommoditysFromPlayerFleet": {
-                "domestic_goods": {
-                  "min": 100,
-                  "max": 100
-                }
-              }
+              "romanceChange": 1
             },
             "enable": {
               "PlayerHasCommodity": {
@@ -2339,14 +2241,8 @@
           "dedicate_tournament": {
             "line": "Another tournament dedication? Well, I suppose it's always welcome...",
             "addons": {
-              "repIncrease": {
-                "max": 5,
-                "min": 5
-              },
-              "romanceActionIncrease": {
-                "min": 1,
-                "max": 1
-              }
+              "repChange": 5,
+              "romanceChange": 1
             }
           }
         }
@@ -2373,14 +2269,8 @@
           "dedicate_tournament": {
             "line": "Oh my, I'm very touched that you were thinking of me.",
             "addons": {
-              "repIncrease": {
-                "max": 10,
-                "min": 10
-              },
-              "romanceActionIncrease": {
-                "min": 1,
-                "max": 1
-              }
+              "repChange": 10,
+              "romanceChange": 1
             }
           },
           "greeting": "(error) Hello %PLAYER_NAME",
@@ -2390,19 +2280,13 @@
             "addons": {
               "setProfessedAdmiration": true,
               "setCourted": true,
-              "repDecrease": {
-                "max": 10,
-                "min": 10
-              }
+              "repChange": -10
             }
           },
           "spend_time_together1": {
             "line": "The tables at the feast are lined with dishes that sparkle under the soft glow of chandeliers, each plate a culinary masterpiece. You and %LORD_NAME sample exquisite butters infused with rare spices. %LORD_NAME begins sharing tales of narrow escapes and fierce battles fought on faraway stars. You respond with a grin, recounting a similarly audacious ambush. In that moment, the weight of your pasts feel lighter, buoyed by fine food and the warmth of camaraderie.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2410,10 +2294,7 @@
           "spend_time_together2": {
             "line": "The tables at the feast are lined with dishes that sparkle under the soft glow of chandeliers, each plate a culinary masterpiece. You and %LORD_NAME sample exquisite butters infused with rare spices. %LORD_NAME begins sharing tales of narrow escapes and fierce battles fought on faraway stars. You respond with a grin, recounting a similarly audacious ambush. In that moment, the weight of your pasts feel lighter, buoyed by fine food and the warmth of camaraderie.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2421,10 +2302,7 @@
           "spend_time_together3": {
             "line": "The tables at the feast are lined with dishes that sparkle under the soft glow of chandeliers, each plate a culinary masterpiece. You and %LORD_NAME sample exquisite butters infused with rare spices. %LORD_NAME begins sharing tales of narrow escapes and fierce battles fought on faraway stars. You respond with a grin, recounting a similarly audacious ambush. In that moment, the weight of your pasts feel lighter, buoyed by fine food and the warmth of camaraderie.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2432,10 +2310,7 @@
           "spend_time_together4": {
             "line": "The tables at the feast are lined with dishes that sparkle under the soft glow of chandeliers, each plate a culinary masterpiece. You and %LORD_NAME sample exquisite butters infused with rare spices. %LORD_NAME begins sharing tales of narrow escapes and fierce battles fought on faraway stars. You respond with a grin, recounting a similarly audacious ambush. In that moment, the weight of your pasts feel lighter, buoyed by fine food and the warmth of camaraderie.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2443,10 +2318,7 @@
           "spend_time_together5": {
             "line": "The tables at the feast are lined with dishes that sparkle under the soft glow of chandeliers, each plate a culinary masterpiece. You and %LORD_NAME sample exquisite butters infused with rare spices. %LORD_NAME begins sharing tales of narrow escapes and fierce battles fought on faraway stars. You respond with a grin, recounting a similarly audacious ambush. In that moment, the weight of your pasts feel lighter, buoyed by fine food and the warmth of camaraderie.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2454,10 +2326,7 @@
           "spend_time_together6": {
             "line": "The tables at the feast are lined with dishes that sparkle under the soft glow of chandeliers, each plate a culinary masterpiece. You and %LORD_NAME sample exquisite butters infused with rare spices. %LORD_NAME begins sharing tales of narrow escapes and fierce battles fought on faraway stars. You respond with a grin, recounting a similarly audacious ambush. In that moment, the weight of your pasts feel lighter, buoyed by fine food and the warmth of camaraderie.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2465,10 +2334,7 @@
           "spend_time_together7": {
             "line": "You and %LORD_NAME walk along the grand halls of the feast. Gradually, you find yourselves drawn to the center of the bustling hall, where nobles step in an elegant dance. You take %LORD_NAME's hand and offer a dance, which %LORD_GENDER_HE_OR_SHE accepts after a moment's pause. Together you dance to the slow drone of the saxophone, losing yourself in the rhythm until several hours pass.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2476,10 +2342,7 @@
           "spend_time_together8": {
             "line": "You and %LORD_NAME walk along the grand halls of the feast. Gradually, you find yourselves drawn to the center of the bustling hall, where nobles step in an elegant dance. You take %LORD_NAME's hand and offer a dance, which %LORD_GENDER_HE_OR_SHE accepts after a moment's pause. Together you dance to the slow drone of the saxophone, losing yourself in the rhythm until several hours pass.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2487,10 +2350,7 @@
           "spend_time_together9": {
             "line": "You and %LORD_NAME walk along the grand halls of the feast. Gradually, you find yourselves drawn to the center of the bustling hall, where nobles step in an elegant dance. You take %LORD_NAME's hand and offer a dance, which %LORD_GENDER_HE_OR_SHE accepts after a moment's pause. Together you dance to the slow drone of the saxophone, losing yourself in the rhythm until several hours pass.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2498,10 +2358,7 @@
           "spend_time_together10": {
             "line": "You and %LORD_NAME walk along the grand halls of the feast. Gradually, you find yourselves drawn to the center of the bustling hall, where nobles step in an elegant dance. You take %LORD_NAME's hand and offer a dance, which %LORD_GENDER_HE_OR_SHE accepts after a moment's pause. Together you dance to the slow drone of the saxophone, losing yourself in the rhythm until several hours pass.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2509,10 +2366,7 @@
           "spend_time_together11": {
             "line": "You and %LORD_NAME walk along the grand halls of the feast. Gradually, you find yourselves drawn to the center of the bustling hall, where nobles step in an elegant dance. You take %LORD_NAME's hand and offer a dance, which %LORD_GENDER_HE_OR_SHE accepts after a moment's pause. Together you dance to the slow drone of the saxophone, losing yourself in the rhythm until several hours pass.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2520,10 +2374,7 @@
           "spend_time_together12": {
             "line": "You and %LORD_NAME walk along the grand halls of the feast. Gradually, you find yourselves drawn to the center of the bustling hall, where nobles step in an elegant dance. You take %LORD_NAME's hand and offer a dance, which %LORD_GENDER_HE_OR_SHE accepts after a moment's pause. Together you dance to the slow drone of the saxophone, losing yourself in the rhythm until several hours pass.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2531,10 +2382,7 @@
           "spend_time_together13": {
             "line": "Growing tired of the commotion of the feast, you and %LORD_NAME sneak out to the host's hangar. You spot a pair of racing ships in the corner, and after assuring the attendants that you have permission, you both get into a cockpit and rocket off into the void. %LORD_NAME executes a series of sharp turns and loops and you respond in kind, sending adrenaline surging through your veins as you both attempt more complex maneuvers to one-up each other. After an hour, the two of you touch down at the hangar, begrudgingly admitting that neither of you could gain the upper hand. The two of you slip back to the feast before your antics are noticed, with newly forged respect between you.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2542,10 +2390,7 @@
           "spend_time_together14": {
             "line": "Growing tired of the commotion of the feast, you and %LORD_NAME sneak out to the host's hangar. You spot a pair of racing ships in the corner, and after assuring the attendants that you have permission, you both get into a cockpit and rocket off into the void. %LORD_NAME executes a series of sharp turns and loops and you respond in kind, sending adrenaline surging through your veins as you both attempt more complex maneuvers to one-up each other. After an hour, the two of you touch down at the hangar, begrudgingly admitting that neither of you could gain the upper hand. The two of you slip back to the feast before your antics are noticed, with newly forged respect between you.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2553,10 +2398,7 @@
           "spend_time_together15": {
             "line": "Growing tired of the commotion of the feast, you and %LORD_NAME sneak out to the host's hangar. You spot a pair of racing ships in the corner, and after assuring the attendants that you have permission, you both get into a cockpit and rocket off into the void. %LORD_NAME executes a series of sharp turns and loops and you respond in kind, sending adrenaline surging through your veins as you both attempt more complex maneuvers to one-up each other. After an hour, the two of you touch down at the hangar, begrudgingly admitting that neither of you could gain the upper hand. The two of you slip back to the feast before your antics are noticed, with newly forged respect between you.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2564,10 +2406,7 @@
           "spend_time_together16": {
             "line": "Growing tired of the commotion of the feast, you and %LORD_NAME sneak out to the host's hangar. You spot a pair of racing ships in the corner, and after assuring the attendants that you have permission, you both get into a cockpit and rocket off into the void. %LORD_NAME executes a series of sharp turns and loops and you respond in kind, sending adrenaline surging through your veins as you both attempt more complex maneuvers to one-up each other. After an hour, the two of you touch down at the hangar, begrudgingly admitting that neither of you could gain the upper hand. The two of you slip back to the feast before your antics are noticed, with newly forged respect between you.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange":5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2575,10 +2414,7 @@
           "spend_time_together17": {
             "line": "Growing tired of the commotion of the feast, you and %LORD_NAME sneak out to the host's hangar. You spot a pair of racing ships in the corner, and after assuring the attendants that you have permission, you both get into a cockpit and rocket off into the void. %LORD_NAME executes a series of sharp turns and loops and you respond in kind, sending adrenaline surging through your veins as you both attempt more complex maneuvers to one-up each other. After an hour, the two of you touch down at the hangar, begrudgingly admitting that neither of you could gain the upper hand. The two of you slip back to the feast before your antics are noticed, with newly forged respect between you.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange":5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2586,10 +2422,7 @@
           "spend_time_together18": {
             "line": "Growing tired of the commotion of the feast, you and %LORD_NAME sneak out to the host's hangar. You spot a pair of racing ships in the corner, and after assuring the attendants that you have permission, you both get into a cockpit and rocket off into the void. %LORD_NAME executes a series of sharp turns and loops and you respond in kind, sending adrenaline surging through your veins as you both attempt more complex maneuvers to one-up each other. After an hour, the two of you touch down at the hangar, begrudgingly admitting that neither of you could gain the upper hand. The two of you slip back to the feast before your antics are noticed, with newly forged respect between you.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2597,10 +2430,7 @@
           "spend_time_together19": {
             "line": "You and %LORD_NAME slip away from the commotion of the feast and step onto the balcony. The night sky is sprawled before you, a canvas of twinkling stars, each a reminder of the once-glorious reach of humanity and its Icarian downfall. %LORD_NAME traces the outline of a distant nebula with %LORD_GENDER_HIS_OR_HER finger, reminiscing of simpler days when %LORD_GENDER_HE_OR_SHE hoped to explore the stars as a carefree spacer. You promise that when peace finally returns to the core worlds, the two of you will journey to the edges of the sector. Together, you'll forge a future where the full wonders of the cosmos can be experienced by humanity once more.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange":5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2608,10 +2438,7 @@
           "spend_time_together20": {
             "line": "You and %LORD_NAME slip away from the commotion of the feast and step onto the balcony. The night sky is sprawled before you, a canvas of twinkling stars, each a reminder of the once-glorious reach of humanity and its Icarian downfall. %LORD_NAME traces the outline of a distant nebula with %LORD_GENDER_HIS_OR_HER finger, reminiscing of simpler days when %LORD_GENDER_HE_OR_SHE hoped to explore the stars as a carefree spacer. You promise that when peace finally returns to the core worlds, the two of you will journey to the edges of the sector. Together, you'll forge a future where the full wonders of the cosmos can be experienced by humanity once more.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2619,10 +2446,7 @@
           "spend_time_together21": {
             "line": "You and %LORD_NAME slip away from the commotion of the feast and step onto the balcony. The night sky is sprawled before you, a canvas of twinkling stars, each a reminder of the once-glorious reach of humanity and its Icarian downfall. %LORD_NAME traces the outline of a distant nebula with %LORD_GENDER_HIS_OR_HER finger, reminiscing of simpler days when %LORD_GENDER_HE_OR_SHE hoped to explore the stars as a carefree spacer. You promise that when peace finally returns to the core worlds, the two of you will journey to the edges of the sector. Together, you'll forge a future where the full wonders of the cosmos can be experienced by humanity once more.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2630,10 +2454,7 @@
           "spend_time_together22": {
             "line": "You and %LORD_NAME slip away from the commotion of the feast and step onto the balcony. The night sky is sprawled before you, a canvas of twinkling stars, each a reminder of the once-glorious reach of humanity and its Icarian downfall. %LORD_NAME traces the outline of a distant nebula with %LORD_GENDER_HIS_OR_HER finger, reminiscing of simpler days when %LORD_GENDER_HE_OR_SHE hoped to explore the stars as a carefree spacer. You promise that when peace finally returns to the core worlds, the two of you will journey to the edges of the sector. Together, you'll forge a future where the full wonders of the cosmos can be experienced by humanity once more.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2641,10 +2462,7 @@
           "spend_time_together23": {
             "line": "You and %LORD_NAME slip away from the commotion of the feast and step onto the balcony. The night sky is sprawled before you, a canvas of twinkling stars, each a reminder of the once-glorious reach of humanity and its Icarian downfall. %LORD_NAME traces the outline of a distant nebula with %LORD_GENDER_HIS_OR_HER finger, reminiscing of simpler days when %LORD_GENDER_HE_OR_SHE hoped to explore the stars as a carefree spacer. You promise that when peace finally returns to the core worlds, the two of you will journey to the edges of the sector. Together, you'll forge a future where the full wonders of the cosmos can be experienced by humanity once more.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2652,10 +2470,7 @@
           "spend_time_together24": {
             "line": "You and %LORD_NAME slip away from the commotion of the feast and step onto the balcony. The night sky is sprawled before you, a canvas of twinkling stars, each a reminder of the once-glorious reach of humanity and its Icarian downfall. %LORD_NAME traces the outline of a distant nebula with %LORD_GENDER_HIS_OR_HER finger, reminiscing of simpler days when %LORD_GENDER_HE_OR_SHE hoped to explore the stars as a carefree spacer. You promise that when peace finally returns to the core worlds, the two of you will journey to the edges of the sector. Together, you'll forge a future where the full wonders of the cosmos can be experienced by humanity once more.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2663,10 +2478,7 @@
           "spend_time_together25": {
             "line": "As the gala’s vibrant chatter fades behind you, you and %LORD_NAME step into the cool night, the stars shimmering like distant jewels overhead. You meander along the manicured gardens of the host's opulent estate. %LORD_NAME begins sharing tales navigating treacherous politics in gilded halls, %LORD_GENDER_HIS_OR_HER laughter echoing softly in the stillness. You have no shortage of your own stories to tell, recounting how you decided to become a captain and secured your first ship and crew. The vastness of the universe feels a little smaller as you walk, the night growing richer with each revelation.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2674,10 +2486,7 @@
           "spend_time_together26": {
             "line": "As the gala’s vibrant chatter fades behind you, you and %LORD_NAME step into the cool night, the stars shimmering like distant jewels overhead. You meander along the manicured gardens of the host's opulent estate. %LORD_NAME begins sharing tales navigating treacherous politics in gilded halls, %LORD_GENDER_HIS_OR_HER laughter echoing softly in the stillness. You have no shortage of your own stories to tell, recounting how you decided to become a captain and secured your first ship and crew. The vastness of the universe feels a little smaller as you walk, the night growing richer with each revelation.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2685,10 +2494,7 @@
           "spend_time_together27": {
             "line": "As the gala’s vibrant chatter fades behind you, you and %LORD_NAME step into the cool night, the stars shimmering like distant jewels overhead. You meander along the manicured gardens of the host's opulent estate. %LORD_NAME begins sharing tales navigating treacherous politics in gilded halls, %LORD_GENDER_HIS_OR_HER laughter echoing softly in the stillness. You have no shortage of your own stories to tell, recounting how you decided to become a captain and secured your first ship and crew. The vastness of the universe feels a little smaller as you walk, the night growing richer with each revelation.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2696,10 +2502,7 @@
           "spend_time_together28": {
             "line": "As the gala’s vibrant chatter fades behind you, you and %LORD_NAME step into the cool night, the stars shimmering like distant jewels overhead. You meander along the manicured gardens of the host's opulent estate. %LORD_NAME begins sharing tales navigating treacherous politics in gilded halls, %LORD_GENDER_HIS_OR_HER laughter echoing softly in the stillness. You have no shortage of your own stories to tell, recounting how you decided to become a captain and secured your first ship and crew. The vastness of the universe feels a little smaller as you walk, the night growing richer with each revelation.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2707,10 +2510,7 @@
           "spend_time_together29": {
             "line": "As the gala’s vibrant chatter fades behind you, you and %LORD_NAME step into the cool night, the stars shimmering like distant jewels overhead. You meander along the manicured gardens of the host's opulent estate. %LORD_NAME begins sharing tales navigating treacherous politics in gilded halls, %LORD_GENDER_HIS_OR_HER laughter echoing softly in the stillness. You have no shortage of your own stories to tell, recounting how you decided to become a captain and secured your first ship and crew. The vastness of the universe feels a little smaller as you walk, the night growing richer with each revelation.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2718,10 +2518,7 @@
           "spend_time_together30": {
             "line": "As the gala’s vibrant chatter fades behind you, you and %LORD_NAME step into the cool night, the stars shimmering like distant jewels overhead. You meander along the manicured gardens of the host's opulent estate. %LORD_NAME begins sharing tales navigating treacherous politics in gilded halls, %LORD_GENDER_HIS_OR_HER laughter echoing softly in the stillness. You have no shortage of your own stories to tell, recounting how you decided to become a captain and secured your first ship and crew. The vastness of the universe feels a little smaller as you walk, the night growing richer with each revelation.",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
+              "repChange": 5,
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
             }
@@ -2729,13 +2526,10 @@
           "spend_time_together31": {
             "line": "Amid the lavish displays of the feast, you and %LORD_NAME wander over to a round table where a lively card game was in full swing, laughter and friendly banter filling the air. With a smirk, %LORD_GENDER_HE_OR_SHE tosses a handful of chips onto the pile, drawing the attention of the other players. You're also pulled into the game, but you quickly notice that %LORD_NAME is fully in their element. Despite your efforts, the best you can do is escape without major losses as %LORD_GENDER_HE_OR_SHE methodically cleans out the table. \n\"Thanks for that\", %LORD_NAME says teasingly. \"I really needed a punching bag to blow off some steam.\"",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
-              "giveCreditsToLord": {
-                "max": 1000,
-                "min": 200
+              "repChange": 5,
+              "exchangeCreditsWithLord": {
+                "max": -1000,
+                "min": -200
               },
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
@@ -2744,13 +2538,10 @@
           "spend_time_together32": {
             "line": "Amid the lavish displays of the feast, you and %LORD_NAME wander over to a round table where a lively card game was in full swing, laughter and friendly banter filling the air. With a smirk, %LORD_GENDER_HE_OR_SHE tosses a handful of chips onto the pile, drawing the attention of the other players. You're also pulled into the game, but you quickly notice that %LORD_NAME is fully in their element. Despite your efforts, the best you can do is escape without major losses as %LORD_GENDER_HE_OR_SHE methodically cleans out the table. \n\"Thanks for that\", %LORD_NAME says teasingly. \"I really needed a punching bag to blow off some steam.\"",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
-              "giveCreditsToLord": {
-                "max": 1000,
-                "min": 200
+              "repChange": 5,
+              "exchangeCreditsWithLord": {
+                "max": -1000,
+                "min": -200
               },
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
@@ -2759,13 +2550,10 @@
           "spend_time_together33": {
             "line": "Amid the lavish displays of the feast, you and %LORD_NAME wander over to a round table where a lively card game was in full swing, laughter and friendly banter filling the air. With a smirk, %LORD_GENDER_HE_OR_SHE tosses a handful of chips onto the pile, drawing the attention of the other players. You're also pulled into the game, but you quickly notice that %LORD_NAME is fully in their element. Despite your efforts, the best you can do is escape without major losses as %LORD_GENDER_HE_OR_SHE methodically cleans out the table. \n\"Thanks for that\", %LORD_NAME says teasingly. \"I really needed a punching bag to blow off some steam.\"",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
-              "giveCreditsToLord": {
-                "max": 1000,
-                "min": 200
+              "repChange": 5,
+              "exchangeCreditsWithLord": {
+                "max": -1000,
+                "min": -200
               },
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
@@ -2774,13 +2562,10 @@
           "spend_time_together34": {
             "line": "Amid the lavish displays of the feast, you and %LORD_NAME wander over to a round table where a lively card game was in full swing, laughter and friendly banter filling the air. With a smirk, %LORD_GENDER_HE_OR_SHE tosses a handful of chips onto the pile, drawing the attention of the other players. You're also pulled into the game, but you quickly notice that %LORD_NAME is fully in their element. Despite your efforts, the best you can do is escape without major losses as %LORD_GENDER_HE_OR_SHE methodically cleans out the table. \n\"Thanks for that\", %LORD_NAME says teasingly. \"I really needed a punching bag to blow off some steam.\"",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
-              "giveCreditsToLord": {
-                "max": 1000,
-                "min": 200
+              "repChange": 5,
+              "exchangeCreditsWithLord": {
+                "max": -1000,
+                "min": -200
               },
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
@@ -2789,13 +2574,10 @@
           "spend_time_together35": {
             "line": "Amid the lavish displays of the feast, you and %LORD_NAME wander over to a round table where a lively card game was in full swing, laughter and friendly banter filling the air. With a smirk, %LORD_GENDER_HE_OR_SHE tosses a handful of chips onto the pile, drawing the attention of the other players. You're also pulled into the game, but you quickly notice that %LORD_NAME is fully in their element. Despite your efforts, the best you can do is escape without major losses as %LORD_GENDER_HE_OR_SHE methodically cleans out the table. \n\"Thanks for that\", %LORD_NAME says teasingly. \"I really needed a punching bag to blow off some steam.\"",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
-              "giveCreditsToLord": {
-                "max": 1000,
-                "min": 200
+              "repChange": 5,
+              "exchangeCreditsWithLord": {
+                "max": -1000,
+                "min": -200
               },
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
@@ -2804,13 +2586,10 @@
           "spend_time_together36": {
             "line": "Amid the lavish displays of the feast, you and %LORD_NAME wander over to a round table where a lively card game was in full swing, laughter and friendly banter filling the air. With a smirk, %LORD_GENDER_HE_OR_SHE tosses a handful of chips onto the pile, drawing the attention of the other players. You're also pulled into the game, but you quickly notice that %LORD_NAME is fully in their element. Despite your efforts, the best you can do is escape without major losses as %LORD_GENDER_HE_OR_SHE methodically cleans out the table. \n\"Thanks for that\", %LORD_NAME says teasingly. \"I really needed a punching bag to blow off some steam.\"",
             "addons": {
-              "repIncrease": {
-                "min": 5,
-                "max": 5
-              },
-              "giveCreditsToLord": {
-                "max": 1000,
-                "min": 200
+              "repChange": 5,
+              "exchangeCreditsWithLord": {
+                "max": -1000,
+                "min": -200
               },
               "setHeldDate": true,
               "additionalText": "spend_time_together_after"
@@ -3313,15 +3092,9 @@
             "optionData": "dislikeGift_alpha_core",
             "hint": "give 1 alpha_core to %LORD_NAME",
             "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              },
-              "removeCommoditysFromPlayerFleet": {
-                "alpha_core": {
-                  "min": 1,
-                  "max": 1
-                }
+              "repChange": -10,
+              "changeCommoditysInPlayersFleet": {
+                "alpha_core": -1
               }
             },
             "enable": {
@@ -3337,15 +3110,9 @@
             "optionData": "dislikeGift_hand_weapons",
             "hint": "give 100 hand_weapons to %LORD_NAME",
             "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              },
-              "removeCommoditysFromPlayerFleet": {
-                "hand_weapons": {
-                  "min": 100,
-                  "max": 100
-                }
+              "repChange": -10,
+              "changeCommoditysInPlayersFleet": {
+                "hand_weapons": -100
               }
             },
             "enable": {
@@ -3361,15 +3128,9 @@
             "optionData": "dislikeGift_food",
             "hint": "give 100 food to %LORD_NAME",
             "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              },
-              "removeCommoditysFromPlayerFleet": {
-                "food": {
-                  "min": 100,
-                  "max": 100
-                }
+              "repChange": -10,
+              "changeCommoditysInPlayersFleet": {
+                "food": -100
               }
             },
             "enable": {
@@ -3385,15 +3146,9 @@
             "optionData": "dislikeGift_luxury_goods",
             "hint": "give 100 luxury_goods to %LORD_NAME",
             "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              },
-              "removeCommoditysFromPlayerFleet": {
-                "luxury_goods": {
-                  "min": 100,
-                  "max": 100
-                }
+              "repChange": -10,
+              "changeCommoditysInPlayersFleet": {
+                "luxury_goods": -100
               }
             },
             "enable": {
@@ -3409,15 +3164,9 @@
             "optionData": "dislikeGift_lobster",
             "hint": "give 100 lobster to %LORD_NAME",
             "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              },
-              "removeCommoditysFromPlayerFleet": {
-                "lobster": {
-                  "min": 100,
-                  "max": 100
-                }
+              "repChange": -10,
+              "changeCommoditysInPlayersFleet": {
+                "lobster": -100
               }
             },
             "enable": {
@@ -3433,15 +3182,9 @@
             "optionData": "dislikeGift_drugs",
             "hint": "give 100 drugs to %LORD_NAME",
             "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              },
-              "removeCommoditysFromPlayerFleet": {
-                "drugs": {
-                  "min": 100,
-                  "max": 100
-                }
+              "repChange": -10,
+              "changeCommoditysInPlayersFleet": {
+                "drugs": -100
               }
             },
             "enable": {
@@ -3457,15 +3200,9 @@
             "optionData": "dislikeGift_domestic_goods",
             "hint": "give 100 domestic_goods to %LORD_NAME",
             "addons": {
-              "repDecrease": {
-                "min": 10,
-                "max": 10
-              },
-              "removeCommoditysFromPlayerFleet": {
-                "domestic_goods": {
-                  "min": 100,
-                  "max": 100
-                }
+              "repChange": -10,
+              "changeCommoditysInPlayersFleet": {
+                "domestic_goods": -100
               }
             },
             "enable": {
@@ -3533,10 +3270,7 @@
               }
             },
             "addons": {
-              "giveCreditsToLord": {
-                "min": 100000,
-                "max": 100000
-              },
+              "exchangeCreditsWithLord": -100000,
               "setPledgedFor_CurrentProposal": true
             }
           },
@@ -3573,10 +3307,7 @@
               }
             },
             "addons": {
-              "giveCreditsToLord": {
-                "min": 100000,
-                "max": 100000
-              },
+              "exchangeCreditsWithLord": -100000,
               "setPledgedAgainst_CurrentProposal": true
             }
           },
@@ -3613,10 +3344,7 @@
               }
             },
             "addons": {
-              "giveCreditsToLord": {
-                "min": 100000,
-                "max": 100000
-              },
+              "exchangeCreditsWithLord": -100000,
               "setPledgedFor_PlayerProposal": true
             }
           },

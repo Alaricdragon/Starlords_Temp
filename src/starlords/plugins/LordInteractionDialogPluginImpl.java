@@ -40,7 +40,7 @@ import static starlords.ai.LordAI.BUSY_REASON;
 import static starlords.util.Constants.*;
 
 public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin {
-    public static DialogDataHolder DATA_HOLDER = new DialogDataHolder();
+    public static DialogDataHolder DATA_HOLDER;
     public static Logger log = Global.getLogger(LordInteractionDialogPluginImpl.class);
     static String CATEGORY = "starlords_lords_dialog";
     public enum OptionId {
@@ -120,7 +120,10 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
 
         lordsReference = new HashMap<>();
         targetLord = LordController.getLordById(lordFleet.getCommander().getId());
-        if (!DATA_HOLDER.getTargetID().equals(targetLord.getLordAPI().getId()))DATA_HOLDER = new DialogDataHolder();
+        if (DATA_HOLDER == null || !DATA_HOLDER.getTargetID().equals(targetLord.getLordAPI().getId())){
+            DATA_HOLDER = new DialogDataHolder();
+            DATA_HOLDER.setTargetID(targetLord.getLordAPI().getId());
+        }
         DialogOption option = new DialogOption("greeting",new ArrayList<>());
         optionSelected(null, option);
     }
@@ -213,7 +216,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
                 case "current_task_desc":
                     optionSelected_askCurrentTask(selectedOption,secondLord);
                     break;
-                case "selectedOption":
+                case "spend_time_together":
                     optionSelected_suggestDate(selectedOption,secondLord);
                     break;
                 default:
@@ -1278,12 +1281,34 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
          *   rules:
          *       compute justification
          *           -this requires a massive amount of data. I need to read: 'DefectionUtils.computeClaimJustification'
+         *              ok, so for reach value there is something diffrent:
+         *              reason_upstanding:
+         *                  num markets >= 4 +1
+         *                  total stability of all markets >= 9 +1? (this might need to be changed to average stability). this makes no sense.. unless the goal was to give people with fewer markets a chance?
+         *              reason_martal:
+         *                  player level >= 15 +1
+         *                  player fleet dp >= 200 +1
+         *              reason_quarrsom:
+         *                  +2 by base???? WTF????? what?!?!?!? what is this?!?!?! why?!?
+         *              reason_calculating:
+         *                  reason calculating is not returned here, so it returns 0 by base.
          *       compute legitimacy
          *           -again, a lot of data required. I need to read: 'DefectionUtils.computeFactionLegitimacy'
+         *              math.min(number of lords,8) + math.min(number of markets,6)
          *       lord relations with.. something
          *           -more data. read 'DefectionUtils.computeRelativeFactionPreference'
+         *              (get layolty of new faction - get loyalty of old faction) / 4
          *       AGAIN, more lord relations
          *           -more data. read 'DefectionUtils.computeRelativeLordPreference'
+         *              this looks at every lord in the game, and gets a value for lords in the new faction, and old:
+         *                  old faction:
+         *                      +3 per lord thats at least RepLevel.WELCOMING
+         *                      -3 per lord thats at most RepLevel.SUSPICIOUS
+         *                  new faction:
+         *                      +3 per lord thats at least RepLevel.WELCOMING
+         *                      -3 per lord thats at most RepLevel.SUSPICIOUS
+         *                      -1 per every other lord.
+         *                  then returns a value between -15 and 15.
          *       lastly, the justification type needs to be the same as the inputted justification. (and you require a good 'claim strangth').
          *           -this needs something along the lines of allowing me to save data on the LordInteraction dialog plugin. this will require a spicle rule for storing temp data for the conversation.
          *
@@ -1296,31 +1321,10 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
          *       defect lord to faction : faction || {faction, Rank} (rank will default to zero).
          *       play sound
          *       (done)cahnge "additionText" to allow for JsonArray input.
+         *   value object:
+         *      add something that can itterate over all starlords. like a type of rule.... arg..............
          * this opens a god damed mess.
-         * (done primary class. still need supporting classes, and custom dialogrule.)new system: dialog values:
-         *  dialog values can have multible diffrent 'value' json objects inputed. the outputed resolts is teh sum of all the numbers.
-         *  each number holds the following possable stats:
-         *      mutli: double. defalt 1
-         *      base: int. defalt 0.
-         *      the EQ used to compute one 'value' is (base + VALUE)*multi
-         * possable values are as follows:
-         *  base (just a number that is added to the output)
-         *  playerLord relation
-         *  lordTarget relation
-         *  lordLoyalty
-         *  . . . (get more as needed)
-         *  conditional value: (this can hold one of 2 things)
-         *      a) {"rule" : rulesObject, "value": valueObject || int}
-         *      b) [{"rule","value"},{"rule","value",{"rule","value"}...}] (this is a json Array holding the conditional value object.)
-         * useage is as follows:
-         *  frist, I can use this as the min / max value in all min / max conditions (merge them into one class)
-         *  secondly, I can use this at any time were you can set a value (some addons have this), or add a value between min / max.
-         * supporting data:
-         *  first, I need to go into addons that set a value and make them all inharent a class, that lets them have there min / max values be a dialog values.
-         *      in regards to this: most functions need to have the 2 overwriting functions: increase and descrease.
-         *      this also means I can merge all addons related to information change from 'incerase' / 'decrease' into one unifiing plugin.
-         *  (done) second, I need to go into conditions that compair values (min/max) and make them all inharent a class, that lets the min / max values be a dialog values.
-         *  lastly, for both first and second, I need to make it so they can also acsept a inputed value, and not just max and min.*/
+         */
         // compute justification strength
         // upstanding checks player colony stability and count, marshal checks player level and fleet size,
         // calculating does bribes, quarrelsome auto-passes

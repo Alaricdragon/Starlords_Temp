@@ -857,23 +857,20 @@ public class DialogSet {
             String key2 = (String) it.next();
             DialogAddon_Base addon = null;
             switch (key2) {
-                case "repIncrease":
-                    addon = addAddon_repIncrease(addons, key2);
+                case "repChange":
+                    addon = addAddon_repChange(addons, key2);
                     break;
-                case "repDecrease":
-                    addon = addAddon_repDecrease(addons, key2);
+                case "creditsChange":
+                    addon = addAddon_creditsChange(addons, key2);
                     break;
-                case "creditsIncrease":
-                    addon = addAddon_creditsIncrease(addons, key2);
+                case "exchangeCreditsWithLord":
+                    addon = addAddon_exchangeCreditsWithLord(addons, key2);
                     break;
-                case "creditsDecrease":
-                    addon = addAddon_creditsDecrease(addons, key2);
+                case "romanceChange":
+                    addon = addAddon_romanceChange(addons, key2);
                     break;
-                case "romanceActionIncrease":
-                    addon = addAddon_romanceActionIncrease(addons, key2);
-                    break;
-                case "romanceActionDecrease":
-                    addon = addAddon_romanceActionDecrease(addons, key2);
+                case "changeCommoditysInPlayersFleet":
+                    addon = addAddon_changeCommoditysInPlayersFleet(addons, key2);
                     break;
                 case "additionalText":
                     addon = addAddon_additionalText(addons,key2);
@@ -895,16 +892,6 @@ public class DialogSet {
                     break;
                 case "setCourted":
                     addon = addAddon_setCourted(addons,key2);
-                    break;
-                case "removeCommoditysFromPlayerFleet":
-                    for(DialogAddon_Base a : addAddon_removeCommoditysFromPlayerFleet(addons,key2)){
-                        if (a != null) newAddons.add(a);
-                    }
-                    break;
-                case "addCommoditysToPlayerFleet":
-                    for(DialogAddon_Base a : addAddon_addCommoditysToPlayerFleet(addons,key2)){
-                        if (a != null) newAddons.add(a);
-                    }
                     break;
                 case "wedPlayerToLord":
                     addon = addAddon_wedPlayerToLord(addons,key2);
@@ -929,12 +916,6 @@ public class DialogSet {
                     break;
                 case "setSwayed":
                     addon = addAddon_setSwayed(addons,key2);
-                    break;
-                case "giveCreditsToLord":
-                    addon = addAddon_giveCreditsToLord(addons,key2);
-                    break;
-                case "takeCreditsFromLord":
-                    addon = addAddon_takeCreditsFromLord(addons,key2);
                     break;
                 case "setPlayerSupportForLordProposal":
                     addon = addAddon_setPlayerSupportForLordProposal(addons,key2);
@@ -966,35 +947,26 @@ public class DialogSet {
         return newAddons;
     }
     @SneakyThrows
-    private static DialogAddon_Base addAddon_repIncrease(JSONObject json, String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogAddon_repIncrease(json2.getInt("min"),json2.getInt("max"));
+    private static DialogAddon_Base addAddon_repChange(JSONObject json, String key){
+        return new DialogAddon_repChange(json,key);
     }
     @SneakyThrows
-    private static DialogAddon_Base addAddon_repDecrease(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogAddon_repDecrease(json2.getInt("min"),json2.getInt("max"));
+    private static DialogAddon_Base addAddon_creditsChange(JSONObject json, String key){
+        return new DialogAddon_creditsChange(json,key);
     }
     @SneakyThrows
-    private static DialogAddon_Base addAddon_creditsIncrease(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogAddon_creditIncrease(json2.getInt("min"),json2.getInt("max"));
+    private static DialogAddon_Base addAddon_exchangeCreditsWithLord(JSONObject json, String key){
+        return new DialogAddon_exchangeCreditsWithLord(json,key);
     }
     @SneakyThrows
-    private static DialogAddon_Base addAddon_creditsDecrease(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogAddon_creditDecrease(json2.getInt("min"),json2.getInt("max"));
+    private static DialogAddon_Base addAddon_romanceChange(JSONObject json, String key){
+        return new DialogAddon_romanceChange(json,key);
     }
     @SneakyThrows
-    private static DialogAddon_Base addAddon_romanceActionIncrease(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogAddon_romanticActionIncrease(json2.getInt("min"),json2.getInt("max"));
+    private static DialogAddon_Base addAddon_changeCommoditysInPlayersFleet(JSONObject json, String key){
+        return new DialogAddon_changeCommoditysInPlayersFleet(json,key);
     }
-    @SneakyThrows
-    private static DialogAddon_Base addAddon_romanceActionDecrease(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogAddon_romanticActionDecrease(json2.getInt("min"),json2.getInt("max"));
-    }
+
     @SneakyThrows
     private static DialogAddon_Base addAddon_additionalText(JSONObject json,String key){
         return new DialogAddon_additionalText(json,key);
@@ -1031,28 +1003,6 @@ public class DialogSet {
     private static DialogAddon_Base addAddon_setCourted(JSONObject json, String key){
         boolean json2 = json.getBoolean(key);
         return new DialogAddon_setCourted(json2);
-    }
-    @SneakyThrows
-    private static ArrayList<DialogAddon_Base> addAddon_removeCommoditysFromPlayerFleet(JSONObject json,String key){
-        ArrayList<DialogAddon_Base> out = new ArrayList<>();
-        JSONObject json2 = json.getJSONObject(key);
-        for (Iterator it2 = json2.keys(); it2.hasNext();) {
-            String key2 = (String) it2.next();
-            JSONObject json3 = json2.getJSONObject(key2);
-            out.add(new DialogAddon_removeCommoditysFromPlayerFleet(key2,json3.getInt("min"),json3.getInt("max")));
-        }
-        return out;
-    }
-    @SneakyThrows
-    private static ArrayList<DialogAddon_Base> addAddon_addCommoditysToPlayerFleet(JSONObject json,String key){
-        ArrayList<DialogAddon_Base> out = new ArrayList<>();
-        JSONObject json2 = json.getJSONObject(key);
-        for (Iterator it2 = json2.keys(); it2.hasNext();) {
-            String key2 = (String) it2.next();
-            JSONObject json3 = json2.getJSONObject(key2);
-            out.add(new DialogAddon_addCommoditysToPlayerFleet(key2,json3.getInt("min"),json3.getInt("max")));
-        }
-        return out;
     }
     @SneakyThrows
     private static DialogAddon_Base addAddon_wedPlayerToLord(JSONObject json,String key){
@@ -1094,16 +1044,6 @@ public class DialogSet {
     private static DialogAddon_Base addAddon_setSwayed(JSONObject json, String key){
         boolean json2 = json.getBoolean(key);
         return new DialogAddon_setSwayed(json2);
-    }
-    @SneakyThrows
-    private static DialogAddon_Base addAddon_giveCreditsToLord(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogAddon_giveCreditsToLord(json2.getInt("min"),json2.getInt("max"));
-    }
-    @SneakyThrows
-    private static DialogAddon_Base addAddon_takeCreditsFromLord(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogAddon_takeCreditsFromLord(json2.getInt("min"),json2.getInt("max"));
     }
     @SneakyThrows
     private static DialogAddon_Base addAddon_setPlayerSupportForLordProposal(JSONObject json,String key){
@@ -1830,11 +1770,11 @@ public class DialogSet {
         ArrayList<DialogRule_Base> rules = new ArrayList<>();
         for (Iterator it = json2.keys(); it.hasNext();) {
             String key2 = (String) it.next();
-            if (json2.get(key2) instanceof Boolean){
+            if (!(json2.get(key2) instanceof JSONObject)){
                 rules.add(new DialogRule_getDialogData_boolean(key2,json2.getBoolean(key2)));
                 continue;
             }
-            if (json2.get(key2) instanceof JSONObject && ((json2.getJSONObject(key2).has("min") && json2.getJSONObject(key2).get("min") instanceof Integer) || (json2.getJSONObject(key2).has("max") && json2.getJSONObject(key2).get("max") instanceof Integer))){
+            if (((json2.getJSONObject(key2).has("min")) || (json2.getJSONObject(key2).has("max")))){
                 rules.add(new DialogRule_getDialogData_int(key2,json2.getJSONObject(key2)));
                 continue;
             }
@@ -1848,11 +1788,11 @@ public class DialogSet {
         ArrayList<DialogRule_Base> rules = new ArrayList<>();
         for (Iterator it = json2.keys(); it.hasNext();) {
             String key2 = (String) it.next();
-            if (json2.get(key2) instanceof Boolean){
+            if (!(json2.get(key2) instanceof JSONObject)){
                 rules.add(new DialogRule_getMemoryData_boolean(key2,json2.getBoolean(key2)));
                 continue;
             }
-            if (json2.get(key2) instanceof JSONObject && ((json2.getJSONObject(key2).has("min") && json2.getJSONObject(key2).get("min") instanceof Integer) || (json2.getJSONObject(key2).has("max") && json2.getJSONObject(key2).get("max") instanceof Integer))){
+            if (((json2.getJSONObject(key2).has("min")) || (json2.getJSONObject(key2).has("max")))){
                 rules.add(new DialogRule_getMemoryData_int(key2,json2.getJSONObject(key2)));
                 continue;
             }
@@ -1866,11 +1806,11 @@ public class DialogSet {
         ArrayList<DialogRule_Base> rules = new ArrayList<>();
         for (Iterator it = json2.keys(); it.hasNext();) {
             String key2 = (String) it.next();
-            if (json2.get(key2) instanceof Boolean){
+            if (!(json2.get(key2) instanceof JSONObject)){
                 rules.add(new DialogRule_getLordMemoryData_boolean(key2,json2.getBoolean(key2)));
                 continue;
             }
-            if (json2.get(key2) instanceof JSONObject && ((json2.getJSONObject(key2).has("min") && json2.getJSONObject(key2).get("min") instanceof Integer) || (json2.getJSONObject(key2).has("max") && json2.getJSONObject(key2).get("max") instanceof Integer))){
+            if (((json2.getJSONObject(key2).has("min")) || (json2.getJSONObject(key2).has("max")))){
                 rules.add(new DialogRule_getLordMemoryData_int(key2,json2.getJSONObject(key2)));
                 continue;
             }

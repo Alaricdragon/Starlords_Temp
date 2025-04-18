@@ -19,23 +19,15 @@ public class DialogRule_minmax extends DialogRule_Base {
             min=value;
             return;
         }
-        jsonObject.getJSONObject(key);
-        if (jsonObject.has("max")){
-            if (jsonObject.get("max") instanceof Integer) {
-                max = jsonObject.getInt("max");
-            }else{
-                maxList = new DialogValuesList(jsonObject.getJSONObject("max"));
-            }
+        JSONObject json2 = jsonObject.getJSONObject(key);
+        if (json2.has("max")){
+            maxList = new DialogValuesList(json2,"max");
         }
-        if (jsonObject.has("min")){
-            if (jsonObject.get("min") instanceof Integer) {
-                min = jsonObject.getInt("min");
-            }else{
-                minList = new DialogValuesList(jsonObject.getJSONObject("min"));
-            }
+        if (json2.has("min")){
+            minList = new DialogValuesList(json2,"min");
         }
-        if ((!jsonObject.has("min") && !jsonObject.has("max"))){
-            minList = new DialogValuesList(jsonObject);
+        if ((!json2.has("min") && !json2.has("max"))){
+            minList = new DialogValuesList(jsonObject,key);
             maxList = minList;
         }
     }

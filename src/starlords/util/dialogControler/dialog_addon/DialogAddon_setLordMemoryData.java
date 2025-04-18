@@ -17,42 +17,13 @@ import java.util.Iterator;
 
 import static starlords.util.Constants.STARLORD_ADDITIONAL_MEMORY_KEY;
 
-public class DialogAddon_setLordMemoryData extends DialogAddon_Base{
-    HashMap<String,String> strings = new HashMap<>();
-    HashMap<String,Boolean> booleans = new HashMap<>();
-    HashMap<String,Integer> setInts = new HashMap<>();
-    HashMap<String,Integer> addIntsMin = new HashMap<>();
-    HashMap<String,Integer> addIntsMax = new HashMap<>();
+public class DialogAddon_setLordMemoryData extends DialogAddon_setDialogData{
     @SneakyThrows
     public DialogAddon_setLordMemoryData(JSONObject json){
-        for (Iterator it = json.keys(); it.hasNext(); ) {
-            String key2 = (String) it.next();
-            if (json.get(key2) instanceof JSONObject){
-                JSONObject a = json.getJSONObject(key2);
-                addIntsMin.put(key2,a.getInt("min"));
-                addIntsMax.put(key2,a.getInt("max"));
-                continue;
-            }
-            if (json.get(key2) instanceof String){
-                String a = json.getString(key2);
-                strings.put(key2,a);
-                continue;
-            }
-            if (json.get(key2) instanceof Boolean){
-                boolean a = json.getBoolean(key2);
-                booleans.put(key2,a);
-                continue;
-            }
-            if (json.get(key2) instanceof Integer){
-                int a = json.getInt(key2);
-                setInts.put(key2,a);
-                continue;
-            }
-            //this is bad...
-        }
+        super(json);
     }
     @Override
-    public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord) {
+    public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord,Lord targetLord) {
         String key = STARLORD_ADDITIONAL_MEMORY_KEY+lord.getLordAPI().getId();
         DataHolder DATA_HOLDER;
         if (Global.getSector().getMemory().contains(key)){
@@ -60,32 +31,32 @@ public class DialogAddon_setLordMemoryData extends DialogAddon_Base{
         }else{
             DATA_HOLDER = new DataHolder();
         }
-        applyStrings(DATA_HOLDER);
-        applyBooleans(DATA_HOLDER);
-        applyFloats(DATA_HOLDER);
-        applyAddFloats(DATA_HOLDER);
+        applyStrings(DATA_HOLDER,lord,targetLord);
+        applyBooleans(DATA_HOLDER,lord,targetLord);
+        applyFloats(DATA_HOLDER,lord,targetLord);
+        applyAddFloats(DATA_HOLDER,lord,targetLord);
         Global.getSector().getMemory().set(key,DATA_HOLDER);
     }
-    public void applyStrings(DataHolder DATA_HOLDER){
+    public void applyStrings(DataHolder DATA_HOLDER,Lord lord,Lord targetLord){
         for (String key : strings.keySet()) {
             DATA_HOLDER.getStrings().put(key,strings.get(key));
         }
     }
-    public void applyBooleans(DataHolder DATA_HOLDER){
+    public void applyBooleans(DataHolder DATA_HOLDER,Lord lord,Lord targetLord){
         for (String key : booleans.keySet()) {
             DATA_HOLDER.getBooleans().put(key,booleans.get(key));
         }
 
     }
-    public void applyFloats(DataHolder DATA_HOLDER){
+    public void applyFloats(DataHolder DATA_HOLDER,Lord lord,Lord targetLord){
         for (String key : setInts.keySet()) {
-            DATA_HOLDER.getIntegers().put(key, setInts.get(key));
+            DATA_HOLDER.getIntegers().put(key, setInts.get(key).getValue(lord, targetLord));
         }
     }
-    public void applyAddFloats(DataHolder DATA_HOLDER){
+    public void applyAddFloats(DataHolder DATA_HOLDER,Lord lord,Lord targetLord){
         for (String key : addIntsMin.keySet()) {
-            int min = addIntsMin.get(key);
-            int max = addIntsMax.get(key);
+            int min = addIntsMin.get(key).getValue(lord, targetLord);
+            int max = addIntsMax.get(key).getValue(lord, targetLord);
             int baseValue = DATA_HOLDER.getIntegers().get(key);
             max = Math.max(min,max);
             int range = max - min;
