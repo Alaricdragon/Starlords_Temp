@@ -68,6 +68,12 @@ public class DialogValuesList {
                 case "curProposalOpposers":
                     values.add(new DialogValue_curProposalOpposers(json,key));
                     break;
+                case "optionOfCurrProposal":
+                    values.add(new DialogValue_optionOfCurrProposal(json,key));
+                    break;
+                case "optionOfPlayerProposal":
+                    values.add(new DialogValue_optionOfPlayerProposal(json,key));
+                    break;
                 case "validLordNumbers":
                     values.add(new DialogValue_validLordNumbers(json,key));
                     break;

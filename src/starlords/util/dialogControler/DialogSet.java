@@ -1408,8 +1408,7 @@ public class DialogSet {
     }
     @SneakyThrows
     private static DialogRule_Base addRule_relationWithPlayer(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogRule_relationWithPlayer(json2);
+        return new DialogRule_relationWithPlayer(json,key);
     }
     @SneakyThrows
     private static ArrayList<DialogRule_Base> addRule_startingFaction(JSONObject json,String key){
@@ -1515,38 +1514,31 @@ public class DialogSet {
     }
     @SneakyThrows
     private static DialogRule_Base addRule_lordLevel(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogRule_lordLevel(json2);
+        return new DialogRule_lordLevel(json,key);
     }
     @SneakyThrows
     private static DialogRule_Base addRule_lordRank(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogRule_lordRank(json2);
+        return new DialogRule_lordRank(json,key);
     }
     @SneakyThrows
     private static DialogRule_Base addRule_lordsCourted(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogRule_lordsCourted(json2);
+        return new DialogRule_lordsCourted(json,key);
     }
     @SneakyThrows
     private static DialogRule_Base addRule_lordWealth(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogRule_lordWealth(json2);
+        return new DialogRule_lordWealth(json,key);
     }
     @SneakyThrows
     private static DialogRule_Base addRule_playerLevel(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogRule_playerLevel(json2);
+        return new DialogRule_playerLevel(json,key);
     }
     @SneakyThrows
     private static DialogRule_Base addRule_playerRank(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogRule_playerRank(json2);
+        return new DialogRule_playerRank(json,key);
     }
     @SneakyThrows
     private static DialogRule_Base addRule_playerWealth(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogRule_playerWealth(json2);
+        return new DialogRule_playerWealth(json,key);
     }
     @SneakyThrows
     private static DialogRule_Base addRule_isLordCourtedByPlayer(JSONObject json,String key){
@@ -1555,8 +1547,7 @@ public class DialogSet {
     }
     @SneakyThrows
     private static DialogRule_Base addRule_playerLordRomanceAction(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogRule_playerLordRomanceAction(json2);
+        return new DialogRule_playerLordRomanceAction(json,key);
     }
     @SneakyThrows
     private static DialogRule_Base addRule_availableTournament(JSONObject json, String key){
@@ -1588,8 +1579,7 @@ public class DialogSet {
     }
     @SneakyThrows
     private static DialogRule_Base addRule_lordsInFeast(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogRule_lordsInFeast(json2);
+        return new DialogRule_lordsInFeast(json,key);
     }
     @SneakyThrows
     private static DialogRule_Base addRule_hasProfessedAdmirationThisFeast(JSONObject json,String key){
@@ -1657,7 +1647,7 @@ public class DialogSet {
         JSONObject json2 = json.getJSONObject(key);
         for (Iterator it = json2.keys(); it.hasNext();) {
             String key2 = (String) it.next();
-            output.add(new DialogRule_playerHasCommodity(key2,json2.getJSONObject(key2)));
+            output.add(new DialogRule_playerHasCommodity(json2,key2));
         }
         return output;
     }
@@ -1686,13 +1676,11 @@ public class DialogSet {
     }
     @SneakyThrows
     private static DialogRule_Base addRule_optionOfCurrProposal(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogRule_optionOfCurrProposal(json2);
+        return new DialogRule_optionOfCurrProposal(json,key);
     }
     @SneakyThrows
     private static DialogRule_Base addRule_optionOfPlayerProposal(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogRule_optionOfPlayerProposal(json2);
+        return new DialogRule_optionOfPlayerProposal(json,key);
     }
     @SneakyThrows
     private static DialogRule_Base addRule_isSwayed(JSONObject json,String key){
@@ -1701,13 +1689,11 @@ public class DialogSet {
     }
     @SneakyThrows
     private static DialogRule_Base addRule_lordProposalSupporters(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogRule_lordProposalSupporters(json2);
+        return new DialogRule_lordProposalSupporters(json,key);
     }
     @SneakyThrows
     private static DialogRule_Base addRule_lordProposalOpposers(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogRule_lordProposalOpposers(json2);
+        return new DialogRule_lordProposalOpposers(json,key);
     }
     @SneakyThrows
     private static DialogRule_Base addRule_lordProposalPlayerSupports(JSONObject json,String key){
@@ -1716,13 +1702,11 @@ public class DialogSet {
     }
     @SneakyThrows
     private static DialogRule_Base addRule_playerProposalSupporters(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogRule_playerProposalSupporters(json2);
+        return new DialogRule_playerProposalSupporters(json,key);
     }
     @SneakyThrows
     private static DialogRule_Base addRule_playerProposalOpposers(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogRule_playerProposalOpposers(json2);
+        return new DialogRule_playerProposalOpposers(json,key);
     }
     @SneakyThrows
     private static DialogRule_Base addRule_playerProposalLordSupports(JSONObject json,String key){
@@ -1731,13 +1715,11 @@ public class DialogSet {
     }
     @SneakyThrows
     private static DialogRule_Base addRule_curProposalSupporters(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogRule_curProposalSupporters(json2);
+        return new DialogRule_curProposalSupporters(json,key);
     }
     @SneakyThrows
     private static DialogRule_Base addRule_curProposalOpposers(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogRule_curProposalOpposers(json2);
+        return new DialogRule_curProposalOpposers(json,key);
     }
     @SneakyThrows
     private static DialogRule_Base addRule_curProposalPlayerSupports(JSONObject json,String key){
@@ -1761,8 +1743,7 @@ public class DialogSet {
     }
     @SneakyThrows
     private static DialogRule_Base addRule_relationsBetweenLords(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogRule_relationsBetweenLords(json2);
+        return new DialogRule_relationsBetweenLords(json,key);
     }
     @SneakyThrows
     private static DialogRule_Base addRule_lordAndTargetSameFaction(JSONObject json,String key){
@@ -1786,8 +1767,7 @@ public class DialogSet {
     }
     @SneakyThrows
     private static DialogRule_Base addRule_validLordNumbers(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogRule_validLordNumbers(json2);
+        return new DialogRule_validLordNumbers(json,key);
     }
     @SneakyThrows
     private static DialogRule_Base addRule_targetLord(JSONObject json,String key){
@@ -1841,8 +1821,7 @@ public class DialogSet {
     }
     @SneakyThrows
     private static DialogRule_Base addRule_lordLoyalty(JSONObject json,String key){
-        JSONObject json2 = json.getJSONObject(key);
-        return new DialogRule_lordLoyalty(json2);
+        return new DialogRule_lordLoyalty(json,key);
     }
     @SneakyThrows
     private static ArrayList<DialogRule_Base> addRule_getDialogData(JSONObject json,String key){

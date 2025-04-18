@@ -5,30 +5,26 @@ import org.json.JSONObject;
 import starlords.controllers.LordController;
 import starlords.person.Lord;
 import starlords.util.dialogControler.DialogSet;
+import starlords.util.dialogControler.dialogRull.bases.DialogRule_minmax;
 
 import java.util.ArrayList;
 
-public class DialogRule_validLordNumbers extends DialogRule_Base {
-    int max = 2147483647;
-    int min = -2147483647;
+public class DialogRule_validLordNumbers extends DialogRule_minmax {
     ArrayList<DialogRule_Base> rules;
     @SneakyThrows
-    public DialogRule_validLordNumbers(JSONObject jsonObject){
-        if (jsonObject.has("max")) max = jsonObject.getInt("max");
-        if (jsonObject.has("min")) min = jsonObject.getInt("min");
-        rules = DialogSet.getDialogRulesFromJSon(jsonObject.getJSONObject("rules"));
+    public DialogRule_validLordNumbers(JSONObject jsonObject,String key){
+        super(jsonObject, key);
+        rules = DialogSet.getDialogRulesFromJSon(jsonObject.getJSONObject(key).getJSONObject("rules"));
     }
-
     @Override
-    public boolean condition(Lord lord) {
+    protected int getValue(Lord lord, Lord targetLord) {
         int rel = 0;
         for (Lord lord2 : LordController.getLordsList()){
             if (isLordValid(lord,lord2)) rel++;
         }
-        if (min <= rel && rel <= max) return true;
-        return false;
+        return rel;
     }
-    private boolean isLordValid(Lord lord,Lord lord2){
+    private boolean isLordValid(Lord lord, Lord lord2){
         for (DialogRule_Base a: rules){
             if (!a.condition(lord,lord2)) return false;
         }

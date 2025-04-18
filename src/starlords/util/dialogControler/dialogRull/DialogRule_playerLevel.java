@@ -4,20 +4,17 @@ import com.fs.starfarer.api.Global;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.person.Lord;
+import starlords.util.dialogControler.dialogRull.bases.DialogRule_minmax;
 
-public class DialogRule_playerLevel extends DialogRule_Base {
-    int max = 2147483647;
-    int min = -2147483647;
+public class DialogRule_playerLevel extends DialogRule_minmax {
     @SneakyThrows
-    public DialogRule_playerLevel(JSONObject jsonObject){
-        if (jsonObject.has("max")) max = jsonObject.getInt("max");
-        if (jsonObject.has("min")) min = jsonObject.getInt("min");
+    public DialogRule_playerLevel(JSONObject jsonObject,String key){
+        super(jsonObject, key);
     }
 
     @Override
-    public boolean condition(Lord lord) {
+    protected int getValue(Lord lord, Lord targetLord) {
         int rel = Global.getSector().getPlayerPerson().getStats().getLevel();
-        if (min <= rel && rel <= max) return true;
-        return false;
+        return rel;
     }
 }

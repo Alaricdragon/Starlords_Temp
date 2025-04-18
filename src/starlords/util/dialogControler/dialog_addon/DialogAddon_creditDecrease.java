@@ -28,7 +28,5 @@ public class DialogAddon_creditDecrease extends DialogAddon_Base{
         HashMap<String,String> inserts = new HashMap<>();
         inserts.put("%c0",""+change);
         DialogSet.addParaWithInserts("credits_decrease",lord,textPanel,options,dialog,false,inserts);
-
-
     }
 }

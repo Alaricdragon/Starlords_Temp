@@ -1317,7 +1317,9 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
          *  secondly, I can use this at any time were you can set a value (some addons have this), or add a value between min / max.
          * supporting data:
          *  first, I need to go into addons that set a value and make them all inharent a class, that lets them have there min / max values be a dialog values.
-         *  second, I need to go into conditions that compair values (min/max) and make them all inharent a class, that lets the min / max values be a dialog values.
+         *      in regards to this: most functions need to have the 2 overwriting functions: increase and descrease.
+         *      this also means I can merge all addons related to information change from 'incerase' / 'decrease' into one unifiing plugin.
+         *  (done) second, I need to go into conditions that compair values (min/max) and make them all inharent a class, that lets the min / max values be a dialog values.
          *  lastly, for both first and second, I need to make it so they can also acsept a inputed value, and not just max and min.*/
         // compute justification strength
         // upstanding checks player colony stability and count, marshal checks player level and fleet size,

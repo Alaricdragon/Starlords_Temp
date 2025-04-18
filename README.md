@@ -110,29 +110,88 @@ If you're a modder, or just someone who loves to write dialog for every starlord
 * each "dialog" contains a list of "dialog sets". if the "dialogs" rules are true, the game will attempt to get the highest priority dialogset that is true withen it.
 * "priority" is the priority of this dialog. should have a value of at least 0 the dialog with the highest priority that has all its "rule" reuqirements met will be used in any instance, unless the lord you are talking to has a at least one valid "dialogOverride"
 * "rules" is each requirement that must be met for a set of dialog to be used by a given starlord. every condition must be met for this to happen. conditions are as follows:
-  * "SECOND_LORD" always returns false if: target lord is unset. runs the contained 'rules' json object, for the target lord instead of the interacting lord
-  * "SECOND_LORD_SPOUSE" always returns false if: no target lord has been set this interaction, or the second lord has no spouse. runs the contained 'rules' json object, for the SECOND_LORD_SPOUSE lord instead of the interacting lord
-  * "PLAYER_SPOUSE" always returns false if: the player is not married. runs the contained 'rules' json object, for the PLAYER_SPOUSE lord instead of the interacting lord
-  * "LORD_SPOUSE" always returns false if: the lord you are talking to is not married. runs the contained 'rules' json object, for the LORD_SPOUSE lord instead of the interacting lord
-  * "LORD_HOST" always returns false if: you are not at a feast, or the feast has no living host. runs the contained 'rules' json object, for the LORD_HOST lord instead of the interacting lord
-  * "LORD_HOST_SPOUSE" always returns false if: you are not at a feast, or the host of the feast has no spouse. runs the contained 'rules' json object, for the LORD_HOST_SPOUSE lord instead of the interacting lord
-  * "WEDDING_TARGET" always returns false if: you are not at a wedding, or the wedding target does not exsist. runs the contained 'rules' json object, for the WEDDING_TARGET lord instead of the interacting lord
-  * "WEDDING_TARGET_SPOUSE" always returns false if: you are not at a wedding, or the wedding target has no spouse. runs the contained 'rules' json object, for the WEDDING_TARGET_SPOUSE lord instead of the interacting lord
-  * "or" contains a jsonArray, were each item in the array is a 'rules' jsonObject. if any of the contained 'rules' jsonObjects have all there rules return true, this condition returns true.
-  * "relationWithPlayer" is the relationship range that this lord must have with a player to meet requirements. set between a "min" and "max" value. range must be between -100 and 100.
-  * "startingFaction" is the starting faction required to meet requirements. starting faction is the faction a lord was part of when they first spawned. set to true for whitelist, and false for blacklist. To meet requirements, a lord must have a starting faction of one of the 'true' factions (if any are created in this rule), and must not have a stating faction of the 'false' factions.
-  * "currentFaction" is the current faction required to meet requirements. set to true for whitelist, and false for blacklist. To meet requirements, a lord must have a current faction of one of the 'true' factions (if any are created in this rule), and must not have a current faction of the 'false' factions.
-  * "isMarriedToPlayer" if set to true, the lord must be married to the player to meet requirements. if set to false, the lord must not be married to the player to meet requirements
-  * "isMarried" if set to true, the lord must be married to meet requirements, if set to false, the lord must not be married to meet requirements.
-  * "isPlayerMarried" if set to true, the player must be married to meet requirements, if set to false, the player must not be married to meet requirements.
-  * "willEngage" if set to true, the lord must be willing to attack the player to meet requirements. if set to false, they must be unwilling to attack to meet requirements
-  * "hostileFaction" if set to true, the lord must be part of a faction hostile player to meet requirements. if set to false, the lord must not be part of a faction hostile player to meet requirements 
-  * "isAtFeast" if set to true, the lord must be at a feast to meet requirements. if set to false, the lord must not be at a feast to meet requirements
-  * "isHostingFeast" if set to true, the lord must be at a feast and hosting it to meet requirements. if set to false, the lord must not be at a feast or not hosting it to meet requirements
-  * "playerSubject" if set to true, the lord must be part of the player faction (and as such, the player must be there ruler) to meet requirements. if set to false, the lord must not be part of the player faction to meet requirements.
-  * "playerFactionMarital" if set to true, the player must be both part of the lords faction, and the marital of the lord to meet requirements. if set to false, must ether not be in the same faction, or the player must not be the martal to meet requirements
-  * "lordFactionMarital" if set to true, the player must be both part of the lords faction, and the lord must be the marital to meet requirements. if set to false, must ether not be in the same faction, or the lord must not be the martal to meet requirements
-  * "lordAndPlayerSameFaction" if set to false, the lord and player must not be part of the same faction to meet requirements. if set to ture, the lord and player must be part of the same faction to meet requirements.
+  * target rules: all 'target' rules contain the 'rules' json object. and instead of runing the rules onto the interacting lord, they run the rules for whatever lord they interact with instead. --will return false if whatever lord the rule wants cannot be found-- 
+    * "SECOND_LORD" : 'target lord'. 
+    * "SECOND_LORD_SPOUSE" : 'target lords' spouse.
+    * "PLAYER_SPOUSE" : playes spouse
+    * "LORD_SPOUSE" : interacting lords spouse
+    * "LORD_HOST" : whoever is hosting the feast the lord is currently at. 
+    * "LORD_HOST_SPOUSE" : the spouse of whoever is hosting the fleet the lord is currently at
+    * "WEDDING_TARGET" : whoever is getting married at this feast
+    * "WEDDING_TARGET_SPOUSE" : whoever is getting married at this feasts spouse
+  * condition rules: are things that can contain rules objects but run diffrent operaters on said objected.
+    * "or" contains a jsonArray, were each item in the array is a 'rules' jsonObject. if any of the contained 'rules' jsonObjects have all there rules return true, this condition returns true.
+  * value rules. value conditions can contain the following data:
+    * Integer: the value that the item must have to meet requirements.
+    * dialogValue: a dialog value json object. the return value of the dialog value is what the item must have to meet requirements.
+    * {"min","max"}: were "min" and "max" can be a Integer, or a dialogValue. the item must be between min and max to meet requirements. min and max have a default value of -infinity and +infinity respectively.
+    * "relationWithPlayer" is the relationship that this lord has with the player.
+    * "playerWealth": is the number of credits the player has.
+    * "lordWealth": is the number of credits the lord has.
+    * "playerLevel": is the level the player is.
+    * "lordLevel": is the level the lord is.
+    * "playerRank": is the rank of the player in there faction.
+    * "lordRank": is the rank of the lor din there faction.
+    * "lordsCourted": is the number of lords the player has professed admiration to.
+    * "playerLordRomanceAction":  is the number of romantic actions the player and lord have had together <3.
+    * "lordsInFeast": will return false if: not at a feast. is the number of lords at the current feast.
+    * "optionOfCurrProposal": will return false if: the lords faction is not currently voting on a proposal. is the opinion of the current proposal the lord has.
+    * "optionOfPlayerProposal": will return false if: the player has no active proposal. is the opinion of the player proposal the lord has. 
+    * "lordProposalSupporters": will return false if: lord does not have a proposal active. is the number of supports the lords proposal has.
+    * "lordProposalOpposers": always returns false if: lord does not have a proposal active. is the number of opposers the lords proposal has. 
+    * "playerProposalSupporters": always returns false if: player does not have a proposal active. is the number of supports the players proposal has.
+    * "playerProposalOpposers": always returns false if: player does not have a proposal active. is the number of opposers the players proposal has.
+    * "curProposalSupporters": always returns false if: there is no active proposal in the lords faction counsel. is the number of supports the lords factions current proposal has 
+    * "curProposalOpposers": always returns false if: there is no active proposal in the lords faction counsel. is the number of supports the lord factions current proposal has 
+    * "lordLoyalty": is the relationship this lord has with there faction.
+    * "playerHasCommodity": is a jsonObject containing a set of commodityID's : value condition. the player must meet the requirements of every commodity.
+    * "validLordNumbers": this is a jsonArray with 3 parts: "min", "max", "rules". what this does is it looks at all starlords in the game, and the number of lords that meet all "rule" requirements must be between the "min" and "max" values.
+  * boolean rules. each data here must be set to true or false. if set to true, the item must also be true. if set to false, the item must also be false.
+    * "isMarriedToPlayer": if the lord is married to the player 
+    * "isMarried": if the lord is married to anyone
+    * "isPlayerMarried": if the player is married to anyone.
+    * "willEngage":if the lord is willing to attack the player
+    * "hostileFaction": if the faction the lord is part of is hostile to the faction the player is a part of.
+    * "isAtFeast": if the lord is at a feast.
+    * "isHostingFeast": will return false if the lord is not at a feast. is if the lord is hosting the feast they are at.
+    * "playerSubject" if the lord is part of the player faction.
+    * "playerFactionMarital" will return false if the player and lord are not in the same faction. is if the player is the faction marital or not.
+    * "lordFactionMarital" will return false if the player and lord are not in the same faction. is if the lord is the faction marital or not. 
+    * "lordAndPlayerSameFaction" if the lord and player are start of the same faction. 
+    * "isLordCourtedByPlayer": is if the player is corting the lord. 
+    * "availableTournament" : will return false if not at a feast. is if the feasts tournament has not yet happened. 
+    * "playerTournamentVictory": will return false if not at a feast. is if the player has won the tournament at the current feast.
+    * "lordTournamentVictory": will return false if not at a feast. is if the player has won the tournament at the current feast.
+    * "playerTournamentVictoryDedicated": will return false if: not at a feast, or the player has not won the tournament there. is if the player has already dedicated there victory at the tournament.
+    * "tournamentDedicatedToLord": will return false if not at a feast. is if the lord is the one this tournament is dedicated to.
+    * "feastIsHostingWedding": will return false if not at a feast. is if this feast is hosting a wedding.
+    * "isWeddingTarget": will reutrn false if not at a feast, or the feast is not hosting a wedding. is if the lord is the wedding target or not. 
+    * "firstMeeting": is if this is your first time talking to this starlord or not. 
+    * "hasProfessedAdmirationThisFeast": will return false if: not at a feast. is if the player has professed admiration this feast. 
+    * "hasHeldDateThisFeast": will return false if: not at a feast. is if the player has been on a date yet this feast. 
+    * "lordPledgedSupport_forActiveProposal": will return false if the lords faction is not voting on anything. is if the lord has pledged support for active proposal or not. 
+    * "lordPledgedSupport_againstActiveProposal": will return false if the lords faction is not voting on anything. is if the lord has pledged opposition for the active proposal or not. 
+    * "lordPledgedSupport_forPlayerProposal":  will return false if the player has no proposal. is if the lord has pledged support for the players proposal or not. 
+    * "lordPledgedSupport_againstPlayerProposal": will return false if the has no proposal. is if the lord has pledged against the players proposal or not. 
+    * "playerProposalExists": if the player has a active proposal. 
+    * "lordProposalExists": if the lord has a active proposal. 
+    * "lordFactionHasActiveConsole": if the lords faction is voting on a proposal or not. 
+    * "playerFactionHasActiveConsole": if the players faction is voting on a proposal or not.
+    * "lordActingInPlayerFleet": if the lord is in the player fleet or not. 
+    * "isSwayed": if the player has attempted to sway the lord to support / oppose a proposal. 
+    * "lordProposalPlayerSupports": if the lord is supporting the players proposal or not 
+    * "playerProposalLordSupports": if the lord is supporting the players proposal or not 
+    * "curProposalPlayerSupports": if the player is supporting the currently active proposal or not
+    * "curProposalLordSupports": if the lord is supporting the currently active proposal or not
+    * "lordFleetIsAlive": if the lords fleet is alive or not. 
+    * "lordHasLiege": if the lord has a liege or not (some factions don't have lieges.)
+    * "playerHasLiege": if the lord has a liege or not (some factions don't have lieges.)
+    * "isPersonalityKnown": if the player knows the lords personality yet. 
+  * whitelist / blacklist rules. each rule here contains a jsonObject, were a item ID is what its looking at, and its boolean value is wether or not the item is whitelisted or blacklisted. all blacklisted items must not be present, and at least 1 (if present) whitelisted item must be present
+    * "startingFaction" is the starting faction the lord has.
+    * "currentFaction" is the current faction the lord is in.
+    * "lordsFavItem": is the lord fav item
+    * "LordTags": is the tags that need to be attached to the lord person
   * "lordPersonality": is the lord personality type this rule requires to meet requirements. set 'true' to all lord personality types you want to be allowed to meet requirements.
     * "Upstanding"
     * "Martial"
@@ -144,62 +203,12 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "Steady"
     * "Cautious"
     * "Timid"
-  * "playerWealth": is the number of credits the player must have to meet requirements. set between a "min" and "max" value. 
-  * "lordWealth": is the number of credits the lord must have to meet requirements. set between a "min" and "max" value.
-  * "playerLevel": is the level the player must be to meet requirements. set between a "min" and "max" value.
-  * "lordLevel": is the level the lord must be to meet requirements. set between a "min" and "max" value.
-  * "playerRank": is the number of rank the player must be to meet requirements. set between a "min" and "max" value. range should be between 0 and 2
-  * "lordRank": is the number of credits the player must have to meet requirements. set between a "min" and "max" value. range should be between 0 and 2
-  * "lordsCourted": is the number of lords the player must have has professed admiration to meet requirements. set between a "min" and "max" value.
-  * "isLordCourtedByPlayer": if set to true, the lord must have been professed to by the player to meet requirements. if set to false, the lord must not have been professed to by the player to meet requirements.
-  * "playerLordRomanceAction":  is the number of romantic actions the player must have had with the lord meet requirements. set between a "min" and "max" value. (romantic actions can be default, be gained by giving gifts, or dedecating tornament victorys)
-  * "availableTournament" : always returns false if: not at a feast. if set to true, the lord must be at a feast that has yet to have a tournament. if set to false, the tournament must have already happened
-  * "playerTournamentVictory": always returns false if: not at a feast. if set to true, the player must have won the tournament at the current feast. if set to false, the player must have not won a tournament current feast. 
-  * "lordTournamentVictory": always returns false if: not at a feast. if set to true, the lord must have won the tournament at the current feast. if set to false, the lord must have not won a tournament at the current feast.
-  * "playerTournamentVictoryDedicated": always returns false, if: not at a feast, or the player has not won the tournament there. if set to true, the player must has already dedicated there victory at the tournament. if set to false, the player must have not already dedicated there victory at the tournament
-  * "tournamentDedicatedToLord": always returns false if: not at a feast. if set to true, the lord must be the one the tournament is dedicated to. if set to false, the lord must not be the one the tournament is dedicated to
-  * "feastIsHostingWedding": if set to true, the lord must both be at a feast, and there must be a wedding being hosted there. if set to faslse, the lord must be at a feast, and a wedding must not be hosted there.
-  * "isWeddingTarget": always reutrns false if not at a feast, or feast is not hosting a wedding. if set to false, the lord no must be being married at this feast. if set to true, the lord be getting married this feast.
-  * "firstMeeting": if set to true, this must be your first time meeting this starlord. if set to false, you must have met this starlord before.
-  * "lordsInFeast": always returns false if: not at a feast. is the number of lords that must be at the current feast to meet requirements. set between a "min" and "max" value. range should be at least 0
-  * "hasProfessedAdmirationThisFeast": always returns false if: not at a feast. if set to false, you must have not professed admiration this feast to meet requirements. if set to true, you must have already professed admiration this feast to meet requirements.
-  * "hasHeldDateThisFeast": always returns false if: not at a feast. if set to false, you must have not heald a date this feast to meet requirements. if set to true, you must have already head a date this feast to meet requirements.
-  * "lordPledgedSupport_forActiveProposal": always returns false if the lords faction is not voting on anything. if set to false, the lord must not promised opposition to the active proposal. if set to true, the lord must have promised support for the active proposal.
-  * "lordPledgedSupport_againstActiveProposal": always returns false if the lords faction is not voting on anything. if set to false, the lord must not have promised support for the active proposal. if set to true, the lord must have promised opposition of the active proposal.
-  * "lordPledgedSupport_forPlayerProposal":  always returns false if the player has no proposal. if set to false, the lord must not have promised support for the players proposal. if set to true, the lord must have promised support for the players proposal.
-  * "lordPledgedSupport_againstPlayerProposal": always returns false if the has no proposal. if set to false, the lord must not promised opposition to the players proposal. if set to true, the lord must have promised opposition of the players proposal.
-  * "playerProposalExists": if set to false, the player must not have a proposal to meet requirements. if set to true, the player must have a proposal to meet requirements.
-  * "lordProposalExists": if set to false, the lord must not have a proposal to meet requirements. if set to true, the lord must have a proposal to meet requirements.
-  * "lordFactionHasActiveConsole": if set to false, the lords faction must not be actively voting on a proposal. if set to true, the lords faction must be voting on a proposal
-  * "playerFactionHasActiveConsole": if set to false, the players faction must not be actively voting on a proposal. if set to true, the players faction must be voting on a proposal 
-  * "lordActingInPlayerFleet": if set to false, the lord must not be in the player fleet to meet requirements. if set to true, the lord must be in the player fleet to meet requirements.
-  * "playerHasCommodity": is a jsonObject contining a set of commodityID's, each with a min and max value. player must have between the min and max value of each commoidty in there cargo bay to meet requirements.
-  * "lordsFavItem": is the lord fav item required to meet requirements. set to true for whitelist, and false for blacklist. To meet requirements, a lord must have a fav item of one of the 'true' fav items (if any are created in this rule), and must not have a fav item of the 'false' fav items.
-  * "optionOfCurrProposal": is the option of the current proposal the lord must have to meet requirements. set between a "min" and "max" value.
-  * "optionOfPlayerProposal": is the option of the player proposal the lord must have to meet requirements. set between a "min" and "max" value.
-  * "isSwayed": if set to false, the player must have not swayed the lord to support or oppose a proposal. if set to ture, the player must have done
-  * "lordProposalSupporters": always returns false if: lord does not have a proposal active. is the number of supports the lords proposal must have to meet requirements. set between a "min" and "max" value.
-  * "lordProposalOpposers": always returns false if: lord does not have a proposal active. is the number of opposers the lords proposal must have to meet requirements. set between a "min" and "max" value.
-  * "lordProposalPlayerSupports": always returns false if: lord does not have a proposal active. if set to false, the player must not support the lords proposal to meet requirements. if set true, the player must support the lords propossal to meet requirements
-  * "playerProposalSupporters": always returns false if: player does not have a proposal active in the lords faction. is the number of supports the players proposal must have to meet requirements. set between a "min" and "max" value.
-  * "playerProposalOpposers": always returns false if: player does not have a proposal active in the lords faction. is the number of opposers the players proposal must have to meet requirements. set between a "min" and "max" value.
-  * "playerProposalLordSupports": always returns false if: player does not have a proposal active in the lords faction. if set to false, the lord must not support the players proposal. if set to true, the lord must support the players proposal
-  * "curProposalSupporters": always returns false if: there is no active proposal in the lords counsel. is the number of supports the lords factions current proposal must have to meet requirements. set between a "min" and "max" value.
-  * "curProposalOpposers": always returns false if: there is no active proposal in the lords counsel. is the number of supports the lord factions current proposal must have to meet requirements. set between a "min" and "max" value.
-  * "curProposalPlayerSupports": always returns false if: there is no active proposal in the lords counsel. if set to false, the player must not support the current proposal. if set to true, the player must support the current proposal
-  * "curProposalLordSupports": always returns false if: there is no active proposal in the lords counsel. if set to false, the lord must not support the current proposal. if set to true, the lord must support the current proposal
   * "random": returns true if a random number (called 'range') is less then the total value of all other inputted values.
     * "range": Integer. this is the range the random number will have
     * "base": Integer. this is the base value
     * "playerLordRelation": float. this is playerLordRelation * value.
     * "opinionOfCurrProposal": float. this is the lords opinion of the current proposal in its faction * value
     * "opinionOfPlayerProposal": float. this is the lords opinion of the players proposal in its faction * value
-  * "lordFleetIsAlive": if set to false, the lords fleet must not be alive to meet requirements. if set to true, the lords fleet must be alive to meet requirements.
-  * "lordHasLiege": if set to false, the lords faction must not have a leage to meet requirements. if set to true, the lords faction must have a leage to meet requirements.
-  * "playerHasLiege": if set to false, the players faction must not have a leage to meet requirements. if set to true, the players faction must have a leage to meet requirements.
-  * "validLordNumbers": this is a jsonArray with 3 parts: "min", "max", "rules". what this does is it looks at all starlords in the game, and the number of lords that meet all "rule" requirements must be between the "min" and "max" values.
-  * "isPersonalityKnown": if set to false, you must have not know the starlords personality to meet requirements. if set to true, you must know the starlords personality to meet requirements.
-  * "lordLoyalty": is the relationship range that this lord must have with there faction to meet requirements. set between a "min" and "max" value. range must be between -100 and 100.
   * "getDialogData": jsonObject gets a list of 'dialog data". for each different type of data, the requirements are different.
     * "dataID" : jsonObject. is the string data required to meet requirements. set to true for strings you require this memory to be, and false for strings this memory must be. To meet requirements, the string must match all of the 'true' strings, and not match any of the 'false' strings. if a string of the dataID does not exist, treats the string as though it is ""
     * "dataID" : jsonObject. {"min","max"} is the integer data required to meet requirements. the value must be between min and max. if a Integer of the dataID does not exist, treats the integer as if it was 0.
@@ -212,7 +221,6 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "dataID" : jsonObject. is the string data required to meet requirements. set to true for strings you require this memory to be, and false for strings this memory must be. To meet requirements, the string must match all of the 'true' strings, and not match any of the 'false' strings. if a string of the dataID does not exist, treats the string as though it is ""
     * "dataID" : jsonObject. {"min","max"} is the integer data required to meet requirements. the value must be between min and max. if a Integer of the dataID does not exist, treats the integer as if it was 0.
     * "dataID" : boolean.  is the boolean value of this data required to meet requirements. if set to true, the boolean must also be true. if set to false, the boolean data must also be false. if a boolean of the dataID does not exist, treats the boolean as though it is false.
-  * "LordTags": is the tags that need to be attached to the lord person to meet requirements. set to true for whitelist, and false for blacklist. To meet requirements, a lord must have a tags of one of the 'true' tags (if any are created in this rule), and must not have a tag of the 'false' tags.
   * the following options only work if used in an option called by advanced option data, or if used in the "validLordNumbers" rule.
     * "relationsBetweenLords": is the relationship range that this lord must have with the target lord to meet requirements. set between a "min" and "max" value. range must be between -100 and 100.
     * "lordAndTargetSameFaction": if set to false, the lord and target must not be part of the same faction to meet requirements. if set to ture, the lord and target must be part of the same faction to meet requirements.
@@ -318,6 +326,8 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "playerProposalOpposers": multi. is the number of lords opposing the player current proposal.
     * "curProposalSupporters": multi. is the number of lords supporting the current proposal.
     * "curProposalOpposers": multi. is the number of lords supporting the current proposal.
+    * "optionOfCurrProposal": multi. is the lords option of the current proposal in the lords faction counsel
+    * "optionOfPlayerProposal": multi. is the lords option of the players current proposal.
     * "validLordNumbers": "base":int, "multi":double, "rules":rule JsonObject. what this does is it looks at all starlords in the game, and the number of lords that meet all "rule" requirements.
     * "conditionalValue": "base":int, "dialogValue": dialogvalue JsonObject, "multi":double, "rules":rule JsonObject. this runs the inputed 'rules' json object, and if the requirements are met, it will output its value.
     * "conditionalValue": jsonArray. this jsonArray holds a list of 'conditionalValue' objects. it then returns the sum of all the conditionalValues.

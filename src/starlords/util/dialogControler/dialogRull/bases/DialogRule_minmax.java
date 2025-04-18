@@ -34,6 +34,10 @@ public class DialogRule_minmax extends DialogRule_Base {
                 minList = new DialogValuesList(jsonObject.getJSONObject("min"));
             }
         }
+        if ((!jsonObject.has("min") && !jsonObject.has("max"))){
+            minList = new DialogValuesList(jsonObject);
+            maxList = minList;
+        }
     }
     @Override
     public boolean condition(Lord lord, Lord targetLord) {
