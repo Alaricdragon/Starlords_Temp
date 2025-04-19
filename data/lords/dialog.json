@@ -2658,6 +2658,7 @@
           "liege_opinion": "(error) %LORD_NAME bursts into tears. You look on in shock as for hours and hours %LORD_GENDER_HE_OR_SHE spends hours talking about random insignificantint things",
           "ask_friend_fav_gift": "(error) I will be truthful with you %PLAYER_NAME; %SECOND_LORD_NAME is very hard to please. Good luck.",
           "consider_defect": "Oh? You speak of treason, friend. Why should I let you say another word?",
+          "bargain_defect": "And pray tell, what are you offering to justify that claim?",
 
           "relation_increase": {
             "line": "Relations with %LORD_NAME increased by %c0.",
@@ -3498,7 +3499,7 @@
           },
           "option_suggest_defection_upstanding": {
             "line": "Only I can bring peace to citizens of the sector.",
-            "optionData": "ERROR",
+            "optionData": "bargain_defect",
             "addons": {
               "additionalText": "setData_calculateDefect_upstanding"
             }
@@ -3522,7 +3523,100 @@
             "optionData": "greeting",
             "shortcut": "ESCAPE"
           },
-
+          "optionSet_bargain_defect": {
+            "options": [
+              "option_bargain_credits_0",
+              "option_bargain_credits_1",
+              "option_bargain_rank_1",
+              "option_bargain_rank_2",
+              "option_bargain_defect_nothing"
+            ]
+          },
+          "option_bargain_credits_0": {
+            "line": "500,000 Credits",
+            "optionData": "ERROR",
+            "addons": {
+              "DialogData": {
+                "calculateDefect_credits": 500000,
+                "calculateDefect_legitimacy": 1
+              }
+            },
+            "show": {
+              "playerWealth": {
+                "min": 500000
+              }
+            }
+          },
+          "option_bargain_credits_1": {
+            "line": "2,000,000 Credits",
+            "optionData": "ERROR",
+            "addons": {
+              "DialogData": {
+                "calculateDefect_credits": 2000000,
+                "calculateDefect_legitimacy": 2
+              }
+            },
+            "show": {
+              "playerWealth": {
+                "min": 2000000
+              }
+            }
+          },
+          "option_bargain_rank_1": {
+            "line": "The title of %PLAYER_FACTION_RANK_TITLE1",
+            "optionData": "ERROR",
+            "addons": {
+              "DialogData": {
+                "calculateDefect_rank": 1,
+                "calculateDefect_legitimacy": 1
+              }
+            },
+            "show": {
+              "baseValue": {
+                "value": {
+                  "validLordNumbers": {
+                    "rules": {
+                      "lordRank": 1,
+                      "lordAndPlayerSameFaction": true
+                    }
+                  }
+                },
+                "max": 3
+              }
+            }
+          },
+          "option_bargain_rank_2": {
+            "line": "The title of %PLAYER_FACTION_RANK_TITLE2",
+            "optionData": "ERROR",
+            "addons": {
+              "DialogData": {
+                "calculateDefect_rank": 2,
+                "calculateDefect_legitimacy": 2
+              }
+            },
+            "show": {
+              "baseValue": {
+                "value": {
+                  "validLordNumbers": {
+                    "rules": {
+                      "lordRank": 2,
+                      "lordAndPlayerSameFaction": true
+                    }
+                  }
+                },
+                "max": 1
+              }
+            }
+          },
+          "option_bargain_defect_nothing": {
+            "line": "We can agree on something at a later date.",
+            "optionData": "ERROR",
+            "addons": {
+              "DialogData": {
+                "calculateDefect_legitimacy": 0
+              }
+            }
+          },
 
 
 
@@ -3533,6 +3627,8 @@
             "line": "",
             "addons": {
               "setDialogData": {
+                "calculateDefect_rank": 0,
+                "calculateDefect_credits": 0,
                 "calculateDefect_legitimacy": {
                   "limitedValue": [
                     {

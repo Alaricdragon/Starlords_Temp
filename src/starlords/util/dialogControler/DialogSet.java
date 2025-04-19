@@ -283,6 +283,15 @@ public class DialogSet {
         data = "noone";
         if (LordController.getPlayerLord().getLiegeName() != null) data = LordController.getPlayerLord().getLiegeName();
         line = insertData(line,"%PLAYER_LIEGE_NAME",data);
+
+        data = Utils.getFactionTitle(lord.getFaction().getId(),0);
+        line = insertData(line,"%PLAYER_FACTION_RANK_TITLE0",data);
+
+        data = Utils.getFactionTitle(lord.getFaction().getId(),1);
+        line = insertData(line,"%PLAYER_FACTION_RANK_TITLE1",data);
+
+        data = Utils.getFactionTitle(lord.getFaction().getId(),2);
+        line = insertData(line,"%PLAYER_FACTION_RANK_TITLE2",data);
         return line;
     }
     private static String getPlayerPartnerStringMods(String line, Lord lord){
@@ -415,6 +424,15 @@ public class DialogSet {
         data = "noone";
         if (lord.getLiegeName() != null) data = lord.getLiegeName();
         line = insertData(line,"%"+key+"LIEGE_NAME",data);
+
+        data = Utils.getFactionTitle(lord.getFaction().getId(),0);
+        line = insertData(line,"%"+key+"FACTION_RANK_TITLE0",data);
+
+        data = Utils.getFactionTitle(lord.getFaction().getId(),1);
+        line = insertData(line,"%"+key+"FACTION_RANK_TITLE1",data);
+
+        data = Utils.getFactionTitle(lord.getFaction().getId(),2);
+        line = insertData(line,"%"+key+"FACTION_RANK_TITLE2",data);
         return line;
     }
     private static String get_null_StringMods(String line, String key){

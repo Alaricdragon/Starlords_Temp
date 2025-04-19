@@ -1279,7 +1279,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
          *       THEN if you gave a bribe, that bribe is paid. (be it credits or relation)
          * so knowing this, I require the following:
          *   rules:
-         *       (COMPLETE. only calculating justification is required.)compute justification
+         *       (DONE.)compute justification
          *           -this requires a massive amount of data. I need to read: 'DefectionUtils.computeClaimJustification'
          *              ok, so for reach value there is something diffrent:
          *              reason_upstanding:
@@ -1295,13 +1295,13 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
          *                  note: it is based on what you bargin with.
          *                  2mill credits or T2 starlord is 2.
          *                  500k credits or T1 title is 1
-         *       compute legitimacy
+         *       (DONE)compute legitimacy
          *           -again, a lot of data required. I need to read: 'DefectionUtils.computeFactionLegitimacy'
          *              math.min(number of lords,8) + math.min(number of markets,6)
-         *       lord relations with.. something
+         *       (DONE)lord relations with.. something
          *           -more data. read 'DefectionUtils.computeRelativeFactionPreference'
          *              (get layolty of new faction - get loyalty of old faction) / 4
-         *       AGAIN, more lord relations
+         *       (DONE)AGAIN, more lord relations
          *           -more data. read 'DefectionUtils.computeRelativeLordPreference'
          *              this looks at every lord in the game, and gets a value for lords in the new faction, and old:
          *                  old faction:
@@ -1327,7 +1327,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
          *      (no. this will take to mush time)add something that can iterate over all markets?
          *          -or for now: total number of markets, average stability
          *              -one for players faction, lords faction, and players commosioned faction.
-         *
+         *  dialog insets:
          * whats left to do:
          *  1) compleat the options for calculating dialog.
          *      -this also requires an additional set of dialog for chosing what to bargin with. (should set what I have bargained with to memory)

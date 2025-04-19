@@ -32,8 +32,6 @@
 
     "confirm_suggest_defect": "It's time for you to make a decision.",
     "abort_suggest_defect": "You don't have to respond now, but think on my proposal.",
-    "bargain_defect": "And pray tell, what are you offering to justify that claim?",
-    "bargain_defect_nothing": "We can agree on something at a later date.",
     "accept_defect": "You are right, $string. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail $string, rightful ruler of the sector!",
     "refuse_defect": "I cannot betray our leader. I will keep this conversation to myself for sake of our friendship, but do not speak of this again.",
 

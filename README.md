@@ -356,6 +356,9 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "%TARGET_PROPOSAL_NAME" target proposal name (returns "nothing" if the target has no active proposal)
       * "%TARGET_FLEET_LOCATION" target fleet location (returns "nowere" if target fleet location cannot be found)
       * "%TARGET_LIEGE_NAME" the name of the leader of this faction. do to -reasons- this might often be null
+      * "%TARGET_FACTION_RANK_TITLE0" the name of tier 0 lords title of the target faction
+      * "%TARGET_FACTION_RANK_TITLE1" the name of tier 1 lords title of the target faction
+      * "%TARGET_FACTION_RANK_TITLE2" the name of tier 2 lords title of the target faction
   *some lines will also use custom inputted data. in this case, they will use the '%c#' marker, with # being the order they are added to the line.
   *available lines to override are follows:
     * "greeting"
@@ -518,12 +521,55 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "option_liege_opinion_exit" : "greeting"
     
     * "consider_defect"
-      * "option_suggest_defection_calculating" : OptionId.BARGAIN_DEFECT -> OptionId.JUSTIFY_DEFECT
+      * "option_suggest_defection_calculating" : bargain_defect
       * "option_suggest_defection_upstanding" : OptionId.JUSTIFY_DEFECT
       * "option_suggest_defection_martial" : OptionId.JUSTIFY_DEFECT
       * "option_suggest_defection_quarrelsome" : OptionId.JUSTIFY_DEFECT
       * "option_suggest_defection_abort" : "greeting"
       
+    * "bargain_defect"
+      * "option_bargain_credits_0" : OptionId.JUSTIFY_DEFECT
+      * "option_bargain_credits_1" : OptionId.JUSTIFY_DEFECT
+      * "option_bargain_rank_1" : OptionId.JUSTIFY_DEFECT
+      * "option_bargain_rank_2" : OptionId.JUSTIFY_DEFECT
+      * "option_bargain_defect_nothing" : OptionId.JUSTIFY_DEFECT
+    
+    * "justify_defect_calculating" (runs 5 lines before options)
+      * "justify_defect_calculating_justification"
+      * "justify_defect_calculating_legitimacy"
+      * "justify_defect_calculating_factionPreference"
+      * "justify_defect_calculating_lordPreference"
+      * "justify_defect_calculating_final"
+      * "option_justify_defect_calculating_confirm" : OptionId.CONFIRM_SUGGEST_DEFECT
+      * "option_justify_defect_calculating_exit" : "greeting"
+      
+    * "justify_defect_upstanding" (runs 5 lines before options)
+      * "justify_defect_upstanding_justification"
+      * "justify_defect_upstanding_legitimacy"
+      * "justify_defect_upstanding_factionPreference"
+      * "justify_defect_upstanding_lordPreference"
+      * "justify_defect_upstanding_final"
+      * "option_justify_defect_upstanding_confirm" : OptionId.CONFIRM_SUGGEST_DEFECT
+      * "option_justify_defect_upstanding_exit" : "greeting"
+      
+    * "justify_defect_martial" (runs 5 lines before options)
+      * "justify_defect_martial_justification"
+      * "justify_defect_martial_legitimacy"
+      * "justify_defect_martial_factionPreference"
+      * "justify_defect_martial_lordPreference"
+      * "justify_defect_martial_final"
+      * "option_justify_defect_martial_confirm" : OptionId.CONFIRM_SUGGEST_DEFECT
+      * "option_justify_defect_martial_exit" : "greeting"
+      
+    * "justify_defect_quarrelsome" (runs 5 lines before options)
+      * "justify_defect_quarrelsome_justification"
+      * "justify_defect_quarrelsome_legitimacy"
+      * "justify_defect_quarrelsome_factionPreference"
+      * "justify_defect_quarrelsome_lordPreference"
+      * "justify_defect_quarrelsome_final"
+      * "option_justify_defect_quarrelsome_confirm" : OptionId.CONFIRM_SUGGEST_DEFECT
+      * "option_justify_defect_quarrelsome_exit" : "greeting"
+    
     * "ask_friend_fav_gift":
       * copys 'greeting' options
       

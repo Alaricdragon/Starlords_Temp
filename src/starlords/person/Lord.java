@@ -430,12 +430,7 @@ public class Lord {
     }
 
     public String getTitle() {
-        String titleStr = "title_" + getFaction().getId() + "_" + ranking;
-        String ret = StringUtil.getString("starlords_title", titleStr);
-        if (ret != null && ret.startsWith("Missing string")) {
-            ret = StringUtil.getString("starlords_title", "title_default_" + ranking);
-        }
-        return ret;
+        return Utils.getFactionTitle(getFaction().getId(),ranking);
     }
 
     // Returns closest owned fief, if any. If no fiefs, just return the closest friendly planet/station.
