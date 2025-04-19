@@ -3479,28 +3479,227 @@
               "option_suggest_defection_martial",
               "option_suggest_defection_quarrelsome",
               "option_suggest_defection_abort"
-            ]
+            ],
+            "addons": {
+              "setDialogData": {
+                "calculateDefect_justification": 0,
+                "calculateDefect_legitimacy": 0,
+                "calculateDefect_RelativeFactionPreference": 0,
+                "calculateDefect_RelativeLordPreference": 0
+              }
+            }
           },
           "option_suggest_defection_calculating": {
             "line": "I will make it well worth your time.",
-            "optionData": "ERROR"
+            "optionData": "ERROR",
+            "addons": {
+              "additionalText": "setData_calculateDefect_calculating"
+            }
           },
           "option_suggest_defection_upstanding": {
             "line": "Only I can bring peace to citizens of the sector.",
-            "optionData": "ERROR"
+            "optionData": "ERROR",
+            "addons": {
+              "additionalText": "setData_calculateDefect_upstanding"
+            }
           },
           "option_suggest_defection_martial": {
             "line": "In times of turmoil, might makes right. And I am the strongest.",
-            "optionData": "ERROR"
+            "optionData": "ERROR",
+            "addons": {
+              "additionalText": "setData_calculateDefect_martial"
+            }
           },
           "option_suggest_defection_quarrelsome": {
             "line": "With me, you'll have your revenge on those who wronged you.",
-            "optionData": "ERROR"
+            "optionData": "ERROR",
+            "addons": {
+              "additionalText": "setData_calculateDefect_quarrelsome"
+            }
           },
           "option_suggest_defection_abort": {
             "line": "Lighten up, it was just a joke.",
             "optionData": "greeting",
             "shortcut": "ESCAPE"
+          },
+
+
+
+
+
+
+
+          "setData_calculateDefect_base": {
+            "line": "",
+            "addons": {
+              "setDialogData": {
+                "calculateDefect_legitimacy": {
+                  "limitedValue": [
+                    {
+                      "max": 15,
+                      "value": {
+                        "validLordNumbers": {
+                          "rules": {
+                            "lordAndPlayerSameFaction": true
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "max": 6,
+                      "value": {
+                        "playerCommissionedMarketNumbers": 1
+                      }
+                    }
+                  ]
+                },
+                "calculateDefect_RelativeFactionPreference": {
+                  "multi": 0.25,
+                  "lordLoyaltyToPlayerLord": 1,
+                  "lordLoyalty": -1
+                },
+                "calculateDefect_RelativeLordPreference": {
+                  "limitedValue": {
+                    "max":15,
+                    "min":-15,
+                    "validLordNumbers": [
+                      {
+                        "multi": -3,
+                        "rules": {
+                          "relationsBetweenLords": {
+                            "max": -25
+                          },
+                          "lordAndPlayerSameFaction": true
+                        }
+                      },
+                      {
+                        "multi": 3,
+                        "rules": {
+                          "relationsBetweenLords": {
+                            "min": 25
+                          },
+                          "lordAndPlayerSameFaction": true
+                        }
+                      },
+                      {
+                        "multi": -1,
+                        "rules": {
+                          "relationsBetweenLords": {
+                            "max": 24,
+                            "min": -24
+                          },
+                          "lordAndPlayerSameFaction": true
+                        }
+                      },
+                      {
+                        "multi": 3,
+                        "rules": {
+                          "relationsBetweenLords": {
+                            "max": -24
+                          },
+                          "lordAndTargetSameFaction": true
+                        }
+                      },
+                      {
+                        "multi": -3,
+                        "rules": {
+                          "relationsBetweenLords": {
+                            "max": 24
+                          },
+                          "lordAndTargetSameFaction": true
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "setData_calculateDefect_calculating": {
+            "line": "",
+            "addons": {
+              "setDialogData": {
+                "calculateDefect_justification": 0
+              },
+              "additionalText": "setData_calculateDefect_base"
+            }
+          },
+          "setData_calculateDefect_upstanding": {
+            "line": "",
+            "addons": {
+              "setDialogData": {
+                "calculateDefect_justification": {
+                  "conditionalValue": [
+                    {
+                      "rules": {
+                        "baseValue": {
+                          "value": {
+                            "playerCommissionedMarketAverageStability": 1
+                          },
+                          "min": 9
+                        }
+                      },
+                      "base": 1
+                    },
+                    {
+                      "rules": {
+                        "baseValue": {
+                          "value": {
+                            "playerCommissionedMarketNumbers": 1
+                          },
+                          "min": 1
+                        }
+                      },
+                      "base": 1
+                    }
+                  ]
+                },
+                "additionalText": "setData_calculateDefect_base"
+              }
+            }
+          },
+          "setData_calculateDefect_martial": {
+            "line": "",
+            "addons": {
+              "setDialogData": {
+                "calculateDefect_justification": {
+                  "conditionalValue": [
+                    {
+                      "rules": {
+                        "baseValue": {
+                          "value": {
+                            "playerLevel": 1
+                          },
+                          "min": 15
+                        }
+                      },
+                      "base": 1
+                    },
+                    {
+                      "rules": {
+                        "baseValue": {
+                          "value": {
+                            "playerFleetDP": 1
+                          },
+                          "min": 200
+                        }
+                      },
+                      "base": 1
+                    }
+                  ]
+                },
+                "additionalText": "setData_calculateDefect_base"
+              }
+            }
+          },
+          "setData_calculateDefect_quarrelsome": {
+            "line": "",
+            "addons": {
+              "setDialogData": {
+                "calculateDefect_justification": 2
+              },
+              "additionalText": "setData_calculateDefect_base"
+            }
           }
         }
       }

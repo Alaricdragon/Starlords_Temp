@@ -1342,6 +1342,9 @@ public class DialogSet {
                 case "LordTags":
                     rules.addAll(addRule_LordTags(rulesTemp,key));
                     break;
+                case "baseValue":
+                    rules.add(addRule_baseValue(rulesTemp,key));
+                    break;
             }
         }
         return rules;
@@ -1835,5 +1838,9 @@ public class DialogSet {
         if (whiteList.size() != 0) rules.add(new DialogRule_LordTags_whitelist(whiteList));
         if (blackList.size() != 0) rules.add(new DialogRule_LordTags_blacklist(blackList));
         return rules;
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_baseValue(JSONObject json,String key){
+        return new DialogRule_baseValue(json,key);
     }
 }

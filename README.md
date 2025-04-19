@@ -146,6 +146,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "lordLoyalty": is the relationship this lord has with there faction.
     * "playerHasCommodity": is a jsonObject containing a set of commodityID's : value condition. the player must meet the requirements of every commodity.
     * "validLordNumbers": this is a jsonArray with 3 parts: "min", "max", "rules". what this does is it looks at all starlords in the game, and the number of lords that meet all "rule" requirements must be between the "min" and "max" values.
+    * "baseValue": {"value":intiger || dialogValue, "min":intiger || dialogValue, "max":intiger || dialogValue}. this does not have a base value, instead has an inputted value. useful when compairing dialogValues without having to set them into memory first.
   * boolean rules. each data here must be set to true or false. if set to true, the item must also be true. if set to false, the item must also be false.
     * "isMarriedToPlayer": if the lord is married to the player 
     * "isMarried": if the lord is married to anyone
@@ -290,10 +291,13 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * please note: every following 'value' can hold the following data: "base" and "multi". the eq used is: (valueOfFunction + base)*multi. 
     * "relationWithPlayer": multi. is the relation the lord has to the player.
     * "lordLoyalty": multi. is the relation the lord has with there faction.
+    * "lordLoyaltyToPlayerLord": multi. is the relation the lord has with whatever faction the player belongs to.
     * "playerWealth": multi. is the number of credits the player has
     * "lordWealth": multi. is the number of credits the lord has
     * "playerLevel": multi. is the level of the player
     * "lordLevel": multi. is the level of the lord
+    * "playerFleetDP": multi. is the total fleet DP of the players fleet
+    * "lordFleetDP": multi. is the total fleet DP of the lords fleet.
     * "playerRank": multi. is the rank of the player
     * "lordRank": multi. is the rank of the lord
     * "playerLordRomanceAction": multi. is the number of romantic actions the lord and player have had
@@ -306,7 +310,16 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "curProposalOpposers": multi. is the number of lords supporting the current proposal.
     * "optionOfCurrProposal": multi. is the lords option of the current proposal in the lords faction counsel
     * "optionOfPlayerProposal": multi. is the lords option of the players current proposal.
+    * "playerMarketNumbers": multi. is the number of markets the player's faction has.
+    * "lordMarketNumbers": multi. is the number of markets the lords faction has.
+    * "playerCommissionedMarketNumbers": multi. is the number of markets the faction the player is working for has. (or the players' faction if none)
+    * "playerMarketAverageStability": multi. is the average stability of markets the player's faction has.
+    * "lordMarketAverageStability": multi. is the average stability of markets the lords faction has.
+    * "playerCommissionedMarketAverageStability": multi. is the average stability of markets the faction the player is working for has. (or the players' faction if none)
     * "validLordNumbers": "base":int, "multi":double, "rules":rule JsonObject. what this does is it looks at all starlords in the game, and the number of lords that meet all "rule" requirements.
+    * "validLordNumbers": jsonArray. this jsonArray holds a list of 'validLordNumbers' objects. it then returns the sum of all vailidLordNumbers.
+    * "limitedValue": {"base":int,"multi":double, "value":int || dialogvalue, "min": int || dialogvalue ,"max": int || dialogvalue} how this works, is it forces the inputed 'value' to be between the min and max values. this limitiing is done before min and base values are added. by default, min and max are infinity.
+    * "limitedValue": jsonArray. this jsonArray holds a list of 'limitValue' objects. it then returns the sum of all limit values.
     * "conditionalValue": "base":int, "dialogValue": dialogvalue JsonObject, "multi":double, "rules":rule JsonObject. this runs the inputed 'rules' json object, and if the requirements are met, it will output its value.
     * "conditionalValue": jsonArray. this jsonArray holds a list of 'conditionalValue' objects. it then returns the sum of all the conditionalValues.
     * "DialogData": jsonObject, were each object is structured as "dialogID":{"base":int, "multi":double}. if the linked dialog data is not a int, it will be ignored

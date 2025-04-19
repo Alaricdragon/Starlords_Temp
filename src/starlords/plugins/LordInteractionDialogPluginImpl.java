@@ -1279,7 +1279,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
          *       THEN if you gave a bribe, that bribe is paid. (be it credits or relation)
          * so knowing this, I require the following:
          *   rules:
-         *       compute justification
+         *       (COMPLETE. only calculating justification is required.)compute justification
          *           -this requires a massive amount of data. I need to read: 'DefectionUtils.computeClaimJustification'
          *              ok, so for reach value there is something diffrent:
          *              reason_upstanding:
@@ -1292,6 +1292,9 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
          *                  +2 by base???? WTF????? what?!?!?!? what is this?!?!?! why?!?
          *              reason_calculating:
          *                  reason calculating is not returned here, so it returns 0 by base.
+         *                  note: it is based on what you bargin with.
+         *                  2mill credits or T2 starlord is 2.
+         *                  500k credits or T1 title is 1
          *       compute legitimacy
          *           -again, a lot of data required. I need to read: 'DefectionUtils.computeFactionLegitimacy'
          *              math.min(number of lords,8) + math.min(number of markets,6)
@@ -1320,9 +1323,18 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
          *   addons:
          *       defect lord to faction : faction || {faction, Rank} (rank will default to zero).
          *       play sound
-         *       (done)cahnge "additionText" to allow for JsonArray input.
          *   value object:
-         *      add something that can itterate over all starlords. like a type of rule.... arg..............
+         *      (no. this will take to mush time)add something that can iterate over all markets?
+         *          -or for now: total number of markets, average stability
+         *              -one for players faction, lords faction, and players commosioned faction.
+         *
+         * whats left to do:
+         *  1) compleat the options for calculating dialog.
+         *      -this also requires an additional set of dialog for chosing what to bargin with. (should set what I have bargained with to memory)
+         *      -this also requies something at the end of the chain, that reads the bargain memory, and apply's this change.
+         *  2) complete text for 'what I think of you'.
+         *      -this is just text for each of the memory keys
+         *  3) compleat the line for 'I acsept defection' and 'I reject defection'.
          * this opens a god damed mess.
          */
         // compute justification strength

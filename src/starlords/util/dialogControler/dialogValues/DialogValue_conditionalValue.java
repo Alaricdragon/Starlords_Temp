@@ -15,7 +15,6 @@ public class DialogValue_conditionalValue extends DialogValue_base{
     @SneakyThrows
     public DialogValue_conditionalValue(JSONObject json, String key) {
         super(json, key);
-        /*NOTE: this requies a additional line, were it may get a array of items stored inside itself, each one also itself?*/
 
     }
     @SneakyThrows

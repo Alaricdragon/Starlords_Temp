@@ -12,9 +12,13 @@ import java.util.ArrayList;
 public class DialogValue_validLordNumbers extends DialogValue_base{
     ArrayList<DialogRule_Base> rules = new ArrayList<>();
     @SneakyThrows
+    public DialogValue_validLordNumbers(JSONObject json) {
+        super(json);
+        DialogSet.getDialogRulesFromJSon(json.getJSONObject("rules"));
+    }
+    @SneakyThrows
     public DialogValue_validLordNumbers(JSONObject json, String key) {
         super(json, key);
-        if (json.get(key) instanceof JSONObject) DialogSet.getDialogRulesFromJSon(json.getJSONObject("key").getJSONObject("rules"));
     }
 
     @Override

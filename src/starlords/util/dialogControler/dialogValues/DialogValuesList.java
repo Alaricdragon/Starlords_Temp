@@ -27,6 +27,9 @@ public class DialogValuesList {
                 case "lordLoyalty":
                     values.add(new DialogValue_lordLoyalty(json,key2));
                     break;
+                case "lordLoyaltyToPlayerLord":
+                    values.add(new DialogValue_lordLoyaltyToPlayerLord(json,key2));
+                    break;
                 case "playerWealth":
                     values.add(new DialogValue_playerWealth(json,key2));
                     break;
@@ -38,6 +41,12 @@ public class DialogValuesList {
                     break;
                 case "lordLevel":
                     values.add(new DialogValue_lordLevel(json,key2));
+                    break;
+                case "playerFleetDP":
+                    values.add(new DialogValue_playerFleetDP(json,key2));
+                    break;
+                case "lordFleetDP":
+                    values.add(new DialogValue_lordFleetDP(json,key2));
                     break;
                 case "playerRank":
                     values.add(new DialogValue_playerRank(json,key2));
@@ -75,8 +84,37 @@ public class DialogValuesList {
                 case "optionOfPlayerProposal":
                     values.add(new DialogValue_optionOfPlayerProposal(json,key2));
                     break;
+                case "playerMarketNumbers":
+                    values.add(new DialogValue_playerMarketNumbers(json,key2));
+                    break;
+                case "lordMarketNumbers":
+                    values.add(new DialogValue_lordMarketNumbers(json,key2));
+                    break;
+                case "playerCommissionedMarketNumbers":
+                    values.add(new DialogValue_playerCommissionedMarketNumbers(json,key2));
+                    break;
+                case "playerMarketAverageStability":
+                    values.add(new DialogValue_playerMarketAverageStability(json,key2));
+                    break;
+                case "lordMarketAverageStability":
+                    values.add(new DialogValue_lordMarketAverageStability(json,key2));
+                    break;
+                case "playerCommissionedMarketAverageStability":
+                    values.add(new DialogValue_playerCommissionedMarketAverageStability(json,key2));
+                    break;
                 case "validLordNumbers":
-                    values.add(new DialogValue_validLordNumbers(json,key2));
+                    if (json.get(key2) instanceof JSONArray){
+                        values.add(new DialogValue_validLordNumbers_Array(json, key2));
+                    }else {
+                        values.add(new DialogValue_validLordNumbers(json, key2));
+                    }
+                    break;
+                case "limitedValue":
+                    if (json.get(key2) instanceof JSONArray){
+                        values.add(new DialogValue_limitedValue_Array(json, key2));
+                    }else {
+                        values.add(new DialogValue_limitedValue(json, key2));
+                    }
                     break;
                 case "conditionalValue":
                     if (json.get(key2) instanceof JSONArray){
