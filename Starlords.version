@@ -6,7 +6,7 @@
     {
         "major":0,
         "minor":3,
-        "patch":"23"
+        "patch":"24"
     },
 	"starsectorVersion":"0.96a-RC10",
 	"directDownloadURL":"https://github.com/Alaricdragon/Starlords_Temp/archive/refs/heads/master.zip",
