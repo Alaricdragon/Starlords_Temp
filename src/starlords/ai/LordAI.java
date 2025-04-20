@@ -664,7 +664,7 @@ public class LordAI implements EveryFrameScript {
                     if (newWeight.two <= 0) {
                         // choose new assignment
                         LordEvent raid = EventController.getCurrentDefense(lord);
-                        raid.getOpposition().remove(lord);
+                        if (raid != null)raid.getOpposition().remove(lord);
                         chooseAssignment(lord);
                     } else {
                         // refresh assignment
