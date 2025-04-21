@@ -30,14 +30,27 @@ public class DialogAddon_setDialogData extends DialogAddon_Base{
                 if (json.getJSONObject(key2).has("max")) addIntsMax.put(key2,new DialogValuesList(json.getJSONObject(key2),"max"));
                 continue;
             }
-            if (json.get(key2) instanceof String){
-                String a = json.getString(key2);
-                strings.put(key2,a);
-                continue;
+            boolean go = true;
+            try {
+                json.getBoolean(key2);
+            }catch (Exception e){
+                go = false;
             }
-            if (json.get(key2) instanceof Boolean){
+            if (go){
                 boolean a = json.getBoolean(key2);
                 booleans.put(key2,a);
+                continue;
+
+            }
+            go = true;
+            try {
+                json.getString(key2);
+            }catch (Exception e){
+                go = false;
+            }
+            if (go){
+                String a = json.getString(key2);
+                strings.put(key2,a);
                 continue;
             }
             setInts.put(key2,new DialogValuesList(json,key2));
