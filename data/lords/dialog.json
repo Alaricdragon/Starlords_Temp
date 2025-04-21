@@ -1558,6 +1558,7 @@
         }
       },
 
+
       "swayProposal_forCounsel_bargain": {
         "priority": 3,
         "rules": {
@@ -1871,6 +1872,156 @@
         }
       },
 
+      "justify_defect_justification_2": {
+        "priority": 2,
+        "rules": {
+          "getDialogData": {
+            "calculateDefect_justification": {
+              "min":2
+            }
+          }
+        },
+        "lines": {
+          "justify_defect_calculating_justification": {
+            "line": "Based on your offer, your claim is seen as fully justified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "fully justified",
+              "color": "GREEN"
+            }
+          },
+          "justify_defect_upstanding_justification": {
+            "line": "Based on your colonial stability and success, your claim is seen as fully justified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "fully justified",
+              "color": "GREEN"
+            }
+          },
+          "justify_defect_martial_justification": {
+            "line": "Based on your military and personal strength, your claim is seen as fully justified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "fully justified",
+              "color": "GREEN"
+            }
+          },
+          "justify_defect_quarrelsome_justification": {
+            "line": "Based on your history, your claim is seen as fully justified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "fully justified",
+              "color": "GREEN"
+            }
+          }
+        }
+      },
+      "justify_defect_justification_1": {
+        "priority": 2,
+        "rules": {
+          "getDialogData": {
+            "calculateDefect_justification": 1
+          }
+        },
+        "lines": {
+          "justify_defect_calculating_justification": {
+            "line": "Based on your offer, your claim is seen as partially justified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "partially justified",
+              "color": "YELLOW"
+            }
+          },
+          "justify_defect_upstanding_justification": {
+            "line": "Based on your colonial stability and success, your claim is seen as partially justified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "partially justified",
+              "color": "YELLOW"
+            }
+          },
+          "justify_defect_martial_justification": {
+            "line": "Based on your military and personal strength, your claim is seen as partially justified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "partially justified",
+              "color": "YELLOW"
+            }
+          },
+          "justify_defect_quarrelsome_justification": {
+            "line": "Based on your history, your claim is seen as partially justified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "partially justified",
+              "color": "YELLOW"
+            }
+          }
+        }
+      },
+      "justify_defect_legitimacy": {
+        "priority": 2,
+        "rules": {
+          "getDialogData": {
+            "calculateDefect_legitimacy": {
+              "min":8
+            }
+          }
+        },
+        "lines": {
+          "justify_defect_calculating_legitimacy": "Hmm, your faction is well-established and has a legitimate claim to unite the sector.",
+          "justify_defect_upstanding_legitimacy": "Hmm, your faction is well-established and has a legitimate claim to unite the sector.",
+          "justify_defect_martial_legitimacy": "Hmm, your faction is well-established and has a legitimate claim to unite the sector.",
+          "justify_defect_quarrelsome_legitimacy": "Hmm, your faction is well-established and has a legitimate claim to unite the sector."
+        }
+      },
+      "justify_defect_RelativeFactionPreference": {
+        "priority": 2,
+        "rules": {
+          "getDialogData": {
+            "calculateDefect_RelativeFactionPreference": {
+              "min":1
+            }
+          }
+        },
+        "lines": {
+          "justify_defect_calculating_factionPreference": "It's true that I consider your faction more respectable than my own.",
+          "justify_defect_upstanding_factionPreference": "It's true that I consider your faction more respectable than my own.",
+          "justify_defect_martial_factionPreference": "It's true that I consider your faction more respectable than my own.",
+          "justify_defect_quarrelsome_factionPreference": "It's true that I consider your faction more respectable than my own."
+        }
+      },
+      "justify_defect_lordPreference": {
+        "priority": 2,
+        "rules": {
+          "getDialogData": {
+            "calculateDefect_RelativeLordPreference": {
+              "min":1
+            }
+          }
+        },
+        "lines": {
+          "justify_defect_calculating_lordPreference": "I would prefer working with your lords over my present company.",
+          "justify_defect_upstanding_lordPreference": "I would prefer working with your lords over my present company.",
+          "justify_defect_martial_lordPreference": "I would prefer working with your lords over my present company.",
+          "justify_defect_quarrelsome_lordPreference": "I would prefer working with your lords over my present company."
+        }
+      },
+      "justify_defect_acceptanceOfArgument": {
+        "priority": 2,
+        "rules": {
+          "getDialogData": {
+            "calculateDefect_acceptanceOfArgument": {
+              "min":100
+            }
+          }
+        },
+        "lines": {
+          "justify_defect_calculating_argumentAgreement": "I would prefer working with your lords over my present company.",
+          "justify_defect_upstanding_argumentAgreement": "I would prefer working with your lords over my present company.",
+          "justify_defect_martial_argumentAgreement": "I would prefer working with your lords over my present company.",
+          "justify_defect_quarrelsome_argumentAgreement": "I would prefer working with your lords over my present company."
+        }
+      },
       "suggestDefection": {
         "priority": 2,
         "rules": {
@@ -2659,6 +2810,112 @@
           "ask_friend_fav_gift": "(error) I will be truthful with you %PLAYER_NAME; %SECOND_LORD_NAME is very hard to please. Good luck.",
           "consider_defect": "Oh? You speak of treason, friend. Why should I let you say another word?",
           "bargain_defect": "And pray tell, what are you offering to justify that claim?",
+
+          "justify_defect_calculating": {
+            "line": "",
+            "addons": {
+              "additionalText": [
+                "justify_defect_calculating_justification",
+                "justify_defect_calculating_legitimacy",
+                "justify_defect_calculating_factionPreference",
+                "justify_defect_calculating_lordPreference",
+                "justify_defect_calculating_argumentAgreement",
+                "justify_defect_calculating_final"
+              ]
+            }
+          },
+          "justify_defect_calculating_justification": {
+            "line": "Based on your offer, your claim is seen as completely unjustified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "completely unjustified",
+              "color": "RED"
+            }
+          },
+          "justify_defect_calculating_legitimacy": "Hmm, your faction is still a minor player and would be a risk to join.",
+          "justify_defect_calculating_factionPreference": "Frankly, I prefer my faction over yours.",
+          "justify_defect_calculating_lordPreference": "I have good friends that I would not want to lose.",
+          "justify_defect_calculating_argumentAgreement": "Additionally, I find your justification unconvincing.",
+          "justify_defect_calculating_final": "Lastly, changing loyalties is no small decision. I must consider the consequences on my reputation carefully.",
+          "justify_defect_upstanding": {
+            "line": "",
+            "addons": {
+              "additionalText": [
+                "justify_defect_upstanding_justification",
+                "justify_defect_upstanding_legitimacy",
+                "justify_defect_upstanding_factionPreference",
+                "justify_defect_upstanding_lordPreference",
+                "justify_defect_upstanding_argumentAgreement",
+                "justify_defect_upstanding_final"
+              ]
+            }
+          },
+          "justify_defect_upstanding_justification": {
+            "line": "Based on your colonial stability and success, your claim is seen as completely unjustified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "completely unjustified",
+              "color": "RED"
+            }
+          },
+          "justify_defect_upstanding_legitimacy": "Hmm, your faction is still a minor player and would be a risk to join.",
+          "justify_defect_upstanding_factionPreference": "Frankly, I prefer my faction over yours.",
+          "justify_defect_upstanding_lordPreference": "I have good friends that I would not want to lose.",
+          "justify_defect_upstanding_argumentAgreement": "Additionally, I find your justification unconvincing.",
+          "justify_defect_upstanding_final": "Lastly, changing loyalties is no small decision. I must consider the consequences on my reputation carefully.",
+          "justify_defect_martial": {
+            "line": "",
+            "addons": {
+              "additionalText": [
+                "justify_defect_martial_justification",
+                "justify_defect_martial_legitimacy",
+                "justify_defect_martial_factionPreference",
+                "justify_defect_martial_lordPreference",
+                "justify_defect_martial_argumentAgreement",
+                "justify_defect_martial_final"
+              ]
+            }
+          },
+          "justify_defect_martial_justification": {
+            "line": "Based on your military and personal strength, your claim is seen as completely unjustified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "completely unjustified",
+              "color": "RED"
+            }
+          },
+          "justify_defect_martial_legitimacy": "Hmm, your faction is still a minor player and would be a risk to join.",
+          "justify_defect_martial_factionPreference": "Frankly, I prefer my faction over yours.",
+          "justify_defect_martial_lordPreference": "I have good friends that I would not want to lose.",
+          "justify_defect_martial_argumentAgreement": "Additionally, I find your justification unconvincing.",
+          "justify_defect_martial_final": "Lastly, changing loyalties is no small decision. I must consider the consequences on my reputation carefully.",
+          "justify_defect_quarrelsome": {
+            "line": "",
+            "addons": {
+              "additionalText": [
+                "justify_defect_quarrelsome_justification",
+                "justify_defect_quarrelsome_legitimacy",
+                "justify_defect_quarrelsome_factionPreference",
+                "justify_defect_quarrelsome_lordPreference",
+                "justify_defect_quarrelsome_argumentAgreement",
+                "justify_defect_quarrelsome_final"
+              ]
+            }
+          },
+          "justify_defect_quarrelsome_justification": {
+            "line": "Based on your history, your claim is seen as completely unjustified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "completely unjustified",
+              "color": "RED"
+            }
+          },
+          "justify_defect_quarrelsome_legitimacy": "Hmm, your faction is still a minor player and would be a risk to join.",
+          "justify_defect_quarrelsome_factionPreference": "Frankly, I prefer my faction over yours.",
+          "justify_defect_quarrelsome_lordPreference": "I have good friends that I would not want to lose.",
+          "justify_defect_quarrelsome_argumentAgreement": "Additionally, I find your justification unconvincing.",
+          "justify_defect_quarrelsome_final": "Lastly, changing loyalties is no small decision. I must consider the consequences on my reputation carefully.",
+
 
           "relation_increase": {
             "line": "Relations with %LORD_NAME increased by %c0.",
@@ -3492,28 +3749,28 @@
           },
           "option_suggest_defection_calculating": {
             "line": "I will make it well worth your time.",
-            "optionData": "ERROR",
+            "optionData": "bargain_defect",
             "addons": {
               "additionalText": "setData_calculateDefect_calculating"
             }
           },
           "option_suggest_defection_upstanding": {
             "line": "Only I can bring peace to citizens of the sector.",
-            "optionData": "bargain_defect",
+            "optionData": "justify_defect_upstanding",
             "addons": {
               "additionalText": "setData_calculateDefect_upstanding"
             }
           },
           "option_suggest_defection_martial": {
             "line": "In times of turmoil, might makes right. And I am the strongest.",
-            "optionData": "ERROR",
+            "optionData": "option_suggest_defection_martial",
             "addons": {
               "additionalText": "setData_calculateDefect_martial"
             }
           },
           "option_suggest_defection_quarrelsome": {
             "line": "With me, you'll have your revenge on those who wronged you.",
-            "optionData": "ERROR",
+            "optionData": "justify_defect_quarrelsome",
             "addons": {
               "additionalText": "setData_calculateDefect_quarrelsome"
             }
@@ -3534,7 +3791,7 @@
           },
           "option_bargain_credits_0": {
             "line": "500,000 Credits",
-            "optionData": "ERROR",
+            "optionData": "justify_defect_calculating",
             "addons": {
               "DialogData": {
                 "calculateDefect_credits": 500000,
@@ -3549,7 +3806,7 @@
           },
           "option_bargain_credits_1": {
             "line": "2,000,000 Credits",
-            "optionData": "ERROR",
+            "optionData": "justify_defect_calculating",
             "addons": {
               "DialogData": {
                 "calculateDefect_credits": 2000000,
@@ -3564,7 +3821,7 @@
           },
           "option_bargain_rank_1": {
             "line": "The title of %PLAYER_FACTION_RANK_TITLE1",
-            "optionData": "ERROR",
+            "optionData": "justify_defect_calculating",
             "addons": {
               "DialogData": {
                 "calculateDefect_rank": 1,
@@ -3587,7 +3844,7 @@
           },
           "option_bargain_rank_2": {
             "line": "The title of %PLAYER_FACTION_RANK_TITLE2",
-            "optionData": "ERROR",
+            "optionData": "justify_defect_calculating",
             "addons": {
               "DialogData": {
                 "calculateDefect_rank": 2,
@@ -3610,7 +3867,7 @@
           },
           "option_bargain_defect_nothing": {
             "line": "We can agree on something at a later date.",
-            "optionData": "ERROR",
+            "optionData": "justify_defect_calculating",
             "addons": {
               "DialogData": {
                 "calculateDefect_legitimacy": 0
@@ -3618,7 +3875,70 @@
             }
           },
 
-
+          "optionSet_justify_defect_calculating": {
+            "options": [
+              "option_justify_defect_calculating_confirm",
+              "option_justify_defect_calculating_exit"
+            ]
+          },
+          "option_justify_defect_calculating_confirm": {
+            "line": "It's time for you to make a decision.",
+            "optionData": "ERROR",
+            "hint": "-10 relations if failed"
+          },
+          "option_justify_defect_calculating_exit": {
+            "line": "You don't have to respond now, but think on my proposal.",
+            "optionData": "greeting",
+            "shortcut": "ESCAPE"
+          },
+          "optionSet_justify_defect_upstanding": {
+            "options": [
+              "option_justify_defect_upstanding_confirm",
+              "option_justify_defect_upstanding_exit"
+            ]
+          },
+          "option_justify_defect_upstanding_confirm": {
+            "line": "It's time for you to make a decision.",
+            "optionData": "ERROR",
+            "hint": "-10 relations if failed"
+          },
+          "option_justify_defect_upstanding_exit": {
+            "line": "You don't have to respond now, but think on my proposal.",
+            "optionData": "greeting",
+            "shortcut": "ESCAPE"
+          },
+          "optionSet_justify_defect_martial": {
+            "options": [
+              "option_justify_defect_martial_confirm",
+              "option_justify_defect_martial_exit"
+            ]
+          },
+          "option_justify_defect_martial_confirm": {
+            "line": "It's time for you to make a decision.",
+            "optionData": "ERROR",
+            "hint": "-10 relations if failed"
+          },
+          "option_justify_defect_martial_exit": {
+            "line": "You don't have to respond now, but think on my proposal.",
+            "optionData": "greeting",
+            "shortcut": "ESCAPE"
+          },
+          "optionSet_justify_defect_quarrelsome": {
+            "options": [
+              "option_justify_defect_quarrelsome_confirm",
+              "option_justify_defect_quarrelsome_exit"
+            ]
+          },
+          "option_justify_defect_quarrelsome_confirm": {
+            "line": "It's time for you to make a decision.",
+            "optionData": "ERROR",
+            "hint": "-10 relations if failed"
+          },
+          "option_justify_defect_quarrelsome_exit": {
+            "line": "You don't have to respond now, but think on my proposal.",
+            "optionData": "greeting",
+            "shortcut": "ESCAPE"
+          },
 
 
 
@@ -3715,7 +4035,17 @@
             "line": "",
             "addons": {
               "setDialogData": {
-                "calculateDefect_justification": 0
+                "calculateDefect_justification": 0,
+                "calculateDefect_acceptanceOfArgument": {
+                  "conditionalValue": {
+                    "base": 100,
+                    "rules": {
+                      "lordPersonality": {
+                        "Calculating": true
+                      }
+                    }
+                  }
+                }
               },
               "additionalText": "setData_calculateDefect_base"
             }
@@ -3750,8 +4080,18 @@
                     }
                   ]
                 },
-                "additionalText": "setData_calculateDefect_base"
-              }
+                "calculateDefect_acceptanceOfArgument": {
+                  "conditionalValue": {
+                    "base": 100,
+                    "rules": {
+                      "lordPersonality": {
+                        "Upstanding": true
+                      }
+                    }
+                  }
+                }
+              },
+              "additionalText": "setData_calculateDefect_base"
             }
           },
           "setData_calculateDefect_martial": {
@@ -3784,8 +4124,18 @@
                     }
                   ]
                 },
-                "additionalText": "setData_calculateDefect_base"
-              }
+                "calculateDefect_acceptanceOfArgument": {
+                  "conditionalValue": {
+                    "base": 100,
+                    "rules": {
+                      "lordPersonality": {
+                        "Martial": true
+                      }
+                    }
+                  }
+                }
+              },
+              "additionalText": "setData_calculateDefect_base"
             }
           },
           "setData_calculateDefect_quarrelsome": {
@@ -3794,8 +4144,18 @@
               "setDialogData": {
                 "calculateDefect_justification": 2
               },
-              "additionalText": "setData_calculateDefect_base"
-            }
+              "calculateDefect_acceptanceOfArgument": {
+                "conditionalValue": {
+                  "base": 100,
+                  "rules": {
+                    "lordPersonality": {
+                      "Quarrelsome": true
+                    }
+                  }
+                }
+              }
+            },
+            "additionalText": "setData_calculateDefect_base"
           }
         }
       }

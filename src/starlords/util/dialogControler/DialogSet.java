@@ -579,6 +579,8 @@ public class DialogSet {
     private HashMap<String,ArrayList<String>> additionalOptions = new HashMap<>();
     private HashMap<String,ArrayList<DialogAddon_Base>> addons = new HashMap<>();
     private HashMap<String, Color> colorOverride = new HashMap<>();
+    private HashMap<String, Color> colorHighlight = new HashMap<>();
+    private HashMap<String,String[]> highlight = new HashMap<>();
     public DialogSet(String name,int priority,LordDialog dialog){
         while (dialog.organizedDialogSets.size() < priority){
             dialog.organizedDialogSets.add(new ArrayList<>());
@@ -637,9 +639,17 @@ public class DialogSet {
             line = insertDefaltData(line, lord,targetLord);
             line = insertAdditionalData(line, markersReplaced);
             if (colorOverride.containsKey(key)) {
-                textPanel.addPara(line, colorOverride.get(key));
+                if (colorHighlight.containsKey(key)) {
+                    textPanel.addPara(line, colorOverride.get(key),colorHighlight.get(key),highlight.get(key));
+                }else{
+                    textPanel.addPara(line, colorOverride.get(key));
+                }
             } else {
-                textPanel.addPara(line);
+                if (colorHighlight.containsKey(key)) {
+                    textPanel.addPara(line,colorHighlight.get(key),highlight.get(key));
+                }else{
+                    textPanel.addPara(line);
+                }
             }
         }
         //add on all options
@@ -782,7 +792,6 @@ public class DialogSet {
     public boolean hasLine(String key){
         return dialog.containsKey(key);
     }
-
     @SneakyThrows
     public void getLineAsObjectFromJSon(String key, JSONObject line) {
         if (line.has("line")) {
@@ -795,22 +804,19 @@ public class DialogSet {
             this.addons.put(key, getDialogAddonsFromJSon(addons));
         }
         if (line.has("color")){
-            boolean isArray = true;
-            try {
-                line.getJSONObject("color");
-            }catch (Exception e){
-                isArray = false;
-            }
-            if (isArray){
-                JSONObject color = line.getJSONObject("color");
-                int r=0,g=0,b=0,a=255;
-                if (color.has("r")) r = color.getInt("r");
-                if (color.has("g")) g = color.getInt("g");
-                if (color.has("b")) b = color.getInt("b");
-                if (color.has("a")) a = color.getInt("a");
-                colorOverride.put(key,new Color(r,g,b,a));
+            colorOverride.put(key,getColorFromJson(line));
+        }
+        if (line.has("highlight")){
+            colorHighlight.put(key,getColorFromJson(line));
+            if (line.getJSONObject("highlight").get("highlight") instanceof JSONArray){
+                String[] temp = new String[line.getJSONObject("highlight").getJSONArray("highlight").length()];
+                for (int a = 0; a < line.getJSONObject("highlight").getJSONArray("highlight").length(); a++){
+                    temp[a] = (line.getJSONObject("highlight").getJSONArray("highlight").getString(a));
+                }
+                highlight.put(key,temp);
             }else{
-                getColorDefault(key,line.getString("color"));
+                String[] temp = {line.getJSONObject("highlight").getString("highlight")};
+                highlight.put(key,temp);
             }
         }
         if (line.has("show")){
@@ -853,19 +859,40 @@ public class DialogSet {
             shotcut.put(key,line.getString("shortcut"));
         }
     }
-    private void getColorDefault(String key, String color){
+    @SneakyThrows
+    private Color getColorFromJson(JSONObject line){
+        boolean isArray = true;
+        try {
+            line.getJSONObject("color");
+        }catch (Exception e){
+            isArray = false;
+        }
+        if (isArray){
+            JSONObject color = line.getJSONObject("color");
+            int r=0,g=0,b=0,a=255;
+            if (color.has("r")) r = color.getInt("r");
+            if (color.has("g")) g = color.getInt("g");
+            if (color.has("b")) b = color.getInt("b");
+            if (color.has("a")) a = color.getInt("a");
+            return new Color(r,g,b,a);
+        }else{
+            return getColorDefault(line.getString("color"));
+        }
+    }
+    private Color getColorDefault(String color){
         switch (color){
             case "RED":{
-                colorOverride.put(key,Color.RED);
-                break;
+                return Color.RED;
             }
             case "GREEN":{
-                colorOverride.put(key,Color.GREEN);
-                break;
+                return Color.GREEN;
             } case "YELLOW":{
-                colorOverride.put(key,Color.YELLOW);
+                return Color.YELLOW;
+            } case "ORANGE":{
+                return Color.ORANGE;
             }
         }
+        return Color.WHITE;//blank color because I am to lazy to write anti crash code
     }
 
     @SneakyThrows
@@ -1791,12 +1818,24 @@ public class DialogSet {
         ArrayList<DialogRule_Base> rules = new ArrayList<>();
         for (Iterator it = json2.keys(); it.hasNext();) {
             String key2 = (String) it.next();
-            if (!(json2.get(key2) instanceof JSONObject)){
+            boolean go = true;
+            try {
+                json2.getBoolean(key2);
+            }catch (Exception e){
+                go = false;
+            }
+            if (go){//(json2.get(key2) instanceof Boolean)){
                 rules.add(new DialogRule_getDialogData_boolean(key2,json2.getBoolean(key2)));
                 continue;
             }
-            if (((json2.getJSONObject(key2).has("min")) || (json2.getJSONObject(key2).has("max")))){
-                rules.add(new DialogRule_getDialogData_int(key2,json2.getJSONObject(key2)));
+            go = true;
+            try {
+                json2.getInt(key2);
+            }catch (Exception e){
+                go = false;
+            }
+            if (go || json2.getJSONObject(key2).has("min") || json2.getJSONObject(key2).has("max")){
+                rules.add(new DialogRule_getDialogData_int(key2,json2));
                 continue;
             }
             rules.add(new DialogRule_getDialogData_string(key2,json2.getJSONObject(key2)));
@@ -1809,12 +1848,24 @@ public class DialogSet {
         ArrayList<DialogRule_Base> rules = new ArrayList<>();
         for (Iterator it = json2.keys(); it.hasNext();) {
             String key2 = (String) it.next();
-            if (!(json2.get(key2) instanceof JSONObject)){
+            boolean go = true;
+            try {
+                json2.getBoolean(key2);
+            }catch (Exception e){
+                go = false;
+            }
+            if (go){//(json2.get(key2) instanceof Boolean)){
                 rules.add(new DialogRule_getMemoryData_boolean(key2,json2.getBoolean(key2)));
                 continue;
             }
-            if (((json2.getJSONObject(key2).has("min")) || (json2.getJSONObject(key2).has("max")))){
-                rules.add(new DialogRule_getMemoryData_int(key2,json2.getJSONObject(key2)));
+            go = true;
+            try {
+                json2.getInt(key2);
+            }catch (Exception e){
+                go = false;
+            }
+            if (go || json2.getJSONObject(key2).has("min") || json2.getJSONObject(key2).has("max")){
+                rules.add(new DialogRule_getMemoryData_int(key2,json2));
                 continue;
             }
             rules.add(new DialogRule_getMemoryData_string(key2,json2.getJSONObject(key2)));
@@ -1827,15 +1878,27 @@ public class DialogSet {
         ArrayList<DialogRule_Base> rules = new ArrayList<>();
         for (Iterator it = json2.keys(); it.hasNext();) {
             String key2 = (String) it.next();
-            if (!(json2.get(key2) instanceof JSONObject)){
+            boolean go = true;
+            try {
+                json2.getBoolean(key2);
+            }catch (Exception e){
+                go = false;
+            }
+            if (go){//(json2.get(key2) instanceof Boolean)){
                 rules.add(new DialogRule_getLordMemoryData_boolean(key2,json2.getBoolean(key2)));
                 continue;
             }
-            if (((json2.getJSONObject(key2).has("min")) || (json2.getJSONObject(key2).has("max")))){
-                rules.add(new DialogRule_getLordMemoryData_int(key2,json2.getJSONObject(key2)));
+            go = true;
+            try {
+                json2.getInt(key2);
+            }catch (Exception e){
+                go = false;
+            }
+            if (go || json2.getJSONObject(key2).has("min") || json2.getJSONObject(key2).has("max")){
+                rules.add(new DialogRule_getLordMemoryData_int(key2,json2));
                 continue;
             }
-            rules.add(new DialogRule_getLordMemoryData_string(key2,json2.getJSONObject(key2)));
+            rules.add(new DialogRule_getLordMemoryData_string(key2, json2.getJSONObject(key2)));
         }
         return rules;
     }

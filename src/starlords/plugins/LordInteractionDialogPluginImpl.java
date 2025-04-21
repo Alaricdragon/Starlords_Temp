@@ -1264,9 +1264,35 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
          * NEXT, it goes through a list of dialog. I can chain the dialog together. I can also do this, or I can create a list of each possable dialog. the total number of dialogs would be:
          *   X 4 from your initial options
          *   X 4 from 'justification'
+         *      a claim strangth >= 2:
+                     claimStr = "fully justified";
+                     claim color = "GREEN"
+         *          "Based on your offer, your claim is seen as fully justified.", Color.ORANGE, claimColor, claimStr)
+         *      b claim strangth == 1
+                     claimStr = "partially justified";
+                     claim color = "YELLOW"
+         *          "Based on your offer, your claim is seen as partially justified.", Color.ORANGE, claimColor, claimStr)
+         *      c claim strange <= 0
+                     claimStr = "completely unjustified";
+                     claim color = "RED"
+         *          "Based on your offer, your claim is seen as completely unjustified.", Color.ORANGE, claimColor, claimStr)
          *   X 2 from 'legitimacy of your faction'
+         *      a dialogData calculateDefect_legitimacy > 7
+         *          "Hmm, your faction is well-established and has a legitimate claim to unite the sector."
+         *      b else:
+         *          "Hmm, your faction is still a minor player and would be a risk to join."
          *   X 2 from 'campairing faction relationship levels
+         *      a dialogData: calculateDefect_RelativeFactionPreference > 0
+         *          "It's true that I consider your faction more respectable than my own."
+         *      b else
+         *          "Frankly, I prefer my faction over yours."
          *   X 2 from 'relationship with own faction lord'
+         *      a calculateDefect_acceptanceOfArgument >= 100
+         *          "Additionally, I must admit that your justification is not without merit."
+         *      b
+         *          "Additionally, I find your justification unconvincing."
+         *   X 1 from final line:
+         *      "Lastly, changing loyalties is no small decision. I must consider the consequences on my reputation carefully."
          *   (for a total of 128 lines. or 14 lines of linked dialog)
          *   (note: I have changed additionalText to allow for more lines. this is usefull here.)
          * NEXT, it goes to the 'conform' phase. this is also complicated.
@@ -1329,12 +1355,13 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
          *              -one for players faction, lords faction, and players commosioned faction.
          *  dialog insets:
          * whats left to do:
-         *  1) compleat the options for calculating dialog.
-         *      -this also requires an additional set of dialog for chosing what to bargin with. (should set what I have bargained with to memory)
-         *      -this also requies something at the end of the chain, that reads the bargain memory, and apply's this change.
-         *  2) complete text for 'what I think of you'.
+         *  1) add the following advanced data:
+         *      (done, untested)highlight: {"str":"string" || "str":["string","string","string","string"], "color","Color"}
+         *
+         *  2) (started. still need to do options.)complete text for 'what I think of you'.
          *      -this is just text for each of the memory keys
          *  3) compleat the line for 'I acsept defection' and 'I reject defection'.
+         *      -note: this requies something linked with whatever you bargined with, so you can exstange the data.
          * this opens a god damed mess.
          */
         // compute justification strength
@@ -1377,6 +1404,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
             claimStr = "partially justified";
             claimColor = Color.YELLOW;
         }
+        textPanel.addPara("Based on your " + justificationStr + ", your claim is seen as " + claimStr + ".", Color.ORANGE, claimColor, claimStr);
         textPanel.addPara("Based on your " + justificationStr + ", your claim is seen as " + claimStr + ".", Color.ORANGE, claimColor, claimStr);
         // Breakdown defection factors - base personality, faction legitimacy, faction loyalty vs player relation, ties with subordinates, justification effect, and rng
         // use player loyalty here even if recruiting for other factions
@@ -1437,6 +1465,29 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         nextState = OptionId.JUSTIFY_DEFECT;
     }
     private void optionSelected_CONFIRM_SUGGEST_DEFECT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
+        /*
+        * ok, so a few things here:
+        * 1) the following EQ is used:
+        *   'baseReluctance' (need to look this one up lol)
+        *   'legitimacyFactor' (dialog value calculateDefect_legitimacy)
+        *   'loyaltyFactor' (dialog value calculateDefect_RelativeFactionPreference)
+        *   'companionFactor' (dialog value calculateDefect_RelativeLordPreference)
+        *   random 0 - 10.
+        *   is married to player add 200.
+        *   lastly,  'max': calculateDefect_acceptanceOfArgument,  5*calculateDefect_justification.
+        *   add all values together. if min: 1, accept. otherwise, reject. optionData always 'greetings'
+        *
+        *   note: I can remove credits / set rank in all of the things, based on my saved data. this can allow other to set bribes and what not easyer.
+        * requirements to get this to work:
+        *   dialog value:
+        *       random: I require a random value that is between data
+        *           -note: I need to remove the random condition (or just make it take inputed dialog values?)
+        *   addons:
+        *       play sound: String || {"id":String, "pitch":Integer, "volume":Integer}
+        *       changeLordFaction : String (option: "playerCurrentFaction") || {"faction":String,"newRank":Intiger,"takeFiefs":Boolean}.
+        * ... and thats all!?!?!? I am almost done...
+        * ...
+        * */
         FactionAPI faction = Utils.getRecruitmentFaction();
         Random rand = new Random(targetLord.getLordAPI().getId().hashCode() + Global.getSector().getClock().getTimestamp());
         int claimConcern = 0;

@@ -45,5 +45,10 @@
   "liege_opinion": "optionSet_liege_opinion",
   "ask_friend_fav_gift": "optionSet_ask_friend_fav_gift",
   "consider_defect": "optionSet_consider_defect",
-  "bargain_defect": "optionSet_bargain_defect"
+  "bargain_defect": "optionSet_bargain_defect",
+
+  "justify_defect_calculating": "optionSet_justify_defect_calculating",
+  "justify_defect_upstanding": "optionSet_justify_defect_upstanding",
+  "justify_defect_martial": "optionSet_justify_defect_martial",
+  "justify_defect_quarrelsome": "optionSet_justify_defect_quarrelsome"
 }

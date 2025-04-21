@@ -269,11 +269,13 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "RED"
       * "GREEN"
       * "YELLOW"
+      * "ORANGE"
       * optional array is as follows: (with a default value of 0 for r,b,g, and a default value of 255 for a.)
       * "r"
       * "g"
       * "b"
       * "a"
+    * "highlight":jsonObject {"highlight":String||JsonArray, "color":color object (see "color addon") } highligts a string or multible strings on the same line with the inputed color. does not work if this line is called as a option.
     * "options" is an jsonArray containing the lineID's of any option or option set that this line should run. please note, that most lines by default have a entry in the [default_dialog_options.json](https://github.com/Deluth-git/Starlords/blob/master/data/lords/default_dialog_options.json) file
     * "show" is an jsonObject that contains the same functions as 'rules', but instead of determining if a line can be ran, if any conditions in the object are false, and this line is selected, it will not be shown. for "option_"'s, if this line is selected and the 'hide' is true, it will not be ran.
     * "enable": (only effects 'option_' lines) is a jsonObject that contains the same functions as 'rules', but instead of determining if a line can be ran. if any conditions in this object are false, and this option will be greyed out and unable to be used.
@@ -522,50 +524,54 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     
     * "consider_defect"
       * "option_suggest_defection_calculating" : bargain_defect
-      * "option_suggest_defection_upstanding" : OptionId.JUSTIFY_DEFECT
-      * "option_suggest_defection_martial" : OptionId.JUSTIFY_DEFECT
-      * "option_suggest_defection_quarrelsome" : OptionId.JUSTIFY_DEFECT
+      * "option_suggest_defection_upstanding" : justify_defect_upstanding
+      * "option_suggest_defection_martial" : justify_defect_martial
+      * "option_suggest_defection_quarrelsome" : justify_defect_quarrelsome
       * "option_suggest_defection_abort" : "greeting"
       
     * "bargain_defect"
-      * "option_bargain_credits_0" : OptionId.JUSTIFY_DEFECT
-      * "option_bargain_credits_1" : OptionId.JUSTIFY_DEFECT
-      * "option_bargain_rank_1" : OptionId.JUSTIFY_DEFECT
-      * "option_bargain_rank_2" : OptionId.JUSTIFY_DEFECT
-      * "option_bargain_defect_nothing" : OptionId.JUSTIFY_DEFECT
+      * "option_bargain_credits_0" : justify_defect_calculating
+      * "option_bargain_credits_1" : justify_defect_calculating
+      * "option_bargain_rank_1" : justify_defect_calculating
+      * "option_bargain_rank_2" : justify_defect_calculating
+      * "option_bargain_defect_nothing" : justify_defect_calculating
     
-    * "justify_defect_calculating" (runs 5 lines before options)
+    * "justify_defect_calculating" (runs 6 lines before options)
       * "justify_defect_calculating_justification"
       * "justify_defect_calculating_legitimacy"
       * "justify_defect_calculating_factionPreference"
       * "justify_defect_calculating_lordPreference"
+      * "justify_defect_calculating_argumentAgreement"
       * "justify_defect_calculating_final"
       * "option_justify_defect_calculating_confirm" : OptionId.CONFIRM_SUGGEST_DEFECT
       * "option_justify_defect_calculating_exit" : "greeting"
       
-    * "justify_defect_upstanding" (runs 5 lines before options)
+    * "justify_defect_upstanding" (runs 6 lines before options)
       * "justify_defect_upstanding_justification"
       * "justify_defect_upstanding_legitimacy"
       * "justify_defect_upstanding_factionPreference"
       * "justify_defect_upstanding_lordPreference"
+      * "justify_defect_upstanding_argumentAgreement"
       * "justify_defect_upstanding_final"
       * "option_justify_defect_upstanding_confirm" : OptionId.CONFIRM_SUGGEST_DEFECT
       * "option_justify_defect_upstanding_exit" : "greeting"
       
-    * "justify_defect_martial" (runs 5 lines before options)
+    * "justify_defect_martial" (runs 6 lines before options)
       * "justify_defect_martial_justification"
       * "justify_defect_martial_legitimacy"
       * "justify_defect_martial_factionPreference"
       * "justify_defect_martial_lordPreference"
+      * "justify_defect_martial_argumentAgreement"
       * "justify_defect_martial_final"
       * "option_justify_defect_martial_confirm" : OptionId.CONFIRM_SUGGEST_DEFECT
       * "option_justify_defect_martial_exit" : "greeting"
       
-    * "justify_defect_quarrelsome" (runs 5 lines before options)
+    * "justify_defect_quarrelsome" (runs 6 lines before options)
       * "justify_defect_quarrelsome_justification"
       * "justify_defect_quarrelsome_legitimacy"
       * "justify_defect_quarrelsome_factionPreference"
       * "justify_defect_quarrelsome_lordPreference"
+      * "justify_defect_quarrelsome_argumentAgreement"
       * "justify_defect_quarrelsome_final"
       * "option_justify_defect_quarrelsome_confirm" : OptionId.CONFIRM_SUGGEST_DEFECT
       * "option_justify_defect_quarrelsome_exit" : "greeting"

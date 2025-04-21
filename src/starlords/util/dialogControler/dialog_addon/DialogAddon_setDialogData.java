@@ -24,7 +24,7 @@ public class DialogAddon_setDialogData extends DialogAddon_Base{
     public DialogAddon_setDialogData(JSONObject json){
         for (Iterator it = json.keys(); it.hasNext(); ) {
             String key2 = (String) it.next();
-            if (json.get(key2) instanceof JSONObject && json.getJSONObject(key2).has("min") || json.getJSONObject(key2).has("max")){
+            if (json.get(key2) instanceof JSONObject && (json.getJSONObject(key2).has("min") || json.getJSONObject(key2).has("max"))){
                 JSONObject a = json.getJSONObject(key2);
                 if (json.getJSONObject(key2).has("min")) addIntsMin.put(key2,new DialogValuesList(json.getJSONObject(key2),"min"));
                 if (json.getJSONObject(key2).has("max")) addIntsMax.put(key2,new DialogValuesList(json.getJSONObject(key2),"max"));

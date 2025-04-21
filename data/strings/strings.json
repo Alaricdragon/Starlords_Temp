@@ -30,8 +30,6 @@
     "accept_suggest_action": "I will follow your suggestion.",
     "accept_suggest_action_subject": "At once, $string.",
 
-    "confirm_suggest_defect": "It's time for you to make a decision.",
-    "abort_suggest_defect": "You don't have to respond now, but think on my proposal.",
     "accept_defect": "You are right, $string. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail $string, rightful ruler of the sector!",
     "refuse_defect": "I cannot betray our leader. I will keep this conversation to myself for sake of our friendship, but do not speak of this again.",
 
