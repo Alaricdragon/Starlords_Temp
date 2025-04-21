@@ -180,9 +180,13 @@ public class AvailableShipData {
         String hull = Global.getSettings().getVariant(vareantID).getHullSpec().getHullId();
         String size = Global.getSettings().getVariant(vareantID).getHullSpec().getHullSize().name();
         ShipData a = unorganizedShips.get(hull);
-        if (size == HULLSIZE_FIGHTER) {
+        if (size.equals(HULLSIZE_FIGHTER)) {
             size = HULLSIZE_FRIGATE;
-        };
+        }
+        if (Global.getSettings().getVariant(vareantID).getHullSpec().getHullId() == null){
+            //double checking if the hullID actually exists???? how does this even happen!?!
+            return;
+        }
         if(a == null){
             a = new ShipData(hull,size,type);
             unorganizedShips.put(hull,a);

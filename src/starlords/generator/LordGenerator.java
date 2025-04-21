@@ -166,7 +166,7 @@ public class LordGenerator {
         for(Object a : lord.shipPrefs.keySet().toArray()){
             log.info("          "+((String) a) + "at weight of : "+lord.shipPrefs.get((String) a));
             int weight = lord.shipPrefs.get((String) a);
-            ShipData b = AvailableShipData.getDefaultShips().getUnorganizedShips().get(Global.getSettings().getVariant((String)a).getHullSpec().getHullId());
+            ShipData b = AvailableShipData.getDefaultShips().getUnorganizedShips().get(Global.getSettings().getVariant((String)a).getHullSpec().getHullId());//Global.getSettings().getVariant((String)a).getHullSpec().getHullId()
             switch (b.getHullType()){
                 case AvailableShipData.HULLTYPE_WARSHIP:
                     warship+=weight;

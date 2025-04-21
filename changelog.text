@@ -1,3 +1,5 @@
+V0.3.25:
+    added some crash protection the generator, just to make sure that the inputted variants are ships and not metaphors.
 V0.3.24:
     (hopefully) fixed a crash related to a null raid in LordAI line 667.
 V0.3.23:
