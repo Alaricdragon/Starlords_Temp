@@ -10,43 +10,23 @@ import starlords.util.dialogControler.dialogRull.randoms.DialogRule_random_base;
 import starlords.util.dialogControler.dialogRull.randoms.DialogRule_random_opinionOfCurrProposal;
 import starlords.util.dialogControler.dialogRull.randoms.DialogRule_random_opinionOfPlayerProposal;
 import starlords.util.dialogControler.dialogRull.randoms.DialogRule_random_playerLordRelation;
+import starlords.util.dialogControler.dialogValues.DialogValuesList;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class DialogRule_random extends DialogRule_Base {
-    int range = 0;
-    ArrayList<DialogRule_random_base> randoms = new ArrayList<DialogRule_random_base>();
+    DialogValuesList range;
+    DialogValuesList base;
     @SneakyThrows
     public DialogRule_random(JSONObject jsonObject) {
-        range = jsonObject.getInt("range");
-        for (Iterator it = jsonObject.keys(); it.hasNext(); ) {
-            String key = (String) it.next();
-            double value = jsonObject.getDouble(key);
-            switch (key){
-                case "base":
-                    randoms.add(new DialogRule_random_base(value));
-                    break;
-                case "playerLordRelation":
-                    randoms.add(new DialogRule_random_playerLordRelation(value));
-                    break;
-                case "opinionOfCurrProposal":
-                    randoms.add(new DialogRule_random_opinionOfCurrProposal(value));
-                    break;
-                case "opinionOfPlayerProposal":
-                    randoms.add(new DialogRule_random_opinionOfPlayerProposal(value));
-                    break;
-            }
-        }
+        range = new DialogValuesList(jsonObject,"range");
+        base = new DialogValuesList(jsonObject,"value");
     }
     @Override
-    public boolean condition(Lord lord) {
-        int random = Utils.rand.nextInt(range);
-        double value = 0;
-        for (DialogRule_random_base a: randoms){
-            value += a.value(lord);
-        }
-        //note to furture me: this can have negitive values, and thats why im not short cerceting this eq and have the final statment here
+    public boolean condition(Lord lord,Lord targetLord) {
+        int random = Utils.rand.nextInt(range.getValue(lord, targetLord));
+        int value = base.getValue(lord, targetLord);
         return random <= value;
     }
 }

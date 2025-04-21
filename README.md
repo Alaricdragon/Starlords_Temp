@@ -204,12 +204,9 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "Steady"
     * "Cautious"
     * "Timid"
-  * "random": returns true if a random number (called 'range') is less then the total value of all other inputted values.
-    * "range": Integer. this is the range the random number will have
-    * "base": Integer. this is the base value
-    * "playerLordRelation": float. this is playerLordRelation * value.
-    * "opinionOfCurrProposal": float. this is the lords opinion of the current proposal in its faction * value
-    * "opinionOfPlayerProposal": float. this is the lords opinion of the players proposal in its faction * value
+  * "random": returns true if a random number (called 'range') is less then the base value.
+    * "range": Integer || dialogValue. this is the range the random number will have
+    * "value": Integer || dialogValue. this is the base value
   * "getDialogData": jsonObject gets a list of 'dialog data". for each different type of data, the requirements are different.
     * "dataID" : jsonObject. is the string data required to meet requirements. set to true for strings you require this memory to be, and false for strings this memory must be. To meet requirements, the string must match all of the 'true' strings, and not match any of the 'false' strings. if a string of the dataID does not exist, treats the string as though it is ""
     * "dataID" : jsonObject. {"min","max"} is the value rules required to meet requirements.
@@ -327,6 +324,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "DialogData": jsonObject, were each object is structured as "dialogID":{"base":int, "multi":double}. if the linked dialog data is not a int, it will be ignored
     * "MemoryData": jsonObject, were each object is structured as "MemoryID":{"base":int, "multi":double}. if the linked memoryID is not a int, it will be ignored (keep in mind: this can get any data in starsectors memory. data ID must start with '$' or it might break something)
     * "LordMemoryData": jsonObject, were each object is structured as "lordMemoryID":{"base":int, "multi":double}. if the linked lord data is not a int, it will be ignored
+    * "random": int || dialogValue || {"min": int || dialogValue, "max": int || dialogValue}. adds a random value ether between 0 and the inputed value, or between the min and max inputed values.
   * for both basic and advanced lines, you can also input a number of custom markers into your dialog that will be replaced with data automaticly. the markers are as follows
   * there are a few diffrent targets for markers. the targets are:
     * PLAYER

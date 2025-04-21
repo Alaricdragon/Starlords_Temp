@@ -1480,8 +1480,8 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         *   note: I can remove credits / set rank in all of the things, based on my saved data. this can allow other to set bribes and what not easyer.
         * requirements to get this to work:
         *   dialog value:
-        *       random: I require a random value that is between data
-        *           -note: I need to remove the random condition (or just make it take inputed dialog values?)
+        *       (hopefully that worked... I wanna play video games for a while.)random: I require a random value that is between data
+        *           -(no. I made this a rule that can use dialog values.)note: I need to remove the random condition (or just make it take inputed dialog values?)
         *   addons:
         *       play sound: String || {"id":String, "pitch":Integer, "volume":Integer}
         *       changeLordFaction : String (option: "playerCurrentFaction") || {"faction":String,"newRank":Intiger,"takeFiefs":Boolean}.

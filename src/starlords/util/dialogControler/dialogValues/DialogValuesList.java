@@ -132,6 +132,9 @@ public class DialogValuesList {
                 case "LordMemoryData":
                     values.add(new DialogValue_LordMemoryData_list(json,key2));
                     break;
+                case "random":
+                    values.add(new DialogValue_random(json,key2));
+                    break;
             }
         }
     }
