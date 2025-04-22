@@ -35,6 +35,8 @@ structure:
     8) change the way 'LordAI.chooseAssignment, LordAI.beginAssignment, LordAI.progressAssignment' works. make this have a system that's highly modifiable.
         -) the best way to handle this, were to have a class that handles a given lord behaver. it would hold classes to determin when the lord changes job, and what the lord does.
         -) this would be a titen of a task. I will need to do it though.
+    10) intil plugins:
+        a contrubuter suggested some changed here. they are quite powerfull. need this arg.
 features:
     1) allow the player to promote a officer into a starlord. when promoting the starlord, you should have the following options:
         -) requires structure.6, and structure.3.0 "STARLORD_LOYAL_UNTIL_FIEF"
@@ -109,6 +111,10 @@ misc improvements:
             -) active wepons with ammo.
     2) exstra lords:
         2.0) add a option that allow the exstra lord generator to remove lords from the game, provided its higher then the wanted amount of starlords.
+    3) life and death
+        3.0) add a option that makes it so lords present at game start (or from the json file) cannot die.
+    4) player owned fiefs:
+        4.0) ether let the player do things like create garasons, and get income, or even let the player act as the govern of the world.
 settings:
     1) lord fleet settings
         1.0) max fleet size (DP)
