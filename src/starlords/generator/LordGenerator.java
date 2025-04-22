@@ -583,6 +583,16 @@ public class LordGenerator {
         PersonAPI person = Global.getSector().getFaction(factionID).createRandomPerson(gender);
         lord.portrait = person.getPortraitSprite();
         if (lord.name == null)lord.name = person.getNameString();
+        for (int a = 0; a < 5 && (lord.portrait == null || lord.name == null); a++){
+            person = Global.getSector().getFaction(factionID).createRandomPerson(gender);
+            if (lord.portrait == null) lord.portrait = person.getPortraitSprite();
+            if (lord.name == null) lord.name = person.getNameString();
+        }
+        if (lord.portrait == null || lord.name == null){
+            person = Global.getSector().getFaction("independent").createRandomPerson(gender);
+            if (lord.portrait == null) lord.portrait = person.getPortraitSprite();
+            if (lord.name == null) lord.name = person.getNameString();
+        }
         if (lord.fleetName == null)lord.fleetName = person.getNameString()+fleetAdjective;
     }
 
