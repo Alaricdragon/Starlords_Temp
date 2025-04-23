@@ -234,7 +234,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
         * {"min","max"}: were "min" and "max" can be a Integer, or a dialogValue. 
         * "repChange" changes the relation between the lord and player
         * "creditsChange" changes the amount of credits the player has.
-        * "exchangeCreditsWithLord" gives / takes credits from a lord. a negative value gives, a positive value removes.
+        * "exchangeCreditsWithLord" gives / takes credits from a lord. a negative value gives, a positive value takes.
         * "romanceChange" changes the stored romance value between the lord and player.
         * "changeCommoditysInPlayersFleet" holds a jsonObject of commoditys, were the value is how mush this commoidity changes. the value follows the same rules as any other value addon.
       * "additionalText": "lineID" adds an additional line of dialog, with the inputed name. also take a jsonArray as input, running each inputed line in sequence.
@@ -243,7 +243,10 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "startWedding": boolean. if set to true, sets the current feast the player is at to a wedding ceremony (or howeer that works). will do nothing if not at a feast.
       * "dedicateTournamentVictoryToLord": boolean. if set to true, dedicates your tournament victory to the target lord. only runs if you are at a feast, and won the tournament.
       * "startTournament": boolean. if set to true, starts a Tournament. 
-      * "setHeldDate": boolean. sets if you have held a data this feast.  
+      * "defectLordToFaction": String || {"factionID" String, "newRank":Intiger || dialogValue, "includeFiefs": Boolean}. causes the lord to defect to the target faction. can optionaly set the lords rank, or if they take there fiefs with them. default is rank 0, and will take fiefs with them. (although some factions cannot have fiefs taken in defection.)
+        * if you want the lord to defect to the players current faction, set the base String, of factionID to "playerCurrFaction".
+      * "playSound": String || {"soundID":String, "pitch":Integer || dialogValue, "volume": Integer || dialogValue}. runs Global.getSoundPlayer().playUISound on the inputed data.
+      * "setHeldDate": boolean. sets if you have held a data this feast.
       * "setProfessedAdmiration": boolean. sets if you have held professed admiration this feast.
       * "setCourted" : boolean. sets whether you are courting this lord. setting this to true lets you do romance =)
       * "setInPlayerFleet": boolean. sets whether this lord is in the player fleet, or in their own fleet.
@@ -255,6 +258,8 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "setPlayerSupportForCurProposal": boolean. sets weather the player is currently supporting the current proposal or is opposed to the current proposal.
       * "setSwayed": boolean. sets whether the lord you are talking to has been swayed or not. if so, they cannot be swayed until the next proposal.
       * "setPersonalityKnown": boolean. sets weather the player knows this lords personality.
+      * "setLordRank": Intiger || dialogValue. sets the lords rank.
+      * "setPlayerRank": Intiger || dialogValue. sets the players rank.
       * "setDialogData": jsonObject. sets data that is stored in the dialog, and is deleted when the interaction ends. if a jsonObject with a min/max is one of its lines, it acts as a increase to the value.
         * each line is "dataID" : String || boolean || integer/dialogValue || JsonObject {min: integer/dialogValue,max: integer/dialogValue}
       * "setMemoryData": jsonObject. sets memory key data. memory is held in the save file, and will remain forever. please keep in mind, chose your memorys dataID wisely. your dataID must start with '$', and should not be the same as ANY OTHER MEMEORY IN THE GAME. be carefull. if a jsonObject with a min/max is one of its lines, it acts as a increase to the value.
@@ -506,7 +511,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "speak_privately"
       * "if the lord won't speak to you": copys 'greeting' options
       * "option_ask_worldview" : "worldview"
-      * "option_ask_liege_opinion" : liege_opinion
+      * "option_ask_liege_opinion" : "liege_opinion"
       * "optionSet_ask_friend_preferences" : "option_ask_friend_preferences" : "ask_friend_fav_gift"
       * "speak_privately_exit" : "greeting"
 
@@ -517,7 +522,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "liege_opinion"
       * copys 'speak_privately' options
       * ||
-      * "option_suggest_defect" : consider_defect
+      * "option_suggest_defect" : "consider_defect"
       * "option_liege_opinion_exit" : "greeting"
     
     * "consider_defect"
@@ -541,7 +546,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "justify_defect_calculating_lordPreference"
       * "justify_defect_calculating_argumentAgreement"
       * "justify_defect_calculating_final"
-      * "option_justify_defect_calculating_confirm" : OptionId.CONFIRM_SUGGEST_DEFECT
+      * "option_justify_defect_calculating_confirm" : "justify_defect_calculating_success" || "justify_defect_calculating_fail"
       * "option_justify_defect_calculating_exit" : "greeting"
       
     * "justify_defect_upstanding" (runs 6 lines before options)
@@ -551,7 +556,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "justify_defect_upstanding_lordPreference"
       * "justify_defect_upstanding_argumentAgreement"
       * "justify_defect_upstanding_final"
-      * "option_justify_defect_upstanding_confirm" : OptionId.CONFIRM_SUGGEST_DEFECT
+      * "option_justify_defect_upstanding_confirm" : "justify_defect_upstanding_success" || "justify_defect_upstanding_fail"
       * "option_justify_defect_upstanding_exit" : "greeting"
       
     * "justify_defect_martial" (runs 6 lines before options)
@@ -561,7 +566,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "justify_defect_martial_lordPreference"
       * "justify_defect_martial_argumentAgreement"
       * "justify_defect_martial_final"
-      * "option_justify_defect_martial_confirm" : OptionId.CONFIRM_SUGGEST_DEFECT
+      * "option_justify_defect_martial_confirm" : "justify_defect_martial_success" || "justify_defect_martial_fail"
       * "option_justify_defect_martial_exit" : "greeting"
       
     * "justify_defect_quarrelsome" (runs 6 lines before options)
@@ -571,7 +576,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "justify_defect_quarrelsome_lordPreference"
       * "justify_defect_quarrelsome_argumentAgreement"
       * "justify_defect_quarrelsome_final"
-      * "option_justify_defect_quarrelsome_confirm" : OptionId.CONFIRM_SUGGEST_DEFECT
+      * "option_justify_defect_quarrelsome_confirm" : "justify_defect_quarrelsome_success" || "justify_defect_quarrelsome_fail"
       * "option_justify_defect_quarrelsome_exit" : "greeting"
     
     * "ask_friend_fav_gift":

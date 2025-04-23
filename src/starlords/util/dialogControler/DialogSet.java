@@ -222,7 +222,7 @@ public class DialogSet {
     }
 
     private static String getPlayerStringMods(String line, Lord lord){
-        String data = Global.getSector().getPlayerFaction().getDisplayName();
+        String data = Utils.getRecruitmentFaction().getDisplayName();
         line = insertData(line,"%PLAYER_FACTION_NAME",data);
 
         data = Global.getSector().getPlayerPerson().getNameString();
@@ -986,6 +986,18 @@ public class DialogSet {
                 case "setLordMemoryData":
                     addon = addAddon_setLordMemoryData(addons,key2);
                     break;
+                case "defectLordToFaction":
+                    addon = addAddon_defectLordToFaction(addons,key2);
+                    break;
+                case "playSound":
+                    addon = addAddon_playSound(addons,key2);
+                    break;
+                case "setLordRank":
+                    addon = addAddon_setLordRank(addons,key2);
+                    break;
+                case "setPlayerRank":
+                    addon = addAddon_setPlayerRank(addons,key2);
+                    break;
             }
             if (addon != null) newAddons.add(addon);
         }
@@ -1129,6 +1141,22 @@ public class DialogSet {
     private static DialogAddon_Base addAddon_setLordMemoryData(JSONObject json,String key){
         JSONObject json2 = json.getJSONObject(key);
         return new DialogAddon_setLordMemoryData(json2);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_defectLordToFaction(JSONObject json,String key){
+        return new DialogAddon_defectLordToFaction(json,key);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_playSound(JSONObject json,String key){
+        return new DialogAddon_playSound(json,key);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_setLordRank(JSONObject json,String key){
+        return new DialogAddon_setLordRank(json,key);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_setPlayerRank(JSONObject json,String key){
+        return new DialogAddon_setPlayerRank(json,key);
     }
 
 

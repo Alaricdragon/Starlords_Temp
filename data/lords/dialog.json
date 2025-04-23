@@ -1675,7 +1675,7 @@
       "doesNotHaveLiege_Cooperative": {
         "priority": 3,
         "rules": {
-          "relationWithPlayer": {
+          "lordLoyalty": {
             "min": 75,
             "max": 100
           },
@@ -1688,7 +1688,7 @@
       "doesNotHaveLiege_Friendly": {
         "priority": 3,
         "rules": {
-          "relationWithPlayer": {
+          "lordLoyalty": {
             "min": 50,
             "max": 74
           },
@@ -1701,7 +1701,7 @@
       "doesNotHaveLiege_Welcoming": {
         "priority": 3,
         "rules": {
-          "relationWithPlayer": {
+          "lordLoyalty": {
             "min": 25,
             "max": 49
           },
@@ -1714,7 +1714,7 @@
       "doesNotHaveLiege_Favorable": {
         "priority": 3,
         "rules": {
-          "relationWithPlayer": {
+          "lordLoyalty": {
             "min": 10,
             "max": 25
           },
@@ -1727,7 +1727,7 @@
       "doesNotHaveLiege_Neutral": {
         "priority": 3,
         "rules": {
-          "relationWithPlayer": {
+          "lordLoyalty": {
             "min": -9,
             "max": 9
           },
@@ -1740,7 +1740,7 @@
       "doesNotHaveLiege_Suspicious": {
         "priority": 3,
         "rules": {
-          "relationWithPlayer": {
+          "lordLoyalty": {
             "min": -24,
             "max": -10
           },
@@ -1753,7 +1753,7 @@
       "doesNotHaveLiege_Inhospitable": {
         "priority": 3,
         "rules": {
-          "relationWithPlayer": {
+          "lordLoyalty": {
             "min": -49,
             "max": -25
           },
@@ -1766,7 +1766,7 @@
       "doesNotHaveLiege_Hostile": {
         "priority": 3,
         "rules": {
-          "relationWithPlayer": {
+          "lordLoyalty": {
             "min": -74,
             "max": -50
           },
@@ -1779,7 +1779,7 @@
       "doesNotHaveLiege_Vengeful": {
         "priority": 3,
         "rules": {
-          "relationWithPlayer": {
+          "lordLoyalty": {
             "min": -100,
             "max": -75
           },
@@ -1793,7 +1793,7 @@
       "hasLiege_Cooperative": {
         "priority": 3,
         "rules": {
-          "relationWithPlayer": {
+          "lordLoyalty": {
             "min": 75,
             "max": 100
           },
@@ -1806,7 +1806,7 @@
       "hasLiege_Friendly": {
         "priority": 3,
         "rules": {
-          "relationWithPlayer": {
+          "lordLoyalty": {
             "min": 50,
             "max": 74
           },
@@ -1819,7 +1819,7 @@
       "hasLiege_Welcoming": {
         "priority": 3,
         "rules": {
-          "relationWithPlayer": {
+          "lordLoyalty": {
             "min": 25,
             "max": 49
           },
@@ -1832,7 +1832,7 @@
       "hasLiege_Favorable": {
         "priority": 3,
         "rules": {
-          "relationWithPlayer": {
+          "lordLoyalty": {
             "min": 10,
             "max": 25
           },
@@ -1845,7 +1845,7 @@
       "hasLiege_Neutral": {
         "priority": 3,
         "rules": {
-          "relationWithPlayer": {
+          "lordLoyalty": {
             "min": -9,
             "max": 9
           },
@@ -1858,7 +1858,7 @@
       "hasLiege_Suspicious": {
         "priority": 3,
         "rules": {
-          "relationWithPlayer": {
+          "lordLoyalty": {
             "min": -24,
             "max": -10
           },
@@ -1871,7 +1871,7 @@
       "hasLiege_Inhospitable": {
         "priority": 3,
         "rules": {
-          "relationWithPlayer": {
+          "lordLoyalty": {
             "min": -49,
             "max": -25
           },
@@ -1884,7 +1884,7 @@
       "hasLiege_Hostile": {
         "priority": 3,
         "rules": {
-          "relationWithPlayer": {
+          "lordLoyalty": {
             "min": -74,
             "max": -50
           },
@@ -1897,7 +1897,7 @@
       "hasLiege_Vengeful": {
         "priority": 3,
         "rules": {
-          "relationWithPlayer": {
+          "lordLoyalty": {
             "min": -100,
             "max": -75
           },
@@ -1908,6 +1908,58 @@
         }
       },
 
+      "canDefectOption": {
+        "rules": {
+          "baseValue": {
+            "min": 0,
+            "value": {
+              "calculateDefect_legitimacy": 1,
+              "calculateDefect_RelativeFactionPreference": 1,
+              "calculateDefect_RelativeLordPreference": 1,
+              "calculateDefect_baseReluctance": 1,
+              "random": 10,
+              "limitedValue": {
+                "value": {
+                  "DialogData": {
+                    "calculateDefect_justification": 5
+                  }
+                },
+                "max": {
+                  "calculateDefect_acceptanceOfArgument": 1
+                }
+              },
+              "conditionalValue": {
+                "rules": {
+                  "isMarriedToPlayer": true
+                },
+                "base": 200
+              }
+            }
+          }
+        },
+        "lines": {
+          "option_justify_defect_calculating_confirm": {
+            "line": "It's time for you to make a decision.",
+            "optionData": "justify_defect_calculating_success",
+            "hint": "-10 relations if failed"
+          },
+          "option_justify_defect_upstanding_confirm": {
+            "line": "It's time for you to make a decision.",
+            "optionData": "justify_defect_upstanding_success",
+            "hint": "-10 relations if failed"
+          },
+          "option_justify_defect_martial_confirm": {
+            "line": "It's time for you to make a decision.",
+            "optionData": "justify_defect_martial_success",
+            "hint": "-10 relations if failed"
+          },
+          "option_justify_defect_quarrelsome_confirm": {
+            "line": "It's time for you to make a decision.",
+            "optionData": "justify_defect_quarrelsome_success",
+            "hint": "-10 relations if failed"
+          }
+        }
+      },
       "justify_defect_justification_2": {
         "priority": 2,
         "rules": {
@@ -2952,6 +3004,30 @@
           "justify_defect_quarrelsome_argumentAgreement": "Additionally, I find your justification unconvincing.",
           "justify_defect_quarrelsome_final": "Lastly, changing loyalties is no small decision. I must consider the consequences on my reputation carefully.",
 
+          "justify_defect_quarrelsome_success": {
+            "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
+            "addons": {
+              "playSound": "ui_char_level_up",
+              "defectLordToFaction": {
+                "factionID": "playerCurrFaction",
+                "newRank": {
+                  "DialogData": {
+                    "calculateDefect_rank": 1
+                  }
+                }
+              },
+              "exchangeCreditsWithLord": {
+                "calculateDefect_credits": -1
+              }
+            }
+          },
+          "justify_defect_quarrelsome_fail": {
+            "line": "I cannot betray our leader. I will keep this conversation to myself for sake of our friendship, but do not speak of this again.",
+            "addons": {
+              "playSound": "ui_rep_drop",
+              "repChange": -10
+            }
+          },
 
           "relation_increase": {
             "line": "Relations with %LORD_NAME increased by %c0.",
@@ -3020,7 +3096,42 @@
               "optionSet_greeting"
             ]
           },
-          "optionSet_ask_friend_fav_gift": {
+          "optionSet_justify_defect_calculating_success": {
+            "options": [
+              "optionSet_greeting"
+            ]
+          },
+          "optionSet_justify_defect_calculating_fail": {
+            "options": [
+              "optionSet_greeting"
+            ]
+          },
+          "optionSet_justify_defect_upstanding_success": {
+            "options": [
+              "optionSet_greeting"
+            ]
+          },
+          "optionSet_justify_defect_upstanding_fail": {
+            "options": [
+              "optionSet_greeting"
+            ]
+          },
+          "optionSet_justify_defect_martial_success": {
+            "options": [
+              "optionSet_greeting"
+            ]
+          },
+          "optionSet_justify_defect_martial_fail": {
+            "options": [
+              "optionSet_greeting"
+            ]
+          },
+          "optionSet_justify_defect_quarrelsome_success": {
+            "options": [
+              "optionSet_greeting"
+            ]
+          },
+          "optionSet_justify_defect_quarrelsome_fail": {
             "options": [
               "optionSet_greeting"
             ]
@@ -3758,7 +3869,7 @@
           },
           "option_suggest_defect": {
             "line":  "I'd like to ask for your support in uniting the sector under %PLAYER_FACTION_NAME.",
-            "optionData": "ERROR"
+            "optionData": "consider_defect"
           },
           "option_liege_opinion_exit": {
             "line": "Interesting.",
@@ -3799,7 +3910,7 @@
           },
           "option_suggest_defection_martial": {
             "line": "In times of turmoil, might makes right. And I am the strongest.",
-            "optionData": "option_suggest_defection_martial",
+            "optionData": "justify_defect_martial",
             "addons": {
               "additionalText": "setData_calculateDefect_martial"
             }
@@ -3919,7 +4030,7 @@
           },
           "option_justify_defect_calculating_confirm": {
             "line": "It's time for you to make a decision.",
-            "optionData": "ERROR",
+            "optionData": "justify_defect_calculating_fail",
             "hint": "-10 relations if failed"
           },
           "option_justify_defect_calculating_exit": {
@@ -3935,7 +4046,7 @@
           },
           "option_justify_defect_upstanding_confirm": {
             "line": "It's time for you to make a decision.",
-            "optionData": "ERROR",
+            "optionData": "justify_defect_upstanding_fail",
             "hint": "-10 relations if failed"
           },
           "option_justify_defect_upstanding_exit": {
@@ -3951,7 +4062,7 @@
           },
           "option_justify_defect_martial_confirm": {
             "line": "It's time for you to make a decision.",
-            "optionData": "ERROR",
+            "optionData": "justify_defect_martial_fail",
             "hint": "-10 relations if failed"
           },
           "option_justify_defect_martial_exit": {
@@ -3967,7 +4078,7 @@
           },
           "option_justify_defect_quarrelsome_confirm": {
             "line": "It's time for you to make a decision.",
-            "optionData": "ERROR",
+            "optionData": "justify_defect_quarrelsome_fail",
             "hint": "-10 relations if failed"
           },
           "option_justify_defect_quarrelsome_exit": {
@@ -4063,6 +4174,34 @@
                       }
                     ]
                   }
+                },
+                "calculateDefect_baseReluctance": {
+                  "conditionalValue": [
+                    {
+                      "base": -30,
+                      "rules": {
+                        "lordPersonality": {"Calculating": true}
+                      }
+                    },
+                    {
+                      "base": -50,
+                      "rules": {
+                        "lordPersonality": {"Upstanding": true}
+                      }
+                    },
+                    {
+                      "base": -40,
+                      "rules": {
+                        "lordPersonality": {"Martial": true}
+                      }
+                    },
+                    {
+                      "base": -20,
+                      "rules": {
+                        "lordPersonality": {"Quarrelsome": true}
+                      }
+                    }
+                  ]
                 }
               }
             }

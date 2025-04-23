@@ -1466,6 +1466,8 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     }
     private void optionSelected_CONFIRM_SUGGEST_DEFECT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         /*
+        * DONE untested.
+        * the time has come to begin some testing. first of all, I need to check on the 'how do you feel about yuor faction' text. something is wrong with it. like wow.
         * ok, so a few things here:
         * 1) the following EQ is used:
         *   'baseReluctance' (need to look this one up lol)
@@ -1482,11 +1484,14 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         *   dialog value:
         *       (hopefully that worked... I wanna play video games for a while.)random: I require a random value that is between data
         *           -(no. I made this a rule that can use dialog values.)note: I need to remove the random condition (or just make it take inputed dialog values?)
-        *   addons:
+        *   (done)addons:
         *       play sound: String || {"id":String, "pitch":Integer, "volume":Integer}
         *       changeLordFaction : String (option: "playerCurrentFaction") || {"faction":String,"newRank":Intiger,"takeFiefs":Boolean}.
         * ... and thats all!?!?!? I am almost done...
         * ...
+        *  issues noticed:
+        *   1) dialog value: dialog memory seems not to be loading (that or all my texts are false on all my tests, in wish case my data is being misset).
+        *   2) player faction name when the faction name is not yet set is 'your'?? ???? ?????????????????
         * */
         FactionAPI faction = Utils.getRecruitmentFaction();
         Random rand = new Random(targetLord.getLordAPI().getId().hashCode() + Global.getSector().getClock().getTimestamp());

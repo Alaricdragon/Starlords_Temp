@@ -115,6 +115,9 @@ misc improvements:
         3.0) add a option that makes it so lords present at game start (or from the json file) cannot die.
     4) player owned fiefs:
         4.0) ether let the player do things like create garasons, and get income, or even let the player act as the govern of the world.
+    5) dialog:
+        5.0) quarrelsome lords only have one response when you try to date them
+        5.1) the 'quarrelsome' defection option always sets the defection justification to 2. this is like.... strange. incomplete.
 settings:
     1) lord fleet settings
         1.0) max fleet size (DP)
@@ -128,3 +131,4 @@ settings:
         2.1) set the time between consul sessions.
     3) life and death system:
         3.0) make it so the player spouse can have different death chance
+        3.1) make it so lords around at game start can have a diffrent death chance.

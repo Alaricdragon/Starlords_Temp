@@ -32,11 +32,6 @@ public class DialogAddon_changeValue extends DialogAddon_Base {
             minList = new DialogValuesList(json2,"min");
         }
         if ((!json2.has("min") && !json2.has("max"))){
-            minList = new DialogValuesList(json2,key);
-            maxList = minList;
-            return;
-        }
-        if ((!json2.has("min") && !json2.has("max"))){
             minList = new DialogValuesList(json,key);
             maxList = minList;
             return;
