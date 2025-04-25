@@ -12,6 +12,12 @@ public class DialogValue_random extends DialogValue_base{
     @SneakyThrows
     public DialogValue_random(JSONObject json, String key) {
         super(json, key);
+        if (!(json.get(key) instanceof JSONObject)){
+            baseRange = new DialogValuesList(json,key);
+            this.base=0;
+            this.multi=1;
+            return;
+        }
         if (json.getJSONObject(key).has("min")) min = new DialogValuesList(json.getJSONObject(key),"min");
         if (json.getJSONObject(key).has("max")) max = new DialogValuesList(json.getJSONObject(key),"max");
         if (!json.getJSONObject(key).has("max") && !json.getJSONObject(key).has("min")){
@@ -31,6 +37,7 @@ public class DialogValue_random extends DialogValue_base{
                 max = 0;
             }
             int range = max - min;
+            if (range == 0) return 0;
             if (range < 0){
                 return Utils.rand.nextInt(range*-1)*-1;
             }

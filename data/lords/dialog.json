@@ -1913,10 +1913,12 @@
           "baseValue": {
             "min": 0,
             "value": {
-              "calculateDefect_legitimacy": 1,
-              "calculateDefect_RelativeFactionPreference": 1,
-              "calculateDefect_RelativeLordPreference": 1,
-              "calculateDefect_baseReluctance": 1,
+              "DialogData": {
+                "calculateDefect_legitimacy": 1,
+                "calculateDefect_RelativeFactionPreference": 1,
+                "calculateDefect_RelativeLordPreference": 1,
+                "calculateDefect_baseReluctance": 1
+              },
               "random": 10,
               "limitedValue": {
                 "value": {
@@ -1925,7 +1927,9 @@
                   }
                 },
                 "max": {
-                  "calculateDefect_acceptanceOfArgument": 1
+                  "DialogData": {
+                    "calculateDefect_acceptanceOfArgument": 1
+                  }
                 }
               },
               "conditionalValue": {
@@ -3940,9 +3944,9 @@
             "line": "500,000 Credits",
             "optionData": "justify_defect_calculating",
             "addons": {
-              "DialogData": {
+              "setDialogData": {
                 "calculateDefect_credits": 500000,
-                "calculateDefect_legitimacy": 1
+                "calculateDefect_justification": 1
               }
             },
             "show": {
@@ -3955,9 +3959,9 @@
             "line": "2,000,000 Credits",
             "optionData": "justify_defect_calculating",
             "addons": {
-              "DialogData": {
+              "setDialogData": {
                 "calculateDefect_credits": 2000000,
-                "calculateDefect_legitimacy": 2
+                "calculateDefect_justification": 2
               }
             },
             "show": {
@@ -3970,9 +3974,9 @@
             "line": "The title of %PLAYER_FACTION_RANK_TITLE1",
             "optionData": "justify_defect_calculating",
             "addons": {
-              "DialogData": {
+              "setDialogData": {
                 "calculateDefect_rank": 1,
-                "calculateDefect_legitimacy": 1
+                "calculateDefect_justification": 1
               }
             },
             "show": {
@@ -3993,9 +3997,9 @@
             "line": "The title of %PLAYER_FACTION_RANK_TITLE2",
             "optionData": "justify_defect_calculating",
             "addons": {
-              "DialogData": {
+              "setDialogData": {
                 "calculateDefect_rank": 2,
-                "calculateDefect_legitimacy": 2
+                "calculateDefect_justification": 2
               }
             },
             "show": {
@@ -4016,8 +4020,8 @@
             "line": "We can agree on something at a later date.",
             "optionData": "justify_defect_calculating",
             "addons": {
-              "DialogData": {
-                "calculateDefect_legitimacy": 0
+              "setDialogData": {
+                "calculateDefect_justification": 0
               }
             }
           },

@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public class DialogAddon_setMemoryData extends DialogAddon_setDialogData{
-    @SneakyThrows
     public DialogAddon_setMemoryData(JSONObject json){
         super(json);
     }

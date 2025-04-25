@@ -677,8 +677,10 @@ public class DialogSet {
         }
         //add on all addons.
         if (addons.containsKey(key)){
+            log.info("attempting to run addons for line...");
             for (DialogAddon_Base a : addons.get(key)){
-                a.apply(textPanel,options,dialog,lord);
+                log.info("  running addon of class: "+a.getClass().getName());
+                a.apply(textPanel,options,dialog,lord,targetLord);
             }
         }
     }
@@ -1023,7 +1025,6 @@ public class DialogSet {
     private static DialogAddon_Base addAddon_changeCommoditysInPlayersFleet(JSONObject json, String key){
         return new DialogAddon_changeCommoditysInPlayersFleet(json,key);
     }
-
     @SneakyThrows
     private static DialogAddon_Base addAddon_additionalText(JSONObject json,String key){
         return new DialogAddon_additionalText(json,key);

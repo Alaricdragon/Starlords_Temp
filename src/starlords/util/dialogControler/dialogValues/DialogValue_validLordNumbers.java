@@ -1,6 +1,7 @@
 package starlords.util.dialogControler.dialogValues;
 
 import lombok.SneakyThrows;
+import org.json.JSONException;
 import org.json.JSONObject;
 import starlords.controllers.LordController;
 import starlords.person.Lord;
@@ -10,15 +11,14 @@ import starlords.util.dialogControler.dialogRull.DialogRule_Base;
 import java.util.ArrayList;
 
 public class DialogValue_validLordNumbers extends DialogValue_base{
-    ArrayList<DialogRule_Base> rules = new ArrayList<>();
-    @SneakyThrows
-    public DialogValue_validLordNumbers(JSONObject json) {
+    ArrayList<DialogRule_Base> rules;
+
+    public DialogValue_validLordNumbers(JSONObject json) throws JSONException {
         super(json);
-        DialogSet.getDialogRulesFromJSon(json.getJSONObject("rules"));
+        rules = DialogSet.getDialogRulesFromJSon(json.getJSONObject("rules"));
     }
-    @SneakyThrows
-    public DialogValue_validLordNumbers(JSONObject json, String key) {
-        super(json, key);
+    public DialogValue_validLordNumbers(JSONObject json, String key) throws JSONException {
+        this(json.getJSONObject(key));
     }
 
     @Override

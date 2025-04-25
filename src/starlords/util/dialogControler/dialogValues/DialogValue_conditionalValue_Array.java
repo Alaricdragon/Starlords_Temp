@@ -10,9 +10,9 @@ import java.util.ArrayList;
 public class DialogValue_conditionalValue_Array extends DialogValue_base{
     ArrayList<DialogValue_conditionalValue> values = new ArrayList<>();
     @SneakyThrows
-    public DialogValue_conditionalValue_Array(JSONObject josn, String key){
-        super(josn,key);
-        JSONArray json2 = josn.getJSONArray(key);
+    public DialogValue_conditionalValue_Array(JSONObject json, String key){
+        super(json,key);
+        JSONArray json2 = json.getJSONArray(key);
         for (int a = 0; a < json2.length(); a++){
             values.add(new DialogValue_conditionalValue(json2.getJSONObject(a)));
         }

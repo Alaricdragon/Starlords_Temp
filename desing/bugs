@@ -17,6 +17,7 @@ NOTE: I forgot to record the original list, so there are some bugs missing from 
     d) Utils.canBeAttacked(MarketAPI)
         d.0) needs to ignore nexerlin outposts (dont look at markets less then size 3)?
         d.1) needs to ignore markets with no industrys (another issue to fix)
+    e) starlords attending a feast will not defend there allies if they are attacked (they should protect the world, and anyone at the feast if they are attacked)
 2) tornaments:
     a) with Aod QoL instaled, you cant fight in tornaments hosted by your own faction
     b) possible tournament ships include things like station and ship moduels.
@@ -32,3 +33,5 @@ NOTE: I forgot to record the original list, so there are some bugs missing from 
 5) additional lord generator:
     a) I need to remove the T2, T1 lords from settings. T2 and T1 lords are not how powerfull the lords are, its how important the lord is to a faction.
        instead, I should just make sure each faction fills the lord slots in order of having 1 T2, and 3 T1 lords, before the rest are T0.
+6) S-Mods system:
+    S-Mods have been reported to not be presistant between saves (the S-mods changing when rebooting starsector). I need to look into this.

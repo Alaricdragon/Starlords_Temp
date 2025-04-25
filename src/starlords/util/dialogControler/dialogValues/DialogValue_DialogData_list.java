@@ -1,7 +1,10 @@
 package starlords.util.dialogControler.dialogValues;
 
+import com.fs.starfarer.api.Global;
 import lombok.SneakyThrows;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
+import starlords.lunaSettings.StoredSettings;
 import starlords.person.Lord;
 
 import java.util.ArrayList;
@@ -15,13 +18,15 @@ public class DialogValue_DialogData_list extends DialogValue_base{
         JSONObject json2 = json.getJSONObject(key);
         for (Iterator it2 = json2.keys(); it2.hasNext();) {
             String key2 = (String) it2.next();
-            if (!(json2.get(key2) instanceof JSONObject)) continue;
+            //if (!(json2.get(key2) instanceof JSONObject)) continue;
             values.add(new DialogValue_DialogData(json2,key2));
         }
     }
 
     @Override
     public int value(Lord lord, Lord targetLord) {
+        Logger log = Global.getLogger(StoredSettings.class);
+        log.info("OK. OK. THIS IS THE DIALOG DATA GETTER!!!!!");
         int totalValue = 0;
         for (DialogValue_base a : values){
             totalValue+= a.computeValue(lord,targetLord);

@@ -18,7 +18,6 @@ import java.util.Iterator;
 import static starlords.util.Constants.STARLORD_ADDITIONAL_MEMORY_KEY;
 
 public class DialogAddon_setLordMemoryData extends DialogAddon_setDialogData{
-    @SneakyThrows
     public DialogAddon_setLordMemoryData(JSONObject json){
         super(json);
     }

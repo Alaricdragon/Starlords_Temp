@@ -1490,8 +1490,12 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         * ... and thats all!?!?!? I am almost done...
         * ...
         *  issues noticed:
-        *   1) dialog value: dialog memory seems not to be loading (that or all my texts are false on all my tests, in wish case my data is being misset).
+        *   1) (DONE. finaly. god dam finaly!!!! AAAAAAAA)dialog value: dialog memory seems not to be loading (that or all my texts are false on all my tests, in wish case my data is being misset).
+        *       (fixed)ok, looking at this farther: the data is not being set at all. by the looks of it, the class itself
+        *       ok, looking at it now, it claims its trying to add a string, and not what it is, a fucking dialog value. arg. I will need to look into this class closer soon.
         *   2) player faction name when the faction name is not yet set is 'your'?? ???? ?????????????????
+        *   3) calculate lord preference returns 0. I -think- this is because the game just started, so no one cares.
+        *   4) ok. so ok. the dialog link to the lord joining you option is broken.
         * */
         FactionAPI faction = Utils.getRecruitmentFaction();
         Random rand = new Random(targetLord.getLordAPI().getId().hashCode() + Global.getSector().getClock().getTimestamp());

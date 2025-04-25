@@ -1,11 +1,14 @@
 package starlords.util.dialogControler.dialog_addon;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.OptionPanelAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
 import lombok.SneakyThrows;
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import starlords.lunaSettings.StoredSettings;
 import starlords.person.Lord;
 import starlords.util.dialogControler.DialogSet;
 
@@ -33,7 +36,10 @@ public class DialogAddon_additionalText extends DialogAddon_Base{
 
     @Override
     public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord) {
+        Logger log = Global.getLogger(StoredSettings.class);
+        log.info("running additional text...");
         for (String a : lineID) {
+            log.info("getting additional text of ID: "+a);
             DialogSet.addParaWithInserts(a, lord, textPanel, options, dialog);
         }
     }

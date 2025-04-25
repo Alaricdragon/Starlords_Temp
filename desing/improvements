@@ -37,6 +37,26 @@ structure:
         -) this would be a titen of a task. I will need to do it though.
     10) intil plugins:
         a contrubuter suggested some changed here. they are quite powerfull. need this arg.
+    11) lord generator:
+        11.0) (requires structure 3.0 to be complete)
+              for both exstra lords, and life and death lords, I need the ability to add lords from diffrent factions at a chance (examplie: lions gard for sindrin fuel)
+    12) starlord faction.json
+        -I need a json file for starlord lords. the following data is required in this function:
+        "leader":String (name of the leader of this faction)
+        "rank0Name":String name of the lowest rank of starlord
+        "rank1Name":String name of the second highest rank of starlord
+        "rank2Name":String name of the highest rank of starlord
+        "allowMarshalOverride": boolean (allows this faction to have a martial).
+        "allowPoliticsOverride":boolean (allows this faction to declare war / peace all on its own)
+        "allowHostilityTargetOverride":boolean (allows other factions to target this faction for hostility (raids and invasions). if set to false, will forcefully disable "allowInvasionsOverride")
+        "allowInvasionsOverride":boolean (allows this faction to both be invaded, and preform invasions. requires nexerlin)
+        "allowFiefsOveride":boolean ???
+        "allowConcalOverride":boolean ??
+        ""
+        "exstraLordMultiplyer":double
+        "lifeAndDeath_LordGrowthMulti":double
+        "--data related to 11.0)" {"factionID":double,..."} gets the odds of a lord spawning on game start with a different factions ships, name, exstra.
+        "--data related to 11.0)" {"factionID":double,..."} gets the odds of a lord spawning from the life and death system with a different factions ships, name, exstra.
 features:
     1) allow the player to promote a officer into a starlord. when promoting the starlord, you should have the following options:
         -) requires structure.6, and structure.3.0 "STARLORD_LOYAL_UNTIL_FIEF"

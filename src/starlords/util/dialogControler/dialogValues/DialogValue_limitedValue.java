@@ -1,7 +1,10 @@
 package starlords.util.dialogControler.dialogValues;
 
+import com.fs.starfarer.api.Global;
 import lombok.SneakyThrows;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
+import starlords.lunaSettings.StoredSettings;
 import starlords.person.Lord;
 
 public class DialogValue_limitedValue extends DialogValue_base{
@@ -12,7 +15,7 @@ public class DialogValue_limitedValue extends DialogValue_base{
     DialogValuesList value;
     public DialogValue_limitedValue(JSONObject json) {
         super(json);
-        value = new DialogValuesList(json,"value");
+        if (json.has("value"))value = new DialogValuesList(json,"value");
         if (json.has("max")){
             maxList = new DialogValuesList(json,"max");
         }
@@ -24,19 +27,19 @@ public class DialogValue_limitedValue extends DialogValue_base{
             maxList = minList;
         }
     }
-    @SneakyThrows
-    public DialogValue_limitedValue(JSONObject json, String key) {
-        super(json, key);
-    }
     @Override
     public int value(Lord lord, Lord targetLord) {
-        int value = this.value.getValue(lord, targetLord);
+        Logger log = Global.getLogger(StoredSettings.class);
+        log.info("RUNNING LIMITED VALUE. IGNORE THIS DATA");
+        int value = 0;
+        if (this.value != null)value = this.value.getValue(lord, targetLord);
         int max = this.max;
         if (maxList != null) max = maxList.getValue(lord, targetLord);
         int min = this.min;
         if (minList != null) min = minList.getValue(lord, targetLord);
         value = Math.max(min,value);
         value = Math.min(max,value);
+        log.info("DONE LIMIT VALUE");
         return value;
     }
 }
