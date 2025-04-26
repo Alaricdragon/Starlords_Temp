@@ -19,8 +19,6 @@
     "accept_mercy": "Well... I suppose I do owe you a debt. So be it, leave now. We never saw each other.",
     "relation_increase": "Relations with $string increased by $string.",
     "relation_decrease": "Relations with $string decreased by $string.",
-    "no_quest_available": "I have no tasks that need attending to at this time.",
-    "quest_available": "I do have one issue to take care of. I've transferred the relevant information if you're interested.",
     "refuse_suggest_action_relations": "I'm sorry, but I don't know you well enough.",
     "refuse_suggest_action_busy": "I'm sorry, but I have other matters to attend to.",
     "refuse_suggest_action": "I'm sorry, but I'm unable to do that.",

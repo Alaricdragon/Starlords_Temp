@@ -75,6 +75,7 @@ features:
         1.7) the default lord tag should be "STARLORD_LOYAL_UNTIL_FIEF". this is because the starlord has not yet had a tast of -power-, so they will be loyal until they aquire something. even if your faction is wiped out.
         1.8) lastly, this should cost a number of story points, and this value should increase for every starlord you create, up to a limit. this prevents you from creating 1000 starlords and taking over everything.
     2) allow starlords to defect to the player faction. this involves a few changes
+        -) (thanks Aleksandros for the code!)
         2.0) first, starlords that want to join the player faction need to be tagged. well tagged, they cant leave there faction. the tag should expire after 1 month.
         2.1) a intel should be added, were it will then open the lords dialog, with a custom greeting, and options related to defection.
         2.2) if you encounter the starlord somewhere, it should also open this greeting dialog. if you encounter the lord in the wild, the option to talk to them should be glowing yellow like whenever someone wants to talk to you.
@@ -122,6 +123,11 @@ features:
         4.9) the lords should not just know were a bounty target is. (if the lord leaves civilized space). so a player running away might be able to wait out there bounty.
     5) the ability to talk to officers (using the lord dialog system I am building)
         -) VN sector when???? (for real though, we are so close to VN sector at this point. like, we can already romance for gods sake!)
+    6) allow lords to have a more 'starsector' like mission system.
+        -) so there are a few things that I dislike about the current mission system.
+        6.0) contacts. I want to beable to use the contact system on starlords. letting the player have some very complecated missions. (also this lets starlords have more personality in there missions. because of differing contact types).
+        6.1) starting missions. this is the hard part. I like the fact you can just go up to starlords and talk to them. but it would be nice if they could like... talk to you. like what happens in normal bar missions. I dont know what this would require.
+        -) I for sure want 6.0 though. that is just really really important.
 misc improvements:
     1) s-mod improvements:
         1.0) I want to go into the SMods.json and add a bunch of Smod possabilitys

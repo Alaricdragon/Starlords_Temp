@@ -59,5 +59,7 @@
   "justify_defect_martial_success": "optionSet_justify_defect_martial_success",
   "justify_defect_martial_fail": "optionSet_justify_defect_martial_fail",
   "justify_defect_quarrelsome_success": "optionSet_justify_defect_quarrelsome_success",
-  "justify_defect_quarrelsome_fail": "optionSet_justify_defect_quarrelsome_fail"
+  "justify_defect_quarrelsome_fail": "optionSet_justify_defect_quarrelsome_fail",
+
+  "ask_quest": "optionSet_ask_quest"
 }

@@ -246,6 +246,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "defectLordToFaction": String || {"factionID" String, "newRank":Intiger || dialogValue, "includeFiefs": Boolean}. causes the lord to defect to the target faction. can optionaly set the lords rank, or if they take there fiefs with them. default is rank 0, and will take fiefs with them. (although some factions cannot have fiefs taken in defection.)
         * if you want the lord to defect to the players current faction, set the base String, of factionID to "playerCurrFaction".
       * "playSound": String || {"soundID":String, "pitch":Integer || dialogValue, "volume": Integer || dialogValue}. runs Global.getSoundPlayer().playUISound on the inputed data.
+      * "attemptToAddRandomQuest": boolean. if set to true, it will run ether the '' line, or the '' line. depending on if a quest can actually get gotten or not. please note: this is to be removed, and replaced with a more complicated quest system in the future.
       * "setHeldDate": boolean. sets if you have held a data this feast.
       * "setProfessedAdmiration": boolean. sets if you have held professed admiration this feast.
       * "setCourted" : boolean. sets whether you are courting this lord. setting this to true lets you do romance =)
@@ -390,7 +391,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
 
     * "ask_question"
       * "option_ask_location" :         "accept_ask_location"
-      * "option_ask_quest" :            "OptionId.ASK_QUEST"
+      * "option_ask_quest" :            "ask_quest"
       * "option_profess_admiration" :   "admiration_response"
       * "option_ask_date" :             "spend_time_together"
       * "option_ask_marriage" :         "marriage_response"
@@ -400,6 +401,9 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "option_sway_council_oppose" :  "swayProposal_againstCounsel"
       * "option_sway_player" :          "swayProposal_forPlayer"
       * "option_nevermind_askQuestion" :"greeting"
+
+    * "ask_quest" (runs 'quest_available'&&'' || 'no_quest_available')
+      * copys 'ask_question' options
 
     * "admiration_response"
       * copys 'ask_question' options

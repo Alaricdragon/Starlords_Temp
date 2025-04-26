@@ -3008,6 +3008,78 @@
           "justify_defect_quarrelsome_argumentAgreement": "Additionally, I find your justification unconvincing.",
           "justify_defect_quarrelsome_final": "Lastly, changing loyalties is no small decision. I must consider the consequences on my reputation carefully.",
 
+          "justify_defect_calculating_success": {
+            "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
+            "addons": {
+              "playSound": "ui_char_level_up",
+              "defectLordToFaction": {
+                "factionID": "playerCurrFaction",
+                "newRank": {
+                  "DialogData": {
+                    "calculateDefect_rank": 1
+                  }
+                }
+              },
+              "exchangeCreditsWithLord": {
+                "calculateDefect_credits": -1
+              }
+            }
+          },
+          "justify_defect_calculating_fail": {
+            "line": "I cannot betray our leader. I will keep this conversation to myself for sake of our friendship, but do not speak of this again.",
+            "addons": {
+              "playSound": "ui_rep_drop",
+              "repChange": -10
+            }
+          },
+          "justify_defect_upstanding_success": {
+            "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
+            "addons": {
+              "playSound": "ui_char_level_up",
+              "defectLordToFaction": {
+                "factionID": "playerCurrFaction",
+                "newRank": {
+                  "DialogData": {
+                    "calculateDefect_rank": 1
+                  }
+                }
+              },
+              "exchangeCreditsWithLord": {
+                "calculateDefect_credits": -1
+              }
+            }
+          },
+          "justify_defect_upstanding_fail": {
+            "line": "I cannot betray our leader. I will keep this conversation to myself for sake of our friendship, but do not speak of this again.",
+            "addons": {
+              "playSound": "ui_rep_drop",
+              "repChange": -10
+            }
+          },
+          "justify_defect_martial_success": {
+            "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
+            "addons": {
+              "playSound": "ui_char_level_up",
+              "defectLordToFaction": {
+                "factionID": "playerCurrFaction",
+                "newRank": {
+                  "DialogData": {
+                    "calculateDefect_rank": 1
+                  }
+                }
+              },
+              "exchangeCreditsWithLord": {
+                "calculateDefect_credits": -1
+              }
+            }
+          },
+          "justify_defect_martial_fail": {
+            "line": "I cannot betray our leader. I will keep this conversation to myself for sake of our friendship, but do not speak of this again.",
+            "addons": {
+              "playSound": "ui_rep_drop",
+              "repChange": -10
+            }
+          },
           "justify_defect_quarrelsome_success": {
             "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
             "addons": {
@@ -3032,6 +3104,19 @@
               "repChange": -10
             }
           },
+
+          "ask_quest": {
+            "line": "",
+            "addons": {
+              "attemptToAddRandomQuest": true
+            }
+          },
+          "quest_available": "I do have one issue to take care of. I've transferred the relevant information if you're interested.",
+          "addedRandomIntel": {
+            "line": "New intel added!",
+            "color": "GREEN"
+          },
+          "no_quest_available": "I have no tasks that need attending to at this time.",
 
           "relation_increase": {
             "line": "Relations with %LORD_NAME increased by %c0.",
@@ -3372,7 +3457,7 @@
           },
           "option_ask_quest": {
             "line": "Ask if they have any tasks for you.",
-            "optionData": "ERROR"
+            "optionData": "ask_quest"
           },
           "option_profess_admiration": {
             "line": "Profess your most ardent admiration.",

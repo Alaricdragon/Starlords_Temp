@@ -1466,7 +1466,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     }
     private void optionSelected_CONFIRM_SUGGEST_DEFECT(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         /*
-        * DONE untested.
+        * DONE.
         * the time has come to begin some testing. first of all, I need to check on the 'how do you feel about yuor faction' text. something is wrong with it. like wow.
         * ok, so a few things here:
         * 1) the following EQ is used:
@@ -1541,6 +1541,18 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         optionSelected(null, OptionId.INIT);
     }
     private void optionSelected_ASK_QUEST(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
+        /*ok.... ok.... so... this will be very temporally. so.. ya.
+        *
+        * so: there are a few things here.
+        *
+        * rules:
+        *   (canceld for now....)hasGivenQuest (wether or not the player has an active quest in the quest condtoler. ONLY CHECKS QUESTS GOT FROM THE '' ADDON)
+        *
+        * addons:
+        *   (to be removed)attempt to add quest:
+        *       this gives the player a random quest (if possable), and ether runs text saying there is a quest available, or runs text telling you to get lost.
+        * */
+
         boolean questGiven = false;
         if (!QuestController.isQuestGiven(targetLord)) {
             MarketAPI tmp = lordFleet.getMarket();

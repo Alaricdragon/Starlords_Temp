@@ -1000,6 +1000,9 @@ public class DialogSet {
                 case "setPlayerRank":
                     addon = addAddon_setPlayerRank(addons,key2);
                     break;
+                case "attemptToAddRandomQuest":
+                    addon = addAddon_attemptToAddRandomQuest(addons,key2);
+                    break;
             }
             if (addon != null) newAddons.add(addon);
         }
@@ -1158,6 +1161,11 @@ public class DialogSet {
     @SneakyThrows
     private static DialogAddon_Base addAddon_setPlayerRank(JSONObject json,String key){
         return new DialogAddon_setPlayerRank(json,key);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_attemptToAddRandomQuest(JSONObject json,String key){
+        if (!json.getBoolean(key)) return null;
+        return new DialogAddon_attemptToAddRandomQuest();
     }
 
 
