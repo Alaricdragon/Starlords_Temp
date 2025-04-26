@@ -1,5 +1,6 @@
 package starlords.util.dialogControler.dialogRull;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.controllers.LordController;
@@ -17,16 +18,16 @@ public class DialogRule_validLordNumbers extends DialogRule_minmax {
         rules = DialogSet.getDialogRulesFromJSon(jsonObject.getJSONObject(key).getJSONObject("rules"));
     }
     @Override
-    protected int getValue(Lord lord, Lord targetLord) {
+    protected int getValue(Lord lord, Lord targetLord, MarketAPI targetMarket) {
         int rel = 0;
         for (Lord lord2 : LordController.getLordsList()){
-            if (isLordValid(lord,lord2)) rel++;
+            if (isLordValid(lord,lord2,targetMarket)) rel++;
         }
         return rel;
     }
-    private boolean isLordValid(Lord lord, Lord lord2){
+    private boolean isLordValid(Lord lord, Lord lord2,MarketAPI targetMarket){
         for (DialogRule_Base a: rules){
-            if (!a.condition(lord,lord2)) return false;
+            if (!a.condition(lord,lord2,targetMarket)) return false;
         }
         return true;
     }

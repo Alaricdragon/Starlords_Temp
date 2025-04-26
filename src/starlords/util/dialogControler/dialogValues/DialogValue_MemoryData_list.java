@@ -1,5 +1,6 @@
 package starlords.util.dialogControler.dialogValues;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.person.Lord;
@@ -21,10 +22,10 @@ public class DialogValue_MemoryData_list extends DialogValue_base{
     }
 
     @Override
-    public int value(Lord lord, Lord targetLord) {
+    public int value(Lord lord, Lord targetLord, MarketAPI targetMarket) {
         int totalValue = 0;
         for (DialogValue_base a : values){
-            totalValue+= a.computeValue(lord,targetLord);
+            totalValue+= a.computeValue(lord,targetLord,targetMarket);
         }
         return totalValue;
     }

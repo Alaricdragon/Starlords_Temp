@@ -1,5 +1,6 @@
 package starlords.util.dialogControler.dialogRull;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.person.Lord;
@@ -15,7 +16,7 @@ public class DialogRule_baseValue extends DialogRule_minmax {
     }
 
     @Override
-    protected int getValue(Lord lord, Lord targetLord) {
-        return value.getValue(lord, targetLord);
+    protected int getValue(Lord lord, Lord targetLord, MarketAPI targetMarket) {
+        return value.getValue(lord, targetLord,targetMarket);
     }
 }

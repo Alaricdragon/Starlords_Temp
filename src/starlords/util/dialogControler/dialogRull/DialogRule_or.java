@@ -1,5 +1,6 @@
 package starlords.util.dialogControler.dialogRull;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,9 +21,9 @@ public class DialogRule_or extends DialogRule_Base {
     }
 
     @Override
-    public boolean condition(Lord lord, Lord targetLord) {
+    public boolean condition(Lord lord, Lord targetLord, MarketAPI targetMarket) {
         for (ArrayList<DialogRule_Base> a : rules){
-            if (rulesWork(a,lord,targetLord)) return true;
+            if (rulesWork(a,lord,targetLord,targetMarket)) return true;
         }
         return false;
     }
@@ -31,9 +32,9 @@ public class DialogRule_or extends DialogRule_Base {
     public boolean condition(Lord lord) {
         return condition(lord,null);
     }
-    private boolean rulesWork(ArrayList<DialogRule_Base> rules,Lord lord, Lord targetLord){
+    private boolean rulesWork(ArrayList<DialogRule_Base> rules,Lord lord, Lord targetLord,MarketAPI targetMarket){
         for (DialogRule_Base a : rules){
-            if (!a.condition(lord,targetLord)) return false;
+            if (!a.condition(lord,targetLord,targetMarket)) return false;
         }
         return true;
     }

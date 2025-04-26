@@ -1,5 +1,6 @@
 package starlords.util.dialogControler.dialogRull;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.controllers.LordController;
@@ -16,21 +17,21 @@ public class DialogRule_PLAYER_SPOUSE extends DialogRule_Base {
     }
 
     @Override
-    public boolean condition(Lord lord, Lord targetLord) {
+    public boolean condition(Lord lord, Lord targetLord, MarketAPI targetMarket) {
         String id = LordController.getPlayerLord().getSpouse();
         if (id == null) return false;
         Lord activeLord = LordController.getLordById(id);
         if (activeLord == null) return false;
-        return rulesWork(activeLord, targetLord);
+        return rulesWork(activeLord, targetLord,targetMarket);
     }
 
     @Override
     public boolean condition(Lord lord) {
         return false;
     }
-    private boolean rulesWork(Lord lord, Lord targetLord){
+    private boolean rulesWork(Lord lord, Lord targetLord,MarketAPI targetMarket){
         for (DialogRule_Base a : rules){
-            if (!a.condition(lord,targetLord)) return false;
+            if (!a.condition(lord,targetLord,targetMarket)) return false;
         }
         return true;
     }

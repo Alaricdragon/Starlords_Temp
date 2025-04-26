@@ -204,9 +204,10 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
             String selectedOption = data.optionID;
 
             Lord secondLord = data.getTargetLord();
+            MarketAPI targetMarket = data.getTargetMarket();
             switch (selectedOption){
                 case "greeting":
-                    optionSelected_greetings(selectedOption,secondLord);
+                    optionSelected_greetings(selectedOption,secondLord,targetMarket);
                     break;
                 case "exitDialog":
                     optionSelected_exitDialog();
@@ -214,13 +215,13 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
                 case "":
                     break;
                 case "current_task_desc":
-                    optionSelected_askCurrentTask(selectedOption,secondLord);
+                    optionSelected_askCurrentTask(selectedOption,secondLord,targetMarket);
                     break;
                 case "spend_time_together":
-                    optionSelected_suggestDate(selectedOption,secondLord);
+                    optionSelected_suggestDate(selectedOption,secondLord,targetMarket);
                     break;
                 default:
-                    DialogSet.addParaWithInserts(selectedOption,targetLord,secondLord,textPanel,options,dialog);
+                    DialogSet.addParaWithInserts(selectedOption,targetLord,secondLord,targetMarket,textPanel,options,dialog);
                     break;
             }
             return true;
@@ -372,11 +373,11 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         }
     }
 
-    private void optionSelected_greetings(String selectedOption,Lord secondLord){
+    private void optionSelected_greetings(String selectedOption,Lord secondLord,MarketAPI targetMarket){
         boolean isFeast = targetLord.getCurrAction() == LordAction.FEAST;
         LordEvent feast = isFeast ? EventController.getCurrentFeast(targetLord.getLordAPI().getFaction()) : null;
         //only run greetings if player has not yet heard them this conversation
-        DialogSet.addParaWithInserts(selectedOption,targetLord,secondLord,textPanel,options,dialog,hasGreeted);
+        DialogSet.addParaWithInserts(selectedOption,targetLord,secondLord,targetMarket,textPanel,options,dialog,hasGreeted);
         if (!hasGreeted){
             hasGreeted = true;
         }
@@ -399,7 +400,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
             }
         }
     }
-    private void optionSelected_askCurrentTask(String selectedOption,Lord secondLord){
+    private void optionSelected_askCurrentTask(String selectedOption,Lord secondLord,MarketAPI targetMarket){
         //ok, so: the link to this needs to be set as 'current_task_desc'.
         //the options for this needs to be set to: 'greetings'.
         String args = "";
@@ -413,11 +414,11 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         }
         HashMap<String,String> inserts = new HashMap<>();
         inserts.put("%c0",args);
-        DialogSet.addParaWithInserts(selectedOption,targetLord,secondLord,textPanel,options,dialog,false,inserts);
+        DialogSet.addParaWithInserts(selectedOption,targetLord,secondLord,targetMarket,textPanel,options,dialog,false,inserts);
     }
-    private void optionSelected_suggestDate(String selectedOption,Lord secondLord){
+    private void optionSelected_suggestDate(String selectedOption,Lord secondLord,MarketAPI targetMarket){
         int dateType = 1 + Utils.rand.nextInt(36);
-        DialogSet.addParaWithInserts(selectedOption+dateType,targetLord,secondLord,textPanel,options,dialog);
+        DialogSet.addParaWithInserts(selectedOption+dateType,targetLord,secondLord,targetMarket,textPanel,options,dialog);
     }
     private void optionSelected_exitDialog(){
         if (prevPlugin.equals(this)) {
@@ -1590,6 +1591,88 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     }
     private void optionSelected_SUGGEST_ACTION(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         boolean isBusy = false;
+        /*
+         *   lines:
+         *       to low relations (not married / less then neutral)
+         *           -refuse_suggest_action_relations. (return to greetings)
+         *       isBusy
+         *           -refuse_suggest_action_busy
+         *       other:
+         *           isMarrriedToPlayer:
+         *               -consider_suggest_action_spouse
+         *           playerIsLeage:
+         *               -consider_suggest_action_subject
+         *           other:
+         *               -consider_suggest_action
+         *           options:
+         *               currentAction: IS_FOLLOWING_PLAYER: true
+         *                   option_stop_follow_me: OptionId.STOP_FOLLOW_ME
+         *                       -AICommand: END_CURRENT_ACTIONS
+         *                       -accept_suggest_action
+         *               currentAction: IS_FOLLOWING_PLAYER: false
+         *                   option_follow_me: OptionId.FOLLOW_ME
+         *                       -AICommand: FOLLOW_PLAYER_FLEET
+         *                       -accept_suggest_action
+         *               option_suggest_raid: OptionId.SUGGEST_RAID
+         *                   -ask_raid_location
+         *                   -for (hostile markets to lord): optionSelected_SUGGEST_RAID_LOC
+         *                       -AICommand: RAID_TARGET
+         *                       -accept_suggest_action
+         *                   -exit option
+         *
+         *               option_suggest_patrol: OptionId.SUGGEST_PATROL
+         *                   -ask_patrol_location
+         *                   -for(market player faction / market lord faction): OptionId.SUGGEST_PATROL_LOC
+         *                       -AICommand: PATROL_TARGET
+         *                   -exit option
+         *               option_suggest_upgrade: OptionId.SUGGEST_UPGRADE
+         *                   -AICommand: UPGRADE
+         *               option_nevermind: OptionId.INIT
+         *
+         *               NOTE: every option needs to end in a text. this is because of the fact that if the lord is your subject, there is both diffrent end text, and relation changes.
+         *               'accept_suggest_action': this runs after accepting an action. it has two forms. one for if you are the liege of the lord. one if you are not.
+         *
+         * ISSUE: right now, when preforming defection [bargin] all options are always shown. this should not be the case! why why arg.
+         *
+         * additional systems:
+         *   (done? in theory)targetMarker: (this would work just like advanced options, but for markets.)
+         *       (NOT done. this needs to be done to test them)rules:
+         *           marketPlayerFaction
+         *           marketLordFaction:
+         *           marketHostileToLord
+         *           marketHostileToPlayer
+         *           marketSize: min/max
+         *           marketStability: min/max
+         * rules:
+         *   isNotBusy????
+         *       (moved to current actions) isOrganizingCampaign: false,
+         *       (moved to current actions) currentOnCampaign: false,
+         *       (done) isHostingFeast: false,
+         *       (done) lordFleetIsAlive: true
+         *
+         *   (DONE)currentAction:
+         *       IS_UPGRADING: boolean
+         *       IS_ON_PATROL: boolean
+         *       IS_RAIDING: boolean
+         *       IS_FOLLOWING_PLAYER: boolean
+         *       IS_FOLLOWING: boolean
+         *       IS_ON_CAMPAIGN: boolean
+         *       IS_ORGANIZING_CAMPAIGN: boolean
+         * addons:
+         *   (requires advanced options for markets):
+         *       AICommand:
+         *          END_CURRENT_ACTIONS
+         *          FOLLOW_PLAYER_FLEET
+         *          FOLLOW_TARGET
+         *          RAID_TARGET: "marketID"
+         *          UPGRADE:
+         *          PATROL_TARGET:
+         *          ORGANIZE_CAMPAIGN
+         *          JOIN_CAMPAIGN
+         *
+         *
+         *
+         * */
         // check if lord is leading an event or dead
         LordEvent campaign = EventController.getCurrentCampaign(targetLord.getLordAPI().getFaction());
         if ((feast != null && feast.getOriginator().equals(targetLord))

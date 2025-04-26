@@ -204,6 +204,21 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "Steady"
     * "Cautious"
     * "Timid"
+  * "currentAction": is the current action that the lord is taking. set too false to blacklist, and true to whitelist. the lord must be preforming the whitelisted actions, and must not be preforming the blacklisted actions.
+    * IS_UPGRADING: if the lord is currently attempting to upgrade
+    * IS_ON_PATROL: if the lord is currently on patrol.
+    * IS_RAIDING: if the lord is currently raiding.
+    * IS_FOLLOWING_PLAYER: if the lord is following the player
+    * IS_FOLLOWING:  if the lord is following someone
+    * IS_ON_CAMPAIGN: if the lord is on campaign
+    * IS_ORGANIZING_CAMPAIGN: if the lord is organizing a campaign
+    * IS_FEASTING: if the lord is enjoying a feast.
+    * IS_ORGANIZING_FEAST: if the lord is organizing a feast.
+    * IS_COLLECTING_TAXES: if the lord is collecting taxes
+    * IS_DEFENDING: if the lord is defending a attack 
+    * IS_IMPRISONED: if the lord is imprisoned somewhere
+    * IS_RESPAWNING: if the lord is respawning
+    * IS_ON_VENTURE: is currently preforming trade actions
   * "random": returns true if a random number (called 'range') is less then the base value.
     * "range": Integer || dialogValue. this is the range the random number will have
     * "value": Integer || dialogValue. this is the base value
@@ -219,10 +234,17 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "dataID" : jsonObject. is the string data required to meet requirements. set to true for strings you require this memory to be, and false for strings this memory must be. To meet requirements, the string must match all of the 'true' strings, and not match any of the 'false' strings. if a string of the dataID does not exist, treats the string as though it is ""
     * "dataID" : jsonObject. {"min","max"} is the value rules required to meet requirements.
     * "dataID" : boolean.  is the boolean value of this data required to meet requirements. if set to true, the boolean must also be true. if set to false, the boolean data must also be false. if a boolean of the dataID does not exist, treats the boolean as though it is false.
-  * the following options only work if used in an option called by advanced option data, or if used in the "validLordNumbers" rule.
+  * the following options only work if used in an option called by advanced option data with a type of 'targetLord', or if used in the "validLordNumbers" rule.
     * "relationsBetweenLords": is the relationship range that this lord must have with the target lord to meet requirements. set between a "min" and "max" value. range must be between -100 and 100.
     * "lordAndTargetSameFaction": if set to false, the lord and target must not be part of the same faction to meet requirements. if set to ture, the lord and target must be part of the same faction to meet requirements.
     * "isInteractingLord": if set to false, the lord and target must not be the same to meet requirements. if set to true, the lord and target must be the same to meet requirements.
+  * the following options only work if used in an option called by advanced option data with a type of 'targetMarket'
+    * marketPlayerFaction
+    * marketLordFaction:
+    * marketHostileToLord
+    * marketHostileToPlayer
+    * marketSize: min/max
+    * marketStability: min/max
 * basic is simply a "lineID": "new string";
   * advanced is more complicated. its a json object, that must include a "line" (to act as the normal lineID), but also additional json peramiters. "addons" are . the "addons" are as follows:
     * "addons" additional conditions and effects that you can have run at the moment this line is ran. most 'addons' also add a line of dialog to show what effects they had. any "option_" will only run addons after the option is selected. and "tooltip_" line cannot use "addons"
@@ -283,9 +305,12 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * "show" is an jsonObject that contains the same functions as 'rules', but instead of determining if a line can be ran, if any conditions in the object are false, and this line is selected, it will not be shown. for "option_"'s, if this line is selected and the 'hide' is true, it will not be ran.
     * "enable": (only effects 'option_' lines) is a jsonObject that contains the same functions as 'rules', but instead of determining if a line can be ran. if any conditions in this object are false, and this option will be greyed out and unable to be used.
     * "optionData": is the line to a line that happens when you click this option. if called as a line, and no options are selected for this line, it will automaticly load the linked line. 
-    * "optionData": is the advanced option data form. this form runs through the intier lord list, and any lord matching 'conditions' will have an option added with themselves as the targetLord.
+    * "optionData": is the advanced option data form. this form runs through an list of items. (based on the inputed type.) then creates an option for each items that meets the rules requirements.
+      * "type": String. if this is not set, the advanced option will use the type of 'targetMarket'.
+        * "targetLord". this advanced option runs the 'rules' with the 'lord' as this lord. clicking on an option sets the dialogs target lord to this lord.
+        * "targetMarket". this advanced option runs the 'market rules', clicking on an option sets the target market to this market.
       * "optionData": is the line to a line that happens when you click this option(s)
-      * "rules": is the rules that are required for each starlord in the game to be shown. 
+      * "rules": is the rules that are required for each 'type' in the game to be shown. 
     * "hint": is the hover over hint that happens when you hover only an option. only works if this line is called as an option
     * "shortcut" : "shortcutLey" if this is set to one of the acsepted value, will add a hotkey to an option. only works for "option_" lines. possable options are:
       * "ESCAPE"
@@ -343,7 +368,7 @@ If you're a modder, or just someone who loves to write dialog for every starlord
     * WEDDING_TARGET_SPOUSE 
     * SECOND_LORD 
     * SECOND_LORD_SPOUSE
-  markers of the following. (replace TARGET with diffrent target types at will)
+  * markers of the following. (replace TARGET with diffrent target types at will)
       * "%TARGET_FACTION_NAME" 
       * "%TARGET_STARTING_FACTION_NAME"
       * "%TARGET_NAME"
@@ -365,8 +390,8 @@ If you're a modder, or just someone who loves to write dialog for every starlord
       * "%TARGET_FACTION_RANK_TITLE0" the name of tier 0 lords title of the target faction
       * "%TARGET_FACTION_RANK_TITLE1" the name of tier 1 lords title of the target faction
       * "%TARGET_FACTION_RANK_TITLE2" the name of tier 2 lords title of the target faction
-  *some lines will also use custom inputted data. in this case, they will use the '%c#' marker, with # being the order they are added to the line.
-  *available lines to override are follows:
+  * some lines will also use custom inputted data. in this case, they will use the '%c#' marker, with # being the order they are added to the line.
+  * available lines to override are follows:
     * "greeting"
       * "option_avoid_battle" :           OptionId.SUGGEST_CEASEFIRE
       * "option_ask_tournament" :         OptionId.ASK_TOURNAMENT

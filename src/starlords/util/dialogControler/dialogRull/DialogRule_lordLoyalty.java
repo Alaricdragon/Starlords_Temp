@@ -1,5 +1,6 @@
 package starlords.util.dialogControler.dialogRull;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.controllers.RelationController;
@@ -13,7 +14,7 @@ public class DialogRule_lordLoyalty extends DialogRule_minmax {
     }
 
     @Override
-    protected int getValue(Lord lord, Lord targetLord) {
+    protected int getValue(Lord lord, Lord targetLord, MarketAPI targetMarket) {
         int rel = RelationController.getLoyalty(lord);
         return rel;
     }

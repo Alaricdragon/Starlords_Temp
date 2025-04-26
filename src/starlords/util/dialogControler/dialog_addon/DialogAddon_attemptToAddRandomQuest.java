@@ -55,8 +55,8 @@ public class DialogAddon_attemptToAddRandomQuest extends DialogAddon_Base{
                 MissionPreviewIntelPlugin intel = new MissionPreviewIntelPlugin(mission);
                 Global.getSector().getIntelManager().addIntel(intel);
                 questGiven = true;
-                DialogSet.addParaWithInserts("quest_available",lord,targetLord,textPanel,options,dialog);
-                DialogSet.addParaWithInserts("addedRandomIntel",lord,targetLord,textPanel,options,dialog);
+                DialogSet.addParaWithInserts("quest_available",lord,targetLord,null,textPanel,options,dialog);
+                DialogSet.addParaWithInserts("addedRandomIntel",lord,targetLord,null,textPanel,options,dialog);
             }
             QuestController.setQuestGiven(targetLord, true);
             lordFleet.setMarket(tmp);
@@ -64,7 +64,7 @@ public class DialogAddon_attemptToAddRandomQuest extends DialogAddon_Base{
         }
 
         if (!questGiven) {
-            DialogSet.addParaWithInserts("no_quest_available",lord,targetLord,textPanel,options,dialog);
+            DialogSet.addParaWithInserts("no_quest_available",lord,targetLord,null,textPanel,options,dialog);
         }
     }
 }

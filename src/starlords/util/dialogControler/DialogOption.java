@@ -4,6 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.OptionPanelAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.Getter;
 import org.apache.log4j.Logger;
 import starlords.lunaSettings.StoredSettings;
@@ -17,9 +18,12 @@ public class DialogOption {
     ArrayList<DialogAddon_Base> addons;
     @Getter
     Lord targetLord;
-    public DialogOption(String optionID, ArrayList<DialogAddon_Base> addons,Lord targetLord){
+    @Getter
+    MarketAPI targetMarket;
+    public DialogOption(String optionID, ArrayList<DialogAddon_Base> addons,Lord targetLord,MarketAPI targetMarket){
         this(optionID, addons);
         this.targetLord = targetLord;
+        this.targetMarket=targetMarket;
     }
     public DialogOption(String optionID, ArrayList<DialogAddon_Base> addons){
         this.optionID = optionID;
@@ -35,7 +39,7 @@ public class DialogOption {
         if (addons == null) return;
         for (DialogAddon_Base a : addons){
             log.info("  applying addon from option of class name: "+a.getClass().getName());
-            a.apply(textPanel, options, dialog,lord,targetLord);
+            a.apply(textPanel, options, dialog,lord,targetLord,targetMarket);
         }
     }
 }

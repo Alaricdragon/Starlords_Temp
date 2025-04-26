@@ -1,5 +1,6 @@
 package starlords.util.dialogControler.dialogValues;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,8 +25,11 @@ public class DialogValue_base {
         if (json.get(key) instanceof JSONArray) return;
         multi = json.getDouble(key);
     }
-    public int computeValue(Lord lord, Lord targetLord){
-        return (int) ((base+value(lord, targetLord))*multi);
+    public int computeValue(Lord lord, Lord targetLord, MarketAPI targetMarket){
+        return (int) ((base+value(lord, targetLord,targetMarket))*multi);
+    }
+    public int value(Lord lord, Lord targetLord, MarketAPI targetMarket){
+        return value(lord, targetLord);
     }
     public int value(Lord lord, Lord targetLord){
         return 0;

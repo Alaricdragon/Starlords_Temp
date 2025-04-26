@@ -1,6 +1,7 @@
 package starlords.util.dialogControler.dialogRull;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -17,7 +18,7 @@ public class DialogRule_getDialogData_int extends DialogRule_minmax {
         this.key = key;
     }
     @Override
-    protected int getValue(Lord lord,Lord targetLord){
+    protected int getValue(Lord lord,Lord targetLord, MarketAPI targetMarket){
         Logger log = Global.getLogger(StoredSettings.class);
         log.info("getting floats in dialog data from key" +key+" as: "+LordInteractionDialogPluginImpl.DATA_HOLDER.getIntegers().get(key));
         int rel = 0;

@@ -1,5 +1,6 @@
 package starlords.util.dialogControler.dialogRull;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.controllers.EventController;
@@ -17,7 +18,7 @@ public class DialogRule_WEDDING_TARGET_SPOUSE  extends DialogRule_Base {
     }
 
     @Override
-    public boolean condition(Lord lord, Lord targetLord) {
+    public boolean condition(Lord lord, Lord targetLord,MarketAPI targetMarket) {
         boolean check = EventController.getCurrentFeast(lord.getLordAPI().getFaction()) != null;
         if (!check) return false;
         Lord activeLord = EventController.getCurrentFeast(lord.getLordAPI().getFaction()).getWeddingCeremonyTarget();
@@ -26,16 +27,16 @@ public class DialogRule_WEDDING_TARGET_SPOUSE  extends DialogRule_Base {
         if (id == null) return false;
         activeLord = LordController.getLordById(id);
         if (activeLord == null) return false;
-        return rulesWork(activeLord, targetLord);
+        return rulesWork(activeLord, targetLord,targetMarket);
     }
 
     @Override
     public boolean condition(Lord lord) {
         return false;
     }
-    private boolean rulesWork(Lord lord, Lord targetLord){
+    private boolean rulesWork(Lord lord, Lord targetLord, MarketAPI market){
         for (DialogRule_Base a : rules){
-            if (!a.condition(lord,targetLord)) return false;
+            if (!a.condition(lord,targetLord,market)) return false;
         }
         return true;
     }

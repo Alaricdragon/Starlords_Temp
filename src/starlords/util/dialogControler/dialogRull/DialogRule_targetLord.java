@@ -1,5 +1,6 @@
 package starlords.util.dialogControler.dialogRull;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.person.Lord;
@@ -15,18 +16,18 @@ public class DialogRule_targetLord extends DialogRule_Base {
     }
 
     @Override
-    public boolean condition(Lord lord, Lord targetLord) {
+    public boolean condition(Lord lord, Lord targetLord, MarketAPI targetMarket) {
         if (targetLord == null) return false;
-        return rulesWork(targetLord, lord);
+        return rulesWork(targetLord, lord,targetMarket);
     }
 
     @Override
     public boolean condition(Lord lord) {
         return false;
     }
-    private boolean rulesWork(Lord lord, Lord targetLord){
+    private boolean rulesWork(Lord lord, Lord targetLord,MarketAPI targetMarket){
         for (DialogRule_Base a : rules){
-            if (!a.condition(lord,targetLord)) return false;
+            if (!a.condition(lord,targetLord,targetMarket)) return false;
         }
         return true;
     }

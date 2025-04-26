@@ -1,5 +1,6 @@
 package starlords.util.dialogControler.dialogValues;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.person.Lord;
@@ -28,10 +29,10 @@ public class DialogValue_random extends DialogValue_base{
     }
 
     @Override
-    public int value(Lord lord, Lord targetLord) {
+    public int value(Lord lord, Lord targetLord, MarketAPI targetMarket) {
         if (baseRange != null){
             int min = 0;
-            int max = baseRange.getValue(lord, targetLord);
+            int max = baseRange.getValue(lord, targetLord,targetMarket);
             if (max < 0){
                 min = max;
                 max = 0;
@@ -45,8 +46,8 @@ public class DialogValue_random extends DialogValue_base{
         }
         int min = 0;
         int max = 0;
-        if (this.min != null) min = this.min.getValue(lord, targetLord);
-        if (this.max != null) max = this.max.getValue(lord, targetLord);
+        if (this.min != null) min = this.min.getValue(lord, targetLord,targetMarket);
+        if (this.max != null) max = this.max.getValue(lord, targetLord,targetMarket);
         max = Math.max(min,max);
         int range = max-min;
         boolean negitige=false;

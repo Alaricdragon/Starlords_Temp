@@ -1,6 +1,7 @@
 package starlords.util.dialogControler.dialogRull;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import org.json.JSONObject;
 import starlords.person.Lord;
 import starlords.util.memoryUtils.DataHolder;
@@ -13,7 +14,7 @@ public class DialogRule_getLordMemoryData_int extends DialogRule_getDialogData_i
     }
 
     @Override
-    protected int getValue(Lord lord,Lord targetLord){
+    protected int getValue(Lord lord,Lord targetLord, MarketAPI targetMarket){
         String key = STARLORD_ADDITIONAL_MEMORY_KEY+lord.getLordAPI().getId();
         DataHolder DATA_HOLDER;
         if (Global.getSector().getMemory().contains(key)){

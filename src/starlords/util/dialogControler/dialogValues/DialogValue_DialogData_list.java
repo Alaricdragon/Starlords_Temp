@@ -1,6 +1,7 @@
 package starlords.util.dialogControler.dialogValues;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -24,12 +25,12 @@ public class DialogValue_DialogData_list extends DialogValue_base{
     }
 
     @Override
-    public int value(Lord lord, Lord targetLord) {
+    public int value(Lord lord, Lord targetLord, MarketAPI targetMarket) {
         Logger log = Global.getLogger(StoredSettings.class);
         log.info("OK. OK. THIS IS THE DIALOG DATA GETTER!!!!!");
         int totalValue = 0;
         for (DialogValue_base a : values){
-            totalValue+= a.computeValue(lord,targetLord);
+            totalValue+= a.computeValue(lord,targetLord,targetMarket);
         }
         return totalValue;
     }

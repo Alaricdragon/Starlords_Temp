@@ -1,5 +1,6 @@
 package starlords.util.dialogControler.dialogValues;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,16 +23,16 @@ public class DialogValue_validLordNumbers extends DialogValue_base{
     }
 
     @Override
-    public int value(Lord lord, Lord targetLord) {
+    public int value(Lord lord, Lord targetLord, MarketAPI targetMarket) {
         int value = 0;
         for (Lord a : LordController.getLordsList()){
-            if (can(a,lord)) value++;
+            if (can(a,lord,targetMarket)) value++;
         }
         return value;
     }
-    private boolean can(Lord lord, Lord targetLord){
+    private boolean can(Lord lord, Lord targetLord, MarketAPI targetMarket){
         for (DialogRule_Base a : rules){
-            if (!a.condition(lord,targetLord)) return false;
+            if (!a.condition(lord,targetLord,targetMarket)) return false;
         }
         return true;
     }

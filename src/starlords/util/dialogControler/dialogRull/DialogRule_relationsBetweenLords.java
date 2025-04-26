@@ -1,5 +1,6 @@
 package starlords.util.dialogControler.dialogRull;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.controllers.RelationController;
@@ -13,15 +14,15 @@ public class DialogRule_relationsBetweenLords  extends DialogRule_minmax {
     }
 
     @Override
-    protected int getValue(Lord lord, Lord targetLord) {
+    protected int getValue(Lord lord, Lord targetLord, MarketAPI targetMarket) {
         if (targetLord == null) return 0;
         int rel = (RelationController.getRelation(lord,targetLord));
         return rel;
     }
 
     @Override
-    public boolean condition(Lord lord,Lord targetLord) {
+    public boolean condition(Lord lord,Lord targetLord, MarketAPI targetMarket) {
         if (targetLord == null) return false;
-        return super.condition(lord, targetLord);
+        return super.condition(lord, targetLord,targetMarket);
     }
 }

@@ -4,6 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.OptionPanelAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.person.Lord;
@@ -31,16 +32,16 @@ public class DialogAddon_setMemoryData extends DialogAddon_setDialogData{
 
     }
     @Override
-    public void applyFloats(InteractionDialogAPI dialog, Lord lord,Lord targetLord){
+    public void applyFloats(InteractionDialogAPI dialog, Lord lord,Lord targetLord, MarketAPI targetMarket){
         for (String key : setInts.keySet()) {
-            Global.getSector().getMemory().set(key,setInts.get(key));
+            Global.getSector().getMemory().set(key,setInts.get(key).getValue(lord, targetLord, targetMarket));
         }
     }
     @Override
-    public void applyAddFloats(InteractionDialogAPI dialog, Lord lord,Lord targetLord){
+    public void applyAddFloats(InteractionDialogAPI dialog, Lord lord,Lord targetLord, MarketAPI targetMarket){
         for (String key : addIntsMin.keySet()) {
-            int min = addIntsMin.get(key).getValue(lord, targetLord);
-            int max = addIntsMax.get(key).getValue(lord, targetLord);
+            int min = addIntsMin.get(key).getValue(lord, targetLord,targetMarket);
+            int max = addIntsMax.get(key).getValue(lord, targetLord,targetMarket);
             int baseValue = Global.getSector().getMemory().getInt(key);
             max = Math.max(min,max);
             int range = max - min;

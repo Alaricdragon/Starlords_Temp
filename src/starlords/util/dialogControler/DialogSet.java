@@ -5,6 +5,7 @@ import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.OptionPanelAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import lombok.Getter;
@@ -77,7 +78,7 @@ public class DialogSet {
         addParaWithInserts(key, lord, textPanel, options,dialog,forceHide,new HashMap<String,String>());
     }
     public static void addParaWithInserts(String key, Lord lord, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog,boolean forceHide,HashMap<String,String> markersReplaced) {
-        DialogSet set = getSet(lord,null, key);
+        DialogSet set = getSet(lord,null,null, key);
         if (set == null) {
             Logger log = Global.getLogger(DialogSet.class);
             log.info("ERROR: FAILED TO GET DIALOG SET OF KEY: "+key);
@@ -85,95 +86,95 @@ public class DialogSet {
         }
         set.applyLine(key, lord, textPanel, options,dialog,forceHide,markersReplaced);
     }
-    public static void addParaWithInserts(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog){
+    public static void addParaWithInserts(String key, Lord lord,Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog){
         //DialogSet.addParaWithInserts("ERROR",targetLord,textPanel,options);
         //DialogSet.addOptionWithInserts("ERROR",null,null,targetLord,textPanel,options);
         //addParaWithInserts(key, lord, textPanel, options,new HashMap<String,String>());
-        addParaWithInserts(key, lord,targetLord, textPanel, options,dialog,false);
+        addParaWithInserts(key, lord,targetLord,targetMarket, textPanel, options,dialog,false);
     }
-    public static void addParaWithInserts(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog,boolean forceHide){
+    public static void addParaWithInserts(String key, Lord lord,Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog,boolean forceHide){
         //DialogSet.addParaWithInserts("ERROR",targetLord,textPanel,options);
         //DialogSet.addOptionWithInserts("ERROR",null,null,targetLord,textPanel,options);
-        addParaWithInserts(key, lord,targetLord, textPanel, options,dialog,forceHide,new HashMap<String,String>());
+        addParaWithInserts(key, lord,targetLord,targetMarket, textPanel, options,dialog,forceHide,new HashMap<String,String>());
     }
-    public static void addParaWithInserts(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog,boolean forceHide,HashMap<String,String> markersReplaced) {
-        DialogSet set = getSet(lord,targetLord, key);
+    public static void addParaWithInserts(String key, Lord lord,Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog,boolean forceHide,HashMap<String,String> markersReplaced) {
+        DialogSet set = getSet(lord,targetLord,targetMarket, key);
         if (set == null) {
             Logger log = Global.getLogger(DialogSet.class);
             log.info("ERROR: FAILED TO GET DIALOG SET OF KEY: "+key);
             return;
         }
-        set.applyLine(key, lord,targetLord, textPanel, options,dialog,forceHide,markersReplaced);
+        set.applyLine(key, lord,targetLord,targetMarket, textPanel, options,dialog,forceHide,markersReplaced);
     }
     @Deprecated
     public static void addParaWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options,HashMap<String,String> markersReplaced){
-        DialogSet set = getSet(lord,null, key);
+        DialogSet set = getSet(lord,null,null, key);
         if (set == null) return;
         //set.applyLine(key, lord, textPanel, options,false,markersReplaced);
     }
     @Deprecated
     public static void addParaWithInserts(String key, Lord lord, TextPanelAPI textPanel,OptionPanelAPI options){
-        DialogSet set = getSet(lord,null, key);
+        DialogSet set = getSet(lord,null,null, key);
         if (set == null) return;
         //set.applyLine(key, lord, textPanel, options,false,markersReplaced);
     }
     public static void addOptionWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced){
-        DialogSet set = getSet(lord,null, key);
+        DialogSet set = getSet(lord,null,null, key);
         if (set == null) return;
         set.applyOption(key,  lord,  textPanel,  options,dialog, markersReplaced);
     }
     public static void addOptionWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced,DialogOption optionData){
-        DialogSet set = getSet(lord,null, key);
+        DialogSet set = getSet(lord,null,null, key);
         if (set == null) return;
         set.applyOption(key,  lord,  textPanel,optionData, options,dialog, markersReplaced);
     }
-    public static void addOptionWithInserts(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced){
-        DialogSet set = getSet(lord,targetLord, key);
+    public static void addOptionWithInserts(String key, Lord lord,Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced){
+        DialogSet set = getSet(lord,targetLord,targetMarket, key);
         if (set == null) return;
-        set.applyOption(key,  lord,targetLord,  textPanel,  options,dialog, markersReplaced);
+        set.applyOption(key,  lord,targetLord, targetMarket,  textPanel,  options,dialog, markersReplaced);
     }
-    public static void addOptionWithInserts(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced,DialogOption optionData){
-        DialogSet set = getSet(lord,targetLord, key);
+    public static void addOptionWithInserts(String key, Lord lord,Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced,DialogOption optionData){
+        DialogSet set = getSet(lord,targetLord,targetMarket, key);
         if (set == null) return;
-        set.applyOption(key,  lord,targetLord,  textPanel,optionData, options,dialog, markersReplaced);
+        set.applyOption(key,  lord,targetLord,targetMarket,  textPanel,optionData, options,dialog, markersReplaced);
     }
     @Deprecated
     public static void addOptionWithInserts(String key, String tooltipKey, Object optionData, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options){
-        DialogSet set = getSet(lord,null, key);
+        DialogSet set = getSet(lord,null,null, key);
         if (set == null) return;
         //set.applyOptionOLD(key,tooltipKey, lord, textPanel, optionData, options,markersReplaced);
     }
     @Deprecated
     public static void addOptionWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, HashMap<String,String> markersReplaced){
-        DialogSet set = getSet(lord,null, key);
+        DialogSet set = getSet(lord,null,null, key);
         if (set == null) return;
         //set.applyOption(key,  lord,  textPanel,  options,dialog, markersReplaced);
     }
     @Deprecated
     public static void addOptionWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options){
-        DialogSet set = getSet(lord,null, key);
+        DialogSet set = getSet(lord,null,null, key);
         if (set == null) return;
         //set.applyOption(key,  lord,  textPanel,  options,dialog, markersReplaced);
     }
 
-    private static DialogSet getSet(Lord lord,Lord targetLord,String id){
+    private static DialogSet getSet(Lord lord,Lord targetLord, MarketAPI targetMarket,String id){
         for (String a : lord.getTemplate().dialogOverride){
-            DialogSet out = dialogs.get(a).getSet(lord,targetLord,id);
+            DialogSet out = dialogs.get(a).getSet(lord,targetLord,targetMarket,id);
             if (out != null) return out;
         }
         for (int a = organizedDialogs.size() - 1; a > 0; a--){
             //never runs Dialogs with a priority of 0. they are reserved for dialogOverrides.
             for(LordDialog b : organizedDialogs.get(a)) {
-                DialogSet out = b.getSet(lord,targetLord,id);
+                DialogSet out = b.getSet(lord,targetLord,targetMarket,id);
                 if (out != null) return out;
             }
         }
-        DialogSet out = dialogs.get("default").getSet(lord,targetLord,id);
+        DialogSet out = dialogs.get("default").getSet(lord,targetLord,targetMarket,id);
         if (out != null) return out;
         return null;
     }
-    public static String getLine(Lord lord,Lord targetLord,String id){
-        DialogSet set = getSet(lord,targetLord, id);
+    public static String getLine(Lord lord,Lord targetLord, MarketAPI targetMarket,String id){
+        DialogSet set = getSet(lord,targetLord,targetMarket, id);
         if (set != null) return set.getLine(id);
         return "ERROR: unable to get line of dialog. id of: "+id;
     }
@@ -621,16 +622,17 @@ public class DialogSet {
         }
         dialog.organizedDialogSets.get(priority).add(this);
     }
-    public boolean canUseDialog(Lord lord,Lord targetLord){
+    public boolean canUseDialog(Lord lord,Lord targetLord,MarketAPI targetMarket){
         for (DialogRule_Base a : rules){
-            if (!a.condition(lord,targetLord)) return false;
+            if (!a.condition(lord,targetLord,targetMarket)) return false;
         }
         return true;
     }
+    @Deprecated
     public void applyLine(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, boolean forceHide, HashMap<String,String> markersReplaced){
-        applyLine(key, lord,null, textPanel, options, dialog, forceHide, markersReplaced);
+        applyLine(key, lord,null,null, textPanel, options, dialog, forceHide, markersReplaced);
     }
-    public void applyLine(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, boolean forceHide, HashMap<String,String> markersReplaced){
+    public void applyLine(String key, Lord lord,Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, boolean forceHide, HashMap<String,String> markersReplaced){
         Logger log = Global.getLogger(StoredSettings.class);
         //apply a paragraph of text for the current line
         if (shouldHide(key,textPanel,options,lord)) return;
@@ -663,11 +665,11 @@ public class DialogSet {
             }
             for (String a : additionalOptions.get(key)){
                 log.info("  ADDITIONAL OPTIONS: a single option of key: "+a);
-                addOptionWithInserts(a,lord,targetLord,textPanel,options,dialog,markersReplaced);
+                addOptionWithInserts(a,lord,targetLord,targetMarket,textPanel,options,dialog,markersReplaced);
             }
         }else if (defaltOptionSets.containsKey(key)){
             log.info("getting default options from, to key: "+key+", "+defaltOptionSets.get(key));
-            addParaWithInserts(defaltOptionSets.get(key),lord,targetLord,textPanel,options,dialog,false,markersReplaced);
+            addParaWithInserts(defaltOptionSets.get(key),lord,targetLord,targetMarket,textPanel,options,dialog,false,markersReplaced);
             builtOptions = true;
         }
         if (!builtOptions){
@@ -680,7 +682,7 @@ public class DialogSet {
             log.info("attempting to run addons for line...");
             for (DialogAddon_Base a : addons.get(key)){
                 log.info("  running addon of class: "+a.getClass().getName());
-                a.apply(textPanel,options,dialog,lord,targetLord);
+                a.apply(textPanel,options,dialog,lord,targetLord,targetMarket);
             }
         }
     }
@@ -688,19 +690,19 @@ public class DialogSet {
         DialogOption optionData = new DialogOption(dialogOptionData.get(key),addons.get(key));
         applyOption(key,lord,textPanel,optionData,options,dialog,markersReplaced);
     }
-    public void applyOption(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
-        DialogOption optionData = new DialogOption(dialogOptionData.get(key),addons.get(key),targetLord);
-        applyOption(key,lord,targetLord,textPanel,optionData,options,dialog,markersReplaced);
+    public void applyOption(String key, Lord lord, Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced){
+        DialogOption optionData = new DialogOption(dialogOptionData.get(key),addons.get(key),targetLord,targetMarket);
+        applyOption(key,lord,targetLord,targetMarket,textPanel,optionData,options,dialog,markersReplaced);
     }
     public void applyOption(String key, Lord lord, TextPanelAPI textPanel,Object optionData,OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
-        applyOption(key, lord,null, textPanel, optionData, options, dialog, markersReplaced);
+        applyOption(key, lord,null,null, textPanel, optionData, options, dialog, markersReplaced);
     }
-    public void applyOption(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel,Object optionData,OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
+    public void applyOption(String key, Lord lord,Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel,Object optionData,OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
         Logger log = Global.getLogger(StoredSettings.class);
         log.info("  checking option of key: "+key);
         if (advancedDialogOptionData.containsKey(key)){
             log.info("  attempting to add advanced option for: "+key);
-            advancedDialogOptionData.get(key).applyOptions(lord,textPanel,options,dialog,markersReplaced);
+            advancedDialogOptionData.get(key).applyOptions(lord,targetLord,targetMarket,textPanel,options,dialog,markersReplaced);
         }else{
             log.info("  attempting to add basic option for: "+key);
             applyOptionSingle(key, lord, targetLord, textPanel, optionData, options, dialog, markersReplaced);
@@ -847,9 +849,12 @@ public class DialogSet {
             }
             if (isObject){
                 JSONObject optionData = line.getJSONObject("optionData");
+                advancedDialogOptionData.put(key,new DialogGroupOption(optionData));
+                /*
                 ArrayList<DialogRule_Base> tempa = getDialogRulesFromJSon(optionData.getJSONObject("rules"));
                 String tempb = optionData.getString("optionData");
                 advancedDialogOptionData.put(key,new DialogGroupOption(tempa,tempb));
+                */
             }else {
                 dialogOptionData.put(key, line.getString("optionData"));
             }
@@ -1427,6 +1432,9 @@ public class DialogSet {
                 case "baseValue":
                     rules.add(addRule_baseValue(rulesTemp,key));
                     break;
+                case "currentAction":
+                    rules.add(addRule_currentAction(rulesTemp,key));
+                    break;
             }
         }
         return rules;
@@ -1960,5 +1968,9 @@ public class DialogSet {
     @SneakyThrows
     private static DialogRule_Base addRule_baseValue(JSONObject json,String key){
         return new DialogRule_baseValue(json,key);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_currentAction(JSONObject json,String key){
+        return new DialogRule_currentAction(json,key);
     }
 }

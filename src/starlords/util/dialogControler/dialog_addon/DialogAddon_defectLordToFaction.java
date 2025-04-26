@@ -5,6 +5,7 @@ import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.OptionPanelAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.person.Lord;
@@ -29,9 +30,9 @@ public class DialogAddon_defectLordToFaction extends DialogAddon_Base{
     }
 
     @Override
-    public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord) {
+    public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket) {
         int rank = 0;
-        if (this.rank != null) rank = this.rank.getValue(lord, targetLord);
+        if (this.rank != null) rank = this.rank.getValue(lord, targetLord,targetMarket);
         rank = Math.max(0,Math.min(rank,2));
         FactionAPI targetFaction;
         if (!faction.equals("playerCurrFaction")){

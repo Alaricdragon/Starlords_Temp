@@ -4,6 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.OptionPanelAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.person.Lord;
@@ -25,11 +26,11 @@ public class DialogAddon_playSound extends DialogAddon_Base {
     }
 
     @Override
-    public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord) {
+    public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket) {
         int pitch = 1;
         int volume = 1;
-        if (this.pitch != null) pitch = this.pitch.getValue(lord, targetLord);
-        if (this.volume != null) volume = this.volume.getValue(lord, targetLord);
+        if (this.pitch != null) pitch = this.pitch.getValue(lord, targetLord,targetMarket);
+        if (this.volume != null) volume = this.volume.getValue(lord, targetLord,targetMarket);
         Global.getSoundPlayer().playUISound(soundID, pitch, volume);
     }
 }

@@ -1,6 +1,7 @@
 package starlords.util.dialogControler.dialogValues;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -28,15 +29,15 @@ public class DialogValue_limitedValue extends DialogValue_base{
         }
     }
     @Override
-    public int value(Lord lord, Lord targetLord) {
+    public int value(Lord lord, Lord targetLord, MarketAPI targetMarket) {
         Logger log = Global.getLogger(StoredSettings.class);
         log.info("RUNNING LIMITED VALUE. IGNORE THIS DATA");
         int value = 0;
-        if (this.value != null)value = this.value.getValue(lord, targetLord);
+        if (this.value != null)value = this.value.getValue(lord, targetLord,targetMarket);
         int max = this.max;
-        if (maxList != null) max = maxList.getValue(lord, targetLord);
+        if (maxList != null) max = maxList.getValue(lord, targetLord,targetMarket);
         int min = this.min;
-        if (minList != null) min = minList.getValue(lord, targetLord);
+        if (minList != null) min = minList.getValue(lord, targetLord,targetMarket);
         value = Math.max(min,value);
         value = Math.min(max,value);
         log.info("DONE LIMIT VALUE");

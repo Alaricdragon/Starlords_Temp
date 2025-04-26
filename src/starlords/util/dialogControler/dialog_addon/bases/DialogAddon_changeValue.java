@@ -4,6 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.OptionPanelAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.person.Lord;
@@ -37,13 +38,13 @@ public class DialogAddon_changeValue extends DialogAddon_Base {
             return;
         }
     }
-    protected int getValue(Lord lord, Lord targetLord){
+    protected int getValue(Lord lord, Lord targetLord, MarketAPI targetMarket){
         int max = this.max;
-        if (maxList != null) max = maxList.getValue(lord, targetLord);
+        if (maxList != null) max = maxList.getValue(lord, targetLord,targetMarket);
         int min = this.min;
         if (minList != null) {
             if (!minList.equals(maxList)) {
-                min = minList.getValue(lord, targetLord);
+                min = minList.getValue(lord, targetLord,targetMarket);
             }else{
                 min = max;
             }
@@ -62,18 +63,18 @@ public class DialogAddon_changeValue extends DialogAddon_Base {
     }
 
     @Override
-    public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord) {
-        int value = getValue(lord, targetLord);
+    public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket) {
+        int value = getValue(lord, targetLord,targetMarket);
         if (value > 0){
-            increaseChange(value,textPanel,options,dialog,lord,targetLord);
+            increaseChange(value,textPanel,options,dialog,lord,targetLord,targetMarket);
         }else if(value < 0){
-            decreaseChange(value,textPanel,options,dialog,lord,targetLord);
+            decreaseChange(value,textPanel,options,dialog,lord,targetLord,targetMarket);
         }
     }
-    protected void increaseChange(int value,TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord){
+    protected void increaseChange(int value,TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket){
 
     }
-    protected void decreaseChange(int value,TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord){
+    protected void decreaseChange(int value,TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket){
 
     }
 }

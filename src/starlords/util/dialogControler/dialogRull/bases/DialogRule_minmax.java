@@ -1,5 +1,6 @@
 package starlords.util.dialogControler.dialogRull.bases;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.person.Lord;
@@ -32,17 +33,17 @@ public class DialogRule_minmax extends DialogRule_Base {
         }
     }
     @Override
-    public boolean condition(Lord lord, Lord targetLord) {
-        int rel = getValue(lord, targetLord);
+    public boolean condition(Lord lord, Lord targetLord, MarketAPI targetMarket) {
+        int rel = getValue(lord, targetLord,targetMarket);
         int max = this.max;
-        if (maxList != null) max = maxList.getValue(lord, targetLord);
+        if (maxList != null) max = maxList.getValue(lord, targetLord,targetMarket);
         int min = this.min;
-        if (minList != null) min = minList.getValue(lord, targetLord);
+        if (minList != null) min = minList.getValue(lord, targetLord,targetMarket);
         if (min <= rel && rel <= max) return true;
         return false;
     }
 
-    protected int getValue(Lord lord, Lord targetLord){
+    protected int getValue(Lord lord, Lord targetLord, MarketAPI targetMarket){
         return 0;
     }
 }

@@ -1,6 +1,7 @@
 package starlords.util.dialogControler.dialogValues;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
@@ -144,13 +145,13 @@ public class DialogValuesList {
             }
         }
     }
-    public int getValue(Lord lord, Lord targetLord){
+    public int getValue(Lord lord, Lord targetLord, MarketAPI targetMarket){
         Logger log = Global.getLogger(StoredSettings.class);
         log.info("  getting dialog value list value....");
         int base = this.base;
         log.info("      added base as: "+base);
         for (DialogValue_base a : values){
-            int temp = a.computeValue(lord,targetLord);
+            int temp = a.computeValue(lord,targetLord,targetMarket);
             base+=temp;
             log.info("      adding "+temp+" from source of "+a.getClass().getName()+" for a new total of "+base);
         }

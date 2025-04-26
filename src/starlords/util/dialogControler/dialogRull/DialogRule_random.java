@@ -1,5 +1,6 @@
 package starlords.util.dialogControler.dialogRull;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.controllers.PoliticsController;
@@ -24,9 +25,9 @@ public class DialogRule_random extends DialogRule_Base {
         base = new DialogValuesList(jsonObject,"value");
     }
     @Override
-    public boolean condition(Lord lord,Lord targetLord) {
-        int random = Utils.rand.nextInt(range.getValue(lord, targetLord));
-        int value = base.getValue(lord, targetLord);
+    public boolean condition(Lord lord,Lord targetLord, MarketAPI targetMarket) {
+        int random = Utils.rand.nextInt(range.getValue(lord, targetLord,targetMarket));
+        int value = base.getValue(lord, targetLord,targetMarket);
         return random <= value;
     }
 }

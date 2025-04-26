@@ -1,5 +1,6 @@
 package starlords.util.dialogControler.dialogRull;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.controllers.EventController;
@@ -15,7 +16,7 @@ public class DialogRule_lordsInFeast extends DialogRule_minmax {
     }
 
     @Override
-    protected int getValue(Lord lord, Lord targetLord) {
+    protected int getValue(Lord lord, Lord targetLord, MarketAPI targetMarket) {
         boolean isFeast = lord.getCurrAction() == LordAction.FEAST;
         LordEvent currentFeast = isFeast ? EventController.getCurrentFeast(lord.getLordAPI().getFaction()) : null;
         if (currentFeast == null) return 0;

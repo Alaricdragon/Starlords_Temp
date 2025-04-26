@@ -1,5 +1,6 @@
 package starlords.util.dialogControler.dialogValues;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,19 +26,19 @@ public class DialogValue_conditionalValue extends DialogValue_base{
     }
 
     @Override
-    public int computeValue(Lord lord, Lord targetLord) {
-        if (!canUse(lord,targetLord)) return 0;
-        return super.computeValue(lord, targetLord);
+    public int computeValue(Lord lord, Lord targetLord, MarketAPI targetMarket) {
+        if (!canUse(lord,targetLord,targetMarket)) return 0;
+        return super.computeValue(lord, targetLord,targetMarket);
     }
 
     @Override
-    public int value(Lord lord, Lord targetLord) {
+    public int value(Lord lord, Lord targetLord,MarketAPI targetMarket) {
         if (list == null) return 0;
-        return list.getValue(lord,targetLord);
+        return list.getValue(lord,targetLord,targetMarket);
     }
-    private boolean canUse(Lord lord, Lord targetLord){
+    private boolean canUse(Lord lord, Lord targetLord,MarketAPI targetMarket){
         for (DialogRule_Base a : rules){
-            if (!a.condition(lord,targetLord)) return false;
+            if (!a.condition(lord,targetLord,targetMarket)) return false;
         }
         return true;
     }

@@ -1,5 +1,6 @@
 package starlords.util.dialogControler.dialogValues;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,10 +20,10 @@ public class DialogValue_conditionalValue_Array extends DialogValue_base{
     }
 
     @Override
-    public int value(Lord lord, Lord targetLord) {
+    public int value(Lord lord, Lord targetLord, MarketAPI targetMarket) {
         int a = 0;
         for (DialogValue_conditionalValue b : values){
-            a +=b.computeValue(lord,targetLord);
+            a +=b.computeValue(lord,targetLord,targetMarket);
         }
         return a;
     }

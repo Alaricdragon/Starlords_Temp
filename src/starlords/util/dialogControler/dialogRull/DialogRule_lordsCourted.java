@@ -1,5 +1,6 @@
 package starlords.util.dialogControler.dialogRull;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.controllers.LordController;
@@ -13,7 +14,7 @@ public class DialogRule_lordsCourted extends DialogRule_minmax {
     }
 
     @Override
-    protected int getValue(Lord lord, Lord targetLord) {
+    protected int getValue(Lord lord, Lord targetLord, MarketAPI targetMarket) {
         int numCourted = 0;
         for (Lord lord2 : LordController.getLordsList()) {
             if (lord2.isCourted()) numCourted += 1;

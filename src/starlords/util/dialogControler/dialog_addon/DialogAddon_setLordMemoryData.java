@@ -4,6 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.OptionPanelAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.person.Lord;
@@ -22,7 +23,7 @@ public class DialogAddon_setLordMemoryData extends DialogAddon_setDialogData{
         super(json);
     }
     @Override
-    public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord,Lord targetLord) {
+    public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord,Lord targetLord, MarketAPI targetMarket) {
         String key = STARLORD_ADDITIONAL_MEMORY_KEY+lord.getLordAPI().getId();
         DataHolder DATA_HOLDER;
         if (Global.getSector().getMemory().contains(key)){
@@ -32,8 +33,8 @@ public class DialogAddon_setLordMemoryData extends DialogAddon_setDialogData{
         }
         applyStrings(DATA_HOLDER,lord,targetLord);
         applyBooleans(DATA_HOLDER,lord,targetLord);
-        applyFloats(DATA_HOLDER,lord,targetLord);
-        applyAddFloats(DATA_HOLDER,lord,targetLord);
+        applyFloats(DATA_HOLDER,lord,targetLord,targetMarket);
+        applyAddFloats(DATA_HOLDER,lord,targetLord,targetMarket);
         Global.getSector().getMemory().set(key,DATA_HOLDER);
     }
     public void applyStrings(DataHolder DATA_HOLDER,Lord lord,Lord targetLord){
@@ -47,15 +48,15 @@ public class DialogAddon_setLordMemoryData extends DialogAddon_setDialogData{
         }
 
     }
-    public void applyFloats(DataHolder DATA_HOLDER,Lord lord,Lord targetLord){
+    public void applyFloats(DataHolder DATA_HOLDER,Lord lord,Lord targetLord, MarketAPI targetMarket){
         for (String key : setInts.keySet()) {
-            DATA_HOLDER.getIntegers().put(key, setInts.get(key).getValue(lord, targetLord));
+            DATA_HOLDER.getIntegers().put(key, setInts.get(key).getValue(lord, targetLord,targetMarket));
         }
     }
-    public void applyAddFloats(DataHolder DATA_HOLDER,Lord lord,Lord targetLord){
+    public void applyAddFloats(DataHolder DATA_HOLDER,Lord lord,Lord targetLord, MarketAPI targetMarket){
         for (String key : addIntsMin.keySet()) {
-            int min = addIntsMin.get(key).getValue(lord, targetLord);
-            int max = addIntsMax.get(key).getValue(lord, targetLord);
+            int min = addIntsMin.get(key).getValue(lord, targetLord,targetMarket);
+            int max = addIntsMax.get(key).getValue(lord, targetLord,targetMarket);
             int baseValue = DATA_HOLDER.getIntegers().get(key);
             max = Math.max(min,max);
             int range = max - min;

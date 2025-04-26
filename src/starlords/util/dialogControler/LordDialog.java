@@ -1,5 +1,6 @@
 package starlords.util.dialogControler;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import org.json.JSONException;
 import org.json.JSONObject;
 import starlords.person.Lord;
@@ -27,11 +28,11 @@ public class LordDialog {
         DialogSet.organizedDialogs.get(priority).add(this);
         DialogSet.dialogs.put(key,this);
     }
-    public DialogSet getSet(Lord lord,Lord targetLord, String id){
+    public DialogSet getSet(Lord lord, Lord targetLord, MarketAPI targetMarket, String id){
         if (!isAllowed(lord,targetLord)) return null;
         for (int a = organizedDialogSets.size() - 1; a >= 0; a--){
             for (DialogSet b : organizedDialogSets.get(a)){
-                if (b.hasLine(id) && b.canUseDialog(lord,targetLord)) return b;
+                if (b.hasLine(id) && b.canUseDialog(lord,targetLord,targetMarket)) return b;
             }
         }
         return null;

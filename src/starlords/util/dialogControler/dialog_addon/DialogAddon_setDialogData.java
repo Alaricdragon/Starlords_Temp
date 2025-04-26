@@ -4,6 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.OptionPanelAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -74,13 +75,13 @@ public class DialogAddon_setDialogData extends DialogAddon_Base{
         }
     }
     @Override
-    public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord,Lord targetLord) {
+    public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord,Lord targetLord, MarketAPI targetMarket) {
         Logger log = Global.getLogger(StoredSettings.class);
         log.info("applying dialog data...");
         applyStrings(dialog, lord,targetLord);
         applyBooleans(dialog, lord,targetLord);
-        applyFloats(dialog, lord,targetLord);
-        applyAddFloats(dialog, lord,targetLord);
+        applyFloats(dialog, lord,targetLord,targetMarket);
+        applyAddFloats(dialog, lord,targetLord,targetMarket);
 
     }
     public void applyStrings(InteractionDialogAPI dialog, Lord lord,Lord targetLord){
@@ -101,21 +102,21 @@ public class DialogAddon_setDialogData extends DialogAddon_Base{
         }
 
     }
-    public void applyFloats(InteractionDialogAPI dialog, Lord lord,Lord targetLord){
+    public void applyFloats(InteractionDialogAPI dialog, Lord lord,Lord targetLord, MarketAPI targetMarket){
         Logger log = Global.getLogger(StoredSettings.class);
         log.info("HERE: setting floats in dialog data...");
         for (String key : setInts.keySet()) {
-            LordInteractionDialogPluginImpl.DATA_HOLDER.getIntegers().put(key, setInts.get(key).getValue(lord,targetLord));
+            LordInteractionDialogPluginImpl.DATA_HOLDER.getIntegers().put(key, setInts.get(key).getValue(lord,targetLord,targetMarket));
             log.info("  HERE: got new saved data as for "+key+": as: "+LordInteractionDialogPluginImpl.DATA_HOLDER.getIntegers().get(key));
         }
     }
-    public void applyAddFloats(InteractionDialogAPI dialog, Lord lord,Lord targetLord){
+    public void applyAddFloats(InteractionDialogAPI dialog, Lord lord,Lord targetLord, MarketAPI targetMarket){
         Logger log = Global.getLogger(StoredSettings.class);
         log.info("adding floats in dialog data...");
         for (String key : addIntsMin.keySet()) {
             log.info("  got key as: "+key);
-            int min = addIntsMin.get(key).getValue(lord,targetLord);
-            int max = addIntsMax.get(key).getValue(lord,targetLord);;
+            int min = addIntsMin.get(key).getValue(lord,targetLord,targetMarket);
+            int max = addIntsMax.get(key).getValue(lord,targetLord,targetMarket);
             int baseValue = LordInteractionDialogPluginImpl.DATA_HOLDER.getIntegers().get(key);
             max = Math.max(min,max);
             int range = max - min;

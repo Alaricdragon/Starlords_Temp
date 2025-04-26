@@ -1,5 +1,6 @@
 package starlords.util.dialogControler.dialogRull;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.controllers.LordController;
@@ -15,7 +16,7 @@ public class DialogRule_playerProposalOpposers  extends DialogRule_minmax {
     }
 
     @Override
-    protected int getValue(Lord lord, Lord targetLord) {
+    protected int getValue(Lord lord, Lord targetLord, MarketAPI targetMarket) {
         LawProposal proposal = PoliticsController.getProposal(LordController.getPlayerLord());
         if (proposal == null) return 0;
         int rel = proposal.getOpposers().size();

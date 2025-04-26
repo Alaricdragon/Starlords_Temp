@@ -3021,7 +3021,9 @@
                 }
               },
               "exchangeCreditsWithLord": {
-                "calculateDefect_credits": -1
+                "DialogData": {
+                  "calculateDefect_credits": -1
+                }
               }
             }
           },
@@ -3045,7 +3047,9 @@
                 }
               },
               "exchangeCreditsWithLord": {
-                "calculateDefect_credits": -1
+                "DialogData": {
+                  "calculateDefect_credits": -1
+                }
               }
             }
           },
@@ -3069,7 +3073,9 @@
                 }
               },
               "exchangeCreditsWithLord": {
-                "calculateDefect_credits": -1
+                "DialogData": {
+                  "calculateDefect_credits": -1
+                }
               }
             }
           },
@@ -3093,7 +3099,9 @@
                 }
               },
               "exchangeCreditsWithLord": {
-                "calculateDefect_credits": -1
+                "DialogData": {
+                  "calculateDefect_credits": -1
+                }
               }
             }
           },
