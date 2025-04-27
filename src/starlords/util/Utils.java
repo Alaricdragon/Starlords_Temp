@@ -62,6 +62,7 @@ public class Utils {
                 || LordController.getPlayerLord().getFaction().equals(faction)
                 || faction.equals(Misc.getCommissionFaction()))
             Global.getSector().getCampaignUI().addMessage(message,faction.getBaseUIColor());
+        //test
     }
 
 	public static String getLordCurrOrders(Lord lord, double repForCurAction) {
