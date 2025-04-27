@@ -6,6 +6,7 @@ import com.fs.starfarer.api.campaign.econ.Industry;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.combat.StatBonus;
+import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin;
 import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.util.Misc;
@@ -13,18 +14,31 @@ import lombok.Setter;
 import org.apache.log4j.Logger;
 import org.lwjgl.util.vector.Vector2f;
 import starlords.controllers.LordController;
+import starlords.controllers.EventController;
+import starlords.controllers.PoliticsController;
+import starlords.controllers.RelationController;
+import starlords.controllers.RequestController;
 import starlords.person.Lord;
+import starlords.person.LordAction;
+import starlords.person.LordEvent;
+import starlords.person.LordRequest;
 
 import java.util.*;
 
+import static starlords.util.Constants.*;
+
 
 public class Utils {
+
+    private static final Logger log = Global.getLogger(Utils.class);
 
     private static final float SOMEWHAT_CLOSE_DIST = 1000;
     private static final float CLOSE_DIST = 500;
     private static final int FAST_PATROL_FP = 20;
     private static final int COMBAT_PATROL_FP = 40;
     private static final int HEAVY_PATROL_FP = 65;
+    @Setter
+    private static boolean showMessageLordCaptureReleaseEscape;
     public static final Random rand = new Random(); // for low-priority rng that doesn't need to be savescum-proof
 
     public static int nextInt(int bound) {
@@ -42,6 +56,85 @@ public class Utils {
     public static boolean secondInCommandEnabled() {
         return Global.getSettings().getModManager().isModEnabled("second_in_command");
     }
+
+    public static void showUIMessageCaptureStatus(String message, FactionAPI faction) {
+        if (showMessageLordCaptureReleaseEscape
+                || LordController.getPlayerLord().getFaction().equals(faction)
+                || faction.equals(Misc.getCommissionFaction()))
+            Global.getSector().getCampaignUI().addMessage(message,faction.getBaseUIColor());
+    }
+
+	public static String getLordCurrOrders(Lord lord, double repForCurAction) {
+		String orderStr;
+		FactionAPI faction = lord.getFaction();
+		boolean isSubject = faction.equals(Global.getSector().getPlayerFaction());
+		boolean isMarried = lord.isMarried();
+		CampaignFleetAPI fleet = lord.getLordAPI().getFleet();
+		if (lord.getPlayerRel() < repForCurAction
+				&& !isSubject && !isMarried && !DEBUG_MODE) {
+			orderStr = "[REDACTED]";
+		} else if (lord.getCurrAction() == LordAction.IMPRISONED) {
+			orderStr = "Imprisoned by " + LordController.getLordOrPlayerById(lord.getCaptor()).getLordAPI().getNameString();
+		} else if (lord.getCurrAction() == LordAction.COMPANION) {
+			orderStr = "Traveling with you";
+		} else if (lord.getCurrAction() == null || !fleet.isAlive()) {
+			orderStr = "None";
+		} else if (lord.getCurrAction() != LordAction.CAMPAIGN) {
+			orderStr = StringUtil.getString(
+					CATEGORY_UI, "fleet_" + lord.getCurrAction().base.toString().toLowerCase() + "_desc", lord.getTarget().getName());
+		} else {
+			if (lord.isMarshal()) {
+				LordEvent campaign = EventController.getCurrentCampaign(lord.getLordAPI().getFaction());
+				if (campaign.getTarget() == null) {
+					orderStr = StringUtil.getString(CATEGORY_UI, "fleet_campaign_lead_desc", lord.getTarget().getName());
+				} else {
+					orderStr = StringUtil.getString(CATEGORY_UI, "fleet_campaign_lead_desc", campaign.getTarget().getName());
+				}
+			} else {
+				orderStr = StringUtil.getString(CATEGORY_UI, "fleet_campaign_follow_desc");
+			}
+		}
+		return orderStr;
+	}
+
+	public static void printLordData(Lord lord) {
+		log.info("[StarLords] Lord " + lord.getLordAPI().getNameString());
+		log.info("[StarLords] Lord ID: " + lord.getLordAPI().getId());
+		log.info("[StarLords] Lord getFleet Check: " + lord.getFleet().toString());
+		log.info("[StarLords] Lord Fleet ID: " + lord.getFleet().getId());
+		log.info("[StarLords] Lord Fleet Name Check: " + lord.getFleet().getName());
+		log.info("[StarLords] Lord Fleet location: " + lord.getFleet().getLocation().x + " ; " + lord.getFleet().getLocation().y);
+		log.info("[StarLords] Lord Fleet Commander : " + lord.getFleet().getCommander().getName());
+		for (FleetMemberAPI ship : lord.getFleet().getMembersWithFightersCopy()) {
+			if (!ship.isFighterWing()) {
+				log.info("[StarLords] Lord " + lord.getLordAPI().getNameString() + " fleet existing ship: " + ship.getShipName());
+			}
+		}
+		try {
+			log.info("[StarLords] Lord getContainingLocation Check: " + lord.getFleet().getContainingLocation().toString());
+		} catch (Exception e) {
+			log.info("[StarLords] Lord Could not get location: " + e.getMessage());
+
+		}
+	}
+
+	public static void printFleetdData(CampaignFleetAPI fleet) {
+		log.info("[StarLords] Fleet Name Check: " + fleet.getName());
+		log.info("[StarLords] Fleet ID: " + fleet.getId());
+		try {
+			log.info("[StarLords] Fleet getContainingLocation Check: " + fleet.getContainingLocation().toString());
+		} catch (Exception e) {
+			log.info("[StarLords] Fleet getContainingLocation Failed: " + e.getMessage());
+		}
+		log.info("[StarLords] Fleet location: " + fleet.getLocation().x + " ; " + fleet.getLocation().y);
+		log.info("[StarLords] Fleet Commander : " + fleet.getCommander().getName());
+		for (FleetMemberAPI ship : fleet.getMembersWithFightersCopy()) {
+			if (!ship.isFighterWing()) {
+				log.info("[StarLords] " + fleet.getName() + " fleet existing ship: " + ship.getShipName());
+			}
+		}
+	}
+
 
     public static void adjustPlayerReputation(PersonAPI target, int delta) {
         CoreReputationPlugin.CustomRepImpact param = new CoreReputationPlugin.CustomRepImpact();
@@ -472,17 +565,217 @@ public class Utils {
     }
     //prevents some factions from having war / peace declared, engaging/getting in invasions, and being raided (like pirates, for not pirates)
 
-    @Setter
-    private static HashSet<String> forcedMinorFaction;
-    @Setter
-    private static HashSet<String> forcedNotMinorFaction;
-    public static boolean isMinorFaction(FactionAPI faction){
-        HashSet<String> forced = forcedMinorFaction;
-        HashSet<String> prevented = forcedNotMinorFaction;
-        if (forced.contains(faction.getId())) return true;
-        if (prevented.contains(faction.getId())) return false;
-        if (!Global.getSettings().getModManager().isModEnabled("nexerelin")) return Misc.isPirateFaction(faction);
-        //to do: use nexerlin to determine if a faction is a minor faction.
-        return NexerlinUtilitys.isMinorFaction(faction);
-    }
+	@Setter
+	private static HashSet<String> forcedMinorFaction;
+	@Setter
+	private static HashSet<String> forcedNotMinorFaction;
+
+	public static boolean isMinorFaction(FactionAPI faction) {
+		HashSet<String> forced = forcedMinorFaction;
+		HashSet<String> prevented = forcedNotMinorFaction;
+		if (forced.contains(faction.getId())) return true;
+		if (prevented.contains(faction.getId())) return false;
+		if (!Global.getSettings().getModManager().isModEnabled("nexerelin")) return Misc.isPirateFaction(faction);
+		//to do: use nexerlin to determine if a faction is a minor faction.
+		return NexerlinUtilitys.isMinorFaction(faction);
+	}
+
+	public static float getTravelTime(SectorEntityToken origin, SectorEntityToken target) {
+		float distance = Misc.getDistanceLY(origin,target);
+		return distance / 1.6f; // 1.6 is average travel time
+	}
+
+	public static String getLordTravelTimeString(Lord lord, SectorEntityToken target) {
+		String output = "";
+		if (lord.getFleet() == null)
+			output = "Unknown";
+		else if (lord.getFleet().getContainingLocation().equals(target.getContainingLocation()))
+			output = "In System";
+		else
+			output = String.valueOf(Math.round(Utils.getTravelTime(lord.getFleet(),target)));
+
+		return output + " days";
+	}
+
+	public static String getMinArrivalTime(List<Lord> lords, SectorEntityToken target) {
+		float min = 999f;
+		float resultTravel;
+		if (lords.isEmpty())
+			return "No Participants";
+
+		for (Lord lord : lords) {
+			if (lord.getFleet() == null) {
+				continue;
+			}
+			if (lord.getFleet().getContainingLocation().equals(target.getContainingLocation()))
+				return "In System";
+			else {
+				resultTravel = Math.round(Utils.getTravelTime(lord.getFleet(),target));
+				if (resultTravel < min)
+					min = resultTravel;
+			}
+		}
+		return Math.round(min) + " days";
+	}
+
+	public static boolean printLordsWithPrisonerProblems(boolean fix, boolean print) {
+
+		String output = "";
+		boolean problems = true;
+
+		for (Lord lord : LordController.getLordsList()) {
+			ArrayList<String> prisonersToRemove = new ArrayList<>();
+			for (String prisonerID : lord.getPrisoners()) {
+				Lord prisoner = LordController.getLordById(prisonerID);
+				if (prisoner.getCaptor() != null) {
+					if (!Objects.equals(lord.getLordAPI().getId(), prisoner.getCaptor())) {
+						Lord prisonerCaptor = LordController.getLordById(prisoner.getCaptor());
+						output += "[Star Lords] " + lord.getLordAPI().getNameString() + "(" + lord.getLordAPI().getId() + ")"
+								+ " action: " + lord.getCurrAction()
+								+ " location: " + lord.getFleet().getContainingLocation()
+								+ " has prisoner " + prisoner.getLordAPI().getNameString() + "(" + prisoner.getLordAPI().getId() + ")"
+								+ " action:" + prisoner.getCurrAction()
+								+ " location:" + prisoner.getFleet().getContainingLocation()
+								+ " but prisoner has captor " + prisonerCaptor.getLordAPI().getNameString() + "(" + prisonerCaptor.getLordAPI().getId() + ")"
+								+ " action: " + prisonerCaptor.getCurrAction()
+								+ " location: " + prisonerCaptor.getFleet().getContainingLocation()
+								+ System.lineSeparator();
+						if (fix) {
+							prisonersToRemove.add(prisonerID);
+						}
+					}
+				} else {
+					output += "[Star Lords] " + lord.getLordAPI().getNameString() + "(" + lord.getLordAPI().getId() + ")"
+							+ " action: " + lord.getCurrAction()
+							+ " location: " + lord.getFleet().getContainingLocation()
+							+ " has prisoner " + prisoner.getLordAPI().getNameString() + "(" + prisoner.getLordAPI().getId() + ")"
+							+ " action:" + prisoner.getCurrAction()
+							+ " location:" + prisoner.getFleet().getContainingLocation()
+							+ " but prisoner has no captor "
+							+ System.lineSeparator();
+					if (fix) {
+						prisonersToRemove.add(prisonerID);
+					}
+				}
+			}
+			if (fix) {
+				for (String prisonerRemove : prisonersToRemove)
+					lord.removePrisoner(prisonerRemove);
+			}
+		}
+		if (output.isEmpty()) {
+			output = "[Star Lords] No Prisoner Problems";
+			problems = false;
+		}
+		if (print)
+			log.info(output);
+		return problems;
+	}
+
+	public static String printLordsWithPrisoners(ArrayList<Lord> lordsList) {
+		String output = "";
+		for (Lord lord : lordsList) {
+			for (String prisonerID : lord.getPrisoners()) {
+				output += "[Star Lords] " + lord.getLordAPI().getNameString() + "(" + lord.getLordAPI().getId() + ")";
+				Lord prisoner = LordController.getLordById(prisonerID);
+				output += " has prisoner " + prisoner.getLordAPI().getNameString() + "(" + prisoner.getLordAPI().getId() + ")"
+						+ " captor " + prisoner.getCaptor()
+						+ System.lineSeparator();
+			}
+		}
+		return output;
+	}
+
+	public static void printLordsDetails() {
+		List<String[]> list = new ArrayList<String[]>();
+
+		String id = "";
+		String name = "";
+		String personality = "";
+		String faction = "";
+		String relWithFaction = "";
+		String relWithMarshall = "";
+		String currAction = "";
+		String location = "";
+		String fiefs = "";
+		String chance = "";
+
+		for (Lord lord : LordController.getLordsList()) {
+			Lord marshall = PoliticsController.getLordMarshall(lord);
+
+			id = lord.getLordAPI().getId();
+			name = lord.getLordAPI().getNameString();
+			personality = lord.getPersonality().toString();
+			faction = lord.getFaction().getDisplayName();
+			relWithFaction = String.valueOf(RelationController.getLoyalty(lord));
+			if (marshall != null && !lord.equals(marshall))
+				relWithMarshall = String.valueOf(RelationController.getRelation(lord, marshall));
+			else
+				relWithMarshall = "N/A";
+			currAction = String.valueOf(lord.getCurrAction());
+			if(lord.getFleet() != null)
+				location = String.valueOf(lord.getFleet().getContainingLocation());
+			else
+				location = String.valueOf(lord.getFleet());
+			fiefs = String.valueOf(lord.getFiefs().size());
+			chance = String.valueOf(DefectionUtils.getAutoBetrayalChance(lord));
+
+			list.add(new String[]{id, name, personality, faction, relWithFaction, relWithMarshall, currAction, location, fiefs, chance});
+
+		}
+
+		String output = "[Star Lords] Lords, Relations and Defection: " + System.lineSeparator();
+		output += "[Star Lords]"
+				+ "\tID"
+				+ "\tName"
+				+ "\tPersonality"
+				+ "\tFaction"
+				+ "\tRel Faction"
+				+ "\tRel Marshall"
+				+ "\tAction"
+				+ "\tLocation"
+				+ "\tFiefs"
+				+ "\tChance"
+				+ System.lineSeparator();
+		for (String[] item : list) {
+			output += "[Star Lords]"
+					+ "\t" + item[0]
+					+ "\t" + item[1]
+					+ "\t" + item[2]
+					+ "\t" + item[3]
+					+ "\t" + item[4]
+					+ "\t" + item[5]
+					+ "\t" + item[6]
+					+ "\t" + item[7]
+					+ "\t" + item[8]
+					+ "\t" + item[9]
+					+ System.lineSeparator();
+		}
+
+		log.info(output);
+
+	}
+
+	public static void printRequests() {
+		String output = "";
+		Lord lord = null;
+		Lord captor = null;
+
+		for (LordRequest request : RequestController.getRequestList()) {
+			lord = request.getOriginator();
+			captor = LordController.getLordById(request.getOriginator().getCaptor());
+			output += "[Star Lords] Lord: " + lord.getLordAPI().getNameString() + System.lineSeparator()
+					+ "[Star Lords] Lord ID: " + lord.getLordAPI().getId() + System.lineSeparator()
+					+ "[Star Lords] Request: " + request + System.lineSeparator()
+					+ "[Star Lords] Request type: " + request.getRequestCapitalized() + System.lineSeparator()
+					+ "[Star Lords] Request player agreed: " + request.hasPlayerAgreed() + System.lineSeparator();
+			if (captor != null) {
+				output += "[Star Lords] Captor ID: " + captor.getLordAPI().getId() + System.lineSeparator()
+						+ "[Star Lords] Captor Name: " + captor.getLordAPI().getNameString() + System.lineSeparator();
+			}
+		}
+		if (output.isEmpty())
+			output = "[Star Lords] No Requests";
+		log.info(output);
+	}
 }

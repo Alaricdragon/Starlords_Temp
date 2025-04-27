@@ -5,6 +5,7 @@
   "requiredRepForKnowledgeOfWealth": 25,
   "requiredRepForKnowledgeOfCurAction": 50,
   "showAllLordsIntelByDefault": false,
+  "showMessageLordCaptureReleaseEscape": false,
 
 
   "Other_maxSMods": 3,
