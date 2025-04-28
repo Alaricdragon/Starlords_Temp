@@ -57,6 +57,11 @@ structure:
         "lifeAndDeath_LordGrowthMulti":double
         "--data related to 11.0)" {"factionID":double,..."} gets the odds of a lord spawning on game start with a different factions ships, name, exstra.
         "--data related to 11.0)" {"factionID":double,..."} gets the odds of a lord spawning from the life and death system with a different factions ships, name, exstra.
+        "gameStarDefaultLord": a lord.json object, dedicated to the default values of lords generated at game start. any items unset will still be randomized.
+        "lifeAndDeathDefaultLord": a lord.json object, dedicated to the default values of lords generated at game start. and items unset will still be randomized.
+        NOTE: for each defalt lord, I might need something more advanced for fleet setup.
+            -maybe, I could so something like having a list of defalt lords, and having an odds? (and maybe an option to only have one of each)?
+            -alturnitively, it might be required to do something more advanced. like, having only most of the options available (additional ships, additional skills, additional tags, exstra.)
 features:
     1) allow the player to promote a officer into a starlord. when promoting the starlord, you should have the following options:
         -) requires structure.6, and structure.3.0 "STARLORD_LOYAL_UNTIL_FIEF"
