@@ -1592,6 +1592,12 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     private void optionSelected_SUGGEST_ACTION(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         boolean isBusy = false;
         /*
+         * lines:
+         *      accept married: consider_suggest_action_spouse
+         *      accept isLeige: consider_suggest_action_subject
+         *      accept base: consider_suggest_action
+         *      refuse relations: refuse_suggest_action_relations
+         *      refuse busy: refuse_suggest_action_busy
          *   lines:
          *       to low relations (not married / less then neutral)
          *           -refuse_suggest_action_relations. (return to greetings)
@@ -1616,14 +1622,14 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
          *               option_suggest_raid: OptionId.SUGGEST_RAID
          *                   -ask_raid_location
          *                   -for (hostile markets to lord): optionSelected_SUGGEST_RAID_LOC
-         *                       -AICommand: RAID_TARGET
+         *                       -AICommand: RAID_TARGET_MARKET
          *                       -accept_suggest_action
          *                   -exit option
          *
          *               option_suggest_patrol: OptionId.SUGGEST_PATROL
          *                   -ask_patrol_location
          *                   -for(market player faction / market lord faction): OptionId.SUGGEST_PATROL_LOC
-         *                       -AICommand: PATROL_TARGET
+         *                       -AICommand: PATROL_TARGET_MARKET
          *                   -exit option
          *               option_suggest_upgrade: OptionId.SUGGEST_UPGRADE
          *                   -AICommand: UPGRADE
@@ -1636,9 +1642,9 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
          *
          * additional systems:
          *   (done? in theory)targetMarker: (this would work just like advanced options, but for markets.)
-         *       (NOT done. this needs to be done to test them)rules:
+         *       (done. not tested)rules:
          *           marketPlayerFaction
-         *           marketLordFaction:
+         *           marketLordFaction
          *           marketHostileToLord
          *           marketHostileToPlayer
          *           marketSize: min/max
@@ -1660,15 +1666,15 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
          *       IS_ORGANIZING_CAMPAIGN: boolean
          * addons:
          *   (requires advanced options for markets):
-         *       AICommand:
+         *       (done)AICommand:
          *          END_CURRENT_ACTIONS
          *          FOLLOW_PLAYER_FLEET
-         *          FOLLOW_TARGET
-         *          RAID_TARGET: "marketID"
+         *          FOLLOW_TARGET_LORD
+         *          RAID_TARGET_MARKET: "marketID"
          *          UPGRADE:
-         *          PATROL_TARGET:
-         *          ORGANIZE_CAMPAIGN
-         *          JOIN_CAMPAIGN
+         *          PATROL_TARGET_MARKET
+         *          (not done)ORGANIZE_CAMPAIGN
+         *          (not done)JOIN_CAMPAIGN
          *
          *
          *

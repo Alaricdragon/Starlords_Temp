@@ -3244,7 +3244,7 @@
           },
           "option_ask_tournament": {
             "line": "Ask to enter the feast tournament.",
-            "optionData": "ERROR",
+            "optionData": "start_tournament",
             "show": {
               "isAtFeast": true,
               "availableTournament": true,

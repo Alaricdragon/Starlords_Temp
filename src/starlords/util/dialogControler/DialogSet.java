@@ -1008,6 +1008,9 @@ public class DialogSet {
                 case "attemptToAddRandomQuest":
                     addon = addAddon_attemptToAddRandomQuest(addons,key2);
                     break;
+                case "AICommand":
+                    addon = addAddon_AICommand(addons,key2);
+                    break;
             }
             if (addon != null) newAddons.add(addon);
         }
@@ -1171,6 +1174,10 @@ public class DialogSet {
     private static DialogAddon_Base addAddon_attemptToAddRandomQuest(JSONObject json,String key){
         if (!json.getBoolean(key)) return null;
         return new DialogAddon_attemptToAddRandomQuest();
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_AICommand(JSONObject json,String key){
+        return new DialogAddon_AICommand(json, key);
     }
 
 
@@ -1434,6 +1441,42 @@ public class DialogSet {
                     break;
                 case "currentAction":
                     rules.add(addRule_currentAction(rulesTemp,key));
+                    break;
+                case "marketFactionRelationToLordsFaction":
+                    rules.add(addRule_marketFactionRelationToLord(rulesTemp,key));
+                    break;
+                case "marketFactionRelationToPlayersFaction":
+                    rules.add(addRule_marketFactionRelationToPlayer(rulesTemp,key));
+                    break;
+                case "marketFactionRelationToTargetLordsFaction":
+                    rules.add(addRule_marketFactionRelationToTargetLord(rulesTemp,key));
+                    break;
+                case "marketSize":
+                    rules.add(addRule_marketSize(rulesTemp,key));
+                    break;
+                case "marketStability":
+                    rules.add(addRule_marketStability(rulesTemp,key));
+                    break;
+                case "marketPlayerFaction":
+                    rules.add(addRule_marketPlayerFaction(rulesTemp,key));
+                    break;
+                case "marketLordFaction":
+                    rules.add(addRule_marketLordFaction(rulesTemp,key));
+                    break;
+                case "marketTargetLordFaction":
+                    rules.add(addRule_marketTargetLordFaction(rulesTemp,key));
+                    break;
+                case "marketHasFiefOwner":
+                    rules.add(addRule_marketHasFiefOwner(rulesTemp,key));
+                    break;
+                case "marketFiefBelongsToPlayer":
+                    rules.add(addRule_marketFiefBelongsToPlayer(rulesTemp,key));
+                    break;
+                case "marketFiefBelongsToLord":
+                    rules.add(addRule_marketFiefBelongsToLord(rulesTemp,key));
+                    break;
+                case "marketFiefBelongsToTargetLord":
+                    rules.add(addRule_marketFiefBelongsToTargetLord(rulesTemp,key));
                     break;
             }
         }
@@ -1972,5 +2015,53 @@ public class DialogSet {
     @SneakyThrows
     private static DialogRule_Base addRule_currentAction(JSONObject json,String key){
         return new DialogRule_currentAction(json,key);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_marketFactionRelationToLord(JSONObject json,String key){
+        return new DialogRule_marketFactionRelationToLord(json,key);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_marketFactionRelationToPlayer(JSONObject json,String key){
+        return new DialogRule_marketFactionRelationToPlayer(json,key);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_marketFactionRelationToTargetLord(JSONObject json,String key){
+        return new DialogRule_marketFactionRelationToTargetLord(json,key);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_marketSize(JSONObject json,String key){
+        return new DialogRule_marketSize(json,key);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_marketStability(JSONObject json,String key){
+        return new DialogRule_marketStability(json,key);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_marketPlayerFaction(JSONObject json,String key){
+        return new DialogRule_marketPlayerFaction(json,key);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_marketLordFaction(JSONObject json,String key){
+        return new DialogRule_marketLordFaction(json,key);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_marketTargetLordFaction(JSONObject json,String key){
+        return new DialogRule_marketTargetLordFaction(json,key);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_marketHasFiefOwner(JSONObject json,String key){
+        return new DialogRule_marketHasFiefOwner(json,key);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_marketFiefBelongsToPlayer(JSONObject json,String key){
+        return new DialogRule_marketFiefBelongsToPlayer(json,key);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_marketFiefBelongsToLord(JSONObject json,String key){
+        return new DialogRule_marketFiefBelongsToLord(json,key);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_marketFiefBelongsToTargetLord(JSONObject json,String key){
+        return new DialogRule_marketFiefBelongsToTargetLord(json,key);
     }
 }
