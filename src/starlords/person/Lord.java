@@ -15,6 +15,9 @@ import com.fs.starfarer.api.characters.FullName;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Skills;
 import starlords.controllers.PoliticsController;
+import starlords.controllers.RequestController;
+import starlords.controllers.RelationController;
+import starlords.controllers.LordController;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.lwjgl.util.vector.Vector2f;
@@ -22,11 +25,14 @@ import starlords.ui.PrisonerIntelPlugin;
 import starlords.util.LordTags;
 import starlords.util.StringUtil;
 import starlords.util.Utils;
+import starlords.util.DefectionUtils;
+import starlords.util.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import static starlords.util.Constants.LORD_TABLE_KEY;
 
@@ -57,7 +63,10 @@ public class Lord {
 
     private String captor;
 
-    private boolean actionComplete;
+	@Getter
+	private int escapeAttempts;
+
+	private boolean actionComplete;
 
     private long assignmentStartTime;
 
@@ -376,10 +385,23 @@ public class Lord {
         persistentData.put("personalityKnown", known);
     }
 
-    public void setCaptor(String captor) {
-        this.captor = captor;
-        persistentData.put("captor", captor);
-    }
+	public void setCaptor(String newCaptor) {
+
+		LordRequest existingRequest = RequestController.getCurrentRequest(this,LordRequest.PRISON_BREAK);
+
+		if (newCaptor == null) {
+			this.resetEscapeAttempts();
+			if (existingRequest != null)
+				RequestController.endRequest(existingRequest);
+		} else if (newCaptor.equals(LordController.getPlayerLord().getLordAPI().getId())) {
+			if (existingRequest != null)
+				RequestController.endRequest(existingRequest);
+		}
+
+		this.captor = newCaptor;
+		persistentData.put("captor", captor);
+
+	}
 
     public void setActionText(String text) {
         FleetAssignmentDataAPI assignment = getFleet().getCurrentAssignment();
@@ -468,10 +490,72 @@ public class Lord {
         }
     }
 
-    public static Lord createPlayer() {
-        Lord player = new Lord(Global.getSector().getPlayerPerson());
-        player.isPlayer = true;
-        return player;
-    }
+	public void incrementEscapeAttempts() {
+		this.escapeAttempts++;
+		persistentData.put("escapeAttempts", this.escapeAttempts);
+	}
+
+	public void resetEscapeAttempts() {
+		this.escapeAttempts = 0;
+		persistentData.put("escapeAttempts", this.escapeAttempts);
+	}
+
+	public boolean shouldRequestPrisonBreak() {
+//		log.info("[Star Lords] " + this.getLordAPI().getNameString() + " is checking Prison Break Request. "
+//				+ " Attempts: " + this.getEscapeAttempts()
+//				+ " Captor is player: " + LordController.getLordById(this.captor).isPlayer()
+//				+ " Relationship with player: " + RelationController.getRelation(this, LordController.getPlayerLord())
+//				+ " Player Commission: " + Misc.getCommissionFaction()
+//				+ " Current Request: " + RequestController.getCurrentDefectionRequest(this)
+//		);
+
+		if (this.getEscapeAttempts() >= Constants.FAILED_PRISON_ESCAPES_ASK_ASSISTANCE
+				&& LordController.getLordById(this.captor).isPlayer() == false
+				&& RelationController.getRelation(this, LordController.getPlayerLord()) >= Utils.getThreshold(RepLevel.SUSPICIOUS)
+				&& Misc.getCommissionFaction() == null
+				&& RequestController.getCurrentDefectionRequest(this) == null)
+			return true;
+		return false;
+	}
+
+	public boolean shouldRequestFiefForDefection() {
+//		log.info("[Star Lords] " + this.getLordAPI().getNameString() + " is checking Fief for Defection Request. "
+//				+ " Relationship with player: " + RelationController.getRelation(this, LordController.getPlayerLord())
+//				+ " Player Commission: " + Misc.getCommissionFaction()
+//				+ " Current Request: " + RequestController.getCurrentDefectionRequest(this)
+//		);
+
+		int playerFactionMarkets = 0;
+
+		for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy())
+			if (LordController.getPlayerLord().getFaction().equals(market.getFaction()))
+				playerFactionMarkets ++;
+
+		if (RelationController.getRelation(this, LordController.getPlayerLord()) >= Utils.getThreshold(RepLevel.SUSPICIOUS)
+				&& Misc.getCommissionFaction() == null
+				&& (LordController.getPlayerLord().fiefs.size() >= 3 || (playerFactionMarkets >= 3 && LordController.getPlayerLord().getFiefs().size() == 0))
+				&& RequestController.getCurrentDefectionRequest(this) == null)
+			return true;
+		return false;
+	}
+
+	public boolean wantsToDefect() {
+
+		int chance = DefectionUtils.getAutoBetrayalChance(this);
+		if (chance > 0) {
+			Random rand = new Random(this.getLordAPI().getId().hashCode() * Global.getSector().getClock().getTimestamp());
+			if (rand.nextInt(100) < chance) {
+				return true;
+			}
+		}
+		return false;
+
+	}
+
+	public static Lord createPlayer() {
+		Lord player = new Lord(Global.getSector().getPlayerPerson());
+		player.isPlayer = true;
+		return player;
+	}
 
 }

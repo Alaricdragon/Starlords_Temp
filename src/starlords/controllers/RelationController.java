@@ -5,7 +5,6 @@ import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import org.apache.log4j.Logger;
-import starlords.lunaSettings.StoredSettings;
 import starlords.person.Lord;
 
 import java.util.HashMap;

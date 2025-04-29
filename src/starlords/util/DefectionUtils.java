@@ -12,10 +12,13 @@ import starlords.controllers.EventController;
 import starlords.controllers.FiefController;
 import starlords.controllers.LordController;
 import starlords.controllers.RelationController;
+import starlords.controllers.RequestController;
 import starlords.person.Lord;
+import starlords.person.LordRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static starlords.util.Constants.*;
 import static starlords.util.Constants.COMPLETELY_UNJUSTIFIED;
@@ -77,42 +80,92 @@ public class DefectionUtils {
         }
     }
 
-    // lords have this chance to defect every month.
-    public static int getAutoBetrayalChance(Lord lord) {
-        int loyalty = RelationController.getLoyalty(lord);
-        switch(lord.getPersonality()) {
-            case UPSTANDING:
-                return Math.min(15, (Utils.getThreshold(RepLevel.HOSTILE) - loyalty) / 2);
-            case MARTIAL:
-                return Math.min(15, (Utils.getThreshold(RepLevel.INHOSPITABLE) - loyalty) / 2);
-            case CALCULATING:
-                return Math.min(15, (Utils.getThreshold(RepLevel.SUSPICIOUS) - loyalty) / 2);
-            case QUARRELSOME:
-                return Math.min(15, (Utils.getThreshold(RepLevel.NEUTRAL) - loyalty) / 2);
-        }
-        return 0;
-    }
+	// lords have this chance to defect every month.
+	public static int getAutoBetrayalChance(Lord lord) {
+		int loyalty = RelationController.getLoyalty(lord);
+		int chance = 50;
+		int lordsInFaction = 0;
 
-    // defects to any faction
-    // chooses defection faction based on faction opinion and faction lord density
-    public static void performDefection(Lord lord) {
-        // precompute some stuff
-        HashMap<String, Integer> marketValues = new HashMap<>();
-        HashMap<String, Integer> lordValues = new HashMap<>();
-        for (MarketAPI marketAPI : Global.getSector().getEconomy().getMarketsCopy()) {
-            String id = marketAPI.getFactionId();
-            if (!marketValues.containsKey(id)) {
-                marketValues.put(id, 0);
-            }
-            marketValues.put(id, marketValues.get(id) + 20);
-        }
-        for (Lord lord2 : LordController.getLordsList()) {
-            String id = lord2.getFaction().getId();
-            if (!lordValues.containsKey(id)) {
-                lordValues.put(id, 0);
-            }
-            lordValues.put(id, lordValues.get(id) + 20);
-        }
+		//If the Faction has no markets, keep chance to 50
+		for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
+			if (market.getFactionId().equals(lord.getFaction().getId())) {
+				chance = 0;
+				break;
+			}
+		}
+
+		//If the faction still has markets then only defect if there are at least 4 lords
+		if (chance > 0){
+			for (Lord lordfaction : LordController.getLordsList()) {
+				if (lord.getFaction().equals(lordfaction.getFaction()))
+					lordsInFaction++;
+			}
+			if (lordsInFaction < 4)
+				return 0;
+		}
+
+		if (chance > 0){
+			return chance;
+		}
+
+		switch (lord.getPersonality()) {
+			case UPSTANDING:
+				chance = Math.min(15, (Utils.getThreshold(RepLevel.HOSTILE) - loyalty) / 2);
+			case MARTIAL:
+				chance = Math.min(15, (Utils.getThreshold(RepLevel.INHOSPITABLE) - loyalty) / 2);
+			case CALCULATING:
+				chance = Math.min(15, (Utils.getThreshold(RepLevel.SUSPICIOUS) - loyalty) / 2);
+			case QUARRELSOME:
+				chance = Math.min(15, (Utils.getThreshold(RepLevel.NEUTRAL) - loyalty) / 2);
+
+		}
+
+		//Luddic Path, Knight of Eva and Luddic Knights are fanatics so need really bad relations
+		List<String> fanaticFaction = new ArrayList<String>();
+		fanaticFaction.add("Luddic Path");
+		fanaticFaction.add("Knights of Eva");
+		fanaticFaction.add("Knights of Ludd");
+
+		if (fanaticFaction.contains(lord.getFaction().getDisplayName()))
+			chance -= 20;
+
+		int fiefs = lord.getFiefs().size();
+		if (fiefs > 0)
+			chance -= fiefs * 10;
+		else
+			chance += 10;
+
+		chance += lord.getEscapeAttempts();
+
+		return chance;
+	}
+
+	// defects to any faction
+	// chooses defection faction based on faction opinion and faction lord density
+	public static void performDefection(Lord lord) {
+		// precompute some stuff
+		HashMap<String, Integer> marketValues = new HashMap<>();
+		HashMap<String, Integer> lordValues = new HashMap<>();
+
+		LordRequest openDefectionRequest = RequestController.getCurrentDefectionRequest(lord);
+		if (openDefectionRequest != null) {
+			RequestController.endRequest(openDefectionRequest);
+		}
+
+		for (MarketAPI marketAPI : Global.getSector().getEconomy().getMarketsCopy()) {
+			String id = marketAPI.getFactionId();
+			if (!marketValues.containsKey(id)) {
+				marketValues.put(id, 0);
+			}
+			marketValues.put(id, marketValues.get(id) + 20);
+		}
+		for (Lord lord2 : LordController.getLordsList()) {
+			String id = lord2.getFaction().getId();
+			if (!lordValues.containsKey(id)) {
+				lordValues.put(id, 0);
+			}
+			lordValues.put(id, lordValues.get(id) + 20);
+		}
 
         FactionAPI preferredFaction = Global.getSector().getFaction(Factions.PIRATES);
         int preferredWeight = 25;

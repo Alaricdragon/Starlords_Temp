@@ -9,14 +9,11 @@ import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.*;
 import com.fs.starfarer.api.util.Misc;
-import starlords.controllers.EventController;
-import starlords.controllers.LordController;
 import lombok.Getter;
 import lombok.Setter;
 import org.lwjgl.input.Keyboard;
 import starlords.person.Lord;
 import starlords.person.LordAction;
-import starlords.person.LordEvent;
 import starlords.plugins.LordInteractionDialogPluginImpl;
 import starlords.util.StringUtil;
 import starlords.util.Utils;
@@ -107,30 +104,8 @@ public class LordsIntelPlugin extends BaseIntelPlugin {
             personalityStr = "Unknown";
         }
         String orderStr;
-        if (lord.getPlayerRel() < repForCurAction
-                && !isSubject && !isMarried && !DEBUG_MODE) {
-            orderStr = "[REDACTED]";
-        } else if (lord.getCurrAction() == LordAction.IMPRISONED) {
-            orderStr = "Imprisoned by " + LordController.getLordOrPlayerById(lord.getCaptor()).getLordAPI().getNameString();
-        } else if (lord.getCurrAction() == LordAction.COMPANION) {
-            orderStr = "Traveling with you";
-        } else if (lord.getCurrAction() == null || !fleet.isAlive()) {
-            orderStr = "None";
-        } else if (lord.getCurrAction() != LordAction.CAMPAIGN) {
-            orderStr = StringUtil.getString(
-                    CATEGORY_UI, "fleet_" + lord.getCurrAction().base.toString().toLowerCase() + "_desc", lord.getTarget().getName());
-        } else {
-            if (lord.isMarshal()) {
-                LordEvent campaign = EventController.getCurrentCampaign(lord.getLordAPI().getFaction());
-                if (campaign.getTarget() == null) {
-                    orderStr = StringUtil.getString(CATEGORY_UI, "fleet_campaign_lead_desc", lord.getTarget().getName());
-                } else {
-                    orderStr = StringUtil.getString(CATEGORY_UI, "fleet_campaign_lead_desc", campaign.getTarget().getName());
-                }
-            } else {
-                orderStr = StringUtil.getString(CATEGORY_UI, "fleet_campaign_follow_desc");
-            }
-        }
+        orderStr = Utils.getLordCurrOrders(lord, repForCurAction);
+
         String lastSeenStr;
         if (lord.getPlayerRel() < repForLocation
                 && !isSubject && !isMarried && !DEBUG_MODE) {

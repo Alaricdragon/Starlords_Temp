@@ -13,7 +13,6 @@ import org.apache.log4j.Logger;
 import starlords.controllers.EventController;
 import starlords.controllers.LordController;
 import lombok.Setter;
-import starlords.lunaSettings.StoredSettings;
 import starlords.person.Lord;
 import starlords.person.LordEvent;
 import starlords.util.Utils;

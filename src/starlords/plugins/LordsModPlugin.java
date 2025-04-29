@@ -49,6 +49,7 @@ public class LordsModPlugin extends BaseModPlugin {
         x.alias("controllers.PoliticsController", PoliticsController.class);
         x.alias("controllers.QuestController", QuestController.class);
         x.alias("controllers.RelationController", RelationController.class);
+        x.alias("controllers.RequestController", RequestController.class);
         x.alias("listeners.BattleListener", BattleListener.class);
         x.alias("listeners.MarketStateChangeListener", MarketStateChangeListener.class);
         x.alias("listeners.MonthlyUpkeepListener", MonthlyUpkeepListener.class);
@@ -60,6 +61,7 @@ public class LordsModPlugin extends BaseModPlugin {
         x.alias("ui.MissionPreviewIntelPlugin", MissionPreviewIntelPlugin.class);
         x.alias("ui.PrisonerIntelPlugin", PrisonerIntelPlugin.class);
         x.alias("ui.ProposalIntelPlugin", ProposalIntelPlugin.class);
+        x.alias("ui.RequestIntelPlugin", RequestIntelPlugin.class);
     }
 
     @Override
@@ -79,14 +81,19 @@ public class LordsModPlugin extends BaseModPlugin {
         StoredSettings.attemptEnableLunalib();
         StoredSettings.getSettings();
 
+        //Instantiate Controllers
         FiefController.getInstance(true);
         EventController.getInstance(true);
-        LawsIntelPlugin.getInstance(true);
-        CouncilIntelPlugin.getInstance(true);
+        RequestController.getInstance(true);
         QuestController.getInstance(true);
         RelationController.getInstance(true);
         PoliticsController.getInstance(true);
         LifeAndDeathController.getInstance(true);
+
+        //Instantiate Static Intel Plugins
+        LawsIntelPlugin.getInstance(true);
+        CouncilIntelPlugin.getInstance(true);
+
 
         if (Utils.nexEnabled()) {
             sector.getListenerManager().addListener(new MarketStateChangeNexListener(), true);
