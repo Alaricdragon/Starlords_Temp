@@ -635,9 +635,9 @@ public class DialogSet {
     public void applyLine(String key, Lord lord,Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, boolean forceHide, HashMap<String,String> markersReplaced){
         Logger log = Global.getLogger(StoredSettings.class);
         //apply a paragraph of text for the current line
-        if (shouldHide(key,textPanel,options,lord)) return;
+        if (shouldHide(key,textPanel,options,lord,targetLord,targetMarket)) return;
         String line = this.getLine(key);
-        if (line != null && !line.equals("") && !shouldHide(key, textPanel, options, lord) && !forceHide) {
+        if (line != null && !line.equals("") && !shouldHide(key, textPanel, options, lord,targetLord,targetMarket) && !forceHide) {
             line = insertDefaltData(line, lord,targetLord);
             line = insertAdditionalData(line, markersReplaced);
             if (colorOverride.containsKey(key)) {
@@ -705,13 +705,13 @@ public class DialogSet {
             advancedDialogOptionData.get(key).applyOptions(lord,targetLord,targetMarket,textPanel,options,dialog,markersReplaced);
         }else{
             log.info("  attempting to add basic option for: "+key);
-            applyOptionSingle(key, lord, targetLord, textPanel, optionData, options, dialog, markersReplaced);
+            applyOptionSingle(key, lord, targetLord,targetMarket, textPanel, optionData, options, dialog, markersReplaced);
         }
     }
-    public void applyOptionSingle(String key, Lord lord,Lord targetLord, TextPanelAPI textPanel,Object optionData,OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
+    public void applyOptionSingle(String key, Lord lord,Lord targetLord,MarketAPI targetMarket, TextPanelAPI textPanel,Object optionData,OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
         Logger log = Global.getLogger(StoredSettings.class);
         String line = this.getLine(key);
-        if (!shouldHide(key, textPanel, options, lord) && line != null) {
+        if (!shouldHide(key, textPanel, options, lord,targetLord,targetMarket) && line != null) {
             log.info("adding option of key: "+key);
             line = insertDefaltData(line, lord,targetLord);
             line = insertAdditionalData(line, markersReplaced);
@@ -747,7 +747,7 @@ public class DialogSet {
                         break;
                 }
             }
-            if (enable.containsKey(key) && !shouldEnable(key,textPanel,options,lord)) options.setEnabled(optionData,false);
+            if (enable.containsKey(key) && !shouldEnable(key,textPanel,options,lord,targetLord,targetMarket)) options.setEnabled(optionData,false);
         }
         //log.info("attempting to add options from options" + key);
         boolean builtOptions = false;
@@ -774,16 +774,16 @@ public class DialogSet {
 
     }
 
-    private boolean shouldHide(String key,TextPanelAPI textPanel,OptionPanelAPI options,Lord lord){
+    private boolean shouldHide(String key,TextPanelAPI textPanel,OptionPanelAPI options,Lord lord,Lord targetLord, MarketAPI targetMarket){
         if (!hide.containsKey(key) || hide.get(key).size() == 0) return false;
         for (DialogRule_Base a : hide.get(key)){
-            if (!a.condition(lord)) return true;
+            if (!a.condition(lord,targetLord,targetMarket)) return true;
         }
         return false;
     }
-    private boolean shouldEnable(String key,TextPanelAPI textPanel,OptionPanelAPI options,Lord lord){
+    private boolean shouldEnable(String key,TextPanelAPI textPanel,OptionPanelAPI options,Lord lord,Lord targetLord, MarketAPI targetMarket){
         for (DialogRule_Base a : enable.get(key)){
-            if (!a.condition(lord)) return false;
+            if (!a.condition(lord,targetLord,targetMarket)) return false;
         }
         return true;
     }

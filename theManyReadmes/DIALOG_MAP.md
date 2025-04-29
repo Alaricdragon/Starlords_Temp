@@ -5,7 +5,7 @@
   * "option_host_wedding" :           "marriage_ceremony"
   * "option_ask_current_task" :       "current_task_desc"
   * "option_ask_question" :           "ask_question"
-  * "option_suggest_action" :         OptionId.SUGGEST_ACTION
+  * "option_suggest_action" :         suggest_action
   * "option_speak_privately" :        "speak_privately"
   * "option_cutComLink" :             "exitDialog"
   
@@ -144,6 +144,14 @@
     * "option_nevermind_accept_ask_location" : option_nevermind_accept_ask_location
 
 * "suggest_action"
+  * "option_stop_follow_me" : OptionId.STOP_FOLLOW_ME
+  * "option_follow_me" : OptionId.FOLLOW_ME
+  * "option_suggest_raid" : OptionId.SUGGEST_RAID
+  * "option_suggest_patrol" : OptionId.SUGGEST_PATROL
+  * "option_suggest_upgrade" : OptionId.SUGGEST_UPGRADE
+  * "option_nevermind" : "greeting"
+  * ||
+  * copys "greetings" option
  
 * "speak_privately"
   * "if the lord won't speak to you": copys 'greeting' options

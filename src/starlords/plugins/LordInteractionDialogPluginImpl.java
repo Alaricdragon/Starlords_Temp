@@ -1593,16 +1593,16 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         boolean isBusy = false;
         /*
          * lines:
+         *      refuse relations: refuse_suggest_action_relations
+         *      refuse busy: refuse_suggest_action_busy
          *      accept married: consider_suggest_action_spouse
          *      accept isLeige: consider_suggest_action_subject
          *      accept base: consider_suggest_action
-         *      refuse relations: refuse_suggest_action_relations
-         *      refuse busy: refuse_suggest_action_busy
          *   lines:
          *       to low relations (not married / less then neutral)
          *           -refuse_suggest_action_relations. (return to greetings)
          *       isBusy
-         *           -refuse_suggest_action_busy
+         *           -refuse_suggest_action_busy. (return to greetings)
          *       other:
          *           isMarrriedToPlayer:
          *               -consider_suggest_action_spouse
@@ -1686,7 +1686,6 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
                 || lordFleet.isEmpty() || targetLord.getCurrAction() == LordAction.COMPANION) {
             isBusy = true;
         }
-
         if (!targetLord.isMarried() && targetLord.getLordAPI().getRelToPlayer().isAtBest(RepLevel.NEUTRAL)) {
             textPanel.addParagraph(StringUtil.getString(CATEGORY, "refuse_suggest_action_relations"));
         } else if (isBusy) {

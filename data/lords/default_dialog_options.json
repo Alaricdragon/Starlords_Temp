@@ -61,5 +61,7 @@
   "justify_defect_quarrelsome_success": "optionSet_justify_defect_quarrelsome_success",
   "justify_defect_quarrelsome_fail": "optionSet_justify_defect_quarrelsome_fail",
 
-  "ask_quest": "optionSet_ask_quest"
+  "ask_quest": "optionSet_ask_quest",
+
+  "suggest_action": "optionSet_suggest_action"
 }

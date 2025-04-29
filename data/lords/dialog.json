@@ -1421,6 +1421,55 @@
         }
       },
 
+      "suggest_action_fail_relations": {
+        "priority": 5,
+        "rules": {
+          "relationWithPlayer": {
+            "max": 0
+          },
+          "isMarriedToPlayer": false
+        },
+        "lines": {
+          "suggest_action": {
+            "line": "I'm sorry, but I don't know you well enough.",
+            "options": [
+              "optionSet_greeting"
+            ]
+          }
+        }
+      },
+
+      "suggest_action_fail_busy": {
+        "priority": 4,
+        "rules": {
+          "or": [
+            {
+              "isHostingFeast": true
+            },
+            {
+              "lordFleetIsAlive": false
+            },
+            {
+              "currentAction": {
+                "IS_ORGANIZING_CAMPAIGN": true
+              }
+            },
+            {
+              "currentAction": {
+                "IS_ON_CAMPAIGN": true
+              }
+            }
+          ]
+        },
+        "lines": {
+          "suggest_action": {
+            "line": "I'm sorry, but I have other matters to attend to.",
+            "options": [
+              "optionSet_greeting"
+            ]
+          }
+        }
+      },
       "swayProposal_forCounsel_acceptHappily": {
         "priority": 4,
         "rules": {
@@ -1595,6 +1644,17 @@
       },
 
 
+      "suggest_action_succeed_married": {
+        "priority": 3,
+        "rules": {
+          "isMarriedToPlayer": true
+        },
+        "lines": {
+          "suggest_action": {
+            "line": "Is something the matter, dear?"
+          }
+        }
+      },
       "swayProposal_forCounsel_bargain": {
         "priority": 3,
         "rules": {
@@ -1908,7 +1968,19 @@
         }
       },
 
+      "suggest_action_succeed_subject": {
+        "priority": 2,
+        "rules": {
+          "playerSubject": true
+        },
+        "lines": {
+          "suggest_action": {
+            "line": "At your command, my liege."
+          }
+        }
+      },
       "canDefectOption": {
+        "priority": 2,
         "rules": {
           "baseValue": {
             "min": 0,
@@ -3113,6 +3185,8 @@
             }
           },
 
+          "suggest_action": "Very well, I'm listening. But if this goes poorly, I will hold you responsible.",
+
           "ask_quest": {
             "line": "",
             "addons": {
@@ -3289,7 +3363,7 @@
           },
           "option_suggest_action": {
             "line": "Suggest a course of action.",
-            "optionData": "ERROR"
+            "optionData": "suggest_action"
           },
           "option_speak_privately": {
             "line": "Ask to speak privately.",
@@ -4184,7 +4258,51 @@
             "shortcut": "ESCAPE"
           },
 
-
+          "optionSet_suggest_action": {
+            "options": [
+              "option_stop_follow_me",
+              "option_follow_me",
+              "option_suggest_raid",
+              "option_suggest_patrol",
+              "option_suggest_upgrade",
+              "option_nevermind"
+            ]
+          },
+          "option_stop_follow_me": {
+            "line": "Stop following me.",
+            "optionData": "ERROR",
+            "show": {
+              "currentAction": {
+                "IS_FOLLOWING_PLAYER": true
+              }
+            }
+          },
+          "option_follow_me": {
+            "line": "Follow me.",
+            "optionData": "ERROR",
+            "show": {
+              "currentAction": {
+                "IS_FOLLOWING_PLAYER": false
+              }
+            }
+          },
+          "option_suggest_raid": {
+            "line": "Raid an enemy market.",
+            "optionData": "ERROR"
+          },
+          "option_suggest_patrol": {
+            "line": "Defend a location from hostiles.",
+            "optionData": "ERROR"
+          },
+          "option_suggest_upgrade": {
+            "line": "The enemy is strong. Retreat and rebuild for now.",
+            "optionData": "ERROR"
+          },
+          "option_nevermind": {
+            "line": "Never mind.",
+            "optionData": "greeting",
+            "shortcut": "ESCAPE"
+          },
 
 
           "setData_calculateDefect_base": {

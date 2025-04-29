@@ -1,9 +1,12 @@
 package starlords.util.dialogControler.dialogRull;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import starlords.controllers.EventController;
+import starlords.lunaSettings.StoredSettings;
 import starlords.person.Lord;
 import starlords.person.LordAction;
 import starlords.person.LordEvent;
@@ -12,14 +15,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class DialogRule_currentAction extends DialogRule_Base{
-    ArrayList<CurrentAction_base> actions;
+    ArrayList<CurrentAction_base> actions = new ArrayList<>();
     @SneakyThrows
     public DialogRule_currentAction(JSONObject json, String key){
         json = json.getJSONObject(key);
         for (Iterator it = json.keys(); it.hasNext();) {
             String key2 = (String) it.next();
             boolean has = json.getBoolean(key2);
-            switch (key) {
+            switch (key2) {
                 case "IS_UPGRADING":
                     actions.add(new CurrentAction_IS_UPGRADING(has));
                     break;
@@ -67,7 +70,7 @@ public class DialogRule_currentAction extends DialogRule_Base{
     }
 
     @Override
-    public boolean condition(Lord lord, Lord targetLord) {
+    public boolean condition(Lord lord, Lord targetLord, MarketAPI targetMarket) {
         for (CurrentAction_base a : actions){
             if (!a.condition(lord,targetLord)) return false;
         }
