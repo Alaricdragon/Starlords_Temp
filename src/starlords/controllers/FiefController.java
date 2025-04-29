@@ -9,7 +9,6 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.util.Misc;
 import org.apache.log4j.Logger;
-import starlords.lunaSettings.StoredSettings;
 import starlords.person.Lord;
 import starlords.util.Utils;
 
@@ -183,6 +182,21 @@ public class FiefController extends BaseIntelPlugin {
             }
         });
         return candidates.get(0);
+    }
+
+    public static MarketAPI getMarketByID(String id) {
+        for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()){
+            if (market.getId().equals(id))
+                return market;
+        }
+        return null;
+    }
+
+    public static void playerTransferFief(Lord target,MarketAPI fief){
+        Lord source = LordController.getPlayerLord();
+        source.removeFief(fief);
+        target.addFief(fief);
+        Utils.adjustPlayerReputation(target.getLordAPI(),10);
     }
 
 

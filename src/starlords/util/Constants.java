@@ -12,6 +12,8 @@ public class Constants {
     // percent chance lord is captured when defeated in combat against other lords
     public static final int LORD_CAPTURE_CHANCE = 70;
     public static final int PRISON_ESCAPE_CHANCE = 15;
+    //number of failed attempted escapes when lord asks the player to free them in exchange for defection
+    public static final int FAILED_PRISON_ESCAPES_ASK_ASSISTANCE = 3;
     // if lord's fp is under this number after a battle, the remaining ships will be scuttled
     // and the lord will be considered captured
     public static final int LORD_DEFEATED_IF_UNDER = 15;

@@ -10,14 +10,13 @@ import starlords.controllers.*;
 import org.apache.log4j.Logger;
 import starlords.person.Lord;
 import starlords.person.LordAction;
+import starlords.person.LordRequest;
 import starlords.util.Constants;
 import starlords.util.DefectionUtils;
 import starlords.util.LordFleetFactory;
 import starlords.util.Utils;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 
 public class MonthlyUpkeepListener extends BaseCampaignEventListener {
 
@@ -61,35 +60,27 @@ public class MonthlyUpkeepListener extends BaseCampaignEventListener {
         FiefController.onMonthPass();
         QuestController.getInstance().resetQuests();
         // check for lord betrayal
-        calculateLordBetrayal();
+        calculateLordsBetrayal();
     }
 
-    public void calculateLordBetrayal() {
-        // increase betrayal chance if faction is wiped out
-        HashSet<String> hasMarkets = new HashSet<>();
-        hasMarkets.add(Global.getSector().getPlayerFaction().getId()); // player faction can exist without fiefs
-        for (MarketAPI marketAPI : Global.getSector().getEconomy().getMarketsCopy()) {
-            hasMarkets.add(marketAPI.getFactionId());
-        }
+	public void calculateLordsBetrayal() {
 
-        for (Lord lord : LordController.getLordsList()) {
-            int chance;
-            if (!hasMarkets.contains(lord.getFaction().getId())) {
-                chance = 50;
-            } else {
-                chance = DefectionUtils.getAutoBetrayalChance(lord);
-            }
-            if (chance > 0) {
-                Random rand =  new Random(lord.getLordAPI().getId().hashCode() * Global.getSector().getClock().getTimestamp());
-                if (rand.nextInt(100) < chance) {
-                    DefectionUtils.performDefection(lord);
-                }
-            }
+		for (Lord lord : LordController.getLordsList()) {
+			LordRequest existingRequest = RequestController.getCurrentRequest(lord, LordRequest.FIEF_FOR_DEFECTION);
+			if (existingRequest != null) {
+				RequestController.endRequest(existingRequest);
+			}
+			else if (lord.wantsToDefect())
+				if (lord.shouldRequestFiefForDefection())
+					RequestController.addRequest(new LordRequest(LordRequest.FIEF_FOR_DEFECTION, lord));
+				else
+					DefectionUtils.performDefection(lord);
 
-            // player faction cant have lords if player is not leading the faction
-            if (lord.getFaction().isPlayerFaction() && Misc.getCommissionFaction() != null) {
-                DefectionUtils.performDefection(lord, Misc.getCommissionFaction(), true);
-            }
-        }
-    }
+
+			// player faction cant have lords if player is not leading the faction
+			if (lord.getFaction().isPlayerFaction() && Misc.getCommissionFaction() != null) {
+				DefectionUtils.performDefection(lord, Misc.getCommissionFaction(), true);
+			}
+		}
+	}
 }

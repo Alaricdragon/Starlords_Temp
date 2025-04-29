@@ -230,6 +230,7 @@ public class StoredSettings {
         LordsIntelPlugin.setRepForWealth(LunaSettings.getInt(Constants.MOD_ID,"Other_requiredRepForKnowledgeOfWealth"));
         LordsIntelPlugin.setRepForCurAction(LunaSettings.getInt(Constants.MOD_ID,"Other_requiredRepForKnowledgeOfCurAction"));
         LordsIntelPlugin.setAllowLordsToBeViewed(LunaSettings.getBoolean(Constants.MOD_ID,"Other_showAllLordsIntelByDefault"));
+        Utils.setShowMessageLordCaptureReleaseEscape(LunaSettings.getBoolean(Constants.MOD_ID,"Other_showMessageLordCaptureReleaseEscape"));
 
         int maxSMods = LunaSettings.getInt(Constants.MOD_ID,"Other_maxSMods");
         if (LunaSettings.getBoolean(Constants.MOD_ID,"Other_exstraSModsForSpecalMods") && Global.getSettings().getModManager().isModEnabled("progressiveSMods")) maxSMods += 5;
@@ -424,6 +425,8 @@ public class StoredSettings {
         LordsIntelPlugin.setRepForWealth(json.getInt("requiredRepForKnowledgeOfWealth"));
         LordsIntelPlugin.setRepForCurAction(json.getInt("requiredRepForKnowledgeOfCurAction"));
         LordsIntelPlugin.setAllowLordsToBeViewed(json.getBoolean("showAllLordsIntelByDefault"));
+        Utils.setShowMessageLordCaptureReleaseEscape(json.getBoolean("showMessageLordCaptureReleaseEscape"));
+
 
         int maxSMods = json.getInt("Other_maxSMods");
         if (json.getBoolean("Other_exstraSModsForSpecalMods") && Global.getSettings().getModManager().isModEnabled("progressiveSMods")) maxSMods += 5;

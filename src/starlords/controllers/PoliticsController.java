@@ -143,6 +143,15 @@ public class PoliticsController implements EveryFrameScript {
                     factionCouncilMap.put(factionStr, nextProposal);
                     factionLastCouncilMap.put(factionStr, null);
                     PoliticsController.updateProposal(nextProposal);
+
+                    if (nextProposal != null) {
+                        boolean announce = nextProposal.getFaction().equals(Utils.getRecruitmentFaction());
+                        if (announce == true) {
+                            Global.getSector().getCampaignUI().addMessage("The council is now voting to pass law: " + nextProposal.getTitle(),
+                                    nextProposal.faction.getBaseUIColor());
+                        }
+                    }
+
                 } else {
                     // vote on proposal
                     LawProposal proposal = factionCouncilMap.get(factionStr);
@@ -1419,6 +1428,10 @@ public class PoliticsController implements EveryFrameScript {
     private static String addPlus(int delta) {
         if (delta <= 0) return Integer.toString(delta);
         return "+" + delta;
+    }
+
+    public static Lord getLordMarshall(Lord lord) {
+        return LordController.getLordById(getInstance().factionLawsMap.get(lord.getFaction().getId()).getMarshal());
     }
 
     public static PoliticsController getInstance(boolean forceReset) {

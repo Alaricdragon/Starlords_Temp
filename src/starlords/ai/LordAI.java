@@ -25,6 +25,7 @@ import starlords.person.Lord;
 import starlords.person.LordAction;
 import starlords.person.LordEvent;
 import starlords.person.LordPersonality;
+import starlords.person.LordRequest;
 import starlords.scripts.ActionCompleteScript;
 import starlords.ui.HostileEventIntelPlugin;
 import starlords.util.LordFleetFactory;
@@ -904,31 +905,41 @@ public class LordAI implements EveryFrameScript {
                 }
                 break;
             case IMPRISONED:
+                String message;
                 Lord captor = LordController.getLordOrPlayerById(lord.getCaptor());
                 if (captor == null || !captor.getFaction().isHostileTo(lord.getFaction())) {
                     beginRespawn(lord);
                     if (captor != null) {
                         lord.setCaptor(null);
                         captor.removePrisoner(lord.getLordAPI().getId());
-                        Global.getSector().getCampaignUI().addMessage(
-                                StringUtil.getString(CATEGORY_UI, "lord_freed_captivity",
-                                        lord.getTitle() + " " + lord.getLordAPI().getNameString()),
-                                lord.getFaction().getBaseUIColor());
+                        message = StringUtil.getString(CATEGORY_UI, "lord_freed_captivity",
+                                lord.getTitle() + " " + lord.getLordAPI().getNameString());
+                        Utils.showUIMessageCaptureStatus(message,lord.getFaction());
                     }
-                } else if (Utils.getDaysSince(lord.getAssignmentStartTime()) >= PRISON_ESCAPE_DURATION) {
-                    if (new Random(lord.getLordAPI().getId().hashCode()
-                            * lord.getAssignmentStartTime()).nextInt(100) < PRISON_ESCAPE_CHANCE) {
-                        if (captor.isPlayer()) {
-                            Global.getSector().getCampaignUI().addMessage(
-                                    StringUtil.getString(CATEGORY_UI, "lord_escaped_captivity",
-                                            lord.getTitle() + " " + lord.getLordAPI().getNameString(),
-                                            captor.getFaction().getDisplayName()), Color.RED);
+                } else
+                    if (Utils.getDaysSince(lord.getAssignmentStartTime()) >= PRISON_ESCAPE_DURATION) {
+                        if (new Random(lord.getLordAPI().getId().hashCode()
+                                * lord.getAssignmentStartTime()).nextInt(100) < PRISON_ESCAPE_CHANCE) {
+                            if (captor.isPlayer()) {
+                                Global.getSector().getCampaignUI().addMessage(
+                                        StringUtil.getString(CATEGORY_UI, "lord_escaped_captivity",
+                                                lord.getTitle() + " " + lord.getLordAPI().getNameString(),
+                                                captor.getFaction().getDisplayName()), Color.RED);
+                            }
+                            // TODO reduce relations with captor?
+                            captor.removePrisoner(lord.getLordAPI().getId());
+                            lord.setCaptor(null);
+                            beginRespawn(lord);
                         }
-                        // TODO reduce relations with captor?
-                        captor.removePrisoner(lord.getLordAPI().getId());
-                        lord.setCaptor(null);
-                        beginRespawn(lord);
-                    }
+                        else {
+                            lord.incrementEscapeAttempts();
+                            log.info("[Star Lords] " + lord.getLordAPI().getNameString()
+                                    + " has attempted escape " + lord.getEscapeAttempts() + " times.");
+
+                            if (lord.wantsToDefect() && lord.shouldRequestPrisonBreak()) {
+                                RequestController.addRequest(new LordRequest(LordRequest.PRISON_BREAK, lord));
+                            }
+                        }
                     lord.setAssignmentStartTime(Global.getSector().getClock().getTimestamp());
                 }
                 break;
