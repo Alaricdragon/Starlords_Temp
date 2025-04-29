@@ -1,3 +1,15 @@
+V0.3.27:
+    this update is brought to you by the amazing: Aleksandros
+    new:
+        Added Lord Request system.
+        Fief for Defection - Lords will request a fief that you own in exchange for defection
+        Prison Break - An imprisoned lord will request that you defeat their captor in exchange for defection
+        Added prisoner message suppression setting - default false - that suppresses UI messages of lord capture, release, escape. Setting does not apply for player's faction or player's commission faction
+        Added "Transfer fief" personal decision in Intel Plugin - you can transfer one of your fiefs to a lord of your faction
+        updated defection chance algorithm
+        added console commands for lord status and debugging
+        added UI message for when council is in session
+        added estimated arrival time for Lord raids participants, Attackers and Defenders
 V0.3.26:
     fixed a bug were SOMEONE made it so there faction officers DONT HAVE ANY SPRITES and then it crashes the generator because SOMEONE-
 V0.3.25:
