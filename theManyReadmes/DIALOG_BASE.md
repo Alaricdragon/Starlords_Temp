@@ -8,39 +8,51 @@
 * basic is simply a
     * "lineID": "what you are going to say here =)"
     * you can add 'markers' to strings, to display different data at different points in your dialog. please keep in mind that if the data you are requesting does not exist, the marker will have something like 'no one' or 'nothing' instead of the requested string.
-    * there are a few different targets for markers. the targets are:
-        * PLAYER
-        * PLAYER_SPOUSE
-        * LORD
-        * LORD_SPOUSE
-        * LORD_HOST
-        * LORD_HOST_SPOUSE
-        * WEDDING_TARGET
-        * WEDDING_TARGET_SPOUSE
-        * SECOND_LORD
-        * SECOND_LORD_SPOUSE
-    * markers of the following. (replace TARGET with diffrent target types at will)
-        * "%TARGET_FACTION_NAME"
-        * "%TARGET_STARTING_FACTION_NAME"
+    * there are a few different types of markets.
+    * person markers (the markers here are about people)
+        * there are a few different targets for markers. the targets are:
+            * PLAYER
+            * PLAYER_SPOUSE
+            * LORD
+            * LORD_SPOUSE
+            * LORD_HOST
+            * LORD_HOST_SPOUSE
+            * WEDDING_TARGET
+            * WEDDING_TARGET_SPOUSE
+            * SECOND_LORD
+            * SECOND_LORD_SPOUSE
+        * markers of the following. (replace TARGET with diffrent target types at will)
+            * "%TARGET_FACTION_NAME"
+            * "%TARGET_STARTING_FACTION_NAME"
+            * "%TARGET_NAME"
+            * "%TARGET_NAME_FIRST"
+            * "%TARGET_NAME_LAST"
+            * "%TARGET_TITLE"
+            * "%TARGET_GENDER_MAN_OR_WOMEN"
+            * "%TARGET_GENDER_HE_OR_SHE"
+            * "%TARGET_GENDER_HIM_OR_HER"
+            * "%TARGET_GENDER_HIS_OR_HER"
+            * "%TARGET_GENDER_HUSBAND_OR_WIFE"
+            * "%TARGET_GENDER_SUIT_OR_DRESS"
+            * "%TARGET_GENDER_SIR_OR_MAAM"
+            * "%TARGET_GENDER_NAME"
+            * "%TARGET_FLAGSHIP_HULLNAME" target flagship ship hull name (return "nothing" if the target has no flagship)
+            * "%TARGET_FLAGSHIP_NAME" target flagship name (returns "nothing" if the target has no flagship)
+            * "%TARGET_PROPOSAL_NAME" target proposal name (returns "nothing" if the target has no active proposal)
+            * "%TARGET_FLEET_LOCATION" target fleet location (returns "nowere" if target fleet location cannot be found)
+            * "%TARGET_LIEGE_NAME" the name of the leader of this faction. do to -reasons- this might often be null
+            * "%TARGET_FACTION_RANK_TITLE0" the name of tier 0 lords title of the target faction
+            * "%TARGET_FACTION_RANK_TITLE1" the name of tier 1 lords title of the target faction
+            * "%TARGET_FACTION_RANK_TITLE2" the name of tier 2 lords title of the target faction
+    * market markers (the markers here are about markets)
+      * there is only one type of target right now:
+        * TARGET_MARKET
+      * markers of the following. (replace TARGET with diffrent target types at will)
         * "%TARGET_NAME"
-        * "%TARGET_NAME_FIRST"
-        * "%TARGET_NAME_LAST"
-        * "%TARGET_TITLE"
-        * "%TARGET_GENDER_MAN_OR_WOMEN"
-        * "%TARGET_GENDER_HE_OR_SHE"
-        * "%TARGET_GENDER_HIM_OR_HER"
-        * "%TARGET_GENDER_HIS_OR_HER"
-        * "%TARGET_GENDER_HUSBAND_OR_WIFE"
-        * "%TARGET_GENDER_SUIT_OR_DRESS"
-        * "%TARGET_GENDER_NAME"
-        * "%TARGET_FLAGSHIP_HULLNAME" target flagship ship hull name (return "nothing" if the target has no flagship)
-        * "%TARGET_FLAGSHIP_NAME" target flagship name (returns "nothing" if the target has no flagship)
-        * "%TARGET_PROPOSAL_NAME" target proposal name (returns "nothing" if the target has no active proposal)
-        * "%TARGET_FLEET_LOCATION" target fleet location (returns "nowere" if target fleet location cannot be found)
-        * "%TARGET_LIEGE_NAME" the name of the leader of this faction. do to -reasons- this might often be null
-        * "%TARGET_FACTION_RANK_TITLE0" the name of tier 0 lords title of the target faction
-        * "%TARGET_FACTION_RANK_TITLE1" the name of tier 1 lords title of the target faction
-        * "%TARGET_FACTION_RANK_TITLE2" the name of tier 2 lords title of the target faction
+        * "%TARGET_FACTION"
+        * "%TARGET_SYSTEM"
+        * "%TARGET_SIZE"
+        * "%TARGET_STABILITY"
     * some lines will also use custom inputted data. in this case, they will use the '%c#' marker, with # being the order they are added to the line.
 * advanced is more complicated. its a json object, that must include a "line" (to act as the normal lineID), but also additional json peramiters.
     * "addons": this is code that can be ran when the line is ran. you can read about it here: [DIALOG_ADDONS.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_ADDONS.md)

@@ -20,15 +20,12 @@
     "relation_increase": "Relations with $string increased by $string.",
     "relation_decrease": "Relations with $string decreased by $string.",
     "refuse_suggest_action": "I'm sorry, but I'm unable to do that.",
-    "accept_suggest_action": "I will follow your suggestion.",
-    "accept_suggest_action_subject": "At once, $string.",
 
 
     "option_ransom_prisoner": "Ransom prisoner for $string credits",
     "option_release_prisoner": "Release prisoner",
     "option_leave_prisoner": "[Leave] Enjoy your time in the oubliette.",
-    "ask_raid_location": "Where should I raid?",
-    "ask_patrol_location": "Where should I defend?",
+    "ask_patrol_location": "Where should I defend?"
 
 
   },

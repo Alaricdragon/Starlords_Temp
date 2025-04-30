@@ -204,7 +204,7 @@ public class DialogSet {
         }
         return line;
     }
-    public static String insertDefaltData(String line, Lord lord,Lord targetLord){
+    public static String insertDefaltData(String line, Lord lord,Lord targetLord,MarketAPI targetMarket){
         line = getPlayerStringMods(line,lord);
         line = getPlayerPartnerStringMods(line,lord);
 
@@ -219,6 +219,8 @@ public class DialogSet {
 
         line = getSecondLordStringMods(line,targetLord);
         line = getSecondLordPartnerStringMods(line,targetLord);
+
+        line = getTargetMarketStringMods(line,targetMarket);
         return line;
     }
 
@@ -253,6 +255,9 @@ public class DialogSet {
 
         data = LordController.getPlayerLord().getFormalWear();
         line = insertData(line,"%PLAYER_GENDER_SUIT_OR_DRESS",data);
+
+        data = GenderUtils.sirOrMaam(Global.getSector().getPlayerPerson(), false);
+        line = insertData(line,"%PLAYER_GENDER_SIR_OR_MAAM",data);
 
         data = Global.getSector().getPlayerPerson().getGender().name();
         line = insertData(line,"%PLAYER_GENDER_NAME",data);
@@ -296,16 +301,16 @@ public class DialogSet {
         return line;
     }
     private static String getPlayerPartnerStringMods(String line, Lord lord){
-        if (LordController.getPlayerLord().getSpouse() != null) return get_StringMods(line,LordController.getLordById(LordController.getPlayerLord().getSpouse()),"PLAYER_SPOUSE_");
-        return get_null_StringMods(line,"PLAYER_SPOUSE_");
+        if (LordController.getPlayerLord().getSpouse() != null) return get_Person_StringMods(line,LordController.getLordById(LordController.getPlayerLord().getSpouse()),"PLAYER_SPOUSE_");
+        return get_null_Person_StringMods(line,"PLAYER_SPOUSE_");
     }
     private static String getLordStringMods(String line, Lord lord){
-        return get_StringMods(line,lord,"LORD_");
+        return get_Person_StringMods(line,lord,"LORD_");
     }
     private static String getLordPartnerStringMods(String line, Lord lord){
-        if (lord.getSpouse() == null) return get_null_StringMods(line,"LORD_SPOUSE_");
+        if (lord.getSpouse() == null) return get_null_Person_StringMods(line,"LORD_SPOUSE_");
         lord = LordController.getLordById(lord.getSpouse());
-        return get_StringMods(line,lord,"LORD_SPOUSE_");
+        return get_Person_StringMods(line,lord,"LORD_SPOUSE_");
     }
     private static String getHostLordStringMods(String line, Lord lord){
         boolean check = EventController.getCurrentFeast(lord.getLordAPI().getFaction()) != null && EventController.getCurrentFeast(lord.getLordAPI().getFaction()).getOriginator() != null;
@@ -313,10 +318,10 @@ public class DialogSet {
             Lord temp = EventController.getCurrentFeast(lord.getLordAPI().getFaction()).getOriginator();
             if (temp != null){
                 lord = temp;
-                return get_StringMods(line,lord,"LORD_HOST_");
+                return get_Person_StringMods(line,lord,"LORD_HOST_");
             }
         }
-        return get_null_StringMods(line,"LORD_HOST_");
+        return get_null_Person_StringMods(line,"LORD_HOST_");
     }
     private static String getHostLordPartnerStringMods(String line, Lord lord){
         boolean check = EventController.getCurrentFeast(lord.getLordAPI().getFaction()) != null && EventController.getCurrentFeast(lord.getLordAPI().getFaction()).getOriginator() != null;
@@ -326,19 +331,19 @@ public class DialogSet {
                 lord = temp;
                 if (lord.getSpouse() != null){
                     lord = LordController.getLordById(lord.getSpouse());
-                    return get_StringMods(line,lord,"LORD_HOST_SPOUSE_");
+                    return get_Person_StringMods(line,lord,"LORD_HOST_SPOUSE_");
                 }
             }
         }
-        return get_null_StringMods(line,"LORD_HOST_SPOUSE_");
+        return get_null_Person_StringMods(line,"LORD_HOST_SPOUSE_");
     }
     private static String getWeddingTargetLordStringMods(String line, Lord lord){
         boolean check = EventController.getCurrentFeast(lord.getLordAPI().getFaction()) != null;
         if (check){
             Lord temp = EventController.getCurrentFeast(lord.getLordAPI().getFaction()).getWeddingCeremonyTarget();
-            if (temp != null) get_StringMods(line,lord,"WEDDING_TARGET_");
+            if (temp != null) get_Person_StringMods(line,lord,"WEDDING_TARGET_");
         }
-        return get_null_StringMods(line,"WEDDING_TARGET_");
+        return get_null_Person_StringMods(line,"WEDDING_TARGET_");
     }
     private static String getWeddingTargetPartnerStringMods(String line, Lord lord){
         boolean check = EventController.getCurrentFeast(lord.getLordAPI().getFaction()) != null;
@@ -348,23 +353,23 @@ public class DialogSet {
                 lord = temp;
                 if (lord.getSpouse() != null){
                     lord = LordController.getLordById(lord.getSpouse());
-                    return get_StringMods(line,lord,"WEDDING_TARGET_SPOUSE_");
+                    return get_Person_StringMods(line,lord,"WEDDING_TARGET_SPOUSE_");
                 }
             }
         }
-        return get_null_StringMods(line,"WEDDING_TARGET_SPOUSE_");
+        return get_null_Person_StringMods(line,"WEDDING_TARGET_SPOUSE_");
     }
     private static String getSecondLordStringMods(String line,Lord targetLord){
-        if (targetLord == null) return get_null_StringMods(line,"SECOND_LORD_");
-        return get_StringMods(line,targetLord,"SECOND_LORD_");
+        if (targetLord == null) return get_null_Person_StringMods(line,"SECOND_LORD_");
+        return get_Person_StringMods(line,targetLord,"SECOND_LORD_");
     }
     private static String getSecondLordPartnerStringMods(String line,Lord targetLord){
-        if (targetLord == null || targetLord.getSpouse() == null) return get_null_StringMods(line,"SECOND_LORD_SPOUSE_");
+        if (targetLord == null || targetLord.getSpouse() == null) return get_null_Person_StringMods(line,"SECOND_LORD_SPOUSE_");
         targetLord = LordController.getLordById(targetLord.getSpouse());
-        return get_StringMods(line,targetLord,"SECOND_LORD_SPOUSE_");
+        return get_Person_StringMods(line,targetLord,"SECOND_LORD_SPOUSE_");
     }
 
-    private static String get_StringMods(String line, Lord lord, String key){
+    private static String get_Person_StringMods(String line, Lord lord, String key){
         String data = lord.getFaction().getDisplayName();
         line = insertData(line,"%"+key+"FACTION_NAME",data);
 
@@ -397,6 +402,9 @@ public class DialogSet {
 
         data = lord.getFormalWear();
         line = insertData(line,"%"+key+"GENDER_SUIT_OR_DRESS",data);
+
+        data = GenderUtils.sirOrMaam(lord.getLordAPI(), false);
+        line = insertData(line,"%"+key+"GENDER_SIR_OR_MAAM",data);
 
         data = lord.getLordAPI().getGender().name();
         line = insertData(line,"%"+key+"GENDER_NAME",data);
@@ -436,7 +444,7 @@ public class DialogSet {
         line = insertData(line,"%"+key+"FACTION_RANK_TITLE2",data);
         return line;
     }
-    private static String get_null_StringMods(String line, String key){
+    private static String get_null_Person_StringMods(String line, String key){
         String data = "ERROR: failed to get date of: '"+key+"'";
         line = insertData(line,"%"+key+"FACTION_NAME",data);
 
@@ -460,6 +468,8 @@ public class DialogSet {
 
         line = insertData(line,"%"+key+"GENDER_SUIT_OR_DRESS",data);
 
+        line = insertData(line,"%"+key+"GENDER_SIR_OR_MAAM",data);
+
         line = insertData(line,"%"+key+"GENDER_NAME",data);
 
         line = insertData(line,"%"+key+"FLAGSHIP_HULLNAME",data);
@@ -473,6 +483,44 @@ public class DialogSet {
         line = insertData(line,"%"+key+"FLEET_LOCATION",data);
 
         line = insertData(line,"%"+key+"LIEGE_NAME",data);
+        return line;
+    }
+
+    private static String getTargetMarketStringMods(String line,MarketAPI market){
+        if (market != null) return get_Market_StringMods(line,market,"TARGET_MARKET_");
+        return get_null_Market_StringMods(line,"TARGET_MARKET_");
+    }
+    private static String get_Market_StringMods(String line,MarketAPI market,String key){
+        String data = market.getName();
+        line = insertData(line,"%"+key+"NAME",data);
+
+        data = market.getFaction().getDisplayName();
+        line = insertData(line,"%"+key+"FACTION",data);
+
+        data = "nowere";
+        if (market.getStarSystem() != null)data = market.getStarSystem().getName();
+        line = insertData(line,"%"+key+"SYSTEM",data);
+
+        data = market.getSize()+"";
+        line = insertData(line,"%"+key+"SIZE",data);
+
+        data = market.getStabilityValue()+"";
+        line = insertData(line,"%"+key+"STABILITY",data);
+
+        return line;
+    }
+    private static String get_null_Market_StringMods(String line,String key){
+        String data = "nothing";
+        line = insertData(line,"%"+key+"NAME",data);
+
+        line = insertData(line,"%"+key+"FACTION",data);
+
+        line = insertData(line,"%"+key+"SYSTEM",data);
+
+        line = insertData(line,"%"+key+"SIZE",data);
+
+        line = insertData(line,"%"+key+"STABILITY",data);
+
         return line;
     }
 
@@ -638,7 +686,7 @@ public class DialogSet {
         if (shouldHide(key,textPanel,options,lord,targetLord,targetMarket)) return;
         String line = this.getLine(key);
         if (line != null && !line.equals("") && !shouldHide(key, textPanel, options, lord,targetLord,targetMarket) && !forceHide) {
-            line = insertDefaltData(line, lord,targetLord);
+            line = insertDefaltData(line, lord,targetLord,targetMarket);
             line = insertAdditionalData(line, markersReplaced);
             if (colorOverride.containsKey(key)) {
                 if (colorHighlight.containsKey(key)) {
@@ -713,11 +761,11 @@ public class DialogSet {
         String line = this.getLine(key);
         if (!shouldHide(key, textPanel, options, lord,targetLord,targetMarket) && line != null) {
             log.info("adding option of key: "+key);
-            line = insertDefaltData(line, lord,targetLord);
+            line = insertDefaltData(line, lord,targetLord,targetMarket);
             line = insertAdditionalData(line, markersReplaced);
             if (hint.containsKey(key)) {
                 String line2 = hint.get(key);
-                line2 = insertDefaltData(line2, lord,targetLord);
+                line2 = insertDefaltData(line2, lord,targetLord,targetMarket);
                 line2 = insertAdditionalData(line2, markersReplaced);
                 if (colorOverride.containsKey(key)) {
                     options.addOption(line, optionData, colorOverride.get(key), line2);

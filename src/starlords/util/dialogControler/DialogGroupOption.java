@@ -38,7 +38,7 @@ public class DialogGroupOption {
     }
     public boolean canAddMarket(Lord lord, Lord pastLord,MarketAPI targetMarket){
         for (DialogRule_Base a : rules){
-            if (!a.condition(pastLord,lord,targetMarket)) return false;
+            if (!a.condition(lord,pastLord,targetMarket)) return false;
         }
         return true;
     }

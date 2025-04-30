@@ -1968,12 +1968,56 @@
         }
       },
 
-      "suggest_action_succeed_subject": {
+      "isMarriedToPlayer": {
+        "priority": 2,
+        "rules": {
+          "isMarriedToPlayer": true
+        },
+        "lines": {
+          "stop_follow_me": {
+            "line":"I will see you soon my love.",
+            "addons": {
+              "AICommand": "END_CURRENT_ACTIONS"
+            }
+          },
+          "follow_me": {
+            "line":"Of course my %PLAYER_NAME_FIRST",
+            "addons": {
+              "AICommand": "FOLLOW_PLAYER_FLEET"
+            }
+          },
+          "raidLocation": {
+            "line":"Of course my %PLAYER_NAME_FIRST",
+            "addons": {
+              "AICommand": "RAID_TARGET_MARKET"
+            }
+          }
+        }
+      },
+      "player_subject": {
         "priority": 2,
         "rules": {
           "playerSubject": true
         },
         "lines": {
+          "stop_follow_me": {
+            "line":"At once, %PLAYER_GENDER_SIR_OR_MAAM.",
+            "addons": {
+              "AICommand": "END_CURRENT_ACTIONS"
+            }
+          },
+          "follow_me": {
+            "line":"At once, %PLAYER_GENDER_SIR_OR_MAAM.",
+            "addons": {
+              "AICommand": "FOLLOW_PLAYER_FLEET"
+            }
+          },
+          "raidLocation": {
+            "line":"At once, %PLAYER_GENDER_SIR_OR_MAAM.",
+            "addons": {
+              "AICommand": "RAID_TARGET_MARKET"
+            }
+          },
           "suggest_action": {
             "line": "At your command, my liege."
           }
@@ -3186,6 +3230,27 @@
           },
 
           "suggest_action": "Very well, I'm listening. But if this goes poorly, I will hold you responsible.",
+          "stop_follow_me": {
+            "line":"I will follow your suggestion.",
+            "addons": {
+              "AICommand": "END_CURRENT_ACTIONS"
+            }
+          },
+          "follow_me": {
+            "line":"I will follow your suggestion.",
+            "addons": {
+              "AICommand": "FOLLOW_PLAYER_FLEET",
+              "repChange": -2
+            }
+          },
+          "ask_raid_location": "Where should I raid?",
+          "raidLocation": {
+            "line":"At once, %PLAYER_GENDER_SIR_OR_MAAM.",
+            "addons": {
+              "AICommand": "RAID_TARGET_MARKET",
+              "repChange": -2
+            }
+          },
 
           "ask_quest": {
             "line": "",
@@ -3303,6 +3368,21 @@
             ]
           },
           "optionSet_justify_defect_quarrelsome_fail": {
+            "options": [
+              "optionSet_greeting"
+            ]
+          },
+          "optionSet_stop_follow_me": {
+            "options": [
+              "optionSet_greeting"
+            ]
+          },
+          "optionSet_follow_me": {
+            "options": [
+              "optionSet_greeting"
+            ]
+          },
+          "optionSet_raidLocation": {
             "options": [
               "optionSet_greeting"
             ]
@@ -4265,12 +4345,12 @@
               "option_suggest_raid",
               "option_suggest_patrol",
               "option_suggest_upgrade",
-              "option_nevermind"
+              "option_suggest_nevermind"
             ]
           },
           "option_stop_follow_me": {
             "line": "Stop following me.",
-            "optionData": "ERROR",
+            "optionData": "stop_follow_me",
             "show": {
               "currentAction": {
                 "IS_FOLLOWING_PLAYER": true
@@ -4279,7 +4359,7 @@
           },
           "option_follow_me": {
             "line": "Follow me.",
-            "optionData": "ERROR",
+            "optionData": "follow_me",
             "show": {
               "currentAction": {
                 "IS_FOLLOWING_PLAYER": false
@@ -4288,7 +4368,34 @@
           },
           "option_suggest_raid": {
             "line": "Raid an enemy market.",
-            "optionData": "ERROR"
+            "optionData": "ask_raid_location"
+          },
+          "optionSet_ask_raid_location": {
+            "options": [
+              "optionSet_suggest_raid_location",
+              "option_suggest_raid_nevermind"
+            ]
+          },
+          "optionSet_suggest_raid_location": {
+            "line": "Raid an enemy market.",
+            "optionData": {
+              "type": "targetMarket",
+              "optionData":"option_suggest_raid_target",
+              "rules": {
+                "marketFactionRelationToTargetLordsFaction": {
+                  "max": -50
+                }
+              }
+            }
+          },
+          "option_suggest_raid_target": {
+            "line": "%TARGET_MARKET_NAME",
+            "optionData": "raidLocation"
+          },
+          "option_suggest_raid_nevermind": {
+            "line": "Never mind.",
+            "optionData": "greeting",
+            "shortcut": "ESCAPE"
           },
           "option_suggest_patrol": {
             "line": "Defend a location from hostiles.",
@@ -4298,7 +4405,7 @@
             "line": "The enemy is strong. Retreat and rebuild for now.",
             "optionData": "ERROR"
           },
-          "option_nevermind": {
+          "option_suggest_nevermind": {
             "line": "Never mind.",
             "optionData": "greeting",
             "shortcut": "ESCAPE"

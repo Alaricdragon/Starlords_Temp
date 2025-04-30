@@ -63,5 +63,9 @@
 
   "ask_quest": "optionSet_ask_quest",
 
-  "suggest_action": "optionSet_suggest_action"
+  "suggest_action": "optionSet_suggest_action",
+  "stop_follow_me": "optionSet_stop_follow_me",
+  "follow_me": "optionSet_follow_me",
+  "ask_raid_location": "optionSet_ask_raid_location",
+  "raidLocation": "optionSet_raidLocation"
 }

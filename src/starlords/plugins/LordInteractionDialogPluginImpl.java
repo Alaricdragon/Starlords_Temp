@@ -1592,6 +1592,15 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     private void optionSelected_SUGGEST_ACTION(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
         boolean isBusy = false;
         /*
+    "accept_suggest_action": "I will follow your suggestion.",
+    "accept_suggest_action_subject": "At once, %PLAYER_GENDER_SIR_OR_MAAM.",
+            if (targetLord.getFaction().isPlayerFaction()) {
+                textPanel.addParagraph(StringUtil.getString(
+                        CATEGORY, "accept_suggest_action_subject",
+                        GenderUtils.sirOrMaam(Global.getSector().getPlayerPerson(), false)));
+            } else {
+                textPanel.addParagraph(StringUtil.getString(CATEGORY, "accept_suggest_action"));
+            }
          * lines:
          *      refuse relations: refuse_suggest_action_relations
          *      refuse busy: refuse_suggest_action_busy
@@ -1611,15 +1620,15 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
          *           other:
          *               -consider_suggest_action
          *           options:
-         *               currentAction: IS_FOLLOWING_PLAYER: true
+         *               (DONE)currentAction: IS_FOLLOWING_PLAYER: true
          *                   option_stop_follow_me: OptionId.STOP_FOLLOW_ME
          *                       -AICommand: END_CURRENT_ACTIONS
          *                       -accept_suggest_action
-         *               currentAction: IS_FOLLOWING_PLAYER: false
+         *               (DONE)currentAction: IS_FOLLOWING_PLAYER: false
          *                   option_follow_me: OptionId.FOLLOW_ME
          *                       -AICommand: FOLLOW_PLAYER_FLEET
          *                       -accept_suggest_action
-         *               option_suggest_raid: OptionId.SUGGEST_RAID
+         *               (DONE, untested)option_suggest_raid: OptionId.SUGGEST_RAID
          *                   -ask_raid_location
          *                   -for (hostile markets to lord): optionSelected_SUGGEST_RAID_LOC
          *                       -AICommand: RAID_TARGET_MARKET
