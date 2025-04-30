@@ -339,7 +339,7 @@ public class Lord {
         String saveStr = null;
         if (newTarget instanceof CampaignFleetAPI) {
             saveStr = "fleet_" + ((CampaignFleetAPI) newTarget).getCommander().getId();
-        } else if (newTarget != null) {
+        } else if (newTarget != null && newTarget.getMarket() != null) {
             saveStr = "market_" + newTarget.getMarket().getId();
         }
         persistentData.put("target", saveStr);

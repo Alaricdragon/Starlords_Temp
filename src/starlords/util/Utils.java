@@ -627,41 +627,47 @@ public class Utils {
 		for (Lord lord : LordController.getLordsList()) {
 			ArrayList<String> prisonersToRemove = new ArrayList<>();
 			for (String prisonerID : lord.getPrisoners()) {
-				Lord prisoner = LordController.getLordById(prisonerID);
-				if (prisoner.getCaptor() != null) {
-					if (!Objects.equals(lord.getLordAPI().getId(), prisoner.getCaptor())) {
-						Lord prisonerCaptor = LordController.getLordById(prisoner.getCaptor());
-						output += "[Star Lords] " + lord.getLordAPI().getNameString() + "(" + lord.getLordAPI().getId() + ")"
-								+ " action: " + lord.getCurrAction()
-								+ " location: " + lord.getFleet().getContainingLocation()
-								+ " has prisoner " + prisoner.getLordAPI().getNameString() + "(" + prisoner.getLordAPI().getId() + ")"
-								+ " action:" + prisoner.getCurrAction()
-								+ " location:" + prisoner.getFleet().getContainingLocation()
-								+ " but prisoner has captor " + prisonerCaptor.getLordAPI().getNameString() + "(" + prisonerCaptor.getLordAPI().getId() + ")"
-								+ " action: " + prisonerCaptor.getCurrAction()
-								+ " location: " + prisonerCaptor.getFleet().getContainingLocation()
-								+ System.lineSeparator();
-						if (fix) {
-							prisonersToRemove.add(prisonerID);
-						}
-					}
-				} else {
-					output += "[Star Lords] " + lord.getLordAPI().getNameString() + "(" + lord.getLordAPI().getId() + ")"
-							+ " action: " + lord.getCurrAction()
-							+ " location: " + lord.getFleet().getContainingLocation()
-							+ " has prisoner " + prisoner.getLordAPI().getNameString() + "(" + prisoner.getLordAPI().getId() + ")"
-							+ " action:" + prisoner.getCurrAction()
-							+ " location:" + prisoner.getFleet().getContainingLocation()
-							+ " but prisoner has no captor "
-							+ System.lineSeparator();
-					if (fix) {
-						prisonersToRemove.add(prisonerID);
-					}
-				}
+			    try {
+                    Lord prisoner = LordController.getLordById(prisonerID);
+                    if (prisoner.getCaptor() != null) {
+                        if (!Objects.equals(lord.getLordAPI().getId(), prisoner.getCaptor())) {
+                            Lord prisonerCaptor = LordController.getLordById(prisoner.getCaptor());
+                            output += "[Star Lords] " + lord.getLordAPI().getNameString() + "(" + lord.getLordAPI().getId() + ")"
+                                    + " action: " + lord.getCurrAction()
+                                    + " location: " + lord.getFleet().getContainingLocation()
+                                    + " has prisoner " + prisoner.getLordAPI().getNameString() + "(" + prisoner.getLordAPI().getId() + ")"
+                                    + " action:" + prisoner.getCurrAction()
+                                    + " location:" + prisoner.getFleet().getContainingLocation()
+                                    + " but prisoner has captor " + prisonerCaptor.getLordAPI().getNameString() + "(" + prisonerCaptor.getLordAPI().getId() + ")"
+                                    + " action: " + prisonerCaptor.getCurrAction()
+                                    + " location: " + prisonerCaptor.getFleet().getContainingLocation()
+                                    + System.lineSeparator();
+                            if (fix) {
+                                prisonersToRemove.add(prisonerID);
+                            }
+                        }
+                    } else {
+                        output += "[Star Lords] " + lord.getLordAPI().getNameString() + "(" + lord.getLordAPI().getId() + ")"
+                                + " action: " + lord.getCurrAction()
+                                + " location: " + lord.getFleet().getContainingLocation()
+                                + " has prisoner " + prisoner.getLordAPI().getNameString() + "(" + prisoner.getLordAPI().getId() + ")"
+                                + " action:" + prisoner.getCurrAction()
+                                + " location:" + prisoner.getFleet().getContainingLocation()
+                                + " but prisoner has no captor "
+                                + System.lineSeparator();
+                        if (fix) {
+                            prisonersToRemove.add(prisonerID);
+                        }
+                    }
+                }catch(Exception e){
+				    log.info("failed to get process log. error of: "+e);
+                }
 			}
 			if (fix) {
-				for (String prisonerRemove : prisonersToRemove)
-					lord.removePrisoner(prisonerRemove);
+				for (String prisonerRemove : prisonersToRemove) {
+                    lord.removePrisoner(prisonerRemove);
+                    LordController.getLordById(prisonerRemove).setCaptor(null);
+                }
 			}
 		}
 		if (output.isEmpty()) {
