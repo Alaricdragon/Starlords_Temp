@@ -1,3 +1,8 @@
+V0.3.28:
+    fixes:
+        added some crash protection to some important logs
+        fixed a crash related to a lord starting a campaign without any markets belonging to there faction.
+        fixed a crash related to a lord trying to respawn, and somehow ending up somewhere without a containing location
 V0.3.27:
     this update is brought to you by the amazing: Aleksandros
     new:
