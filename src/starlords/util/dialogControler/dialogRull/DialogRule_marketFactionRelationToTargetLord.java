@@ -15,9 +15,6 @@ public class DialogRule_marketFactionRelationToTargetLord extends DialogRule_min
 
     @Override
     protected int getValue(Lord lord, Lord targetLord, MarketAPI targetMarket) {
-        Logger log = Global.getLogger(StoredSettings.class);
-        int temp = (int) lord.getFaction().getRelationship(targetMarket.getFactionId())*100;
-        log.info("got relationship between market: "+targetMarket.getName()+", of faction"+targetMarket.getFaction().getDisplayName()+" and lord of faction "+lord.getFaction().getDisplayName()+" as: "+ temp);
-        return (int) lord.getFaction().getRelationship(targetMarket.getFaction().getId())*100;
+        return (int) (lord.getFaction().getRelationship(targetMarket.getFaction().getId())*100);
     }
 }

@@ -1628,7 +1628,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
          *                   option_follow_me: OptionId.FOLLOW_ME
          *                       -AICommand: FOLLOW_PLAYER_FLEET
          *                       -accept_suggest_action
-         *               (DONE, untested)option_suggest_raid: OptionId.SUGGEST_RAID
+         *               (DONE)option_suggest_raid: OptionId.SUGGEST_RAID
          *                   -ask_raid_location
          *                   -for (hostile markets to lord): optionSelected_SUGGEST_RAID_LOC
          *                       -AICommand: RAID_TARGET_MARKET
@@ -1651,7 +1651,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
          *
          * additional systems:
          *   (done? in theory)targetMarker: (this would work just like advanced options, but for markets.)
-         *       (done. not tested)rules:
+         *       (done)rules:
          *           marketPlayerFaction
          *           marketLordFaction
          *           marketHostileToLord

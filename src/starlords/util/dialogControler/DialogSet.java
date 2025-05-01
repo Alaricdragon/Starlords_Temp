@@ -1526,6 +1526,9 @@ public class DialogSet {
                 case "marketFiefBelongsToTargetLord":
                     rules.add(addRule_marketFiefBelongsToTargetLord(rulesTemp,key));
                     break;
+                case "marketIsValidTarget":
+                    rules.add(addRule_marketIsValidTarget(rulesTemp,key));
+                    break;
             }
         }
         return rules;
@@ -2111,5 +2114,9 @@ public class DialogSet {
     @SneakyThrows
     private static DialogRule_Base addRule_marketFiefBelongsToTargetLord(JSONObject json,String key){
         return new DialogRule_marketFiefBelongsToTargetLord(json,key);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_marketIsValidTarget(JSONObject json,String key){
+        return new DialogRule_marketIsValidTarget(json,key);
     }
 }

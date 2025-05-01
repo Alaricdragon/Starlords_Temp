@@ -3245,7 +3245,7 @@
           },
           "ask_raid_location": "Where should I raid?",
           "raidLocation": {
-            "line":"At once, %PLAYER_GENDER_SIR_OR_MAAM.",
+            "line":"I will follow your suggestion.",
             "addons": {
               "AICommand": "RAID_TARGET_MARKET",
               "repChange": -2
@@ -4384,7 +4384,8 @@
               "rules": {
                 "marketFactionRelationToTargetLordsFaction": {
                   "max": -50
-                }
+                },
+                "marketIsValidTarget": true
               }
             }
           },

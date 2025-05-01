@@ -148,3 +148,4 @@ this is the 'dialog rules' json object. within, I will cover the 3 different 'ru
     * "marketFiefBelongsToPlayer": if the target market belongs to the player (as a fief)
     * "marketFiefBelongsToLord": if the target market belongs to the lord (as a fief)
     * "marketFiefBelongsToTargetLord": if the target market belongs to the target lord (as a fief)
+    * "marketIsValidTarget": if the market can be attacked under normal circumstances
