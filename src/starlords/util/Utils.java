@@ -629,6 +629,7 @@ public class Utils {
 			for (String prisonerID : lord.getPrisoners()) {
 			    try {
                     Lord prisoner = LordController.getLordById(prisonerID);
+                    //
                     if (prisoner.equals(null)) {
                         output += "[Star Lords] " + lord.getLordAPI().getNameString() + "(" + lord.getLordAPI().getId() + ")"
                                 + " action: " + lord.getCurrAction()
