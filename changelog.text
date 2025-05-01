@@ -1,3 +1,8 @@
+V0.3.29:
+    fixes:
+        fixed ANOTHER bug related to a null getContainingLocation(). hopefully for the last time.
+    logs:
+        (thanks Aleksandros) improved the logs related to finding out whats going on with prisoners
 V0.3.28:
     fixes:
         added some crash protection to some important logs

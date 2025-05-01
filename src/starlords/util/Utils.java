@@ -490,7 +490,8 @@ public class Utils {
         return null;
     }
     public static SectorEntityToken findAnyStaticEntity(SectorEntityToken target){
-        SectorEntityToken output = Misc.findNearestPlanetTo(target,false,true);
+        SectorEntityToken output = null;
+        if (target.getContainingLocation() != null) output = Misc.findNearestPlanetTo(target,false,true);
         if (output != null) return output;
         if (!target.isInHyperspace() && target.getStarSystem() != null){
             if (target.getStarSystem().getJumpPoints() != null && target.getStarSystem().getJumpPoints().size() != 0){
@@ -516,7 +517,7 @@ public class Utils {
     private static SectorEntityToken getClosest(Vector2f a, List<SectorEntityToken> b){
         //i didn't test this. like, at all. I really really hope this does not have issues.
         SectorEntityToken output = null;
-        float distance = 999999999;
+        float distance = Float.POSITIVE_INFINITY;
         for (SectorEntityToken c : b){
             float x = a.x - c.getLocation().x;
             float y = a.y - c.getLocation().y;
@@ -629,6 +630,18 @@ public class Utils {
 			for (String prisonerID : lord.getPrisoners()) {
 			    try {
                     Lord prisoner = LordController.getLordById(prisonerID);
+                    //
+                    if (prisoner.equals(null)) {
+                        output += "[Star Lords] " + lord.getLordAPI().getNameString() + "(" + lord.getLordAPI().getId() + ")"
+                                + " action: " + lord.getCurrAction()
+                                + " location: " + lord.getFleet().getContainingLocation()
+                                + " has prisoner (" + prisonerID + ") but prisonerID does not exist"
+                                + System.lineSeparator();
+                        if (fix) {
+                            prisonersToRemove.add(prisonerID);
+                        }
+                        continue;
+                    }
                     if (prisoner.getCaptor() != null) {
                         if (!Objects.equals(lord.getLordAPI().getId(), prisoner.getCaptor())) {
                             Lord prisonerCaptor = LordController.getLordById(prisoner.getCaptor());
