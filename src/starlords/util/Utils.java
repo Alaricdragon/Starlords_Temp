@@ -629,6 +629,17 @@ public class Utils {
 			for (String prisonerID : lord.getPrisoners()) {
 			    try {
                     Lord prisoner = LordController.getLordById(prisonerID);
+                    if (prisoner.equals(null)) {
+                        output += "[Star Lords] " + lord.getLordAPI().getNameString() + "(" + lord.getLordAPI().getId() + ")"
+                                + " action: " + lord.getCurrAction()
+                                + " location: " + lord.getFleet().getContainingLocation()
+                                + " has prisoner (" + prisonerID + ") but prisonerID does not exist"
+                                + System.lineSeparator();
+                        if (fix) {
+                            prisonersToRemove.add(prisonerID);
+                        }
+                        continue;
+                    }
                     if (prisoner.getCaptor() != null) {
                         if (!Objects.equals(lord.getLordAPI().getId(), prisoner.getCaptor())) {
                             Lord prisonerCaptor = LordController.getLordById(prisoner.getCaptor());
