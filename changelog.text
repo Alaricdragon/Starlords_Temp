@@ -1,3 +1,7 @@
+V0.3.31:
+    fixed:
+        fixed another issue related to getContainingLocation() again. hopefully for the last time.
+        fixed an issue that caused someone to take 'in system days' to arrive
 V0.3.30:
     fixes:
         (hopefully) fixed a issue were starlords in the faction the player is commonsense in declares war / peace with someone, and the player is not dragged into the conflict

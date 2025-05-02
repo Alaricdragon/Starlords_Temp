@@ -590,9 +590,9 @@ public class Utils {
 	public static String getLordTravelTimeString(Lord lord, SectorEntityToken target) {
 		String output = "";
 		if (lord.getFleet() == null)
-			output = "Unknown";
-		else if (lord.getFleet().getContainingLocation().equals(target.getContainingLocation()))
-			output = "In System";
+			return  "Unknown";
+		else if (lord.getFleet().getContainingLocation() != null && target.getContainingLocation() != null && lord.getFleet().getContainingLocation().equals(target.getContainingLocation()))
+			return  "In System";
 		else
 			output = String.valueOf(Math.round(Utils.getTravelTime(lord.getFleet(),target)));
 
@@ -609,7 +609,7 @@ public class Utils {
 			if (lord.getFleet() == null) {
 				continue;
 			}
-			if (lord.getFleet().getContainingLocation().equals(target.getContainingLocation()))
+			if (lord.getFleet().getContainingLocation() != null && target.getContainingLocation() != null && lord.getFleet().getContainingLocation().equals(target.getContainingLocation()))
 				return "In System";
 			else {
 				resultTravel = Math.round(Utils.getTravelTime(lord.getFleet(),target));
