@@ -19,6 +19,7 @@ import starlords.person.LordEvent;
 import starlords.person.LordPersonality;
 import starlords.ui.ProposalIntelPlugin;
 import starlords.util.DefectionUtils;
+import starlords.util.NexerlinUtilitys;
 import starlords.util.Utils;
 
 import java.awt.*;
@@ -419,7 +420,24 @@ public class PoliticsController implements EveryFrameScript {
                     laws.setFiefAward(FiefController.chooseNextFiefAward(proposal.getFaction()));
                     break;
                 case DECLARE_WAR:
-                    proposal.getFaction().setRelationship(proposal.getTargetFaction(), RepLevel.HOSTILE);
+                    if (!Utils.nexEnabled()) {
+                        if (proposal.getFaction().getRelationshipLevel(proposal.getTargetFaction()).isAtWorst(RepLevel.HOSTILE)) {
+                            proposal.getFaction().setRelationship(proposal.getTargetFaction(), RepLevel.HOSTILE);
+                        }
+                        /*RepLevel rel = proposal.getFaction().getRelationshipLevel(proposal.getTargetFaction());
+                        if (Utils.getRecruitmentFaction().equals(proposal.getFaction())){
+                            if (Global.getSector().getPlayerFaction().getRelationshipLevel(proposal.getTargetFaction()).isAtWorst(rel)) {
+                                Global.getSector().getPlayerFaction().setRelationship(proposal.getTargetFaction(), rel);
+                            }
+                        }
+                        if (Utils.getRecruitmentFaction().equals(Global.getSector().getFaction(proposal.getTargetFaction()))){
+                            if (Global.getSector().getPlayerFaction().getRelationshipLevel(proposal.getFaction()).isAtWorst(rel)) {
+                                Global.getSector().getPlayerFaction().setRelationship(proposal.getFaction().getId(), rel);
+                            }
+                        }*/
+                    }else{
+                        NexerlinUtilitys.declareWar(proposal.getFaction(),Global.getSector().getFaction(proposal.getTargetFaction()));
+                    }
                     break;
                 case SUE_FOR_PEACE:
                     LawProposal tmp = new LawProposal(
@@ -429,7 +447,25 @@ public class PoliticsController implements EveryFrameScript {
                     updateProposal(tmp);
                     Pair<Integer, Integer> results = countVotes(tmp, null, null);
                     if (results.one > results.two) {
-                        proposal.getFaction().setRelationship(proposal.getTargetFaction(), RepLevel.NEUTRAL);
+                        if (!Utils.nexEnabled()) {
+                            if (proposal.getFaction().getRelationshipLevel(proposal.getTargetFaction()).isAtBest(RepLevel.SUSPICIOUS)) {
+                                proposal.getFaction().setRelationship(proposal.getTargetFaction(), RepLevel.SUSPICIOUS);
+                            }
+                            /*RepLevel rel = proposal.getFaction().getRelationshipLevel(proposal.getTargetFaction());
+                            if (Utils.getRecruitmentFaction().equals(proposal.getFaction())){
+                                //Global.getSector().getFaction(proposal.targetFaction).getRelToPlayer().setRel(-1);//-RepLevel.SUSPICIOUS.getMin());
+                                //Global.getSector().getFaction(proposal.targetFaction).getRelToPlayer().ensureAtWorst(rel);
+                                //Global.getSector().getFaction(proposal.targetFaction).getRelToPlayer().adjustRelationship(1000,rel);
+                                log.info("adjusting relation up for player as lord of current faction");
+                                log.info("  got rel of: "+rel+" with a min and max of: "+rel.getMin()+", "+rel.getMax());
+                            }
+                            if (Utils.getRecruitmentFaction().equals(Global.getSector().getFaction(proposal.getTargetFaction()))){
+                                Global.getSector().getFaction(proposal.targetFaction).getRelToPlayer().adjustRelationship(1000,rel);
+                                log.info("adjusting relation up for player as lord of target faction");
+                            }*/
+                        }else{
+                            NexerlinUtilitys.declarePeace(proposal.getFaction(),Global.getSector().getFaction(proposal.targetFaction));
+                        }
                         if (announce) {
                             Global.getSector().getCampaignUI().addMessage("Your peace offer was accepted!",
                                     proposal.faction.getBaseUIColor());
