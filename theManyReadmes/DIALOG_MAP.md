@@ -55,8 +55,6 @@
 
 * "dislikeGift_alpha_core"
   * copys 'ask_question' options
-* "dislikeGift_alpha_core"
-  * copys 'ask_question' options
 * "dislikeGift_hand_weapons"
   * copys 'ask_question' options
 * "dislikeGift_food"
@@ -70,8 +68,6 @@
 * "dislikeGift_domestic_goods"
   * copys 'ask_question' options
 
-* "likeGift_alpha_core"
-  * copys 'ask_question' options
 * "likeGift_alpha_core"
   * copys 'ask_question' options
 * "likeGift_hand_weapons"
@@ -146,16 +142,25 @@
 * "suggest_action"
   * "option_stop_follow_me" : "stop_follow_me"
   * "option_follow_me" : "follow_me"
-  * "option_suggest_raid" : ask_raid_location
-  * "option_suggest_patrol" : OptionId.SUGGEST_PATROL
-  * "option_suggest_upgrade" : OptionId.SUGGEST_UPGRADE
+  * "option_suggest_raid" : "ask_raid_location"
+  * "option_suggest_patrol" : "ask_patrol_location"
+  * "option_suggest_upgrade" : suggest_upgrade
   * "option_nevermind" : "greeting"
   * ||
   * copys "greetings" option
   
+* "option_stop_follow_me"
+  * copys "greetings" option
+* "option_follow_me"
+  * copys "greetings" option
 * "ask_raid_location"
   * "optionSet_suggest_raid_location": "option_suggest_raid_target" : "raidLocation"
-  * "option_nevermind_accept_ask_location" : option_nevermind_accept_ask_location
+  * "option_suggest_raid_nevermind" : "greeting"
+* "ask_patrol_location"
+  * "optionSet_suggest_raid_location": "optionSet_suggest_patrol_location" : "option_suggest_patrol_target"
+  * "option_nevermind_accept_ask_location" : "greeting"
+* "option_suggest_upgrade"
+  * copys "greetings" option
   
 * "speak_privately"
   * "if the lord won't speak to you": copys 'greeting' options

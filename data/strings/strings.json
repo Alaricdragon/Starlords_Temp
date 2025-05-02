@@ -24,8 +24,7 @@
 
     "option_ransom_prisoner": "Ransom prisoner for $string credits",
     "option_release_prisoner": "Release prisoner",
-    "option_leave_prisoner": "[Leave] Enjoy your time in the oubliette.",
-    "ask_patrol_location": "Where should I defend?"
+    "option_leave_prisoner": "[Leave] Enjoy your time in the oubliette."
 
 
   },

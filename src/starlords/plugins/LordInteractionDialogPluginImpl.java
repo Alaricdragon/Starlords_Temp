@@ -1635,7 +1635,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
          *                       -accept_suggest_action
          *                   -exit option
          *
-         *               option_suggest_patrol: OptionId.SUGGEST_PATROL
+         *               (DONE)option_suggest_patrol: OptionId.SUGGEST_PATROL
          *                   -ask_patrol_location
          *                   -for(market player faction / market lord faction): OptionId.SUGGEST_PATROL_LOC
          *                       -AICommand: PATROL_TARGET_MARKET
@@ -1804,6 +1804,32 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         optionSelected(null, OptionId.INIT);
     }
     private void optionSelected_SUGGEST_CEASEFIRE(String optionText, Object optionData,PersonAPI player,boolean willEngage,boolean hostile, LordEvent feast,OptionId option){
+        /*and so we are finaly here. at the final option.
+        * what do I need here, if anything?
+        *   lines:
+        *       if relation to lord min 25.
+        *           "accept_mercy"
+        *           -10 relations
+        *           preventAttacksOnPlayer 7
+        *       else:
+        *           refuse_mercy
+        *
+        *
+        * addons:
+        *   * the Intigers here is the number of days to prevent attacks
+        *   preventAttacksOnPlayer: Intiger
+        *   preventAttacksOnTargetLord: Intiger
+        *
+        *   add additional optional data to memory key:
+        *   {
+        *       "value": value (based on already established rules).
+        *
+        *       "reason": String
+        *       "duration": Intiger
+        *   }
+        *
+        *
+        * */
         options.removeOption(OptionId.SUGGEST_CEASEFIRE);
         if (targetLord.getLordAPI().getRelToPlayer().isAtWorst(RepLevel.WELCOMING)) {
             textPanel.addParagraph(StringUtil.getString(CATEGORY, "accept_mercy"));

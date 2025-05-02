@@ -1991,6 +1991,18 @@
             "addons": {
               "AICommand": "RAID_TARGET_MARKET"
             }
+          },
+          "patrolLocation": {
+            "line":"Of course my %PLAYER_NAME_FIRST",
+            "addons": {
+              "AICommand": "PATROL_TARGET_MARKET"
+            }
+          },
+          "suggest_upgrade": {
+            "line":"Of course my %PLAYER_NAME_FIRST",
+            "addons": {
+              "AICommand": "UPGRADE"
+            }
           }
         }
       },
@@ -2016,6 +2028,18 @@
             "line":"At once, %PLAYER_GENDER_SIR_OR_MAAM.",
             "addons": {
               "AICommand": "RAID_TARGET_MARKET"
+            }
+          },
+          "patrolLocation": {
+            "line":"At once, %PLAYER_GENDER_SIR_OR_MAAM.",
+            "addons": {
+              "AICommand": "PATROL_TARGET_MARKET"
+            }
+          },
+          "suggest_upgrade": {
+            "line":"At once, %PLAYER_GENDER_SIR_OR_MAAM.",
+            "addons": {
+              "AICommand": "UPGRADE"
             }
           },
           "suggest_action": {
@@ -3251,6 +3275,21 @@
               "repChange": -2
             }
           },
+          "ask_patrol_location": "Where should I defend?",
+          "patrolLocation": {
+            "line":"I will follow your suggestion.",
+            "addons": {
+              "AICommand": "PATROL_TARGET_MARKET",
+              "repChange": -2
+            }
+          },
+          "suggest_upgrade": {
+            "line":"I will follow your suggestion.",
+            "addons": {
+              "AICommand": "UPGRADE",
+              "repChange": -2
+            }
+          },
 
           "ask_quest": {
             "line": "",
@@ -3383,6 +3422,16 @@
             ]
           },
           "optionSet_raidLocation": {
+            "options": [
+              "optionSet_greeting"
+            ]
+          },
+          "optionSet_patrolLocation": {
+            "options": [
+              "optionSet_greeting"
+            ]
+          },
+          "optionSet_suggest_upgrade": {
             "options": [
               "optionSet_greeting"
             ]
@@ -4400,11 +4449,43 @@
           },
           "option_suggest_patrol": {
             "line": "Defend a location from hostiles.",
-            "optionData": "ERROR"
+            "optionData": "ask_patrol_location"
+          },
+          "optionSet_ask_patrol_location": {
+            "options": [
+              "optionSet_suggest_patrol_location",
+              "option_suggest_patrol_nevermind"
+            ]
+          },
+          "optionSet_suggest_patrol_location": {
+            "line": "Defend an market.",
+            "optionData": {
+              "type": "targetMarket",
+              "optionData":"option_suggest_patrol_target",
+              "rules": {
+                "or": [
+                  {
+                    "marketPlayerFaction": true
+                  },
+                  {
+                    "marketLordFaction": true
+                  }
+                ]
+              }
+            }
+          },
+          "option_suggest_patrol_target": {
+            "line": "%TARGET_MARKET_NAME",
+            "optionData": "patrolLocation"
+          },
+          "option_suggest_patrol_nevermind": {
+            "line": "Never mind.",
+            "optionData": "greeting",
+            "shortcut": "ESCAPE"
           },
           "option_suggest_upgrade": {
             "line": "The enemy is strong. Retreat and rebuild for now.",
-            "optionData": "ERROR"
+            "optionData": "suggest_upgrade"
           },
           "option_suggest_nevermind": {
             "line": "Never mind.",

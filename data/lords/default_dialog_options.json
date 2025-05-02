@@ -67,5 +67,8 @@
   "stop_follow_me": "optionSet_stop_follow_me",
   "follow_me": "optionSet_follow_me",
   "ask_raid_location": "optionSet_ask_raid_location",
-  "raidLocation": "optionSet_raidLocation"
+  "raidLocation": "optionSet_raidLocation",
+  "ask_patrol_location": "optionSet_ask_patrol_location",
+  "patrolLocation": "optionSet_patrolLocation",
+  "suggest_upgrade": "optionSet_suggest_upgrade"
 }
