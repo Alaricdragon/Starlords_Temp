@@ -52,12 +52,14 @@ public class PrisonerInteractionDialogPlugin extends LordInteractionDialogPlugin
         *   (done, untested)add a rule that is 'dialogType'.
         *
         *
-        *   "base": 50000
-        *   "multi": {
-        *       "base":50
-        *       "random":100
-        *   }
-        *   "lordRank": 25000
+        * (DONE)systems:
+        *   (the system is called 'customInserts'. its data is in DIALOG_BASE)
+        *   I need a new insets system.
+        *   im going to put this in addons. and allow for the following possable items:
+        *       memoryString
+        *       dialogString
+        *       lordMemoryString
+        *       dialogValue.
         * */
         PrisonerOptionId option;
         if (optionData == "OptionId.INIT") {

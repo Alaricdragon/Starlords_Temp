@@ -22,8 +22,9 @@ import starlords.person.Lord;
 import starlords.util.Constants;
 import starlords.util.GenderUtils;
 import starlords.util.Utils;
+import starlords.util.dialogControler.dialogInsert.DialogInsertList;
 import starlords.util.dialogControler.dialogRull.*;
-import starlords.util.dialogControler.dialog_addon.*;
+import starlords.util.dialogControler.dialogAddon.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -183,7 +184,7 @@ public class DialogSet {
         //String line = getLine(lord,null,id);
         return "";//insertDefaltData(line,lord);
     }
-    public static String insertData(String line, String mark, String replaced){
+    public static String insertData(String line, String mark, String replace){
         /*StringBuilder out = new StringBuilder();
         if (markAtStart(line,mark)){
             out.append(replaced);
@@ -196,13 +197,22 @@ public class DialogSet {
         if (markAtEnd(line,mark)){
             out.append(replaced);
         }*/
-        return line.replaceAll(mark,replaced);
+        return line.replaceAll(mark,replace);
     }
     public static String insertAdditionalData(String line,HashMap<String,String> markersReplaced){
         for (String a : markersReplaced.keySet()){
             line = insertData(line,a,markersReplaced.get(a));
         }
         return line;
+    }
+    public static String insertDefaltData(String line, Lord lord,Lord targetLord,MarketAPI targetMarket,boolean clone){
+        if (!clone) return insertDefaltData(line, lord, targetLord, targetMarket);
+        StringBuilder lineTemp = new StringBuilder();
+        for (char a : line.toCharArray()){
+            lineTemp.append(a);
+        }
+        line = lineTemp.toString();
+        return insertDefaltData(line, lord, targetLord, targetMarket);
     }
     public static String insertDefaltData(String line, Lord lord,Lord targetLord,MarketAPI targetMarket){
         line = getPlayerStringMods(line,lord);
@@ -630,6 +640,7 @@ public class DialogSet {
     private HashMap<String, Color> colorOverride = new HashMap<>();
     private HashMap<String, Color> colorHighlight = new HashMap<>();
     private HashMap<String,String[]> highlight = new HashMap<>();
+    private HashMap<String, DialogInsertList> customInserts = new HashMap<>();
     public DialogSet(String name,int priority,LordDialog dialog){
         while (dialog.organizedDialogSets.size() < priority){
             dialog.organizedDialogSets.add(new ArrayList<>());
@@ -686,17 +697,25 @@ public class DialogSet {
         if (shouldHide(key,textPanel,options,lord,targetLord,targetMarket)) return;
         String line = this.getLine(key);
         if (line != null && !line.equals("") && !shouldHide(key, textPanel, options, lord,targetLord,targetMarket) && !forceHide) {
+            line = insertCustomData(key,line,lord,targetLord,targetMarket);
             line = insertDefaltData(line, lord,targetLord,targetMarket);
             line = insertAdditionalData(line, markersReplaced);
+            String[] highlightsTemp = new String[0];
+            if (colorHighlight.containsKey(key)){
+                highlightsTemp = new String[highlight.size()];
+                for (int a = 0; a < highlightsTemp.length; a++){
+                    highlightsTemp[a] = insertDefaltData(highlight.get(key)[a],lord,targetLord,targetMarket,true);
+                }
+            }
             if (colorOverride.containsKey(key)) {
                 if (colorHighlight.containsKey(key)) {
-                    textPanel.addPara(line, colorOverride.get(key),colorHighlight.get(key),highlight.get(key));
+                    textPanel.addPara(line, colorOverride.get(key),colorHighlight.get(key),highlightsTemp);
                 }else{
                     textPanel.addPara(line, colorOverride.get(key));
                 }
             } else {
                 if (colorHighlight.containsKey(key)) {
-                    textPanel.addPara(line,colorHighlight.get(key),highlight.get(key));
+                    textPanel.addPara(line,colorHighlight.get(key),highlightsTemp);
                 }else{
                     textPanel.addPara(line);
                 }
@@ -761,6 +780,7 @@ public class DialogSet {
         String line = this.getLine(key);
         if (!shouldHide(key, textPanel, options, lord,targetLord,targetMarket) && line != null) {
             log.info("adding option of key: "+key);
+            line = insertCustomData(key,line,lord,targetLord,targetMarket);
             line = insertDefaltData(line, lord,targetLord,targetMarket);
             line = insertAdditionalData(line, markersReplaced);
             if (hint.containsKey(key)) {
@@ -822,6 +842,10 @@ public class DialogSet {
 
     }
 
+    private String insertCustomData(String key,String line, Lord lord,Lord targetLord,MarketAPI targetMarket){
+        if(!customInserts.containsKey(key))return line;
+        return customInserts.get(key).insertData(line, lord, targetLord, targetMarket);
+    }
     private boolean shouldHide(String key,TextPanelAPI textPanel,OptionPanelAPI options,Lord lord,Lord targetLord, MarketAPI targetMarket){
         if (!hide.containsKey(key) || hide.get(key).size() == 0) return false;
         for (DialogRule_Base a : hide.get(key)){
@@ -912,6 +936,9 @@ public class DialogSet {
         }
         if (line.has("shortcut")){
             shotcut.put(key,line.getString("shortcut"));
+        }
+        if (line.has("customInserts")){
+            customInserts.put(key,new DialogInsertList(line,key));
         }
     }
     @SneakyThrows

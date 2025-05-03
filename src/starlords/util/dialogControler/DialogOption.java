@@ -7,9 +7,8 @@ import com.fs.starfarer.api.campaign.TextPanelAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.Getter;
 import org.apache.log4j.Logger;
-import starlords.lunaSettings.StoredSettings;
 import starlords.person.Lord;
-import starlords.util.dialogControler.dialog_addon.DialogAddon_Base;
+import starlords.util.dialogControler.dialogAddon.DialogAddon_Base;
 
 import java.util.ArrayList;
 
