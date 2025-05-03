@@ -1,6 +1,6 @@
 * "greeting"
-  * "option_avoid_battle" :           OptionId.SUGGEST_CEASEFIRE
-  * "option_ask_tournament" :         start_tournament
+  * "option_avoid_battle" :           "suggest_ceasefire"
+  * "option_ask_tournament" :         "start_tournament"
   * "option_dedicate_tournament" :    "dedicate_tournament"
   * "option_host_wedding" :           "marriage_ceremony"
   * "option_ask_current_task" :       "current_task_desc"
@@ -8,13 +8,17 @@
   * "option_suggest_action" :         "suggest_action"
   * "option_speak_privately" :        "speak_privately"
   * "option_cutComLink" :             "exitDialog"
-  
-* "dedicate_tournament"
+
+* "suggest_ceasefire":
   * copys 'greeting' options
 
 * "start_tournament":
   * "option_continue_to_tournament" : -opens tournament-
   * "option_avoid_tournament" :       "greeting"
+
+* "dedicate_tournament"
+  * copys 'greeting' options
+
 
 * "current_task_desc":
   * '%c0' is the lords current target name.

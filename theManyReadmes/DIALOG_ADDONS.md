@@ -1,4 +1,6 @@
 "addons" are additional conditions and effects that you can have run at the moment this line is ran. some 'addons' also add a line of dialog to show what effects they had. any "option_" will only run addons after the option is selected. and "tooltip_" line cannot use "addons"
+* modifiers:
+  * "conditionalAddon": {"rules": [DIALOG_RULES.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_RULES.md) ,"addons": [DIALOG_ADDONS.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_ADDONS.md) } this addon only runs the addons from its 'addon' jsonObject only if its 'rules' jsonObject meets requirements.
 * targets:
     * "targetLord" does nothing if: target lord is unset. runs the contained 'addon' json object, for the target lord instead of the interacting lord
 * value changes: value changes can contain the following data:
@@ -20,6 +22,8 @@
   * if you want the lord to defect to the players current faction, set the base String, of factionID to "playerCurrFaction".
 * "playSound": String || {"soundID":String, "pitch":Integer || dialogValue, "volume": Integer || dialogValue}. runs Global.getSoundPlayer().playUISound on the inputed data.
 * "attemptToAddRandomQuest": boolean. if set to true, it will run ether the '' line, or the '' line. depending on if a quest can actually get gotten or not. please note: this is to be removed, and replaced with a more complicated quest system in the future.
+* "preventAttacksOnPlayer" Integer. sets the number of days that the interacting lord will be unable to attack the player.
+* "preventAttacksOnTargetLord" Integer. sets the number of days that the interacting lord will be unable to attack the target lord. (if one exsists)
 * "setHeldDate": boolean. sets if you have held a data this feast.
 * "setProfessedAdmiration": boolean. sets if you have held professed admiration this feast.
 * "setCourted" : boolean. sets whether you are courting this lord. setting this to true lets you do romance =)
@@ -47,6 +51,8 @@
   * each line is "dataID" : String || boolean || integer/([DIALOG_VALUES.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_VALUES.md)) || JsonObject {min: integer/dialogValue,max: integer/dialogValue}
 * "setMemoryData": jsonObject. sets memory key data. memory is held in the save file, and will remain forever. please keep in mind, chose your memorys dataID wisely. your dataID must start with '$', and should not be the same as ANY OTHER MEMEORY IN THE GAME. be carefull. if a jsonObject with a min/max is one of its lines, it acts as a increase to the value.
   * each line is "dataID" : String || boolean || integer/([DIALOG_VALUES.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_VALUES.md)) || JsonObject {min: integer/dialogValue,max: integer/dialogValue}
+  * each line can also be: "dataID": {"time":Integer/([DIALOG_VALUES.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_VALUES.md)), "data": (the same data as a normal dataID)}. in this instance, the data will only last for the inputted 'time' of days, before being removed.
 * "setLordMemoryData": jsonObject. sets memory key data, linked to the interacted starlord. memory is held in the save file, and will remain forever, or until the starlord dies. each starlords memory is stored in "$STARLORDS_LORD_ADDITIONAL_MEMORY_%lordID". (were lordID is the ID tied to the lord). so try not to grab that directly please. if a jsonObject with a min/max is one of its lines, it acts as a increase to the value.
   * each line is "dataID" : String || boolean || integer/([DIALOG_VALUES.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_VALUES.md)) || JsonObject {min: integer/dialogValue,max: integer/dialogValue}
+  * each line can also be: "dataID": {"time":Integer/([DIALOG_VALUES.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_VALUES.md)), "data": (the same data as a normal dataID)}. in this instance, the data will only last for the inputted 'time' of days, before being removed.
 * "setLordTags": jsonObject. were each item is 'tagName' : boolean. set to true to add a tag, false to remove it. tags will remain on a starlord until removed.

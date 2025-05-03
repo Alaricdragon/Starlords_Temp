@@ -17,7 +17,7 @@ public class DialogRule_getDialogData_boolean extends DialogRule_Base {
     }
     protected boolean getBoolean(Lord lord){
         boolean data = false;
-        if (LordInteractionDialogPluginImpl.DATA_HOLDER.getBooleans().containsKey(key)) data = LordInteractionDialogPluginImpl.DATA_HOLDER.getBooleans().get(key);
+        data = LordInteractionDialogPluginImpl.DATA_HOLDER.getBoolean(key);
         return data;
     }
 }

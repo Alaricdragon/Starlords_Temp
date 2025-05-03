@@ -1059,6 +1059,15 @@ public class DialogSet {
                 case "AICommand":
                     addon = addAddon_AICommand(addons,key2);
                     break;
+                case "preventAttacksOnPlayer":
+                    addon = addAddon_preventAttacksOnPlayer(addons,key2);
+                    break;
+                case "preventAttacksOnTargetLord":
+                    addon = addAddon_preventAttacksOnTargetLord(addons,key2);
+                    break;
+                case "conditionalAddon":
+                    addon = addAddon_conditionalAddon(addons,key2);
+                    break;
             }
             if (addon != null) newAddons.add(addon);
         }
@@ -1226,6 +1235,18 @@ public class DialogSet {
     @SneakyThrows
     private static DialogAddon_Base addAddon_AICommand(JSONObject json,String key){
         return new DialogAddon_AICommand(json, key);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_preventAttacksOnPlayer(JSONObject json,String key){
+        return new DialogAddon_preventAttacksOnPlayer(json, key);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_preventAttacksOnTargetLord(JSONObject json,String key){
+        return new DialogAddon_preventAttacksOnTargetLord(json, key);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_conditionalAddon(JSONObject json,String key){
+        return new DialogAddon_conditionalAddon(json, key);
     }
 
 
@@ -1529,6 +1550,10 @@ public class DialogSet {
                 case "marketIsValidTarget":
                     rules.add(addRule_marketIsValidTarget(rulesTemp,key));
                     break;
+                case "dialogType":
+                    rules.add(addRule_dialogType(rulesTemp,key));
+                    break;
+
             }
         }
         return rules;
@@ -2118,5 +2143,9 @@ public class DialogSet {
     @SneakyThrows
     private static DialogRule_Base addRule_marketIsValidTarget(JSONObject json,String key){
         return new DialogRule_marketIsValidTarget(json,key);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_dialogType(JSONObject json,String key){
+        return new DialogRule_dialogType(json,key);
     }
 }

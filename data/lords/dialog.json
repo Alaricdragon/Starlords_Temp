@@ -7,6 +7,17 @@
       }
     },
     "lines": {
+      "isPlayerPrisoner": {
+        "priority": 10,
+        "rules": {
+          "dialogType": {
+            "prisoner": true
+          }
+        },
+        "lines": {
+          "greeting": "I am at your mercy. Grant me the honours of war, and do yourself credit!"
+        }
+      },
       "upstanding_hostile": {
         "priority": 8,
         "rules": {
@@ -375,6 +386,19 @@
       }
     },
     "lines": {
+      "isPlayerPrisoner": {
+        "priority": 10,
+        "rules": {
+          "dialogType": {
+            "prisoner": true
+          }
+        },
+        "lines": {
+          "greeting": "To think that I've been captured by you dogs. Ach, the shame of it!"
+        }
+      },
+
+
       "quarrelsome_hostile": {
         "priority": 8,
         "rules": {
@@ -680,6 +704,17 @@
       }
     },
     "lines": {
+      "isPlayerPrisoner": {
+        "priority": 10,
+        "rules": {
+          "dialogType": {
+            "prisoner": true
+          }
+        },
+        "lines": {
+          "greeting": "You may have bested me, but when we next clash, I assure you that it won't happen again."
+        }
+      },
       "martial_hostile": {
         "priority": 8,
         "rules": {
@@ -1049,6 +1084,17 @@
       }
     },
     "lines": {
+      "isPlayerPrisoner": {
+        "priority": 10,
+        "rules": {
+          "dialogType": {
+            "prisoner": true
+          }
+        },
+        "lines": {
+          "greeting": "I have had much time in captivity to reflect on our battle. In our next encounter, I will not lose so easily."
+        }
+      },
       "calculating_hostile": {
         "priority": 8,
         "rules": {
@@ -1409,6 +1455,24 @@
     "priority": 0,
     "rules": {},
     "lines": {
+      "isLordPrisonerOfPlayer": {
+        "priority": 10,
+        "rules": {
+          "dialogType": {
+            "prisoner": true
+          }
+        },
+        "lines": {
+          "greeting": "Welcome to my estate, %PLAYER_NAME. You are under my protection here; please make yourself at home.",
+          "optionSet_greeting": {
+            "options": [
+              "setData_ransomAmount",
+              "option_speak_privately"
+            ]
+          }
+        }
+      },
+
       "isHost_feast": {
         "priority": 6,
         "rules": {
@@ -1968,6 +2032,21 @@
         }
       },
 
+      "willEngage": {
+        "priority": 2,
+        "rules": {
+          "willEngage": true
+        },
+        "lines": {
+          "suggest_ceasefire": {
+            "line":"Well... I suppose I do owe you a debt. So be it, leave now. We never saw each other.",
+            "addons": {
+              "preventAttacksOnPlayer": 7,
+              "repChange": -10
+            }
+          }
+        }
+      },
       "isMarriedToPlayer": {
         "priority": 2,
         "rules": {
@@ -3291,6 +3370,8 @@
             }
           },
 
+          "suggest_ceasefire": "Ah. Unfortunately, you see, I wish to fight with you.",
+
           "ask_quest": {
             "line": "",
             "addons": {
@@ -3436,11 +3517,16 @@
               "optionSet_greeting"
             ]
           },
+          "optionSet_suggest_ceasefire": {
+            "options": [
+              "optionSet_greeting"
+            ]
+          },
           "option_avoid_battle": {
             "line": "Hold your fire! I do not wish to fight you.",
             "color": "YELLOW",
             "hint": "-10 Relations if successful",
-            "optionData": "ERROR",
+            "optionData": "suggest_ceasefire",
             "show": {
               "willEngage": true
             }
@@ -4735,6 +4821,36 @@
               }
             },
             "additionalText": "setData_calculateDefect_base"
+          },
+          "setData_ransomAmount": {
+            "line": "",
+            "addons": {
+              "DialogAddon_conditionalAddon": {
+                "rules": {
+                  "getLordMemoryData": {
+                    "ransomAmount":{
+                      "min":0,
+                      "max":0
+                    }
+                  }
+                },
+                "addons": {
+                  "setLordMemoryData": {
+                    "ransomAmount": {
+                      "time": 30,
+                      "data": {
+                        "base": 50000,
+                        "multi": {
+                          "base":50,
+                          "random":100
+                        },
+                        "lordRank": 25000
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }

@@ -17,9 +17,7 @@ public class DialogValue_DialogData extends DialogValue_base{
     @Override
     public int value(Lord lord, Lord targetLord) {
         int rel = 0;
-        Logger log = Global.getLogger(StoredSettings.class);
-        if (LordInteractionDialogPluginImpl.DATA_HOLDER.getIntegers().containsKey(key)) rel = LordInteractionDialogPluginImpl.DATA_HOLDER.getIntegers().get(key);
-        log.info("  getting data of a key of :"+key+" and a value of "+rel);
+        rel = LordInteractionDialogPluginImpl.DATA_HOLDER.getInteger(key);
         return rel;
     }
 

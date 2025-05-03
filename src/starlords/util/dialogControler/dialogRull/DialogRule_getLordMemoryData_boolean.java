@@ -22,7 +22,7 @@ public class DialogRule_getLordMemoryData_boolean extends DialogRule_getDialogDa
         }
 
         boolean out = false;
-        if (DATA_HOLDER.getBooleans().containsKey(this.key)) out = DATA_HOLDER.getBooleans().get(this.key);
+        out = DATA_HOLDER.getBoolean(this.key);
         return out;
     }
 }

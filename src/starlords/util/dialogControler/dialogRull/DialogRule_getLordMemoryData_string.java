@@ -22,7 +22,7 @@ public class DialogRule_getLordMemoryData_string extends DialogRule_getDialogDat
             DATA_HOLDER = new DataHolder();
         }
         String out = "";
-        if (DATA_HOLDER.getStrings().containsKey(this.key)) out = DATA_HOLDER.getStrings().get(this.key);
+        out = DATA_HOLDER.getString(this.key);
         return out;
     }
 }

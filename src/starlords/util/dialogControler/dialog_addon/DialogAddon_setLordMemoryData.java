@@ -11,6 +11,7 @@ import starlords.person.Lord;
 import starlords.plugins.LordInteractionDialogPluginImpl;
 import starlords.util.Utils;
 import starlords.util.dialogControler.DialogDataHolder;
+import starlords.util.dialogControler.dialogValues.DialogValuesList;
 import starlords.util.memoryUtils.DataHolder;
 
 import java.util.HashMap;
@@ -19,8 +20,19 @@ import java.util.Iterator;
 import static starlords.util.Constants.STARLORD_ADDITIONAL_MEMORY_KEY;
 
 public class DialogAddon_setLordMemoryData extends DialogAddon_setDialogData{
+    HashMap<String, DialogValuesList> time = new HashMap<>();
+    @SneakyThrows
     public DialogAddon_setLordMemoryData(JSONObject json){
-        super(json);
+        super();
+        for (Iterator it = json.keys(); it.hasNext(); ) {
+            String key2 = (String) it.next();
+            if (json.get(key2) instanceof JSONObject && json.getJSONObject(key2).has("time")){
+                time.put(key2,new DialogValuesList(json.getJSONObject(key2),"time"));
+                addSingleItem(key2,"data",json.getJSONObject(key2));
+                continue;
+            }
+            addSingleItem(key2,key2,json);
+        }
     }
     @Override
     public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord,Lord targetLord, MarketAPI targetMarket) {
@@ -31,33 +43,48 @@ public class DialogAddon_setLordMemoryData extends DialogAddon_setDialogData{
         }else{
             DATA_HOLDER = new DataHolder();
         }
-        applyStrings(DATA_HOLDER,lord,targetLord);
-        applyBooleans(DATA_HOLDER,lord,targetLord);
+        applyStrings(DATA_HOLDER,lord,targetLord,targetMarket);
+        applyBooleans(DATA_HOLDER,lord,targetLord,targetMarket);
         applyFloats(DATA_HOLDER,lord,targetLord,targetMarket);
         applyAddFloats(DATA_HOLDER,lord,targetLord,targetMarket);
         Global.getSector().getMemory().set(key,DATA_HOLDER);
     }
-    public void applyStrings(DataHolder DATA_HOLDER,Lord lord,Lord targetLord){
+    public void applyStrings(DataHolder DATA_HOLDER,Lord lord,Lord targetLord, MarketAPI targetMarket){
         for (String key : strings.keySet()) {
-            DATA_HOLDER.getStrings().put(key,strings.get(key));
+            if (!time.containsKey(key)) {
+                DATA_HOLDER.setString(key, strings.get(key));
+                continue;
+            }
+            int time = this.time.get(key).getValue(lord,targetLord,targetMarket);
+            DATA_HOLDER.setString(key,strings.get(key) ,time);
         }
     }
-    public void applyBooleans(DataHolder DATA_HOLDER,Lord lord,Lord targetLord){
+    public void applyBooleans(DataHolder DATA_HOLDER,Lord lord,Lord targetLord, MarketAPI targetMarket){
         for (String key : booleans.keySet()) {
-            DATA_HOLDER.getBooleans().put(key,booleans.get(key));
+            if (!time.containsKey(key)) {
+                DATA_HOLDER.setBoolean(key, booleans.get(key));
+                continue;
+            }
+            int time = this.time.get(key).getValue(lord,targetLord,targetMarket);
+            DATA_HOLDER.setBoolean(key,booleans.get(key) ,time);
         }
 
     }
     public void applyFloats(DataHolder DATA_HOLDER,Lord lord,Lord targetLord, MarketAPI targetMarket){
         for (String key : setInts.keySet()) {
-            DATA_HOLDER.getIntegers().put(key, setInts.get(key).getValue(lord, targetLord,targetMarket));
+            if (!time.containsKey(key)) {
+                DATA_HOLDER.setInteger(key, setInts.get(key).getValue(lord, targetLord, targetMarket));
+                continue;
+            }
+            int time = this.time.get(key).getValue(lord,targetLord,targetMarket);
+            DATA_HOLDER.setInteger(key, setInts.get(key).getValue(lord, targetLord, targetMarket),time);
         }
     }
     public void applyAddFloats(DataHolder DATA_HOLDER,Lord lord,Lord targetLord, MarketAPI targetMarket){
         for (String key : addIntsMin.keySet()) {
             int min = addIntsMin.get(key).getValue(lord, targetLord,targetMarket);
             int max = addIntsMax.get(key).getValue(lord, targetLord,targetMarket);
-            int baseValue = DATA_HOLDER.getIntegers().get(key);
+            int baseValue = DATA_HOLDER.getInteger(key);
             max = Math.max(min,max);
             int range = max - min;
             if (range != 0){
@@ -70,7 +97,12 @@ public class DialogAddon_setLordMemoryData extends DialogAddon_setDialogData{
                 if (negitive) range *=-1;
             }
             int data = baseValue + (min+range);
-            DATA_HOLDER.getIntegers().put(key,data);
+            if (!time.containsKey(key)) {
+                DATA_HOLDER.setInteger(key, data);
+                continue;
+            }
+            int time = this.time.get(key).getValue(lord,targetLord,targetMarket);
+            DATA_HOLDER.setInteger(key, data,time);
         }
     }
 }

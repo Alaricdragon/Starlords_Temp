@@ -47,7 +47,7 @@ public class DialogRule_getDialogData_string extends DialogRule_Base{
     }
     protected String getString(Lord lord){
         String rel = "";
-        if (LordInteractionDialogPluginImpl.DATA_HOLDER.getStrings().containsKey(key)) rel = LordInteractionDialogPluginImpl.DATA_HOLDER.getStrings().get(key);
+        rel = LordInteractionDialogPluginImpl.DATA_HOLDER.getString(key);
         return rel;
     }
 }

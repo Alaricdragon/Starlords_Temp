@@ -1,6 +1,6 @@
 * "dialogValue": jsonObject. a 'dialogValue' is something that is only called by certain functions, and is basically a inputed value. you can add the following functions to this object:
     * "base" : Intiger. is a static number added to the dialogValues output.
-    * "multi" : double. is a multiplayer for the dialogs value final output.
+    * "multi" : double || dialogValue. is a multiplayer for the dialogs value final output. if set to a dialogValue, the multiplied value is divided by 100.
     * please note: every following 'value' can hold the following data: "base" and "multi". the eq used is: (valueOfFunction + base)*multi.
     * "relationWithPlayer": multi. is the relation the lord has to the player.
     * "lordLoyalty": multi. is the relation the lord has with there faction.

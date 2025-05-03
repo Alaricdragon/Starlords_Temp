@@ -10,31 +10,59 @@ import org.json.JSONObject;
 import starlords.person.Lord;
 import starlords.plugins.LordInteractionDialogPluginImpl;
 import starlords.util.Utils;
+import starlords.util.dialogControler.dialogValues.DialogValue_base;
+import starlords.util.dialogControler.dialogValues.DialogValuesList;
 
 import java.util.HashMap;
 import java.util.Iterator;
 
 public class DialogAddon_setMemoryData extends DialogAddon_setDialogData{
+    HashMap<String, DialogValuesList> time = new HashMap<>();
+    @SneakyThrows
     public DialogAddon_setMemoryData(JSONObject json){
-        super(json);
-    }
-    @Override
-    public void applyStrings(InteractionDialogAPI dialog, Lord lord,Lord targetLord){
-        for (String key : strings.keySet()) {
-            Global.getSector().getMemory().set(key,strings.get(key));
+        super();
+        for (Iterator it = json.keys(); it.hasNext(); ) {
+            String key2 = (String) it.next();
+            if (json.get(key2) instanceof JSONObject && json.getJSONObject(key2).has("time")){
+                time.put(key2,new DialogValuesList(json.getJSONObject(key2),"time"));
+                addSingleItem(key2,"data",json.getJSONObject(key2));
+                continue;
+            }
+            addSingleItem(key2,key2,json);
         }
     }
     @Override
-    public void applyBooleans(InteractionDialogAPI dialog, Lord lord,Lord targetLord){
+    public void applyStrings(InteractionDialogAPI dialog, Lord lord,Lord targetLord,MarketAPI targetMarket){
+        for (String key : strings.keySet()) {
+            if (!time.containsKey(key)) {
+                Global.getSector().getMemory().set(key, strings.get(key));
+                continue;
+            }
+            int time = this.time.get(key).getValue(lord,targetLord,targetMarket);
+            Global.getSector().getMemory().set(key, strings.get(key),time);
+        }
+    }
+    @Override
+    public void applyBooleans(InteractionDialogAPI dialog, Lord lord,Lord targetLord,MarketAPI targetMarket){
         for (String key : booleans.keySet()) {
-            Global.getSector().getMemory().set(key,booleans.get(key));
+            if (!time.containsKey(key)) {
+                Global.getSector().getMemory().set(key, booleans.get(key));
+                continue;
+            }
+            int time = this.time.get(key).getValue(lord,targetLord,targetMarket);
+            Global.getSector().getMemory().set(key, booleans.get(key),time);
         }
 
     }
     @Override
     public void applyFloats(InteractionDialogAPI dialog, Lord lord,Lord targetLord, MarketAPI targetMarket){
         for (String key : setInts.keySet()) {
-            Global.getSector().getMemory().set(key,setInts.get(key).getValue(lord, targetLord, targetMarket));
+            if (!time.containsKey(key)) {
+                Global.getSector().getMemory().set(key, setInts.get(key).getValue(lord, targetLord, targetMarket));
+                continue;
+            }
+            int time = this.time.get(key).getValue(lord,targetLord,targetMarket);
+            Global.getSector().getMemory().set(key, setInts.get(key),time);
         }
     }
     @Override
@@ -55,7 +83,14 @@ public class DialogAddon_setMemoryData extends DialogAddon_setDialogData{
                 if (negitive) range *=-1;
             }
             int data = baseValue + (min+range);
-            Global.getSector().getMemory().set(key,data);
+
+            if (!time.containsKey(key)) {
+                Global.getSector().getMemory().set(key, data);
+                continue;
+            }
+            int time = this.time.get(key).getValue(lord,targetLord,targetMarket);
+            Global.getSector().getMemory().set(key, data,time);
+
         }
     }
 }

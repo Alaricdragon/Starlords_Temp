@@ -83,6 +83,9 @@ this is the 'dialog rules' json object. within, I will cover the 3 different 'ru
       * "currentFaction" is the current faction the lord is in.
       * "lordsFavItem": is the lord fav item
       * "LordTags": is the tags that need to be attached to the lord person
+      * "dialogType": this is what 'dialog' you are current in. possible values are:
+        * "default": this is the dialog that normally opens when you meet a starlord in the wild.
+        * "prisoner": this is the dialog that opens when the starlord is imprisoned by you.
   * "lordPersonality": is the lord personality type this rule requires to meet requirements. set 'true' to all lord personality types you want to be allowed to meet requirements.
       * "Upstanding"
       * "Martial"
@@ -95,24 +98,24 @@ this is the 'dialog rules' json object. within, I will cover the 3 different 'ru
       * "Cautious"
       * "Timid"
   * "currentAction": is the current action that the lord is taking. set too false to blacklist, and true to whitelist. the lord must be preforming the whitelisted actions, and must not be preforming the blacklisted actions.
-      * IS_UPGRADING: if the lord is currently attempting to upgrade
-      * IS_ON_PATROL: if the lord is currently on patrol.
-      * IS_RAIDING: if the lord is currently raiding.
-      * IS_FOLLOWING_PLAYER: if the lord is following the player
-      * IS_FOLLOWING:  if the lord is following someone
-      * IS_ON_CAMPAIGN: if the lord is on campaign
-      * IS_ORGANIZING_CAMPAIGN: if the lord is organizing a campaign
-      * IS_FEASTING: if the lord is enjoying a feast.
-      * IS_ORGANIZING_FEAST: if the lord is organizing a feast.
-      * IS_COLLECTING_TAXES: if the lord is collecting taxes
-      * IS_DEFENDING: if the lord is defending a attack
-      * IS_IMPRISONED: if the lord is imprisoned somewhere
-      * IS_RESPAWNING: if the lord is respawning
-      * IS_ON_VENTURE: is currently preforming trade actions
+      * "IS_UPGRADING": if the lord is currently attempting to upgrade
+      * "IS_ON_PATROL": if the lord is currently on patrol.
+      * "IS_RAIDING": if the lord is currently raiding.
+      * "IS_FOLLOWING_PLAYER": if the lord is following the player
+      * "IS_FOLLOWING":  if the lord is following someone
+      * "IS_ON_CAMPAIGN": if the lord is on campaign
+      * "IS_ORGANIZING_CAMPAIGN": if the lord is organizing a campaign
+      * "IS_FEASTING": if the lord is enjoying a feast.
+      * "IS_ORGANIZING_FEAST": if the lord is organizing a feast.
+      * "IS_COLLECTING_TAXES": if the lord is collecting taxes
+      * "IS_DEFENDING": if the lord is defending a attack
+      * "IS_IMPRISONED": if the lord is imprisoned somewhere
+      * "IS_RESPAWNING": if the lord is respawning
+      * "IS_ON_VENTURE": is currently preforming trade actions
   * "random": returns true if a random number (called 'range') is less then the base value.
       * "range": Integer || dialogValue. this is the range the random number will have
       * "value": Integer || dialogValue. this is the base value
-  * "getDialogData": jsonObject gets a list of 'dialog data". for each different type of data, the requirements are different.
+  * "getDialogData": jsonObject gets a list of 'dialog data'. for each different type of data, the requirements are different.
       * "dataID" : jsonObject. is the string data required to meet requirements. set to true for strings you require this memory to be, and false for strings this memory must be. To meet requirements, the string must match all of the 'true' strings, and not match any of the 'false' strings. if a string of the dataID does not exist, treats the string as though it is ""
       * "dataID" : jsonObject. {"min","max"} is the value rules required to meet requirements. (can use [DIALOG_VALUES.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_VALUES.md) for min and max values)
       * "dataID" : boolean.  is the boolean value of this data required to meet requirements. if set to true, the boolean must also be true. if set to false, the boolean data must also be false. if a boolean of the dataID does not exist, treats the boolean as though it is false.

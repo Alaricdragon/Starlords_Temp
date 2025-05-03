@@ -70,5 +70,6 @@
   "raidLocation": "optionSet_raidLocation",
   "ask_patrol_location": "optionSet_ask_patrol_location",
   "patrolLocation": "optionSet_patrolLocation",
-  "suggest_upgrade": "optionSet_suggest_upgrade"
+  "suggest_upgrade": "optionSet_suggest_upgrade",
+  "suggest_ceasefire": "optionSet_suggest_ceasefire"
 }

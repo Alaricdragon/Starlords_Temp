@@ -19,10 +19,8 @@ public class DialogRule_getDialogData_int extends DialogRule_minmax {
     }
     @Override
     protected int getValue(Lord lord,Lord targetLord, MarketAPI targetMarket){
-        Logger log = Global.getLogger(StoredSettings.class);
-        log.info("getting floats in dialog data from key" +key+" as: "+LordInteractionDialogPluginImpl.DATA_HOLDER.getIntegers().get(key));
         int rel = 0;
-        if (LordInteractionDialogPluginImpl.DATA_HOLDER.getIntegers().containsKey(key)) rel = LordInteractionDialogPluginImpl.DATA_HOLDER.getIntegers().get(key);
+        rel = LordInteractionDialogPluginImpl.DATA_HOLDER.getInteger(key);
         return rel;
     }
 }
