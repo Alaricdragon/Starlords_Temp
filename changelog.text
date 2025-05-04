@@ -1,3 +1,13 @@
+V0.3.32:
+    fixed:
+        fixed a issue with the prisoner logger again. hopefully it wont crash again.
+    (thanks Aleksandros for the following):
+        AddLordRaid console command updated to function better
+        PrintLordsDetails console command - updated success message
+        Council Votes - added configuration option to add static extra weight for player within own faction
+        Added automatic assigning the player as owner of own faction fiefs when no other lord is in the faction
+        Added UI message for when a lord raid against faction market ends
+        updated null protections and logic for getLordTravelTime and getMinArrivalTime (used in intel bullet points arrival estimation calculation)
 V0.3.31:
     fixed:
         fixed another issue related to getContainingLocation() again. hopefully for the last time.

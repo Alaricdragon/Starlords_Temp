@@ -59,6 +59,7 @@ public class MonthlyUpkeepListener extends BaseCampaignEventListener {
         LifeAndDeathController.getInstance().runMonth();
         FiefController.onMonthPass();
         QuestController.getInstance().resetQuests();
+		FiefController.playerAssignFiefs();
         // check for lord betrayal
         calculateLordsBetrayal();
     }

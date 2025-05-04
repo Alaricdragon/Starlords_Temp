@@ -6,6 +6,7 @@ import lunalib.lunaSettings.LunaSettings;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import starlords.controllers.LifeAndDeathController;
+import starlords.controllers.PoliticsController;
 import starlords.generator.LordGenerator;
 import starlords.generator.NewGameLordPicker;
 import starlords.generator.support.AvailableShipData;
@@ -231,6 +232,7 @@ public class StoredSettings {
         LordsIntelPlugin.setRepForCurAction(LunaSettings.getInt(Constants.MOD_ID,"Other_requiredRepForKnowledgeOfCurAction"));
         LordsIntelPlugin.setAllowLordsToBeViewed(LunaSettings.getBoolean(Constants.MOD_ID,"Other_showAllLordsIntelByDefault"));
         Utils.setShowMessageLordCaptureReleaseEscape(LunaSettings.getBoolean(Constants.MOD_ID,"Other_showMessageLordCaptureReleaseEscape"));
+        PoliticsController.PLAYER_EXTRA_COUNCIL_WEIGHT = LunaSettings.getInt(Constants.MOD_ID,"Other_playerExtraCouncilWeight");
 
         int maxSMods = LunaSettings.getInt(Constants.MOD_ID,"Other_maxSMods");
         if (LunaSettings.getBoolean(Constants.MOD_ID,"Other_exstraSModsForSpecalMods") && Global.getSettings().getModManager().isModEnabled("progressiveSMods")) maxSMods += 5;
@@ -426,6 +428,7 @@ public class StoredSettings {
         LordsIntelPlugin.setRepForCurAction(json.getInt("requiredRepForKnowledgeOfCurAction"));
         LordsIntelPlugin.setAllowLordsToBeViewed(json.getBoolean("showAllLordsIntelByDefault"));
         Utils.setShowMessageLordCaptureReleaseEscape(json.getBoolean("showMessageLordCaptureReleaseEscape"));
+        PoliticsController.PLAYER_EXTRA_COUNCIL_WEIGHT = json.getInt("playerExtraCouncilWeight");
 
 
         int maxSMods = json.getInt("Other_maxSMods");

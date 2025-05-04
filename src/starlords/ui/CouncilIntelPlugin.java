@@ -7,6 +7,7 @@ import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.*;
+import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.Pair;
 import starlords.controllers.LordController;
 import starlords.controllers.PoliticsController;
@@ -311,11 +312,18 @@ public class CouncilIntelPlugin extends BaseIntelPlugin {
         PersonAPI ruler = Utils.getLeader(currProposal.faction);
         if (ruler != null) {
             if (currProposal.isLiegeSupports()) {
+                if (currProposal.getFaction() == LordController.getPlayerLord().getFaction() && Misc.getCommissionFaction() == null)
+                    supporterTooltip.add("+" + PoliticsController.PLAYER_EXTRA_COUNCIL_WEIGHT
+                            + " Extra Player Weight");
                 supporterTooltip.add("x" + String.format("%.1f", PoliticsController.getLiegeMultiplier(currProposal.faction))
                         + " " + ruler.getNameString());
             } else {
+                if (currProposal.getFaction() == LordController.getPlayerLord().getFaction() && Misc.getCommissionFaction() == null)
+                    oppositionTooltip.add("+" + PoliticsController.PLAYER_EXTRA_COUNCIL_WEIGHT
+                            + " Extra Player Weight");
                 oppositionTooltip.add("x" + String.format("%.1f",PoliticsController.getLiegeMultiplier(currProposal.faction))
                         + " " + ruler.getNameString());
+
             }
         }
         return new Pair<>(supporterTooltip, oppositionTooltip);

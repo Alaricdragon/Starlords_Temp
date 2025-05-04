@@ -6,6 +6,7 @@
   "requiredRepForKnowledgeOfCurAction": 50,
   "showAllLordsIntelByDefault": false,
   "showMessageLordCaptureReleaseEscape": false,
+  "playerExtraCouncilWeight": 2000,
 
 
   "Other_maxSMods": 3,

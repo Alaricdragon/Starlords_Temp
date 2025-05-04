@@ -591,10 +591,12 @@ public class Utils {
 		String output = "";
 		if (lord.getFleet() == null)
 			return  "Unknown";
-		else if (lord.getFleet().getContainingLocation() != null && target.getContainingLocation() != null && lord.getFleet().getContainingLocation().equals(target.getContainingLocation()))
+		if (lord.getFleet().getContainingLocation() == null || target.getContainingLocation() == null)
+            return "Unknown";
+        if (lord.getFleet().getContainingLocation().equals(target.getContainingLocation()))
 			return  "In System";
-		else
-			output = String.valueOf(Math.round(Utils.getTravelTime(lord.getFleet(),target)));
+
+		output = String.valueOf(Math.round(Utils.getTravelTime(lord.getFleet(),target)));
 
 		return output + " days";
 	}
@@ -609,14 +611,19 @@ public class Utils {
 			if (lord.getFleet() == null) {
 				continue;
 			}
-			if (lord.getFleet().getContainingLocation() != null && target.getContainingLocation() != null && lord.getFleet().getContainingLocation().equals(target.getContainingLocation()))
+			if (lord.getFleet().getContainingLocation() == null || target.getContainingLocation() == null)
+                continue;
+            if (lord.getFleet().getContainingLocation().equals(target.getContainingLocation()))
 				return "In System";
-			else {
-				resultTravel = Math.round(Utils.getTravelTime(lord.getFleet(),target));
-				if (resultTravel < min)
-					min = resultTravel;
-			}
+
+            resultTravel = Math.round(Utils.getTravelTime(lord.getFleet(),target));
+            if (resultTravel < min)
+                min = resultTravel;
+
 		}
+
+        if (min == 999f)
+            return "Unknown";
 		return Math.round(min) + " days";
 	}
 
@@ -696,11 +703,15 @@ public class Utils {
 		String output = "";
 		for (Lord lord : lordsList) {
 			for (String prisonerID : lord.getPrisoners()) {
-				output += "[Star Lords] " + lord.getLordAPI().getNameString() + "(" + lord.getLordAPI().getId() + ")";
-				Lord prisoner = LordController.getLordById(prisonerID);
-				output += " has prisoner " + prisoner.getLordAPI().getNameString() + "(" + prisoner.getLordAPI().getId() + ")"
-						+ " captor " + prisoner.getCaptor()
-						+ System.lineSeparator();
+			    try {
+                    output += "[Star Lords] " + lord.getLordAPI().getNameString() + "(" + lord.getLordAPI().getId() + ")";
+                    Lord prisoner = LordController.getLordById(prisonerID);
+                    output += " has prisoner " + prisoner.getLordAPI().getNameString() + "(" + prisoner.getLordAPI().getId() + ")"
+                            + " captor " + prisoner.getCaptor()
+                            + System.lineSeparator();
+                }catch (Exception e){
+			        output += "\n ERROR. failed to get a prisoner. error of: "+e.getMessage();
+                }
 			}
 		}
 		return output;
