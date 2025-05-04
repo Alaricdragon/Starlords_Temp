@@ -11,7 +11,7 @@ public class PrintLordsDetails implements BaseCommand {
 
         Utils.printLordsDetails();
 
-        Console.showMessage("Print existing lord requests to log");
+        Console.showMessage("Print full lord list details to log");
         return CommandResult.SUCCESS;
     }
 }

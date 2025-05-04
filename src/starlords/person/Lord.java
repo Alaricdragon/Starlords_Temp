@@ -525,15 +525,9 @@ public class Lord {
 //				+ " Current Request: " + RequestController.getCurrentDefectionRequest(this)
 //		);
 
-		int playerFactionMarkets = 0;
-
-		for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy())
-			if (LordController.getPlayerLord().getFaction().equals(market.getFaction()))
-				playerFactionMarkets ++;
-
-		if (RelationController.getRelation(this, LordController.getPlayerLord()) >= Utils.getThreshold(RepLevel.SUSPICIOUS)
+        if (RelationController.getRelation(this, LordController.getPlayerLord()) >= Utils.getThreshold(RepLevel.SUSPICIOUS)
 				&& Misc.getCommissionFaction() == null
-				&& (LordController.getPlayerLord().fiefs.size() >= 3 || (playerFactionMarkets >= 3 && LordController.getPlayerLord().getFiefs().size() == 0))
+				&& (LordController.getPlayerLord().fiefs.size() >= 3)
 				&& RequestController.getCurrentDefectionRequest(this) == null)
 			return true;
 		return false;

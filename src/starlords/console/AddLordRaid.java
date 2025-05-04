@@ -5,9 +5,11 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.util.Misc;
 import org.lazywizard.console.BaseCommand;
 import org.lazywizard.console.Console;
+import starlords.ai.LordAI;
 import starlords.controllers.EventController;
 import starlords.controllers.LordController;
 import starlords.person.Lord;
+import starlords.person.LordAction;
 import starlords.person.LordEvent;
 
 public class AddLordRaid implements BaseCommand {
@@ -32,7 +34,7 @@ public class AddLordRaid implements BaseCommand {
 
         for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy())
             if (market.getName().equalsIgnoreCase(marketName)) {
-                EventController.addRaid(new LordEvent(LordEvent.RAID, lord, market.getPrimaryEntity()));
+                LordAI.beginAssignment(lord, LordAction.RAID_TRANSIT, market.getPrimaryEntity(),null, false);
                 Console.showMessage("Added raid for market " + marketName + " with originator lord " + lord.getLordAPI().getNameString());
                 return CommandResult.SUCCESS;
             }

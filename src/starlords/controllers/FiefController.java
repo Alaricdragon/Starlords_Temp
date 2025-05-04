@@ -9,7 +9,9 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.util.Misc;
 import org.apache.log4j.Logger;
+import org.lazywizard.lazylib.StringUtils;
 import starlords.person.Lord;
+import starlords.util.StringUtil;
 import starlords.util.Utils;
 
 import java.util.*;
@@ -192,11 +194,44 @@ public class FiefController extends BaseIntelPlugin {
         return null;
     }
 
+    public static List<MarketAPI> getMarketsOfFaction(FactionAPI faction) {
+        List<MarketAPI> marketsOfFaction = new ArrayList<>();
+
+        for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()){
+            if (market.getFaction().equals(faction))
+                marketsOfFaction.add(market);
+        }
+
+        return marketsOfFaction;
+    }
+
     public static void playerTransferFief(Lord target,MarketAPI fief){
-        Lord source = LordController.getPlayerLord();
-        source.removeFief(fief);
-        target.addFief(fief);
+        FiefController.setOwner(fief,target.getLordAPI().getId());
         Utils.adjustPlayerReputation(target.getLordAPI(),10);
+    }
+
+    /**
+     * Method to assign all markets in player faction as fiefs to player when no other lord is present
+     */
+    public static void playerAssignFiefs() {
+        FactionAPI playerFaction = LordController.getPlayerLord().getFaction();
+        String fiefList = "";
+
+        if (LordController.getLordsOfFaction(playerFaction).size() > 0 || Misc.getCommissionFaction() != null)
+            return;
+
+        Lord playerLord = LordController.getPlayerLord();
+        for (MarketAPI market : FiefController.getMarketsOfFaction(playerFaction)) {
+            if (FiefController.getOwner(market) == null) {
+                FiefController.setOwner(market, playerLord.getLordAPI().getId());
+                fiefList += market.getName() + ", ";
+            }
+        }
+
+        if (fiefList != "")
+            fiefList = fiefList.substring(0, fiefList.length() - 2);
+        Global.getSector().getCampaignUI().addMessage("Added " + fiefList + " to your fiefs.",playerLord.getFaction().getBaseUIColor());
+
     }
 
 

@@ -58,6 +58,15 @@ public class LordController {
         return lordsMap.get(id);
     }
 
+    public static List<Lord> getLordsOfFaction (FactionAPI faction) {
+
+        List <Lord> factionLordList = new ArrayList<>();
+        for (Lord lord : LordController.getLordsList())
+            if (lord.getFaction().equals(faction))
+                factionLordList.add(lord);
+
+        return factionLordList;
+    }
     public static CampaignFleetAPI addLordMidGame(LordTemplate template,Lord currLord) {
         return addLordMidGame(template, (MarketAPI) null,currLord);
     }

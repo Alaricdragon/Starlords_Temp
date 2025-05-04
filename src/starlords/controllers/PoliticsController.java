@@ -49,6 +49,9 @@ public class PoliticsController implements EveryFrameScript {
     private static final int RECESS_DAYS = DEBUG_MODE ? 2 : 30;//30;
     private static final int DEBATE_DAYS = DEBUG_MODE ? 2 : 60;//60;
 
+    //Player extra weight in own faction council
+    public static int PLAYER_EXTRA_COUNCIL_WEIGHT;
+
     private PoliticsController() {
         factionLawsMap = new HashMap<>();
         lordProposalsMap = new HashMap<>();
@@ -1253,6 +1256,14 @@ public class PoliticsController implements EveryFrameScript {
             totalOpposition += PoliticsController.getPoliticalWeight(lord);
         }
 
+        //Adding configurable value to Player Vote weight to counteract the scenario when player's faction only has 1-2 AI Lords that keep voting against player
+        if (proposal.getFaction().equals(LordController.getPlayerLord().getFaction()) && Misc.getCommissionFaction() == null) {
+            if (proposal.isLiegeSupports())
+                totalSupport += PLAYER_EXTRA_COUNCIL_WEIGHT;
+            else
+                totalOpposition += PLAYER_EXTRA_COUNCIL_WEIGHT;
+        }
+
         if (Utils.getLeader(proposal.getFaction()) != null) {
             float liegeMultiplier = PoliticsController.getLiegeMultiplier(proposal.getFaction());
             if (proposal.isLiegeSupports()) {
@@ -1488,7 +1499,6 @@ public class PoliticsController implements EveryFrameScript {
         }
         return instance;
     }
-
     @Override
     public boolean isDone() {
         return false;
