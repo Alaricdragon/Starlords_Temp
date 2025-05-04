@@ -154,4 +154,12 @@ public class HostileEventIntelPlugin extends BaseIntelPlugin {
         FactionAPI faction = event.getTarget().getFaction();
         return faction.equals(Utils.getRecruitmentFaction()) || faction.equals(Global.getSector().getPlayerFaction());
     }
+
+	@Override
+	public void reportRemovedIntel() {
+		if (playerTargeted())
+			Global.getSector().getCampaignUI().addMessage("Raid against "
+					+ this.target.getName()
+					+ " HAS ENDED.", Color.LIGHT_GRAY);
+	}
 }
