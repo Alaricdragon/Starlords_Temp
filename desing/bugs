@@ -18,11 +18,13 @@ NOTE: I forgot to record the original list, so there are some bugs missing from 
         d.0) needs to ignore nexerlin outposts (dont look at markets less then size 3)?
         d.1) needs to ignore markets with no industrys (another issue to fix)
     e) starlords attending a feast will not defend there allies if they are attacked (they should protect the world, and anyone at the feast if they are attacked)
+    f) starlords MIGHT still be attacking things they should not be allowed to (dispute nexerlin settings).
 2) tornaments:
     a) with Aod QoL instaled, you cant fight in tornaments hosted by your own faction
     b) possible tournament ships include things like station and ship moduels.
     c) if you fly your own ship, it will remove the officer from that ship when the tornament ends.
     d) sometimes doing a tournament will drain all your ships CR. this seems to be fixed after combat. this should be improved somehow.
+    e) some tournament ships can have completely broken layouts.
 3) generator:
     a) a lords fav item needs to be limited to the available fav items
     b) lords seem to be using ships not part of the main faction blueprints a lot. this should be fixed?
@@ -36,5 +38,4 @@ NOTE: I forgot to record the original list, so there are some bugs missing from 
 6) S-Mods system:
     S-Mods have been reported to not be presistant between saves (the S-mods changing when rebooting starsector). I need to look into this.
 7) politics
-    when a faction the player is commissioned with declares war vi starlords, nothing changes with the player relations.
-    when starlords declare war, they sometimes... just dont care????? like, are they even at war????
+    when starlords declare war, they sometimes... just dont care????? like, are they even at war???? (needs farther conformation)
