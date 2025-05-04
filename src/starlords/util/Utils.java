@@ -703,11 +703,15 @@ public class Utils {
 		String output = "";
 		for (Lord lord : lordsList) {
 			for (String prisonerID : lord.getPrisoners()) {
-				output += "[Star Lords] " + lord.getLordAPI().getNameString() + "(" + lord.getLordAPI().getId() + ")";
-				Lord prisoner = LordController.getLordById(prisonerID);
-				output += " has prisoner " + prisoner.getLordAPI().getNameString() + "(" + prisoner.getLordAPI().getId() + ")"
-						+ " captor " + prisoner.getCaptor()
-						+ System.lineSeparator();
+			    try {
+                    output += "[Star Lords] " + lord.getLordAPI().getNameString() + "(" + lord.getLordAPI().getId() + ")";
+                    Lord prisoner = LordController.getLordById(prisonerID);
+                    output += " has prisoner " + prisoner.getLordAPI().getNameString() + "(" + prisoner.getLordAPI().getId() + ")"
+                            + " captor " + prisoner.getCaptor()
+                            + System.lineSeparator();
+                }catch (Exception e){
+			        output += "\n ERROR. failed to get a prisoner. error of: "+e.getMessage();
+                }
 			}
 		}
 		return output;
