@@ -21,6 +21,7 @@ import starlords.ui.PrisonerIntelPlugin;
 import starlords.util.LordTags;
 import starlords.util.StringUtil;
 import starlords.util.Utils;
+import starlords.util.memoryUtils.DataHolder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import static starlords.util.Constants.LORD_TABLE_KEY;
+import static starlords.util.Constants.STARLORD_ADDITIONAL_MEMORY_KEY;
 
 @Getter
 public class Lord {
@@ -467,6 +469,24 @@ public class Lord {
         }
     }
 
+    private DataHolder DATA_HOLDER;
+    public DataHolder getLordDataHolder(){
+        String key = STARLORD_ADDITIONAL_MEMORY_KEY+getLordAPI().getId();
+        DataHolder data_holder = DATA_HOLDER;
+        if (DATA_HOLDER != null) return data_holder;
+        if (Global.getSector().getMemory().contains(key)){
+            data_holder = (DataHolder) Global.getSector().getMemory().get(key);
+        }else{
+            data_holder = new DataHolder();
+        }
+        DATA_HOLDER = data_holder;
+        return data_holder;
+    }
+    public void saveLordDataHolder(){
+        String key = STARLORD_ADDITIONAL_MEMORY_KEY+getLordAPI().getId();
+        DataHolder data_holder = DATA_HOLDER;
+        Global.getSector().getMemory().set(key,data_holder);
+    }
     public static Lord createPlayer() {
         Lord player = new Lord(Global.getSector().getPlayerPerson());
         player.isPlayer = true;

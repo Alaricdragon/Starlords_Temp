@@ -535,8 +535,9 @@ public class DialogSet {
     }
 
     private static FleetMemberAPI getFlownShip(PersonAPI lord, CampaignFleetAPI fleet){
+        if (fleet == null) return null;
         FleetMemberAPI output = fleet.getFlagship();
-        if (fleet.getFlagship().getCaptain().getId().equals(lord.getId())) return output;
+        if (output != null && output.getCaptain() != null && fleet.getFlagship().getCaptain().getId().equals(lord.getId())) return output;
         for (FleetMemberAPI a : fleet.getFleetData().getMembersListCopy()){
             if (a.getCaptain() != null && a.getCaptain().getId().equals(lord.getId())){
                 return a;
@@ -702,7 +703,7 @@ public class DialogSet {
             line = insertAdditionalData(line, markersReplaced);
             String[] highlightsTemp = new String[0];
             if (colorHighlight.containsKey(key)){
-                highlightsTemp = new String[highlight.size()];
+                highlightsTemp = new String[highlight.get(key).length];
                 for (int a = 0; a < highlightsTemp.length; a++){
                     highlightsTemp[a] = insertDefaltData(highlight.get(key)[a],lord,targetLord,targetMarket,true);
                 }
@@ -816,6 +817,10 @@ public class DialogSet {
                 }
             }
             if (enable.containsKey(key) && !shouldEnable(key,textPanel,options,lord,targetLord,targetMarket)) options.setEnabled(optionData,false);
+        }else{
+            DialogOption optionDataTemp = (DialogOption)optionData;
+            //note: target lord and market set in internal data of dialogOption. not needed for input.
+            optionDataTemp.applyAddons(textPanel, options, dialog, lord);
         }
         //log.info("attempting to add options from options" + key);
         boolean builtOptions = false;
@@ -938,7 +943,7 @@ public class DialogSet {
             shotcut.put(key,line.getString("shortcut"));
         }
         if (line.has("customInserts")){
-            customInserts.put(key,new DialogInsertList(line,key));
+            customInserts.put(key,new DialogInsertList(line,"customInserts"));
         }
     }
     @SneakyThrows
@@ -1094,6 +1099,12 @@ public class DialogSet {
                     break;
                 case "conditionalAddon":
                     addon = addAddon_conditionalAddon(addons,key2);
+                    break;
+                case "captureLord":
+                    addon = addAddon_captureLord(addons,key2);
+                    break;
+                case "releaseLord":
+                    addon = addAddon_releaseLord(addons,key2);
                     break;
             }
             if (addon != null) newAddons.add(addon);
@@ -1274,6 +1285,16 @@ public class DialogSet {
     @SneakyThrows
     private static DialogAddon_Base addAddon_conditionalAddon(JSONObject json,String key){
         return new DialogAddon_conditionalAddon(json, key);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_captureLord(JSONObject json,String key){
+        if (!json.getBoolean(key)) return null;
+        return new DialogAddon_captureLord();
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_releaseLord(JSONObject json,String key){
+        if (!json.getBoolean(key)) return null;
+        return new DialogAddon_releaseLord();
     }
 
 

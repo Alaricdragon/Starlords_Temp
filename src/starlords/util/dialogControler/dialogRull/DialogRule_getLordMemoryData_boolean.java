@@ -13,13 +13,7 @@ public class DialogRule_getLordMemoryData_boolean extends DialogRule_getDialogDa
 
     @Override
     protected boolean getBoolean(Lord lord) {
-        String key = STARLORD_ADDITIONAL_MEMORY_KEY+lord.getLordAPI().getId();
-        DataHolder DATA_HOLDER;
-        if (Global.getSector().getMemory().contains(key)){
-            DATA_HOLDER = (DataHolder) Global.getSector().getMemory().get(key);
-        }else{
-            DATA_HOLDER = new DataHolder();
-        }
+        DataHolder DATA_HOLDER = lord.getLordDataHolder();
 
         boolean out = false;
         out = DATA_HOLDER.getBoolean(this.key);

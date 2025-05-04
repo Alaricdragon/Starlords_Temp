@@ -53,7 +53,8 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
 
     private HashMap<String, Lord> lordsReference;
     private CampaignFleetAPI lordFleet;
-    Lord targetLord;
+    @Getter
+    protected static Lord targetLord;
     private boolean hasGreeted;
     @Getter
     private static String DialogType;

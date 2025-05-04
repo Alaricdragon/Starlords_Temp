@@ -8,7 +8,11 @@
   * "option_suggest_action" :         "suggest_action"
   * "option_speak_privately" :        "speak_privately"
   * "option_cutComLink" :             "exitDialog"
-
+  * ||
+  * "option_speak_privately" :        "speak_privately"
+  * "option_release_prisoner" :       "prisoner_release"
+  * "option_ransom_prisoner" :        "option_ransom_prisoner"
+  * "option_leave_prisoner" :         "exitDialog"
 * "suggest_ceasefire":
   * copys 'greeting' options
 
@@ -239,3 +243,8 @@
 
 * "ask_friend_fav_gift":
   * copys 'greeting' options
+
+* "prisoner_release"
+  * "option_leave_prisoner_freed":          "exitDialog"
+* "ransom_prisoner"
+  * "option_leave_prisoner_freed":          "exitDialog"

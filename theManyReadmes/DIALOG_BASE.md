@@ -38,9 +38,9 @@
         * "customInserts": jsonArray. this is custom data that you can insert into a given line. each item in the jsonArray is a jsonObject holding the following data:
             * "replaced": String. this is the data in the line that is replaced
             * "dialogValue": [DIALOG_VALUES.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_VALUES.md) insets the outputed value into the line.
-            * "memory": String. inserts the inputted memory data into the line.
-            * "lordMemory": String. inserts the inputted lord memory data into the line.
-            * "DialogData": String. inserts the inputted dialog data into the line.
+            * "memory": String. inserts the inputted memory data into the line. only takes memory that are strings
+            * "lordMemory": String. inserts the inputted lord memory data into the line. only takes memory that are strings.
+            * "DialogData": String. inserts the inputted dialog data into the line. only takes data that are strings
             
 * for both basic and advanced lines, you can add 'markers' to strings, to display different data at different points in your dialog. please keep in mind that if the data you are requesting does not exist, the marker will have something like 'no one' or 'nothing' instead of the requested string.
     * there are a few different types of markers.

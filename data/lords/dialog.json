@@ -15,7 +15,25 @@
           }
         },
         "lines": {
-          "greeting": "I am at your mercy. Grant me the honours of war, and do yourself credit!"
+          "greeting": "I am at your mercy. Grant me the honours of war, and do yourself credit!",
+          "prisoner_release": {
+            "line": "You are indeed a %PLAYER_GENDER_MAN_OR_WOMEN of honour. I shall not forget this!",
+            "addons": {
+              "releaseLord": true,
+              "repChange": 4
+            }
+          },
+          "ransom_prisoner": {
+            "line":"Very well, I'll pay for my release. I will remember this humiliation.",
+            "addons": {
+              "exchangeCreditsWithLord": {
+                "LordMemoryData": {
+                  "ransomAmount": 1
+                }
+              },
+              "repChange": -3
+            }
+          }
         }
       },
       "upstanding_hostile": {
@@ -394,7 +412,25 @@
           }
         },
         "lines": {
-          "greeting": "To think that I've been captured by you dogs. Ach, the shame of it!"
+          "greeting": "To think that I've been captured by you dogs. Ach, the shame of it!",
+          "prisoner_release": {
+            "line": "Am I? You are a good %PLAYER_GENDER_MAN_OR_WOMEN. I will try to find a way to repay you.",
+            "addons": {
+              "releaseLord": true,
+              "repChange": 1
+            }
+          },
+          "ransom_prisoner": {
+            "line":"Very well, I'll pay for my release. I will remember this humiliation.",
+            "addons": {
+              "exchangeCreditsWithLord": {
+                "LordMemoryData": {
+                  "ransomAmount": 1
+                }
+              },
+              "repChange": -3
+            }
+          }
         }
       },
 
@@ -712,7 +748,25 @@
           }
         },
         "lines": {
-          "greeting": "You may have bested me, but when we next clash, I assure you that it won't happen again."
+          "greeting": "You may have bested me, but when we next clash, I assure you that it won't happen again.",
+          "prisoner_release": {
+            "line": "You are indeed a %PLAYER_GENDER_MAN_OR_WOMEN of honour. I shall not forget this!",
+            "addons": {
+              "releaseLord": true,
+              "repChange": 6
+            }
+          },
+          "ransom_prisoner": {
+            "line": "Very well, I'll pay for my release. I will remember this humiliation.",
+            "addons": {
+              "exchangeCreditsWithLord": {
+                "LordMemoryData": {
+                  "ransomAmount": 1
+                }
+              },
+              "repChange": -3
+            }
+          }
         }
       },
       "martial_hostile": {
@@ -1092,7 +1146,25 @@
           }
         },
         "lines": {
-          "greeting": "I have had much time in captivity to reflect on our battle. In our next encounter, I will not lose so easily."
+          "greeting": "I have had much time in captivity to reflect on our battle. In our next encounter, I will not lose so easily.",
+          "prisoner_release": {
+            "line": "Am I? You are a good %PLAYER_GENDER_MAN_OR_WOMEN. I will try to find a way to repay you.",
+            "addons": {
+              "releaseLord": true,
+              "repChange": 3
+            }
+          },
+          "ransom_prisoner": {
+            "line":"Very well, I'll pay for my release. I will remember this humiliation.",
+            "addons": {
+              "exchangeCreditsWithLord": {
+                "LordMemoryData": {
+                  "ransomAmount": 1
+                }
+              },
+              "repChange": -3
+            }
+          }
         }
       },
       "calculating_hostile": {
@@ -1463,11 +1535,14 @@
           }
         },
         "lines": {
-          "greeting": "Welcome to my estate, %PLAYER_NAME. You are under my protection here; please make yourself at home.",
+          "greeting": "(error) what do you want, you ugly mean candy eating wormhole jumping edlric abomination",
           "optionSet_greeting": {
             "options": [
               "setData_ransomAmount",
-              "option_speak_privately"
+              "option_speak_privately",
+              "option_release_prisoner",
+              "option_ransom_prisoner",
+              "option_leave_prisoner"
             ]
           }
         }
@@ -3372,6 +3447,13 @@
 
           "suggest_ceasefire": "Ah. Unfortunately, you see, I wish to fight with you.",
 
+          "prisoner_release": {
+            "line":"(error) oh... im free to go? freedom? \n you will regret this.",
+            "addons": {
+              "repChange": 3
+            }
+          },
+
           "ask_quest": {
             "line": "",
             "addons": {
@@ -3589,6 +3671,39 @@
             "optionData": "exitDialog",
             "shortcut": "ESCAPE"
           },
+          "option_release_prisoner": {
+            "line": "Release prisoner",
+            "optionData": "prisoner_release"
+          },
+          "option_ransom_prisoner": {
+            "line": "Ransom prisoner for %c0 credits",
+            "customInserts": {
+              "replaced": "%c0",
+              "dialogValue": {
+                "LordMemoryData": {
+                  "ransomAmount": 1
+                }
+              }
+            },
+            "optionData": "ransom_prisoner"
+          },
+          "ransom_prisoner": {
+            "line":"(error) Very well, I'll pay for my release. I will remember this humiliation.",
+            "addons": {
+              "exchangeCreditsWithLord": {
+                "LordMemoryData": {
+                  "ransomAmount": 1
+                }
+              },
+              "repChange": -3
+            }
+          },
+          "option_leave_prisoner": {
+            "line": "[Leave] Enjoy your time in the oubliette.",
+            "optionData": "exitDialog",
+            "shortcut": "ESCAPE"
+          },
+
 
           "optionSet_start_tournament": {
             "options": [
@@ -4246,7 +4361,7 @@
           },
           "option_ask_friend_preferences": {
             "line": "%SECOND_LORD_NAME",
-            "optionData": "ERROR"
+            "optionData": "ask_friend_fav_gift"
           },
           "speak_privately_exit": {
             "line": "Never mind",
@@ -4579,9 +4694,23 @@
             "shortcut": "ESCAPE"
           },
 
+          "optionSet_prisoner_release": {
+            "options": [
+              "option_leave_prisoner_freed"
+            ]
+          },
+          "optionSet_ransom_prisoner": {
+            "options": [
+              "option_leave_prisoner_freed"
+            ]
+          },
+          "option_leave_prisoner_freed": {
+            "line": "Leave",
+            "optionData": "exitDialog",
+            "shortcut": "ESCAPE"
+          },
 
           "setData_calculateDefect_base": {
-            "line": "",
             "addons": {
               "setDialogData": {
                 "calculateDefect_rank": 0,
@@ -4697,7 +4826,6 @@
             }
           },
           "setData_calculateDefect_calculating": {
-            "line": "",
             "addons": {
               "setDialogData": {
                 "calculateDefect_justification": 0,
@@ -4716,7 +4844,6 @@
             }
           },
           "setData_calculateDefect_upstanding": {
-            "line": "",
             "addons": {
               "setDialogData": {
                 "calculateDefect_justification": {
@@ -4760,7 +4887,6 @@
             }
           },
           "setData_calculateDefect_martial": {
-            "line": "",
             "addons": {
               "setDialogData": {
                 "calculateDefect_justification": {
@@ -4804,7 +4930,6 @@
             }
           },
           "setData_calculateDefect_quarrelsome": {
-            "line": "",
             "addons": {
               "setDialogData": {
                 "calculateDefect_justification": 2
@@ -4823,7 +4948,6 @@
             "additionalText": "setData_calculateDefect_base"
           },
           "setData_ransomAmount": {
-            "line": "",
             "addons": {
               "DialogAddon_conditionalAddon": {
                 "rules": {

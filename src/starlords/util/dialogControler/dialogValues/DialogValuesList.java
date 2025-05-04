@@ -19,12 +19,15 @@ public class DialogValuesList {
     DialogValuesList multi2 = null;
     @SneakyThrows
     public DialogValuesList(JSONObject json,String key){
+        Logger log = Global.getLogger(DialogValuesList.class);
         values = new ArrayList<>();
         if (!(json.get(key) instanceof JSONObject)){
             base = json.getInt(key);
+            log.info("getting basic value of: "+base);
             return;
         }
-        json.getJSONObject(key);
+        json = json.getJSONObject(key);
+        log.info("getting a single dialogValue list from key of: "+key);
         if (json.has("base")) base = json.getInt("base");
         if (json.has("multi")){
             if (json.get("multi") instanceof JSONObject) {
@@ -150,11 +153,14 @@ public class DialogValuesList {
                 case "random":
                     values.add(new DialogValue_random(json,key2));
                     break;
+                default:
+                    log.info("      failed to add item of "+key2);
             }
+            log.info("  added key item of key: "+key2);
         }
     }
     public int getValue(Lord lord, Lord targetLord, MarketAPI targetMarket){
-        Logger log = Global.getLogger(StoredSettings.class);
+        Logger log = Global.getLogger(DialogValuesList.class);
         log.info("  getting dialog value list value....");
         int base = this.base;
         log.info("      added base as: "+base);

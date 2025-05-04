@@ -1,6 +1,7 @@
 package starlords.util.dialogControler.dialogValues;
 
 import com.fs.starfarer.api.Global;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import starlords.person.Lord;
 import starlords.util.memoryUtils.DataHolder;
@@ -16,16 +17,8 @@ public class DialogValue_LordMemoryData extends DialogValue_base{
 
     @Override
     public int value(Lord lord, Lord targetLord) {
-        String key = STARLORD_ADDITIONAL_MEMORY_KEY+lord.getLordAPI().getId();
-        DataHolder DATA_HOLDER;
-        if (Global.getSector().getMemory().contains(key)){
-            DATA_HOLDER = (DataHolder) Global.getSector().getMemory().get(key);
-        }else{
-            DATA_HOLDER = new DataHolder();
-        }
-        int out = 0;
-        DATA_HOLDER.getInteger(this.key);
-        return out;
+        DataHolder DATA_HOLDER = lord.getLordDataHolder();
+        return DATA_HOLDER.getInteger(this.key);
     }
 
 }

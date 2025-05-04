@@ -71,5 +71,7 @@
   "ask_patrol_location": "optionSet_ask_patrol_location",
   "patrolLocation": "optionSet_patrolLocation",
   "suggest_upgrade": "optionSet_suggest_upgrade",
-  "suggest_ceasefire": "optionSet_suggest_ceasefire"
+  "suggest_ceasefire": "optionSet_suggest_ceasefire",
+  "prisoner_release": "optionSet_prisoner_release",
+  "ransom_prisoner": "optionSet_ransom_prisoner"
 }

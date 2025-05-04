@@ -24,6 +24,8 @@
 * "attemptToAddRandomQuest": boolean. if set to true, it will run ether the '' line, or the '' line. depending on if a quest can actually get gotten or not. please note: this is to be removed, and replaced with a more complicated quest system in the future.
 * "preventAttacksOnPlayer" Integer. sets the number of days that the interacting lord will be unable to attack the player.
 * "preventAttacksOnTargetLord" Integer. sets the number of days that the interacting lord will be unable to attack the target lord. (if one exsists)
+* "releaseLord": boolean. if set to true, releases the starlord from captivity.
+* "captureLord": boolean. if set to true, puts the starlord into the player's prison.
 * "setHeldDate": boolean. sets if you have held a data this feast.
 * "setProfessedAdmiration": boolean. sets if you have held professed admiration this feast.
 * "setCourted" : boolean. sets whether you are courting this lord. setting this to true lets you do romance =)

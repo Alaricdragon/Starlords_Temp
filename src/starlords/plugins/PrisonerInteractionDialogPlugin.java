@@ -4,6 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.util.Misc;
+import lombok.Getter;
 import lombok.Setter;
 import starlords.util.GenderUtils;
 import starlords.util.StringUtil;
@@ -22,16 +23,15 @@ public class PrisonerInteractionDialogPlugin extends LordInteractionDialogPlugin
     }
 
     private int ransomAmount;
+    @Getter
     @Setter
-    private IntelUIAPI ui; // this is the intel ui that should be updated if prisoners are released
-
+    private static IntelUIAPI ui; // this is the intel ui that should be updated if prisoners are released
     @Override
     protected String setDialogType() {
         return "prisoner";
     }
 
-    @Override
-    public void optionSelected(String optionText, Object optionData) {
+    public void optionSelectedOUTDATED(String optionText, Object optionData) {
         /*ok so: what do I need to do here?
         * first of all, there is the randomValue.
         * option set:
@@ -48,6 +48,8 @@ public class PrisonerInteractionDialogPlugin extends LordInteractionDialogPlugin
         *       example:
         *        Misc.setFlagWithReason(lord.getFleet().getMemoryWithoutUpdate(),
         *        MemFlags.MEMORY_KEY_MAKE_NON_HOSTILE, "starlords", true, time);
+        *   "releaseLord"
+        *   "captureLord"
         * rules:
         *   (done, untested)add a rule that is 'dialogType'.
         *
@@ -60,6 +62,13 @@ public class PrisonerInteractionDialogPlugin extends LordInteractionDialogPlugin
         *       dialogString
         *       lordMemoryString
         *       dialogValue.
+        *
+        * issue:
+        *   at present, I cant yet get my god dam code to run (pasificly, setData_ransomAmount).
+        *   this might have something to do with the conditional addon not working.
+        *   or the line itself might just not be running its addons for a unknown reason. I must find out.
+        *   ...
+        *   it will take time.
         * */
         PrisonerOptionId option;
         if (optionData == "OptionId.INIT") {

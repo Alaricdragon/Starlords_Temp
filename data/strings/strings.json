@@ -4,21 +4,13 @@
     "lordGenderSuit": "suit",
 
 
-    "release_upstanding": "You are indeed a $string of honour. I shall not forget this!",
-    "release_martial": "You are indeed a $string of honour. I shall not forget this!",
-    "release_calculating": "Am I? You are a good $string. I will try to find a way to repay you.",
-    "release_quarrelsome": "Am I? So refined is your cruelty, that you would rather see me free and humiliated, than in chains. Enjoy your triumph!",
-    "release_ransom": "Very well, I'll pay for my release. I will remember this humiliation.",
 
 
     "relation_increase": "Relations with $string increased by $string.",
     "relation_decrease": "Relations with $string decreased by $string.",
-    "refuse_suggest_action": "I'm sorry, but I'm unable to do that.",
+    "refuse_suggest_action": "I'm sorry, but I'm unable to do that."
 
 
-    "option_ransom_prisoner": "Ransom prisoner for $string credits",
-    "option_release_prisoner": "Release prisoner",
-    "option_leave_prisoner": "[Leave] Enjoy your time in the oubliette."
 
 
   },

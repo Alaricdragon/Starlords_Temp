@@ -6,6 +6,7 @@ import com.fs.starfarer.api.campaign.OptionPanelAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import starlords.person.Lord;
 import starlords.util.Utils;
@@ -34,18 +35,12 @@ public class DialogAddon_setLordMemoryData extends DialogAddon_setDialogData{
     }
     @Override
     public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord,Lord targetLord, MarketAPI targetMarket) {
-        String key = STARLORD_ADDITIONAL_MEMORY_KEY+lord.getLordAPI().getId();
-        DataHolder DATA_HOLDER;
-        if (Global.getSector().getMemory().contains(key)){
-            DATA_HOLDER = (DataHolder) Global.getSector().getMemory().get(key);
-        }else{
-            DATA_HOLDER = new DataHolder();
-        }
+        DataHolder DATA_HOLDER = lord.getLordDataHolder();
         applyStrings(DATA_HOLDER,lord,targetLord,targetMarket);
         applyBooleans(DATA_HOLDER,lord,targetLord,targetMarket);
         applyFloats(DATA_HOLDER,lord,targetLord,targetMarket);
         applyAddFloats(DATA_HOLDER,lord,targetLord,targetMarket);
-        Global.getSector().getMemory().set(key,DATA_HOLDER);
+        lord.saveLordDataHolder();
     }
     public void applyStrings(DataHolder DATA_HOLDER,Lord lord,Lord targetLord, MarketAPI targetMarket){
         for (String key : strings.keySet()) {
@@ -69,9 +64,13 @@ public class DialogAddon_setLordMemoryData extends DialogAddon_setDialogData{
 
     }
     public void applyFloats(DataHolder DATA_HOLDER,Lord lord,Lord targetLord, MarketAPI targetMarket){
+        Logger log = Global.getLogger(DialogValuesList.class);
+        log.info("attempting to save dialog data for lord of: "+lord.getLordAPI().getId());
         for (String key : setInts.keySet()) {
             if (!time.containsKey(key)) {
+                log.info("  setting data of key: "+key+" to value of: "+setInts.get(key).getValue(lord, targetLord, targetMarket));
                 DATA_HOLDER.setInteger(key, setInts.get(key).getValue(lord, targetLord, targetMarket));
+                log.info("  do I have value here: "+DATA_HOLDER.getInteger(key));
                 continue;
             }
             int time = this.time.get(key).getValue(lord,targetLord,targetMarket);

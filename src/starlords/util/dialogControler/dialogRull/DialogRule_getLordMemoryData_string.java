@@ -14,13 +14,7 @@ public class DialogRule_getLordMemoryData_string extends DialogRule_getDialogDat
 
     @Override
     protected String getString(Lord lord) {
-        String key = STARLORD_ADDITIONAL_MEMORY_KEY+lord.getLordAPI().getId();
-        DataHolder DATA_HOLDER;
-        if (Global.getSector().getMemory().contains(key)){
-            DATA_HOLDER = (DataHolder) Global.getSector().getMemory().get(key);
-        }else{
-            DATA_HOLDER = new DataHolder();
-        }
+        DataHolder DATA_HOLDER = lord.getLordDataHolder();
         String out = "";
         out = DATA_HOLDER.getString(this.key);
         return out;
