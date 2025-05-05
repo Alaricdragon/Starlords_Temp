@@ -40,7 +40,14 @@ public class Utils {
     @Setter
     private static boolean showMessageLordCaptureReleaseEscape;
     public static final Random rand = new Random(); // for low-priority rng that doesn't need to be savescum-proof
-
+    public static String getFactionTitle(String faction,int ranking){
+        String titleStr = "title_" + faction + "_" + ranking;
+        String ret = StringUtil.getString("starlords_title", titleStr);
+        if (ret != null && ret.startsWith("Missing string")) {
+            ret = StringUtil.getString("starlords_title", "title_default_" + ranking);
+        }
+        return ret;
+    }
     public static int nextInt(int bound) {
         return rand.nextInt(bound);
     }

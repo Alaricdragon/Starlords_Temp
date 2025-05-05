@@ -145,5 +145,6 @@ public class LordsModPlugin extends BaseModPlugin {
     public void beforeGameSave() {
         LordController.logAllLords();
         LordController.saveUnusualLords();
+        LordController.saveLordData();
     }
 }

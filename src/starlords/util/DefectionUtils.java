@@ -200,7 +200,7 @@ public class DefectionUtils {
     }
 
     // defects to specified faction
-    public static void performDefection(Lord lord, FactionAPI faction, boolean showMessage) {
+    public static void performDefection(Lord lord, FactionAPI faction, boolean showMessage,boolean includeFiefs) {
         EventController.removeFromAllEvents(lord);
         String oldFactionName = lord.getFaction().getDisplayNameWithArticle();
         if (faction.isPlayerFaction()) lord.setKnownToPlayer(true);
@@ -217,7 +217,7 @@ public class DefectionUtils {
         }
         // fiefs defect with the lord as long as they aren't turning pirate
         // changed this into faction that can be attacked. I considered this for all minor factions, but some of them can be attacked, and such can get back there markets so...
-        if (!Utils.canBeAttacked(faction)) {
+        if (!Utils.canBeAttacked(faction) && includeFiefs) {
             for (SectorEntityToken fief : lord.getFiefs()) {
                 fief.getMarket().setFactionId(faction.getId());
                 fief.setFaction(faction.getId());
@@ -233,6 +233,9 @@ public class DefectionUtils {
                             lord.getLordAPI().getNameString(), oldFactionName, faction.getDisplayNameWithArticle()),
                     faction.getBaseUIColor());
         }
+    }
+    public static void performDefection(Lord lord, FactionAPI faction, boolean showMessage){
+        performDefection(lord, faction, showMessage,true);
     }
 
     public static int computeClaimJustification(String claim, FactionAPI targetFaction) {
