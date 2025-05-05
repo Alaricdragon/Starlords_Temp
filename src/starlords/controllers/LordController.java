@@ -188,6 +188,12 @@ public class LordController {
             }
         }
     }
+    public static void saveLordData(){
+        for (int a = 0; a < lordsList.size(); a++){
+            Lord lord = lordsList.get(a);
+            if (lord.getLordDataHolder().hasData()) lord.saveLordDataHolder();
+        }
+    }
     public static void LoadSavedLord(Lord newLord){
         LordTemplate template = (LordTemplate) Global.getSector().getMemory().get(getSavedLordsMemeoryKey(newLord));
         //after a lord has been determend to have been 'saved', load it.

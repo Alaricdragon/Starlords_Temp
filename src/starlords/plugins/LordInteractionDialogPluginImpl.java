@@ -86,11 +86,15 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
             DATA_HOLDER.setTargetID(targetLord.getLordAPI().getId());
         }
         DialogType = setDialogType();
-        DialogOption option = new DialogOption("greeting",new ArrayList<>());
+        String startingOption = setStartingDialog();
+        DialogOption option = new DialogOption(setStartingDialog(),new ArrayList<>());
         optionSelected(null, option);
     }
     protected String setDialogType(){
         return "default";
+    }
+    protected String setStartingDialog(){
+        return "greeting";
     }
 
     @Override
@@ -150,6 +154,23 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     }
 
     private boolean optionSelected_NEW(String optionText, Object optionData){
+        /*so... it is finaly time! time for me to do the finaly checks.
+        * bug prevention:
+        *   1) add in a function that will be there until the next save compatible update. it will set anyone that is married to be married to the player.
+        *   2) merge this branch with the branch from fixes. its important ok?
+        * additional functions:
+        *   custom addon
+        *   custom rule
+        *   custom insert
+        *   custom value
+        * dialog improvements
+        *   1) I need to go through all the dialog, and merge the dialog into a type of 'template' that I can add additional data to.
+        *   2) I need to go into all lines and imporve them just a bit. by adding in the new utility functions I added in the first place.
+        *   3) I need to go into anything that uses a diffrent option set, and make it so instead of setting all the options right there, it gets a different option set instead (because having a cenralized option set to change prevents modders from having to keep trake of every time I add a dialog option. it is important.)
+        * dialog fixes:
+        *   1) speak privitly right now, does not have an option that prevents it from working. I messed up somewere.
+        *
+        * */
         if (optionData instanceof DialogOption){
             if (prevPlugin.equals(this) && !visual.isShowingPersonInfo(targetLord.getLordAPI())) {
                 visual.showPersonInfo(targetLord.getLordAPI(), false, true);
@@ -186,6 +207,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
 
 
     private void optionSelected_greetings(String selectedOption,Lord secondLord,MarketAPI targetMarket){
+        selectedOption = setStartingDialog();
         boolean isFeast = targetLord.getCurrAction() == LordAction.FEAST;
         LordEvent feast = isFeast ? EventController.getCurrentFeast(targetLord.getLordAPI().getFaction()) : null;
         //only run greetings if player has not yet heard them this conversation
@@ -195,7 +217,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         }
         //if lord is newly met, add intil on lord.
         if (!targetLord.isKnownToPlayer()) {
-            DialogSet.addParaWithInserts("addedIntel",targetLord,textPanel,options,dialog);
+            DialogSet.addParaWithInserts("addedIntel",targetLord,secondLord,targetMarket,textPanel,options,dialog);
             targetLord.setKnownToPlayer(true);
         }
         //if this is a feast, apply rep gained.

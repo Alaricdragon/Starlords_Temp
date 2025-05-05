@@ -40,7 +40,7 @@ public class DialogAddon_setLordMemoryData extends DialogAddon_setDialogData{
         applyBooleans(DATA_HOLDER,lord,targetLord,targetMarket);
         applyFloats(DATA_HOLDER,lord,targetLord,targetMarket);
         applyAddFloats(DATA_HOLDER,lord,targetLord,targetMarket);
-        lord.saveLordDataHolder();
+        //lord.saveLordDataHolder();
     }
     public void applyStrings(DataHolder DATA_HOLDER,Lord lord,Lord targetLord, MarketAPI targetMarket){
         for (String key : strings.keySet()) {
@@ -64,17 +64,22 @@ public class DialogAddon_setLordMemoryData extends DialogAddon_setDialogData{
 
     }
     public void applyFloats(DataHolder DATA_HOLDER,Lord lord,Lord targetLord, MarketAPI targetMarket){
-        Logger log = Global.getLogger(DialogValuesList.class);
-        log.info("attempting to save dialog data for lord of: "+lord.getLordAPI().getId());
+        //Logger log = Global.getLogger(DialogValuesList.class);
+        //log.info("attempting to save dialog data for lord of: "+lord.getLordAPI().getId());
         for (String key : setInts.keySet()) {
+            int data = setInts.get(key).getValue(lord, targetLord, targetMarket);
             if (!time.containsKey(key)) {
-                log.info("  setting data of key: "+key+" to value of: "+setInts.get(key).getValue(lord, targetLord, targetMarket));
-                DATA_HOLDER.setInteger(key, setInts.get(key).getValue(lord, targetLord, targetMarket));
-                log.info("  do I have value here: "+DATA_HOLDER.getInteger(key));
+                //log.info("  setting data as normal value:");
+                //log.info("  setting data of key: "+key+" to value of: "+data);
+                DATA_HOLDER.setInteger(key, data);
+                //log.info("  do I have value here: "+DATA_HOLDER.getInteger(key));
                 continue;
             }
+            //log.info("  setting data as timed value:");
             int time = this.time.get(key).getValue(lord,targetLord,targetMarket);
-            DATA_HOLDER.setInteger(key, setInts.get(key).getValue(lord, targetLord, targetMarket),time);
+            //log.info("  setting data of key: "+key+" to value of: "+data);
+            DATA_HOLDER.setInteger(key, data,time);
+            //log.info("  do I have value here: "+DATA_HOLDER.getInteger(key));
         }
     }
     public void applyAddFloats(DataHolder DATA_HOLDER,Lord lord,Lord targetLord, MarketAPI targetMarket){

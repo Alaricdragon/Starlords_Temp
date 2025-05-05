@@ -90,4 +90,8 @@
         * "%TARGET_STABILITY"
     * some lines will also use custom inputted data (this is hardcoded). in this case, they will use the '%c#' marker, with # being the order they are added to the line.
     * see 'customInserts' for custom insert data. (its farther up on this page)
-you can view the full dialog map here: [DIALOG_MAP.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_MAP.md)
+you can view the full dialog map() here: 
+    * as a note: keep in mind it is 100% possable to acsess any line at any time, so long as it is called. the dialog maps are put into different files for ease of use.
+    * [DIALOG_MAP_DEFAULT.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/dialogMaps/DIALOG_MAP_DEFAULT.md)
+    * [DIALOG_MAP_PRISONER.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/dialogMaps/DIALOG_MAP_PRISONER.md)
+    

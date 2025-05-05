@@ -4,6 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.OptionPanelAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
@@ -35,12 +36,12 @@ public class DialogAddon_additionalText extends DialogAddon_Base{
     }
 
     @Override
-    public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord) {
+    public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket) {
         Logger log = Global.getLogger(StoredSettings.class);
         log.info("running additional text...");
         for (String a : lineID) {
             log.info("getting additional text of ID: "+a);
-            DialogSet.addParaWithInserts(a, lord, textPanel, options, dialog);
+            DialogSet.addParaWithInserts(a, lord,targetLord,targetMarket, textPanel, options, dialog);
         }
     }
 }

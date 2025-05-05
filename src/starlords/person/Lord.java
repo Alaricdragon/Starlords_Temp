@@ -471,9 +471,9 @@ public class Lord {
 
     private DataHolder DATA_HOLDER;
     public DataHolder getLordDataHolder(){
-        String key = STARLORD_ADDITIONAL_MEMORY_KEY+getLordAPI().getId();
         DataHolder data_holder = DATA_HOLDER;
         if (DATA_HOLDER != null) return data_holder;
+        String key = STARLORD_ADDITIONAL_MEMORY_KEY+getLordAPI().getId();
         if (Global.getSector().getMemory().contains(key)){
             data_holder = (DataHolder) Global.getSector().getMemory().get(key);
         }else{

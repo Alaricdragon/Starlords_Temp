@@ -7,35 +7,6 @@
       }
     },
     "lines": {
-      "isPlayerPrisoner": {
-        "priority": 10,
-        "rules": {
-          "dialogType": {
-            "prisoner": true
-          }
-        },
-        "lines": {
-          "greeting": "I am at your mercy. Grant me the honours of war, and do yourself credit!",
-          "prisoner_release": {
-            "line": "You are indeed a %PLAYER_GENDER_MAN_OR_WOMEN of honour. I shall not forget this!",
-            "addons": {
-              "releaseLord": true,
-              "repChange": 4
-            }
-          },
-          "ransom_prisoner": {
-            "line":"Very well, I'll pay for my release. I will remember this humiliation.",
-            "addons": {
-              "exchangeCreditsWithLord": {
-                "LordMemoryData": {
-                  "ransomAmount": 1
-                }
-              },
-              "repChange": -3
-            }
-          }
-        }
-      },
       "upstanding_hostile": {
         "priority": 8,
         "rules": {
@@ -393,6 +364,32 @@
           },
           "speak_privately": "Do not take this amiss, but I would prefer to conduct our affairs out in the open."
         }
+      },
+      "prisoner": {
+        "priority": 1,
+        "rules": {},
+        "lines": {
+          "greetings_prisoner": "I am at your mercy. Grant me the honours of war, and do yourself credit!",
+          "prisoner_release": {
+            "line": "You are indeed a %PLAYER_GENDER_MAN_OR_WOMEN of honour. I shall not forget this!",
+            "addons": {
+              "releaseLord": true,
+              "repChange": 4
+            }
+          },
+          "ransom_prisoner": {
+            "line":"Very well, I'll pay for my release. I will remember this humiliation.",
+            "addons": {
+              "releaseLord": true,
+              "exchangeCreditsWithLord": {
+                "LordMemoryData": {
+                  "ransomAmount": 1
+                }
+              },
+              "repChange": -3
+            }
+          }
+        }
       }
     }
   },
@@ -404,36 +401,6 @@
       }
     },
     "lines": {
-      "isPlayerPrisoner": {
-        "priority": 10,
-        "rules": {
-          "dialogType": {
-            "prisoner": true
-          }
-        },
-        "lines": {
-          "greeting": "To think that I've been captured by you dogs. Ach, the shame of it!",
-          "prisoner_release": {
-            "line": "Am I? You are a good %PLAYER_GENDER_MAN_OR_WOMEN. I will try to find a way to repay you.",
-            "addons": {
-              "releaseLord": true,
-              "repChange": 1
-            }
-          },
-          "ransom_prisoner": {
-            "line":"Very well, I'll pay for my release. I will remember this humiliation.",
-            "addons": {
-              "exchangeCreditsWithLord": {
-                "LordMemoryData": {
-                  "ransomAmount": 1
-                }
-              },
-              "repChange": -3
-            }
-          }
-        }
-      },
-
 
       "quarrelsome_hostile": {
         "priority": 8,
@@ -729,6 +696,32 @@
           },
           "speak_privately": "Bah. I don't like you that much. I'm not going to go plot with you in some corner."
         }
+      },
+      "prisoner": {
+        "priority": 1,
+        "rules": {},
+        "lines": {
+          "greetings_prisoner": "To think that I've been captured by you dogs. Ach, the shame of it!",
+          "prisoner_release": {
+            "line": "Am I? You are a good %PLAYER_GENDER_MAN_OR_WOMEN. I will try to find a way to repay you.",
+            "addons": {
+              "releaseLord": true,
+              "repChange": 1
+            }
+          },
+          "ransom_prisoner": {
+            "line":"Very well, I'll pay for my release. I will remember this humiliation.",
+            "addons": {
+              "releaseLord": true,
+              "exchangeCreditsWithLord": {
+                "LordMemoryData": {
+                  "ransomAmount": 1
+                }
+              },
+              "repChange": -3
+            }
+          }
+        }
       }
     }
   },
@@ -740,35 +733,6 @@
       }
     },
     "lines": {
-      "isPlayerPrisoner": {
-        "priority": 10,
-        "rules": {
-          "dialogType": {
-            "prisoner": true
-          }
-        },
-        "lines": {
-          "greeting": "You may have bested me, but when we next clash, I assure you that it won't happen again.",
-          "prisoner_release": {
-            "line": "You are indeed a %PLAYER_GENDER_MAN_OR_WOMEN of honour. I shall not forget this!",
-            "addons": {
-              "releaseLord": true,
-              "repChange": 6
-            }
-          },
-          "ransom_prisoner": {
-            "line": "Very well, I'll pay for my release. I will remember this humiliation.",
-            "addons": {
-              "exchangeCreditsWithLord": {
-                "LordMemoryData": {
-                  "ransomAmount": 1
-                }
-              },
-              "repChange": -3
-            }
-          }
-        }
-      },
       "martial_hostile": {
         "priority": 8,
         "rules": {
@@ -1127,6 +1091,32 @@
           },
           "speak_privately": "Forgive me, but I'm not one for going off in corners to plot."
         }
+      },
+      "prisoner": {
+        "priority": 1,
+        "rules": {},
+        "lines": {
+          "greetings_prisoner": "You may have bested me, but when we next clash, I assure you that it won't happen again.",
+          "prisoner_release": {
+            "line": "You are indeed a %PLAYER_GENDER_MAN_OR_WOMEN of honour. I shall not forget this!",
+            "addons": {
+              "releaseLord": true,
+              "repChange": 6
+            }
+          },
+          "ransom_prisoner": {
+            "line": "Very well, I'll pay for my release. I will remember this humiliation.",
+            "addons": {
+              "releaseLord": true,
+              "exchangeCreditsWithLord": {
+                "LordMemoryData": {
+                  "ransomAmount": 1
+                }
+              },
+              "repChange": -3
+            }
+          }
+        }
       }
     }
   },
@@ -1138,35 +1128,6 @@
       }
     },
     "lines": {
-      "isPlayerPrisoner": {
-        "priority": 10,
-        "rules": {
-          "dialogType": {
-            "prisoner": true
-          }
-        },
-        "lines": {
-          "greeting": "I have had much time in captivity to reflect on our battle. In our next encounter, I will not lose so easily.",
-          "prisoner_release": {
-            "line": "Am I? You are a good %PLAYER_GENDER_MAN_OR_WOMEN. I will try to find a way to repay you.",
-            "addons": {
-              "releaseLord": true,
-              "repChange": 3
-            }
-          },
-          "ransom_prisoner": {
-            "line":"Very well, I'll pay for my release. I will remember this humiliation.",
-            "addons": {
-              "exchangeCreditsWithLord": {
-                "LordMemoryData": {
-                  "ransomAmount": 1
-                }
-              },
-              "repChange": -3
-            }
-          }
-        }
-      },
       "calculating_hostile": {
         "priority": 8,
         "rules": {
@@ -1520,6 +1481,32 @@
           },
           "speak_privately": "Erm... Let's keep our affairs out in the open, for the time being."
         }
+      },
+      "prisoner": {
+        "priority": 1,
+        "rules": {},
+        "lines": {
+          "greetings_prisoner": "I have had much time in captivity to reflect on our battle. In our next encounter, I will not lose so easily.",
+          "prisoner_release": {
+            "line": "Am I? You are a good %PLAYER_GENDER_MAN_OR_WOMEN. I will try to find a way to repay you.",
+            "addons": {
+              "releaseLord": true,
+              "repChange": 3
+            }
+          },
+          "ransom_prisoner": {
+            "line":"Very well, I'll pay for my release. I will remember this humiliation.",
+            "addons": {
+              "releaseLord": true,
+              "exchangeCreditsWithLord": {
+                "LordMemoryData": {
+                  "ransomAmount": 1
+                }
+              },
+              "repChange": -3
+            }
+          }
+        }
       }
     }
   },
@@ -1527,27 +1514,6 @@
     "priority": 0,
     "rules": {},
     "lines": {
-      "isLordPrisonerOfPlayer": {
-        "priority": 10,
-        "rules": {
-          "dialogType": {
-            "prisoner": true
-          }
-        },
-        "lines": {
-          "greeting": "(error) what do you want, you ugly mean candy eating wormhole jumping edlric abomination",
-          "optionSet_greeting": {
-            "options": [
-              "setData_ransomAmount",
-              "option_speak_privately",
-              "option_release_prisoner",
-              "option_ransom_prisoner",
-              "option_leave_prisoner"
-            ]
-          }
-        }
-      },
-
       "isHost_feast": {
         "priority": 6,
         "rules": {
@@ -3447,13 +3413,6 @@
 
           "suggest_ceasefire": "Ah. Unfortunately, you see, I wish to fight with you.",
 
-          "prisoner_release": {
-            "line":"(error) oh... im free to go? freedom? \n you will regret this.",
-            "addons": {
-              "repChange": 3
-            }
-          },
-
           "ask_quest": {
             "line": "",
             "addons": {
@@ -3668,38 +3627,6 @@
           },
           "option_cutComLink": {
             "line": "Cut the comm link.",
-            "optionData": "exitDialog",
-            "shortcut": "ESCAPE"
-          },
-          "option_release_prisoner": {
-            "line": "Release prisoner",
-            "optionData": "prisoner_release"
-          },
-          "option_ransom_prisoner": {
-            "line": "Ransom prisoner for %c0 credits",
-            "customInserts": {
-              "replaced": "%c0",
-              "dialogValue": {
-                "LordMemoryData": {
-                  "ransomAmount": 1
-                }
-              }
-            },
-            "optionData": "ransom_prisoner"
-          },
-          "ransom_prisoner": {
-            "line":"(error) Very well, I'll pay for my release. I will remember this humiliation.",
-            "addons": {
-              "exchangeCreditsWithLord": {
-                "LordMemoryData": {
-                  "ransomAmount": 1
-                }
-              },
-              "repChange": -3
-            }
-          },
-          "option_leave_prisoner": {
-            "line": "[Leave] Enjoy your time in the oubliette.",
             "optionData": "exitDialog",
             "shortcut": "ESCAPE"
           },
@@ -4694,21 +4621,6 @@
             "shortcut": "ESCAPE"
           },
 
-          "optionSet_prisoner_release": {
-            "options": [
-              "option_leave_prisoner_freed"
-            ]
-          },
-          "optionSet_ransom_prisoner": {
-            "options": [
-              "option_leave_prisoner_freed"
-            ]
-          },
-          "option_leave_prisoner_freed": {
-            "line": "Leave",
-            "optionData": "exitDialog",
-            "shortcut": "ESCAPE"
-          },
 
           "setData_calculateDefect_base": {
             "addons": {
@@ -4946,10 +4858,86 @@
               }
             },
             "additionalText": "setData_calculateDefect_base"
-          },
-          "setData_ransomAmount": {
+          }
+
+        }
+      },
+      "prisoner": {
+        "priority": 1,
+        "rules": {
+        },
+        "lines": {
+          "greetings_prisoner": "(error) what do you want, you ugly mean candy eating wormhole jumping edlric abomination",
+
+          "prisoner_release": {
+            "line":"(error) oh... im free to go? freedom? \n you will regret this.",
             "addons": {
-              "DialogAddon_conditionalAddon": {
+              "repChange": 3
+            }
+          },
+          "ransom_prisoner": {
+            "line":"(error) Very well, I'll pay for my release. I will remember this humiliation.",
+            "addons": {
+              "releaseLord": true,
+              "exchangeCreditsWithLord": {
+                "LordMemoryData": {
+                  "ransomAmount": 1
+                }
+              },
+              "repChange": -3
+            }
+          },
+
+          "optionSet_greetings_prisoner": {
+            "options": [
+              "setData_prisoner_ransomAmount",
+              "option_speak_privately",
+              "option_release_prisoner",
+              "option_ransom_prisoner",
+              "option_leave_prisoner"
+            ]
+          },
+          "option_release_prisoner": {
+            "line": "Release prisoner",
+            "optionData": "prisoner_release"
+          },
+          "option_ransom_prisoner": {
+            "line": "Ransom prisoner for %c0 credits",
+            "customInserts": {
+              "replaced": "%c0",
+              "dialogValue": {
+                "LordMemoryData": {
+                  "ransomAmount": 1
+                }
+              }
+            },
+            "optionData": "ransom_prisoner"
+          },
+          "option_leave_prisoner": {
+            "line": "[Leave] Enjoy your time in the oubliette.",
+            "optionData": "exitDialog",
+            "shortcut": "ESCAPE"
+          },
+
+          "optionSet_prisoner_release": {
+            "options": [
+              "option_leave_prisoner_freed"
+            ]
+          },
+          "optionSet_ransom_prisoner": {
+            "options": [
+              "option_leave_prisoner_freed"
+            ]
+          },
+          "option_leave_prisoner_freed": {
+            "line": "Leave",
+            "optionData": "exitDialog",
+            "shortcut": "ESCAPE"
+          },
+
+          "setData_prisoner_ransomAmount": {
+            "addons": {
+              "conditionalAddon": {
                 "rules": {
                   "getLordMemoryData": {
                     "ransomAmount":{

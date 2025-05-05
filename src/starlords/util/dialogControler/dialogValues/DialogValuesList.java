@@ -169,8 +169,8 @@ public class DialogValuesList {
             base+=temp;
             log.info("      adding "+temp+" from source of "+a.getClass().getName()+" for a new total of "+base);
         }
-        int multi2 = 1;
-        if (this.multi2 != null) multi2 = (this.multi2.getValue(lord, targetLord, targetMarket)/100);
+        float multi2 = 1;
+        if (this.multi2 != null) multi2 = ((float)(this.multi2.getValue(lord, targetLord, targetMarket))/100);
         return (int) (base*multi*(multi2));
     }
 }

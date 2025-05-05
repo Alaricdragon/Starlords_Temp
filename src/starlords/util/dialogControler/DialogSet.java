@@ -67,7 +67,7 @@ public class DialogSet {
             defaltOptionSets.put(key2,jsonObject.getString(key2));
         }
     }
-    public static void addParaWithInserts(String key, Lord lord, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog){
+    /*public static void addParaWithInserts(String key, Lord lord, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog){
         //DialogSet.addParaWithInserts("ERROR",targetLord,textPanel,options);
         //DialogSet.addOptionWithInserts("ERROR",null,null,targetLord,textPanel,options);
         //addParaWithInserts(key, lord, textPanel, options,new HashMap<String,String>());
@@ -86,7 +86,7 @@ public class DialogSet {
             return;
         }
         set.applyLine(key, lord, textPanel, options,dialog,forceHide,markersReplaced);
-    }
+    }*/
     public static void addParaWithInserts(String key, Lord lord,Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog){
         //DialogSet.addParaWithInserts("ERROR",targetLord,textPanel,options);
         //DialogSet.addOptionWithInserts("ERROR",null,null,targetLord,textPanel,options);
@@ -107,7 +107,7 @@ public class DialogSet {
         }
         set.applyLine(key, lord,targetLord,targetMarket, textPanel, options,dialog,forceHide,markersReplaced);
     }
-    @Deprecated
+    /*@Deprecated
     public static void addParaWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options,HashMap<String,String> markersReplaced){
         DialogSet set = getSet(lord,null,null, key);
         if (set == null) return;
@@ -118,8 +118,8 @@ public class DialogSet {
         DialogSet set = getSet(lord,null,null, key);
         if (set == null) return;
         //set.applyLine(key, lord, textPanel, options,false,markersReplaced);
-    }
-    public static void addOptionWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced){
+    }*/
+    /*public static void addOptionWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced){
         DialogSet set = getSet(lord,null,null, key);
         if (set == null) return;
         set.applyOption(key,  lord,  textPanel,  options,dialog, markersReplaced);
@@ -128,13 +128,13 @@ public class DialogSet {
         DialogSet set = getSet(lord,null,null, key);
         if (set == null) return;
         set.applyOption(key,  lord,  textPanel,optionData, options,dialog, markersReplaced);
-    }
+    }*/
     public static void addOptionWithInserts(String key, Lord lord,Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced){
         DialogSet set = getSet(lord,targetLord,targetMarket, key);
         if (set == null) return;
         set.applyOption(key,  lord,targetLord, targetMarket,  textPanel,  options,dialog, markersReplaced);
     }
-    public static void addOptionWithInserts(String key, Lord lord,Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced,DialogOption optionData){
+/*    public static void addOptionWithInserts(String key, Lord lord,Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced,DialogOption optionData){
         DialogSet set = getSet(lord,targetLord,targetMarket, key);
         if (set == null) return;
         set.applyOption(key,  lord,targetLord,targetMarket,  textPanel,optionData, options,dialog, markersReplaced);
@@ -157,7 +157,7 @@ public class DialogSet {
         if (set == null) return;
         //set.applyOption(key,  lord,  textPanel,  options,dialog, markersReplaced);
     }
-
+*/
     private static DialogSet getSet(Lord lord,Lord targetLord, MarketAPI targetMarket,String id){
         for (String a : lord.getTemplate().dialogOverride){
             DialogSet out = dialogs.get(a).getSet(lord,targetLord,targetMarket,id);
@@ -754,17 +754,21 @@ public class DialogSet {
             }
         }
     }
-    public void applyOption(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
-        DialogOption optionData = new DialogOption(dialogOptionData.get(key),addons.get(key));
+    /*public void applyOption(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
+        String optionID = null;
+        if (dialogOptionData.containsKey(key)) optionID = dialogOptionData.get(key);
+        DialogOption optionData = new DialogOption(optionID,addons.get(key));
         applyOption(key,lord,textPanel,optionData,options,dialog,markersReplaced);
-    }
+    }*/
     public void applyOption(String key, Lord lord, Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced){
-        DialogOption optionData = new DialogOption(dialogOptionData.get(key),addons.get(key),targetLord,targetMarket);
+        String optionID = null;
+        if (dialogOptionData.containsKey(key)) optionID = dialogOptionData.get(key);
+        DialogOption optionData = new DialogOption(optionID,addons.get(key),targetLord,targetMarket);
         applyOption(key,lord,targetLord,targetMarket,textPanel,optionData,options,dialog,markersReplaced);
     }
-    public void applyOption(String key, Lord lord, TextPanelAPI textPanel,Object optionData,OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
+    /*public void applyOption(String key, Lord lord, TextPanelAPI textPanel,Object optionData,OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
         applyOption(key, lord,null,null, textPanel, optionData, options, dialog, markersReplaced);
-    }
+    }*/
     public void applyOption(String key, Lord lord,Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel,Object optionData,OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
         Logger log = Global.getLogger(StoredSettings.class);
         log.info("  checking option of key: "+key);
@@ -779,7 +783,7 @@ public class DialogSet {
     public void applyOptionSingle(String key, Lord lord,Lord targetLord,MarketAPI targetMarket, TextPanelAPI textPanel,Object optionData,OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
         Logger log = Global.getLogger(StoredSettings.class);
         String line = this.getLine(key);
-        if (!shouldHide(key, textPanel, options, lord,targetLord,targetMarket) && line != null) {
+        if (!shouldHide(key, textPanel, options, lord,targetLord,targetMarket) && (line != null)) {
             log.info("adding option of key: "+key);
             line = insertCustomData(key,line,lord,targetLord,targetMarket);
             line = insertDefaltData(line, lord,targetLord,targetMarket);
@@ -817,7 +821,8 @@ public class DialogSet {
                 }
             }
             if (enable.containsKey(key) && !shouldEnable(key,textPanel,options,lord,targetLord,targetMarket)) options.setEnabled(optionData,false);
-        }else{
+        }else if(line == null){
+            log.info("attempting to run addons as option.");
             DialogOption optionDataTemp = (DialogOption)optionData;
             //note: target lord and market set in internal data of dialogOption. not needed for input.
             optionDataTemp.applyAddons(textPanel, options, dialog, lord);
@@ -832,11 +837,11 @@ public class DialogSet {
             }
             for (String a : additionalOptions.get(key)) {
                 //log.info("  ADDITIONAL OPTIONS: a single option of key: " + a);
-                addOptionWithInserts(a, lord, textPanel, options, dialog, markersReplaced);
+                addOptionWithInserts(a, lord,targetLord,targetMarket, textPanel, options, dialog, markersReplaced);
             }
         } else if (defaltOptionSets.containsKey(key)) {
             //log.info("getting default options from, to key: " + key + ", " + defaltOptionSets.get(key));
-            addParaWithInserts(defaltOptionSets.get(key), lord, textPanel, options, dialog, false, markersReplaced);
+            addParaWithInserts(defaltOptionSets.get(key), lord,targetLord,targetMarket, textPanel, options, dialog, false, markersReplaced);
             builtOptions = true;
         }
         if (!builtOptions) {

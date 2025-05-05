@@ -16,7 +16,7 @@ public class DialogValue_LordMemoryData_list extends DialogValue_base{
         JSONObject json2 = json.getJSONObject(key);
         for (Iterator it2 = json2.keys(); it2.hasNext();) {
             String key2 = (String) it2.next();
-            if (!(json2.get(key2) instanceof JSONObject)) continue;
+            //if (!(json2.get(key2) instanceof JSONObject)) continue;
             values.add(new DialogValue_LordMemoryData(json2,key2));
         }
     }

@@ -3,6 +3,8 @@ package starlords.util.memoryUtils;
 import com.fs.starfarer.api.Global;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.log4j.Logger;
+import starlords.util.dialogControler.dialogValues.DialogValuesList;
 
 import java.util.HashMap;
 
@@ -17,6 +19,12 @@ public class DataHolder {
     protected HashMap<String,String> strings = new HashMap<>();
     protected HashMap<String,Boolean> booleans = new HashMap<>();
     protected HashMap<String,Integer> integers = new HashMap<>();
+    public boolean hasData(){
+        if (strings.size() != 0) return true;
+        if (booleans.size() != 0) return true;
+        if (integers.size() != 0) return true;
+        return false;
+    }
     private void setStringInternal(String key, String data){
         strings.put(key,data);
     }
@@ -79,8 +87,16 @@ public class DataHolder {
         return booleans.get(key);
     }
     public int getInteger(String key){
+        /*Logger log = Global.getLogger(DialogValuesList.class);
+        String exspire = "null";
+        String timePassed = "null";
+        String value = "null";
+        if (iExpire.containsKey(key))exspire=iExpire.get(key)+"";
+        if (iTimestamp.containsKey(key))timePassed=Global.getSector().getClock().getElapsedDaysSince(iTimestamp.get(key))+"";
+        if (integers.containsKey(key))value = integers.get(key)+"";
+        log.info("getting data holder integer data from key: "+key+" as: expire: "+exspire+", timePassed: "+timePassed+", and value of: "+value);*/
         if (!integers.containsKey(key)) return 0;
-        if (iExpire.containsKey(key) && iExpire.get(key) >= Global.getSector().getClock().getElapsedDaysSince(iTimestamp.get(key))){
+        if (iExpire.containsKey(key) && iExpire.get(key) <= Global.getSector().getClock().getElapsedDaysSince(iTimestamp.get(key))){
             iExpire.remove(key);
             iTimestamp.remove(key);
             integers.remove(key);
