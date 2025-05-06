@@ -381,9 +381,14 @@
             "line":"Very well, I'll pay for my release. I will remember this humiliation.",
             "addons": {
               "releaseLord": true,
-              "exchangeCreditsWithLord": {
+              "creditsChange": {
                 "LordMemoryData": {
                   "ransomAmount": 1
+                }
+              },
+              "changeLordCredits": {
+                "LordMemoryData": {
+                  "ransomAmount": -0.2
                 }
               },
               "repChange": -3
@@ -713,9 +718,14 @@
             "line":"Very well, I'll pay for my release. I will remember this humiliation.",
             "addons": {
               "releaseLord": true,
-              "exchangeCreditsWithLord": {
+              "creditsChange": {
                 "LordMemoryData": {
                   "ransomAmount": 1
+                }
+              },
+              "changeLordCredits": {
+                "LordMemoryData": {
+                  "ransomAmount": -0.2
                 }
               },
               "repChange": -3
@@ -1108,9 +1118,14 @@
             "line": "Very well, I'll pay for my release. I will remember this humiliation.",
             "addons": {
               "releaseLord": true,
-              "exchangeCreditsWithLord": {
+              "creditsChange": {
                 "LordMemoryData": {
                   "ransomAmount": 1
+                }
+              },
+              "changeLordCredits": {
+                "LordMemoryData": {
+                  "ransomAmount": -0.2
                 }
               },
               "repChange": -3
@@ -1498,9 +1513,14 @@
             "line":"Very well, I'll pay for my release. I will remember this humiliation.",
             "addons": {
               "releaseLord": true,
-              "exchangeCreditsWithLord": {
+              "creditsChange": {
                 "LordMemoryData": {
                   "ransomAmount": 1
+                }
+              },
+              "changeLordCredits": {
+                "LordMemoryData": {
+                  "ransomAmount": -0.2
                 }
               },
               "repChange": -3
@@ -3268,104 +3288,28 @@
           "justify_defect_quarrelsome_argumentAgreement": "Additionally, I find your justification unconvincing.",
           "justify_defect_quarrelsome_final": "Lastly, changing loyalties is no small decision. I must consider the consequences on my reputation carefully.",
 
-          "justify_defect_calculating_success": {
-            "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
-            "addons": {
-              "playSound": "ui_char_level_up",
-              "defectLordToFaction": {
-                "factionID": "playerCurrFaction",
-                "newRank": {
-                  "DialogData": {
-                    "calculateDefect_rank": 1
-                  }
-                }
-              },
-              "exchangeCreditsWithLord": {
-                "DialogData": {
-                  "calculateDefect_credits": -1
-                }
-              }
-            }
-          },
-          "justify_defect_calculating_fail": {
+          "justify_defect_calculating_answer": {
             "line": "I cannot betray our leader. I will keep this conversation to myself for sake of our friendship, but do not speak of this again.",
             "addons": {
               "playSound": "ui_rep_drop",
               "repChange": -10
             }
           },
-          "justify_defect_upstanding_success": {
-            "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
-            "addons": {
-              "playSound": "ui_char_level_up",
-              "defectLordToFaction": {
-                "factionID": "playerCurrFaction",
-                "newRank": {
-                  "DialogData": {
-                    "calculateDefect_rank": 1
-                  }
-                }
-              },
-              "exchangeCreditsWithLord": {
-                "DialogData": {
-                  "calculateDefect_credits": -1
-                }
-              }
-            }
-          },
-          "justify_defect_upstanding_fail": {
+          "justify_defect_upstanding_answer": {
             "line": "I cannot betray our leader. I will keep this conversation to myself for sake of our friendship, but do not speak of this again.",
             "addons": {
               "playSound": "ui_rep_drop",
               "repChange": -10
             }
           },
-          "justify_defect_martial_success": {
-            "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
-            "addons": {
-              "playSound": "ui_char_level_up",
-              "defectLordToFaction": {
-                "factionID": "playerCurrFaction",
-                "newRank": {
-                  "DialogData": {
-                    "calculateDefect_rank": 1
-                  }
-                }
-              },
-              "exchangeCreditsWithLord": {
-                "DialogData": {
-                  "calculateDefect_credits": -1
-                }
-              }
-            }
-          },
-          "justify_defect_martial_fail": {
+          "justify_defect_martial_answer": {
             "line": "I cannot betray our leader. I will keep this conversation to myself for sake of our friendship, but do not speak of this again.",
             "addons": {
               "playSound": "ui_rep_drop",
               "repChange": -10
             }
           },
-          "justify_defect_quarrelsome_success": {
-            "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
-            "addons": {
-              "playSound": "ui_char_level_up",
-              "defectLordToFaction": {
-                "factionID": "playerCurrFaction",
-                "newRank": {
-                  "DialogData": {
-                    "calculateDefect_rank": 1
-                  }
-                }
-              },
-              "exchangeCreditsWithLord": {
-                "DialogData": {
-                  "calculateDefect_credits": -1
-                }
-              }
-            }
-          },
-          "justify_defect_quarrelsome_fail": {
+          "justify_defect_quarrelsome_answer": {
             "line": "I cannot betray our leader. I will keep this conversation to myself for sake of our friendship, but do not speak of this again.",
             "addons": {
               "playSound": "ui_rep_drop",
@@ -3420,12 +3364,12 @@
             }
           },
           "quest_available": "I do have one issue to take care of. I've transferred the relevant information if you're interested.",
+          "no_quest_available": "I have no tasks that need attending to at this time.",
+
           "addedRandomIntel": {
             "line": "New intel added!",
             "color": "GREEN"
           },
-          "no_quest_available": "I have no tasks that need attending to at this time.",
-
           "relation_increase": {
             "line": "Relations with %LORD_NAME increased by %c0.",
             "color": "GREEN"
@@ -3631,9 +3575,14 @@
             "shortcut": "ESCAPE"
           },
 
-
+          "optionSet_start_tournament_cant": {
+            "options": [
+              "option_avoid_tournament"
+            ]
+          },
           "optionSet_start_tournament": {
             "options": [
+              "option_continue_to_tournament",
               "option_avoid_tournament"
             ]
           },
@@ -4243,6 +4192,12 @@
               "optionSet_speak_privately"
             ]
           },
+          "optionSet_liege_opinion_consider": {
+            "options": [
+              "option_suggest_defect",
+              "option_liege_opinion_exit"
+            ]
+          },
           "option_ask_worldview": {
             "line": "What do you think, in general terms, about the current state of affairs in the realm?",
             "optionData": "worldview"
@@ -4621,7 +4576,39 @@
             "shortcut": "ESCAPE"
           },
 
-
+          "setData_calculateDefect_final": {
+            "addons": {
+              "setDialogData": {
+                "calculateDefect_final": {
+                  "DialogData": {
+                    "calculateDefect_legitimacy": 1,
+                    "calculateDefect_RelativeFactionPreference": 1,
+                    "calculateDefect_RelativeLordPreference": 1,
+                    "calculateDefect_baseReluctance": 1
+                  },
+                  "random": 10,
+                  "limitedValue": {
+                    "value": {
+                      "DialogData": {
+                        "calculateDefect_justification": 5
+                      }
+                    },
+                    "max": {
+                      "DialogData": {
+                        "calculateDefect_acceptanceOfArgument": 1
+                      }
+                    }
+                  },
+                  "conditionalValue": {
+                    "rules": {
+                      "isMarriedToPlayer": true
+                    },
+                    "base": 200
+                  }
+                }
+              }
+            }
+          },
           "setData_calculateDefect_base": {
             "addons": {
               "setDialogData": {
@@ -4752,7 +4739,10 @@
                   }
                 }
               },
-              "additionalText": "setData_calculateDefect_base"
+              "additionalText": [
+                "setData_calculateDefect_base",
+                "setData_calculateDefect_final"
+              ]
             }
           },
           "setData_calculateDefect_upstanding": {
@@ -4795,7 +4785,10 @@
                   }
                 }
               },
-              "additionalText": "setData_calculateDefect_base"
+              "additionalText": [
+                "setData_calculateDefect_base",
+                "setData_calculateDefect_final"
+              ]
             }
           },
           "setData_calculateDefect_martial": {
@@ -4838,7 +4831,10 @@
                   }
                 }
               },
-              "additionalText": "setData_calculateDefect_base"
+              "additionalText": [
+                "setData_calculateDefect_base",
+                "setData_calculateDefect_final"
+              ]
             }
           },
           "setData_calculateDefect_quarrelsome": {
@@ -4855,11 +4851,53 @@
                     }
                   }
                 }
+              },
+              "additionalText": [
+                "setData_calculateDefect_base",
+                "setData_calculateDefect_final"
+              ]
+            }
+          },
+
+          "setData_sway_council_support": {
+            "addons": {
+              "setDialogData": {
+                "sway_council_support_bribe": {
+
+                },
+                "sway_council_support_bargain": {
+
+                },
+                "sway_council_support_accept": {
+
+                }
               }
-            },
-            "additionalText": "setData_calculateDefect_base"
+            }
+          },
+          "setData_sway_council_oppose": {
+            "addons": {
+              "setDialogData": {
+                "sway_council_oppose_bribe": {},
+                "sway_council_oppose_bargain": {},
+                "sway_council_oppose_accept": {}
+              }
+            }
+          },
+          "setData_sway_player": {
+            "addons": {
+              "setDialogData": {
+                "sway_player_bribe": {},
+                "sway_player_bargain": {},
+                "sway_player_accept": {}
+              }
+            }
           }
 
+          "addons_template": {
+            "addons": {
+
+            }
+          }
         }
       },
       "prisoner": {
@@ -4964,6 +5002,2251 @@
               }
             }
           }
+        }
+      }
+    }
+  },
+  "template": {
+    "readme": "this is a template for people that want to start with replace every line of dialog for a given lord or condition. this holds all the relevant lines, so you can change them at will.",
+    "priority": 0,
+    "lines": {
+      "calculating_hostile": {
+        "priority": 8,
+        "rules": {
+          "hostileFaction": true
+        },
+        "lines": {
+          "greeting": "I have you cornered, %PLAYER_NAME. Surrender or die!"
+        }
+      },
+      "calculating_first": {
+        "priority": 7,
+        "rules": {
+          "firstMeeting": true
+        },
+        "lines": {
+          "greeting": "Ah, yes. At last we meet. You seem like a good person to know. Let us speak together from time to time."
+        }
+      },
+      "calculating_feast": {
+        "priority": 6,
+        "rules": {
+          "isHostingFeast": false,
+          "isAtFeast": true
+        },
+        "lines": {
+          "greeting": "Good evening %PLAYER_NAME. I must say I'm impressed at the generosity of our host. This decor can't have been cheap."
+        }
+      },
+      "calculating_marriedToPlayer": {
+        "priority": 5,
+        "rules": {
+          "isMarriedToPlayer": true
+        },
+        "lines": {
+          "greeting": "%PLAYER_NAME, my %PLAYER_NAME. The house's finances have been going as planned; you can count on me."
+        }
+      },
+      "calculating_marriageAccept": {
+        "priority": 5,
+        "rules": {
+          "playerLordRomanceAction": {
+            "min": 1
+          },
+          "relationWithPlayer": {
+            "min": 75
+          }
+        },
+        "lines": {
+          "marriage_response": {
+            "line": "I accept; the time is long overdue for us to join our houses together.",
+            "addons": {
+              "additionalText": "accept_marriage_second",
+              "startWedding": true
+            }
+          }
+        }
+      },
+      "calculating_profess_admiration_like_2": {
+        "priority": 4,
+        "rules": {
+          "or": [
+            {
+              "playerWealth": {
+                "min": 2000000
+              }
+            },
+            {
+              "playerRank": {
+                "min": 1
+              },
+              "playerWealth": {
+                "min": 500000
+              }
+            },
+            {
+              "playerRank": {
+                "min": 2
+              }
+            }
+          ]
+        },
+        "lines": {
+          "admiration_response": {
+            "line": "You're a good %PLAYER_GENDER_MAN_OR_WOMEN Let's agree to see each other more often.",
+            "addons": {
+              "setProfessedAdmiration": true,
+              "setCourted": true,
+              "repChange": 10
+            }
+          }
+        }
+      },
+      "calculating_subject": {
+        "priority": 4,
+        "rules": {
+          "playerSubject": true
+        },
+        "lines": {
+          "greeting": "Greetings %PLAYER_NAME, my liege. Perfect timing, I had a list of proposals which I wish to discuss..."
+        }
+      },
+      "calculating_profess_admiration_dislike_1": {
+        "priority": 3,
+        "rules": {
+          "or": [
+            {
+              "playerRank": {
+                "min": 1
+              }
+            },
+            {
+              "playerWealth": {
+                "min": 500000
+              }
+            }
+          ]
+        },
+        "lines": {
+          "admiration_response": {
+            "line": "Thank you, you're too kind. Er, it's getting quite late, I must be going...",
+            "addons": {
+              "setProfessedAdmiration": true,
+              "setCourted": true,
+              "repChange": -2
+            }
+          }
+        }
+      },
+      "calculating_Cooperative": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 75,
+            "max": 100
+          }
+        },
+        "lines": {
+          "greeting": "Good to see you, %PLAYER_NAME. Let us speak plainly."
+        }
+      },
+      "calculating_Friendly": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 50,
+            "max": 74
+          }
+        },
+        "lines": {
+          "greeting": "Good to see you, %PLAYER_NAME. Let us speak plainly.",
+          "marriage_response": "You seem like a wonderful %PLAYER_GENDER_MAN_OR_WOMEN, but I'd still like to get to know you a little better first."
+        }
+      },
+      "calculating_Welcoming": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 25,
+            "max": 49
+          }
+        },
+        "lines": {
+          "greeting": "Good to see you, %PLAYER_NAME. What can I do for you today?",
+          "marriage_response": {
+            "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
+            "addons": {
+              "repChange": -10
+            }
+          }
+        }
+      },
+      "calculating_Favorable": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 10,
+            "max": 25
+          }
+        },
+        "lines": {
+          "greeting": "Good to see you, %PLAYER_NAME. What can I do for you today?",
+          "marriage_response": {
+            "line": "I don't think that would be appropriate. Frankly, I had thought better of your judgement.",
+            "addons": {
+              "repChange": -10
+            }
+          }
+        }
+      },
+      "calculating_Neutral": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -9,
+            "max": 9
+          }
+        },
+        "lines": {
+          "greeting": "Greetings %PLAYER_NAME, what news can you share from your travels?"
+        }
+      },
+      "calculating_Suspicious": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -24,
+            "max": -10
+          }
+        },
+        "lines": {
+          "greeting": "I suppose it would be prudent for me to entertain you, %PLAYER_NAME, however much I would rather not."
+        }
+      },
+      "calculating_Inhospitable": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -49,
+            "max": -25
+          }
+        },
+        "lines": {
+          "greeting": "I suppose it would be prudent for me to entertain you, %PLAYER_NAME, however much I would rather not."
+        }
+      },
+      "calculating_Hostile": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -74,
+            "max": -50
+          }
+        },
+        "lines": {
+          "greeting": "You best have something interesting to make it worth me suffering your presence, %PLAYER_NAME"
+        }
+      },
+      "calculating_Vengeful": {
+        "priority": 3,
+        "rules": {
+          "relationWithPlayer": {
+            "min": -100,
+            "max": -75
+          }
+        },
+        "lines": {
+          "greeting": "You best have something interesting to make it worth me suffering your presence, %PLAYER_NAME"
+        }
+      },
+      "will_speakPrivately": {
+        "priority": 2,
+        "rules": {
+          "relationWithPlayer": {
+            "min": "15"
+          }
+        },
+        "lines": {
+          "speak_privately": "Very well, what did you wish to discuss?",
+          "optionSet_speak_privately": {
+            "options": [
+              "option_ask_worldview",
+              "option_ask_liege_opinion",
+              "optionSet_ask_friend_preferences",
+              "speak_privately_exit"
+            ]
+          }
+        }
+      },
+      "swayProposal_forPlayer_bribe_calculating": {
+        "priority": 2,
+        "rules": {
+          "optionOfPlayerProposal": {
+            "min": -20
+          },
+          "random": {
+            "range": 50,
+            "value": {
+              "base":25,
+              "relationWithPlayer": 1
+            }
+          }
+        },
+        "lines": {
+          "swayProposal_forCounsel": {
+            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+            "options": [
+              "swayProposal_forCounsel_Bribe_accept",
+              "swayProposal_forCounsel_Bribe_refuse"
+            ]
+          }
+        }
+      },
+      "swayProposal_againstCounsel_bribe_calculating": {
+        "priority": 2,
+        "rules": {
+          "opinionOfCurrProposal": {
+            "max": 20
+          },
+          "random": {
+            "range": 50,
+            "value": {
+              "base":25,
+              "relationWithPlayer": 1
+            }
+          }
+        },
+        "lines": {
+          "swayProposal_forCounsel": {
+            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+            "options": [
+              "swayProposal_forCounsel_Bribe_accept",
+              "swayProposal_forCounsel_Bribe_refuse"
+            ]
+          }
+        }
+      },
+      "swayProposal_forCounsel_bribe_calculating": {
+        "priority": 2,
+        "rules": {
+          "opinionOfCurrProposal": {
+            "min": -20
+          },
+          "random": {
+            "range": 50,
+            "value": {
+              "base":25,
+              "relationWithPlayer": 1
+            }
+          }
+        },
+        "lines": {
+          "swayProposal_forCounsel": {
+            "line": "Hmm... your argument would be a lot more convincing if it was a lot... weightier, if you know what I'm saying.",
+            "options": [
+              "swayProposal_forCounsel_Bribe_accept",
+              "swayProposal_forCounsel_Bribe_refuse"
+            ]
+          }
+        }
+      },
+      "calculating": {
+        "priority": 1,
+        "rules": {
+        },
+        "lines": {
+          "worldview": {
+            "line":"Well, it's a harsh world, and it is our lot to face harsh choices. Each of us must remain vigilant of our own interests, yet I do not mind aiding those who will help me in return.",
+            "addons": {
+              "additionalText": "learnedWorldview"
+            }
+          },
+          "speak_privately": "Erm... Let's keep our affairs out in the open, for the time being."
+        }
+      },
+      "prisoner": {
+        "priority": 1,
+        "rules": {},
+        "lines": {
+          "greetings_prisoner": "I have had much time in captivity to reflect on our battle. In our next encounter, I will not lose so easily.",
+          "prisoner_release": {
+            "line": "Am I? You are a good %PLAYER_GENDER_MAN_OR_WOMEN. I will try to find a way to repay you.",
+            "addons": {
+              "releaseLord": true,
+              "repChange": 3
+            }
+          },
+          "ransom_prisoner": {
+            "line":"Very well, I'll pay for my release. I will remember this humiliation.",
+            "addons": {
+              "releaseLord": true,
+              "creditsChange": {
+                "LordMemoryData": {
+                  "ransomAmount": 1
+                }
+              },
+              "changeLordCredits": {
+                "LordMemoryData": {
+                  "ransomAmount": -0.2
+                }
+              },
+              "repChange": -3
+            }
+          }
+        }
+      },
+
+
+
+
+      "isHost_feast": {
+        "priority": 6,
+        "rules": {
+          "isHostingFeast": true,
+          "isAtFeast": true
+        },
+        "lines": {
+          "accept_marriage_second": "Talk to me whenever you're ready and we'll start the ceremony.",
+          "greeting": "Welcome to my estate, %PLAYER_NAME. You are under my protection here; please make yourself at home."
+        }
+      },
+
+      "suggest_action_fail_relations": {
+        "priority": 5,
+        "rules": {
+          "relationWithPlayer": {
+            "max": 0
+          },
+          "isMarriedToPlayer": false
+        },
+        "lines": {
+          "suggest_action": {
+            "line": "I'm sorry, but I don't know you well enough.",
+            "options": [
+              "optionSet_greeting"
+            ]
+          }
+        }
+      },
+
+      "suggest_action_fail_busy": {
+        "priority": 4,
+        "rules": {
+          "or": [
+            {
+              "isHostingFeast": true
+            },
+            {
+              "lordFleetIsAlive": false
+            },
+            {
+              "currentAction": {
+                "IS_ORGANIZING_CAMPAIGN": true
+              }
+            },
+            {
+              "currentAction": {
+                "IS_ON_CAMPAIGN": true
+              }
+            }
+          ]
+        },
+        "lines": {
+          "suggest_action": {
+            "line": "I'm sorry, but I have other matters to attend to.",
+            "options": [
+              "optionSet_greeting"
+            ]
+          }
+        }
+      },
+      "swayProposal_forCounsel_acceptHappily": {
+        "priority": 4,
+        "rules": {
+          "opinionOfCurrProposal": {
+            "min": 0
+          },
+          "random": {
+            "range": 100,
+            "value": {
+              "base":12,
+              "playerLordRelation": 1,
+              "optionOfCurrProposal": 10
+            }
+          }
+        },
+        "lines": {
+          "swayProposal_forCounsel": {
+            "line": "Of course friend, now that you explain it that way, I agree with you.",
+            "addons": {
+              "setPledgedFor_CurrentProposal": true,
+              "setSwayed": true
+            }
+          }
+        }
+      },
+      "swayProposal_forCounsel_acceptReluctant": {
+        "priority": 4,
+        "rules": {
+          "opinionOfCurrProposal": {
+            "min": -20,
+            "max": -1
+          },
+          "random": {
+            "range": 100,
+            "value": {
+              "base":12,
+              "playerLordRelation": 1,
+              "optionOfCurrProposal": 10
+            }
+          }
+        },
+        "lines": {
+          "swayProposal_forCounsel": {
+            "line": "Er... I already agree with you, though I must say that our talk has reinforced my view.",
+            "addons": {
+              "setPledgedFor_CurrentProposal": true,
+              "setSwayed": true
+            }
+          }
+        }
+      },
+      "swayProposal_againstCounsel_acceptHappily": {
+        "priority": 4,
+        "rules": {
+          "opinionOfCurrProposal": {
+            "max": 0
+          },
+          "random": {
+            "range": 100,
+            "value": {
+              "base":12,
+              "playerLordRelation": 1,
+              "optionOfCurrProposal": -10
+            }
+          }
+        },
+        "lines": {
+          "swayProposal_againstCounsel": {
+            "line": "Of course friend, now that you explain it that way, I agree with you.",
+            "addons": {
+              "setPledgedAgainst_CurrentProposal": true,
+              "setSwayed": true
+            }
+          }
+        }
+      },
+      "swayProposal_againstCounsel_acceptReluctant": {
+        "priority": 4,
+        "rules": {
+          "opinionOfCurrProposal": {
+            "max": 20,
+            "min": 1
+          },
+          "random": {
+            "range": 100,
+            "value": {
+              "base":12,
+              "playerLordRelation": 1,
+              "optionOfCurrProposal": -10
+            }
+          }
+        },
+        "lines": {
+          "swayProposal_againstCounsel": {
+            "line": "Er... I already agree with you, though I must say that our talk has reinforced my view.",
+            "addons": {
+              "setPledgedAgainst_CurrentProposal": true,
+              "setSwayed": true
+            }
+          }
+        }
+      },
+      "swayProposal_forPlayer_acceptHappily": {
+        "priority": 4,
+        "rules": {
+          "opinionOfPlayerProposal": {
+            "min": 0
+          },
+          "random": {
+            "range": 100,
+            "value": {
+              "base":12,
+              "playerLordRelation": 1,
+              "optionOfPlayerProposal": 10
+            }
+          }
+        },
+        "lines": {
+          "swayProposal_forPlayer": {
+            "line": "Of course friend, now that you explain it that way, I agree with you.",
+            "addons": {
+              "setPledgedFor_PlayerProposal": true,
+              "setSwayed": true
+            }
+          }
+        }
+      },
+      "swayProposal_forPlayer_acceptReluctant": {
+        "priority": 4,
+        "rules": {
+          "opinionOfPlayerProposal": {
+            "min": -20,
+            "max": -1
+          },
+          "random": {
+            "range": 100,
+            "value": {
+              "base":12,
+              "playerLordRelation": 1,
+              "optionOfPlayerProposal": 10
+            }
+          }
+        },
+        "lines": {
+          "swayProposal_forPlayer": {
+            "line": "Er... I already agree with you, though I must say that our talk has reinforced my view.",
+            "addons": {
+              "setPledgedFor_PlayerProposal": true,
+              "setSwayed": true
+            }
+          }
+        }
+      },
+      "refuse_marriage_no_romance": {
+        "priority": 4,
+        "rules": {
+          "playerLordRomanceAction": {
+            "max": 0
+          },
+          "relationWithPlayer": {
+            "min": 75
+          }
+        },
+        "lines": {
+          "marriage_response": {
+            "line": "You seem like a wonderful %PLAYER_GENDER_MAN_OR_WOMEN, but I'd like to see some sincerity on your part first.",
+            "addons": {
+              "additionalText": "refuse_marriage_hint"
+            }
+          }
+        }
+      },
+
+
+      "swayProposal_forCounsel_bargain": {
+        "priority": 3,
+        "rules": {
+          "opinionOfCurrProposal": {
+            "min": -20
+          },
+          "lordProposalPlayerSupports": true,
+          "relationWithPlayer": {
+            "min": -24
+          },
+          "lordProposalSupporters": {
+            "min": 2
+          },
+          "lordProposalExists": true
+        },
+        "lines": {
+          "swayProposal_forCounsel": {
+            "line": "Hmm... I don't mind lending you a hand, but I have my own proposal that I would expect you to support in return.",
+            "options": [
+              "swayProposal_forCounsel_Bargain_accept",
+              "swayProposal_forCounsel_Bargain_refuse"
+            ]
+          }
+        }
+      },
+      "swayProposal_againstCounsel_bargain": {
+        "priority": 3,
+        "rules": {
+          "opinionOfCurrProposal": {
+            "max": 20
+          },
+          "lordProposalPlayerSupports": true,
+          "relationWithPlayer": {
+            "min": -24
+          },
+          "lordProposalSupporters": {
+            "min": 2
+          },
+          "lordProposalExists": true
+        },
+        "lines": {
+          "swayProposal_againstCounsel": {
+            "line": "Hmm... I don't mind lending you a hand, but I have my own proposal that I would expect you to support in return.",
+            "options": [
+              "swayProposal_againstCounsel_Bargain_accept",
+              "swayProposal_againstCounsel_Bargain_refuse"
+            ]
+          }
+        }
+      },
+      "swayProposal_forPlayer_bargain": {
+        "priority": 3,
+        "rules": {
+          "optionOfPlayerProposal": {
+            "min": -20
+          },
+          "lordProposalPlayerSupports": true,
+          "relationWithPlayer": {
+            "min": -24
+          },
+          "lordProposalSupporters": {
+            "min": 2
+          },
+          "lordProposalExists": true
+        },
+        "lines": {
+          "swayProposal_forPlayer": {
+            "line": "Hmm... I don't mind lending you a hand, but I have my own proposal that I would expect you to support in return.",
+            "options": [
+              "swayProposal_forPlayer_Bargain_accept",
+              "swayProposal_forPlayer_Bargain_refuse"
+            ]
+          }
+        }
+      },
+
+
+      "doesNotHaveLiege_Cooperative": {
+        "priority": 3,
+        "rules": {
+          "lordLoyalty": {
+            "min": 75
+          },
+          "lordHasLiege" : false
+        },
+        "lines": {
+          "liege_opinion": "I have influence and wealth that rivals that of many kings. I'm quite satisfied with the state of affairs."
+        }
+      },
+      "doesNotHaveLiege_Friendly": {
+        "priority": 3,
+        "rules": {
+          "lordLoyalty": {
+            "min": 50,
+            "max": 74
+          },
+          "lordHasLiege" : false
+        },
+        "lines": {
+          "liege_opinion": "I have influence and wealth that rivals that of many kings. I'm quite satisfied with the state of affairs."
+        }
+      },
+      "doesNotHaveLiege_Welcoming": {
+        "priority": 3,
+        "rules": {
+          "lordLoyalty": {
+            "min": 25,
+            "max": 49
+          },
+          "lordHasLiege" : false
+        },
+        "lines": {
+          "liege_opinion": "Life is not without challenge, but my operations are slowly expanding with each passing day."
+        }
+      },
+      "doesNotHaveLiege_Favorable": {
+        "priority": 3,
+        "rules": {
+          "lordLoyalty": {
+            "min": 10,
+            "max": 25
+          },
+          "lordHasLiege" : false
+        },
+        "lines": {
+          "liege_opinion": "Life is not without challenge, but my operations are slowly expanding with each passing day."
+        }
+      },
+      "doesNotHaveLiege_Neutral": {
+        "priority": 3,
+        "rules": {
+          "lordLoyalty": {
+            "min": -9,
+            "max": 9
+          },
+          "lordHasLiege" : false
+        },
+        "lines": {
+          "liege_opinion": "Life is as it always has been in the sector, full of danger but also opportunity."
+        }
+      },
+      "doesNotHaveLiege_Suspicious": {
+        "priority": 3,
+        "rules": {
+          "lordLoyalty": {
+            "min": -24,
+            "max": -10
+          },
+          "lordHasLiege" : false
+        },
+        "lines": {
+          "liege_opinion": "It's no secret that our fleet has fallen on hard times, though we still have plenty of fight left."
+        }
+      },
+      "doesNotHaveLiege_Inhospitable": {
+        "priority": 3,
+        "rules": {
+          "lordLoyalty": {
+            "min": -49,
+            "max": -25
+          },
+          "lordHasLiege" : false
+        },
+        "lines": {
+          "liege_opinion": "It's no secret that our fleet has fallen on hard times, though we still have plenty of fight left."
+        }
+      },
+      "doesNotHaveLiege_Hostile": {
+        "priority": 3,
+        "rules": {
+          "lordLoyalty": {
+            "min": -74,
+            "max": -50
+          },
+          "lordHasLiege" : false
+        },
+        "lines": {
+          "liege_opinion": "To be frank, things have been harsh on us. It's struggle just to make sure my crew doesn't starve."
+        }
+      },
+      "doesNotHaveLiege_Vengeful": {
+        "priority": 3,
+        "rules": {
+          "lordLoyalty": {
+            "max": -75
+          },
+          "lordHasLiege" : false
+        },
+        "lines": {
+          "liege_opinion": "To be frank, things have been harsh on us. It's struggle just to make sure my crew doesn't starve."
+        }
+      },
+
+      "hasLiege_Cooperative": {
+        "priority": 3,
+        "rules": {
+          "lordLoyalty": {
+            "min": 75
+          },
+          "lordHasLiege" : true
+        },
+        "lines": {
+          "liege_opinion": "%LORD_LIEGE_NAME is my trusted friend and role model. They are a paragon of what it means to be a leader."
+        }
+      },
+      "hasLiege_Friendly": {
+        "priority": 3,
+        "rules": {
+          "lordLoyalty": {
+            "min": 50,
+            "max": 74
+          },
+          "lordHasLiege" : true
+        },
+        "lines": {
+          "liege_opinion": "%LORD_LIEGE_NAME is my trusted friend and role model. They are a paragon of what it means to be a leader."
+        }
+      },
+      "hasLiege_Welcoming": {
+        "priority": 3,
+        "rules": {
+          "lordLoyalty": {
+            "min": 25,
+            "max": 49
+          },
+          "lordHasLiege" : true
+        },
+        "lines": {
+          "liege_opinion": "I have no quarrel with %LORD_LIEGE_NAME. They treat their subordinates with a firm but fair hand."
+        }
+      },
+      "hasLiege_Favorable": {
+        "priority": 3,
+        "rules": {
+          "lordLoyalty": {
+            "min": 10,
+            "max": 25
+          },
+          "lordHasLiege" : true
+        },
+        "lines": {
+          "liege_opinion": "I have no quarrel with %LORD_LIEGE_NAME. They treat their subordinates with a firm but fair hand."
+        }
+      },
+      "hasLiege_Neutral": {
+        "priority": 3,
+        "rules": {
+          "lordLoyalty": {
+            "min": -9,
+            "max": 9
+          },
+          "lordHasLiege" : true
+        },
+        "lines": {
+          "liege_opinion": "%LORD_LIEGE_NAME is my liege. That's all I'll say on the matter."
+        }
+      },
+      "hasLiege_Suspicious": {
+        "priority": 3,
+        "rules": {
+          "lordLoyalty": {
+            "min": -24,
+            "max": -10
+          },
+          "lordHasLiege" : true
+        },
+        "lines": {
+          "liege_opinion": "It's no secret that I have been unhappy with %LORD_LIEGE_NAME."
+        }
+      },
+      "hasLiege_Inhospitable": {
+        "priority": 3,
+        "rules": {
+          "lordLoyalty": {
+            "min": -49,
+            "max": -25
+          },
+          "lordHasLiege" : true
+        },
+        "lines": {
+          "liege_opinion": "It's no secret that I have been unhappy with %LORD_LIEGE_NAME."
+        }
+      },
+      "hasLiege_Hostile": {
+        "priority": 3,
+        "rules": {
+          "lordLoyalty": {
+            "min": -74,
+            "max": -50
+          },
+          "lordHasLiege" : true
+        },
+        "lines": {
+          "liege_opinion": "I've been waiting for any chance to escape the iron fist of %LORD_LIEGE_NAME. Might you have any ideas?"
+        }
+      },
+      "hasLiege_Vengeful": {
+        "priority": 3,
+        "rules": {
+          "lordLoyalty": {
+            "max": -75
+          },
+          "lordHasLiege" : true
+        },
+        "lines": {
+          "liege_opinion": "I've been waiting for any chance to escape the iron fist of %LORD_LIEGE_NAME. Might you have any ideas?"
+        }
+      },
+
+      "AcceptMercy": {
+        "priority": 2,
+        "rules": {
+          "relationWithPlayer": {
+            "min": 25
+          }
+        },
+        "lines": {
+          "suggest_ceasefire": {
+            "line":"Well... I suppose I do owe you a debt. So be it, leave now. We never saw each other.",
+            "addons": {
+              "preventAttacksOnPlayer": 7,
+              "repChange": -10
+            }
+          }
+        }
+      },
+      "isMarriedToPlayer": {
+        "priority": 2,
+        "rules": {
+          "isMarriedToPlayer": true
+        },
+        "lines": {
+          "stop_follow_me": {
+            "line":"I will see you soon my love.",
+            "addons": {
+              "AICommand": "END_CURRENT_ACTIONS"
+            }
+          },
+          "follow_me": {
+            "line":"Of course my %PLAYER_NAME_FIRST",
+            "addons": {
+              "AICommand": "FOLLOW_PLAYER_FLEET"
+            }
+          },
+          "raidLocation": {
+            "line":"Of course my %PLAYER_NAME_FIRST",
+            "addons": {
+              "AICommand": "RAID_TARGET_MARKET"
+            }
+          },
+          "patrolLocation": {
+            "line":"Of course my %PLAYER_NAME_FIRST",
+            "addons": {
+              "AICommand": "PATROL_TARGET_MARKET"
+            }
+          },
+          "suggest_upgrade": {
+            "line":"Of course my %PLAYER_NAME_FIRST",
+            "addons": {
+              "AICommand": "UPGRADE"
+            }
+          },
+          "suggest_action": "Is something the matter, dear?"
+        }
+      },
+      "player_subject": {
+        "priority": 2,
+        "rules": {
+          "playerSubject": true
+        },
+        "lines": {
+          "stop_follow_me": {
+            "line":"At once, %PLAYER_GENDER_SIR_OR_MAAM.",
+            "addons": {
+              "AICommand": "END_CURRENT_ACTIONS"
+            }
+          },
+          "follow_me": {
+            "line":"At once, %PLAYER_GENDER_SIR_OR_MAAM.",
+            "addons": {
+              "AICommand": "FOLLOW_PLAYER_FLEET"
+            }
+          },
+          "raidLocation": {
+            "line":"At once, %PLAYER_GENDER_SIR_OR_MAAM.",
+            "addons": {
+              "AICommand": "RAID_TARGET_MARKET"
+            }
+          },
+          "patrolLocation": {
+            "line":"At once, %PLAYER_GENDER_SIR_OR_MAAM.",
+            "addons": {
+              "AICommand": "PATROL_TARGET_MARKET"
+            }
+          },
+          "suggest_upgrade": {
+            "line":"At once, %PLAYER_GENDER_SIR_OR_MAAM.",
+            "addons": {
+              "AICommand": "UPGRADE"
+            }
+          },
+          "suggest_action": {
+            "line": "At your command, my liege."
+          }
+        }
+      },
+      "defectSuccess": {
+        "priority": 2,
+        "rules": {
+          "baseValue": {
+            "min": 0,
+            "value": {
+              "DialogData": {
+                "calculateDefect_final": 1
+              }
+            }
+          }
+        },
+        "lines": {
+          "justify_defect_calculating_answer": {
+            "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
+            "addons": {
+              "playSound": "ui_char_level_up",
+              "defectLordToFaction": {
+                "factionID": "playerCurrFaction",
+                "newRank": {
+                  "DialogData": {
+                    "calculateDefect_rank": 1
+                  }
+                }
+              },
+              "exchangeCreditsWithLord": {
+                "DialogData": {
+                  "calculateDefect_credits": -1
+                }
+              }
+            }
+          },
+          "justify_defect_upstanding_answer": {
+            "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
+            "addons": {
+              "playSound": "ui_char_level_up",
+              "defectLordToFaction": {
+                "factionID": "playerCurrFaction",
+                "newRank": {
+                  "DialogData": {
+                    "calculateDefect_rank": 1
+                  }
+                }
+              },
+              "exchangeCreditsWithLord": {
+                "DialogData": {
+                  "calculateDefect_credits": -1
+                }
+              }
+            }
+          },
+          "justify_defect_martial_answer": {
+            "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
+            "addons": {
+              "playSound": "ui_char_level_up",
+              "defectLordToFaction": {
+                "factionID": "playerCurrFaction",
+                "newRank": {
+                  "DialogData": {
+                    "calculateDefect_rank": 1
+                  }
+                }
+              },
+              "exchangeCreditsWithLord": {
+                "DialogData": {
+                  "calculateDefect_credits": -1
+                }
+              }
+            }
+          },
+          "justify_defect_quarrelsome_answer": {
+            "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
+            "addons": {
+              "playSound": "ui_char_level_up",
+              "defectLordToFaction": {
+                "factionID": "playerCurrFaction",
+                "newRank": {
+                  "DialogData": {
+                    "calculateDefect_rank": 1
+                  }
+                }
+              },
+              "exchangeCreditsWithLord": {
+                "DialogData": {
+                  "calculateDefect_credits": -1
+                }
+              }
+            }
+          }
+        }
+      },
+      "justify_defect_justification_2": {
+        "priority": 2,
+        "rules": {
+          "getDialogData": {
+            "calculateDefect_justification": {
+              "min":2
+            }
+          }
+        },
+        "lines": {
+          "justify_defect_calculating_justification": {
+            "line": "Based on your offer, your claim is seen as fully justified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "fully justified",
+              "color": "GREEN"
+            }
+          },
+          "justify_defect_upstanding_justification": {
+            "line": "Based on your colonial stability and success, your claim is seen as fully justified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "fully justified",
+              "color": "GREEN"
+            }
+          },
+          "justify_defect_martial_justification": {
+            "line": "Based on your military and personal strength, your claim is seen as fully justified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "fully justified",
+              "color": "GREEN"
+            }
+          },
+          "justify_defect_quarrelsome_justification": {
+            "line": "Based on your history, your claim is seen as fully justified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "fully justified",
+              "color": "GREEN"
+            }
+          }
+        }
+      },
+      "justify_defect_justification_1": {
+        "priority": 2,
+        "rules": {
+          "getDialogData": {
+            "calculateDefect_justification": 1
+          }
+        },
+        "lines": {
+          "justify_defect_calculating_justification": {
+            "line": "Based on your offer, your claim is seen as partially justified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "partially justified",
+              "color": "YELLOW"
+            }
+          },
+          "justify_defect_upstanding_justification": {
+            "line": "Based on your colonial stability and success, your claim is seen as partially justified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "partially justified",
+              "color": "YELLOW"
+            }
+          },
+          "justify_defect_martial_justification": {
+            "line": "Based on your military and personal strength, your claim is seen as partially justified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "partially justified",
+              "color": "YELLOW"
+            }
+          },
+          "justify_defect_quarrelsome_justification": {
+            "line": "Based on your history, your claim is seen as partially justified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "partially justified",
+              "color": "YELLOW"
+            }
+          }
+        }
+      },
+      "justify_defect_legitimacy": {
+        "priority": 2,
+        "rules": {
+          "getDialogData": {
+            "calculateDefect_legitimacy": {
+              "min":8
+            }
+          }
+        },
+        "lines": {
+          "justify_defect_calculating_legitimacy": "Hmm, your faction is well-established and has a legitimate claim to unite the sector.",
+          "justify_defect_upstanding_legitimacy": "Hmm, your faction is well-established and has a legitimate claim to unite the sector.",
+          "justify_defect_martial_legitimacy": "Hmm, your faction is well-established and has a legitimate claim to unite the sector.",
+          "justify_defect_quarrelsome_legitimacy": "Hmm, your faction is well-established and has a legitimate claim to unite the sector."
+        }
+      },
+      "justify_defect_RelativeFactionPreference": {
+        "priority": 2,
+        "rules": {
+          "getDialogData": {
+            "calculateDefect_RelativeFactionPreference": {
+              "min":1
+            }
+          }
+        },
+        "lines": {
+          "justify_defect_calculating_factionPreference": "It's true that I consider your faction more respectable than my own.",
+          "justify_defect_upstanding_factionPreference": "It's true that I consider your faction more respectable than my own.",
+          "justify_defect_martial_factionPreference": "It's true that I consider your faction more respectable than my own.",
+          "justify_defect_quarrelsome_factionPreference": "It's true that I consider your faction more respectable than my own."
+        }
+      },
+      "justify_defect_lordPreference": {
+        "priority": 2,
+        "rules": {
+          "getDialogData": {
+            "calculateDefect_RelativeLordPreference": {
+              "min":1
+            }
+          }
+        },
+        "lines": {
+          "justify_defect_calculating_lordPreference": "I would prefer working with your lords over my present company.",
+          "justify_defect_upstanding_lordPreference": "I would prefer working with your lords over my present company.",
+          "justify_defect_martial_lordPreference": "I would prefer working with your lords over my present company.",
+          "justify_defect_quarrelsome_lordPreference": "I would prefer working with your lords over my present company."
+        }
+      },
+      "justify_defect_acceptanceOfArgument": {
+        "priority": 2,
+        "rules": {
+          "getDialogData": {
+            "calculateDefect_acceptanceOfArgument": {
+              "min":100
+            }
+          }
+        },
+        "lines": {
+          "justify_defect_calculating_argumentAgreement": "I would prefer working with your lords over my present company.",
+          "justify_defect_upstanding_argumentAgreement": "I would prefer working with your lords over my present company.",
+          "justify_defect_martial_argumentAgreement": "I would prefer working with your lords over my present company.",
+          "justify_defect_quarrelsome_argumentAgreement": "I would prefer working with your lords over my present company."
+        }
+      },
+      "suggestDefectionCanConsider": {
+        "priority": 2,
+        "rules": {
+          "lordAndPlayerSameFaction": false,
+          "or": [
+            {
+              "isMarriedToPlayer": true
+            },
+            {
+              "lordLoyalty": {
+                "max": 10
+              }
+            }
+          ]
+        },
+        "lines": {
+          "optionSet_liege_opinion": {
+            "options": [
+              "optionSet_liege_opinion_consider"
+            ]
+          }
+        }
+      },
+      "hasLiege": {
+        "priority": 2,
+        "rules": {
+          "lordHasLiege": false
+        },
+        "lines": {
+          "option_ask_liege_opinion": {
+            "show": {
+              "lordAndPlayerSameFaction": false
+            },
+            "line": "How do you feel about your current conditions?",
+            "optionData": "liege_opinion"
+          }
+        }
+      },
+      "target_favItem_alpha_core": {
+        "priority": 2,
+        "rules": {
+          "SECOND_LORD": {
+            "lordsFavItem": {
+              "alpha_core": true
+            }
+          }
+        },
+        "lines": {
+          "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of AI research."
+        }
+      },
+      "target_favItem_hand_weapons": {
+        "priority": 2,
+        "rules": {
+          "SECOND_LORD": {
+            "lordsFavItem": {
+              "hand_weapons": true
+            }
+          }
+        },
+        "lines": {
+          "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of rare weapons."
+        }
+      },
+      "target_favItem_food": {
+        "priority": 2,
+        "rules": {
+          "SECOND_LORD": {
+            "lordsFavItem": {
+              "food": true
+            }
+          }
+        },
+        "lines": {
+          "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of exotic butters."
+        }
+      },
+      "target_favItem_luxury_goods": {
+        "priority": 2,
+        "rules": {
+          "SECOND_LORD": {
+            "lordsFavItem": {
+              "luxury_goods": true
+            }
+          }
+        },
+        "lines": {
+          "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of fashion."
+        }
+      },
+      "target_favItem_lobster": {
+        "priority": 2,
+        "rules": {
+          "SECOND_LORD": {
+            "lordsFavItem": {
+              "lobster": true
+            }
+          }
+        },
+        "lines": {
+          "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of Sindrian delicacies."
+        }
+      },
+      "target_favItem_drugs": {
+        "priority": 2,
+        "rules": {
+          "SECOND_LORD": {
+            "lordsFavItem": {
+              "drugs": true
+            }
+          }
+        },
+        "lines": {
+          "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of drugs."
+        }
+      },
+      "target_favItem_domestic_goods": {
+        "priority": 2,
+        "rules": {
+          "SECOND_LORD": {
+            "lordsFavItem": {
+              "domestic_goods": true
+            }
+          }
+        },
+        "lines": {
+          "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of technological gadgets."
+        }
+      },
+      "favItem_alpha_core": {
+        "priority": 2,
+        "rules": {
+          "lordsFavItem": {
+            "alpha_core": true
+          }
+        },
+        "lines": {
+          "option_gift_alpha_core": {
+            "line": "An alpha core",
+            "optionData": "likeGift_alpha_core",
+            "hint": "give 1 alpha_core to %LORD_NAME",
+            "addons": {
+              "repChange": 10,
+              "changeCommoditysInPlayersFleet": {
+                "alpha_core": -1
+              },
+              "romanceChange": 1
+            },
+            "enable": {
+              "PlayerHasCommodity": {
+                "alpha_core": {
+                  "min": 1
+                }
+              }
+            }
+          }
+        }
+      },
+      "favItem_hand_weapons": {
+        "priority": 2,
+        "rules": {
+          "lordsFavItem": {
+            "hand_weapons": true
+          }
+        },
+        "lines": {
+          "option_gift_hand_weapons": {
+            "line": "A high-quality handgun",
+            "optionData": "likeGift_hand_weapons",
+            "hint": "give 100 hand_weapons to %LORD_NAME",
+            "addons": {
+              "repChange": 10,
+              "changeCommoditysInPlayersFleet": {
+                "hand_weapons": -100
+              },
+              "romanceChange": 1
+            },
+            "enable": {
+              "PlayerHasCommodity": {
+                "hand_weapons": {
+                  "min": 100
+                }
+              }
+            }
+          }
+        }
+      },
+      "favItem_food": {
+        "priority": 2,
+        "rules": {
+          "lordsFavItem": {
+            "food": true
+          }
+        },
+        "lines": {
+          "option_gift_food": {
+            "line": "A butter sampler platter",
+            "optionData": "likeGift_food",
+            "hint": "give 100 food to %LORD_NAME",
+            "addons": {
+              "repChange": 10,
+              "changeCommoditysInPlayersFleet": {
+                "food": -100
+              },
+              "romanceChange": 1
+            },
+            "enable": {
+              "PlayerHasCommodity": {
+                "food": {
+                  "min": 100
+                }
+              }
+            }
+          }
+        }
+      },
+      "favItem_luxury_goods": {
+        "priority": 2,
+        "rules": {
+          "lordsFavItem": {
+            "luxury_goods": true
+          }
+        },
+        "lines": {
+          "option_gift_luxury_goods": {
+            "line": "The latest luxury %LORD_GENDER_SUIT_OR_DRESS from Chicomoztoc",
+            "optionData": "likeGift_luxury_goods",
+            "hint": "give 100 luxury_goods to %LORD_NAME",
+            "addons": {
+              "repChange": 10,
+              "changeCommoditysInPlayersFleet": {
+                "luxury_goods": -100
+              },
+              "romanceChange": 1
+            },
+            "enable": {
+              "PlayerHasCommodity": {
+                "luxury_goods": {
+                  "min": 100
+                }
+              }
+            }
+          }
+        }
+      },
+      "favItem_lobster": {
+        "priority": 2,
+        "rules": {
+          "lordsFavItem": {
+            "lobster": true
+          }
+        },
+        "lines": {
+          "option_gift_lobster": {
+            "line": "Fresh Volturnian Lobster",
+            "optionData": "likeGift_lobster",
+            "hint": "give 100 lobster to %LORD_NAME",
+            "addons": {
+              "repChange": 10,
+              "changeCommoditysInPlayersFleet": {
+                "lobster": -100
+              },
+              "romanceChange": 1
+            },
+            "enable": {
+              "PlayerHasCommodity": {
+                "lobster": {
+                  "min": 100
+                }
+              }
+            }
+          }
+        }
+      },
+      "favItem_drugs": {
+        "priority": 2,
+        "rules": {
+          "lordsFavItem": {
+            "drugs": true
+          }
+        },
+        "lines": {
+          "option_gift_drugs": {
+            "line": "A pack of psychedelics",
+            "optionData": "likeGift_drugs",
+            "hint": "give 100 drugs to %LORD_NAME",
+            "addons": {
+              "repChange": 10,
+              "changeCommoditysInPlayersFleet": {
+                "drugs": -100
+              },
+              "romanceChange": 1
+            },
+            "enable": {
+              "PlayerHasCommodity": {
+                "drugs": {
+                  "min": 100
+                }
+              }
+            }
+          }
+        }
+      },
+      "favItem_domestic_goods": {
+        "priority": 2,
+        "rules": {
+          "lordsFavItem": {
+            "domestic_goods": true
+          }
+        },
+        "lines": {
+          "option_gift_domestic_goods": {
+            "line": "The latest Tri-pad DLC",
+            "optionData": "likeGift_domestic_goods",
+            "hint": "give 100 domestic_goods to %LORD_NAME",
+            "addons": {
+              "repChange": 10,
+              "changeCommoditysInPlayersFleet": {
+                "domestic_goods": -100
+              },
+              "romanceChange": 1
+            },
+            "enable": {
+              "PlayerHasCommodity": {
+                "domestic_goods": {
+                  "min": 100
+                }
+              }
+            }
+          }
+        }
+      },
+      "fleetIsAlive": {
+        "priority": 2,
+        "rules": {
+          "SECOND_LORD": {
+            "lordFleetIsAlive": true
+          }
+        },
+        "lines": {
+          "LordLocation": "I heard that %SECOND_LORD_TITLE %SECOND_LORD_NAME was last sighted around %SECOND_LORD_FLEET_LOCATION"
+        }
+      },
+      "atLeast3Lords": {
+        "priority": 2,
+        "rules": {
+          "lordsInFeast": {
+            "min": 3
+          }
+        },
+        "lines": {
+          "start_tournament": {
+            "line": "Very well. If you're going to challenge me, I was looking for an excuse to brush up on my piloting skills anyway. I'll see you in the arena!",
+            "options": [
+              "optionSet_start_tournament"
+            ]
+          }
+        }
+      },
+      "tournament_dedicatedToLord": {
+        "priority": 2,
+        "rules": {
+          "tournamentDedicatedToLord": true
+        },
+        "lines": {
+          "dedicate_tournament": {
+            "line": "Another tournament dedication? Well, I suppose it's always welcome...",
+            "addons": {
+              "repChange": 5,
+              "romanceChange": 1
+            }
+          }
+        }
+      },
+      "base": {
+        "priority": 0,
+        "rules": {
+        },
+        "lines": {
+          "current_task_desc_none": "I am still considering my next assignment.",
+          "current_task_desc_feast": "I am attending a feast at %c0.",
+          "current_task_desc_patrol": "We are scouting for the enemy around %c0. I will guard the areas near my home.",
+          "current_task_desc_collect_taxes": "I am collecting taxes from my administered areas. It has been too long since I have returned home, and I must see to my demesne.",
+          "current_task_desc_upgrade_fleet": "I am upgrading my fleet at %c0. I will need additional firepower to deal with threats to the realm.",
+          "current_task_desc_venture": "I am headed on a business venture to %c0. This will yield additional funds for maintaining and expanding my fleet.",
+          "current_task_desc_raid": "I am raiding %c0. We must keep up the pressure and cripple the enemy's war effort.",
+          "current_task_desc_defend": "I am flying to the defense of %c0. I've received word of enemy activity in the area.",
+          "current_task_desc_follow": "I am following %c0.",
+          "current_task_desc_companion": "I am serving as an officer in your fleet.",
+          "current_task_desc_campaign": "I am on campaign. The realm's navy is still being assembled.",
+          "current_task_desc_campaign2": "I am on campaign. Our current target is %c0.",
+          "start_tournament": "Unfortunately, we need at least four lord sponsors in order to cover the organization fees and prize pool. Please check back later.",
+          "dedicate_tournament": {
+            "line": "Oh my, I'm very touched that you were thinking of me.",
+            "addons": {
+              "repChange": 10,
+              "romanceChange": 1
+            }
+          },
+          "admiration_response": {
+            "line": "Oh, you're not joking? Well, at least this will be entertaining.",
+            "addons": {
+              "setProfessedAdmiration": true,
+              "setCourted": true,
+              "repChange": -10
+            }
+          },
+          "spend_time_together1": {
+            "line": "The tables at the feast are lined with dishes that sparkle under the soft glow of chandeliers, each plate a culinary masterpiece. You and %LORD_NAME sample exquisite butters infused with rare spices. %LORD_NAME begins sharing tales of narrow escapes and fierce battles fought on faraway stars. You respond with a grin, recounting a similarly audacious ambush. In that moment, the weight of your pasts feel lighter, buoyed by fine food and the warmth of camaraderie.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together2": {
+            "line": "The tables at the feast are lined with dishes that sparkle under the soft glow of chandeliers, each plate a culinary masterpiece. You and %LORD_NAME sample exquisite butters infused with rare spices. %LORD_NAME begins sharing tales of narrow escapes and fierce battles fought on faraway stars. You respond with a grin, recounting a similarly audacious ambush. In that moment, the weight of your pasts feel lighter, buoyed by fine food and the warmth of camaraderie.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together3": {
+            "line": "The tables at the feast are lined with dishes that sparkle under the soft glow of chandeliers, each plate a culinary masterpiece. You and %LORD_NAME sample exquisite butters infused with rare spices. %LORD_NAME begins sharing tales of narrow escapes and fierce battles fought on faraway stars. You respond with a grin, recounting a similarly audacious ambush. In that moment, the weight of your pasts feel lighter, buoyed by fine food and the warmth of camaraderie.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together4": {
+            "line": "The tables at the feast are lined with dishes that sparkle under the soft glow of chandeliers, each plate a culinary masterpiece. You and %LORD_NAME sample exquisite butters infused with rare spices. %LORD_NAME begins sharing tales of narrow escapes and fierce battles fought on faraway stars. You respond with a grin, recounting a similarly audacious ambush. In that moment, the weight of your pasts feel lighter, buoyed by fine food and the warmth of camaraderie.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together5": {
+            "line": "The tables at the feast are lined with dishes that sparkle under the soft glow of chandeliers, each plate a culinary masterpiece. You and %LORD_NAME sample exquisite butters infused with rare spices. %LORD_NAME begins sharing tales of narrow escapes and fierce battles fought on faraway stars. You respond with a grin, recounting a similarly audacious ambush. In that moment, the weight of your pasts feel lighter, buoyed by fine food and the warmth of camaraderie.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together6": {
+            "line": "The tables at the feast are lined with dishes that sparkle under the soft glow of chandeliers, each plate a culinary masterpiece. You and %LORD_NAME sample exquisite butters infused with rare spices. %LORD_NAME begins sharing tales of narrow escapes and fierce battles fought on faraway stars. You respond with a grin, recounting a similarly audacious ambush. In that moment, the weight of your pasts feel lighter, buoyed by fine food and the warmth of camaraderie.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together7": {
+            "line": "You and %LORD_NAME walk along the grand halls of the feast. Gradually, you find yourselves drawn to the center of the bustling hall, where nobles step in an elegant dance. You take %LORD_NAME's hand and offer a dance, which %LORD_GENDER_HE_OR_SHE accepts after a moment's pause. Together you dance to the slow drone of the saxophone, losing yourself in the rhythm until several hours pass.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together8": {
+            "line": "You and %LORD_NAME walk along the grand halls of the feast. Gradually, you find yourselves drawn to the center of the bustling hall, where nobles step in an elegant dance. You take %LORD_NAME's hand and offer a dance, which %LORD_GENDER_HE_OR_SHE accepts after a moment's pause. Together you dance to the slow drone of the saxophone, losing yourself in the rhythm until several hours pass.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together9": {
+            "line": "You and %LORD_NAME walk along the grand halls of the feast. Gradually, you find yourselves drawn to the center of the bustling hall, where nobles step in an elegant dance. You take %LORD_NAME's hand and offer a dance, which %LORD_GENDER_HE_OR_SHE accepts after a moment's pause. Together you dance to the slow drone of the saxophone, losing yourself in the rhythm until several hours pass.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together10": {
+            "line": "You and %LORD_NAME walk along the grand halls of the feast. Gradually, you find yourselves drawn to the center of the bustling hall, where nobles step in an elegant dance. You take %LORD_NAME's hand and offer a dance, which %LORD_GENDER_HE_OR_SHE accepts after a moment's pause. Together you dance to the slow drone of the saxophone, losing yourself in the rhythm until several hours pass.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together11": {
+            "line": "You and %LORD_NAME walk along the grand halls of the feast. Gradually, you find yourselves drawn to the center of the bustling hall, where nobles step in an elegant dance. You take %LORD_NAME's hand and offer a dance, which %LORD_GENDER_HE_OR_SHE accepts after a moment's pause. Together you dance to the slow drone of the saxophone, losing yourself in the rhythm until several hours pass.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together12": {
+            "line": "You and %LORD_NAME walk along the grand halls of the feast. Gradually, you find yourselves drawn to the center of the bustling hall, where nobles step in an elegant dance. You take %LORD_NAME's hand and offer a dance, which %LORD_GENDER_HE_OR_SHE accepts after a moment's pause. Together you dance to the slow drone of the saxophone, losing yourself in the rhythm until several hours pass.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together13": {
+            "line": "Growing tired of the commotion of the feast, you and %LORD_NAME sneak out to the host's hangar. You spot a pair of racing ships in the corner, and after assuring the attendants that you have permission, you both get into a cockpit and rocket off into the void. %LORD_NAME executes a series of sharp turns and loops and you respond in kind, sending adrenaline surging through your veins as you both attempt more complex maneuvers to one-up each other. After an hour, the two of you touch down at the hangar, begrudgingly admitting that neither of you could gain the upper hand. The two of you slip back to the feast before your antics are noticed, with newly forged respect between you.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together14": {
+            "line": "Growing tired of the commotion of the feast, you and %LORD_NAME sneak out to the host's hangar. You spot a pair of racing ships in the corner, and after assuring the attendants that you have permission, you both get into a cockpit and rocket off into the void. %LORD_NAME executes a series of sharp turns and loops and you respond in kind, sending adrenaline surging through your veins as you both attempt more complex maneuvers to one-up each other. After an hour, the two of you touch down at the hangar, begrudgingly admitting that neither of you could gain the upper hand. The two of you slip back to the feast before your antics are noticed, with newly forged respect between you.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together15": {
+            "line": "Growing tired of the commotion of the feast, you and %LORD_NAME sneak out to the host's hangar. You spot a pair of racing ships in the corner, and after assuring the attendants that you have permission, you both get into a cockpit and rocket off into the void. %LORD_NAME executes a series of sharp turns and loops and you respond in kind, sending adrenaline surging through your veins as you both attempt more complex maneuvers to one-up each other. After an hour, the two of you touch down at the hangar, begrudgingly admitting that neither of you could gain the upper hand. The two of you slip back to the feast before your antics are noticed, with newly forged respect between you.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together16": {
+            "line": "Growing tired of the commotion of the feast, you and %LORD_NAME sneak out to the host's hangar. You spot a pair of racing ships in the corner, and after assuring the attendants that you have permission, you both get into a cockpit and rocket off into the void. %LORD_NAME executes a series of sharp turns and loops and you respond in kind, sending adrenaline surging through your veins as you both attempt more complex maneuvers to one-up each other. After an hour, the two of you touch down at the hangar, begrudgingly admitting that neither of you could gain the upper hand. The two of you slip back to the feast before your antics are noticed, with newly forged respect between you.",
+            "addons": {
+              "repChange":5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together17": {
+            "line": "Growing tired of the commotion of the feast, you and %LORD_NAME sneak out to the host's hangar. You spot a pair of racing ships in the corner, and after assuring the attendants that you have permission, you both get into a cockpit and rocket off into the void. %LORD_NAME executes a series of sharp turns and loops and you respond in kind, sending adrenaline surging through your veins as you both attempt more complex maneuvers to one-up each other. After an hour, the two of you touch down at the hangar, begrudgingly admitting that neither of you could gain the upper hand. The two of you slip back to the feast before your antics are noticed, with newly forged respect between you.",
+            "addons": {
+              "repChange":5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together18": {
+            "line": "Growing tired of the commotion of the feast, you and %LORD_NAME sneak out to the host's hangar. You spot a pair of racing ships in the corner, and after assuring the attendants that you have permission, you both get into a cockpit and rocket off into the void. %LORD_NAME executes a series of sharp turns and loops and you respond in kind, sending adrenaline surging through your veins as you both attempt more complex maneuvers to one-up each other. After an hour, the two of you touch down at the hangar, begrudgingly admitting that neither of you could gain the upper hand. The two of you slip back to the feast before your antics are noticed, with newly forged respect between you.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together19": {
+            "line": "You and %LORD_NAME slip away from the commotion of the feast and step onto the balcony. The night sky is sprawled before you, a canvas of twinkling stars, each a reminder of the once-glorious reach of humanity and its Icarian downfall. %LORD_NAME traces the outline of a distant nebula with %LORD_GENDER_HIS_OR_HER finger, reminiscing of simpler days when %LORD_GENDER_HE_OR_SHE hoped to explore the stars as a carefree spacer. You promise that when peace finally returns to the core worlds, the two of you will journey to the edges of the sector. Together, you'll forge a future where the full wonders of the cosmos can be experienced by humanity once more.",
+            "addons": {
+              "repChange":5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together20": {
+            "line": "You and %LORD_NAME slip away from the commotion of the feast and step onto the balcony. The night sky is sprawled before you, a canvas of twinkling stars, each a reminder of the once-glorious reach of humanity and its Icarian downfall. %LORD_NAME traces the outline of a distant nebula with %LORD_GENDER_HIS_OR_HER finger, reminiscing of simpler days when %LORD_GENDER_HE_OR_SHE hoped to explore the stars as a carefree spacer. You promise that when peace finally returns to the core worlds, the two of you will journey to the edges of the sector. Together, you'll forge a future where the full wonders of the cosmos can be experienced by humanity once more.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together21": {
+            "line": "You and %LORD_NAME slip away from the commotion of the feast and step onto the balcony. The night sky is sprawled before you, a canvas of twinkling stars, each a reminder of the once-glorious reach of humanity and its Icarian downfall. %LORD_NAME traces the outline of a distant nebula with %LORD_GENDER_HIS_OR_HER finger, reminiscing of simpler days when %LORD_GENDER_HE_OR_SHE hoped to explore the stars as a carefree spacer. You promise that when peace finally returns to the core worlds, the two of you will journey to the edges of the sector. Together, you'll forge a future where the full wonders of the cosmos can be experienced by humanity once more.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together22": {
+            "line": "You and %LORD_NAME slip away from the commotion of the feast and step onto the balcony. The night sky is sprawled before you, a canvas of twinkling stars, each a reminder of the once-glorious reach of humanity and its Icarian downfall. %LORD_NAME traces the outline of a distant nebula with %LORD_GENDER_HIS_OR_HER finger, reminiscing of simpler days when %LORD_GENDER_HE_OR_SHE hoped to explore the stars as a carefree spacer. You promise that when peace finally returns to the core worlds, the two of you will journey to the edges of the sector. Together, you'll forge a future where the full wonders of the cosmos can be experienced by humanity once more.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together23": {
+            "line": "You and %LORD_NAME slip away from the commotion of the feast and step onto the balcony. The night sky is sprawled before you, a canvas of twinkling stars, each a reminder of the once-glorious reach of humanity and its Icarian downfall. %LORD_NAME traces the outline of a distant nebula with %LORD_GENDER_HIS_OR_HER finger, reminiscing of simpler days when %LORD_GENDER_HE_OR_SHE hoped to explore the stars as a carefree spacer. You promise that when peace finally returns to the core worlds, the two of you will journey to the edges of the sector. Together, you'll forge a future where the full wonders of the cosmos can be experienced by humanity once more.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together24": {
+            "line": "You and %LORD_NAME slip away from the commotion of the feast and step onto the balcony. The night sky is sprawled before you, a canvas of twinkling stars, each a reminder of the once-glorious reach of humanity and its Icarian downfall. %LORD_NAME traces the outline of a distant nebula with %LORD_GENDER_HIS_OR_HER finger, reminiscing of simpler days when %LORD_GENDER_HE_OR_SHE hoped to explore the stars as a carefree spacer. You promise that when peace finally returns to the core worlds, the two of you will journey to the edges of the sector. Together, you'll forge a future where the full wonders of the cosmos can be experienced by humanity once more.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together25": {
+            "line": "As the gala’s vibrant chatter fades behind you, you and %LORD_NAME step into the cool night, the stars shimmering like distant jewels overhead. You meander along the manicured gardens of the host's opulent estate. %LORD_NAME begins sharing tales navigating treacherous politics in gilded halls, %LORD_GENDER_HIS_OR_HER laughter echoing softly in the stillness. You have no shortage of your own stories to tell, recounting how you decided to become a captain and secured your first ship and crew. The vastness of the universe feels a little smaller as you walk, the night growing richer with each revelation.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together26": {
+            "line": "As the gala’s vibrant chatter fades behind you, you and %LORD_NAME step into the cool night, the stars shimmering like distant jewels overhead. You meander along the manicured gardens of the host's opulent estate. %LORD_NAME begins sharing tales navigating treacherous politics in gilded halls, %LORD_GENDER_HIS_OR_HER laughter echoing softly in the stillness. You have no shortage of your own stories to tell, recounting how you decided to become a captain and secured your first ship and crew. The vastness of the universe feels a little smaller as you walk, the night growing richer with each revelation.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together27": {
+            "line": "As the gala’s vibrant chatter fades behind you, you and %LORD_NAME step into the cool night, the stars shimmering like distant jewels overhead. You meander along the manicured gardens of the host's opulent estate. %LORD_NAME begins sharing tales navigating treacherous politics in gilded halls, %LORD_GENDER_HIS_OR_HER laughter echoing softly in the stillness. You have no shortage of your own stories to tell, recounting how you decided to become a captain and secured your first ship and crew. The vastness of the universe feels a little smaller as you walk, the night growing richer with each revelation.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together28": {
+            "line": "As the gala’s vibrant chatter fades behind you, you and %LORD_NAME step into the cool night, the stars shimmering like distant jewels overhead. You meander along the manicured gardens of the host's opulent estate. %LORD_NAME begins sharing tales navigating treacherous politics in gilded halls, %LORD_GENDER_HIS_OR_HER laughter echoing softly in the stillness. You have no shortage of your own stories to tell, recounting how you decided to become a captain and secured your first ship and crew. The vastness of the universe feels a little smaller as you walk, the night growing richer with each revelation.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together29": {
+            "line": "As the gala’s vibrant chatter fades behind you, you and %LORD_NAME step into the cool night, the stars shimmering like distant jewels overhead. You meander along the manicured gardens of the host's opulent estate. %LORD_NAME begins sharing tales navigating treacherous politics in gilded halls, %LORD_GENDER_HIS_OR_HER laughter echoing softly in the stillness. You have no shortage of your own stories to tell, recounting how you decided to become a captain and secured your first ship and crew. The vastness of the universe feels a little smaller as you walk, the night growing richer with each revelation.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together30": {
+            "line": "As the gala’s vibrant chatter fades behind you, you and %LORD_NAME step into the cool night, the stars shimmering like distant jewels overhead. You meander along the manicured gardens of the host's opulent estate. %LORD_NAME begins sharing tales navigating treacherous politics in gilded halls, %LORD_GENDER_HIS_OR_HER laughter echoing softly in the stillness. You have no shortage of your own stories to tell, recounting how you decided to become a captain and secured your first ship and crew. The vastness of the universe feels a little smaller as you walk, the night growing richer with each revelation.",
+            "addons": {
+              "repChange": 5,
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together31": {
+            "line": "Amid the lavish displays of the feast, you and %LORD_NAME wander over to a round table where a lively card game was in full swing, laughter and friendly banter filling the air. With a smirk, %LORD_GENDER_HE_OR_SHE tosses a handful of chips onto the pile, drawing the attention of the other players. You're also pulled into the game, but you quickly notice that %LORD_NAME is fully in their element. Despite your efforts, the best you can do is escape without major losses as %LORD_GENDER_HE_OR_SHE methodically cleans out the table. \n\"Thanks for that\", %LORD_NAME says teasingly. \"I really needed a punching bag to blow off some steam.\"",
+            "addons": {
+              "repChange": 5,
+              "exchangeCreditsWithLord": {
+                "max": -1000,
+                "min": -200
+              },
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together32": {
+            "line": "Amid the lavish displays of the feast, you and %LORD_NAME wander over to a round table where a lively card game was in full swing, laughter and friendly banter filling the air. With a smirk, %LORD_GENDER_HE_OR_SHE tosses a handful of chips onto the pile, drawing the attention of the other players. You're also pulled into the game, but you quickly notice that %LORD_NAME is fully in their element. Despite your efforts, the best you can do is escape without major losses as %LORD_GENDER_HE_OR_SHE methodically cleans out the table. \n\"Thanks for that\", %LORD_NAME says teasingly. \"I really needed a punching bag to blow off some steam.\"",
+            "addons": {
+              "repChange": 5,
+              "exchangeCreditsWithLord": {
+                "max": -1000,
+                "min": -200
+              },
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together33": {
+            "line": "Amid the lavish displays of the feast, you and %LORD_NAME wander over to a round table where a lively card game was in full swing, laughter and friendly banter filling the air. With a smirk, %LORD_GENDER_HE_OR_SHE tosses a handful of chips onto the pile, drawing the attention of the other players. You're also pulled into the game, but you quickly notice that %LORD_NAME is fully in their element. Despite your efforts, the best you can do is escape without major losses as %LORD_GENDER_HE_OR_SHE methodically cleans out the table. \n\"Thanks for that\", %LORD_NAME says teasingly. \"I really needed a punching bag to blow off some steam.\"",
+            "addons": {
+              "repChange": 5,
+              "exchangeCreditsWithLord": {
+                "max": -1000,
+                "min": -200
+              },
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together34": {
+            "line": "Amid the lavish displays of the feast, you and %LORD_NAME wander over to a round table where a lively card game was in full swing, laughter and friendly banter filling the air. With a smirk, %LORD_GENDER_HE_OR_SHE tosses a handful of chips onto the pile, drawing the attention of the other players. You're also pulled into the game, but you quickly notice that %LORD_NAME is fully in their element. Despite your efforts, the best you can do is escape without major losses as %LORD_GENDER_HE_OR_SHE methodically cleans out the table. \n\"Thanks for that\", %LORD_NAME says teasingly. \"I really needed a punching bag to blow off some steam.\"",
+            "addons": {
+              "repChange": 5,
+              "exchangeCreditsWithLord": {
+                "max": -1000,
+                "min": -200
+              },
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together35": {
+            "line": "Amid the lavish displays of the feast, you and %LORD_NAME wander over to a round table where a lively card game was in full swing, laughter and friendly banter filling the air. With a smirk, %LORD_GENDER_HE_OR_SHE tosses a handful of chips onto the pile, drawing the attention of the other players. You're also pulled into the game, but you quickly notice that %LORD_NAME is fully in their element. Despite your efforts, the best you can do is escape without major losses as %LORD_GENDER_HE_OR_SHE methodically cleans out the table. \n\"Thanks for that\", %LORD_NAME says teasingly. \"I really needed a punching bag to blow off some steam.\"",
+            "addons": {
+              "repChange": 5,
+              "exchangeCreditsWithLord": {
+                "max": -1000,
+                "min": -200
+              },
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together36": {
+            "line": "Amid the lavish displays of the feast, you and %LORD_NAME wander over to a round table where a lively card game was in full swing, laughter and friendly banter filling the air. With a smirk, %LORD_GENDER_HE_OR_SHE tosses a handful of chips onto the pile, drawing the attention of the other players. You're also pulled into the game, but you quickly notice that %LORD_NAME is fully in their element. Despite your efforts, the best you can do is escape without major losses as %LORD_GENDER_HE_OR_SHE methodically cleans out the table. \n\"Thanks for that\", %LORD_NAME says teasingly. \"I really needed a punching bag to blow off some steam.\"",
+            "addons": {
+              "repChange": 5,
+              "exchangeCreditsWithLord": {
+                "max": -1000,
+                "min": -200
+              },
+              "setHeldDate": true,
+              "additionalText": "spend_time_together_after"
+            }
+          },
+          "spend_time_together_after": "At the end of the evening, you prepare to part ways. This is your chance to present them with a gift.",
+          "marriage_response": "Did you confuse me with someone else? I'm going to pretend that you didn't say that.",
+          "accept_marriage_second": "Let's ask our host %LORD_HOST_NAME to arrange a ceremony for us at once!",
+          "refuse_marriage_hint": {
+            "line": "This lord expects you to do something romantic for them first.",
+            "color": "YELLOW"
+          },
+          "marriage_ceremony": {
+            "line": "The mood at the feast elevates as word spreads about the marriage between you and %WEDDING_TARGET_NAME. Your crew and comrades gather around you, offering their congratulations in turn. The host, %LORD_HOST_NAME, officiates your union amidst cheers and celebration. You have gained an ally for life.",
+            "addons": {
+              "wedPlayerToWeddingTarget": true
+            }
+          },
+          "join_party_explanation": "Of course my dear, I'd love to join up with you. I'd have to disband my own fleet though; is that what you want?",
+          "leave_party_explanation": "Of course my dear, I can go back to my own fleet if that's what you think is best.",
+
+          "swayProposal_forCounsel": {
+            "line": "I'm sorry, but I've already made up my mind on the matter.",
+            "addons": {
+              "setSwayed": true
+            }
+          },
+          "swayProposal_forCounsel_acceptBribe": "We have a deal then. I'll do as you ask.",
+          "swayProposal_forCounsel_acceptBargain": "We have a deal then. I'll do as you ask.",
+          "swayProposal_forPlayer": {
+            "line": "I'm sorry, but I've already made up my mind on the matter.",
+            "addons": {
+              "setSwayed": true
+            }
+          },
+          "swayProposal_forPlayer_acceptBribe": "We have a deal then. I'll do as you ask.",
+          "swayProposal_forPlayer_acceptBargain": "We have a deal then. I'll do as you ask.",
+          "swayProposal_againstCounsel": {
+            "line": "I'm sorry, but I've already made up my mind on the matter.",
+            "addons": {
+              "setSwayed": true
+            }
+          },
+          "swayProposal_againstCounsel_acceptBribe": "We have a deal then. I'll do as you ask.",
+          "swayProposal_againstCounsel_acceptBargain": "We have a deal then. I'll do as you ask.",
+
+          "give_gift": "",
+          "dislikeGift_alpha_core": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+          "dislikeGift_hand_weapons": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+          "dislikeGift_food": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+          "dislikeGift_luxury_goods": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+          "dislikeGift_lobster": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+          "dislikeGift_drugs": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+          "dislikeGift_domestic_goods": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+          "likeGift_alpha_core": "What a thoughtful gift. I'm touched that you know me so well.",
+          "likeGift_hand_weapons": "What a thoughtful gift. I'm touched that you know me so well.",
+          "likeGift_food": "What a thoughtful gift. I'm touched that you know me so well.",
+          "likeGift_luxury_goods": "What a thoughtful gift. I'm touched that you know me so well.",
+          "likeGift_lobster": "What a thoughtful gift. I'm touched that you know me so well.",
+          "likeGift_drugs": "What a thoughtful gift. I'm touched that you know me so well.",
+          "likeGift_domestic_goods": "What a thoughtful gift. I'm touched that you know me so well.",
+          "accept_ask_location": "Who did you wish to inquire about?",
+          "LordLocation": "I don't know where %SECOND_LORD_TITLE %SECOND_LORD_NAME is",
+          "speak_privately": "(error) im sorry, but I don't think so.",
+          "worldview": "(error) Is the world not wonderful? sigh.. why are we even talking again...",
+          "liege_opinion": "(error) %LORD_NAME bursts into tears. You look on in shock as for hours and hours %LORD_GENDER_HE_OR_SHE spends hours talking about random insignificantint things",
+          "ask_friend_fav_gift": "(error) I will be truthful with you %PLAYER_NAME; %SECOND_LORD_NAME is very hard to please. Good luck.",
+          "consider_defect": "Oh? You speak of treason, friend. Why should I let you say another word?",
+          "bargain_defect": "And pray tell, what are you offering to justify that claim?",
+
+          "justify_defect_calculating": {
+            "line": "",
+            "addons": {
+              "additionalText": [
+                "justify_defect_calculating_justification",
+                "justify_defect_calculating_legitimacy",
+                "justify_defect_calculating_factionPreference",
+                "justify_defect_calculating_lordPreference",
+                "justify_defect_calculating_argumentAgreement",
+                "justify_defect_calculating_final"
+              ]
+            }
+          },
+          "justify_defect_calculating_justification": {
+            "line": "Based on your offer, your claim is seen as completely unjustified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "completely unjustified",
+              "color": "RED"
+            }
+          },
+          "justify_defect_calculating_legitimacy": "Hmm, your faction is still a minor player and would be a risk to join.",
+          "justify_defect_calculating_factionPreference": "Frankly, I prefer my faction over yours.",
+          "justify_defect_calculating_lordPreference": "I have good friends that I would not want to lose.",
+          "justify_defect_calculating_argumentAgreement": "Additionally, I find your justification unconvincing.",
+          "justify_defect_calculating_final": "Lastly, changing loyalties is no small decision. I must consider the consequences on my reputation carefully.",
+          "justify_defect_upstanding": {
+            "line": "",
+            "addons": {
+              "additionalText": [
+                "justify_defect_upstanding_justification",
+                "justify_defect_upstanding_legitimacy",
+                "justify_defect_upstanding_factionPreference",
+                "justify_defect_upstanding_lordPreference",
+                "justify_defect_upstanding_argumentAgreement",
+                "justify_defect_upstanding_final"
+              ]
+            }
+          },
+          "justify_defect_upstanding_justification": {
+            "line": "Based on your colonial stability and success, your claim is seen as completely unjustified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "completely unjustified",
+              "color": "RED"
+            }
+          },
+          "justify_defect_upstanding_legitimacy": "Hmm, your faction is still a minor player and would be a risk to join.",
+          "justify_defect_upstanding_factionPreference": "Frankly, I prefer my faction over yours.",
+          "justify_defect_upstanding_lordPreference": "I have good friends that I would not want to lose.",
+          "justify_defect_upstanding_argumentAgreement": "Additionally, I find your justification unconvincing.",
+          "justify_defect_upstanding_final": "Lastly, changing loyalties is no small decision. I must consider the consequences on my reputation carefully.",
+          "justify_defect_martial": {
+            "line": "",
+            "addons": {
+              "additionalText": [
+                "justify_defect_martial_justification",
+                "justify_defect_martial_legitimacy",
+                "justify_defect_martial_factionPreference",
+                "justify_defect_martial_lordPreference",
+                "justify_defect_martial_argumentAgreement",
+                "justify_defect_martial_final"
+              ]
+            }
+          },
+          "justify_defect_martial_justification": {
+            "line": "Based on your military and personal strength, your claim is seen as completely unjustified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "completely unjustified",
+              "color": "RED"
+            }
+          },
+          "justify_defect_martial_legitimacy": "Hmm, your faction is still a minor player and would be a risk to join.",
+          "justify_defect_martial_factionPreference": "Frankly, I prefer my faction over yours.",
+          "justify_defect_martial_lordPreference": "I have good friends that I would not want to lose.",
+          "justify_defect_martial_argumentAgreement": "Additionally, I find your justification unconvincing.",
+          "justify_defect_martial_final": "Lastly, changing loyalties is no small decision. I must consider the consequences on my reputation carefully.",
+          "justify_defect_quarrelsome": {
+            "line": "",
+            "addons": {
+              "additionalText": [
+                "justify_defect_quarrelsome_justification",
+                "justify_defect_quarrelsome_legitimacy",
+                "justify_defect_quarrelsome_factionPreference",
+                "justify_defect_quarrelsome_lordPreference",
+                "justify_defect_quarrelsome_argumentAgreement",
+                "justify_defect_quarrelsome_final"
+              ]
+            }
+          },
+          "justify_defect_quarrelsome_justification": {
+            "line": "Based on your history, your claim is seen as completely unjustified.",
+            "color": "ORANGE",
+            "highlight": {
+              "highlight": "completely unjustified",
+              "color": "RED"
+            }
+          },
+          "justify_defect_quarrelsome_legitimacy": "Hmm, your faction is still a minor player and would be a risk to join.",
+          "justify_defect_quarrelsome_factionPreference": "Frankly, I prefer my faction over yours.",
+          "justify_defect_quarrelsome_lordPreference": "I have good friends that I would not want to lose.",
+          "justify_defect_quarrelsome_argumentAgreement": "Additionally, I find your justification unconvincing.",
+          "justify_defect_quarrelsome_final": "Lastly, changing loyalties is no small decision. I must consider the consequences on my reputation carefully.",
+
+          "justify_defect_calculating_answer": {
+            "line": "I cannot betray our leader. I will keep this conversation to myself for sake of our friendship, but do not speak of this again.",
+            "addons": {
+              "playSound": "ui_rep_drop",
+              "repChange": -10
+            }
+          },
+          "justify_defect_upstanding_answer": {
+            "line": "I cannot betray our leader. I will keep this conversation to myself for sake of our friendship, but do not speak of this again.",
+            "addons": {
+              "playSound": "ui_rep_drop",
+              "repChange": -10
+            }
+          },
+          "justify_defect_martial_answer": {
+            "line": "I cannot betray our leader. I will keep this conversation to myself for sake of our friendship, but do not speak of this again.",
+            "addons": {
+              "playSound": "ui_rep_drop",
+              "repChange": -10
+            }
+          },
+          "justify_defect_quarrelsome_answer": {
+            "line": "I cannot betray our leader. I will keep this conversation to myself for sake of our friendship, but do not speak of this again.",
+            "addons": {
+              "playSound": "ui_rep_drop",
+              "repChange": -10
+            }
+          },
+
+          "suggest_action": "Very well, I'm listening. But if this goes poorly, I will hold you responsible.",
+          "stop_follow_me": {
+            "line":"I will follow your suggestion.",
+            "addons": {
+              "AICommand": "END_CURRENT_ACTIONS"
+            }
+          },
+          "follow_me": {
+            "line":"I will follow your suggestion.",
+            "addons": {
+              "AICommand": "FOLLOW_PLAYER_FLEET",
+              "repChange": -2
+            }
+          },
+          "ask_raid_location": "Where should I raid?",
+          "raidLocation": {
+            "line":"I will follow your suggestion.",
+            "addons": {
+              "AICommand": "RAID_TARGET_MARKET",
+              "repChange": -2
+            }
+          },
+          "ask_patrol_location": "Where should I defend?",
+          "patrolLocation": {
+            "line":"I will follow your suggestion.",
+            "addons": {
+              "AICommand": "PATROL_TARGET_MARKET",
+              "repChange": -2
+            }
+          },
+          "suggest_upgrade": {
+            "line":"I will follow your suggestion.",
+            "addons": {
+              "AICommand": "UPGRADE",
+              "repChange": -2
+            }
+          },
+
+          "suggest_ceasefire": "Ah. Unfortunately, you see, I wish to fight with you.",
+
+          "ask_quest": {
+            "line": "",
+            "addons": {
+              "attemptToAddRandomQuest": true
+            }
+          },
+          "quest_available": "I do have one issue to take care of. I've transferred the relevant information if you're interested.",
+          "no_quest_available": "I have no tasks that need attending to at this time."
         }
       }
     }

@@ -18,7 +18,7 @@ NOTE: I forgot to record the original list, so there are some bugs missing from 
         d.0) needs to ignore nexerlin outposts (dont look at markets less then size 3)?
         d.1) needs to ignore markets with no industrys (another issue to fix)
     e) starlords attending a feast will not defend there allies if they are attacked (they should protect the world, and anyone at the feast if they are attacked)
-    f) starlords MIGHT still be attacking things they should not be allowed to (dispute nexerlin settings).
+    f) starlords 100% ARE still be attacking things they should not be allowed to (dispute nexerlin settings).
 2) tornaments:
     a) with Aod QoL instaled, you cant fight in tornaments hosted by your own faction
     b) possible tournament ships include things like station and ship moduels.

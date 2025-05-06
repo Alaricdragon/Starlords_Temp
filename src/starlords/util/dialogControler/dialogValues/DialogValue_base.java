@@ -9,6 +9,9 @@ import starlords.person.Lord;
 public class DialogValue_base {
     int base = 0;
     double multi = 1;
+    public DialogValue_base(){
+
+    }
     @SneakyThrows
     public DialogValue_base(JSONObject json){
         if (json.has("multi")) multi = json.getDouble("multi");

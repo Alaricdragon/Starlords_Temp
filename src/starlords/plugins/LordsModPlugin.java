@@ -116,6 +116,7 @@ public class LordsModPlugin extends BaseModPlugin {
             log.info("is the "+a+" a minor faction? "+Utils.isMinorFaction(Global.getSector().getFaction(a)));
             //log.info("is the "+a+" playable? "+ NexConfig.getFactionConfig(a).playableFaction);
         }/**/
+        LordController.fixAllLordsPartnerStatus();
         LordController.logAllLords();
     }
 

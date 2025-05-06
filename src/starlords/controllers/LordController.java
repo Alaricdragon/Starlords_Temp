@@ -483,4 +483,17 @@ public class LordController {
         log.info(allLordIds);
         log.info(allLordIds2);
     }
+
+    public static void fixAllLordsPartnerStatus(){
+        //todo: remove this function later. this is just to make the dialog update save compatible with anyone who is married.
+        if (!LordController.getPlayerLord().isMarried() || LordController.getPlayerLord().getSpouse() != null) return;
+        for (int a = 0; a < lordsList.size(); a++){
+            Lord lord = lordsList.get(a);
+            if (lord.isMarried() && lord.getSpouse()==null){
+                lord.setSpouse(LordController.getPlayerLord().getLordAPI().getId());
+                LordController.getPlayerLord().setSpouse(lord.getLordAPI().getId());
+                return;
+            }
+        }
+    }
 }

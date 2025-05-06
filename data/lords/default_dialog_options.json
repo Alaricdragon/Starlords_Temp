@@ -1,7 +1,7 @@
 {
   "greeting": "optionSet_greeting",
   "dedicate_tournament": "optionSet_dedicate_tournament",
-  "start_tournament": "optionSet_start_tournament",
+  "start_tournament": "optionSet_start_tournament_cant",
   "ask_question": "optionSet_askQuestion",
   "admiration_response": "optionSet_admiration_response",
   "spend_time_together": "optionSet_spend_time_together",
@@ -52,14 +52,10 @@
   "justify_defect_martial": "optionSet_justify_defect_martial",
   "justify_defect_quarrelsome": "optionSet_justify_defect_quarrelsome",
 
-  "justify_defect_calculating_success": "optionSet_justify_defect_calculating_success",
-  "justify_defect_calculating_fail": "optionSet_justify_defect_calculating_fail",
-  "justify_defect_upstanding_success": "optionSet_justify_defect_upstanding_success",
-  "justify_defect_upstanding_fail": "optionSet_justify_defect_upstanding_fail",
-  "justify_defect_martial_success": "optionSet_justify_defect_martial_success",
-  "justify_defect_martial_fail": "optionSet_justify_defect_martial_fail",
-  "justify_defect_quarrelsome_success": "optionSet_justify_defect_quarrelsome_success",
-  "justify_defect_quarrelsome_fail": "optionSet_justify_defect_quarrelsome_fail",
+  "justify_defect_calculating_answer": "optionSet_justify_defect_calculating_answer",
+  "justify_defect_upstanding_answer": "optionSet_justify_defect_upstanding_answer",
+  "justify_defect_martial_answer": "optionSet_justify_defect_martial_answer",
+  "justify_defect_quarrelsome_answer": "optionSet_justify_defect_quarrelsome_answer",
 
   "ask_quest": "optionSet_ask_quest",
 

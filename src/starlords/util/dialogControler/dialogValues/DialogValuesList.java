@@ -153,6 +153,9 @@ public class DialogValuesList {
                 case "random":
                     values.add(new DialogValue_random(json,key2));
                     break;
+                case "customDialogValue":
+                    values.add(new DialogValue_customList(json,key2));
+                    break;
                 default:
                     log.info("      failed to add item of "+key2);
             }

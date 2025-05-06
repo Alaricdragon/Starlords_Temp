@@ -1,4 +1,12 @@
 this is the 'dialog rules' json object. within, I will cover the 3 different 'rule types' (lord, target lord, and target market). please keep in mind: the different rule types are NOT different json objects. they are all held under the 'rules' object. however, other than the 'lord' rules, the rules can only be called apon on certen conditions.
+* 'custom rules'
+  * "customDialogRule" jsonObject. were each item is "customDialogID": jsonObject. "customDialogID" should match a created 'DialogRule_custom'.
+    * to use this you must do the following:
+    * 1) you must create a class that overrides DialogRule_custom. when created
+    * 2) override the 'condition' function. within this class, you can run whatever it is you want this addon to do.
+      * please keep in mind, your class with have its 'json' variable set whenever it attempts to run. this is the jsonObject you fed your addon.
+    * 3) create an instance of your class (new DialogRule_custom(String id)). when created, your class will automatically be added to the list of possible custom rules. please keep in mind, only one item with a given ID can exist at a time. so I addive you use something like "modID_whatThisDoes" were 'modID' is your mods ID, and 'whatThisDoes' is... whatever you deside. this should prevent you from overriding someones else custom addon.
+    * 4) in customDialogRule{} add in your addon as a jsonObject. the items id should match your classes id, and the jsonObject you input will be the one your class will be given whenever it is ran.
 * 'lord' rules
   * target rules: all 'target' rules contain the 'rules' json object. and instead of runing the rules onto the interacting lord, they run the rules for whatever lord they interact with instead. --will return false if whatever lord the rule wants cannot be found--
       * "SECOND_LORD" : 'target lord'.

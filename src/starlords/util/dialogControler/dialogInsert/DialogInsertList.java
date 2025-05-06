@@ -26,20 +26,20 @@ public class DialogInsertList {
         inserts.add(getInsert(json.getJSONObject(key)));
     }
     private DialogInsert_Base getInsert(JSONObject json){
-        for (Iterator it = json.keys(); it.hasNext();) {
-            String key = (String) it.next();
-            if (json.has("dialogValue")){
-                return new DialogInsert_dialogValue(json);
-            }
-            if (json.has("memory")){
-                return new DialogInsert_memory(json);
-            }
-            if (json.has("lordMemory")){
-                return new DialogInsert_lordMemory(json);
-            }
-            if (json.has("dialogData")){
-                return new DialogInsert_dialogData(json);
-            }
+        if (json.has("dialogValue")){
+            return new DialogInsert_dialogValue(json);
+        }
+        if (json.has("memory")){
+            return new DialogInsert_memory(json);
+        }
+        if (json.has("lordMemory")){
+            return new DialogInsert_lordMemory(json);
+        }
+        if (json.has("dialogData")){
+            return new DialogInsert_dialogData(json);
+        }
+        if (json.has("customDialogInsert")){
+            return new DialogInsert_customList(json);
         }
         Logger log = Global.getLogger(DialogInsertList.class);
         log.info("ERROR: FAILED TO GET A DialogInsert. failed json data should be: "+json.toString());

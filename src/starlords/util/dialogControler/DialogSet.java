@@ -1003,6 +1003,9 @@ public class DialogSet {
                 case "exchangeCreditsWithLord":
                     addon = addAddon_exchangeCreditsWithLord(addons, key2);
                     break;
+                case "changeLordCredits":
+                    addon = addAddon_changeLordCredits(addons, key2);
+                    break;
                 case "romanceChange":
                     addon = addAddon_romanceChange(addons, key2);
                     break;
@@ -1111,6 +1114,9 @@ public class DialogSet {
                 case "releaseLord":
                     addon = addAddon_releaseLord(addons,key2);
                     break;
+                case "customDialogAddon":
+                    addon = addAddon_customDialogAddon(addons,key2);
+                    break;
             }
             if (addon != null) newAddons.add(addon);
         }
@@ -1123,6 +1129,10 @@ public class DialogSet {
     @SneakyThrows
     private static DialogAddon_Base addAddon_creditsChange(JSONObject json, String key){
         return new DialogAddon_creditsChange(json,key);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_changeLordCredits(JSONObject json, String key){
+        return new DialogAddon_changeLordCredits(json,key);
     }
     @SneakyThrows
     private static DialogAddon_Base addAddon_exchangeCreditsWithLord(JSONObject json, String key){
@@ -1300,6 +1310,10 @@ public class DialogSet {
     private static DialogAddon_Base addAddon_releaseLord(JSONObject json,String key){
         if (!json.getBoolean(key)) return null;
         return new DialogAddon_releaseLord();
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_customDialogAddon(JSONObject json,String key){
+        return new DialogAddon_customList(json, key);
     }
 
 
@@ -1605,6 +1619,9 @@ public class DialogSet {
                     break;
                 case "dialogType":
                     rules.add(addRule_dialogType(rulesTemp,key));
+                    break;
+                case "customDialogRule":
+                    rules.add(addRule_customDialogRule(rulesTemp,key));
                     break;
 
             }
@@ -2200,5 +2217,9 @@ public class DialogSet {
     @SneakyThrows
     private static DialogRule_Base addRule_dialogType(JSONObject json,String key){
         return new DialogRule_dialogType(json,key);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_customDialogRule(JSONObject json,String key){
+        return new DialogRule_customList(json,key);
     }
 }

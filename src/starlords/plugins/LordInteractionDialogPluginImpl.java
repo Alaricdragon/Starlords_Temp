@@ -156,20 +156,117 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     private boolean optionSelected_NEW(String optionText, Object optionData){
         /*so... it is finaly time! time for me to do the finaly checks.
         * bug prevention:
-        *   1) add in a function that will be there until the next save compatible update. it will set anyone that is married to be married to the player.
-        *   2) merge this branch with the branch from fixes. its important ok?
+        *   1) (DONE) add in a function that will be there until the next save compatible update. it will set anyone that is married to be married to the player.
+        *   2) (DONE) merge this branch with the branch from fixes. its important ok?
         * additional functions:
-        *   custom addon
-        *   custom rule
-        *   custom insert
-        *   custom value
+        *   (done) custom addon
+        *   (done)custom rule
+        *   (done)custom insert
+        *   (done)custom value
         * dialog improvements
+        *   ...
+        *   OK: so I require some rules for this.
+        *       -) process:
+        *           I am going to go from the bottom of the dialogs, to the top, doing everything I can along the way to improve things.
+        *           I am presently at 'canDefectOption'
+        *       1) fist of all, I am going to be forced to replace all the current personality dialogs with the template. KEEP THE OLD DIALOGS. I will needs them whenever I end up fing up.
+        *       2) [addons]. for many addons, complicated things happen (like ransoming prisoners.) this should be in the defalt dialog as like, [addons_textName_textType]. ([addons_marage_refusealHarsh] for example).
+        *           -note: I need to deside how... many of the addons I am going to need.
+        *                  I think for most of them I am NOT going to an [addon]. most dont need one.
+        *       3) [options] will now be set to [optionSets]. this is so I can change every option all at once, if required.
+        *       4) items like [accept defection] should have the different options be set when you press it. not from options.
+        *           -the reason for this is to allow users to have custom accept and refuse conditions.
+        *               -although, this does have a disadvantage. I need a custom 'refuse' message for when the lord can never ever defect. I will add this as an rule? but only afterwards.
+        *           -for things with advanced calculations (like defection) I should have a custom calculation that can be put into data instead of what im currently doing...
+        *       5) lastly, I want to add additional dialogSets in the dialog. so its easyer to add conditions for things like (acsept marage) and what not.
+        *
+        *   notes:
+        *       1) suggestDefectionCanConsider. this dialogSet might need to be moved, so its part of the line that you ask? then again, I think its fine?
+        *       2) (DONE. untested )canDefectOption. the data here needs to be moved to the answer itself.
+        *           -I also need to make it so the data that sets this happens in a set data.
+        *       3) for "swayProposal_forCounsel_bargain", "swayProposal_againstCounsel_bargain", "swayProposal_forPlayer_bargain".
+        *           -the rules here need to be moved into a 'set data'. maybe one attached to the option that selects this? does the option run its data before the line is selected? arg.. (options do run addons before selecting there data.)
+        *           - "option_sway_council_support"
+        *           - "option_sway_council_oppose"
+        *           - "option_sway_player"
+        *           - ""
+        *           ... ok so: I have looked at this farther.
+        *               theory: I COULD make it so I have a rule that is like, setData boolean. but that means rebuilding the stored data detection plugins. arg... I dont like that... mmm FINE SEE IF I CARE
+        *               NOTE: I NEED TO ADD IN A NEW ADDON MODIFICATION FOR SAVING DATA. one that lets me chose between int, string, and boolean.
+        *           -rules: (I want to merge the rules into one value, so I can easier tell what I wanna do. if possible.)
+        *               "bargin":
+                              "optionOfPlayerProposal": { "min": -20
+                              },
+                              "lordProposalPlayerSupports": true,
+                              "relationWithPlayer": {
+                                "min": -24
+                              },
+                              "lordProposalSupporters": {
+                                "min": 2
+                              },
+                              "lordProposalExists": true
+        *               "bribe":
+        *               NOTE: all personality have there own 'range' for bribes.
+        *               note: "random" rule could be converted into dialogValue. the "value" is what range the random would have, and "range" is the min value required to acsept.
+                        "rules": {
+                          "optionOfPlayerProposal": {
+                            "min": -20
+                          },
+                          "random": {
+                            "range": 50,
+                            "value": {
+                              "base":25,
+                              "relationWithPlayer": 1
+                            }
+                          }
+                        },
+        *               "acsept_reluctant":
+                              "opinionOfPlayerProposal": {
+                                "min": -20,
+                                "max": -1
+                              },
+                              "random": {
+                                "range": 100,
+                                "value": {
+                                  "base":12,
+                                  "playerLordRelation": 1,
+                                  "optionOfPlayerProposal": 10
+                                }
+                              }
+        *               "acsept":
+                              "opinionOfCurrProposal": {
+                                "min": 0
+                              },
+                              "random": {
+                                "range": 100,
+                                "value": {
+                                  "base":12,
+                                  "playerLordRelation": 1,
+                                  "optionOfCurrProposal": 10
+                                }
+                              }
+        *
         *   1) I need to go through all the dialog, and merge the dialog into a type of 'template' that I can add additional data to.
         *   2) I need to go into all lines and imporve them just a bit. by adding in the new utility functions I added in the first place.
         *   3) I need to go into anything that uses a diffrent option set, and make it so instead of setting all the options right there, it gets a different option set instead (because having a cenralized option set to change prevents modders from having to keep trake of every time I add a dialog option. it is important.)
         * dialog fixes:
-        *   1) speak privitly right now, does not have an option that prevents it from working. I messed up somewere.
+        *   1) speak privately right now, does not have an option that prevents it from working. I messed up somewhere. (or maybe just for certain lord types?)
+        *   2) add in a custom defection refusal to the template, for when lords can never defect by the player hands.
+        * dialog logs:
+        *   1) remove all the logs. the ones i do chose to keep, should only be the most basic ones, and they should have the log class set currently.
         *
+        * additional rules:
+        *   setLordMemoryData_int
+        *   setLordMemoryData_boolean
+        *   setLordMemoryData_string
+        *
+        *   setMemoryData_int
+        *   setMemoryData_boolean
+        *   setMemoryData_string
+        *
+        *   setDialogData_int
+        *   setDialogData_boolean
+        *   setDialogData_string
         * */
         if (optionData instanceof DialogOption){
             if (prevPlugin.equals(this) && !visual.isShowingPersonInfo(targetLord.getLordAPI())) {

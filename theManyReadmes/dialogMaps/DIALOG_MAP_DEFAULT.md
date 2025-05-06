@@ -57,32 +57,20 @@
   * "options_give_gift_exit" :      "ask_question"
 
 * "dislikeGift_alpha_core"
-  * copys 'ask_question' options
 * "dislikeGift_hand_weapons"
-  * copys 'ask_question' options
 * "dislikeGift_food"
-  * copys 'ask_question' options
 * "dislikeGift_luxury_goods"
-  * copys 'ask_question' options
 * "dislikeGift_lobster"
-  * copys 'ask_question' options
 * "dislikeGift_drugs"
-  * copys 'ask_question' options
 * "dislikeGift_domestic_goods"
   * copys 'ask_question' options
 
 * "likeGift_alpha_core"
-  * copys 'ask_question' options
 * "likeGift_hand_weapons"
-  * copys 'ask_question' options
 * "likeGift_food"
-  * copys 'ask_question' options
 * "likeGift_luxury_goods"
-  * copys 'ask_question' options
 * "likeGift_lobster"
-  * copys 'ask_question' options
 * "likeGift_drugs"
-  * copys 'ask_question' options
 * "likeGift_domestic_goods"
   * copys 'ask_question' options
 
@@ -203,7 +191,7 @@
   * "justify_defect_calculating_lordPreference"
   * "justify_defect_calculating_argumentAgreement"
   * "justify_defect_calculating_final"
-  * "option_justify_defect_calculating_confirm" : "justify_defect_calculating_success" || "justify_defect_calculating_fail"
+  * "option_justify_defect_calculating_confirm" : "justify_defect_calculating_answer"
   * "option_justify_defect_calculating_exit" : "greeting"
   
 * "justify_defect_upstanding" (runs 6 lines before options)
@@ -213,7 +201,7 @@
   * "justify_defect_upstanding_lordPreference"
   * "justify_defect_upstanding_argumentAgreement"
   * "justify_defect_upstanding_final"
-  * "option_justify_defect_upstanding_confirm" : "justify_defect_upstanding_success" || "justify_defect_upstanding_fail"
+  * "option_justify_defect_upstanding_confirm" : "justify_defect_upstanding_answer"
   * "option_justify_defect_upstanding_exit" : "greeting"
   
 * "justify_defect_martial" (runs 6 lines before options)
@@ -223,7 +211,7 @@
   * "justify_defect_martial_lordPreference"
   * "justify_defect_martial_argumentAgreement"
   * "justify_defect_martial_final"
-  * "option_justify_defect_martial_confirm" : "justify_defect_martial_success" || "justify_defect_martial_fail"
+  * "option_justify_defect_martial_confirm" : "justify_defect_martial_answer"
   * "option_justify_defect_martial_exit" : "greeting"
   
 * "justify_defect_quarrelsome" (runs 6 lines before options)
@@ -233,7 +221,7 @@
   * "justify_defect_quarrelsome_lordPreference"
   * "justify_defect_quarrelsome_argumentAgreement"
   * "justify_defect_quarrelsome_final"
-  * "option_justify_defect_quarrelsome_confirm" : "justify_defect_quarrelsome_success" || "justify_defect_quarrelsome_fail"
+  * "option_justify_defect_quarrelsome_confirm" : "justify_defect_quarrelsome_answer"
   * "option_justify_defect_quarrelsome_exit" : "greeting"
 
 * "ask_friend_fav_gift":

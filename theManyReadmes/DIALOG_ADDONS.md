@@ -3,13 +3,21 @@
   * "conditionalAddon": {"rules": [DIALOG_RULES.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_RULES.md) ,"addons": [DIALOG_ADDONS.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_ADDONS.md) } this addon only runs the addons from its 'addon' jsonObject only if its 'rules' jsonObject meets requirements.
 * targets:
     * "targetLord" does nothing if: target lord is unset. runs the contained 'addon' json object, for the target lord instead of the interacting lord
+* "customDialogAddon" jsonObject. were each item is "customDialogID": jsonObject. "customDialogID" should match a created 'DialogAddon_custom'.
+  * to use this you must do the following:
+  * 1) you must create a class that overrides DialogAddon_custom.
+  * 2) override the 'apply' function. within this class, you can run whatever it is you want this addon to do.
+    * please keep in mind, your class with have its 'json' variable set whenever it attempts to run. this is the jsonObject you fed your addon.
+  * 3) create an instance of your class (new DialogAddon_custom(String id)). when created, your class will automatically be added to the list of possible custom addons. please keep in mind, only one item with a given ID can exist at a time. so I addive you use something like "modID_whatThisDoes" were 'modID' is your mods ID, and 'whatThisDoes' is... whatever you deside. this should prevent you from overriding someones else custom addon.
+  * 4) in customDialogAddon{} add in your addon as a jsonObject. the items id should match your classes id, and the jsonObject you input will be the one your class will be given whenever it is ran.
 * value changes: value changes can contain the following data:
   * Integer: the value that will be added / removed from a given stat. if min and max are both set, the value will be a random number between the 2.
   * dialogValue: a ([DIALOG_VALUES.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_VALUES.md)) json object. the return value of the dialog value is what the item must have to meet requirements.
   * {"min","max"}: were "min" and "max" can be a Integer, or a ([DIALOG_VALUES.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_VALUES.md)).
   * "repChange" changes the relation between the lord and player
   * "creditsChange" changes the amount of credits the player has.
-  * "exchangeCreditsWithLord" gives / takes credits from a lord. a negative value gives, a positive value takes.
+  * "exchangeCreditsWithLord" gives / takes credits from/to a lord from/to the player. a negative value gives, a positive value takes.
+  * "changeLordCredits" changes the amount of credits the lord has.
   * "romanceChange" changes the stored romance value between the lord and player.
   * "changeCommoditysInPlayersFleet" holds a jsonObject of commoditys, were the value is how mush this commoidity changes. the value follows the same rules as any other value addon.
 * "additionalText": "lineID" adds an additional line of dialog, with the inputed name. also take a jsonArray as input, running each inputed line in sequence.

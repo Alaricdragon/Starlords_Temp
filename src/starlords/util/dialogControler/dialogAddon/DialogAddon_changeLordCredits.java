@@ -12,28 +12,18 @@ import starlords.util.dialogControler.dialogAddon.bases.DialogAddon_changeValue;
 
 import java.util.HashMap;
 
-public class DialogAddon_exchangeCreditsWithLord extends DialogAddon_changeValue {
-    public DialogAddon_exchangeCreditsWithLord(JSONObject json, String key) {
+public class DialogAddon_changeLordCredits extends DialogAddon_changeValue {
+    public DialogAddon_changeLordCredits(JSONObject json, String key) {
         super(json, key);
     }
 
     @Override
     protected void increaseChange(int value, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket) {
-        Global.getSector().getPlayerFleet().getCargo().getCredits().add(value);
         lord.addWealth(value*-1);
-        HashMap<String,String> inserts = new HashMap<>();
-        inserts.put("%c0",""+value);
-        DialogSet.addParaWithInserts("credits_increase",lord,targetLord,targetMarket,textPanel,options,dialog,false,inserts);
     }
 
     @Override
     protected void decreaseChange(int value, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket) {
-        value*=-1;
-        value = Math.min((int) value, (int) Global.getSector().getPlayerFleet().getCargo().getCredits().get());
-        Global.getSector().getPlayerFleet().getCargo().getCredits().subtract(value);
-        lord.addWealth(value*-1);
-        HashMap<String,String> inserts = new HashMap<>();
-        inserts.put("%c0",""+value);
-        DialogSet.addParaWithInserts("credits_decrease",lord,targetLord,targetMarket,textPanel,options,dialog,false,inserts);
+        lord.addWealth(value);
     }
 }

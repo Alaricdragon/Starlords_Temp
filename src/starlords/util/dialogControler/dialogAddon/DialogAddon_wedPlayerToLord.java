@@ -19,7 +19,7 @@ public class DialogAddon_wedPlayerToLord extends DialogAddon_Base{
             unMarryLord(LordController.getPlayerLord());
 
             lord.setMarried(true);
-            lord.setSpouse(Global.getSector().getPlayerPerson().getId());
+            lord.setSpouse(LordController.getPlayerLord().getLordAPI().getId());
             LordController.getPlayerLord().setMarried(true);
             LordController.getPlayerLord().setSpouse(lord.getLordAPI().getId());
         }else if (LordController.getPlayerLord().getSpouse().equals(lord.getLordAPI().getId())){
