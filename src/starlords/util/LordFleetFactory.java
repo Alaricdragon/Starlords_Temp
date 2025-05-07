@@ -16,6 +16,7 @@ import com.fs.starfarer.api.fleet.ShipRolePick;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetFactoryV3;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
 import com.fs.starfarer.api.impl.campaign.ids.*;
+import com.fs.starfarer.api.loading.VariantSource;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import lombok.Setter;
@@ -213,6 +214,15 @@ public class LordFleetFactory extends FleetFactoryV3 {
             if (modToAdd != null) {
                 totalCost += modCost;
                 member.getVariant().addPermaMod(modToAdd, true);
+
+                //this works. but I want to try to optimize it.
+                /*member.getVariant().setHullVariantId(null);
+                ShipVariantAPI target = member.getVariant();
+                //log.info("  getting a single variant of name: " + target.getDisplayName() + ", hullVariantID: " + target.getHullVariantId());
+                target = target.clone();
+                target.setSource(VariantSource.REFIT);
+                target.addPermaMod(modToAdd, true);
+                member.setVariant(target,false,true);*/
             }
         }
         return totalCost;

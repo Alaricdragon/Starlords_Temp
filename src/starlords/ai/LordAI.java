@@ -678,8 +678,10 @@ public class LordAI implements EveryFrameScript {
                     FactionAPI faction = lord.getFaction();
                     LordEvent campaign = EventController.getCurrentCampaign(faction);
                     if (campaign == null){
-                        //yes this happened. I don't know how or why.
+                        lord.setCurrAction(null);
                         chooseAssignment(lord);
+                        //yes this happened. I don't know how or why.
+                        return;
                     }
                     int weight = EventController.getJoinCampaignWeight(lord);
                     if (campaign.getBattle() != null) {
