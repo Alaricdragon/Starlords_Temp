@@ -228,10 +228,9 @@ public class FiefController extends BaseIntelPlugin {
             }
         }
 
-        if (fiefList.isEmpty() == false) {
+        if (fiefList != "")
             fiefList = fiefList.substring(0, fiefList.length() - 2);
-            Global.getSector().getCampaignUI().addMessage("Added " + fiefList + " to your fiefs.", playerLord.getFaction().getBaseUIColor());
-        }
+        Global.getSector().getCampaignUI().addMessage("Added " + fiefList + " to your fiefs.",playerLord.getFaction().getBaseUIColor());
 
     }
 

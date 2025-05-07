@@ -706,13 +706,9 @@ public class Utils {
 			    try {
                     output += "[Star Lords] " + lord.getLordAPI().getNameString() + "(" + lord.getLordAPI().getId() + ")";
                     Lord prisoner = LordController.getLordById(prisonerID);
-                    if (prisoner != null)
-                        output += " has prisoner " + prisoner.getLordAPI().getNameString() + "(" + prisoner.getLordAPI().getId() + ")"
-                                + " captor " + prisoner.getCaptor()
-                                + System.lineSeparator();
-                    else
-                        output += " has prisoner " + "(" + prisonerID + ") but id doesn't exist"
-                                + System.lineSeparator();
+                    output += " has prisoner " + prisoner.getLordAPI().getNameString() + "(" + prisoner.getLordAPI().getId() + ")"
+                            + " captor " + prisoner.getCaptor()
+                            + System.lineSeparator();
                 }catch (Exception e){
 			        output += "\n ERROR. failed to get a prisoner. error of: "+e.getMessage();
                 }
