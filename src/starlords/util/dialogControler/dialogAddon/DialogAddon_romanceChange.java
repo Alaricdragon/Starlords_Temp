@@ -22,4 +22,9 @@ public class DialogAddon_romanceChange extends DialogAddon_changeValue {
     protected void decreaseChange(int value, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket) {
         lord.setRomanticActions(lord.getRomanticActions()+value);
     }
+
+    @Override
+    protected int getCurrentValue(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket) {
+        return lord.getRomanticActions();
+    }
 }

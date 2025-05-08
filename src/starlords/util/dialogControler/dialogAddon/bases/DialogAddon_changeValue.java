@@ -16,8 +16,21 @@ public class DialogAddon_changeValue extends DialogAddon_Base {
     private int min = -2147483647;
     private DialogValuesList maxList;
     private DialogValuesList minList;
+    boolean set = false;
+    public DialogAddon_changeValue(){
+
+    }
     @SneakyThrows
     public DialogAddon_changeValue(JSONObject json, String key){
+        init(json,key);
+    }
+    @SneakyThrows
+    public void init(JSONObject json, String key){
+        if (json.get(key) instanceof  JSONObject && json.getJSONObject(key).has("setValue")){
+            json = json.getJSONObject(key);
+            set = json.getBoolean("setValue");
+            key = "value";
+        }
         if (!(json.get(key) instanceof JSONObject)){
             int value = json.getInt(key);
             max=value;
@@ -37,7 +50,7 @@ public class DialogAddon_changeValue extends DialogAddon_Base {
             return;
         }
     }
-    protected int getValue(Lord lord, Lord targetLord, MarketAPI targetMarket){
+    private int getValue(Lord lord, Lord targetLord, MarketAPI targetMarket){
         int max = this.max;
         if (maxList != null) max = maxList.getValue(lord, targetLord,targetMarket);
         int min = this.min;
@@ -64,6 +77,9 @@ public class DialogAddon_changeValue extends DialogAddon_Base {
     @Override
     public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket) {
         int value = getValue(lord, targetLord,targetMarket);
+        if (set){
+            value = value - getCurrentValue(textPanel, options, dialog, lord, targetLord, targetMarket);
+        }
         if (value > 0){
             increaseChange(value,textPanel,options,dialog,lord,targetLord,targetMarket);
         }else if(value < 0){
@@ -75,5 +91,8 @@ public class DialogAddon_changeValue extends DialogAddon_Base {
     }
     protected void decreaseChange(int value,TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket){
 
+    }
+    protected int getCurrentValue(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket){
+        return 0;
     }
 }

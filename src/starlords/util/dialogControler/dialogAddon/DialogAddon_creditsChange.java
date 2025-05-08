@@ -36,4 +36,9 @@ public class DialogAddon_creditsChange extends DialogAddon_changeValue {
         inserts.put("%c0",""+value);
         DialogSet.addParaWithInserts("credits_decrease",lord,targetLord,targetMarket,textPanel,options,dialog,false,inserts);
     }
+
+    @Override
+    protected int getCurrentValue(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket) {
+        return (int) Global.getSector().getPlayerFleet().getCargo().getCredits().get();
+    }
 }

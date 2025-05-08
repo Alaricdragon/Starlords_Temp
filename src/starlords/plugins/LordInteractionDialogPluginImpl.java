@@ -96,7 +96,6 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     protected String setStartingDialog(){
         return "greeting";
     }
-
     @Override
     public void optionSelected(String optionText, Object optionData) {
         if (optionSelected_NEW(optionText,optionData)){
@@ -158,17 +157,12 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         * bug prevention:
         *   1) (DONE) add in a function that will be there until the next save compatible update. it will set anyone that is married to be married to the player.
         *   2) (DONE) merge this branch with the branch from fixes. its important ok?
-        * additional functions:
-        *   (done) custom addon
-        *   (done)custom rule
-        *   (done)custom insert
-        *   (done)custom value
         * dialog improvements
         *   ...
         *   OK: so I require some rules for this.
         *       -) process:
         *           I am going to go from the bottom of the dialogs, to the top, doing everything I can along the way to improve things.
-        *           I am presently at 'canDefectOption'
+        *           I am presently at 'profess_admiration_dislike_1'
         *       1) fist of all, I am going to be forced to replace all the current personality dialogs with the template. KEEP THE OLD DIALOGS. I will needs them whenever I end up fing up.
         *       2) [addons]. for many addons, complicated things happen (like ransoming prisoners.) this should be in the defalt dialog as like, [addons_textName_textType]. ([addons_marage_refusealHarsh] for example).
         *           -note: I need to deside how... many of the addons I am going to need.
@@ -184,78 +178,22 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         *       1) suggestDefectionCanConsider. this dialogSet might need to be moved, so its part of the line that you ask? then again, I think its fine?
         *       2) (DONE. untested )canDefectOption. the data here needs to be moved to the answer itself.
         *           -I also need to make it so the data that sets this happens in a set data.
-        *       3) for "swayProposal_forCounsel_bargain", "swayProposal_againstCounsel_bargain", "swayProposal_forPlayer_bargain".
-        *           -the rules here need to be moved into a 'set data'. maybe one attached to the option that selects this? does the option run its data before the line is selected? arg.. (options do run addons before selecting there data.)
-        *           - "option_sway_council_support"
-        *           - "option_sway_council_oppose"
-        *           - "option_sway_player"
-        *           - ""
-        *           ... ok so: I have looked at this farther.
-        *               theory: I COULD make it so I have a rule that is like, setData boolean. but that means rebuilding the stored data detection plugins. arg... I dont like that... mmm FINE SEE IF I CARE
-        *               NOTE: I NEED TO ADD IN A NEW ADDON MODIFICATION FOR SAVING DATA. one that lets me chose between int, string, and boolean.
-        *           -rules: (I want to merge the rules into one value, so I can easier tell what I wanna do. if possible.)
-        *               "bargin":
-                              "optionOfPlayerProposal": { "min": -20
-                              },
-                              "lordProposalPlayerSupports": true,
-                              "relationWithPlayer": {
-                                "min": -24
-                              },
-                              "lordProposalSupporters": {
-                                "min": 2
-                              },
-                              "lordProposalExists": true
-        *               "bribe":
-        *               NOTE: all personality have there own 'range' for bribes.
-        *               note: "random" rule could be converted into dialogValue. the "value" is what range the random would have, and "range" is the min value required to acsept.
-                        "rules": {
-                          "optionOfPlayerProposal": {
-                            "min": -20
-                          },
-                          "random": {
-                            "range": 50,
-                            "value": {
-                              "base":25,
-                              "relationWithPlayer": 1
-                            }
-                          }
-                        },
-        *               "acsept_reluctant":
-                              "opinionOfPlayerProposal": {
-                                "min": -20,
-                                "max": -1
-                              },
-                              "random": {
-                                "range": 100,
-                                "value": {
-                                  "base":12,
-                                  "playerLordRelation": 1,
-                                  "optionOfPlayerProposal": 10
-                                }
-                              }
-        *               "acsept":
-                              "opinionOfCurrProposal": {
-                                "min": 0
-                              },
-                              "random": {
-                                "range": 100,
-                                "value": {
-                                  "base":12,
-                                  "playerLordRelation": 1,
-                                  "optionOfCurrProposal": 10
-                                }
-                              }
-        *
+        *       3) (done main changes. need to implement. untested.)for "swayProposal_forCounsel_bargain", "swayProposal_againstCounsel_bargain", "swayProposal_forPlayer_bargain" requies additional testing. to make sure they work.
+        *           -NOTE: when I apply the rules, make sure the 'min' and 'max' values are set to the right value (all people have diffrent values for that.)
         *   1) I need to go through all the dialog, and merge the dialog into a type of 'template' that I can add additional data to.
         *   2) I need to go into all lines and imporve them just a bit. by adding in the new utility functions I added in the first place.
         *   3) I need to go into anything that uses a diffrent option set, and make it so instead of setting all the options right there, it gets a different option set instead (because having a cenralized option set to change prevents modders from having to keep trake of every time I add a dialog option. it is important.)
         * dialog fixes:
         *   1) speak privately right now, does not have an option that prevents it from working. I messed up somewhere. (or maybe just for certain lord types?)
+        *       -also, when you are in the prisoners dialog, runs the normal dialog list when it attmepts to return the player to 'greetings'
         *   2) add in a custom defection refusal to the template, for when lords can never defect by the player hands.
+        *   3) many options are calling optionSet greetings. I need to do one of the following:
+        *       a)(this will not work) make it so the diffrent dialogs can override optionSet greetings, then replace all 'greetins' with 'optionSet greetings'
+        *       b) make it so all options that call the defalt option set, instead call the defalt line.
         * dialog logs:
         *   1) remove all the logs. the ones i do chose to keep, should only be the most basic ones, and they should have the log class set currently.
         *
-        * additional rules:
+        * (x)additional rules:
         *   setLordMemoryData_int
         *   setLordMemoryData_boolean
         *   setLordMemoryData_string

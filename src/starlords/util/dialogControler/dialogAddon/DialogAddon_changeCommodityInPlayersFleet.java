@@ -39,4 +39,9 @@ public class DialogAddon_changeCommodityInPlayersFleet extends DialogAddon_chang
         inserts.put("%c1",item);
         DialogSet.addParaWithInserts("item_lost",lord,targetLord,targetMarket,textPanel,options,dialog,false,inserts);
     }
+
+    @Override
+    protected int getCurrentValue(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket) {
+        return (int) Global.getSector().getPlayerFleet().getCargo().getCommodityQuantity(item);
+    }
 }

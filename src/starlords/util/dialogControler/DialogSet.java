@@ -1117,23 +1117,14 @@ public class DialogSet {
                 case "customDialogAddon":
                     addon = addAddon_customDialogAddon(addons,key2);
                     break;
-                case "setDialogData_Int":
+                case "adjustDialogData_Int":
                     newAddons.addAll(addAddon_setDialogData_Int(addons,key2));
                     break;
-                case "setDialogData_Int_Add":
-                    newAddons.addAll(addAddon_setDialogData_Int_Add(addons,key2));
-                    break;
-                case "setMemoryData_Int":
+                case "adjustMemoryData_Int":
                     newAddons.addAll(addAddon_setMemoryData_Int(addons,key2));
                     break;
-                case "setMemoryData_Int_Add":
-                    newAddons.addAll(addAddon_setMemoryData_Int_Add(addons,key2));
-                    break;
-                case "setLordMemoryData_Int":
+                case "adjustLordMemoryData_Int":
                     newAddons.addAll(addAddon_setLordMemoryData_Int(addons,key2));
-                    break;
-                case "setLordMemoryData_Int_Add":
-                    newAddons.addAll(addAddon_setLordMemoryData_Int_Add(addons,key2));
                     break;
                 case "setDialogData_Boolean":
                     newAddons.addAll(addAddon_setDialogData_Boolean(addons,key2));
@@ -1358,16 +1349,6 @@ public class DialogSet {
         return addons;
     }
     @SneakyThrows
-    private static ArrayList<DialogAddon_Base> addAddon_setDialogData_Int_Add(JSONObject json,String key){
-        json = json.getJSONObject(key);
-        ArrayList<DialogAddon_Base> addons = new ArrayList<>();
-        for (Iterator it = json.keys(); it.hasNext(); ) {
-            String key2 = (String) it.next();
-            addons.add(new DialogAddon_setDialogData_Int_Add(key2,json));
-        }
-        return addons;
-    }
-    @SneakyThrows
     private static ArrayList<DialogAddon_Base> addAddon_setMemoryData_Int(JSONObject json,String key){
         json = json.getJSONObject(key);
         ArrayList<DialogAddon_Base> addons = new ArrayList<>();
@@ -1378,32 +1359,12 @@ public class DialogSet {
         return addons;
     }
     @SneakyThrows
-    private static ArrayList<DialogAddon_Base> addAddon_setMemoryData_Int_Add(JSONObject json,String key){
-        json = json.getJSONObject(key);
-        ArrayList<DialogAddon_Base> addons = new ArrayList<>();
-        for (Iterator it = json.keys(); it.hasNext(); ) {
-            String key2 = (String) it.next();
-            addons.add(new DialogAddon_setMemoryData_Int_Add(key2,json));
-        }
-        return addons;
-    }
-    @SneakyThrows
     private static ArrayList<DialogAddon_Base> addAddon_setLordMemoryData_Int(JSONObject json,String key){
         json = json.getJSONObject(key);
         ArrayList<DialogAddon_Base> addons = new ArrayList<>();
         for (Iterator it = json.keys(); it.hasNext(); ) {
             String key2 = (String) it.next();
             addons.add(new DialogAddon_setLordMemoryData_Int(key2,json));
-        }
-        return addons;
-    }
-    @SneakyThrows
-    private static ArrayList<DialogAddon_Base> addAddon_setLordMemoryData_Int_Add(JSONObject json,String key){
-        json = json.getJSONObject(key);
-        ArrayList<DialogAddon_Base> addons = new ArrayList<>();
-        for (Iterator it = json.keys(); it.hasNext(); ) {
-            String key2 = (String) it.next();
-            addons.add(new DialogAddon_setLordMemoryData_Int_Add(key2,json));
         }
         return addons;
     }

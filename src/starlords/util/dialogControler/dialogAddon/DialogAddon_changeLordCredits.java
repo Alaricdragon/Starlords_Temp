@@ -26,4 +26,9 @@ public class DialogAddon_changeLordCredits extends DialogAddon_changeValue {
     protected void decreaseChange(int value, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket) {
         lord.addWealth(value);
     }
+
+    @Override
+    protected int getCurrentValue(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket) {
+        return (int) lord.getWealth();
+    }
 }
