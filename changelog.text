@@ -1,3 +1,6 @@
+V0.3.35:
+    (thanks Aleksandros for the following):
+        fixed a intel message triggering when it should not have.
 V0.3.34:
     fixed lord Smods being removed on game load (hopefully).
 V0.3.33:
