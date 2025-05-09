@@ -43,13 +43,13 @@
 * string data: sets a value to an inputted string (with all the inserts normal placed in dialog). can be written as the following:
   * String. this just sets the value to this string.
   * {"String":String, "customInserts": [DIALOG_INSERTS.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_INSERTS.md) }, were "String" is the string you want to use as a base
-  * "setDialogData": jsonObject. sets data that is stored in the dialog, and is deleted when the interaction ends. if a jsonObject with a min/max is one of its lines, it acts as a increase to the value.
-    * each line is "dataID" : String || boolean || integer/([DIALOG_VALUES.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_VALUES.md)) || JsonObject {min: integer/dialogValue,max: integer/dialogValue}
-  * "setMemoryData": jsonObject. sets memory key data. memory is held in the save file, and will remain forever. please keep in mind, chose your memorys dataID wisely. your dataID must start with '$', and should not be the same as ANY OTHER MEMEORY IN THE GAME. be carefull. if a jsonObject with a min/max is one of its lines, it acts as a increase to the value.
-    * each line is "dataID" : String || boolean || integer/([DIALOG_VALUES.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_VALUES.md)) || JsonObject {min: integer/dialogValue,max: integer/dialogValue}
+  * "setDialogData_String": jsonObject sets data that is stored in the dialog, and is deleted when the interaction ends.
+    * each line is "dataID" : 'string data', were "dataID" is the id of whatever data you want to save.
+  * "setMemoryData_String": jsonObject sets data that is stored in starsectors memory, and is permanent. (unless a timer is set.)
+    * each line is "dataID" : 'string data', were "dataID" is the id of whatever data you want to save. each "dataID" must start with "$" to work.
     * each line can also be: "dataID": {"time":Integer/([DIALOG_VALUES.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_VALUES.md)), "data": (the same data as a normal dataID)}. in this instance, the data will only last for the inputted 'time' of days, before being removed.
-  * "setLordMemoryData": jsonObject. sets memory key data, linked to the interacted starlord. memory is held in the save file, and will remain forever, or until the starlord dies. each starlords memory is stored in "$STARLORDS_LORD_ADDITIONAL_MEMORY_%lordID". (were lordID is the ID tied to the lord). so try not to grab that directly please. if a jsonObject with a min/max is one of its lines, it acts as a increase to the value.
-    * each line is "dataID" : String || boolean || integer/([DIALOG_VALUES.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_VALUES.md)) || JsonObject {min: integer/dialogValue,max: integer/dialogValue}
+  * "setLordMemoryData_String": jsonObject sets memory key data, linked to the interacted starlord. memory is held in the save file, and will remain forever, or until the starlord dies.
+    * each line is "dataID" : 'string data', were "dataID" is the id of whatever data you want to save.
     * each line can also be: "dataID": {"time":Integer/([DIALOG_VALUES.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_VALUES.md)), "data": (the same data as a normal dataID)}. in this instance, the data will only last for the inputted 'time' of days, before being removed.
   
 * "additionalText": "lineID" adds an additional line of dialog, with the inputed name. also take a jsonArray as input, running each inputed line in sequence.
@@ -92,13 +92,5 @@
   
 
   
-  * "setDialogData_String": jsonObject sets data that is stored in the dialog, and is deleted when the interaction ends.
-    * each line is "dataID" : 'value changes', were "dataID" is the id of whatever data you want to save.
-  * "setMemoryData_String": jsonObject sets data that is stored in starsectors memory, and is permanent. (unless a timer is set.)
-    * each line is "dataID" : 'value changes', were "dataID" is the id of whatever data you want to save. each "dataID" must start with "$" to work.
-    * each line can also be: "dataID": {"time":Integer/([DIALOG_VALUES.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_VALUES.md)), "data": (the same data as a normal dataID)}. in this instance, the data will only last for the inputted 'time' of days, before being removed.
-  * "setLordMemoryData_String": jsonObject sets memory key data, linked to the interacted starlord. memory is held in the save file, and will remain forever, or until the starlord dies.
-    * each line is "dataID" : 'value changes', were "dataID" is the id of whatever data you want to save.
-    * each line can also be: "dataID": {"time":Integer/([DIALOG_VALUES.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_VALUES.md)), "data": (the same data as a normal dataID)}. in this instance, the data will only last for the inputted 'time' of days, before being removed.
 
 * "setLordTags": jsonObject. were each item is 'tagName' : boolean. set to true to add a tag, false to remove it. tags will remain on a starlord until removed.

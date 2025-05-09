@@ -55,7 +55,8 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     private CampaignFleetAPI lordFleet;
     @Getter
     protected static Lord targetLord;
-    private boolean hasGreeted;
+    @Getter
+    private static boolean hasGreeted;
     @Getter
     private static String DialogType;
 
@@ -68,6 +69,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     private boolean swayFor;
     private LawProposal proposal;
 
+    public static String startingDialog;
     @Override
     public void init(InteractionDialogAPI dialog) {
         this.dialog = dialog;
@@ -86,7 +88,8 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
             DATA_HOLDER.setTargetID(targetLord.getLordAPI().getId());
         }
         DialogType = setDialogType();
-        String startingOption = setStartingDialog();
+        startingDialog = setStartingDialog();
+        hasGreeted = false;
         DialogOption option = new DialogOption(setStartingDialog(),new ArrayList<>());
         optionSelected(null, option);
     }
@@ -162,7 +165,9 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         *   OK: so I require some rules for this.
         *       -) process:
         *           I am going to go from the bottom of the dialogs, to the top, doing everything I can along the way to improve things.
-        *           I am presently at 'profess_admiration_dislike_1'
+        *           I have compleated the 'template'. now its time to apply the template to the other starlords...
+        *               -I AM CURRENTLY 'DONE THE JSON. I need to fix issues though.
+        *           lastly, I need to go into the defalt dialog, and remove all the lines (setting them to produce 'error'.)
         *       1) fist of all, I am going to be forced to replace all the current personality dialogs with the template. KEEP THE OLD DIALOGS. I will needs them whenever I end up fing up.
         *       2) [addons]. for many addons, complicated things happen (like ransoming prisoners.) this should be in the defalt dialog as like, [addons_textName_textType]. ([addons_marage_refusealHarsh] for example).
         *           -note: I need to deside how... many of the addons I am going to need.
@@ -184,12 +189,14 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         *   2) I need to go into all lines and imporve them just a bit. by adding in the new utility functions I added in the first place.
         *   3) I need to go into anything that uses a diffrent option set, and make it so instead of setting all the options right there, it gets a different option set instead (because having a cenralized option set to change prevents modders from having to keep trake of every time I add a dialog option. it is important.)
         * dialog fixes:
+        *   -)!!!! right now, in prisoner dialog -> speak privitly, will load normal defalt dialog options, instead of defalt dialog options.
         *   1) speak privately right now, does not have an option that prevents it from working. I messed up somewhere. (or maybe just for certain lord types?)
         *       -also, when you are in the prisoners dialog, runs the normal dialog list when it attmepts to return the player to 'greetings'
         *   2) add in a custom defection refusal to the template, for when lords can never defect by the player hands.
         *   3) many options are calling optionSet greetings. I need to do one of the following:
         *       a)(this will not work) make it so the diffrent dialogs can override optionSet greetings, then replace all 'greetins' with 'optionSet greetings'
         *       b) make it so all options that call the defalt option set, instead call the defalt line.
+        *           -note: I need to change [options] to the [additionalText] addon for greetigns lines. this will work.
         * dialog logs:
         *   1) remove all the logs. the ones i do chose to keep, should only be the most basic ones, and they should have the log class set currently.
         *
@@ -216,10 +223,11 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
 
             Lord secondLord = data.getTargetLord();
             MarketAPI targetMarket = data.getTargetMarket();
+            if (selectedOption.equals(startingDialog)){
+                optionSelected_greetings(selectedOption,secondLord,targetMarket);
+                return true;
+            }
             switch (selectedOption){
-                case "greeting":
-                    optionSelected_greetings(selectedOption,secondLord,targetMarket);
-                    break;
                 case "exitDialog":
                     optionSelected_exitDialog();
                     break;

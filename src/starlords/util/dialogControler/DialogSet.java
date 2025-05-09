@@ -19,6 +19,7 @@ import starlords.controllers.PoliticsController;
 import starlords.faction.LawProposal;
 import starlords.lunaSettings.StoredSettings;
 import starlords.person.Lord;
+import starlords.plugins.LordInteractionDialogPluginImpl;
 import starlords.util.Constants;
 import starlords.util.GenderUtils;
 import starlords.util.Utils;
@@ -698,27 +699,29 @@ public class DialogSet {
         if (shouldHide(key,textPanel,options,lord,targetLord,targetMarket)) return;
         String line = this.getLine(key);
         if (line != null && !line.equals("") && !shouldHide(key, textPanel, options, lord,targetLord,targetMarket) && !forceHide) {
-            line = insertCustomData(key,line,lord,targetLord,targetMarket);
-            line = insertDefaltData(line, lord,targetLord,targetMarket);
-            line = insertAdditionalData(line, markersReplaced);
-            String[] highlightsTemp = new String[0];
-            if (colorHighlight.containsKey(key)){
-                highlightsTemp = new String[highlight.get(key).length];
-                for (int a = 0; a < highlightsTemp.length; a++){
-                    highlightsTemp[a] = insertDefaltData(highlight.get(key)[a],lord,targetLord,targetMarket,true);
-                }
-            }
-            if (colorOverride.containsKey(key)) {
+            if (!((key.equals("greeting") || key.equals(LordInteractionDialogPluginImpl.startingDialog)) && LordInteractionDialogPluginImpl.isHasGreeted())) {
+                line = insertCustomData(key, line, lord, targetLord, targetMarket);
+                line = insertDefaltData(line, lord, targetLord, targetMarket);
+                line = insertAdditionalData(line, markersReplaced);
+                String[] highlightsTemp = new String[0];
                 if (colorHighlight.containsKey(key)) {
-                    textPanel.addPara(line, colorOverride.get(key),colorHighlight.get(key),highlightsTemp);
-                }else{
-                    textPanel.addPara(line, colorOverride.get(key));
+                    highlightsTemp = new String[highlight.get(key).length];
+                    for (int a = 0; a < highlightsTemp.length; a++) {
+                        highlightsTemp[a] = insertDefaltData(highlight.get(key)[a], lord, targetLord, targetMarket, true);
+                    }
                 }
-            } else {
-                if (colorHighlight.containsKey(key)) {
-                    textPanel.addPara(line,colorHighlight.get(key),highlightsTemp);
-                }else{
-                    textPanel.addPara(line);
+                if (colorOverride.containsKey(key)) {
+                    if (colorHighlight.containsKey(key)) {
+                        textPanel.addPara(line, colorOverride.get(key), colorHighlight.get(key), highlightsTemp);
+                    } else {
+                        textPanel.addPara(line, colorOverride.get(key));
+                    }
+                } else {
+                    if (colorHighlight.containsKey(key)) {
+                        textPanel.addPara(line, colorHighlight.get(key), highlightsTemp);
+                    } else {
+                        textPanel.addPara(line);
+                    }
                 }
             }
         }
@@ -732,6 +735,12 @@ public class DialogSet {
                 builtOptions = true;
             }
             for (String a : additionalOptions.get(key)){
+                if (a.equals("greeting")){
+                    line = LordInteractionDialogPluginImpl.startingDialog;
+                    log.info("running a first line of: "+line);
+                    addParaWithInserts(line,lord,targetLord,targetMarket,textPanel,options,dialog);//,markersReplaced,LordInteractionDialogPluginImpl.isHasGreeted());
+                    return;
+                }
                 log.info("  ADDITIONAL OPTIONS: a single option of key: "+a);
                 addOptionWithInserts(a,lord,targetLord,targetMarket,textPanel,options,dialog,markersReplaced);
             }
@@ -783,44 +792,50 @@ public class DialogSet {
     public void applyOptionSingle(String key, Lord lord,Lord targetLord,MarketAPI targetMarket, TextPanelAPI textPanel,Object optionData,OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
         Logger log = Global.getLogger(StoredSettings.class);
         String line = this.getLine(key);
+        String optionIDTemp = ((DialogOption)optionData).optionID;
+        if (key.equals("greeting") || key.equals(LordInteractionDialogPluginImpl.startingDialog) || optionIDTemp.equals("greeting") || optionIDTemp.equals(LordInteractionDialogPluginImpl.startingDialog)){
+            runStartingLine(lord, targetLord, targetMarket, textPanel, options, dialog);
+            return;
+        }
         if (!shouldHide(key, textPanel, options, lord,targetLord,targetMarket) && (line != null)) {
-            log.info("adding option of key: "+key);
-            line = insertCustomData(key,line,lord,targetLord,targetMarket);
-            line = insertDefaltData(line, lord,targetLord,targetMarket);
+            log.info("adding option of key: " + key);
+            line = insertCustomData(key, line, lord, targetLord, targetMarket);
+            line = insertDefaltData(line, lord, targetLord, targetMarket);
             line = insertAdditionalData(line, markersReplaced);
             if (hint.containsKey(key)) {
-                String line2 = hint.get(key);
-                line2 = insertDefaltData(line2, lord,targetLord,targetMarket);
-                line2 = insertAdditionalData(line2, markersReplaced);
-                if (colorOverride.containsKey(key)) {
-                    options.addOption(line, optionData, colorOverride.get(key), line2);
-                } else {
-                    options.addOption(line, optionData, line2);
-                }
-                //is this even required????
-                options.setTooltip(optionData, line2);
-            } else {
-                if (colorOverride.containsKey(key)) {
-                    options.addOption(line, optionData, colorOverride.get(key), "");
-                } else {
-                    options.addOption(line, optionData);
-                }
-            }
+                                   String line2 = hint.get(key);
+                                   line2 = insertDefaltData(line2, lord, targetLord, targetMarket);
+                                   line2 = insertAdditionalData(line2, markersReplaced);
+                                   if (colorOverride.containsKey(key)) {
+                                   options.addOption(line, optionData, colorOverride.get(key), line2);
+                                   } else {
+                                   options.addOption(line, optionData, line2);
+                                   }
+                                   //is this even required????
+                                   options.setTooltip(optionData, line2);
+                                   } else {
+                                              if (colorOverride.containsKey(key)) {
+                                              options.addOption(line, optionData, colorOverride.get(key), "");
+                                              } else {
+                                              options.addOption(line, optionData);
+                                              }
+                                              }
             if (shotcut.containsKey(key)) {
-                switch (shotcut.get(key)) {
-                    case "ESCAPE":
-                        options.setShortcut(optionData, 1, false, false, false, false);
-                        break;
-                    case "CONTROL":
-                        //I am unsure how to do this, tbh.
-                        break;
-                    case "ALT":
-                        break;
-                    case "SHIFT":
-                        break;
-                }
-            }
-            if (enable.containsKey(key) && !shouldEnable(key,textPanel,options,lord,targetLord,targetMarket)) options.setEnabled(optionData,false);
+                                      switch (shotcut.get(key)) {
+                                      case "ESCAPE":
+                                      options.setShortcut(optionData, 1, false, false, false, false);
+                                      break;
+                                      case "CONTROL":
+                                      //I am unsure how to do this, tbh.
+                                      break;
+                                      case "ALT":
+                                      break;
+                                      case "SHIFT":
+                                      break;
+                                      }
+                                      }
+            if (enable.containsKey(key) && !shouldEnable(key, textPanel, options, lord, targetLord, targetMarket))
+                options.setEnabled(optionData, false);
         }else if(line == null){
             log.info("attempting to run addons as option.");
             DialogOption optionDataTemp = (DialogOption)optionData;
@@ -851,7 +866,9 @@ public class DialogSet {
         }
 
     }
-
+    private void runStartingLine(Lord lord,Lord targetLord,MarketAPI targetMarket, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog){
+        addParaWithInserts(LordInteractionDialogPluginImpl.startingDialog,lord,targetLord,targetMarket,textPanel,options,dialog);
+    }
     private String insertCustomData(String key,String line, Lord lord,Lord targetLord,MarketAPI targetMarket){
         if(!customInserts.containsKey(key))return line;
         return customInserts.get(key).insertData(line, lord, targetLord, targetMarket);
