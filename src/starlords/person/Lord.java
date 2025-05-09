@@ -14,10 +14,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.FullName;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Skills;
-import starlords.controllers.PoliticsController;
-import starlords.controllers.RequestController;
-import starlords.controllers.RelationController;
-import starlords.controllers.LordController;
+import starlords.controllers.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.lwjgl.util.vector.Vector2f;
@@ -545,6 +542,13 @@ public class Lord {
 		return false;
 
 	}
+
+	public HashMap<String,Integer> getFleetComposition(){
+        if (LordMemoryController.containsLord(getLordAPI().getId()) && LordMemoryController.getLordMemory(getLordAPI().getId()).overridingFleetComposition.size() != 0){
+            return LordMemoryController.getLordMemory(getLordAPI().getId()).overridingFleetComposition;
+        }
+        return template.shipPrefs;
+    }
 
 	public static Lord createPlayer() {
 		Lord player = new Lord(Global.getSector().getPlayerPerson());

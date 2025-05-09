@@ -239,7 +239,7 @@ public class LordFleetFactory extends FleetFactoryV3 {
             CampaignFleetAPI stationFleet = Misc.getStationFleet(market);
             if (stationFleet == null) return 0;  // TODO
             totalCost = addToLordFleet(
-                    lord.getTemplate().shipPrefs, stationFleet, new Random(), GARRISON_DP_CAP, cash);
+                    lord.getFleetComposition(), stationFleet, new Random(), GARRISON_DP_CAP, cash);
             FleetParamsV3 params = new FleetParamsV3();
             params.factionId = market.getFactionId();
             params.officerLevelLimit = 5;
@@ -306,7 +306,7 @@ public class LordFleetFactory extends FleetFactoryV3 {
                 lord.getWealth() - shipFunds,
                 FUEL_COST * Math.max(100, 500 - cargo.getFuel()) + MARINE_COST * Math.max(0, 200 - cargo.getMarines()));
         float modFunds = 3 * (lord.getWealth() - shipFunds - minCargoFunds) / 4;
-        float cost = addToLordFleet(lord.getTemplate().shipPrefs, lord.getFleet(), new Random(), DP_CAP, shipFunds);
+        float cost = addToLordFleet(lord.getFleetComposition(), lord.getFleet(), new Random(), DP_CAP, shipFunds);
         lord.addWealth(-1 * cost);
         //log.info("Lord " + lord.getLordAPI().getNameString() + " purchased " + Math.round(cost) + " of ships.");
         cost = addModsToFleet(lord.getFleet(), modFunds, lord);

@@ -1064,7 +1064,7 @@ public class LordAI implements EveryFrameScript {
         fleet.setLocation(respawnPoint.getLocation().x, respawnPoint.getLocation().y);
         LordFleetFactory.addToLordFleet(new ShipRolePick(lord.getTemplate().flagShip), fleet, new Random());
         fleet.getFleetData().getMembersInPriorityOrder().get(0).setFlagship(true);
-        float cost = LordFleetFactory.addToLordFleet(lord.getTemplate().shipPrefs, fleet, new Random(), 75, 1e8f);
+        float cost = LordFleetFactory.addToLordFleet(lord.getFleetComposition(), fleet, new Random(), 75, 1e8f);
         LordFleetFactory.populateCaptains(lord);
         lord.addWealth(-1 * cost);
         lord.setCurrAction(null);
