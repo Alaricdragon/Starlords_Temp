@@ -1054,7 +1054,7 @@ public class LordAI implements EveryFrameScript {
     private static void completeRespawn(Lord lord) {
         CampaignFleetAPI fleet = lord.getFleet();
         SectorEntityToken respawnPoint = lord.getClosestBase();
-        if (respawnPoint == null) {
+        if (respawnPoint == null && fleet != null && fleet.getContainingLocation() != null) {
             respawnPoint = Misc.findNearestPlanetTo(fleet, false, true);
         }
         //added defenses against there being no planets left in a system. if everything here fails, its because there is nothing in a sector. no planets or markets. its done.
@@ -1064,7 +1064,7 @@ public class LordAI implements EveryFrameScript {
         fleet.setLocation(respawnPoint.getLocation().x, respawnPoint.getLocation().y);
         LordFleetFactory.addToLordFleet(new ShipRolePick(lord.getTemplate().flagShip), fleet, new Random());
         fleet.getFleetData().getMembersInPriorityOrder().get(0).setFlagship(true);
-        float cost = LordFleetFactory.addToLordFleet(lord.getTemplate().shipPrefs, fleet, new Random(), 75, 1e8f);
+        float cost = LordFleetFactory.addToLordFleet(lord.getFleetComposition(), fleet, new Random(), 75, 1e8f);
         LordFleetFactory.populateCaptains(lord);
         lord.addWealth(-1 * cost);
         lord.setCurrAction(null);

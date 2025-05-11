@@ -118,6 +118,7 @@ public class LordsModPlugin extends BaseModPlugin {
         }/**/
         LordController.loadFleetSMods();
         LordController.logAllLords();
+        LordMemoryController.load();
     }
 
 
@@ -147,5 +148,6 @@ public class LordsModPlugin extends BaseModPlugin {
         LordController.logAllLords();
         LordController.saveUnusualLords();
         LordController.saveFleetSMods();
+        LordMemoryController.save();
     }
 }

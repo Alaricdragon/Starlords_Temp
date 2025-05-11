@@ -1,3 +1,7 @@
+V0.3.36:
+    fixes:
+        fixed another getContaining location null crash.
+    did a small amount of internal stuff. nothing should change yet.
 V0.3.35:
     (thanks Aleksandros for the following):
         fixed a intel message triggering when it should not have.
