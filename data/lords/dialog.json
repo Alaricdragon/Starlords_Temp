@@ -58,7 +58,7 @@
           "suggest_action": {
             "line": "I'm sorry, but I don't know you well enough.",
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           }
         }
@@ -919,7 +919,8 @@
                   "calculateDefect_credits": -1
                 }
               }
-            }
+            },
+            "optionData": "optionSet_justify_defect_calculating_success"
           },
           "justify_defect_upstanding_answer": {
             "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
@@ -938,7 +939,8 @@
                   "calculateDefect_credits": -1
                 }
               }
-            }
+            },
+            "optionData": "optionSet_justify_defect_upstanding_success"
           },
           "justify_defect_martial_answer": {
             "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
@@ -957,7 +959,8 @@
                   "calculateDefect_credits": -1
                 }
               }
-            }
+            },
+            "optionData": "optionSet_justify_defect_martial_success"
           },
           "justify_defect_quarrelsome_answer": {
             "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
@@ -976,7 +979,8 @@
                   "calculateDefect_credits": -1
                 }
               }
-            }
+            },
+            "optionData": "optionSet_justify_defect_quarrelsome_success"
           }
         }
       },
@@ -2185,7 +2189,7 @@
           "suggest_action": {
             "line": "I'm sorry, but I don't know you well enough.",
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           }
         }
@@ -3014,10 +3018,12 @@
                   "calculateDefect_credits": -1
                 }
               }
-            }
+            },
+            "optionData": "optionSet_justify_defect_calculating_success"
           },
           "justify_defect_upstanding_answer": {
             "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
+            "optionData": "optionSet_justify_defect_upstanding_success",
             "addons": {
               "playSound": "ui_char_level_up",
               "defectLordToFaction": {
@@ -3036,6 +3042,7 @@
             }
           },
           "justify_defect_martial_answer": {
+            "optionData": "optionSet_justify_defect_martial_success",
             "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
             "addons": {
               "playSound": "ui_char_level_up",
@@ -3056,6 +3063,7 @@
           },
           "justify_defect_quarrelsome_answer": {
             "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
+            "optionData": "optionSet_justify_defect_quarrelsome_success",
             "addons": {
               "playSound": "ui_char_level_up",
               "defectLordToFaction": {
@@ -4280,7 +4288,7 @@
           "suggest_action": {
             "line": "I'm sorry, but I don't know you well enough.",
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           }
         }
@@ -5126,6 +5134,7 @@
         "lines": {
           "justify_defect_calculating_answer": {
             "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
+            "optionData": "optionSet_justify_defect_calculating_success",
             "addons": {
               "playSound": "ui_char_level_up",
               "defectLordToFaction": {
@@ -5144,6 +5153,7 @@
             }
           },
           "justify_defect_upstanding_answer": {
+            "optionData": "optionSet_justify_defect_upstanding_success",
             "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
             "addons": {
               "playSound": "ui_char_level_up",
@@ -5163,6 +5173,7 @@
             }
           },
           "justify_defect_martial_answer": {
+            "optionData": "optionSet_justify_defect_martial_success",
             "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
             "addons": {
               "playSound": "ui_char_level_up",
@@ -5183,6 +5194,7 @@
           },
           "justify_defect_quarrelsome_answer": {
             "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
+            "optionData": "optionSet_justify_defect_quarrelsome_success",
             "addons": {
               "playSound": "ui_char_level_up",
               "defectLordToFaction": {
@@ -6407,7 +6419,7 @@
           "suggest_action": {
             "line": "I'm sorry, but I don't know you well enough.",
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           }
         }
@@ -7265,6 +7277,7 @@
         "lines": {
           "justify_defect_calculating_answer": {
             "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
+            "optionData": "optionSet_justify_defect_calculating_success",
             "addons": {
               "playSound": "ui_char_level_up",
               "defectLordToFaction": {
@@ -7283,6 +7296,7 @@
             }
           },
           "justify_defect_upstanding_answer": {
+            "optionData": "optionSet_justify_defect_upstanding_success",
             "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
             "addons": {
               "playSound": "ui_char_level_up",
@@ -7303,6 +7317,7 @@
           },
           "justify_defect_martial_answer": {
             "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
+            "optionData": "optionSet_justify_defect_martial_success",
             "addons": {
               "playSound": "ui_char_level_up",
               "defectLordToFaction": {
@@ -7322,6 +7337,7 @@
           },
           "justify_defect_quarrelsome_answer": {
             "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
+            "optionData": "optionSet_justify_defect_quarrelsome_success",
             "addons": {
               "playSound": "ui_char_level_up",
               "defectLordToFaction": {
@@ -8493,1243 +8509,6 @@
     "priority": 0,
     "rules": {},
     "lines": {
-      "isHost_feast": {
-        "priority": 6,
-        "rules": {
-          "isHostingFeast": true,
-          "isAtFeast": true
-        },
-        "lines": {
-          "accept_marriage_second": "Talk to me whenever you're ready and we'll start the ceremony.",
-          "greeting": "Welcome to my estate, %PLAYER_NAME. You are under my protection here; please make yourself at home."
-        }
-      },
-
-      "suggest_action_fail_relations": {
-        "priority": 5,
-        "rules": {
-          "relationWithPlayer": {
-            "max": 0
-          },
-          "isMarriedToPlayer": false
-        },
-        "lines": {
-          "suggest_action": {
-            "line": "I'm sorry, but I don't know you well enough.",
-            "options": [
-              "greeting"
-            ]
-          }
-        }
-      },
-
-      "suggest_action_fail_busy": {
-        "priority": 4,
-        "rules": {
-          "or": [
-            {
-              "isHostingFeast": true
-            },
-            {
-              "lordFleetIsAlive": false
-            },
-            {
-              "currentAction": {
-                "IS_ORGANIZING_CAMPAIGN": true
-              }
-            },
-            {
-              "currentAction": {
-                "IS_ON_CAMPAIGN": true
-              }
-            }
-          ]
-        },
-        "lines": {
-          "suggest_action": {
-            "line": "I'm sorry, but I have other matters to attend to.",
-            "options": [
-              "greeting"
-            ]
-          }
-        }
-      },
-      "swayProposal_forCounsel_acceptHappily": {
-        "priority": 4,
-        "rules": {
-          "opinionOfCurrProposal": {
-            "min": 0
-          },
-          "random": {
-            "range": 100,
-            "value": {
-              "base":12,
-              "playerLordRelation": 1,
-              "optionOfCurrProposal": 10
-            }
-          }
-        },
-        "lines": {
-          "swayProposal_forCounsel": {
-            "line": "Of course friend, now that you explain it that way, I agree with you.",
-            "addons": {
-              "setPledgedFor_CurrentProposal": true,
-              "setSwayed": true
-            }
-          }
-        }
-      },
-      "swayProposal_forCounsel_acceptReluctant": {
-        "priority": 4,
-        "rules": {
-          "opinionOfCurrProposal": {
-            "min": -20,
-            "max": -1
-          },
-          "random": {
-            "range": 100,
-            "value": {
-              "base":12,
-              "playerLordRelation": 1,
-              "optionOfCurrProposal": 10
-            }
-          }
-        },
-        "lines": {
-          "swayProposal_forCounsel": {
-            "line": "Er... I already agree with you, though I must say that our talk has reinforced my view.",
-            "addons": {
-              "setPledgedFor_CurrentProposal": true,
-              "setSwayed": true
-            }
-          }
-        }
-      },
-      "swayProposal_againstCounsel_acceptHappily": {
-        "priority": 4,
-        "rules": {
-          "opinionOfCurrProposal": {
-            "max": 0
-          },
-          "random": {
-            "range": 100,
-            "value": {
-              "base":12,
-              "playerLordRelation": 1,
-              "optionOfCurrProposal": -10
-            }
-          }
-        },
-        "lines": {
-          "swayProposal_againstCounsel": {
-            "line": "Of course friend, now that you explain it that way, I agree with you.",
-            "addons": {
-              "setPledgedAgainst_CurrentProposal": true,
-              "setSwayed": true
-            }
-          }
-        }
-      },
-      "swayProposal_againstCounsel_acceptReluctant": {
-        "priority": 4,
-        "rules": {
-          "opinionOfCurrProposal": {
-            "max": 20,
-            "min": 1
-          },
-          "random": {
-            "range": 100,
-            "value": {
-              "base":12,
-              "playerLordRelation": 1,
-              "optionOfCurrProposal": -10
-            }
-          }
-        },
-        "lines": {
-          "swayProposal_againstCounsel": {
-            "line": "Er... I already agree with you, though I must say that our talk has reinforced my view.",
-            "addons": {
-              "setPledgedAgainst_CurrentProposal": true,
-              "setSwayed": true
-            }
-          }
-        }
-      },
-      "swayProposal_forPlayer_acceptHappily": {
-        "priority": 4,
-        "rules": {
-          "opinionOfPlayerProposal": {
-            "min": 0
-          },
-          "random": {
-            "range": 100,
-            "value": {
-              "base":12,
-              "playerLordRelation": 1,
-              "optionOfPlayerProposal": 10
-            }
-          }
-        },
-        "lines": {
-          "swayProposal_forPlayer": {
-            "line": "Of course friend, now that you explain it that way, I agree with you.",
-            "addons": {
-              "setPledgedFor_PlayerProposal": true,
-              "setSwayed": true
-            }
-          }
-        }
-      },
-      "swayProposal_forPlayer_acceptReluctant": {
-        "priority": 4,
-        "rules": {
-          "opinionOfPlayerProposal": {
-            "min": -20,
-            "max": -1
-          },
-          "random": {
-            "range": 100,
-            "value": {
-              "base":12,
-              "playerLordRelation": 1,
-              "optionOfPlayerProposal": 10
-            }
-          }
-        },
-        "lines": {
-          "swayProposal_forPlayer": {
-            "line": "Er... I already agree with you, though I must say that our talk has reinforced my view.",
-            "addons": {
-              "setPledgedFor_PlayerProposal": true,
-              "setSwayed": true
-            }
-          }
-        }
-      },
-      "refuse_marriage_no_romance": {
-        "priority": 4,
-        "rules": {
-          "playerLordRomanceAction": {
-            "max": 0
-          },
-          "relationWithPlayer": {
-            "min": 75
-          }
-        },
-        "lines": {
-          "marriage_response": {
-            "line": "You seem like a wonderful %PLAYER_GENDER_MAN_OR_WOMEN, but I'd like to see some sincerity on your part first.",
-            "addons": {
-              "additionalText": "refuse_marriage_hint"
-            }
-          }
-        }
-      },
-
-
-      "suggest_action_succeed_married": {
-        "priority": 3,
-        "rules": {
-          "isMarriedToPlayer": true
-        },
-        "lines": {
-          "suggest_action": {
-            "line": "Is something the matter, dear?"
-          }
-        }
-      },
-      "swayProposal_forCounsel_bargain": {
-        "priority": 3,
-        "rules": {
-          "opinionOfCurrProposal": {
-            "min": -20
-          },
-          "lordProposalPlayerSupports": true,
-          "relationWithPlayer": {
-            "min": -24
-          },
-          "lordProposalSupporters": {
-            "min": 2
-          },
-          "lordProposalExists": true
-        },
-        "lines": {
-          "swayProposal_forCounsel": {
-            "line": "Hmm... I don't mind lending you a hand, but I have my own proposal that I would expect you to support in return.",
-            "options": [
-              "swayProposal_forCounsel_Bargain_accept",
-              "swayProposal_forCounsel_Bargain_refuse"
-            ]
-          }
-        }
-      },
-      "swayProposal_againstCounsel_bargain": {
-        "priority": 3,
-        "rules": {
-          "opinionOfCurrProposal": {
-            "max": 20
-          },
-          "lordProposalPlayerSupports": true,
-          "relationWithPlayer": {
-            "min": -24
-          },
-          "lordProposalSupporters": {
-            "min": 2
-          },
-          "lordProposalExists": true
-        },
-        "lines": {
-          "swayProposal_againstCounsel": {
-            "line": "Hmm... I don't mind lending you a hand, but I have my own proposal that I would expect you to support in return.",
-            "options": [
-              "swayProposal_againstCounsel_Bargain_accept",
-              "swayProposal_againstCounsel_Bargain_refuse"
-            ]
-          }
-        }
-      },
-      "swayProposal_forPlayer_bargain": {
-        "priority": 3,
-        "rules": {
-          "optionOfPlayerProposal": {
-            "min": -20
-          },
-          "lordProposalPlayerSupports": true,
-          "relationWithPlayer": {
-            "min": -24
-          },
-          "lordProposalSupporters": {
-            "min": 2
-          },
-          "lordProposalExists": true
-        },
-        "lines": {
-          "swayProposal_forPlayer": {
-            "line": "Hmm... I don't mind lending you a hand, but I have my own proposal that I would expect you to support in return.",
-            "options": [
-              "swayProposal_forPlayer_Bargain_accept",
-              "swayProposal_forPlayer_Bargain_refuse"
-            ]
-          }
-        }
-      },
-
-
-      "doesNotHaveLiege_Cooperative": {
-        "priority": 3,
-        "rules": {
-          "lordLoyalty": {
-            "min": 75,
-            "max": 100
-          },
-          "lordHasLiege" : false
-        },
-        "lines": {
-          "liege_opinion": "I have influence and wealth that rivals that of many kings. I'm quite satisfied with the state of affairs."
-        }
-      },
-      "doesNotHaveLiege_Friendly": {
-        "priority": 3,
-        "rules": {
-          "lordLoyalty": {
-            "min": 50,
-            "max": 74
-          },
-          "lordHasLiege" : false
-        },
-        "lines": {
-          "liege_opinion": "I have influence and wealth that rivals that of many kings. I'm quite satisfied with the state of affairs."
-        }
-      },
-      "doesNotHaveLiege_Welcoming": {
-        "priority": 3,
-        "rules": {
-          "lordLoyalty": {
-            "min": 25,
-            "max": 49
-          },
-          "lordHasLiege" : false
-        },
-        "lines": {
-          "liege_opinion": "Life is not without challenge, but my operations are slowly expanding with each passing day."
-        }
-      },
-      "doesNotHaveLiege_Favorable": {
-        "priority": 3,
-        "rules": {
-          "lordLoyalty": {
-            "min": 10,
-            "max": 25
-          },
-          "lordHasLiege" : false
-        },
-        "lines": {
-          "liege_opinion": "Life is not without challenge, but my operations are slowly expanding with each passing day."
-        }
-      },
-      "doesNotHaveLiege_Neutral": {
-        "priority": 3,
-        "rules": {
-          "lordLoyalty": {
-            "min": -9,
-            "max": 9
-          },
-          "lordHasLiege" : false
-        },
-        "lines": {
-          "liege_opinion": "Life is as it always has been in the sector, full of danger but also opportunity."
-        }
-      },
-      "doesNotHaveLiege_Suspicious": {
-        "priority": 3,
-        "rules": {
-          "lordLoyalty": {
-            "min": -24,
-            "max": -10
-          },
-          "lordHasLiege" : false
-        },
-        "lines": {
-          "liege_opinion": "It's no secret that our fleet has fallen on hard times, though we still have plenty of fight left."
-        }
-      },
-      "doesNotHaveLiege_Inhospitable": {
-        "priority": 3,
-        "rules": {
-          "lordLoyalty": {
-            "min": -49,
-            "max": -25
-          },
-          "lordHasLiege" : false
-        },
-        "lines": {
-          "liege_opinion": "It's no secret that our fleet has fallen on hard times, though we still have plenty of fight left."
-        }
-      },
-      "doesNotHaveLiege_Hostile": {
-        "priority": 3,
-        "rules": {
-          "lordLoyalty": {
-            "min": -74,
-            "max": -50
-          },
-          "lordHasLiege" : false
-        },
-        "lines": {
-          "liege_opinion": "To be frank, things have been harsh on us. It's struggle just to make sure my crew doesn't starve."
-        }
-      },
-      "doesNotHaveLiege_Vengeful": {
-        "priority": 3,
-        "rules": {
-          "lordLoyalty": {
-            "min": -100,
-            "max": -75
-          },
-          "lordHasLiege" : false
-        },
-        "lines": {
-          "liege_opinion": "To be frank, things have been harsh on us. It's struggle just to make sure my crew doesn't starve."
-        }
-      },
-
-      "hasLiege_Cooperative": {
-        "priority": 3,
-        "rules": {
-          "lordLoyalty": {
-            "min": 75,
-            "max": 100
-          },
-          "lordHasLiege" : true
-        },
-        "lines": {
-          "liege_opinion": "%LORD_LIEGE_NAME is my trusted friend and role model. They are a paragon of what it means to be a leader."
-        }
-      },
-      "hasLiege_Friendly": {
-        "priority": 3,
-        "rules": {
-          "lordLoyalty": {
-            "min": 50,
-            "max": 74
-          },
-          "lordHasLiege" : true
-        },
-        "lines": {
-          "liege_opinion": "%LORD_LIEGE_NAME is my trusted friend and role model. They are a paragon of what it means to be a leader."
-        }
-      },
-      "hasLiege_Welcoming": {
-        "priority": 3,
-        "rules": {
-          "lordLoyalty": {
-            "min": 25,
-            "max": 49
-          },
-          "lordHasLiege" : true
-        },
-        "lines": {
-          "liege_opinion": "I have no quarrel with %LORD_LIEGE_NAME. They treat their subordinates with a firm but fair hand."
-        }
-      },
-      "hasLiege_Favorable": {
-        "priority": 3,
-        "rules": {
-          "lordLoyalty": {
-            "min": 10,
-            "max": 25
-          },
-          "lordHasLiege" : true
-        },
-        "lines": {
-          "liege_opinion": "I have no quarrel with %LORD_LIEGE_NAME. They treat their subordinates with a firm but fair hand."
-        }
-      },
-      "hasLiege_Neutral": {
-        "priority": 3,
-        "rules": {
-          "lordLoyalty": {
-            "min": -9,
-            "max": 9
-          },
-          "lordHasLiege" : true
-        },
-        "lines": {
-          "liege_opinion": "%LORD_LIEGE_NAME is my liege. That's all I'll say on the matter."
-        }
-      },
-      "hasLiege_Suspicious": {
-        "priority": 3,
-        "rules": {
-          "lordLoyalty": {
-            "min": -24,
-            "max": -10
-          },
-          "lordHasLiege" : true
-        },
-        "lines": {
-          "liege_opinion": "It's no secret that I have been unhappy with %LORD_LIEGE_NAME."
-        }
-      },
-      "hasLiege_Inhospitable": {
-        "priority": 3,
-        "rules": {
-          "lordLoyalty": {
-            "min": -49,
-            "max": -25
-          },
-          "lordHasLiege" : true
-        },
-        "lines": {
-          "liege_opinion": "It's no secret that I have been unhappy with %LORD_LIEGE_NAME."
-        }
-      },
-      "hasLiege_Hostile": {
-        "priority": 3,
-        "rules": {
-          "lordLoyalty": {
-            "min": -74,
-            "max": -50
-          },
-          "lordHasLiege" : true
-        },
-        "lines": {
-          "liege_opinion": "I've been waiting for any chance to escape the iron fist of %LORD_LIEGE_NAME. Might you have any ideas?"
-        }
-      },
-      "hasLiege_Vengeful": {
-        "priority": 3,
-        "rules": {
-          "lordLoyalty": {
-            "min": -100,
-            "max": -75
-          },
-          "lordHasLiege" : true
-        },
-        "lines": {
-          "liege_opinion": "I've been waiting for any chance to escape the iron fist of %LORD_LIEGE_NAME. Might you have any ideas?"
-        }
-      },
-
-      "willEngage": {
-        "priority": 2,
-        "rules": {
-          "willEngage": true
-        },
-        "lines": {
-          "suggest_ceasefire": {
-            "line":"Well... I suppose I do owe you a debt. So be it, leave now. We never saw each other.",
-            "addons": {
-              "preventAttacksOnPlayer": 7,
-              "repChange": -10
-            }
-          }
-        }
-      },
-      "isMarriedToPlayer": {
-        "priority": 2,
-        "rules": {
-          "isMarriedToPlayer": true
-        },
-        "lines": {
-          "stop_follow_me": {
-            "line":"I will see you soon my love.",
-            "addons": {
-              "AICommand": "END_CURRENT_ACTIONS"
-            }
-          },
-          "follow_me": {
-            "line":"Of course my %PLAYER_NAME_FIRST",
-            "addons": {
-              "AICommand": "FOLLOW_PLAYER_FLEET"
-            }
-          },
-          "raidLocation": {
-            "line":"Of course my %PLAYER_NAME_FIRST",
-            "addons": {
-              "AICommand": "RAID_TARGET_MARKET"
-            }
-          },
-          "patrolLocation": {
-            "line":"Of course my %PLAYER_NAME_FIRST",
-            "addons": {
-              "AICommand": "PATROL_TARGET_MARKET"
-            }
-          },
-          "suggest_upgrade": {
-            "line":"Of course my %PLAYER_NAME_FIRST",
-            "addons": {
-              "AICommand": "UPGRADE"
-            }
-          }
-        }
-      },
-      "player_subject": {
-        "priority": 2,
-        "rules": {
-          "playerSubject": true
-        },
-        "lines": {
-          "stop_follow_me": {
-            "line":"At once, %PLAYER_GENDER_SIR_OR_MAAM.",
-            "addons": {
-              "AICommand": "END_CURRENT_ACTIONS"
-            }
-          },
-          "follow_me": {
-            "line":"At once, %PLAYER_GENDER_SIR_OR_MAAM.",
-            "addons": {
-              "AICommand": "FOLLOW_PLAYER_FLEET"
-            }
-          },
-          "raidLocation": {
-            "line":"At once, %PLAYER_GENDER_SIR_OR_MAAM.",
-            "addons": {
-              "AICommand": "RAID_TARGET_MARKET"
-            }
-          },
-          "patrolLocation": {
-            "line":"At once, %PLAYER_GENDER_SIR_OR_MAAM.",
-            "addons": {
-              "AICommand": "PATROL_TARGET_MARKET"
-            }
-          },
-          "suggest_upgrade": {
-            "line":"At once, %PLAYER_GENDER_SIR_OR_MAAM.",
-            "addons": {
-              "AICommand": "UPGRADE"
-            }
-          },
-          "suggest_action": {
-            "line": "At your command, my liege."
-          }
-        }
-      },
-      "canDefectOption": {
-        "priority": 2,
-        "rules": {
-          "baseValue": {
-            "min": 0,
-            "value": {
-              "DialogData": {
-                "calculateDefect_legitimacy": 1,
-                "calculateDefect_RelativeFactionPreference": 1,
-                "calculateDefect_RelativeLordPreference": 1,
-                "calculateDefect_baseReluctance": 1
-              },
-              "random": 10,
-              "limitedValue": {
-                "value": {
-                  "DialogData": {
-                    "calculateDefect_justification": 5
-                  }
-                },
-                "max": {
-                  "DialogData": {
-                    "calculateDefect_acceptanceOfArgument": 1
-                  }
-                }
-              },
-              "conditionalValue": {
-                "rules": {
-                  "isMarriedToPlayer": true
-                },
-                "base": 200
-              }
-            }
-          }
-        },
-        "lines": {
-          "option_justify_defect_calculating_confirm": {
-            "line": "It's time for you to make a decision.",
-            "optionData": "justify_defect_calculating_success",
-            "hint": "-10 relations if failed"
-          },
-          "option_justify_defect_upstanding_confirm": {
-            "line": "It's time for you to make a decision.",
-            "optionData": "justify_defect_upstanding_success",
-            "hint": "-10 relations if failed"
-          },
-          "option_justify_defect_martial_confirm": {
-            "line": "It's time for you to make a decision.",
-            "optionData": "justify_defect_martial_success",
-            "hint": "-10 relations if failed"
-          },
-          "option_justify_defect_quarrelsome_confirm": {
-            "line": "It's time for you to make a decision.",
-            "optionData": "justify_defect_quarrelsome_success",
-            "hint": "-10 relations if failed"
-          }
-        }
-      },
-      "justify_defect_justification_2": {
-        "priority": 2,
-        "rules": {
-          "getDialogData": {
-            "calculateDefect_justification": {
-              "min":2
-            }
-          }
-        },
-        "lines": {
-          "justify_defect_calculating_justification": {
-            "line": "Based on your offer, your claim is seen as fully justified.",
-            "color": "ORANGE",
-            "highlight": {
-              "highlight": "fully justified",
-              "color": "GREEN"
-            }
-          },
-          "justify_defect_upstanding_justification": {
-            "line": "Based on your colonial stability and success, your claim is seen as fully justified.",
-            "color": "ORANGE",
-            "highlight": {
-              "highlight": "fully justified",
-              "color": "GREEN"
-            }
-          },
-          "justify_defect_martial_justification": {
-            "line": "Based on your military and personal strength, your claim is seen as fully justified.",
-            "color": "ORANGE",
-            "highlight": {
-              "highlight": "fully justified",
-              "color": "GREEN"
-            }
-          },
-          "justify_defect_quarrelsome_justification": {
-            "line": "Based on your history, your claim is seen as fully justified.",
-            "color": "ORANGE",
-            "highlight": {
-              "highlight": "fully justified",
-              "color": "GREEN"
-            }
-          }
-        }
-      },
-      "justify_defect_justification_1": {
-        "priority": 2,
-        "rules": {
-          "getDialogData": {
-            "calculateDefect_justification": 1
-          }
-        },
-        "lines": {
-          "justify_defect_calculating_justification": {
-            "line": "Based on your offer, your claim is seen as partially justified.",
-            "color": "ORANGE",
-            "highlight": {
-              "highlight": "partially justified",
-              "color": "YELLOW"
-            }
-          },
-          "justify_defect_upstanding_justification": {
-            "line": "Based on your colonial stability and success, your claim is seen as partially justified.",
-            "color": "ORANGE",
-            "highlight": {
-              "highlight": "partially justified",
-              "color": "YELLOW"
-            }
-          },
-          "justify_defect_martial_justification": {
-            "line": "Based on your military and personal strength, your claim is seen as partially justified.",
-            "color": "ORANGE",
-            "highlight": {
-              "highlight": "partially justified",
-              "color": "YELLOW"
-            }
-          },
-          "justify_defect_quarrelsome_justification": {
-            "line": "Based on your history, your claim is seen as partially justified.",
-            "color": "ORANGE",
-            "highlight": {
-              "highlight": "partially justified",
-              "color": "YELLOW"
-            }
-          }
-        }
-      },
-      "justify_defect_legitimacy": {
-        "priority": 2,
-        "rules": {
-          "getDialogData": {
-            "calculateDefect_legitimacy": {
-              "min":8
-            }
-          }
-        },
-        "lines": {
-          "justify_defect_calculating_legitimacy": "Hmm, your faction is well-established and has a legitimate claim to unite the sector.",
-          "justify_defect_upstanding_legitimacy": "Hmm, your faction is well-established and has a legitimate claim to unite the sector.",
-          "justify_defect_martial_legitimacy": "Hmm, your faction is well-established and has a legitimate claim to unite the sector.",
-          "justify_defect_quarrelsome_legitimacy": "Hmm, your faction is well-established and has a legitimate claim to unite the sector."
-        }
-      },
-      "justify_defect_RelativeFactionPreference": {
-        "priority": 2,
-        "rules": {
-          "getDialogData": {
-            "calculateDefect_RelativeFactionPreference": {
-              "min":1
-            }
-          }
-        },
-        "lines": {
-          "justify_defect_calculating_factionPreference": "It's true that I consider your faction more respectable than my own.",
-          "justify_defect_upstanding_factionPreference": "It's true that I consider your faction more respectable than my own.",
-          "justify_defect_martial_factionPreference": "It's true that I consider your faction more respectable than my own.",
-          "justify_defect_quarrelsome_factionPreference": "It's true that I consider your faction more respectable than my own."
-        }
-      },
-      "justify_defect_lordPreference": {
-        "priority": 2,
-        "rules": {
-          "getDialogData": {
-            "calculateDefect_RelativeLordPreference": {
-              "min":1
-            }
-          }
-        },
-        "lines": {
-          "justify_defect_calculating_lordPreference": "I would prefer working with your lords over my present company.",
-          "justify_defect_upstanding_lordPreference": "I would prefer working with your lords over my present company.",
-          "justify_defect_martial_lordPreference": "I would prefer working with your lords over my present company.",
-          "justify_defect_quarrelsome_lordPreference": "I would prefer working with your lords over my present company."
-        }
-      },
-      "justify_defect_acceptanceOfArgument": {
-        "priority": 2,
-        "rules": {
-          "getDialogData": {
-            "calculateDefect_acceptanceOfArgument": {
-              "min":100
-            }
-          }
-        },
-        "lines": {
-          "justify_defect_calculating_argumentAgreement": "I would prefer working with your lords over my present company.",
-          "justify_defect_upstanding_argumentAgreement": "I would prefer working with your lords over my present company.",
-          "justify_defect_martial_argumentAgreement": "I would prefer working with your lords over my present company.",
-          "justify_defect_quarrelsome_argumentAgreement": "I would prefer working with your lords over my present company."
-        }
-      },
-      "suggestDefection": {
-        "priority": 2,
-        "rules": {
-          "lordAndPlayerSameFaction": false,
-          "or": [
-            {
-              "isMarriedToPlayer": true
-            },
-            {
-              "lordLoyalty": {
-                "max": 10
-              }
-            }
-          ]
-        },
-        "lines": {
-          "optionSet_liege_opinion": {
-            "options": [
-              "option_suggest_defect",
-              "option_liege_opinion_exit"
-            ]
-          }
-        }
-      },
-      "hasLiege": {
-        "priority": 2,
-        "rules": {
-          "lordHasLiege": true
-        },
-        "lines": {
-          "option_ask_liege_opinion": {
-            "show": {
-              "lordAndPlayerSameFaction": false
-            },
-            "line": "How do you feel about your current conditions?",
-            "optionData": "liege_opinion"
-          }
-        }
-      },
-      "target_favItem_alpha_core": {
-        "priority": 2,
-        "rules": {
-          "SECOND_LORD": {
-            "lordsFavItem": {
-              "alpha_core": true
-            }
-          }
-        },
-        "lines": {
-          "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of AI research."
-        }
-      },
-      "target_favItem_hand_weapons": {
-        "priority": 2,
-        "rules": {
-          "SECOND_LORD": {
-            "lordsFavItem": {
-              "hand_weapons": true
-            }
-          }
-        },
-        "lines": {
-          "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of rare weapons."
-        }
-      },
-      "target_favItem_food": {
-        "priority": 2,
-        "rules": {
-          "SECOND_LORD": {
-            "lordsFavItem": {
-              "food": true
-            }
-          }
-        },
-        "lines": {
-          "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of exotic butters."
-        }
-      },
-      "target_favItem_luxury_goods": {
-        "priority": 2,
-        "rules": {
-          "SECOND_LORD": {
-            "lordsFavItem": {
-              "luxury_goods": true
-            }
-          }
-        },
-        "lines": {
-          "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of fashion."
-        }
-      },
-      "target_favItem_lobster": {
-        "priority": 2,
-        "rules": {
-          "SECOND_LORD": {
-            "lordsFavItem": {
-              "lobster": true
-            }
-          }
-        },
-        "lines": {
-          "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of Sindrian delicacies."
-        }
-      },
-      "target_favItem_drugs": {
-        "priority": 2,
-        "rules": {
-          "SECOND_LORD": {
-            "lordsFavItem": {
-              "drugs": true
-            }
-          }
-        },
-        "lines": {
-          "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of drugs."
-        }
-      },
-      "target_favItem_domestic_goods": {
-        "priority": 2,
-        "rules": {
-          "SECOND_LORD": {
-            "lordsFavItem": {
-              "domestic_goods": true
-            }
-          }
-        },
-        "lines": {
-          "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of technological gadgets."
-        }
-      },
-      "favItem_alpha_core": {
-        "priority": 2,
-        "rules": {
-          "lordsFavItem": {
-            "alpha_core": true
-          }
-        },
-        "lines": {
-          "option_gift_alpha_core": {
-            "line": "An alpha core",
-            "optionData": "likeGift_alpha_core",
-            "hint": "give 1 alpha_core to %LORD_NAME",
-            "addons": {
-              "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "alpha_core": -1
-              },
-              "romanceChange": 1
-            },
-            "enable": {
-              "PlayerHasCommodity": {
-                "alpha_core": {
-                  "min": 1
-                }
-              }
-            }
-          }
-        }
-      },
-      "favItem_hand_weapons": {
-        "priority": 2,
-        "rules": {
-          "lordsFavItem": {
-            "hand_weapons": true
-          }
-        },
-        "lines": {
-          "option_gift_hand_weapons": {
-            "line": "A high-quality handgun",
-            "optionData": "likeGift_hand_weapons",
-            "hint": "give 100 hand_weapons to %LORD_NAME",
-            "addons": {
-              "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "hand_weapons": -100
-              },
-              "romanceChange": 1
-            },
-            "enable": {
-              "PlayerHasCommodity": {
-                "hand_weapons": {
-                  "min": 100
-                }
-              }
-            }
-          }
-        }
-      },
-      "favItem_food": {
-        "priority": 2,
-        "rules": {
-          "lordsFavItem": {
-            "food": true
-          }
-        },
-        "lines": {
-          "option_gift_food": {
-            "line": "A butter sampler platter",
-            "optionData": "likeGift_food",
-            "hint": "give 100 food to %LORD_NAME",
-            "addons": {
-              "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "food": -100
-              },
-              "romanceChange": 1
-            },
-            "enable": {
-              "PlayerHasCommodity": {
-                "food": {
-                  "min": 100
-                }
-              }
-            }
-          }
-        }
-      },
-      "favItem_luxury_goods": {
-        "priority": 2,
-        "rules": {
-          "lordsFavItem": {
-            "luxury_goods": true
-          }
-        },
-        "lines": {
-          "option_gift_luxury_goods": {
-            "line": "The latest luxury %LORD_GENDER_SUIT_OR_DRESS from Chicomoztoc",
-            "optionData": "likeGift_luxury_goods",
-            "hint": "give 100 luxury_goods to %LORD_NAME",
-            "addons": {
-              "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "luxury_goods": -100
-              },
-              "romanceChange": 1
-            },
-            "enable": {
-              "PlayerHasCommodity": {
-                "luxury_goods": {
-                  "min": 100
-                }
-              }
-            }
-          }
-        }
-      },
-      "favItem_lobster": {
-        "priority": 2,
-        "rules": {
-          "lordsFavItem": {
-            "lobster": true
-          }
-        },
-        "lines": {
-          "option_gift_lobster": {
-            "line": "Fresh Volturnian Lobster",
-            "optionData": "likeGift_lobster",
-            "hint": "give 100 lobster to %LORD_NAME",
-            "addons": {
-              "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "lobster": -100
-              },
-              "romanceChange": 1
-            },
-            "enable": {
-              "PlayerHasCommodity": {
-                "lobster": {
-                  "min": 100
-                }
-              }
-            }
-          }
-        }
-      },
-      "favItem_drugs": {
-        "priority": 2,
-        "rules": {
-          "lordsFavItem": {
-            "drugs": true
-          }
-        },
-        "lines": {
-          "option_gift_drugs": {
-            "line": "A pack of psychedelics",
-            "optionData": "likeGift_drugs",
-            "hint": "give 100 drugs to %LORD_NAME",
-            "addons": {
-              "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "drugs": -100
-              },
-              "romanceChange": 1
-            },
-            "enable": {
-              "PlayerHasCommodity": {
-                "drugs": {
-                  "min": 100
-                }
-              }
-            }
-          }
-        }
-      },
-      "favItem_domestic_goods": {
-        "priority": 2,
-        "rules": {
-          "lordsFavItem": {
-            "domestic_goods": true
-          }
-        },
-        "lines": {
-          "option_gift_domestic_goods": {
-            "line": "The latest Tri-pad DLC",
-            "optionData": "likeGift_domestic_goods",
-            "hint": "give 100 domestic_goods to %LORD_NAME",
-            "addons": {
-              "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "domestic_goods": -100
-              },
-              "romanceChange": 1
-            },
-            "enable": {
-              "PlayerHasCommodity": {
-                "domestic_goods": {
-                  "min": 100
-                }
-              }
-            }
-          }
-        }
-      },
-      "fleetIsAlive": {
-        "priority": 2,
-        "rules": {
-          "SECOND_LORD": {
-            "lordFleetIsAlive": true
-          }
-        },
-        "lines": {
-          "LordLocation": "I heard that %SECOND_LORD_TITLE %SECOND_LORD_NAME was last sighted around %SECOND_LORD_FLEET_LOCATION"
-        }
-      },
-      "atLeast3Lords": {
-        "priority": 2,
-        "rules": {
-          "lordsInFeast": {
-            "min": 3
-          }
-        },
-        "lines": {
-          "start_tournament": {
-            "line": "Very well. If you're going to challenge me, I was looking for an excuse to brush up on my piloting skills anyway. I'll see you in the arena!",
-            "options": [
-              "option_continue_to_tournament",
-              "optionSet_start_tournament"
-            ]
-          }
-        }
-      },
-      "tournament_dedicatedToLord": {
-        "priority": 2,
-        "rules": {
-          "tournamentDedicatedToLord": true
-        },
-        "lines": {
-          "dedicate_tournament": {
-            "line": "Another tournament dedication? Well, I suppose it's always welcome...",
-            "addons": {
-              "repChange": 5,
-              "romanceChange": 1
-            }
-          }
-        }
-      },
-
       "default": {
         "priority": 1,
         "rules": {
@@ -10384,92 +9163,92 @@
           },
           "optionSet_dedicate_tournament": {
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           },
           "optionSet_marriage_ceremony": {
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           },
           "optionSet_LordLocation": {
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           },
           "optionSet_justify_defect_calculating_success": {
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           },
           "optionSet_justify_defect_calculating_fail": {
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           },
           "optionSet_justify_defect_upstanding_success": {
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           },
           "optionSet_justify_defect_upstanding_fail": {
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           },
           "optionSet_justify_defect_martial_success": {
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           },
           "optionSet_justify_defect_martial_fail": {
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           },
           "optionSet_justify_defect_quarrelsome_success": {
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           },
           "optionSet_justify_defect_quarrelsome_fail": {
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           },
           "optionSet_stop_follow_me": {
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           },
           "optionSet_follow_me": {
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           },
           "optionSet_raidLocation": {
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           },
           "optionSet_patrolLocation": {
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           },
           "optionSet_suggest_upgrade": {
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           },
           "optionSet_suggest_ceasefire": {
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           },
           "optionSet_suggest_action_fail": {
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           },
           "option_avoid_battle": {
@@ -10568,7 +9347,7 @@
           },
           "option_avoid_tournament": {
             "line": "Never mind",
-            "optionData": "greeting",
+            "optionData": "optionSet_beginning",
             "shortcut": "ESCAPE"
           },
 
@@ -10810,7 +9589,7 @@
           },
           "option_nevermind_askQuestion": {
             "line": "Never mind",
-            "optionData": "greeting",
+            "optionData": "optionSet_beginning",
             "shortcut": "ESCAPE"
           },
 
@@ -11182,13 +9961,13 @@
           },
           "option_nevermind_accept_ask_location": {
             "line": "Never mind",
-            "optionData": "greeting",
+            "optionData": "optionSet_beginning",
             "shortcut": "ESCAPE"
           },
 
           "optionSet_speak_privately": {
             "options": [
-              "greeting"
+              "optionSet_beginning"
             ]
           },
           "optionSet_worldview": {
@@ -11264,7 +10043,7 @@
           },
           "speak_privately_exit": {
             "line": "Never mind",
-            "optionData": "greeting",
+            "optionData": "optionSet_beginning",
             "shortcut": "ESCAPE"
           },
           "option_suggest_defect": {
@@ -11273,7 +10052,7 @@
           },
           "option_liege_opinion_exit": {
             "line": "Interesting.",
-            "optionData": "greeting",
+            "optionData": "optionSet_beginning",
             "shortcut": "ESCAPE"
           },
 
@@ -11324,7 +10103,7 @@
           },
           "option_suggest_defection_abort": {
             "line": "Lighten up, it was just a joke.",
-            "optionData": "greeting",
+            "optionData": "optionSet_beginning",
             "shortcut": "ESCAPE"
           },
           "optionSet_bargain_defect": {
@@ -11435,7 +10214,7 @@
           },
           "option_justify_defect_calculating_exit": {
             "line": "You don't have to respond now, but think on my proposal.",
-            "optionData": "greeting",
+            "optionData": "optionSet_beginning",
             "shortcut": "ESCAPE"
           },
           "optionSet_justify_defect_upstanding": {
@@ -11451,7 +10230,7 @@
           },
           "option_justify_defect_upstanding_exit": {
             "line": "You don't have to respond now, but think on my proposal.",
-            "optionData": "greeting",
+            "optionData": "optionSet_beginning",
             "shortcut": "ESCAPE"
           },
           "optionSet_justify_defect_martial": {
@@ -11467,7 +10246,7 @@
           },
           "option_justify_defect_martial_exit": {
             "line": "You don't have to respond now, but think on my proposal.",
-            "optionData": "greeting",
+            "optionData": "optionSet_beginning",
             "shortcut": "ESCAPE"
           },
           "optionSet_justify_defect_quarrelsome": {
@@ -11483,7 +10262,7 @@
           },
           "option_justify_defect_quarrelsome_exit": {
             "line": "You don't have to respond now, but think on my proposal.",
-            "optionData": "greeting",
+            "optionData": "optionSet_beginning",
             "shortcut": "ESCAPE"
           },
 
@@ -11544,7 +10323,7 @@
           },
           "option_suggest_raid_nevermind": {
             "line": "Never mind.",
-            "optionData": "greeting",
+            "optionData": "optionSet_beginning",
             "shortcut": "ESCAPE"
           },
           "option_suggest_patrol": {
@@ -11580,7 +10359,7 @@
           },
           "option_suggest_patrol_nevermind": {
             "line": "Never mind.",
-            "optionData": "greeting",
+            "optionData": "optionSet_beginning",
             "shortcut": "ESCAPE"
           },
           "option_suggest_upgrade": {
@@ -13059,6 +11838,7 @@
         "lines": {
           "justify_defect_calculating_answer": {
             "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
+            "optionData": "optionSet_justify_defect_calculating_success",
             "addons": {
               "playSound": "ui_char_level_up",
               "defectLordToFaction": {
@@ -13077,6 +11857,7 @@
             }
           },
           "justify_defect_upstanding_answer": {
+            "optionData": "optionSet_justify_defect_upstanding_success",
             "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
             "addons": {
               "playSound": "ui_char_level_up",
@@ -13097,6 +11878,7 @@
           },
           "justify_defect_martial_answer": {
             "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
+            "optionData": "optionSet_justify_defect_martial_success",
             "addons": {
               "playSound": "ui_char_level_up",
               "defectLordToFaction": {
@@ -13116,6 +11898,7 @@
           },
           "justify_defect_quarrelsome_answer": {
             "line": "You are right, %PLAYER_NAME. I will join you in your conquests. I hereby swear my fleet and holdings to your service. Hail %PLAYER_LIEGE_NAME, rightful ruler of the sector!",
+            "optionData": "optionSet_justify_defect_quarrelsome_success",
             "addons": {
               "playSound": "ui_char_level_up",
               "defectLordToFaction": {

@@ -68,38 +68,15 @@ public class DialogSet {
             defaltOptionSets.put(key2,jsonObject.getString(key2));
         }
     }
-    /*public static void addParaWithInserts(String key, Lord lord, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog){
-        //DialogSet.addParaWithInserts("ERROR",targetLord,textPanel,options);
-        //DialogSet.addOptionWithInserts("ERROR",null,null,targetLord,textPanel,options);
-        //addParaWithInserts(key, lord, textPanel, options,new HashMap<String,String>());
-        addParaWithInserts(key, lord, textPanel, options,dialog,false);
-    }
-    public static void addParaWithInserts(String key, Lord lord, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog,boolean forceHide){
-        //DialogSet.addParaWithInserts("ERROR",targetLord,textPanel,options);
-        //DialogSet.addOptionWithInserts("ERROR",null,null,targetLord,textPanel,options);
-        addParaWithInserts(key, lord, textPanel, options,dialog,forceHide,new HashMap<String,String>());
-    }
-    public static void addParaWithInserts(String key, Lord lord, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog,boolean forceHide,HashMap<String,String> markersReplaced) {
-        DialogSet set = getSet(lord,null,null, key);
-        if (set == null) {
-            Logger log = Global.getLogger(DialogSet.class);
-            log.info("ERROR: FAILED TO GET DIALOG SET OF KEY: "+key);
-            return;
-        }
-        set.applyLine(key, lord, textPanel, options,dialog,forceHide,markersReplaced);
-    }*/
+
     public static void addParaWithInserts(String key, Lord lord,Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog){
-        //DialogSet.addParaWithInserts("ERROR",targetLord,textPanel,options);
-        //DialogSet.addOptionWithInserts("ERROR",null,null,targetLord,textPanel,options);
-        //addParaWithInserts(key, lord, textPanel, options,new HashMap<String,String>());
         addParaWithInserts(key, lord,targetLord,targetMarket, textPanel, options,dialog,false);
     }
     public static void addParaWithInserts(String key, Lord lord,Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog,boolean forceHide){
-        //DialogSet.addParaWithInserts("ERROR",targetLord,textPanel,options);
-        //DialogSet.addOptionWithInserts("ERROR",null,null,targetLord,textPanel,options);
         addParaWithInserts(key, lord,targetLord,targetMarket, textPanel, options,dialog,forceHide,new HashMap<String,String>());
     }
     public static void addParaWithInserts(String key, Lord lord,Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog,boolean forceHide,HashMap<String,String> markersReplaced) {
+        key = attemptKeyRedirection(key);
         DialogSet set = getSet(lord,targetLord,targetMarket, key);
         if (set == null) {
             Logger log = Global.getLogger(DialogSet.class);
@@ -108,58 +85,17 @@ public class DialogSet {
         }
         set.applyLine(key, lord,targetLord,targetMarket, textPanel, options,dialog,forceHide,markersReplaced);
     }
-    /*@Deprecated
-    public static void addParaWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options,HashMap<String,String> markersReplaced){
-        DialogSet set = getSet(lord,null,null, key);
-        if (set == null) return;
-        //set.applyLine(key, lord, textPanel, options,false,markersReplaced);
-    }
-    @Deprecated
-    public static void addParaWithInserts(String key, Lord lord, TextPanelAPI textPanel,OptionPanelAPI options){
-        DialogSet set = getSet(lord,null,null, key);
-        if (set == null) return;
-        //set.applyLine(key, lord, textPanel, options,false,markersReplaced);
-    }*/
-    /*public static void addOptionWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced){
-        DialogSet set = getSet(lord,null,null, key);
-        if (set == null) return;
-        set.applyOption(key,  lord,  textPanel,  options,dialog, markersReplaced);
-    }
-    public static void addOptionWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced,DialogOption optionData){
-        DialogSet set = getSet(lord,null,null, key);
-        if (set == null) return;
-        set.applyOption(key,  lord,  textPanel,optionData, options,dialog, markersReplaced);
-    }*/
+
     public static void addOptionWithInserts(String key, Lord lord,Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced){
+        key = attemptKeyRedirection(key);
         DialogSet set = getSet(lord,targetLord,targetMarket, key);
         if (set == null) return;
         set.applyOption(key,  lord,targetLord, targetMarket,  textPanel,  options,dialog, markersReplaced);
     }
-/*    public static void addOptionWithInserts(String key, Lord lord,Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, HashMap<String,String> markersReplaced,DialogOption optionData){
-        DialogSet set = getSet(lord,targetLord,targetMarket, key);
-        if (set == null) return;
-        set.applyOption(key,  lord,targetLord,targetMarket,  textPanel,optionData, options,dialog, markersReplaced);
-    }
-    @Deprecated
-    public static void addOptionWithInserts(String key, String tooltipKey, Object optionData, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options){
-        DialogSet set = getSet(lord,null,null, key);
-        if (set == null) return;
-        //set.applyOptionOLD(key,tooltipKey, lord, textPanel, optionData, options,markersReplaced);
-    }
-    @Deprecated
-    public static void addOptionWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, HashMap<String,String> markersReplaced){
-        DialogSet set = getSet(lord,null,null, key);
-        if (set == null) return;
-        //set.applyOption(key,  lord,  textPanel,  options,dialog, markersReplaced);
-    }
-    @Deprecated
-    public static void addOptionWithInserts(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options){
-        DialogSet set = getSet(lord,null,null, key);
-        if (set == null) return;
-        //set.applyOption(key,  lord,  textPanel,  options,dialog, markersReplaced);
-    }
-*/
+
     private static DialogSet getSet(Lord lord,Lord targetLord, MarketAPI targetMarket,String id){
+        Logger log = Global.getLogger(DialogSet.class);
+        log.info("attempting to get set line ID of: "+id);
         for (String a : lord.getTemplate().dialogOverride){
             DialogSet out = dialogs.get(a).getSet(lord,targetLord,targetMarket,id);
             if (out != null) return out;
@@ -175,6 +111,12 @@ public class DialogSet {
         if (out != null) return out;
         return null;
     }
+    private static String attemptKeyRedirection(String key){
+        if (key == null) return key;
+        if (key.equals("optionSet_beginning")) return LordInteractionDialogPluginImpl.startingDialogSet;
+        return key;
+    }
+
     public static String getLine(Lord lord,Lord targetLord, MarketAPI targetMarket,String id){
         DialogSet set = getSet(lord,targetLord,targetMarket, id);
         if (set != null) return set.getLine(id);
@@ -694,58 +636,58 @@ public class DialogSet {
         applyLine(key, lord,null,null, textPanel, options, dialog, forceHide, markersReplaced);
     }
     public void applyLine(String key, Lord lord,Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, boolean forceHide, HashMap<String,String> markersReplaced){
-        Logger log = Global.getLogger(StoredSettings.class);
+        Logger log = Global.getLogger(DialogSet.class);
+        log.info("applying line of key: "+key);
         //apply a paragraph of text for the current line
+        /*if (runStartingOptions(key, lord, targetLord, targetMarket, textPanel, null, options, dialog, markersReplaced)){
+            return;
+        }*/
         if (shouldHide(key,textPanel,options,lord,targetLord,targetMarket)) return;
         String line = this.getLine(key);
         if (line != null && !line.equals("") && !shouldHide(key, textPanel, options, lord,targetLord,targetMarket) && !forceHide) {
-            if (!((key.equals("greeting") || key.equals(LordInteractionDialogPluginImpl.startingDialog)) && LordInteractionDialogPluginImpl.isHasGreeted())) {
-                line = insertCustomData(key, line, lord, targetLord, targetMarket);
-                line = insertDefaltData(line, lord, targetLord, targetMarket);
-                line = insertAdditionalData(line, markersReplaced);
-                String[] highlightsTemp = new String[0];
-                if (colorHighlight.containsKey(key)) {
-                    highlightsTemp = new String[highlight.get(key).length];
-                    for (int a = 0; a < highlightsTemp.length; a++) {
-                        highlightsTemp[a] = insertDefaltData(highlight.get(key)[a], lord, targetLord, targetMarket, true);
-                    }
-                }
-                if (colorOverride.containsKey(key)) {
-                    if (colorHighlight.containsKey(key)) {
-                        textPanel.addPara(line, colorOverride.get(key), colorHighlight.get(key), highlightsTemp);
-                    } else {
-                        textPanel.addPara(line, colorOverride.get(key));
-                    }
-                } else {
-                    if (colorHighlight.containsKey(key)) {
-                        textPanel.addPara(line, colorHighlight.get(key), highlightsTemp);
-                    } else {
-                        textPanel.addPara(line);
-                    }
+            //log.info("running dialog of line: "+line);
+            //if (!((key.equals("greeting") || key.equals(LordInteractionDialogPluginImpl.startingDialog)) && LordInteractionDialogPluginImpl.isHasGreeted())) {
+            line = insertCustomData(key, line, lord, targetLord, targetMarket);
+            line = insertDefaltData(line, lord, targetLord, targetMarket);
+            line = insertAdditionalData(line, markersReplaced);
+            String[] highlightsTemp = new String[0];
+            if (colorHighlight.containsKey(key)) {
+                highlightsTemp = new String[highlight.get(key).length];
+                for (int a = 0; a < highlightsTemp.length; a++) {
+                    highlightsTemp[a] = insertDefaltData(highlight.get(key)[a], lord, targetLord, targetMarket, true);
                 }
             }
+            if (colorOverride.containsKey(key)) {
+                if (colorHighlight.containsKey(key)) {
+                    textPanel.addPara(line, colorOverride.get(key), colorHighlight.get(key), highlightsTemp);
+                } else {
+                    textPanel.addPara(line, colorOverride.get(key));
+                }
+            } else {
+                if (colorHighlight.containsKey(key)) {
+                    textPanel.addPara(line, colorHighlight.get(key), highlightsTemp);
+                } else {
+                    textPanel.addPara(line);
+                }
+            }
+            //}
         }
         //add on all options
-        log.info("attempting to add options from line" + key);
+        //log.info("attempting to add options from line" + key);
         boolean builtOptions = false;
         if (additionalOptions.containsKey(key)){
-            log.info("ADDITIONAL OPTIONS: adding options from key of: " + key);
+            //log.info("ADDITIONAL OPTIONS: adding options from key of: " + key);
             if (additionalOptions.get(key).size() != 0){
                 options.clearOptions();
                 builtOptions = true;
             }
             for (String a : additionalOptions.get(key)){
-                if (a.equals("greeting")){
-                    line = LordInteractionDialogPluginImpl.startingDialog;
-                    log.info("running a first line of: "+line);
-                    addParaWithInserts(line,lord,targetLord,targetMarket,textPanel,options,dialog);//,markersReplaced,LordInteractionDialogPluginImpl.isHasGreeted());
-                    return;
-                }
                 log.info("  ADDITIONAL OPTIONS: a single option of key: "+a);
+                //if (runStartingOptions(a,lord,targetLord,targetMarket,textPanel,null,options,dialog,markersReplaced)) continue;
                 addOptionWithInserts(a,lord,targetLord,targetMarket,textPanel,options,dialog,markersReplaced);
             }
         }else if (defaltOptionSets.containsKey(key)){
-            log.info("getting default options from, to key: "+key+", "+defaltOptionSets.get(key));
+            log.info("getting default options of: "+defaltOptionSets.get(key));
             addParaWithInserts(defaltOptionSets.get(key),lord,targetLord,targetMarket,textPanel,options,dialog,false,markersReplaced);
             builtOptions = true;
         }
@@ -756,9 +698,9 @@ public class DialogSet {
         }
         //add on all addons.
         if (addons.containsKey(key)){
-            log.info("attempting to run addons for line...");
+            //log.info("attempting to run addons for line...");
             for (DialogAddon_Base a : addons.get(key)){
-                log.info("  running addon of class: "+a.getClass().getName());
+                //log.info("  running addon of class: "+a.getClass().getName());
                 a.apply(textPanel,options,dialog,lord,targetLord,targetMarket);
             }
         }
@@ -775,9 +717,6 @@ public class DialogSet {
         DialogOption optionData = new DialogOption(optionID,addons.get(key),targetLord,targetMarket);
         applyOption(key,lord,targetLord,targetMarket,textPanel,optionData,options,dialog,markersReplaced);
     }
-    /*public void applyOption(String key, Lord lord, TextPanelAPI textPanel,Object optionData,OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
-        applyOption(key, lord,null,null, textPanel, optionData, options, dialog, markersReplaced);
-    }*/
     public void applyOption(String key, Lord lord,Lord targetLord, MarketAPI targetMarket, TextPanelAPI textPanel,Object optionData,OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
         Logger log = Global.getLogger(StoredSettings.class);
         log.info("  checking option of key: "+key);
@@ -790,54 +729,56 @@ public class DialogSet {
         }
     }
     public void applyOptionSingle(String key, Lord lord,Lord targetLord,MarketAPI targetMarket, TextPanelAPI textPanel,Object optionData,OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
-        Logger log = Global.getLogger(StoredSettings.class);
+        Logger log = Global.getLogger(DialogSet.class);
         String line = this.getLine(key);
-        String optionIDTemp = ((DialogOption)optionData).optionID;
-        if (key.equals("greeting") || key.equals(LordInteractionDialogPluginImpl.startingDialog) || optionIDTemp.equals("greeting") || optionIDTemp.equals(LordInteractionDialogPluginImpl.startingDialog)){
-            runStartingLine(lord, targetLord, targetMarket, textPanel, options, dialog);
-            return;
+        log.info("running option of key: "+key);
+        if (optionData != null){
+            DialogOption temp = ((DialogOption)optionData);
+            temp.optionID = attemptKeyRedirection(temp.optionID);
         }
+        /*if (runStartingOptions(key, lord, targetLord, targetMarket, textPanel, optionData, options, dialog, markersReplaced)){
+            return;
+        }*/
         if (!shouldHide(key, textPanel, options, lord,targetLord,targetMarket) && (line != null)) {
-            log.info("adding option of key: " + key);
+            log.info("adding option key: " + key);
             line = insertCustomData(key, line, lord, targetLord, targetMarket);
             line = insertDefaltData(line, lord, targetLord, targetMarket);
             line = insertAdditionalData(line, markersReplaced);
             if (hint.containsKey(key)) {
-                                   String line2 = hint.get(key);
-                                   line2 = insertDefaltData(line2, lord, targetLord, targetMarket);
-                                   line2 = insertAdditionalData(line2, markersReplaced);
-                                   if (colorOverride.containsKey(key)) {
-                                   options.addOption(line, optionData, colorOverride.get(key), line2);
-                                   } else {
-                                   options.addOption(line, optionData, line2);
-                                   }
-                                   //is this even required????
-                                   options.setTooltip(optionData, line2);
-                                   } else {
-                                              if (colorOverride.containsKey(key)) {
-                                              options.addOption(line, optionData, colorOverride.get(key), "");
-                                              } else {
-                                              options.addOption(line, optionData);
-                                              }
-                                              }
+                String line2 = hint.get(key);
+                line2 = insertDefaltData(line2, lord, targetLord, targetMarket);
+                line2 = insertAdditionalData(line2, markersReplaced);
+                if (colorOverride.containsKey(key)) {
+                    options.addOption(line, optionData, colorOverride.get(key), line2);
+                } else {
+                    options.addOption(line, optionData, line2);
+                }
+                //is this even required????
+                options.setTooltip(optionData, line2);
+            } else {
+                if (colorOverride.containsKey(key)) {
+                    options.addOption(line, optionData, colorOverride.get(key), "");
+                } else {
+                    options.addOption(line, optionData);
+                }
+            }
             if (shotcut.containsKey(key)) {
-                                      switch (shotcut.get(key)) {
-                                      case "ESCAPE":
-                                      options.setShortcut(optionData, 1, false, false, false, false);
-                                      break;
-                                      case "CONTROL":
-                                      //I am unsure how to do this, tbh.
-                                      break;
-                                      case "ALT":
-                                      break;
-                                      case "SHIFT":
-                                      break;
-                                      }
-                                      }
-            if (enable.containsKey(key) && !shouldEnable(key, textPanel, options, lord, targetLord, targetMarket))
-                options.setEnabled(optionData, false);
+                switch (shotcut.get(key)) {
+                    case "ESCAPE":
+                        options.setShortcut(optionData, 1, false, false, false, false);
+                        break;
+                    case "CONTROL":
+                        //I am unsure how to do this, tbh.
+                        break;
+                    case "ALT":
+                        break;
+                    case "SHIFT":
+                        break;
+                }
+            }
+            if (enable.containsKey(key) && !shouldEnable(key, textPanel, options, lord, targetLord, targetMarket)) options.setEnabled(optionData, false);
         }else if(line == null){
-            log.info("attempting to run addons as option.");
+            log.info("attempting to run option as optionSet.");
             DialogOption optionDataTemp = (DialogOption)optionData;
             //note: target lord and market set in internal data of dialogOption. not needed for input.
             optionDataTemp.applyAddons(textPanel, options, dialog, lord);
@@ -845,6 +786,7 @@ public class DialogSet {
         //log.info("attempting to add options from options" + key);
         boolean builtOptions = false;
         if (additionalOptions.containsKey(key)) {
+            log.info("running additional options from option...");
             //log.info("ADDITIONAL OPTIONS: adding options from key of: " + key);
             if (additionalOptions.get(key).size() != 0) {
                 options.clearOptions();
@@ -855,6 +797,7 @@ public class DialogSet {
                 addOptionWithInserts(a, lord,targetLord,targetMarket, textPanel, options, dialog, markersReplaced);
             }
         } else if (defaltOptionSets.containsKey(key)) {
+            log.info("running default option sets of key "+key+" from options...");
             //log.info("getting default options from, to key: " + key + ", " + defaltOptionSets.get(key));
             addParaWithInserts(defaltOptionSets.get(key), lord,targetLord,targetMarket, textPanel, options, dialog, false, markersReplaced);
             builtOptions = true;
@@ -866,8 +809,16 @@ public class DialogSet {
         }
 
     }
-    private void runStartingLine(Lord lord,Lord targetLord,MarketAPI targetMarket, TextPanelAPI textPanel,OptionPanelAPI options, InteractionDialogAPI dialog){
-        addParaWithInserts(LordInteractionDialogPluginImpl.startingDialog,lord,targetLord,targetMarket,textPanel,options,dialog);
+    private boolean runStartingOptions(String key, Lord lord,Lord targetLord,MarketAPI targetMarket, TextPanelAPI textPanel,Object optionData,OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
+        //String optionIDTemp = null;
+        //if (optionData != null) optionIDTemp = ((DialogOption)optionData).optionID;
+        String redirectKey = "optionSet_beginning";
+        if (key.equals(redirectKey)){// || (optionIDTemp != null && (key.equals(LordInteractionDialogPluginImpl.startingDialogSet) || optionIDTemp.equals(redirectKey) || optionIDTemp.equals(LordInteractionDialogPluginImpl.startingDialogSet)))){
+            addOptionWithInserts(LordInteractionDialogPluginImpl.startingDialogSet,lord,targetLord,targetMarket,textPanel,options,dialog,markersReplaced);
+            //addParaWithInserts(LordInteractionDialogPluginImpl.startingDialogSet, lord, targetLord, targetMarket, textPanel, options, dialog);
+            return true;
+        }
+        return false;
     }
     private String insertCustomData(String key,String line, Lord lord,Lord targetLord,MarketAPI targetMarket){
         if(!customInserts.containsKey(key))return line;

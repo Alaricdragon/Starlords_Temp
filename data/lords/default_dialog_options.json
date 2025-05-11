@@ -52,10 +52,10 @@
   "justify_defect_martial": "optionSet_justify_defect_martial",
   "justify_defect_quarrelsome": "optionSet_justify_defect_quarrelsome",
 
-  "justify_defect_calculating_answer": "optionSet_justify_defect_calculating_answer",
-  "justify_defect_upstanding_answer": "optionSet_justify_defect_upstanding_answer",
-  "justify_defect_martial_answer": "optionSet_justify_defect_martial_answer",
-  "justify_defect_quarrelsome_answer": "optionSet_justify_defect_quarrelsome_answer",
+  "justify_defect_calculating_answer": "optionSet_justify_defect_calculating_fail",
+  "justify_defect_upstanding_answer": "optionSet_justify_defect_upstanding_fail",
+  "justify_defect_martial_answer": "optionSet_justify_defect_martial_fail",
+  "justify_defect_quarrelsome_answer": "optionSet_justify_defect_quarrelsome_fail",
 
   "ask_quest": "optionSet_ask_quest",
 

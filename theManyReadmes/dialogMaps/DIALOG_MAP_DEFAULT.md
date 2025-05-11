@@ -1,4 +1,5 @@
-* "greeting"(note: when a conversation calls "greetings" it always returns to the first dialog item. in this case, "greetings")
+note: when a conversation calls optionSet_beginning it always runs the 'base' optionsSet that is ran in this dialog. (in this case, it runs 'greeting's options.)
+* "greeting"
   * "option_avoid_battle" :           "suggest_ceasefire"
   * "option_ask_tournament" :         "start_tournament"
   * "option_dedicate_tournament" :    "dedicate_tournament"

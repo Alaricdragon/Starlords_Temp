@@ -1,31 +1,18 @@
 package starlords.plugins;
 
-import com.fs.starfarer.api.EveryFrameScript;
-import com.fs.starfarer.api.characters.FullName;
-import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import lombok.Getter;
-import starlords.ai.LordAI;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.*;
-import com.fs.starfarer.api.campaign.ai.ModularFleetAIAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
-import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.combat.EngagementResultAPI;
 import com.fs.starfarer.api.impl.campaign.FleetInteractionDialogPluginImpl;
-import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
-import com.fs.starfarer.api.impl.campaign.missions.cb.BaseCustomBounty;
-import com.fs.starfarer.api.impl.campaign.missions.hub.*;
-import com.fs.starfarer.api.impl.campaign.rulecmd.BeginMission;
-import com.fs.starfarer.api.util.Misc;
 import starlords.controllers.*;
 import starlords.faction.LawProposal;
 import org.apache.log4j.Logger;
 import starlords.person.Lord;
 import starlords.person.LordAction;
 import starlords.person.LordEvent;
-import starlords.ui.MissionPreviewIntelPlugin;
-import starlords.util.DefectionUtils;
 import starlords.util.GenderUtils;
 import starlords.util.StringUtil;
 import starlords.util.Utils;
@@ -35,10 +22,6 @@ import starlords.util.dialogControler.DialogSet;
 
 import java.awt.*;
 import java.util.*;
-
-import static com.fs.starfarer.api.impl.campaign.rulecmd.BeginMission.TEMP_MISSION_KEY;
-import static starlords.ai.LordAI.BUSY_REASON;
-import static starlords.util.Constants.*;
 
 public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin {
     public static DialogDataHolder DATA_HOLDER;
@@ -69,7 +52,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
     private boolean swayFor;
     private LawProposal proposal;
 
-    public static String startingDialog;
+    public static String startingDialogSet;
     @Override
     public void init(InteractionDialogAPI dialog) {
         this.dialog = dialog;
@@ -88,13 +71,16 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
             DATA_HOLDER.setTargetID(targetLord.getLordAPI().getId());
         }
         DialogType = setDialogType();
-        startingDialog = setStartingDialog();
+        startingDialogSet = setStartingDialogSet();
         hasGreeted = false;
         DialogOption option = new DialogOption(setStartingDialog(),new ArrayList<>());
         optionSelected(null, option);
     }
     protected String setDialogType(){
         return "default";
+    }
+    protected String setStartingDialogSet(){
+        return "optionSet_greeting";
     }
     protected String setStartingDialog(){
         return "greeting";
@@ -168,16 +154,16 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         *           I have compleated the 'template'. now its time to apply the template to the other starlords...
         *               -I AM CURRENTLY 'DONE THE JSON. I need to fix issues though.
         *           lastly, I need to go into the defalt dialog, and remove all the lines (setting them to produce 'error'.)
-        *       1) fist of all, I am going to be forced to replace all the current personality dialogs with the template. KEEP THE OLD DIALOGS. I will needs them whenever I end up fing up.
-        *       2) [addons]. for many addons, complicated things happen (like ransoming prisoners.) this should be in the defalt dialog as like, [addons_textName_textType]. ([addons_marage_refusealHarsh] for example).
+        *       1) (done) fist of all, I am going to be forced to replace all the current personality dialogs with the template. KEEP THE OLD DIALOGS. I will needs them whenever I end up fing up.
+        *       2) (I only needed to do this once.)[addons]. for many addons, complicated things happen (like ransoming prisoners.) this should be in the defalt dialog as like, [addons_textName_textType]. ([addons_marage_refusealHarsh] for example).
         *           -note: I need to deside how... many of the addons I am going to need.
         *                  I think for most of them I am NOT going to an [addon]. most dont need one.
-        *       3) [options] will now be set to [optionSets]. this is so I can change every option all at once, if required.
-        *       4) items like [accept defection] should have the different options be set when you press it. not from options.
+        *       3) (done?) [options] will now be set to [optionSets]. this is so I can change every option all at once, if required.
+        *       4) (done) items like [accept defection] should have the different options be set when you press it. not from options.
         *           -the reason for this is to allow users to have custom accept and refuse conditions.
         *               -although, this does have a disadvantage. I need a custom 'refuse' message for when the lord can never ever defect. I will add this as an rule? but only afterwards.
         *           -for things with advanced calculations (like defection) I should have a custom calculation that can be put into data instead of what im currently doing...
-        *       5) lastly, I want to add additional dialogSets in the dialog. so its easyer to add conditions for things like (acsept marage) and what not.
+        *       5) (no.) lastly, I want to add additional dialogSets in the dialog. so its easyer to add conditions for things like (acsept marage) and what not.
         *
         *   notes:
         *       1) suggestDefectionCanConsider. this dialogSet might need to be moved, so its part of the line that you ask? then again, I think its fine?
@@ -186,19 +172,17 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         *       3) (done main changes. need to implement. untested.)for "swayProposal_forCounsel_bargain", "swayProposal_againstCounsel_bargain", "swayProposal_forPlayer_bargain" requies additional testing. to make sure they work.
         *           -NOTE: when I apply the rules, make sure the 'min' and 'max' values are set to the right value (all people have diffrent values for that.)
         *   1) I need to go through all the dialog, and merge the dialog into a type of 'template' that I can add additional data to.
-        *   2) I need to go into all lines and imporve them just a bit. by adding in the new utility functions I added in the first place.
-        *   3) I need to go into anything that uses a diffrent option set, and make it so instead of setting all the options right there, it gets a different option set instead (because having a cenralized option set to change prevents modders from having to keep trake of every time I add a dialog option. it is important.)
+        *   2) (done) I need to go into all lines and imporve them just a bit. by adding in the new utility functions I added in the first place.
+        *   3) (done) I need to go into anything that uses a diffrent option set, and make it so instead of setting all the options right there, it gets a different option set instead (because having a cenralized option set to change prevents modders from having to keep trake of every time I add a dialog option. it is important.)
         * dialog fixes:
         *   -)!!!! right now, in prisoner dialog -> speak privitly, will load normal defalt dialog options, instead of defalt dialog options.
-        *   1) speak privately right now, does not have an option that prevents it from working. I messed up somewhere. (or maybe just for certain lord types?)
-        *       -also, when you are in the prisoners dialog, runs the normal dialog list when it attmepts to return the player to 'greetings'
-        *   2) add in a custom defection refusal to the template, for when lords can never defect by the player hands.
-        *   3) many options are calling optionSet greetings. I need to do one of the following:
-        *       a)(this will not work) make it so the diffrent dialogs can override optionSet greetings, then replace all 'greetins' with 'optionSet greetings'
-        *       b) make it so all options that call the defalt option set, instead call the defalt line.
-        *           -note: I need to change [options] to the [additionalText] addon for greetigns lines. this will work.
+        *   1) (done) speak privately right now, does not have an option that prevents it from working. I messed up somewhere. (or maybe just for certain lord types?)
+        *       -(done) also, when you are in the prisoners dialog, runs the normal dialog list when it attmepts to return the player to 'greetings'
+        *   2) (this can be done latter.) add in a custom defection refusal to the template, for when lords can never defect by the player hands.
+        *   3) (done) many options are calling optionSet greetings. I need to do one of the following:
+        *       -I made it so there is a 'backToStart' dialog set. (this in theory removes the need for custom support of greeting dialog)
         * dialog logs:
-        *   1) remove all the logs. the ones i do chose to keep, should only be the most basic ones, and they should have the log class set currently.
+        *   1) remove most the logs. the ones i do chose to keep, should only be the most basic ones, and they should have the log class set currently.
         *
         * (x)additional rules:
         *   setLordMemoryData_int
@@ -223,7 +207,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
 
             Lord secondLord = data.getTargetLord();
             MarketAPI targetMarket = data.getTargetMarket();
-            if (selectedOption.equals(startingDialog)){
+            if (selectedOption.equals(startingDialogSet)){
                 optionSelected_greetings(selectedOption,secondLord,targetMarket);
                 return true;
             }
@@ -250,7 +234,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
 
 
     private void optionSelected_greetings(String selectedOption,Lord secondLord,MarketAPI targetMarket){
-        selectedOption = setStartingDialog();
+        selectedOption = setStartingDialogSet();
         boolean isFeast = targetLord.getCurrAction() == LordAction.FEAST;
         LordEvent feast = isFeast ? EventController.getCurrentFeast(targetLord.getLordAPI().getFaction()) : null;
         //only run greetings if player has not yet heard them this conversation

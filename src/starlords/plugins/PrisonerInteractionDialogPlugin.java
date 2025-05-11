@@ -31,7 +31,12 @@ public class PrisonerInteractionDialogPlugin extends LordInteractionDialogPlugin
         return "prisoner";
     }
     @Override
-    protected String setStartingDialog(){
+    protected String setStartingDialogSet(){
+        return "optionSet_greetings_prisoner";
+    }
+
+    @Override
+    protected String setStartingDialog() {
         return "greetings_prisoner";
     }
 }
