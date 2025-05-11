@@ -402,10 +402,10 @@ public class Utils {
         MarketAPI friendly = null;
         MarketAPI notHostile = null;
         MarketAPI any = null;
-        float sameFactionD = 99999999;
-        float friendlyD = 99999999;
-        float notHostileD = 99999999;
-        float anyD = 99999999;
+        float sameFactionD = 2147483647;
+        float friendlyD = 2147483647;
+        float notHostileD = 2147483647;
+        float anyD = 2147483647;
         for (MarketAPI b : a){
             if (b.getPrimaryEntity().getFaction().equals(target.getFaction())){
                 float x = target.getLocationInHyperspace().x - b.getPrimaryEntity().getLocationInHyperspace().x;
