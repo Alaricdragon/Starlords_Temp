@@ -40,6 +40,8 @@ structure:
     11) lord generator:
         11.0) (requires structure 3.0 to be complete)
               for both exstra lords, and life and death lords, I need the ability to add lords from diffrent factions at a chance (examplie: lions gard for sindrin fuel)
+        11.1) make it so the starlords selected flagship selects a random one out of some percentage of valid flagships. instead of just the most liked one (for varitys sakes)
+        11.2) save the lords ship and flagship them. in case someone wants to regenerate fleets.
     12) starlord faction.json
         -I need a json file for starlord lords. the following data is required in this function:
         "leader":String (name of the leader of this faction)

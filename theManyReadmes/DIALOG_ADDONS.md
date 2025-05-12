@@ -89,7 +89,12 @@
   *  "PATROL_TARGET_MARKET" this makes the lord go and patrol the target market (if one exists)
   *  --NOT YET ADDED--"ORGANIZE_CAMPAIGN" this makes the lord organize a camping. (provided they have the power to do so, and one is not already active.)
   *  --NOT YET ADDED--"JOIN_CAMPAIGN" this makes the lord join the active campaign. (if one exists)
-  
+* "applyAddonsToMultiple": JSonObject. this applys addons to multible targets.
+  * "target": String. what this set of addons will target. will apply 'rules' to every instance of the target type in the game. possable options are:
+    * "LORDS". targets all lords in the game.
+    * "MARKETS". targets all markets in the game
+  * "rules": [DIALOG_RULES.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_RULES.md). all rules in here must be meet to run contained addons.
+  * "addons": [DIALOG_ADDONS.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_ADDONS.md). runs the contained addons on all valid lords.
 
   
 

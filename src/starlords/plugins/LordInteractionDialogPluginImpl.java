@@ -175,7 +175,6 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         *   2) (done) I need to go into all lines and imporve them just a bit. by adding in the new utility functions I added in the first place.
         *   3) (done) I need to go into anything that uses a diffrent option set, and make it so instead of setting all the options right there, it gets a different option set instead (because having a cenralized option set to change prevents modders from having to keep trake of every time I add a dialog option. it is important.)
         * dialog fixes:
-        *   -)!!!! right now, in prisoner dialog -> speak privitly, will load normal defalt dialog options, instead of defalt dialog options.
         *   1) (done) speak privately right now, does not have an option that prevents it from working. I messed up somewhere. (or maybe just for certain lord types?)
         *       -(done) also, when you are in the prisoners dialog, runs the normal dialog list when it attmepts to return the player to 'greetings'
         *   2) (this can be done latter.) add in a custom defection refusal to the template, for when lords can never defect by the player hands.
@@ -184,18 +183,20 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         * dialog logs:
         *   1) remove most the logs. the ones i do chose to keep, should only be the most basic ones, and they should have the log class set currently.
         *
-        * (x)additional rules:
-        *   setLordMemoryData_int
-        *   setLordMemoryData_boolean
-        *   setLordMemoryData_string
-        *
-        *   setMemoryData_int
-        *   setMemoryData_boolean
-        *   setMemoryData_string
-        *
-        *   setDialogData_int
-        *   setDialogData_boolean
-        *   setDialogData_string
+        * round of testing:
+        *   (done in deebug mode. needs testing outside of that)
+        *       (fixed)'added intel on lord' additional text might not be working?
+        *       (fixed)'learns lord viewponit' additional text might not be working?
+        *       'ask about current assignment' not having some lines:
+        *           task: (fixed)current_task_desc_respawning
+        *   when talking to people at the start of a feast, you dont gain relation like your suppose to.
+        *       -this is a issue. I -could- spend 6 hours repairing my exseption, or I could just suck it op and add a new addon for this.
+        *       -note: I need to apply this to 'greetings', but only conditional? I think that's a thing. I have the 'show' line for options, for exapmple. maybe I can hijack that?
+        *       -note: this also needs to be applied to when I dedicate a victory. so people get juslos.
+        * additional addons:
+        *   (done, untested)applyAddonsToLords?
+        * additional rules:
+        *   atSameFeast (for target lord, and same lord)
         * */
         if (optionData instanceof DialogOption){
             if (prevPlugin.equals(this) && !visual.isShowingPersonInfo(targetLord.getLordAPI())) {
@@ -207,7 +208,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
 
             Lord secondLord = data.getTargetLord();
             MarketAPI targetMarket = data.getTargetMarket();
-            if (selectedOption.equals(startingDialogSet)){
+            if (selectedOption.equals(setStartingDialog())){
                 optionSelected_greetings(selectedOption,secondLord,targetMarket);
                 return true;
             }
@@ -234,11 +235,11 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
 
 
     private void optionSelected_greetings(String selectedOption,Lord secondLord,MarketAPI targetMarket){
-        selectedOption = setStartingDialogSet();
+        log.info("RUNNING THE CORRECT GREETING OPTION DATA");
         boolean isFeast = targetLord.getCurrAction() == LordAction.FEAST;
         LordEvent feast = isFeast ? EventController.getCurrentFeast(targetLord.getLordAPI().getFaction()) : null;
         //only run greetings if player has not yet heard them this conversation
-        DialogSet.addParaWithInserts(selectedOption,targetLord,secondLord,targetMarket,textPanel,options,dialog,hasGreeted);
+        DialogSet.addParaWithInserts(selectedOption,targetLord,secondLord,targetMarket,textPanel,options,dialog);
         if (!hasGreeted){
             hasGreeted = true;
         }
@@ -249,14 +250,15 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         }
         //if this is a feast, apply rep gained.
         if(feast != null) {
+            log.info("APPLYING REP CHANGE DATA");
             if (!feast.getOriginator().isFeastInteracted()) {
                 feast.getOriginator().setFeastInteracted(true);
-                applyRepIncrease(textPanel, feast.getOriginator(), 3);
+                applyRepIncrease(textPanel, feast.getOriginator(),secondLord,targetMarket, 3);
             }
             for (Lord lord : feast.getParticipants()) {
                 if (!lord.isFeastInteracted()) {
                     lord.setFeastInteracted(true);
-                    applyRepIncrease(textPanel, lord, 2);
+                    applyRepIncrease(textPanel, lord,secondLord,targetMarket, 2);
                 }
             }
         }
@@ -293,11 +295,14 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
 
 
 
-    private void applyRepIncrease(TextPanelAPI textPanel, Lord lord, int rep){
+    private void applyRepIncrease(TextPanelAPI textPanel, Lord lord,Lord secondLord,MarketAPI targetMarket, int rep){
         lord.getLordAPI().getRelToPlayer().adjustRelationship((float) (rep*0.01), null);
-        String line = DialogSet.getLineWithInserts(lord,"relation_increase");
-        line = DialogSet.insertData(line,"%c0",""+rep);
-        textPanel.addPara(line, Color.GREEN);
+        HashMap<String,String> inserts = new HashMap<>();
+        inserts.put("%c0",""+rep);
+        DialogSet.addParaWithInserts("relation_increase",lord,secondLord,targetMarket,textPanel,options,dialog,false,inserts);
+        //String line = DialogSet.getLineWithInserts(lord,secondLord,targetMarket,"relation_increase");
+        //line = DialogSet.insertData(line,"%c0",""+rep);
+        //textPanel.addPara(line, Color.GREEN);
     }
     private void applyRepDecrease(TextPanelAPI textPanel,Lord lord, int rep){
         lord.getLordAPI().getRelToPlayer().adjustRelationship((float) (rep*-0.01), null);

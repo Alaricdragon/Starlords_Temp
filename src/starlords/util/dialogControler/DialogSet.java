@@ -1112,6 +1112,10 @@ public class DialogSet {
                 case "setLordMemoryData_String":
                     newAddons.addAll(addAddon_setLordMemoryData_String(addons,key2));
                     break;
+                case "applyAddonsToMultiple":
+                    addon = addAddon_applyAddonsToMultiple(addons,key2);
+                    break;
+
             }
             if (addon != null) newAddons.add(addon);
         }
@@ -1399,6 +1403,10 @@ public class DialogSet {
     @SneakyThrows
     private static DialogAddon_Base addAddon_customDialogAddon(JSONObject json,String key){
         return new DialogAddon_customList(json, key);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_applyAddonsToMultiple(JSONObject json,String key){
+        return new DialogAddon_applyAddonsToMultiple(json,key);
     }
 
 
