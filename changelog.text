@@ -3,7 +3,7 @@ V0.3.38:
         fixed lords not being able to be interacted with (sorry about that).
     thanks Aleksandros for the following:
         Added Lord alignments if Nexerelin is present - for now only used in defection calculation
-        Added consoler commands PrintLordsAlignments and PrintLordsDefectionWeights
+        Added console commands PrintLordsAlignments and PrintLordsDefectionWeights
         fixed issue with defection chance logic
 V0.3.37:
     new:
