@@ -27,6 +27,7 @@ import starlords.util.Utils;
 import java.util.*;
 
 import static starlords.util.Constants.DEBUG_MODE;
+import static starlords.util.Constants.STARLORD_ADDITIONAL_MEMORY_KEY;
 
 public class LordController {
 
@@ -170,6 +171,10 @@ public class LordController {
         //remove the lord from the intel plugins.
         LordsIntelPlugin.removeProfile(lord);
 
+        //removes any additional lord data from memory
+        String key = STARLORD_ADDITIONAL_MEMORY_KEY+lord.getLordAPI().getId();
+        Global.getSector().getMemory().set(key,null,1);
+
         //also this. dont know if it helps or not though.
         ensureLordOrder();
 
@@ -194,6 +199,15 @@ public class LordController {
                 }
             }
         }
+    }
+    public static void saveLordData(){
+        //todo: merge all this into the LordMemoryController.
+        for (int a = 0; a < lordsList.size(); a++){
+            Lord lord = lordsList.get(a);
+            if (lord.getLordDataHolder().hasData()) lord.saveLordDataHolder();
+        }
+        saveFleetSMods();
+        LordMemoryController.save();
     }
     public static void LoadSavedLord(Lord newLord){
         LordTemplate template = (LordTemplate) Global.getSector().getMemory().get(getSavedLordsMemeoryKey(newLord));
@@ -537,5 +551,18 @@ public class LordController {
         log.info("got a total intil lords / stored lords as: "+n+", "+lordsList.size());
         log.info(allLordIds);
         log.info(allLordIds2);
+    }
+
+    public static void fixAllLordsPartnerStatus(){
+        //todo: remove this function later. this is just to make the dialog update save compatible with anyone who is married.
+        if (!LordController.getPlayerLord().isMarried() || LordController.getPlayerLord().getSpouse() != null) return;
+        for (int a = 0; a < lordsList.size(); a++){
+            Lord lord = lordsList.get(a);
+            if (lord.isMarried() && lord.getSpouse()==null){
+                lord.setSpouse(LordController.getPlayerLord().getLordAPI().getId());
+                LordController.getPlayerLord().setSpouse(lord.getLordAPI().getId());
+                return;
+            }
+        }
     }
 }

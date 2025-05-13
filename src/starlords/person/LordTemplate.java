@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import starlords.lunaSettings.StoredSettings;
 import starlords.util.Utils;
+import starlords.util.dialogControler.LordDialogController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,6 +42,7 @@ public final class LordTemplate {
     public final int ranking;
     public final String preferredItemId;
 
+    public final ArrayList<String> dialogOverride;
     @SneakyThrows
     public LordTemplate(String name, JSONObject template){
         this.name = name;
@@ -135,6 +137,13 @@ public final class LordTemplate {
         }
         forceFleetSMods = !(template.has("fleetForceCustomSMods") && !template.getBoolean("fleetForceCustomSMods"));
         forceLordSMods = !(template.has("flagshipForceCustomSMods") && !template.getBoolean("flagshipForceCustomSMods"));
+        dialogOverride = new ArrayList<>();
+        if (template.has("dialogOverride")){
+            JSONArray dialogConditions = template.getJSONArray("dialogOverride");
+            for (int a = 0; a < dialogConditions.length(); a++){
+                dialogOverride.add(dialogConditions.getString(a));
+            }
+        }
     }
     @SneakyThrows
     public LordTemplate(PosdoLordTemplate template) {
@@ -188,5 +197,6 @@ public final class LordTemplate {
         customFleetSMods = new HashMap<String,Integer>();
         forceFleetSMods = true;
         forceLordSMods = true;
+        dialogOverride = new ArrayList<>();
     }
 }

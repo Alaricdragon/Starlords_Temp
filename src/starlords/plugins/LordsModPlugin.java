@@ -117,6 +117,7 @@ public class LordsModPlugin extends BaseModPlugin {
             //log.info("is the "+a+" playable? "+ NexConfig.getFactionConfig(a).playableFaction);
         }/**/
         LordController.loadFleetSMods();
+        LordController.fixAllLordsPartnerStatus();
         LordController.logAllLords();
         LordMemoryController.load();
     }
@@ -147,7 +148,6 @@ public class LordsModPlugin extends BaseModPlugin {
     public void beforeGameSave() {
         LordController.logAllLords();
         LordController.saveUnusualLords();
-        LordController.saveFleetSMods();
-        LordMemoryController.save();
+        LordController.saveLordData();
     }
 }
