@@ -1,3 +1,8 @@
+V0.3.37:
+    new:
+        changed the way starlords handle dialog. although there is not mush new yet (some escape hotkeys keys, a very small number of fixed dialog, bribing a starlord will give that starlord wealth), and its not 100% done (yet), it lays (most) of the ground work for furture upgrades, as well as allows players to build completely custom dialog for each and every starlord, should they so chose.
+        I have been working on this since the last day of april. I thought it would take a week. there are like, 200 new classes just to handle what I did. im never saying 'oh it will just take a week' again.
+        please report any dialog bugs to me. I will fix them as soon as possable.
 V0.3.36:
     fixes:
         fixed another getContaining location null crash.

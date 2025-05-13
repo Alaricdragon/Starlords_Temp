@@ -71,6 +71,7 @@ If you're a modder or just want to put your own characters into the game, all yo
 * "flagshipForceCustomSMods"  set this as false to allow the 'customLordSMods' to be used alongside the normally selected SMods. if set to true, or unset, the flahship will attempt to add every hullmod in 'customLordSMods' first
 * "preferredItem" can be any of `domestic_goods`, `food`, `luxury_goods`, `drugs`, `hand_weapons`, `alpha_core`, or `lobster`.
 * "executiveOfficers" for custom second in command officer layouts. It is a json object where the id is the officer's aptitude, and the value a list of his chosen skills. Skills will continue to be added at random until the executive officers are fully leveled up if they are not specified. 
+* "dialogOverride" for custom lord dialogs. Is is a json array were the id is the dialog id (matched to the id of a object in the dialog.json). will attempt to run said Dialogs, but will also run the normal dialogs if the line it is looking for does not exsist in the inputed Dialogs (or if the lord fails to meet the requirements for the wanted line)
 * Flagship and ship preferences must contain valid ship variant ids. You can find these under the `/data/variants` folder of `starsector-core` or any mod directories.
 * Faction and fief will be automatically converted to lower case. Ship variants are case-sensitive.
 
@@ -99,7 +100,18 @@ If you're a modder, or just someone who likes S-Mods you might want to expand on
     * "CAPITAL_SHIP"
 * "S-Mods" are the S-Mods that you want to have present when the groups rules are met. so mods must contain a hull mod ID, and a integer. this value is the amount of weight the Smod has in the pull. default value should be 100
 
+
+### Adding Custom dialog to lords
+If you're a modder, or just someone who loves to write dialog for every starlord in your lords.json, you might want to create custom dialog lines with custom conditions for your starlords. All you have to do is add another entry to the [dialog.json](https://github.com/Alaricdragon/Starlords_Temp/tree/master/data/lords/dialog/dialog.json) file.
+please keep in mind: this is a highly complicated topic, so I have divided this into 5 readmes. (it was complicated, ok?) you should start with the base [DIALOG_BASE.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_BASE.md)
+      
+
 ### Credits
 Starsector team for developing the game\
 [Nexerelin](https://github.com/Histidine91/Nexerelin/tree/master) team's codebase for providing excellent references to many obscure parts of the Starsector API \
 Interestio for Lord [portraits](https://fractalsoftworks.com/forum/index.php?topic=17066.0)
+the many contubuters:
+  * "Deluth" for making this mod possible in the first place, as well as doing most of the impossible magic in the internals.
+  * "alaricdragon" for the starlords generator and many random small upgrades and fixes
+  * "(forum)Erlkönig / (discord)Zeilon" for random fixes, random upgrades and some other things?
+  * "Aleksandros" for obscure fixes, an upgraded system for defection, and allow lords to defect to the player faction without breaking everything

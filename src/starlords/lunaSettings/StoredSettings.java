@@ -24,6 +24,7 @@ import starlords.util.LordFleetFactory;
 import starlords.util.SModSupport.SModSet;
 import starlords.util.Utils;
 import starlords.util.WeightedRandom;
+import starlords.util.dialogControler.DialogSet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -442,6 +443,8 @@ public class StoredSettings {
         AvailableShipData.startup();
         JSONObject json = Global.getSettings().getMergedJSONForMod("data/lords/SMods.json",Constants.MOD_ID);
         SModSet.applySModSets(json);
+
+        DialogSet.setup();
     }
 
 

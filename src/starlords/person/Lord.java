@@ -24,6 +24,7 @@ import starlords.util.StringUtil;
 import starlords.util.Utils;
 import starlords.util.DefectionUtils;
 import starlords.util.Constants;
+import starlords.util.memoryUtils.DataHolder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ import java.util.Map;
 import java.util.Random;
 
 import static starlords.util.Constants.LORD_TABLE_KEY;
+import static starlords.util.Constants.STARLORD_ADDITIONAL_MEMORY_KEY;
 
 @Getter
 public class Lord {
@@ -96,6 +98,9 @@ public class Lord {
     @Setter
     private boolean married;
 
+    @Setter
+    private String spouse;
+
     // number of romantic actions the player has performed for this lord
     @Setter
     private int romanticActions;
@@ -112,6 +117,9 @@ public class Lord {
     @Setter
     private CampaignFleetAPI backupFleet;
 
+    //because it budged me that the god dammed way to decide weather or not you were a dress or not arg....
+    @Setter
+    private String formalWear;
     // Creates a lord from scratch, only run at campaign start
     public Lord(LordTemplate template) {
         FullName.Gender gender = template.isMale ? FullName.Gender.MALE : FullName.Gender.FEMALE;
@@ -302,6 +310,15 @@ public class Lord {
         return (float) (1 + Math.tanh((getFleet().getFleetPoints() - 200f) / 100));
     }
 
+    public String getFormalWear(){
+        if (formalWear != null) return formalWear;
+        String CATEGORY = "starlords_lords_dialog";
+        String a = StringUtil.getString(CATEGORY, "lordGenderDress");
+        String b = StringUtil.getString(CATEGORY, "lordGenderSuit");
+        String clothing = getLordAPI().getGender() == FullName.Gender.FEMALE ? a : b;
+        return clothing;
+    }
+
     public void setCurrAction(LordAction action) {
         if (isPlayer) return;
         currAction = action;
@@ -445,12 +462,7 @@ public class Lord {
     }
 
     public String getTitle() {
-        String titleStr = "title_" + getFaction().getId() + "_" + ranking;
-        String ret = StringUtil.getString("starlords_title", titleStr);
-        if (ret != null && ret.startsWith("Missing string")) {
-            ret = StringUtil.getString("starlords_title", "title_default_" + ranking);
-        }
-        return ret;
+        return Utils.getFactionTitle(getFaction().getId(),ranking);
     }
 
     // Returns closest owned fief, if any. If no fiefs, just return the closest friendly planet/station.
@@ -550,10 +562,28 @@ public class Lord {
         return template.shipPrefs;
     }
 
-	public static Lord createPlayer() {
-		Lord player = new Lord(Global.getSector().getPlayerPerson());
-		player.isPlayer = true;
-		return player;
-	}
+    private DataHolder DATA_HOLDER;
+    public DataHolder getLordDataHolder(){
+        DataHolder data_holder = DATA_HOLDER;
+        if (DATA_HOLDER != null) return data_holder;
+        String key = STARLORD_ADDITIONAL_MEMORY_KEY+getLordAPI().getId();
+        if (Global.getSector().getMemory().contains(key)){
+            data_holder = (DataHolder) Global.getSector().getMemory().get(key);
+        }else{
+            data_holder = new DataHolder();
+        }
+        DATA_HOLDER = data_holder;
+        return data_holder;
+    }
+    public void saveLordDataHolder(){
+        String key = STARLORD_ADDITIONAL_MEMORY_KEY+getLordAPI().getId();
+        DataHolder data_holder = DATA_HOLDER;
+        Global.getSector().getMemory().set(key,data_holder);
+    }
+    public static Lord createPlayer() {
+        Lord player = new Lord(Global.getSector().getPlayerPerson());
+        player.isPlayer = true;
+        return player;
+    }
 
 }
