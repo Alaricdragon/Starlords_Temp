@@ -96,9 +96,11 @@ public class DialogSet {
     private static DialogSet getSet(Lord lord,Lord targetLord, MarketAPI targetMarket,String id){
         Logger log = Global.getLogger(DialogSet.class);
         log.info("attempting to get set line ID of: "+id);
-        for (String a : lord.getTemplate().dialogOverride){
-            DialogSet out = dialogs.get(a).getSet(lord,targetLord,targetMarket,id);
-            if (out != null) return out;
+        if (lord.getTemplate().dialogOverride != null) {
+            for (String a : lord.getTemplate().dialogOverride) {
+                DialogSet out = dialogs.get(a).getSet(lord, targetLord, targetMarket, id);
+                if (out != null) return out;
+            }
         }
         for (int a = organizedDialogs.size() - 1; a > 0; a--){
             //never runs Dialogs with a priority of 0. they are reserved for dialogOverrides.

@@ -12,3 +12,5 @@ FixLordsPrisonerProblems,starlords.console.FixLordsPrisonerProblems,"starlords",
 PrintLordsRequests,starlords.console.PrintLordsRequests,"starlords", printlordsrequests, Print existing Lord Requests to log
 PrintLordsDetails,starlords.console.PrintLordsDetails,"starlords", printlordsdetails, Print tab separated lord faction, relations , fiefs, defect chance etc.
 PrintLordTravel,starlords.console.PrintLordTravel,"starlords", printlordtravel <lord id>, Print lord's distance, speed, estimated time of arrival to current lord target.
+PrintLordsAlignments,starlords.console.PrintLordsAlignments,"starlords", printlordsalignments, "Print tab separated lord id, name, faction, alignments"
+PrintLordsDefectionWeights,starlords.console.PrintLordsDefectionWeights,"starlords", printlordsdefectionweights, "Print tab separated lord id, name, faction, Weight, Alignment Difference"

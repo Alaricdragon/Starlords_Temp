@@ -1,3 +1,10 @@
+V0.3.38:
+    fixes:
+        fixed lords not being able to be interacted with (sorry about that).
+    thanks Aleksandros for the following:
+        Added Lord alignments if Nexerelin is present - for now only used in defection calculation
+        Added console commands PrintLordsAlignments and PrintLordsDefectionWeights
+        fixed issue with defection chance logic
 V0.3.37:
     new:
         changed the way starlords handle dialog. although there is not mush new yet (some escape hotkeys keys, a very small number of fixed dialog, bribing a starlord will give that starlord wealth), and its not 100% done (yet), it lays (most) of the ground work for furture upgrades, as well as allows players to build completely custom dialog for each and every starlord, should they so chose.

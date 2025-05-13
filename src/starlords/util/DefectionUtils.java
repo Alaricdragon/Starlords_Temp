@@ -8,6 +8,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
 import com.fs.starfarer.api.util.Misc;
+import org.apache.log4j.Logger;
 import starlords.controllers.EventController;
 import starlords.controllers.FiefController;
 import starlords.controllers.LordController;
@@ -19,13 +20,16 @@ import starlords.person.LordRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static starlords.util.Constants.*;
 import static starlords.util.Constants.COMPLETELY_UNJUSTIFIED;
 
 public class DefectionUtils {
 
-    // -50 to +50, higher means prefers other faction
+	private static final Logger log = Logger.getLogger(DefectionUtils.class);
+
+	// -50 to +50, higher means prefers other faction
     public static int computeRelativeFactionPreference(Lord lord, FactionAPI newFaction) {
         return (RelationController.getLoyalty(lord, newFaction.getId()) - RelationController.getLoyalty(lord)) / 4;
     }
@@ -94,19 +98,17 @@ public class DefectionUtils {
 			}
 		}
 
-		//If the faction still has markets then only defect if there are at least 4 lords
-		if (chance > 0){
-			for (Lord lordfaction : LordController.getLordsList()) {
-				if (lord.getFaction().equals(lordfaction.getFaction()))
-					lordsInFaction++;
-			}
-			if (lordsInFaction < 4)
-				return 0;
-		}
-
 		if (chance > 0){
 			return chance;
 		}
+
+		//If the faction still has markets then only defect if there are at least 4 lords
+		for (Lord lordfaction : LordController.getLordsList()) {
+				if (lord.getFaction().equals(lordfaction.getFaction()))
+					lordsInFaction++;
+			}
+		if (lordsInFaction < 4)
+			return 0;
 
 		switch (lord.getPersonality()) {
 			case UPSTANDING:
@@ -140,60 +142,105 @@ public class DefectionUtils {
 		return chance;
 	}
 
-	// defects to any faction
-	// chooses defection faction based on faction opinion and faction lord density
-	public static void performDefection(Lord lord) {
-		// precompute some stuff
-		HashMap<String, Integer> marketValues = new HashMap<>();
-		HashMap<String, Integer> lordValues = new HashMap<>();
+	public static boolean getFactionDefectionEligibility(Lord lord, FactionAPI faction) {
+		if (Utils.isMinorFaction(faction)) return false;
+		//todo: If i get the time, i really really need to make it so lords can offer to defect over to the player faction. please I beg of you let that happen. I waited for nearly 4 cycles for one to join me and now I learn that is not a thing and this can cause a issue with large number of lords were you cant get any up to the required reputation and this bugs me. plz fix.
+		if (Misc.getCommissionFaction() != null && faction.isPlayerFaction()) return false;
+		if (faction.isPlayerFaction() && lord.getLordAPI().getRelToPlayer().isAtBest(RepLevel.WELCOMING)) return false;
+		if (faction.isPlayerFaction() && !LordController.getFactionsWithLords().contains(faction)) return false;
+		if (faction.equals(lord.getFaction())) return false;
+		//todo: switch this from 'independents' to a function that sees if this faction does not allow lords.
+		if (faction.getId().equals(Factions.INDEPENDENT)) return false;
 
-		LordRequest openDefectionRequest = RequestController.getCurrentDefectionRequest(lord);
-		if (openDefectionRequest != null) {
-			RequestController.endRequest(openDefectionRequest);
-		}
+		return true;
+	}
+
+	public static FactionAPI getLordPreferredFaction(Lord lord, boolean printToLog) {
+
+		// number of markets in target factions
+		HashMap<String, Integer> marketValues = new HashMap<>();
+		// number of lords in target factions
+		HashMap<String, Integer> lordValues = new HashMap<>();
+		//aggregated relations of lord with lords of target factions
+		HashMap<String, Float> lordRelationValues = new HashMap<>();
 
 		for (MarketAPI marketAPI : Global.getSector().getEconomy().getMarketsCopy()) {
 			String id = marketAPI.getFactionId();
 			if (!marketValues.containsKey(id)) {
 				marketValues.put(id, 0);
 			}
-			marketValues.put(id, marketValues.get(id) + 20);
+			marketValues.put(id, marketValues.get(id) + 1);
 		}
 		for (Lord lord2 : LordController.getLordsList()) {
 			String id = lord2.getFaction().getId();
 			if (!lordValues.containsKey(id)) {
 				lordValues.put(id, 0);
 			}
-			lordValues.put(id, lordValues.get(id) + 20);
+			if (!lordRelationValues.containsKey(id)) {
+				lordRelationValues.put(id, 0f);
+			}
+
+			lordValues.put(id, lordValues.get(id) + 1);
+			lordRelationValues.put(id, lordRelationValues.get(id) + RelationController.getRelation(lord,lord2));
 		}
 
-        FactionAPI preferredFaction = Global.getSector().getFaction(Factions.PIRATES);
-        int preferredWeight = 25;
-        for (FactionAPI faction : Global.getSector().getAllFactions()) {
-            //todo: If i get the time, i really really need to make it so lords can offer to defect over to the player faction. please I beg of you let that happen. I waited for nearly 4 cycles for one to join me and now I learn that is not a thing and this can cause a issue with large number of lords were you cant get any up to the required reputation and this bugs me. plz fix.
-            if (Misc.getCommissionFaction() != null && faction.isPlayerFaction()) continue;
-            if (faction.isPlayerFaction() && lord.getLordAPI().getRelToPlayer().isAtBest(RepLevel.WELCOMING)) continue;
-            if (faction.isPlayerFaction() && !LordController.getFactionsWithLords().contains(faction)) continue;
-            if (faction.equals(lord.getFaction())) continue;
-            //todo: switch this from 'independents' to a function that sees if this faction does not allow lords.
-            if (faction.getId().equals(Factions.INDEPENDENT)) continue;
-            int weight = RelationController.getLoyalty(lord, faction.getId());
-            if (!Utils.isMinorFaction(faction)) {
-                if (marketValues.containsKey(faction.getId())) {
-                    weight += marketValues.get(faction.getId());
-                }
-                if (lordValues.containsKey(faction.getId())) {
-                    weight -= lordValues.get(faction.getId());
-                }
-            } else {
-                weight = Math.max(25, 25 + weight); // some base value for preferring pirates
-            }
+		//average relations with lords of faction and normalize (divide by 10)
+		for (Map.Entry<String,Float> entry : lordRelationValues.entrySet()) {
+			entry.setValue(entry.getValue() / (float) lordValues.get(entry.getKey()) / 10f);
+		}
 
-            if (weight > preferredWeight) {
-                preferredFaction = faction;
-                preferredWeight = weight;
-            }
-        }
+		String output = "[Star Lords]\tLordID\tLordName\tLordFaction\tTargetFaction\tRelation\tAlignmentDifference\tDefectionWeight" + System.lineSeparator();
+
+		FactionAPI preferredFaction = Global.getSector().getFaction(Factions.PIRATES);
+		float preferredWeight = 0;
+
+		for (FactionAPI faction : Global.getSector().getAllFactions()) {
+
+			if (getFactionDefectionEligibility(lord,faction) == false) continue;
+
+			float weight = 0;
+
+			weight += lordRelationValues.getOrDefault(faction.getId(), 5f);
+			weight += marketValues.getOrDefault(faction.getId(), -10);
+			weight -= lordValues.getOrDefault(faction.getId(), 0);
+			if (Utils.nexEnabled())
+				weight -= NexerlinUtilitys.getAlignmentsComparison(
+								lord.getAlignments(),
+								NexerlinUtilitys.getFactionAlignments(faction.getId()));
+
+
+			output += "[Star Lords]" + "\t"
+					+ lord.getLordAPI().getId() + "\t"
+					+ lord.getLordAPI().getNameString() + "\t"
+					+ lord.getLordAPI().getFaction().getDisplayName() + "\t"
+					+ faction.getDisplayName() + "\t"
+					+ lordRelationValues.getOrDefault(faction.getId(), 5f) + "\t";
+			if (Utils.nexEnabled())
+				output += NexerlinUtilitys.getAlignmentsComparison(lord.getAlignments(),NexerlinUtilitys.getFactionAlignments(faction.getId())) + "\t";
+
+			output += weight + "\t" + System.lineSeparator();
+
+			if (weight > preferredWeight) {
+				preferredFaction = faction;
+				preferredWeight = weight;
+			}
+		}
+
+		if (printToLog)
+			log.info(output);
+
+		return preferredFaction;
+	}
+
+	// defects to any faction
+	// chooses defection faction based on faction opinion and faction lord density
+	public static void performDefection(Lord lord) {
+		LordRequest openDefectionRequest = RequestController.getCurrentDefectionRequest(lord);
+		if (openDefectionRequest != null) {
+			RequestController.endRequest(openDefectionRequest);
+		}
+
+        FactionAPI preferredFaction = getLordPreferredFaction(lord, false);
         // this can only happen for pirates, but dont make pirates defect to themselves
         if (preferredFaction.equals(lord.getFaction())) return;
         performDefection(lord, preferredFaction, true);
