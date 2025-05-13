@@ -7,6 +7,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.person.Lord;
+import starlords.plugins.LordInteractionDialogPluginImpl;
 import starlords.util.Utils;
 import starlords.util.dialogControler.dialogValues.DialogValuesList;
 import starlords.util.dialogControler.dialogAddon.DialogAddon_Base;

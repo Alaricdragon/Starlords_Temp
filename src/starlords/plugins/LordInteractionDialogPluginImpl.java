@@ -171,7 +171,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         *           -I also need to make it so the data that sets this happens in a set data.
         *       3) (done main changes. need to implement. untested.)for "swayProposal_forCounsel_bargain", "swayProposal_againstCounsel_bargain", "swayProposal_forPlayer_bargain" requies additional testing. to make sure they work.
         *           -NOTE: when I apply the rules, make sure the 'min' and 'max' values are set to the right value (all people have diffrent values for that.)
-        *   1) I need to go through all the dialog, and merge the dialog into a type of 'template' that I can add additional data to.
+        *   1) (done) I need to go through all the dialog, and merge the dialog into a type of 'template' that I can add additional data to.
         *   2) (done) I need to go into all lines and imporve them just a bit. by adding in the new utility functions I added in the first place.
         *   3) (done) I need to go into anything that uses a diffrent option set, and make it so instead of setting all the options right there, it gets a different option set instead (because having a cenralized option set to change prevents modders from having to keep trake of every time I add a dialog option. it is important.)
         * dialog fixes:
@@ -184,16 +184,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         *   1) remove most the logs. the ones i do chose to keep, should only be the most basic ones, and they should have the log class set currently.
         *
         * round of testing:
-        *   (done in deebug mode. needs testing outside of that)
-        *       (fixed)'added intel on lord' additional text might not be working?
-        *       (fixed)'learns lord viewponit' additional text might not be working?
-        *       'ask about current assignment' not having some lines:
-        *           task: (fixed)current_task_desc_respawning
-        *   issue: when giveing gifts:
-        *       the hints on gift given are set to what is clearly not the commodity name, but rather ID.
-        *       the rep loss is applied twice for some reason? (but I got both rep gain and loss?)
-        *       the never mind option should have an escape hotkey.
-        *       the dialog.json template should not hold the option with a different optionID. instead, we should make it 2 lines. one for like, one for dislike.
+        *   I have done all the lines!?!!?!?! what????
         * */
         if (optionData instanceof DialogOption){
             if (prevPlugin.equals(this) && !visual.isShowingPersonInfo(targetLord.getLordAPI())) {

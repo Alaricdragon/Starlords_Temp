@@ -41,8 +41,6 @@ public class DialogInsertList {
         if (json.has("customDialogInsert")){
             return new DialogInsert_customList(json);
         }
-        Logger log = Global.getLogger(DialogInsertList.class);
-        log.info("ERROR: FAILED TO GET A DialogInsert. failed json data should be: "+json.toString());
         DialogInsert_Base error = new DialogInsert_Base();
         error.key = "";
         return error;

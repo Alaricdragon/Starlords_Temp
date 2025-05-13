@@ -7,6 +7,7 @@ import com.fs.starfarer.api.campaign.TextPanelAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import org.json.JSONObject;
 import starlords.person.Lord;
+import starlords.plugins.LordInteractionDialogPluginImpl;
 import starlords.util.dialogControler.DialogSet;
 import starlords.util.dialogControler.dialogAddon.bases.DialogAddon_changeValue;
 
@@ -24,7 +25,7 @@ public class DialogAddon_changeCommodityInPlayersFleet extends DialogAddon_chang
         Global.getSector().getPlayerFleet().getCargo().addCommodity(item,(value));
         HashMap<String,String> inserts = new HashMap<>();
         inserts.put("%c0",""+value);
-        inserts.put("%c1",item);
+        inserts.put("%c1",Global.getSector().getEconomy().getCommoditySpec(item).getName());
         DialogSet.addParaWithInserts("item_added",lord,targetLord,targetMarket,textPanel,options,dialog,false,inserts);
     }
 
@@ -36,7 +37,7 @@ public class DialogAddon_changeCommodityInPlayersFleet extends DialogAddon_chang
 
         HashMap<String,String> inserts = new HashMap<>();
         inserts.put("%c0",""+value);
-        inserts.put("%c1",item);
+        inserts.put("%c1",Global.getSector().getEconomy().getCommoditySpec(item).getName());
         DialogSet.addParaWithInserts("item_lost",lord,targetLord,targetMarket,textPanel,options,dialog,false,inserts);
     }
 

@@ -37,10 +37,7 @@ public class DialogAddon_additionalText extends DialogAddon_Base{
 
     @Override
     public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket) {
-        Logger log = Global.getLogger(StoredSettings.class);
-        log.info("running additional text...");
         for (String a : lineID) {
-            log.info("getting additional text of ID: "+a);
             DialogSet.addParaWithInserts(a, lord,targetLord,targetMarket, textPanel, options, dialog);
         }
     }

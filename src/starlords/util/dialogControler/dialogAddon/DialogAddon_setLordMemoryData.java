@@ -64,22 +64,14 @@ public class DialogAddon_setLordMemoryData extends DialogAddon_setDialogData{
 
     }
     public void applyFloats(DataHolder DATA_HOLDER,Lord lord,Lord targetLord, MarketAPI targetMarket){
-        //Logger log = Global.getLogger(DialogValuesList.class);
-        //log.info("attempting to save dialog data for lord of: "+lord.getLordAPI().getId());
         for (String key : setInts.keySet()) {
             int data = setInts.get(key).getValue(lord, targetLord, targetMarket);
             if (!time.containsKey(key)) {
-                //log.info("  setting data as normal value:");
-                //log.info("  setting data of key: "+key+" to value of: "+data);
                 DATA_HOLDER.setInteger(key, data);
-                //log.info("  do I have value here: "+DATA_HOLDER.getInteger(key));
                 continue;
             }
-            //log.info("  setting data as timed value:");
             int time = this.time.get(key).getValue(lord,targetLord,targetMarket);
-            //log.info("  setting data of key: "+key+" to value of: "+data);
             DATA_HOLDER.setInteger(key, data,time);
-            //log.info("  do I have value here: "+DATA_HOLDER.getInteger(key));
         }
     }
     public void applyAddFloats(DataHolder DATA_HOLDER,Lord lord,Lord targetLord, MarketAPI targetMarket){

@@ -3,9 +3,11 @@ package starlords.util.dialogControler.dialogAddon;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.OptionPanelAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.person.Lord;
+import starlords.plugins.LordInteractionDialogPluginImpl;
 import starlords.util.dialogControler.dialogAddon.bases.DialogAddon_changeValue;
 
 import java.util.ArrayList;
@@ -23,9 +25,9 @@ public class DialogAddon_changeCommoditysInPlayersFleet extends DialogAddon_Base
     }
 
     @Override
-    public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord) {
+    public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket) {
         for (DialogAddon_changeValue a : changes){
-            a.apply(textPanel, options, dialog, lord, targetLord);
+            a.apply(textPanel, options, dialog, lord, targetLord,targetMarket);
         }
     }
 }

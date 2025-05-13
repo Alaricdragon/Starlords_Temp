@@ -47,7 +47,6 @@ public class DialogAddon_attemptToAddRandomQuest extends DialogAddon_Base{
             params.add(new Misc.Token(QuestController.getQuestId(targetLord), Misc.TokenType.LITERAL));
             params.add(new Misc.Token("false", Misc.TokenType.LITERAL));
             new BeginMission().execute("", dialog, params, new HashMap<String, MemoryAPI>());
-            //log.info("DEBUG: Creating quest of type " + params.get(0).toString());
             BaseHubMission mission = (BaseHubMission) Global.getSector().getMemoryWithoutUpdate().get(TEMP_MISSION_KEY);
             if (mission != null && !(mission instanceof BaseCustomBounty)) {  // TODO bounties dont seem to work
                 MissionPreviewIntelPlugin intel = new MissionPreviewIntelPlugin(mission);

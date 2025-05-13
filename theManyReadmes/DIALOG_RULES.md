@@ -87,6 +87,14 @@ this is the 'dialog rules' json object. within, I will cover the 3 different 'ru
       * "playerHasLiege": if the lord has a liege or not (some factions don't have lieges.)
       * "isPersonalityKnown": if the player knows the lords personality yet.
       * "hasInteractedThisFeast": if the player has interacted to this feast well this lord was here.
+  * "compareStrings": {"a":JSONObject, "b":JSONObject}. compares to strings together. if they are the same, returns true. "a" and "b" contain the following data:
+      "type": String. this is what type of string you are compairing. types are as follows:
+        "MEMORY" gets a string from memory (with a ID of "data")
+        "DIALOG" gets a string from dialog data (with a ID of "data")
+        "LORD" gets a string from lord memory (with a ID of "data")
+        "FAV_ITEM": gets the fav item of the lord. ignores "data".
+        "STATIC" simple compares the string inputted as data.
+      "data": String
   * whitelist / blacklist rules. each rule here contains a jsonObject, were a item ID is what its looking at, and its boolean value is wether or not the item is whitelisted or blacklisted. all blacklisted items must not be present, and at least 1 (if present) whitelisted item must be present
       * "startingFaction" is the starting faction the lord has.
       * "currentFaction" is the current faction the lord is in.

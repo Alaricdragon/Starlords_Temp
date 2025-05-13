@@ -254,7 +254,7 @@ public class DialogSet {
         return line;
     }
     private static String getPlayerPartnerStringMods(String line, Lord lord){
-        if (LordController.getPlayerLord().getSpouse() != null) return get_Person_StringMods(line,LordController.getLordById(LordController.getPlayerLord().getSpouse()),"PLAYER_SPOUSE_");
+        if (LordController.getPlayerLord().getSpouse() != null) return get_Person_StringMods(line,LordController.getLordOrPlayerById(LordController.getPlayerLord().getSpouse()),"PLAYER_SPOUSE_");
         return get_null_Person_StringMods(line,"PLAYER_SPOUSE_");
     }
     private static String getLordStringMods(String line, Lord lord){
@@ -262,7 +262,7 @@ public class DialogSet {
     }
     private static String getLordPartnerStringMods(String line, Lord lord){
         if (lord.getSpouse() == null) return get_null_Person_StringMods(line,"LORD_SPOUSE_");
-        lord = LordController.getLordById(lord.getSpouse());
+        lord = LordController.getLordOrPlayerById(lord.getSpouse());
         return get_Person_StringMods(line,lord,"LORD_SPOUSE_");
     }
     private static String getHostLordStringMods(String line, Lord lord){
@@ -283,7 +283,7 @@ public class DialogSet {
             if (temp != null) {
                 lord = temp;
                 if (lord.getSpouse() != null){
-                    lord = LordController.getLordById(lord.getSpouse());
+                    lord = LordController.getLordOrPlayerById(lord.getSpouse());
                     return get_Person_StringMods(line,lord,"LORD_HOST_SPOUSE_");
                 }
             }
@@ -294,7 +294,7 @@ public class DialogSet {
         boolean check = EventController.getCurrentFeast(lord.getLordAPI().getFaction()) != null;
         if (check){
             Lord temp = EventController.getCurrentFeast(lord.getLordAPI().getFaction()).getWeddingCeremonyTarget();
-            if (temp != null) get_Person_StringMods(line,lord,"WEDDING_TARGET_");
+            if (temp != null) return get_Person_StringMods(line,temp,"WEDDING_TARGET_");
         }
         return get_null_Person_StringMods(line,"WEDDING_TARGET_");
     }
@@ -305,7 +305,7 @@ public class DialogSet {
             if (temp != null){
                 lord = temp;
                 if (lord.getSpouse() != null){
-                    lord = LordController.getLordById(lord.getSpouse());
+                    lord = LordController.getLordOrPlayerById(lord.getSpouse());
                     return get_Person_StringMods(line,lord,"WEDDING_TARGET_SPOUSE_");
                 }
             }
@@ -318,7 +318,7 @@ public class DialogSet {
     }
     private static String getSecondLordPartnerStringMods(String line,Lord targetLord){
         if (targetLord == null || targetLord.getSpouse() == null) return get_null_Person_StringMods(line,"SECOND_LORD_SPOUSE_");
-        targetLord = LordController.getLordById(targetLord.getSpouse());
+        targetLord = LordController.getLordOrPlayerById(targetLord.getSpouse());
         return get_Person_StringMods(line,targetLord,"SECOND_LORD_SPOUSE_");
     }
 
@@ -326,7 +326,8 @@ public class DialogSet {
         String data = lord.getFaction().getDisplayName();
         line = insertData(line,"%"+key+"FACTION_NAME",data);
 
-        data = Global.getSector().getFaction(lord.getTemplate().factionId).getDisplayName();//Global.getSector().getPlayerFaction().getDisplayName();
+        data = "";
+        if (lord.getTemplate() != null)data = Global.getSector().getFaction(lord.getTemplate().factionId).getDisplayName();
         line = insertData(line,"%"+key+"STARTING_FACTION_NAME",data);
 
         data = lord.getLordAPI().getNameString();
@@ -645,7 +646,7 @@ public class DialogSet {
         if (shouldHide(key,textPanel,options,lord,targetLord,targetMarket)) return;
         String line = this.getLine(key);
         if (line != null && !line.equals("") && !shouldHide(key, textPanel, options, lord,targetLord,targetMarket) && !forceHide) {
-            //log.info("running dialog of line: "+line);
+            log.info("running dialog of line: "+line);
             //if (!((key.equals("greeting") || key.equals(LordInteractionDialogPluginImpl.startingDialog)) && LordInteractionDialogPluginImpl.isHasGreeted())) {
             line = insertCustomData(key, line, lord, targetLord, targetMarket);
             line = insertDefaltData(line, lord, targetLord, targetMarket);
@@ -777,9 +778,7 @@ public class DialogSet {
                         break;
                 }
             }
-            if (enable.containsKey(key)) log.info("got shouldEnable as: "+shouldEnable(key, textPanel, options, lord, targetLord, targetMarket));
             if (enable.containsKey(key) && !shouldEnable(key, textPanel, options, lord, targetLord, targetMarket)){
-                log.info("RUNNING ENABLED AS FALSE:");
                 options.setEnabled(optionData, false);
             }
         }else if(line == null){
@@ -1734,6 +1733,8 @@ public class DialogSet {
                 case "hasInteractedThisFeast":
                     rules.add(addRule_hasInteractedThisFeast(rulesTemp,key));
                     break;
+                case "compareStrings":
+                    rules.add(addRule_compareStrings(rulesTemp,key));
             }
         }
         return rules;
@@ -2339,5 +2340,9 @@ public class DialogSet {
     @SneakyThrows
     private static DialogRule_Base addRule_hasInteractedThisFeast(JSONObject json,String key){
         return new DialogRule_hasInteractedThisFeast(json,key);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_compareStrings(JSONObject json,String key){
+        return new DialogRule_compareStrings(json,key);
     }
 }

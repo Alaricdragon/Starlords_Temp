@@ -1,6 +1,5 @@
 {
   "upstanding": {
-    "readme": "this is a template for people that want to start with replace every line of dialog for a given lord or condition. this holds all the relevant lines, so you can change them at will.",
     "priority": 1,
     "rules": {
       "lordPersonality": {
@@ -1263,205 +1262,67 @@
           "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of technological gadgets."
         }
       },
-      "favItem_alpha_core": {
+      "gaveFavItem": {
         "priority": 1,
         "rules": {
-          "lordsFavItem": {
-            "alpha_core": true
-          }
-        },
-        "lines": {
-          "option_gift_alpha_core": {
-            "line": "An alpha core",
-            "optionData": "likeGift_alpha_core",
-            "hint": "give 1 alpha_core to %LORD_NAME",
-            "addons": {
-              "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "alpha_core": -1
-              },
-              "romanceChange": 1
+          "compareStrings": {
+            "a": {
+              "type": "FAV_ITEM"
             },
-            "enable": {
-              "playerHasCommodity": {
-                "alpha_core": {
-                  "min": 1
-                }
-              }
+            "b": {
+              "type": "DIALOG",
+              "data": "givenGift"
             }
           }
-        }
-      },
-      "favItem_hand_weapons": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "hand_weapons": true
-          }
         },
         "lines": {
-          "option_gift_hand_weapons": {
-            "line": "A high-quality handgun",
-            "optionData": "likeGift_hand_weapons",
-            "hint": "give 100 hand_weapons to %LORD_NAME",
+          "giveGift_alpha_core": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "hand_weapons": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "hand_weapons": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_food": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "food": true
-          }
-        },
-        "lines": {
-          "option_gift_food": {
-            "line": "A butter sampler platter",
-            "optionData": "likeGift_food",
-            "hint": "give 100 food to %LORD_NAME",
+          },
+          "giveGift_hand_weapons": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "food": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "food": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_luxury_goods": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "luxury_goods": true
-          }
-        },
-        "lines": {
-          "option_gift_luxury_goods": {
-            "line": "The latest luxury %LORD_GENDER_SUIT_OR_DRESS from Chicomoztoc",
-            "optionData": "likeGift_luxury_goods",
-            "hint": "give 100 luxury_goods to %LORD_NAME",
+          },
+          "giveGift_food": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "luxury_goods": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "luxury_goods": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_lobster": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "lobster": true
-          }
-        },
-        "lines": {
-          "option_gift_lobster": {
-            "line": "Fresh Volturnian Lobster",
-            "optionData": "likeGift_lobster",
-            "hint": "give 100 lobster to %LORD_NAME",
+          },
+          "giveGift_luxury_goods": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "lobster": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "lobster": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_drugs": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "drugs": true
-          }
-        },
-        "lines": {
-          "option_gift_drugs": {
-            "line": "A pack of psychedelics",
-            "optionData": "likeGift_drugs",
-            "hint": "give 100 drugs to %LORD_NAME",
+          },
+          "giveGift_lobster": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "drugs": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "drugs": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_domestic_goods": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "domestic_goods": true
-          }
-        },
-        "lines": {
-          "option_gift_domestic_goods": {
-            "line": "The latest Tri-pad DLC",
-            "optionData": "likeGift_domestic_goods",
-            "hint": "give 100 domestic_goods to %LORD_NAME",
+          },
+          "giveGift_drugs": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "domestic_goods": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "domestic_goods": {
-                  "min": 100
-                }
-              }
+            }
+          },
+          "giveGift_domestic_goods": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
+            "addons": {
+              "repChange": 10,
+              "romanceChange": 1
             }
           }
         }
@@ -1906,21 +1767,48 @@
           "swayProposal_againstCounsel_acceptBribe": "We have a deal then. I'll do as you ask.",
           "swayProposal_againstCounsel_acceptBargain": "We have a deal then. I'll do as you ask.",
 
-          "give_gift": "",
-          "dislikeGift_alpha_core": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_hand_weapons": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_food": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_luxury_goods": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_lobster": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_drugs": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_domestic_goods": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "likeGift_alpha_core": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_hand_weapons": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_food": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_luxury_goods": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_lobster": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_drugs": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_domestic_goods": "What a thoughtful gift. I'm touched that you know me so well.",
+          "giveGift_alpha_core": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_hand_weapons": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_food": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_luxury_goods": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_lobster": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_drugs": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_domestic_goods": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
           "accept_ask_location": "Who did you wish to inquire about?",
           "LordLocation": "I don't know where %SECOND_LORD_TITLE %SECOND_LORD_NAME is",
           "consider_defect": "Oh? You speak of treason, friend. Why should I let you say another word?",
@@ -3365,205 +3253,67 @@
           "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of technological gadgets."
         }
       },
-      "favItem_alpha_core": {
+      "gaveFavItem": {
         "priority": 1,
         "rules": {
-          "lordsFavItem": {
-            "alpha_core": true
-          }
-        },
-        "lines": {
-          "option_gift_alpha_core": {
-            "line": "An alpha core",
-            "optionData": "likeGift_alpha_core",
-            "hint": "give 1 alpha_core to %LORD_NAME",
-            "addons": {
-              "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "alpha_core": -1
-              },
-              "romanceChange": 1
+          "compareStrings": {
+            "a": {
+              "type": "FAV_ITEM"
             },
-            "enable": {
-              "playerHasCommodity": {
-                "alpha_core": {
-                  "min": 1
-                }
-              }
+            "b": {
+              "type": "DIALOG",
+              "data": "givenGift"
             }
           }
-        }
-      },
-      "favItem_hand_weapons": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "hand_weapons": true
-          }
         },
         "lines": {
-          "option_gift_hand_weapons": {
-            "line": "A high-quality handgun",
-            "optionData": "likeGift_hand_weapons",
-            "hint": "give 100 hand_weapons to %LORD_NAME",
+          "giveGift_alpha_core": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "hand_weapons": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "hand_weapons": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_food": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "food": true
-          }
-        },
-        "lines": {
-          "option_gift_food": {
-            "line": "A butter sampler platter",
-            "optionData": "likeGift_food",
-            "hint": "give 100 food to %LORD_NAME",
+          },
+          "giveGift_hand_weapons": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "food": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "food": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_luxury_goods": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "luxury_goods": true
-          }
-        },
-        "lines": {
-          "option_gift_luxury_goods": {
-            "line": "The latest luxury %LORD_GENDER_SUIT_OR_DRESS from Chicomoztoc",
-            "optionData": "likeGift_luxury_goods",
-            "hint": "give 100 luxury_goods to %LORD_NAME",
+          },
+          "giveGift_food": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "luxury_goods": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "luxury_goods": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_lobster": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "lobster": true
-          }
-        },
-        "lines": {
-          "option_gift_lobster": {
-            "line": "Fresh Volturnian Lobster",
-            "optionData": "likeGift_lobster",
-            "hint": "give 100 lobster to %LORD_NAME",
+          },
+          "giveGift_luxury_goods": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "lobster": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "lobster": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_drugs": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "drugs": true
-          }
-        },
-        "lines": {
-          "option_gift_drugs": {
-            "line": "A pack of psychedelics",
-            "optionData": "likeGift_drugs",
-            "hint": "give 100 drugs to %LORD_NAME",
+          },
+          "giveGift_lobster": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "drugs": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "drugs": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_domestic_goods": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "domestic_goods": true
-          }
-        },
-        "lines": {
-          "option_gift_domestic_goods": {
-            "line": "The latest Tri-pad DLC",
-            "optionData": "likeGift_domestic_goods",
-            "hint": "give 100 domestic_goods to %LORD_NAME",
+          },
+          "giveGift_drugs": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "domestic_goods": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "domestic_goods": {
-                  "min": 100
-                }
-              }
+            }
+          },
+          "giveGift_domestic_goods": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
+            "addons": {
+              "repChange": 10,
+              "romanceChange": 1
             }
           }
         }
@@ -4008,21 +3758,48 @@
           "swayProposal_againstCounsel_acceptBribe": "We have a deal then. I'll do as you ask.",
           "swayProposal_againstCounsel_acceptBargain": "We have a deal then. I'll do as you ask.",
 
-          "give_gift": "",
-          "dislikeGift_alpha_core": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_hand_weapons": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_food": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_luxury_goods": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_lobster": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_drugs": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_domestic_goods": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "likeGift_alpha_core": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_hand_weapons": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_food": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_luxury_goods": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_lobster": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_drugs": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_domestic_goods": "What a thoughtful gift. I'm touched that you know me so well.",
+          "giveGift_alpha_core": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_hand_weapons": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_food": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_luxury_goods": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_lobster": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_drugs": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_domestic_goods": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
           "accept_ask_location": "Who did you wish to inquire about?",
           "LordLocation": "I don't know where %SECOND_LORD_TITLE %SECOND_LORD_NAME is",
           "consider_defect": "Oh? You speak of treason, friend. Why should I let you say another word?",
@@ -5499,205 +5276,67 @@
           "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of technological gadgets."
         }
       },
-      "favItem_alpha_core": {
+      "gaveFavItem": {
         "priority": 1,
         "rules": {
-          "lordsFavItem": {
-            "alpha_core": true
-          }
-        },
-        "lines": {
-          "option_gift_alpha_core": {
-            "line": "An alpha core",
-            "optionData": "likeGift_alpha_core",
-            "hint": "give 1 alpha_core to %LORD_NAME",
-            "addons": {
-              "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "alpha_core": -1
-              },
-              "romanceChange": 1
+          "compareStrings": {
+            "a": {
+              "type": "FAV_ITEM"
             },
-            "enable": {
-              "playerHasCommodity": {
-                "alpha_core": {
-                  "min": 1
-                }
-              }
+            "b": {
+              "type": "DIALOG",
+              "data": "givenGift"
             }
           }
-        }
-      },
-      "favItem_hand_weapons": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "hand_weapons": true
-          }
         },
         "lines": {
-          "option_gift_hand_weapons": {
-            "line": "A high-quality handgun",
-            "optionData": "likeGift_hand_weapons",
-            "hint": "give 100 hand_weapons to %LORD_NAME",
+          "giveGift_alpha_core": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "hand_weapons": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "hand_weapons": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_food": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "food": true
-          }
-        },
-        "lines": {
-          "option_gift_food": {
-            "line": "A butter sampler platter",
-            "optionData": "likeGift_food",
-            "hint": "give 100 food to %LORD_NAME",
+          },
+          "giveGift_hand_weapons": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "food": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "food": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_luxury_goods": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "luxury_goods": true
-          }
-        },
-        "lines": {
-          "option_gift_luxury_goods": {
-            "line": "The latest luxury %LORD_GENDER_SUIT_OR_DRESS from Chicomoztoc",
-            "optionData": "likeGift_luxury_goods",
-            "hint": "give 100 luxury_goods to %LORD_NAME",
+          },
+          "giveGift_food": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "luxury_goods": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "luxury_goods": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_lobster": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "lobster": true
-          }
-        },
-        "lines": {
-          "option_gift_lobster": {
-            "line": "Fresh Volturnian Lobster",
-            "optionData": "likeGift_lobster",
-            "hint": "give 100 lobster to %LORD_NAME",
+          },
+          "giveGift_luxury_goods": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "lobster": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "lobster": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_drugs": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "drugs": true
-          }
-        },
-        "lines": {
-          "option_gift_drugs": {
-            "line": "A pack of psychedelics",
-            "optionData": "likeGift_drugs",
-            "hint": "give 100 drugs to %LORD_NAME",
+          },
+          "giveGift_lobster": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "drugs": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "drugs": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_domestic_goods": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "domestic_goods": true
-          }
-        },
-        "lines": {
-          "option_gift_domestic_goods": {
-            "line": "The latest Tri-pad DLC",
-            "optionData": "likeGift_domestic_goods",
-            "hint": "give 100 domestic_goods to %LORD_NAME",
+          },
+          "giveGift_drugs": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "domestic_goods": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "domestic_goods": {
-                  "min": 100
-                }
-              }
+            }
+          },
+          "giveGift_domestic_goods": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
+            "addons": {
+              "repChange": 10,
+              "romanceChange": 1
             }
           }
         }
@@ -6142,21 +5781,48 @@
           "swayProposal_againstCounsel_acceptBribe": "We have a deal then. I'll do as you ask.",
           "swayProposal_againstCounsel_acceptBargain": "We have a deal then. I'll do as you ask.",
 
-          "give_gift": "",
-          "dislikeGift_alpha_core": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_hand_weapons": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_food": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_luxury_goods": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_lobster": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_drugs": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_domestic_goods": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "likeGift_alpha_core": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_hand_weapons": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_food": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_luxury_goods": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_lobster": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_drugs": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_domestic_goods": "What a thoughtful gift. I'm touched that you know me so well.",
+          "giveGift_alpha_core": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_hand_weapons": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_food": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_luxury_goods": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_lobster": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_drugs": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_domestic_goods": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
           "accept_ask_location": "Who did you wish to inquire about?",
           "LordLocation": "I don't know where %SECOND_LORD_TITLE %SECOND_LORD_NAME is",
           "consider_defect": "Oh? You speak of treason, friend. Why should I let you say another word?",
@@ -7645,205 +7311,67 @@
           "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of technological gadgets."
         }
       },
-      "favItem_alpha_core": {
+      "gaveFavItem": {
         "priority": 1,
         "rules": {
-          "lordsFavItem": {
-            "alpha_core": true
-          }
-        },
-        "lines": {
-          "option_gift_alpha_core": {
-            "line": "An alpha core",
-            "optionData": "likeGift_alpha_core",
-            "hint": "give 1 alpha_core to %LORD_NAME",
-            "addons": {
-              "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "alpha_core": -1
-              },
-              "romanceChange": 1
+          "compareStrings": {
+            "a": {
+              "type": "FAV_ITEM"
             },
-            "enable": {
-              "playerHasCommodity": {
-                "alpha_core": {
-                  "min": 1
-                }
-              }
+            "b": {
+              "type": "DIALOG",
+              "data": "givenGift"
             }
           }
-        }
-      },
-      "favItem_hand_weapons": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "hand_weapons": true
-          }
         },
         "lines": {
-          "option_gift_hand_weapons": {
-            "line": "A high-quality handgun",
-            "optionData": "likeGift_hand_weapons",
-            "hint": "give 100 hand_weapons to %LORD_NAME",
+          "giveGift_alpha_core": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "hand_weapons": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "hand_weapons": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_food": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "food": true
-          }
-        },
-        "lines": {
-          "option_gift_food": {
-            "line": "A butter sampler platter",
-            "optionData": "likeGift_food",
-            "hint": "give 100 food to %LORD_NAME",
+          },
+          "giveGift_hand_weapons": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "food": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "food": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_luxury_goods": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "luxury_goods": true
-          }
-        },
-        "lines": {
-          "option_gift_luxury_goods": {
-            "line": "The latest luxury %LORD_GENDER_SUIT_OR_DRESS from Chicomoztoc",
-            "optionData": "likeGift_luxury_goods",
-            "hint": "give 100 luxury_goods to %LORD_NAME",
+          },
+          "giveGift_food": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "luxury_goods": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "luxury_goods": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_lobster": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "lobster": true
-          }
-        },
-        "lines": {
-          "option_gift_lobster": {
-            "line": "Fresh Volturnian Lobster",
-            "optionData": "likeGift_lobster",
-            "hint": "give 100 lobster to %LORD_NAME",
+          },
+          "giveGift_luxury_goods": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "lobster": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "lobster": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_drugs": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "drugs": true
-          }
-        },
-        "lines": {
-          "option_gift_drugs": {
-            "line": "A pack of psychedelics",
-            "optionData": "likeGift_drugs",
-            "hint": "give 100 drugs to %LORD_NAME",
+          },
+          "giveGift_lobster": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "drugs": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "drugs": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_domestic_goods": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "domestic_goods": true
-          }
-        },
-        "lines": {
-          "option_gift_domestic_goods": {
-            "line": "The latest Tri-pad DLC",
-            "optionData": "likeGift_domestic_goods",
-            "hint": "give 100 domestic_goods to %LORD_NAME",
+          },
+          "giveGift_drugs": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "domestic_goods": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "domestic_goods": {
-                  "min": 100
-                }
-              }
+            }
+          },
+          "giveGift_domestic_goods": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
+            "addons": {
+              "repChange": 10,
+              "romanceChange": 1
             }
           }
         }
@@ -8288,21 +7816,48 @@
           "swayProposal_againstCounsel_acceptBribe": "We have a deal then. I'll do as you ask.",
           "swayProposal_againstCounsel_acceptBargain": "We have a deal then. I'll do as you ask.",
 
-          "give_gift": "",
-          "dislikeGift_alpha_core": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_hand_weapons": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_food": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_luxury_goods": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_lobster": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_drugs": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_domestic_goods": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "likeGift_alpha_core": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_hand_weapons": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_food": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_luxury_goods": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_lobster": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_drugs": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_domestic_goods": "What a thoughtful gift. I'm touched that you know me so well.",
+          "giveGift_alpha_core": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_hand_weapons": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_food": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_luxury_goods": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_lobster": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_drugs": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_domestic_goods": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
           "accept_ask_location": "Who did you wish to inquire about?",
           "LordLocation": "I don't know where %SECOND_LORD_TITLE %SECOND_LORD_NAME is",
           "consider_defect": "Oh? You speak of treason, friend. Why should I let you say another word?",
@@ -8912,20 +8467,13 @@
           "swayProposal_againstCounsel_acceptBargain": "(error) We have a deal then. I'll do as you ask.",
 
           "give_gift": "",
-          "dislikeGift_alpha_core": "(error) What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_hand_weapons": "(error) What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_food": "(error) What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_luxury_goods": "(error) What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_lobster": "(error) What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_drugs": "(error) What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_domestic_goods": "(error) What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "likeGift_alpha_core": "(error) What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_hand_weapons": "(error) What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_food": "(error) What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_luxury_goods": "(error) What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_lobster": "(error) What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_drugs": "(error) What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_domestic_goods": "(error) What a thoughtful gift. I'm touched that you know me so well.",
+          "giveGift_alpha_core": "(error) What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+          "giveGift_hand_weapons": "(error) What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+          "giveGift_food": "(error) What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+          "giveGift_luxury_goods": "(error) What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+          "giveGift_lobster": "(error) What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+          "giveGift_drugs": "(error) What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+          "giveGift_domestic_goods": "(error) What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
           "accept_ask_location": "(error) Who did you wish to inquire about?",
           "LordLocation": "(error) I don't know where %SECOND_LORD_TITLE %SECOND_LORD_NAME is",
           "speak_privately": "(error) im sorry, but I don't think so.",
@@ -9386,84 +8934,45 @@
               "optionSet_askQuestion"
             ]
           },
-          "optionSet_dislike_gift": {
+
+          "optionSet_gave_gift": {
             "options": [
               "optionSet_askQuestion"
             ]
           },
-          "optionSet_dislike_alpha_core": {
+          "optionSet_gave_alpha_core": {
             "options": [
-              "optionSet_dislike_gift"
+              "optionSet_gave_gift"
             ]
           },
-          "optionSet_dislike_hand_weapons": {
+          "optionSet_gave_hand_weapons": {
             "options": [
-              "optionSet_dislike_gift"
+              "optionSet_gave_gift"
             ]
           },
-          "optionSet_dislike_food": {
+          "optionSet_gave_food": {
             "options": [
-              "optionSet_dislike_gift"
+              "optionSet_gave_gift"
             ]
           },
-          "optionSet_dislike_luxury_goods": {
+          "optionSet_gave_luxury_goods": {
             "options": [
-              "optionSet_dislike_gift"
+              "optionSet_gave_gift"
             ]
           },
-          "optionSet_dislike_lobster": {
+          "optionSet_gave_lobster": {
             "options": [
-              "optionSet_dislike_gift"
+              "optionSet_gave_gift"
             ]
           },
-          "optionSet_dislike_drugs": {
+          "optionSet_gave_drugs": {
             "options": [
-              "optionSet_dislike_gift"
+              "optionSet_gave_gift"
             ]
           },
-          "optionSet_dislike_domestic_goods": {
+          "optionSet_gave_domestic_goods": {
             "options": [
-              "optionSet_dislike_gift"
-            ]
-          },
-          "optionSet_like_gift": {
-            "options": [
-              "optionSet_askQuestion"
-            ]
-          },
-          "optionSet_like_alpha_core": {
-            "options": [
-              "optionSet_like_gift"
-            ]
-          },
-          "optionSet_like_hand_weapons": {
-            "options": [
-              "optionSet_like_gift"
-            ]
-          },
-          "optionSet_like_food": {
-            "options": [
-              "optionSet_like_gift"
-            ]
-          },
-          "optionSet_like_luxury_goods": {
-            "options": [
-              "optionSet_like_gift"
-            ]
-          },
-          "optionSet_like_lobster": {
-            "options": [
-              "optionSet_like_gift"
-            ]
-          },
-          "optionSet_like_drugs": {
-            "options": [
-              "optionSet_like_gift"
-            ]
-          },
-          "optionSet_like_domestic_goods": {
-            "options": [
-              "optionSet_dislike_gift"
+              "optionSet_gave_gift"
             ]
           },
           "optionSet_marriage_response": {
@@ -9637,10 +9146,12 @@
           },
           "option_gift_alpha_core": {
             "line": "An alpha core",
-            "optionData": "dislikeGift_alpha_core",
-            "hint": "give 1 alpha_core to %LORD_NAME",
+            "optionData": "giveGift_alpha_core",
+            "hint": "give 1 Alpha Core to %LORD_NAME",
             "addons": {
-              "repChange": -10,
+              "setDialogData_String": {
+                "givenGift": "alpha_core"
+              },
               "changeCommoditysInPlayersFleet": {
                 "alpha_core": -1
               }
@@ -9655,10 +9166,12 @@
           },
           "option_gift_hand_weapons": {
             "line": "A high-quality handgun",
-            "optionData": "dislikeGift_hand_weapons",
-            "hint": "give 100 hand_weapons to %LORD_NAME",
+            "optionData": "giveGift_hand_weapons",
+            "hint": "give 100 Heavy Armaments to %LORD_NAME",
             "addons": {
-              "repChange": -10,
+              "setDialogData_String": {
+                "givenGift": "hand_weapons"
+              },
               "changeCommoditysInPlayersFleet": {
                 "hand_weapons": -100
               }
@@ -9673,10 +9186,12 @@
           },
           "option_gift_food": {
             "line": "A butter sampler platter",
-            "optionData": "dislikeGift_food",
-            "hint": "give 100 food to %LORD_NAME",
+            "optionData": "giveGift_food",
+            "hint": "give 100 Food to %LORD_NAME",
             "addons": {
-              "repChange": -10,
+              "setDialogData_String": {
+                "givenGift": "food"
+              },
               "changeCommoditysInPlayersFleet": {
                 "food": -100
               }
@@ -9691,10 +9206,12 @@
           },
           "option_gift_luxury_goods": {
             "line": "The latest luxury %LORD_GENDER_SUIT_OR_DRESS from Chicomoztoc",
-            "optionData": "dislikeGift_luxury_goods",
-            "hint": "give 100 luxury_goods to %LORD_NAME",
+            "optionData": "giveGift_luxury_goods",
+            "hint": "give 100 Luxury Goods to %LORD_NAME",
             "addons": {
-              "repChange": -10,
+              "setDialogData_String": {
+                "givenGift": "luxury_goods"
+              },
               "changeCommoditysInPlayersFleet": {
                 "luxury_goods": -100
               }
@@ -9709,10 +9226,12 @@
           },
           "option_gift_lobster": {
             "line": "Fresh Volturnian Lobster",
-            "optionData": "dislikeGift_lobster",
-            "hint": "give 100 lobster to %LORD_NAME",
+            "optionData": "giveGift_lobster",
+            "hint": "give 100 Volturnian Lobster to %LORD_NAME",
             "addons": {
-              "repChange": -10,
+              "setDialogData_String": {
+                "givenGift": "lobster"
+              },
               "changeCommoditysInPlayersFleet": {
                 "lobster": -100
               }
@@ -9727,10 +9246,12 @@
           },
           "option_gift_drugs": {
             "line": "A pack of psychedelics",
-            "optionData": "dislikeGift_drugs",
-            "hint": "give 100 drugs to %LORD_NAME",
+            "optionData": "giveGift_drugs",
+            "hint": "give 100 Recreational Drugs to %LORD_NAME",
             "addons": {
-              "repChange": -10,
+              "setDialogData_String": {
+                "givenGift": "drugs"
+              },
               "changeCommoditysInPlayersFleet": {
                 "drugs": -100
               }
@@ -9745,10 +9266,12 @@
           },
           "option_gift_domestic_goods": {
             "line": "The latest Tri-pad DLC",
-            "optionData": "dislikeGift_domestic_goods",
-            "hint": "give 100 domestic_goods to %LORD_NAME",
+            "optionData": "giveGift_domestic_goods",
+            "hint": "give 100 Domestic Goods to %LORD_NAME",
             "addons": {
-              "repChange": -10,
+              "setDialogData_String": {
+                "givenGift": "domestic_goods"
+              },
               "changeCommoditysInPlayersFleet": {
                 "domestic_goods": -100
               }
@@ -9763,7 +9286,8 @@
           },
           "options_give_gift_exit": {
             "line": "Never Mind",
-            "optionData": "ask_question"
+            "optionData": "ask_question",
+            "shortcut": "ESCAPE"
           },
 
           "optionSet_join_party_explanation": {
@@ -12286,205 +11810,67 @@
           "ask_friend_fav_gift": "For as long as I've known %SECOND_LORD_NAME_FIRST, they've always been a connoisseur of technological gadgets."
         }
       },
-      "favItem_alpha_core": {
+      "gaveFavItem": {
         "priority": 1,
         "rules": {
-          "lordsFavItem": {
-            "alpha_core": true
-          }
-        },
-        "lines": {
-          "option_gift_alpha_core": {
-            "line": "An alpha core",
-            "optionData": "likeGift_alpha_core",
-            "hint": "give 1 alpha_core to %LORD_NAME",
-            "addons": {
-              "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "alpha_core": -1
-              },
-              "romanceChange": 1
+          "compareStrings": {
+            "a": {
+              "type": "FAV_ITEM"
             },
-            "enable": {
-              "playerHasCommodity": {
-                "alpha_core": {
-                  "min": 1
-                }
-              }
+            "b": {
+              "type": "DIALOG",
+              "data": "givenGift"
             }
           }
-        }
-      },
-      "favItem_hand_weapons": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "hand_weapons": true
-          }
         },
         "lines": {
-          "option_gift_hand_weapons": {
-            "line": "A high-quality handgun",
-            "optionData": "likeGift_hand_weapons",
-            "hint": "give 100 hand_weapons to %LORD_NAME",
+          "giveGift_alpha_core": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "hand_weapons": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "hand_weapons": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_food": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "food": true
-          }
-        },
-        "lines": {
-          "option_gift_food": {
-            "line": "A butter sampler platter",
-            "optionData": "likeGift_food",
-            "hint": "give 100 food to %LORD_NAME",
+          },
+          "giveGift_hand_weapons": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "food": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "food": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_luxury_goods": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "luxury_goods": true
-          }
-        },
-        "lines": {
-          "option_gift_luxury_goods": {
-            "line": "The latest luxury %LORD_GENDER_SUIT_OR_DRESS from Chicomoztoc",
-            "optionData": "likeGift_luxury_goods",
-            "hint": "give 100 luxury_goods to %LORD_NAME",
+          },
+          "giveGift_food": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "luxury_goods": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "luxury_goods": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_lobster": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "lobster": true
-          }
-        },
-        "lines": {
-          "option_gift_lobster": {
-            "line": "Fresh Volturnian Lobster",
-            "optionData": "likeGift_lobster",
-            "hint": "give 100 lobster to %LORD_NAME",
+          },
+          "giveGift_luxury_goods": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "lobster": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "lobster": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_drugs": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "drugs": true
-          }
-        },
-        "lines": {
-          "option_gift_drugs": {
-            "line": "A pack of psychedelics",
-            "optionData": "likeGift_drugs",
-            "hint": "give 100 drugs to %LORD_NAME",
+          },
+          "giveGift_lobster": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "drugs": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "drugs": {
-                  "min": 100
-                }
-              }
             }
-          }
-        }
-      },
-      "favItem_domestic_goods": {
-        "priority": 1,
-        "rules": {
-          "lordsFavItem": {
-            "domestic_goods": true
-          }
-        },
-        "lines": {
-          "option_gift_domestic_goods": {
-            "line": "The latest Tri-pad DLC",
-            "optionData": "likeGift_domestic_goods",
-            "hint": "give 100 domestic_goods to %LORD_NAME",
+          },
+          "giveGift_drugs": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
             "addons": {
               "repChange": 10,
-              "changeCommoditysInPlayersFleet": {
-                "domestic_goods": -100
-              },
               "romanceChange": 1
-            },
-            "enable": {
-              "playerHasCommodity": {
-                "domestic_goods": {
-                  "min": 100
-                }
-              }
+            }
+          },
+          "giveGift_domestic_goods": {
+            "line":"What a thoughtful gift. I'm touched that you know me so well.",
+            "addons": {
+              "repChange": 10,
+              "romanceChange": 1
             }
           }
         }
@@ -12930,20 +12316,49 @@
           "swayProposal_againstCounsel_acceptBargain": "We have a deal then. I'll do as you ask.",
 
           "give_gift": "",
-          "dislikeGift_alpha_core": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_hand_weapons": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_food": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_luxury_goods": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_lobster": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_drugs": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "dislikeGift_domestic_goods": "What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
-          "likeGift_alpha_core": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_hand_weapons": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_food": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_luxury_goods": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_lobster": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_drugs": "What a thoughtful gift. I'm touched that you know me so well.",
-          "likeGift_domestic_goods": "What a thoughtful gift. I'm touched that you know me so well.",
+
+          "giveGift_alpha_core": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_hand_weapons": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_food": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_luxury_goods": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_lobster": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_drugs": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
+          "giveGift_domestic_goods": {
+            "line":"What gave you the idea that I would like this? It seems like we don't know each other as well as I'd thought.",
+            "addons": {
+              "repChange": -10
+            }
+          },
           "accept_ask_location": "Who did you wish to inquire about?",
           "LordLocation": "I don't know where %SECOND_LORD_TITLE %SECOND_LORD_NAME is",
           "consider_defect": "Oh? You speak of treason, friend. Why should I let you say another word?",

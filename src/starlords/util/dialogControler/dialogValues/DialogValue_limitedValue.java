@@ -30,8 +30,6 @@ public class DialogValue_limitedValue extends DialogValue_base{
     }
     @Override
     public int value(Lord lord, Lord targetLord, MarketAPI targetMarket) {
-        Logger log = Global.getLogger(StoredSettings.class);
-        log.info("RUNNING LIMITED VALUE. IGNORE THIS DATA");
         int value = 0;
         if (this.value != null)value = this.value.getValue(lord, targetLord,targetMarket);
         int max = this.max;
@@ -40,7 +38,6 @@ public class DialogValue_limitedValue extends DialogValue_base{
         if (minList != null) min = minList.getValue(lord, targetLord,targetMarket);
         value = Math.max(min,value);
         value = Math.min(max,value);
-        log.info("DONE LIMIT VALUE");
         return value;
     }
 }

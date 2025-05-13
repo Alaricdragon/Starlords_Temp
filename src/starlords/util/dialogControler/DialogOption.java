@@ -34,7 +34,7 @@ public class DialogOption {
     }
     public void applyAddons(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord){
         Logger log = Global.getLogger(DialogOption.class);
-        log.info("applying addon's from option data.");
+        log.info("applying addon's from option data with link to: "+optionID);
         if (addons == null) return;
         for (DialogAddon_Base a : addons){
             log.info("  applying addon from option of class name: "+a.getClass().getName());

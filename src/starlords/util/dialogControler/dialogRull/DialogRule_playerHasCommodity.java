@@ -19,7 +19,6 @@ public class DialogRule_playerHasCommodity extends DialogRule_minmax {
     @Override
     protected int getValue(Lord lord, Lord targetLord, MarketAPI targetMarket) {
         int rel = (int) Global.getSector().getPlayerFleet().getCargo().getCommodityQuantity(item);
-        LordInteractionDialogPluginImpl.log.info("ATTEMPTING TO GET COMMODITY VALUE OF: "+rel);
         return rel;
     }
 }
