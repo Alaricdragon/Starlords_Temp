@@ -5,6 +5,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.person.Lord;
+import starlords.plugins.LordInteractionDialogPluginImpl;
 import starlords.util.dialogControler.dialogRull.bases.DialogRule_minmax;
 
 public class DialogRule_playerHasCommodity extends DialogRule_minmax {
@@ -18,6 +19,7 @@ public class DialogRule_playerHasCommodity extends DialogRule_minmax {
     @Override
     protected int getValue(Lord lord, Lord targetLord, MarketAPI targetMarket) {
         int rel = (int) Global.getSector().getPlayerFleet().getCargo().getCommodityQuantity(item);
+        LordInteractionDialogPluginImpl.log.info("ATTEMPTING TO GET COMMODITY VALUE OF: "+rel);
         return rel;
     }
 }

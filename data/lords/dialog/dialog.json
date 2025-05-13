@@ -1283,7 +1283,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "alpha_core": {
                   "min": 1
                 }
@@ -1312,7 +1312,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "hand_weapons": {
                   "min": 100
                 }
@@ -1341,7 +1341,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "food": {
                   "min": 100
                 }
@@ -1370,7 +1370,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "luxury_goods": {
                   "min": 100
                 }
@@ -1399,7 +1399,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "lobster": {
                   "min": 100
                 }
@@ -1428,7 +1428,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "drugs": {
                   "min": 100
                 }
@@ -1457,7 +1457,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "domestic_goods": {
                   "min": 100
                 }
@@ -1502,6 +1502,7 @@
           "dedicate_tournament": {
             "line": "Another tournament dedication? Well, I suppose it's always welcome...",
             "addons": {
+              "additionalText": "addons_dedicateVictory",
               "repChange": 5,
               "romanceChange": 1
             }
@@ -1539,6 +1540,7 @@
           "dedicate_tournament": {
             "line": "Oh my, I'm very touched that you were thinking of me.",
             "addons": {
+              "additionalText": "addons_dedicateVictory",
               "repChange": 10,
               "romanceChange": 1
             }
@@ -3383,7 +3385,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "alpha_core": {
                   "min": 1
                 }
@@ -3412,7 +3414,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "hand_weapons": {
                   "min": 100
                 }
@@ -3441,7 +3443,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "food": {
                   "min": 100
                 }
@@ -3470,7 +3472,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "luxury_goods": {
                   "min": 100
                 }
@@ -3499,7 +3501,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "lobster": {
                   "min": 100
                 }
@@ -3528,7 +3530,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "drugs": {
                   "min": 100
                 }
@@ -3557,7 +3559,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "domestic_goods": {
                   "min": 100
                 }
@@ -3602,6 +3604,7 @@
           "dedicate_tournament": {
             "line": "Another tournament dedication? Well, I suppose it's always welcome...",
             "addons": {
+              "additionalText": "addons_dedicateVictory",
               "repChange": 5,
               "romanceChange": 1
             }
@@ -3639,6 +3642,7 @@
           "dedicate_tournament": {
             "line": "Oh my, I'm very touched that you were thinking of me.",
             "addons": {
+              "additionalText": "addons_dedicateVictory",
               "repChange": 10,
               "romanceChange": 1
             }
@@ -5515,7 +5519,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "alpha_core": {
                   "min": 1
                 }
@@ -5544,7 +5548,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "hand_weapons": {
                   "min": 100
                 }
@@ -5573,7 +5577,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "food": {
                   "min": 100
                 }
@@ -5602,7 +5606,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "luxury_goods": {
                   "min": 100
                 }
@@ -5631,7 +5635,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "lobster": {
                   "min": 100
                 }
@@ -5660,7 +5664,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "drugs": {
                   "min": 100
                 }
@@ -5689,7 +5693,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "domestic_goods": {
                   "min": 100
                 }
@@ -5734,6 +5738,7 @@
           "dedicate_tournament": {
             "line": "Another tournament dedication? Well, I suppose it's always welcome...",
             "addons": {
+              "additionalText": "addons_dedicateVictory",
               "repChange": 5,
               "romanceChange": 1
             }
@@ -5771,6 +5776,7 @@
           "dedicate_tournament": {
             "line": "Oh my, I'm very touched that you were thinking of me.",
             "addons": {
+              "additionalText": "addons_dedicateVictory",
               "repChange": 10,
               "romanceChange": 1
             }
@@ -7659,7 +7665,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "alpha_core": {
                   "min": 1
                 }
@@ -7688,7 +7694,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "hand_weapons": {
                   "min": 100
                 }
@@ -7717,7 +7723,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "food": {
                   "min": 100
                 }
@@ -7746,7 +7752,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "luxury_goods": {
                   "min": 100
                 }
@@ -7775,7 +7781,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "lobster": {
                   "min": 100
                 }
@@ -7804,7 +7810,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "drugs": {
                   "min": 100
                 }
@@ -7833,7 +7839,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "domestic_goods": {
                   "min": 100
                 }
@@ -7878,6 +7884,7 @@
           "dedicate_tournament": {
             "line": "Another tournament dedication? Well, I suppose it's always welcome...",
             "addons": {
+              "additionalText": "addons_dedicateVictory",
               "repChange": 5,
               "romanceChange": 1
             }
@@ -7915,6 +7922,7 @@
           "dedicate_tournament": {
             "line": "Oh my, I'm very touched that you were thinking of me.",
             "addons": {
+              "additionalText": "addons_dedicateVictory",
               "repChange": 10,
               "romanceChange": 1
             }
@@ -8535,6 +8543,7 @@
           "dedicate_tournament": {
             "line": "(error) Oh my, I'm very touched that you were thinking of me.",
             "addons": {
+              "additionalText": "addons_dedicateVictory",
               "repChange": 10,
               "romanceChange": 1
             }
@@ -9154,6 +9163,7 @@
 
           "optionSet_greeting": {
             "options": [
+              "addons_default",
               "setData_default",
               "option_avoid_battle",
               "option_ask_tournament",
@@ -9529,7 +9539,6 @@
             "show": {
               "isMarried": false,
               "isPlayerMarried": false,
-              "hasHeldDateThisFeast": false,
               "isLordCourtedByPlayer": true,
               "feastIsHostingWedding": false
             }
@@ -9637,7 +9646,7 @@
               }
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "alpha_core": {
                   "min": 1
                 }
@@ -9655,7 +9664,7 @@
               }
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "hand_weapons": {
                   "min": 100
                 }
@@ -9673,7 +9682,7 @@
               }
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "food": {
                   "min": 100
                 }
@@ -9691,7 +9700,7 @@
               }
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "luxury_goods": {
                   "min": 100
                 }
@@ -9709,7 +9718,7 @@
               }
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "lobster": {
                   "min": 100
                 }
@@ -9727,7 +9736,7 @@
               }
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "drugs": {
                   "min": 100
                 }
@@ -9745,7 +9754,7 @@
               }
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "domestic_goods": {
                   "min": 100
                 }
@@ -10818,6 +10827,81 @@
               "changeLordCredits": {
                 "LordMemoryData": {
                   "ransomAmount": -0.2
+                }
+              }
+            }
+          },
+          "addons_default": {
+            "options": [
+              "addons_feastRepChange",
+              "addons_feastHostRepChange"
+            ]
+          },
+          "addons_feastRepChange": {
+            "addons": {
+              "applyAddonsToMultiple": {
+                "target": "LORDS",
+                "rules": {
+                  "hasInteractedThisFeast": false,
+                  "LordAndTargetAtSameFeast": true,
+                  "isHostingFeast": false
+                },
+                "addons": {
+                  "repChange": 2,
+                  "setFeastInteracted": true
+                }
+              }
+            }
+          },
+          "addons_feastHostRepChange": {
+            "addons": {
+              "applyAddonsToMultiple": {
+                "target": "LORDS",
+                "rules": {
+                  "hasInteractedThisFeast": false,
+                  "LordAndTargetAtSameFeast": true,
+                  "isHostingFeast": true
+                },
+                "addons": {
+                  "repChange": 3,
+                  "setFeastInteracted": true
+                }
+              }
+            }
+          },
+
+          "addons_dedicateVictory": {
+            "options": [
+              "addons_dedicateVictory_anger",
+              "addons_dedicateVictory_anger_remote"
+            ]
+          },
+          "addons_dedicateVictory_anger": {
+            "addons": {
+              "applyAddonsToMultiple": {
+                "target": "LORDS",
+                "rules": {
+                  "isInteractingLord": false,
+                  "isLordCourtedByPlayer": true,
+                  "LordAndTargetAtSameFeast": true
+                },
+                "addons": {
+                  "repChange": -2
+                }
+              }
+            }
+          },
+          "addons_dedicateVictory_anger_remote": {
+            "addons": {
+              "applyAddonsToMultiple": {
+                "target": "LORDS",
+                "rules": {
+                  "isInteractingLord": false,
+                  "isLordCourtedByPlayer": true,
+                  "LordAndTargetAtSameFeast": false
+                },
+                "addons": {
+                  "repChange": -1
                 }
               }
             }
@@ -12222,7 +12306,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "alpha_core": {
                   "min": 1
                 }
@@ -12251,7 +12335,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "hand_weapons": {
                   "min": 100
                 }
@@ -12280,7 +12364,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "food": {
                   "min": 100
                 }
@@ -12309,7 +12393,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "luxury_goods": {
                   "min": 100
                 }
@@ -12338,7 +12422,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "lobster": {
                   "min": 100
                 }
@@ -12367,7 +12451,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "drugs": {
                   "min": 100
                 }
@@ -12396,7 +12480,7 @@
               "romanceChange": 1
             },
             "enable": {
-              "PlayerHasCommodity": {
+              "playerHasCommodity": {
                 "domestic_goods": {
                   "min": 100
                 }
@@ -12442,7 +12526,8 @@
             "line": "Another tournament dedication? Well, I suppose it's always welcome...",
             "addons": {
               "repChange": 5,
-              "romanceChange": 1
+              "romanceChange": 1,
+              "additionalText": "addons_dedicateVictory"
             }
           }
         }
@@ -12478,6 +12563,7 @@
           "dedicate_tournament": {
             "line": "Oh my, I'm very touched that you were thinking of me.",
             "addons": {
+              "additionalText": "addons_dedicateVictory",
               "repChange": 10,
               "romanceChange": 1
             }

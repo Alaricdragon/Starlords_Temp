@@ -80,6 +80,7 @@
 * "setPersonalityKnown": boolean. sets weather the player knows this lords personality.
 * "setLordRank": Integer || dialogValue. sets the lords rank.
 * "setPlayerRank": Integer || dialogValue. sets the players rank.
+* "setFeastInteracted": boolean. sets weather or not you have interacted at anyone in this feast, when this lord was here. does nothing if the lord is not at a feast.
 * "AICommand" : String. this commands that lord to change there AI action. you can command a lord to do the following:
   *  "END_CURRENT_ACTIONS" this lets the lord chose a new action to take. all on there own.
   *  "FOLLOW_PLAYER_FLEET" this make the lord follow the player fleet.

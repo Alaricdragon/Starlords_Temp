@@ -189,14 +189,11 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         *       (fixed)'learns lord viewponit' additional text might not be working?
         *       'ask about current assignment' not having some lines:
         *           task: (fixed)current_task_desc_respawning
-        *   when talking to people at the start of a feast, you dont gain relation like your suppose to.
-        *       -this is a issue. I -could- spend 6 hours repairing my exseption, or I could just suck it op and add a new addon for this.
-        *       -note: I need to apply this to 'greetings', but only conditional? I think that's a thing. I have the 'show' line for options, for exapmple. maybe I can hijack that?
-        *       -note: this also needs to be applied to when I dedicate a victory. so people get juslos.
-        * additional addons:
-        *   (done, untested)applyAddonsToLords?
-        * additional rules:
-        *   atSameFeast (for target lord, and same lord)
+        *   issue: when giveing gifts:
+        *       the hints on gift given are set to what is clearly not the commodity name, but rather ID.
+        *       the rep loss is applied twice for some reason? (but I got both rep gain and loss?)
+        *       the never mind option should have an escape hotkey.
+        *       the dialog.json template should not hold the option with a different optionID. instead, we should make it 2 lines. one for like, one for dislike.
         * */
         if (optionData instanceof DialogOption){
             if (prevPlugin.equals(this) && !visual.isShowingPersonInfo(targetLord.getLordAPI())) {
@@ -249,7 +246,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
             targetLord.setKnownToPlayer(true);
         }
         //if this is a feast, apply rep gained.
-        if(feast != null) {
+        /*if(feast != null) {
             log.info("APPLYING REP CHANGE DATA");
             if (!feast.getOriginator().isFeastInteracted()) {
                 feast.getOriginator().setFeastInteracted(true);
@@ -261,7 +258,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
                     applyRepIncrease(textPanel, lord,secondLord,targetMarket, 2);
                 }
             }
-        }
+        }*/
     }
     private void optionSelected_askCurrentTask(String selectedOption,Lord secondLord,MarketAPI targetMarket){
         //ok, so: the link to this needs to be set as 'current_task_desc'.

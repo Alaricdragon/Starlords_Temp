@@ -20,6 +20,7 @@ public class DialogAddon_dedicateTournamentVictoryToLord extends DialogAddon_Bas
         if (!currentFeast.getTournamentWinner().isPlayer()) return;
         currentFeast.setVictoryDedicated(true);
         // other courted lords get jealous
+        /*
         for (Lord lord2: LordController.getLordsList()) {
             if (lord2.isCourted() && !lord2.equals(currentFeast)) {
                 int decrease = 1;
@@ -28,6 +29,6 @@ public class DialogAddon_dedicateTournamentVictoryToLord extends DialogAddon_Bas
                 }
                 new DialogAddon_repDecrease(decrease,decrease).apply(textPanel,options,dialog,lord2);
             }
-        }
+        }*/
     }
 }

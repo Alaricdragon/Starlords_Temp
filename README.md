@@ -102,7 +102,7 @@ If you're a modder, or just someone who likes S-Mods you might want to expand on
 
 
 ### Adding Custom dialog to lords
-If you're a modder, or just someone who loves to write dialog for every starlord in your lords.json, you might want to create custom dialog lines with custom conditions for your starlords. All you have to do is add another entry to the [dialog.json](https://github.com/Alaricdragon/Starlords_Temp/tree/master/data/lords/dialog.json) file.
+If you're a modder, or just someone who loves to write dialog for every starlord in your lords.json, you might want to create custom dialog lines with custom conditions for your starlords. All you have to do is add another entry to the [dialog.json](https://github.com/Alaricdragon/Starlords_Temp/tree/master/data/lords/dialog/dialog.json) file.
 please keep in mind: this is a highly complicated topic, so I have divided this into 5 readmes. (it was complicated, ok?) you should start with the base [DIALOG_BASE.md](https://github.com/Alaricdragon/Starlords_Temp/tree/master/theManyReadmes/DIALOG_BASE.md)
       
 

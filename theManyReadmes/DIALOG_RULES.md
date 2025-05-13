@@ -86,6 +86,7 @@ this is the 'dialog rules' json object. within, I will cover the 3 different 'ru
       * "lordHasLiege": if the lord has a liege or not (some factions don't have lieges.)
       * "playerHasLiege": if the lord has a liege or not (some factions don't have lieges.)
       * "isPersonalityKnown": if the player knows the lords personality yet.
+      * "hasInteractedThisFeast": if the player has interacted to this feast well this lord was here.
   * whitelist / blacklist rules. each rule here contains a jsonObject, were a item ID is what its looking at, and its boolean value is wether or not the item is whitelisted or blacklisted. all blacklisted items must not be present, and at least 1 (if present) whitelisted item must be present
       * "startingFaction" is the starting faction the lord has.
       * "currentFaction" is the current faction the lord is in.
@@ -140,6 +141,7 @@ this is the 'dialog rules' json object. within, I will cover the 3 different 'ru
     * "relationsBetweenLords": is the relationship range that this lord must have with the target lord to meet requirements. set between a "min" and "max" value. range must be between -100 and 100.
     * "lordAndTargetSameFaction": if set to false, the lord and target must not be part of the same faction to meet requirements. if set to ture, the lord and target must be part of the same faction to meet requirements.
     * "isInteractingLord": if set to false, the lord and target must not be the same to meet requirements. if set to true, the lord and target must be the same to meet requirements.
+    * "LordAndTargetAtSameFeast": if set to false, the lord and target must not be at the same feast to meet requirements. if set to true, the lord and target must be at the same feast to meet requirements. always returns false if ether lord is not at a feast.
 * 'target market' rules
   * the following options only work if used in an option called by advanced option data with a type of 'targetMarket'
   * value rules. value conditions can contain the following data:

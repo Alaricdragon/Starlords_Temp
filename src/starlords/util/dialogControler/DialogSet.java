@@ -51,7 +51,7 @@ public class DialogSet {
     }
     @SneakyThrows
     private static void setupA(){
-        JSONObject jsonObject = Global.getSettings().getMergedJSONForMod("data/lords/dialog.json", Constants.MOD_ID);
+        JSONObject jsonObject = Global.getSettings().getMergedJSONForMod("data/lords/dialog/dialog.json", Constants.MOD_ID);
         dialogs = new HashMap<>();
         organizedDialogs = new ArrayList<>();
         for (Iterator it2 = jsonObject.keys(); it2.hasNext();) {
@@ -61,7 +61,7 @@ public class DialogSet {
     }
     @SneakyThrows
     private static void setupB(){
-        JSONObject jsonObject = Global.getSettings().getMergedJSONForMod("data/lords/default_dialog_options.json",Constants.MOD_ID);
+        JSONObject jsonObject = Global.getSettings().getMergedJSONForMod("data/lords/dialog/default_dialog_options.json",Constants.MOD_ID);
         defaltOptionSets = new HashMap<>();
         for (Iterator it2 = jsonObject.keys(); it2.hasNext();) {
             String key2 = (String) it2.next();
@@ -672,8 +672,16 @@ public class DialogSet {
             }
             //}
         }
-        //add on all options
+        //add on all addons.
+        if (addons.containsKey(key)){
+            //log.info("attempting to run addons for line...");
+            for (DialogAddon_Base a : addons.get(key)){
+                //log.info("  running addon of class: "+a.getClass().getName());
+                a.apply(textPanel,options,dialog,lord,targetLord,targetMarket);
+            }
+        }
         //log.info("attempting to add options from line" + key);
+        //add on all options
         boolean builtOptions = false;
         if (additionalOptions.containsKey(key)){
             //log.info("ADDITIONAL OPTIONS: adding options from key of: " + key);
@@ -696,14 +704,7 @@ public class DialogSet {
             //???????? unknown process.
             //what I would attempt to do here is run the optionData of the line. effectively, just changing lines directly after. this can be done with chained lines though?
         }
-        //add on all addons.
-        if (addons.containsKey(key)){
-            //log.info("attempting to run addons for line...");
-            for (DialogAddon_Base a : addons.get(key)){
-                //log.info("  running addon of class: "+a.getClass().getName());
-                a.apply(textPanel,options,dialog,lord,targetLord,targetMarket);
-            }
-        }
+
     }
     /*public void applyOption(String key, Lord lord, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog,HashMap<String,String> markersReplaced){
         String optionID = null;
@@ -776,7 +777,11 @@ public class DialogSet {
                         break;
                 }
             }
-            if (enable.containsKey(key) && !shouldEnable(key, textPanel, options, lord, targetLord, targetMarket)) options.setEnabled(optionData, false);
+            if (enable.containsKey(key)) log.info("got shouldEnable as: "+shouldEnable(key, textPanel, options, lord, targetLord, targetMarket));
+            if (enable.containsKey(key) && !shouldEnable(key, textPanel, options, lord, targetLord, targetMarket)){
+                log.info("RUNNING ENABLED AS FALSE:");
+                options.setEnabled(optionData, false);
+            }
         }else if(line == null){
             log.info("attempting to run option as optionSet.");
             DialogOption optionDataTemp = (DialogOption)optionData;
@@ -1115,6 +1120,9 @@ public class DialogSet {
                 case "applyAddonsToMultiple":
                     addon = addAddon_applyAddonsToMultiple(addons,key2);
                     break;
+                case "setFeastInteracted":
+                    addon = addAddon_setFeastInteracted(addons,key2);
+                    break;
 
             }
             if (addon != null) newAddons.add(addon);
@@ -1407,6 +1415,10 @@ public class DialogSet {
     @SneakyThrows
     private static DialogAddon_Base addAddon_applyAddonsToMultiple(JSONObject json,String key){
         return new DialogAddon_applyAddonsToMultiple(json,key);
+    }
+    @SneakyThrows
+    private static DialogAddon_Base addAddon_setFeastInteracted(JSONObject json,String key){
+        return new DialogAddon_setFeastInteracted(json,key);
     }
 
 
@@ -1716,7 +1728,12 @@ public class DialogSet {
                 case "customDialogRule":
                     rules.add(addRule_customDialogRule(rulesTemp,key));
                     break;
-
+                case "LordAndTargetAtSameFeast":
+                    rules.add(addRule_LordAndTargetAtSameFeast(rulesTemp,key));
+                    break;
+                case "hasInteractedThisFeast":
+                    rules.add(addRule_hasInteractedThisFeast(rulesTemp,key));
+                    break;
             }
         }
         return rules;
@@ -2314,5 +2331,13 @@ public class DialogSet {
     @SneakyThrows
     private static DialogRule_Base addRule_customDialogRule(JSONObject json,String key){
         return new DialogRule_customList(json,key);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_LordAndTargetAtSameFeast(JSONObject json,String key){
+        return new DialogRule_LordAndTargetAtSameFeast(json,key);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_hasInteractedThisFeast(JSONObject json,String key){
+        return new DialogRule_hasInteractedThisFeast(json,key);
     }
 }
