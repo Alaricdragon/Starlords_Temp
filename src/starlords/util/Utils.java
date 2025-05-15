@@ -270,8 +270,13 @@ public class Utils {
             return "Hyperspace near " + Misc.getNearestStarSystem(fleet);
         } else {
             SectorEntityToken out = findNearestLocation(fleet);
-            if (out != null && out.getName() != null) return out.getName() + " in " + fleet.getContainingLocation().getName();
-            return "in "+fleet.getContainingLocation().getName();
+            if (out != null && out.getName() != null){
+                if (out.getContainingLocation() != null) return out.getName() + " in " + out.getContainingLocation().getName();
+                if (fleet.getContainingLocation() != null) return out.getName() + " in " + fleet.getContainingLocation().getName();
+                return out.getName() + "";
+            }
+            if (fleet.getContainingLocation() != null) return "in " + fleet.getContainingLocation().getName();
+            return "in an unknown location";
         }
     }
 
