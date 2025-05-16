@@ -22,8 +22,48 @@ public class factionTemplate {
     *           -note: we need to do this for invasions as well.
     *       find all instances of factions deciding if they can attack (raid), and make sure they can.
     *           -note: we need to do this for invasions as well.
+    *   locations related to this:
+    *       EventController.getPreferredRaidLocation();
+    *       EventController.getCampaignTarget();
+    *       -> if (!currCampaign.isDefensive()) {
+    *       LordAI.chooseNewOffensiveType
+    *       -> if (Utils.nexEnabled() && maxViolence >= LordEvent.OffensiveType.NEX_GROUND_BATTLE.violence)
+    *       -> note: there are a few things here related to raids. do to the complexity, maybe change 'can be raided' to 'can be attacked'?
+    *          additional data: that might not be required. looking at it, only campaigns can preform invasions. so its fine to not change 'can be raided'.
+    *       LordAI.progressAssignment.RAID -> chooseNewOffensiveType(lord, campaign);
+    *       LordAI.progressAssignment.CAMPAIGN -> chooseNewOffensiveType(lord, raid);
+    *       -> note: I should go into chooseNewOffensiveType(lord, raid) and change this sugnificently.
+    *           1: use the inputed raid type to determin what type of attack I am allowed to preform.
+    *           2: change what attacks can be preformed from the 'violence level'. to 'attack type' this is basically the same, but like, I would also get the option settings, so we can allow lords to preform invasions on there own, provided certain actions exist.
+    *           3: for invasions, I really need to fix nexerlins lack of ability to tell if I can invasions or not.
+    *           4: (maybe) add a setting to starlords faction file to allow single lords to preform invasions?
+    *       -> note: I need more settings:
+    *           1: allow lords to attempt invasions
+    *           2: allow lords to attempt sat-bombs
+    *           3: allow lord to preform raids
+    *           4: allow lords to preform tatical bombardments
+    *           5: allow campains to preform invasions
+    *           6: allows campains to preform sat-bombs
+    *           7: allow campains to preform raids
+    *           8: allow campains to preform tatical bombardments.
+    *
+    *           9: set campaign base max violence
+    *           10: set lord base max violence
+    *               -note: every combat action costs a 'violence' value. the max violence is the max amount of combat a attack can have before a given lord gives up.
+    *               -note: I need to make it so every world can only be attacked so many times, or they will deciv. so that will need to be another setting.
+    *           11: max vilance per world from lord.
+    *               -note: I need a way for a lord to chose another attack target if they preform an invasion over a given world.
+    *           12: max vilance per world from campain.
+    *       -> note: I need more faction json things:
+    *           1: campaign max violence multi
+    *           2: lord attack max violence multi.
+    *           3: max vilance per world from lord.
+    *           4: max vilance per world from campain.
     *
     *
+    *   location related to other things that I located.
+    *       DefectionUtils.performDefection
+    *       -> if (!Utils.canBeAttacked(faction) && includeFiefs) {
     *
     *
     *
