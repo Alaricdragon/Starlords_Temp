@@ -196,14 +196,7 @@ public class Utils {
         return patrolStrength + stationStrength;
     }
 
-    public static boolean canRaidIndustry(MarketAPI market) {
-        for (Industry industry : market.getIndustries()) {
-            if (!industry.canBeDisrupted()) continue;
-            if (industry.getSpec().hasTag(Industries.TAG_UNRAIDABLE)) continue;
-            return true;
-        }
-        return false;
-    }
+
 
     public static Industry getIndustryToRaid(MarketAPI market) {
         ArrayList<Industry> options = new ArrayList<>();

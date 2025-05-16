@@ -573,6 +573,22 @@ public class Lord {
         return template.shipPrefs;
     }
 
+    public boolean canRaid(){
+        //todo: finish this.
+        return true;
+    }
+    public boolean canTacticallyBomb(){
+        return true;
+    }
+    public boolean canPreformInvasion(){
+        //todo: finish this.
+        return true;
+    }
+    public boolean canSatBomb(){
+        if (getPersonality().equals(LordPersonality.QUARRELSOME)) return true;
+        return false;
+    }
+
     private DataHolder DATA_HOLDER;
     public DataHolder getLordDataHolder(){
         DataHolder data_holder = DATA_HOLDER;

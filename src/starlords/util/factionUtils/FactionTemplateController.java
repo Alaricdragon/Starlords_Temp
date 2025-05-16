@@ -10,26 +10,27 @@ import starlords.util.factionUtils.customTemplates.factionTemplate_backup;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class factionTemplateControler {
-    private static HashMap<String,factionTemplate> templates = new HashMap<String,factionTemplate>();
-    public static void addTemplate(factionTemplate template){
+public class FactionTemplateController {
+    private static HashMap<String, FactionTemplate> templates = new HashMap<String, FactionTemplate>();
+    public static void addTemplate(FactionTemplate template){
         templates.put(template.getFactionID(),template);
     }
     @SneakyThrows
     public static void init(){
+        //todo: change this to run when settings change (and also reset the templates then, so they can be set to new defaults?)
         JSONObject jsonObject = Global.getSettings().getMergedJSONForMod("data/lords/faction.json", Constants.MOD_ID);
         templates = new HashMap<>();
         for (Iterator it2 = jsonObject.keys(); it2.hasNext();) {
             String key2 = (String) it2.next();
             JSONObject json2 = jsonObject.getJSONObject(key2);
-            new factionTemplate(key2,json2);
+            new FactionTemplate(key2,json2);
         }
     }
-    public static factionTemplate getTemplate(String factionID){
+    public static FactionTemplate getTemplate(String factionID){
         if (templates.containsKey(factionID)) return templates.get(factionID);
         return new factionTemplate_backup(factionID);
     }
-    public static factionTemplate getTemplate(FactionAPI faction){
+    public static FactionTemplate getTemplate(FactionAPI faction){
         return getTemplate(faction.getId());
     }
 }

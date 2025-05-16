@@ -10,11 +10,17 @@ import starlords.util.StringUtil;
 import starlords.util.Utils;
 
 @Getter
-public class factionTemplate {
+public class FactionTemplate {
     /*
+    * issue: my settings for what types of attacks are available make no sense. like...
+    * well, I guess they do, kinda?
     * NOTE: this is only 50% of what I need to do. I ALSO require a way to determine if a market is invasion-able according to nexerlin.
     *
     * ok, so here is what I am going to do. take it slow and steady
+    *   support:
+    *       go into lord and create functions:
+    *           can raid
+    *           can saterate bomba
     *   1) check valid markets for raiding.
     *       -additional functions:
     *           isValidMarket (to determine if this is a real market, in a real location. and it exists. arg.)
@@ -109,9 +115,15 @@ public class factionTemplate {
     private String T1_title;
     private String T2_title;
 
+    private boolean canAttack;
+    private boolean canBeAttacked;
     private boolean canInvade;
     private boolean canBeRaided;
     private boolean canRaid;
+    private boolean canBeSatBomb;
+    private boolean canSatBomb;
+    private boolean canTacticalBomb;
+    private boolean canBeTacticalBomb;
     private boolean canStarlordsJoin;
 
     private boolean canPreformDiplomacy;
@@ -126,19 +138,30 @@ public class factionTemplate {
     private double lordCombatIncomeMulti;
     //private double starlordsOnStartMulti = 1;
     //private double starlordsLifeMulti = 1;
-    public factionTemplate(String factionID){
+    public FactionTemplate(String factionID){
         this.factionID = factionID;
-        factionTemplateControler.addTemplate(this);
+        FactionTemplateController.addTemplate(this);
+        init(factionID,new JSONObject());
     }
-    public factionTemplate(String factionID,JSONObject json){
+    public FactionTemplate(String factionID, JSONObject json){
         this(factionID);
+        init(factionID,json);
+    }
+    private void init(String factionID,JSONObject json){
         setT0_title("rank_0",json);
         setT1_title("rank_1",json);
         setT2_title("rank_2",json);
 
+        setCanAttack("canBeAttacked",json);
+        setCanBeAttacked("canAttack",json);
         setCanInvade("canInvade",json);
+        setCanSatBomb("canSatBomb",json);
+        setCanBeSatBomb("canBeSatBomb",json);
         setCanBeRaided("canBeRaided",json);
         setCanRaid("canRaid",json);
+        setCanTacticalBomb("canTacticalBombed",json);
+        setCanTacticalBomb("canBeTacticalBomb",json);
+
         setCanStarlordsJoin("canStarlordsJoin",json);
 
         setCanPreformDiplomacy("canPreformDiplomacy",json);
@@ -151,6 +174,7 @@ public class factionTemplate {
 
         setLordFiefIncomeMulti("fiefIncomeMulti",json);
         setLordCombatIncomeMulti("combatIncomeMulti",json);
+
     }
     @SneakyThrows
     private void setT0_title(String key, JSONObject json){
@@ -177,6 +201,28 @@ public class factionTemplate {
         T2_title = StringUtil.getString("starlords_title", "title_default_" + 2);
     }
     @SneakyThrows
+    private void setCanAttack(String key,JSONObject json){
+        if (json != null && json.has(key)){
+            canAttack = json.getBoolean(key);
+            return;
+        }
+        canAttack = true;
+
+    }
+    @SneakyThrows
+    private void setCanBeAttacked(String key,JSONObject json){
+        if (json != null && json.has(key)){
+            canBeAttacked = json.getBoolean(key);
+            return;
+        }
+        if (Utils.nexEnabled()){
+            canBeAttacked = NexerlinUtilitys.canBeAttacked(Global.getSector().getFaction(factionID));
+            return;
+        }
+        boolean isPirate = Misc.isPirateFaction(Global.getSector().getFaction(factionID));
+        canBeAttacked = !isPirate;
+    }
+    @SneakyThrows
     private void setCanInvade(String key,JSONObject json){
         if (json != null && json.has(key)){
             canInvade = json.getBoolean(key);
@@ -191,18 +237,21 @@ public class factionTemplate {
 
     }
     @SneakyThrows
-    private void setCanBeRaided(String key,JSONObject json){
+    private void setCanSatBomb(String key,JSONObject json){
         if (json != null && json.has(key)){
-            canBeRaided = json.getBoolean(key);
+            canSatBomb = json.getBoolean(key);
             return;
         }
-        if (Utils.nexEnabled()){
-            canBeRaided = NexerlinUtilitys.canBeAttacked(Global.getSector().getFaction(factionID));
-            return;
-        }
-        boolean isPirate = Misc.isPirateFaction(Global.getSector().getFaction(factionID));
-        canBeRaided = !isPirate;
+        canBeRaided = canInvade;
 
+    }
+    @SneakyThrows
+    private void setCanBeSatBomb(String key,JSONObject json){
+        if (json != null && json.has(key)){
+            canBeSatBomb = json.getBoolean(key);
+            return;
+        }
+        canBeSatBomb = canInvade;
     }
     @SneakyThrows
     private void setCanRaid(String key,JSONObject json){
@@ -219,6 +268,38 @@ public class factionTemplate {
         canInvade = !isPirate;*/
 
     }
+    @SneakyThrows
+    private void setCanTacticalBomb(String key,JSONObject json){
+        if (json != null && json.has(key)){
+            canTacticalBomb = json.getBoolean(key);
+            return;
+        }
+        canTacticalBomb = canBeRaided;
+
+    }
+    @SneakyThrows
+    private void setCanBeTacticalBomb(String key,JSONObject json){
+        if (json != null && json.has(key)){
+            canBeTacticalBomb = json.getBoolean(key);
+            return;
+        }
+        canBeTacticalBomb = canInvade;
+    }
+    @SneakyThrows
+    private void setCanBeRaided(String key,JSONObject json){
+        if (json != null && json.has(key)){
+            canBeRaided = json.getBoolean(key);
+            return;
+        }
+        if (Utils.nexEnabled()){
+            canBeRaided = NexerlinUtilitys.canBeAttacked(Global.getSector().getFaction(factionID));
+            return;
+        }
+        boolean isPirate = Misc.isPirateFaction(Global.getSector().getFaction(factionID));
+        canBeRaided = !isPirate;
+
+    }
+
     @SneakyThrows
     private void setCanStarlordsJoin(String key, JSONObject json){
         if (json != null && json.has(key)){
@@ -317,6 +398,19 @@ public class factionTemplate {
             return;
         }
         lordCombatIncomeMulti = 1;
+
+    }
+
+
+    public boolean isCanBeAttacked(){
+        if (!canBeAttacked) return false;
+        if (!canBeTacticalBomb && !canBeSatBomb && !canBeRaided && !canInvade) return false;
+        return true;
+    }
+    public boolean isCanAttack(){
+        if (!canAttack) return false;
+        if (!canTacticalBomb && !canSatBomb && !canRaid && !canInvade) return false;
+        return true;
 
     }
 }

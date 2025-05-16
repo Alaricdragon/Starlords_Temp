@@ -4,9 +4,16 @@ faction templates contain a large amount of data to fully customize your faction
 * "rank_1": String. this is what the promoted starlords rank string. defalt value is __
 * "rank_2": String. this is what the highest rank starlords rank string. defalt value is __
 * 
+* "canBeAttacked": boolean. this determines if a faction can be attacked in any way at all. default is false if this faction is a pirate faction.
+* "canAttack": boolean. this determines if a faction can attack others in any way at all. default is true.
 * "canInvade": boolean. this determines if this faction can invade / be invaded or not. default value is determined by nexerlin has decided for this faction.
-* "canBeRaided": boolean. this determins if this faction can be raided. default is false if this faction is a 'pirate' faction . if nexerlin is installed, default value is determined by nexerlin.
-* "canRaid": boolean. this determins if this faction can raid. default value is true.
+* "canSatBomb": boolean. this determines if a faction can preform sat bombardments or not. default value copys canInvade. if nexerlin is not enabled, is false if the faction is a 'pirate' faction.
+* "canBeSatBomb": boolean. this determines if a faction can be sat bombardments or not. default value copys canInvade. if nexerlin is not enabled, is false if the faction is a 'pirate' faction.
+* "canBeRaided": boolean. this determines if this faction can be raided. default is false if this faction is a 'pirate' faction . if nexerlin is installed, default value is determined by nexerlin.
+* "canRaid": boolean. this determines if this faction can raid. default value is true.
+* "canTacticalBombed": boolean. this determines if a faction can preform tatical bombarded. default value is true.
+* "canBeTacticalBomb": boolean. this determines if a faction can be tatical bombarded. default value is true.
+* 
 * "canStarlordsJoin": boolean. this determines if this faction can have starlords join or leave it. defalt value is false.
 * 
 * "canPreformDiplomacy": boolean. this determines if this faction can do things like declare war and peace, as well as have others declare war and peace. default is false if this faction is a 'pirate' faction. if nexerlin is installed, default value is determined by nexerlin. 
