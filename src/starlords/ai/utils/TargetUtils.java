@@ -16,6 +16,7 @@ import starlords.controllers.EventController;
 import starlords.controllers.LordController;
 import starlords.person.Lord;
 import starlords.person.LordEvent;
+import starlords.util.NexerlinUtilitys;
 import starlords.util.Utils;
 import starlords.util.factionUtils.FactionTemplate;
 import starlords.util.factionUtils.FactionTemplateController;
@@ -45,14 +46,14 @@ public class TargetUtils {
     *
     *
     *  */
-    private static boolean canRaid_lord;
-    private static boolean canTacticalBomb_lord;
-    private static boolean canInvade_lord;
-    private static boolean canSatbomb_lord;
-    private static boolean canRaid_campaign;
-    private static boolean canTacticalBomb_campaign;
-    private static boolean canInvade_campaign;
-    private static boolean canSatbomb_campaign;
+    private static boolean canRaid_lord = true;
+    private static boolean canTacticalBomb_lord = true;
+    private static boolean canInvade_lord = false;
+    private static boolean canSatbomb_lord = false;
+    private static boolean canRaid_campaign = true;
+    private static boolean canTacticalBomb_campaign = true;
+    private static boolean canInvade_campaign = true;
+    private static boolean canSatbomb_campaign = true;
     public static boolean isValidMarket(MarketAPI market){
         if (!market.isInEconomy()) return false;
         if (market.getSize() <= 2) return false;
@@ -71,7 +72,7 @@ public class TargetUtils {
         return true;
     }
     public static boolean canBeAttackedByLord(Lord lord, MarketAPI market){
-        if (!isValidMarket(market)) return false;
+        if (!isAttackable(lord,market)) return false;
         boolean[] attacks = possibleAttacksMarket(lord,market,ATTACK_TYPE_RAID);
         if (attacks == null) return false;
         for (boolean a : attacks){
@@ -89,12 +90,32 @@ public class TargetUtils {
         return false;
     }
     public static boolean isAttackable(Lord lord, MarketAPI market){
+        FactionTemplate a = FactionTemplateController.getTemplate(lord.getFaction());
+        FactionTemplate b = FactionTemplateController.getTemplate(market.getFaction());
+        if (!a.isCanAttack()) return false;
+        if (!b.isCanBeAttacked()) return false;
         //note: this is needed at the following functions: EventController.getPreferredRaidLocation, EventController.getCampaignTarget
         if (!isValidMarket(market)) return false;
         if (!market.getFaction().isHostileTo(lord.getLordAPI().getFaction())) return false;
-        if (!Utils.canBeAttacked(market.getFaction())) return false;
-        if (Misc.getDaysSinceLastRaided(market) < RAID_COOLDOWN) return false;//todo: adjust this arg I need a break... this inter thing is hard...
+        //if (!Utils.canBeAttacked(market.getFaction())) return false;
+        if ((Utils.nexEnabled() && !NexerlinUtilitys.canBeAttacked(market))) return false;
+        //if (!isAttackable(lord,market.getFaction())) return false;
+        if (Misc.getDaysSinceLastRaided(market) < RAID_COOLDOWN) return false;
         if (!(LordController.getFactionsWithLords().contains(market.getFaction()) || market.getFaction().isPlayerFaction())) return false;
+        return true;
+    }
+    public static boolean isAtWar(FactionAPI faction_0, FactionAPI faction_1){
+        //ok, so this is not required. the faction template should handle this.
+        //additional data.
+        FactionTemplate a = FactionTemplateController.getTemplate(faction_0);
+        FactionTemplate b = FactionTemplateController.getTemplate(faction_1);
+        if (!LordController.getFactionsWithLords().contains(faction_1)) return false;
+        if (!faction_1.isHostileTo(faction_0)) return false;
+        //a faction is at war when a faction can attack with a campian, or a they can attack a faction with a campain.
+        if (!(a.isCanBeAttacked() && b.isCanAttack() && b.isCanHaveCampaigns()) && !(a.isCanAttack() && a.isCanHaveCampaigns() && b.isCanBeAttacked())) return false;
+
+
+
         return true;
     }
 
@@ -198,16 +219,35 @@ public class TargetUtils {
         return Math.max(0,maxViolenceAgainstTarget - currentViolenceAgainstTarget);
     }
     public static int getCampaignViolenceLeft(LordEvent event){
-        int maxViolenceAgainstTarget=0;
+        return getViolenceLeft(event);
+        //note: this is diabled in preperation for upgrading campains to have multible targets. but thats not ready yet.
+        /*int maxViolenceAgainstTarget=0;
         int currentViolenceAgainstTarget=0;
         if (event != null) {
             currentViolenceAgainstTarget = event.getTotalCampaignViolence();
             maxViolenceAgainstTarget = event.getMaxCampaignViolence();
         }
-        return Math.max(0,maxViolenceAgainstTarget - currentViolenceAgainstTarget);
+        return Math.max(0,maxViolenceAgainstTarget - currentViolenceAgainstTarget);*/
     }
 
     private static boolean[] possibleAttacksFaction(Lord lord, FactionAPI factionAPI, String type){
+        int typesOfAttacks = 5;
+        boolean[] out = possibleAttacksFaction(lord.getFaction(),factionAPI,type);
+        if (out == null) return out;
+        boolean[] lordAttacks = {
+                lord.canRaid(),
+                lord.canRaid(),
+                lord.canTacticallyBomb(),
+                lord.canPreformInvasion(),
+                lord.canSatBomb()
+        };
+        boolean[] output = new boolean[typesOfAttacks];
+        for (int c = 0; c < typesOfAttacks; c++){
+            output[c] = out[c] && lordAttacks[c];
+        }
+        return output;
+    }
+    private static boolean[] possibleAttacksFaction(FactionAPI factionAPI_0, FactionAPI factionAPI_1, String type){
         int typesOfAttacks = 5;
         boolean[] settings = new boolean[typesOfAttacks];
         switch (type){
@@ -230,8 +270,8 @@ public class TargetUtils {
                 };
                 break;
         }
-        FactionTemplate a = FactionTemplateController.getTemplate(lord.getFaction());
-        FactionTemplate b = FactionTemplateController.getTemplate(factionAPI);
+        FactionTemplate a = FactionTemplateController.getTemplate(factionAPI_0);
+        FactionTemplate b = FactionTemplateController.getTemplate(factionAPI_1);
         if (!a.isCanAttack()) return null;
         if (!b.isCanBeAttacked()) return null;
         boolean[] lordFactionAttacks = {
@@ -248,16 +288,9 @@ public class TargetUtils {
                 b.isCanInvade(),
                 b.isCanBeSatBomb()
         };
-        boolean[] lordAttacks = {
-                lord.canRaid(),
-                lord.canRaid(),
-                lord.canTacticallyBomb(),
-                lord.canPreformInvasion(),
-                lord.canSatBomb()
-        };
         boolean[] output = new boolean[typesOfAttacks];
-        for (int c = 0; c < 4; c++){
-            output[c] = lordFactionAttacks[c] && targetFactionAttacks[c] && lordAttacks[c] && settings[c];
+        for (int c = 0; c < typesOfAttacks; c++){
+            output[c] = lordFactionAttacks[c] && targetFactionAttacks[c] && settings[c];
         }
         return output;
     }

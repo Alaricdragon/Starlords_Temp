@@ -11,6 +11,14 @@ import starlords.util.Utils;
 
 @Getter
 public class FactionTemplate {
+    /*what have I done?
+    * 1) I have made it so lords in factions that don't allow defection cant defect, cant defect to factions that dont allow it (hopefully).
+    * 2) I have made it so some markets cannot be attacked (hopefully)
+    *   -note: I still need to make it so nexerlin can override invasion permissions.
+    * what do I need to do?:
+    * 3) make it so only valid markets can be fiefs.
+    * 4) make it so only valid markets can be traded with.
+    * 5) implement the faction.json*/
     /*
     * issue: my settings for what types of attacks are available make no sense. like...
     * well, I guess they do, kinda?
@@ -124,6 +132,8 @@ public class FactionTemplate {
     private boolean canSatBomb;
     private boolean canTacticalBomb;
     private boolean canBeTacticalBomb;
+    private boolean canHaveCampaigns;
+
     private boolean canStarlordsJoin;
 
     private boolean canPreformDiplomacy;
@@ -160,7 +170,8 @@ public class FactionTemplate {
         setCanBeRaided("canBeRaided",json);
         setCanRaid("canRaid",json);
         setCanTacticalBomb("canTacticalBombed",json);
-        setCanTacticalBomb("canBeTacticalBomb",json);
+        setCanBeTacticalBomb("canBeTacticalBomb",json);
+        setCanHaveCampaigns("canHaveCampaigns",json);
 
         setCanStarlordsJoin("canStarlordsJoin",json);
 
@@ -297,6 +308,20 @@ public class FactionTemplate {
         }
         boolean isPirate = Misc.isPirateFaction(Global.getSector().getFaction(factionID));
         canBeRaided = !isPirate;
+
+    }
+    @SneakyThrows
+    private void setCanHaveCampaigns(String key,JSONObject json){
+        if (json != null && json.has(key)){
+            canBeRaided = json.getBoolean(key);
+            return;
+        }
+        if (Utils.nexEnabled()){
+            canHaveCampaigns = NexerlinUtilitys.canBeAttacked(Global.getSector().getFaction(factionID));
+            return;
+        }
+        boolean isPirate = Misc.isPirateFaction(Global.getSector().getFaction(factionID));
+        canHaveCampaigns = !isPirate;
 
     }
 

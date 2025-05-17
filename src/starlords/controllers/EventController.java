@@ -27,6 +27,8 @@ import starlords.ui.EventIntelPlugin;
 import starlords.ui.HostileEventIntelPlugin;
 import starlords.util.StringUtil;
 import starlords.util.Utils;
+import starlords.util.factionUtils.FactionTemplate;
+import starlords.util.factionUtils.FactionTemplateController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -449,12 +451,14 @@ public class EventController extends BaseIntelPlugin {
     public static int getStartCampaignWeight(Lord lord) {
         // no campaigns for LP/pirates
         FactionAPI faction = lord.getLordAPI().getFaction();
-        if (!Utils.canBeAttacked(faction)) return 0;
+        FactionTemplate attackerTemplate = FactionTemplateController.getTemplate(faction.getId());
+        // no campaigns for factions that cant attack or defend.
+        if (!attackerTemplate.isCanHaveCampaigns()) return 0;
+        if (!attackerTemplate.isCanAttack() && !attackerTemplate.isCanBeAttacked()) return 0;
         boolean isAtWar = false;
         for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
             FactionAPI otherFaction = market.getFaction();
-            if (LordController.getFactionsWithLords().contains(otherFaction)
-                    && Utils.canBeAttacked(otherFaction) && faction.isHostileTo(otherFaction)) {
+            if (TargetUtils.isAtWar(faction,otherFaction)) {
                 isAtWar = true;
                 break;
             }

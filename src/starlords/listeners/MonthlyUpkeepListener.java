@@ -15,6 +15,7 @@ import starlords.util.Constants;
 import starlords.util.DefectionUtils;
 import starlords.util.LordFleetFactory;
 import starlords.util.Utils;
+import starlords.util.factionUtils.FactionTemplateController;
 
 import java.util.List;
 
@@ -67,6 +68,8 @@ public class MonthlyUpkeepListener extends BaseCampaignEventListener {
 	public void calculateLordsBetrayal() {
 
 		for (Lord lord : LordController.getLordsList()) {
+		    //if a lord is 'not allow to defect' or if a lords faction does not allow lords to join / leave.
+		    if (!lord.isAllowedToDefect() || !FactionTemplateController.getTemplate(lord.getFaction()).isCanStarlordsJoin()) continue;
 			LordRequest existingRequest = RequestController.getCurrentRequest(lord, LordRequest.FIEF_FOR_DEFECTION);
 			if (existingRequest != null) {
 				RequestController.endRequest(existingRequest);

@@ -13,8 +13,9 @@ faction templates contain a large amount of data to fully customize your faction
 * "canRaid": boolean. this determines if this faction can raid. default value is true.
 * "canTacticalBombed": boolean. this determines if a faction can preform tatical bombarded. default value is true.
 * "canBeTacticalBomb": boolean. this determines if a faction can be tatical bombarded. default value is true.
-* 
-* "canStarlordsJoin": boolean. this determines if this faction can have starlords join or leave it. defalt value is false.
+* "canHaveCampaigns": boolean. this determins if a faction can have campains. is nexerlin is enabled, default is determined by nexerlin if nexerlin is not enabled, is false if this faction is a pirate faction.
+*
+* "canStarlordsJoin": boolean. this determines if this faction can have starlords join or leave it. default value is true.
 * 
 * "canPreformDiplomacy": boolean. this determines if this faction can do things like declare war and peace, as well as have others declare war and peace. default is false if this faction is a 'pirate' faction. if nexerlin is installed, default value is determined by nexerlin. 
 * "canPreformPolicy": boolean. this determines if this faction can have policy's be voted on. default is false if this faction is a 'pirate' faction.

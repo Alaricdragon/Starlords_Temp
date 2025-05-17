@@ -14,6 +14,7 @@ import exerelin.campaign.alliances.Alliance;
 import lombok.Setter;
 import org.apache.log4j.Logger;
 import org.lwjgl.util.vector.Vector2f;
+import starlords.ai.utils.TargetUtils;
 import starlords.controllers.LordController;
 import starlords.controllers.EventController;
 import starlords.controllers.PoliticsController;
@@ -23,6 +24,7 @@ import starlords.person.Lord;
 import starlords.person.LordAction;
 import starlords.person.LordEvent;
 import starlords.person.LordRequest;
+import starlords.util.factionUtils.FactionTemplateController;
 
 import java.util.*;
 
@@ -320,13 +322,13 @@ public class Utils {
         }
         return numEnemies;
     }*/
-    public static int getNumMajorEnemiesForAttacks(FactionAPI faction){
+    /*public static int getNumMajorEnemiesForAttacks(FactionAPI faction){
         int numEnemies = 0;
         for (FactionAPI faction2 : LordController.getFactionsWithLords()) {
             if (Utils.canBeAttacked(faction2) && faction.isHostileTo(faction2)) numEnemies += 1;
         }
         return numEnemies;
-    }
+    }*/
     public static int getNumMajorEnemiesForDiplomacy(FactionAPI faction){
         int numEnemies = 0;
         for (FactionAPI faction2 : LordController.getFactionsWithLords()) {
@@ -537,7 +539,7 @@ public class Utils {
     private static HashSet<String> forcedAttack;
     @Setter
     private static HashSet<String> forcedNoAttack;
-    public static boolean canBeAttacked(MarketAPI market) {
+    /*public static boolean canBeAttacked(MarketAPI market) {
         if (!canBeAttacked(market.getFaction())) return false;
         if (!Global.getSettings().getModManager().isModEnabled("nexerelin")) return true;
         return NexerlinUtilitys.canBeAttacked(market);
@@ -551,7 +553,7 @@ public class Utils {
         //if (isMinorFaction(faction)) return false;
         if (!Global.getSettings().getModManager().isModEnabled("nexerelin")) return !isMinorFaction(faction);
         return NexerlinUtilitys.canBeAttacked(faction);
-    }
+    }*/
     //determines if a faction can have there relations change. (aka, pirates don't have relationship changes. nore do some modded content.)
     @Setter
     private static HashSet<String> forcedRelations;

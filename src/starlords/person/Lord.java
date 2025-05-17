@@ -22,6 +22,7 @@ import lombok.Getter;
 import org.lwjgl.util.vector.Vector2f;
 import starlords.ui.PrisonerIntelPlugin;
 import starlords.util.*;
+import starlords.util.factionUtils.FactionTemplateController;
 import starlords.util.memoryUtils.DataHolder;
 
 import java.util.ArrayList;
@@ -529,7 +530,7 @@ public class Lord {
 //				+ " Player Commission: " + Misc.getCommissionFaction()
 //				+ " Current Request: " + RequestController.getCurrentDefectionRequest(this)
 //		);
-
+        if (!FactionTemplateController.getTemplate(getFaction()).isCanStarlordsJoin()) return false;
 		if (this.getEscapeAttempts() >= Constants.FAILED_PRISON_ESCAPES_ASK_ASSISTANCE
 				&& LordController.getLordById(this.captor).isPlayer() == false
 				&& RelationController.getRelation(this, LordController.getPlayerLord()) >= Utils.getThreshold(RepLevel.SUSPICIOUS)
@@ -555,7 +556,7 @@ public class Lord {
 	}
 
 	public boolean wantsToDefect() {
-
+        if (!isAllowedToDefect()) return false;
 		int chance = DefectionUtils.getAutoBetrayalChance(this);
 		if (chance > 0) {
 			if (Utils.getRandomChance(this,100) < chance) {
@@ -587,6 +588,9 @@ public class Lord {
     public boolean canSatBomb(){
         if (getPersonality().equals(LordPersonality.QUARRELSOME)) return true;
         return false;
+    }
+    public boolean isAllowedToDefect(){
+        return true;
     }
 
     private DataHolder DATA_HOLDER;

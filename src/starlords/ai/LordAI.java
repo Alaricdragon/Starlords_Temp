@@ -734,9 +734,9 @@ public class LordAI implements EveryFrameScript {
 
                             } else {
                                 MarketAPI target = campaign.getTarget().getMarket();
-                                if (target == null || TargetUtils.getViolenceLeft(campaign) <= 0) {
+                                if (target == null/* || TargetUtils.getViolenceLeft(campaign) <= 0*/) {
                                     // market is gone somehow, possibly decivilized during campaign
-                                    campaign.setTotalViolence(0);
+                                    //campaign.setTotalViolence(0);
                                     chooseNextCampaignTarget(lord, campaign);
                                 } else if (!lord.getFaction().isHostileTo(target.getFaction())) {
                                     // defensive campaign
