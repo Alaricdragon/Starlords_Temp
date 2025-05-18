@@ -429,6 +429,11 @@ public class LordAI implements EveryFrameScript {
         CampaignFleetAIAPI fleetAI = lord.getFleet().getAI();
         final CampaignFleetAPI fleet = lord.getFleet();
         final MemoryAPI mem = fleet.getMemoryWithoutUpdate();
+
+        if (fleet != null)
+            if (fleet.isDoNotAdvanceAI())
+                fleet.setDoNotAdvanceAI(false);
+
         // check for lord fleet defeat
         if (fleet.isEmpty() && lord.getCurrAction() != LordAction.RESPAWNING
                 && lord.getCurrAction() != LordAction.IMPRISONED) {

@@ -747,6 +747,7 @@ public class Utils {
 		String location = "";
 		String fiefs = "";
 		String chance = "";
+        String fleetDoNotAdvance = "";
 
 		for (Lord lord : LordController.getLordsList()) {
 			Lord marshall = PoliticsController.getLordMarshall(lord);
@@ -767,8 +768,12 @@ public class Utils {
 				location = String.valueOf(lord.getFleet());
 			fiefs = String.valueOf(lord.getFiefs().size());
 			chance = String.valueOf(DefectionUtils.getAutoBetrayalChance(lord));
+            if (lord.getFleet() != null)
+                fleetDoNotAdvance = lord.getFleet().isDoNotAdvanceAI().toString();
+            else
+                fleetDoNotAdvance = "null";
 
-			list.add(new String[]{id, name, personality, faction, relWithFaction, relWithMarshall, currAction, location, fiefs, chance});
+			list.add(new String[]{id, name, personality, faction, relWithFaction, relWithMarshall, currAction, location, fiefs, chance, fleetDoNotAdvance});
 
 		}
 
@@ -784,6 +789,7 @@ public class Utils {
 				+ "\tLocation"
 				+ "\tFiefs"
 				+ "\tChance"
+				+ "\tFleet Do Not Advance"
 				+ System.lineSeparator();
 		for (String[] item : list) {
 			output += "[Star Lords]"
@@ -797,6 +803,7 @@ public class Utils {
 					+ "\t" + item[7]
 					+ "\t" + item[8]
 					+ "\t" + item[9]
+					+ "\t" + item[10]
 					+ System.lineSeparator();
 		}
 
