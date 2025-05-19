@@ -21,6 +21,7 @@ import starlords.person.LordEvent;
 import starlords.plugins.SelectItemDialogPlugin;
 import starlords.util.StringUtil;
 import starlords.util.Utils;
+import starlords.util.factionUtils.FactionTemplateController;
 
 import java.awt.*;
 import java.util.*;
@@ -83,7 +84,7 @@ public class LawsIntelPlugin extends BaseIntelPlugin {
         TooltipMakerAPI header = panel.createUIElement(width, headerHeight, false);
         Color uiColor = Global.getSettings().getBasePlayerColor();
         faction = Misc.getCommissionFaction();
-        if (faction == null || Utils.isMinorFaction(faction)) {
+        if (faction == null || (!FactionTemplateController.getTemplate(faction).isCanPreformPolicy() && !FactionTemplateController.getTemplate(faction).isCanPreformDiplomacy())) {
             if (PoliticsController.playerFactionHasLaws()) {
                 faction = Global.getSector().getPlayerFaction();
             } else {
@@ -368,7 +369,9 @@ public class LawsIntelPlugin extends BaseIntelPlugin {
             for (FactionAPI faction : LordController.getFactionsWithLords()) {
                 if (faction.equals(this.faction)) continue;
                 if (faction.equals(Global.getSector().getPlayerFaction())) continue;
-                if (!Utils.canHaveRelations(faction)) continue;
+                //if (!Utils.canHaveRelations(faction)) continue;
+                if (FactionTemplateController.getTemplate(faction).isCanPreformDiplomacy()) continue;
+                if (FactionTemplateController.getTemplate(this.faction).isCanPreformDiplomacy()) continue;
                 if (faction.isHostileTo(this.faction) != (buttonId == DECLARE_WAR_BUTTON)) {
                     options.add(faction.getDisplayName());
                     retVals.add(faction.getId());

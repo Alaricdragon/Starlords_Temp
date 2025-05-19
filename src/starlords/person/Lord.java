@@ -593,6 +593,29 @@ public class Lord {
         return true;
     }
 
+    public boolean canHoldFeast(){
+        return FactionTemplateController.getTemplate(getFaction()).isCanPreformFeasts();
+    }
+    public double getFiefIncomeMulti(){
+        return FactionTemplateController.getTemplate(getFaction()).getLordFiefIncomeMulti();
+    }
+    public double getTradeIncomeMulti(){
+        return FactionTemplateController.getTemplate(getFaction()).getLordTradeIncomeMulti();
+    }
+    public double getCommissionedIncomeMulti(){
+        return FactionTemplateController.getTemplate(getFaction()).getLordCommissionedIncomeMulti();
+    }
+    public double getCombatIncomeMulti(){
+        return FactionTemplateController.getTemplate(getFaction()).getLordCombatIncomeMulti();
+    }
+    public double getFleetUpkeepMulti(){
+        return FactionTemplateController.getTemplate(getFaction()).getLordFleetUpkeepCostMulti();
+    }
+
+    public double getRepGainFromKillsMulti(){
+        return FactionTemplateController.getTemplate(getFaction()).getLordRepChangeFromKillsMulti();
+    }
+
     private DataHolder DATA_HOLDER;
     public DataHolder getLordDataHolder(){
         DataHolder data_holder = DATA_HOLDER;

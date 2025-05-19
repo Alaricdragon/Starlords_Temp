@@ -21,6 +21,7 @@ import starlords.ui.ProposalIntelPlugin;
 import starlords.util.DefectionUtils;
 import starlords.util.NexerlinUtilitys;
 import starlords.util.Utils;
+import starlords.util.factionUtils.FactionTemplateController;
 
 import java.awt.*;
 import java.util.*;
@@ -60,7 +61,7 @@ public class PoliticsController implements EveryFrameScript {
         lordTimestampMap = new HashMap<>();
         factionLastCouncilMap = new HashMap<>();
         for (FactionAPI faction : Global.getSector().getAllFactions()) {
-            if (!Utils.canHaveRelations(faction)) continue;
+            //if (!Utils.canHaveRelations(faction)) continue;
             addFaction(faction);
         }
         Random rand = new Random();
@@ -87,7 +88,6 @@ public class PoliticsController implements EveryFrameScript {
         instance.lordTimestampMap.remove(lord.getLordAPI().getId());
         instance.lordProposalsMap.remove(lord.getLordAPI().getId());
         for(int a = instance.lordProposalsMap.size()-1; a >= 0; a--){
-            //todo: I need to remember to fix this issue at some point, but I need to remove policies involving dead lords, that are already in consul.
             if (((LawProposal) instance.lordProposalsMap.values().toArray()[a])!= null && ((LawProposal) instance.lordProposalsMap.values().toArray()[a]).targetLord != null && ((LawProposal) instance.lordProposalsMap.values().toArray()[a]).targetLord.equals(lord.getLordAPI().getId()) ){
                 ((LawProposal) instance.lordProposalsMap.values().toArray()[a]).kill();
             }
@@ -134,7 +134,7 @@ public class PoliticsController implements EveryFrameScript {
         // checks if councils convene
         for (String factionStr : factionCouncilMap.keySet()) {
             FactionAPI faction = Global.getSector().getFaction(factionStr);
-            if (!Utils.canHaveRelations(faction)) continue;
+            if (!FactionTemplateController.getTemplate(faction).isCanPreformPolicy()) continue;
             if (getTimeRemainingDays(faction) < 0) {
                 checkProposalValidity(faction);
                 if (factionCouncilMap.get(factionStr) == null) {
@@ -183,7 +183,8 @@ public class PoliticsController implements EveryFrameScript {
         // submit new proposals
         // TODO ruler proposal submission
         for (Lord lord : LordController.getLordsList()) {
-            if (!Utils.canHaveRelations(lord.getFaction())) continue;
+            if (!FactionTemplateController.getTemplate(lord.getFaction()).isCanPreformPolicy()) continue;
+            //if (!Utils.canHaveRelations(lord.getFaction())) continue;
             if (Utils.getDaysSince(lordTimestampMap.get(lord.getLordAPI().getId())) < LORD_THINK_INTERVAL) continue;
             lordTimestampMap.put(lord.getLordAPI().getId(), Global.getSector().getClock().getTimestamp());
             lord.setSwayed(false);
@@ -269,13 +270,14 @@ public class PoliticsController implements EveryFrameScript {
         if (numEnemies == 0 && lord.getPersonality() == LordPersonality.MARTIAL) {
             weight += 30 + rand.nextInt(    10);
         }
-        if (weight > bestWeight && Utils.canHaveRelations(lord.getFaction())) {
+        if (weight > bestWeight && FactionTemplateController.getTemplate(lord.getFaction()).isCanPreformDiplomacy()) {
             // declare war on least liked faction
             int worstRelations = 100;
             String targetFaction = null;
             ArrayList<String> options = new ArrayList<>();
             for (FactionAPI faction2 : LordController.getFactionsWithLords()) {
                 if (faction.equals(faction2)) continue;
+                if (!FactionTemplateController.getTemplate(faction2).isCanPreformDiplomacy()) continue;
                 if (!faction2.isHostileTo(faction)) {
                     int rep = faction.getRepInt(faction2.getId());
                     if (rep < Utils.getThreshold(RepLevel.FAVORABLE)) options.add(faction2.getId());
@@ -297,10 +299,10 @@ public class PoliticsController implements EveryFrameScript {
         }
         // sue for peace
         weight = 18 * numEnemies;
-        if (weight > bestWeight && rand.nextBoolean() && Utils.canHaveRelations(lord.getFaction())) {
+        if (weight > bestWeight && rand.nextBoolean() && FactionTemplateController.getTemplate(lord.getFaction()).isCanPreformDiplomacy()) {
             ArrayList<String> options = new ArrayList<>();
             for (FactionAPI faction2 : LordController.getFactionsWithLords()) {
-                if (faction2.isHostileTo(faction) && Utils.canHaveRelations(faction2)) options.add(faction2.getId());
+                if (faction2.isHostileTo(faction) && FactionTemplateController.getTemplate(faction2).isCanPreformDiplomacy()) options.add(faction2.getId());
             }
             if (!options.isEmpty()) {
                 bestWeight = weight;

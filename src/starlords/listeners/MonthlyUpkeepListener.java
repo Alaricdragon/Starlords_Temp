@@ -3,7 +3,6 @@ package starlords.listeners;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.BaseCampaignEventListener;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
-import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.Pair;
 import starlords.controllers.*;
@@ -14,7 +13,6 @@ import starlords.person.LordRequest;
 import starlords.util.Constants;
 import starlords.util.DefectionUtils;
 import starlords.util.LordFleetFactory;
-import starlords.util.Utils;
 import starlords.util.factionUtils.FactionTemplateController;
 
 import java.util.List;
@@ -45,7 +43,9 @@ public class MonthlyUpkeepListener extends BaseCampaignEventListener {
 
             Pair<Float, Float> result = PoliticsController.getBaseIncomeMultipliers(lord.getFaction());
             // give pirates some more base money since they can't own fiefs
-            if (Utils.isMinorFaction(lord.getFaction())) result.one *= 2f;
+            result.one *= (float) lord.getCommissionedIncomeMulti();
+            result.two *= (float) lord.getCommissionedIncomeMulti();
+            //if (Utils.isMinorFaction(lord.getFaction())) result.one *= 2f;
             lord.addWealth(result.one * Constants.LORD_MONTHLY_INCOME
                     + result.two * lord.getRanking() * Constants.LORD_MONTHLY_INCOME);
             CampaignFleetAPI fleet = lord.getLordAPI().getFleet();
@@ -54,7 +54,7 @@ public class MonthlyUpkeepListener extends BaseCampaignEventListener {
             }
             // maintenance cost is 15% of purchase cost, also use FP instead of DP for simplicity
             float cost = LordFleetFactory.COST_MULT * fleet.getFleetPoints() * 0.15f;
-            lord.addWealth(-1 * cost);
+            lord.addWealth((float) (-1 * cost * lord.getFleetUpkeepMulti()));
             //log.info("DEBUG: Lord " + lord.getLordAPI().getNameString() + " incurred expenses of " + cost);
         }
         LifeAndDeathController.getInstance().runMonth();

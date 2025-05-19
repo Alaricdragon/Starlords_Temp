@@ -9,6 +9,7 @@ public class Constants {
     // Lords are intended to gain most of their wealth through trade/governance,
     // this is just to make sure they can build something.
     public static final int LORD_MONTHLY_INCOME = 10000;
+    public static final int LORD_MURDER_INCOME = 100; //200 per dp kyte. 60 * 100 = 6000 for a paragon.
     // percent chance lord is captured when defeated in combat against other lords
     public static final int LORD_CAPTURE_CHANCE = 70;
     public static final int PRISON_ESCAPE_CHANCE = 15;

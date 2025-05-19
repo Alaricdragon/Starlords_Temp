@@ -2,17 +2,15 @@ package starlords.controllers;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.RepLevel;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.util.Misc;
-import org.apache.log4j.Logger;
-import org.lazywizard.lazylib.StringUtils;
+import starlords.ai.utils.TargetUtils;
 import starlords.person.Lord;
-import starlords.util.StringUtil;
 import starlords.util.Utils;
+import starlords.util.factionUtils.FactionTemplateController;
 
 import java.util.*;
 
@@ -141,14 +139,13 @@ public class FiefController extends BaseIntelPlugin {
     }
 
     public static MarketAPI chooseVentureTarget(Lord lord) {
+        if (!FactionTemplateController.getTemplate(lord.getFaction()).isCanTrade()) return null;
         List<MarketAPI> allMarkets = Global.getSector().getEconomy().getMarketsCopy();
         List<MarketAPI> options = new ArrayList<>();
         List<Integer> weights = new ArrayList<>();
         int totalWeight = 0;
         for (MarketAPI market : allMarkets) {
-            if (market.getFaction().isAtWorst(lord.getLordAPI().getFaction(), RepLevel.NEUTRAL)
-                    && !market.getFaction().equals(lord.getLordAPI().getFaction())
-                    && !Utils.isMinorFaction(market.getFaction())) {
+            if (TargetUtils.canBeTradedWith(lord,market)){
                 options.add(market);
                 weights.add((int) getTrade(market));
                 totalWeight += weights.get(weights.size() - 1);
@@ -172,6 +169,7 @@ public class FiefController extends BaseIntelPlugin {
         ArrayList<MarketAPI> candidates = new ArrayList<>();
         for (MarketAPI market : fiefOwner.keySet()) {
             if (market.getFaction().equals(faction) && fiefOwner.get(market) == null) {
+                if (!TargetUtils.canBeFief(market)) continue;
                 candidates.add(market);
             }
         }
@@ -194,12 +192,14 @@ public class FiefController extends BaseIntelPlugin {
         return null;
     }
 
-    public static List<MarketAPI> getMarketsOfFaction(FactionAPI faction) {
+    public static List<MarketAPI> getFiefsOfFaction(FactionAPI faction) {
         List<MarketAPI> marketsOfFaction = new ArrayList<>();
 
         for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()){
-            if (market.getFaction().equals(faction))
+            if (market.getFaction().equals(faction)) {
+                if (TargetUtils.canBeFief(market)) continue;
                 marketsOfFaction.add(market);
+            }
         }
 
         return marketsOfFaction;
@@ -221,14 +221,14 @@ public class FiefController extends BaseIntelPlugin {
             return;
 
         Lord playerLord = LordController.getPlayerLord();
-        for (MarketAPI market : FiefController.getMarketsOfFaction(playerFaction)) {
+        for (MarketAPI market : FiefController.getFiefsOfFaction(playerFaction)) {
             if (FiefController.getOwner(market) == null) {
                 FiefController.setOwner(market, playerLord.getLordAPI().getId());
                 fiefList += market.getName() + ", ";
             }
         }
 
-        if (fiefList.isEmpty() == false) {
+        if (!fiefList.isEmpty()) {
             fiefList = fiefList.substring(0, fiefList.length() - 2);
             Global.getSector().getCampaignUI().addMessage("Added " + fiefList + " to your fiefs.", playerLord.getFaction().getBaseUIColor());
         }

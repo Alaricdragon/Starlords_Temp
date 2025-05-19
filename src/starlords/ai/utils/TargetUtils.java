@@ -22,7 +22,6 @@ import starlords.util.factionUtils.FactionTemplate;
 import starlords.util.factionUtils.FactionTemplateController;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static starlords.ai.LordAI.*;
 
@@ -46,6 +45,7 @@ public class TargetUtils {
     *
     *
     *  */
+    //I will add all this to the config when I get around to doing a full refactor of lord strategic AI.
     private static boolean canRaid_lord = true;
     private static boolean canTacticalBomb_lord = true;
     private static boolean canInvade_lord = false;
@@ -55,17 +55,25 @@ public class TargetUtils {
     private static boolean canInvade_campaign = true;
     private static boolean canSatbomb_campaign = true;
     public static boolean isValidMarket(MarketAPI market){
+        if (market == null) return false;
+        if (market.isInHyperspace()) return false;
+        //if (market.getPrimaryEntity() == null) return false;//?
         if (!market.isInEconomy()) return false;
         if (market.getSize() <= 2) return false;
         if (market.getIndustries().size() == 0) return false;
         return true;
     }
-    public static boolean canBeFief(Lord lord,MarketAPI market){
+    public static boolean canBeFief(MarketAPI market){
         if (!isValidMarket(market)) return false;
+        return true;
+    }
+    public static boolean canBeFief(Lord lord,MarketAPI market){
+        if (!canBeFief(market)) return false;
         return true;
     }
     public static boolean canBeTradedWith(Lord lord,MarketAPI market){
         if (!isValidMarket(market)) return false;
+        if (!FactionTemplateController.getTemplate(market.getFaction()).isCanBeTradedWith()) return false;
         if (market.isHidden() && market.getFaction().isAtBest(lord.getFaction(),RepLevel.WELCOMING)) return false;
         if (market.getFaction().isAtBest(lord.getFaction(),RepLevel.SUSPICIOUS)) return false;
         if (market.getFaction().equals(lord.getFaction())) return false;
@@ -104,19 +112,45 @@ public class TargetUtils {
         if (!(LordController.getFactionsWithLords().contains(market.getFaction()) || market.getFaction().isPlayerFaction())) return false;
         return true;
     }
-    public static boolean isAtWar(FactionAPI faction_0, FactionAPI faction_1){
-        //ok, so this is not required. the faction template should handle this.
-        //additional data.
+
+    private static boolean canHaveCampains(FactionAPI faction_0, FactionAPI faction_1){
+
         FactionTemplate a = FactionTemplateController.getTemplate(faction_0);
         FactionTemplate b = FactionTemplateController.getTemplate(faction_1);
         if (!LordController.getFactionsWithLords().contains(faction_1)) return false;
-        if (!faction_1.isHostileTo(faction_0)) return false;
         //a faction is at war when a faction can attack with a campian, or a they can attack a faction with a campain.
         if (!(a.isCanBeAttacked() && b.isCanAttack() && b.isCanHaveCampaigns()) && !(a.isCanAttack() && a.isCanHaveCampaigns() && b.isCanBeAttacked())) return false;
-
+        boolean can = false;
+        boolean[] possibility = possibleAttacksFaction(faction_0,faction_1,ATTACK_TYPE_CAMPAIGN);
+        if (possibility != null) {
+            for (boolean c : possibility) {
+                if (c) {
+                    can = true;
+                    break;
+                }
+            }
+        }
+        boolean can2 = false;
+        boolean[] possibility2 = possibleAttacksFaction(faction_1,faction_0,ATTACK_TYPE_CAMPAIGN);
+        if (possibility2 != null) {
+            for (boolean c : possibility2) {
+                if (c) {
+                    can2 = true;
+                    break;
+                }
+            }
+        }
+        //a faction needs to have a valid combat type against the other faction.
+        if (!(a.isCanBeAttacked() && b.isCanAttack() && can2) && !(a.isCanAttack() && b.isCanBeAttacked() && can)) return false;
 
 
         return true;
+    }
+    public static boolean isAtWar(FactionAPI faction_0, FactionAPI faction_1){
+        //ok, so this is not required. the faction template should handle this.
+        //additional data.
+        if (!faction_1.isHostileTo(faction_0)) return false;
+        return canHaveCampains(faction_0,faction_1);
     }
 
     public static final String ATTACK_TYPE_RAID = "ATTACK_TYPE_RAID", ATTACK_TYPE_CAMPAIGN = "ATTACK_TYPE_CAMPAIGN";

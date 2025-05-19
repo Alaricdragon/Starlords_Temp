@@ -171,7 +171,7 @@ public class LordAI implements EveryFrameScript {
         }
 
         LordEvent currFeast = null;
-        if (priority >= LordAction.FEAST.priority) {
+        if (priority >= LordAction.FEAST.priority && lord.canHoldFeast()) {
             int feastWeight = 0;
             currFeast = EventController.getCurrentFeast(faction);
             if (currFeast != null) {
@@ -493,8 +493,8 @@ public class LordAI implements EveryFrameScript {
                 if (Utils.getDaysSince(lord.getAssignmentStartTime()) > STANDBY_DURATION) {
                     for (SectorEntityToken marketEntity : lord.getFiefs()) {
                         MarketAPI market = marketEntity.getMarket();
-                        lord.addWealth(PoliticsController.getTaxMultiplier(lord.getFaction())
-                                * FiefController.getTax(market));
+                        lord.addWealth((float) (PoliticsController.getTaxMultiplier(lord.getFaction())
+                                                        * FiefController.getTax(market) * lord.getFiefIncomeMulti()));
                         FiefController.setTax(market, 0);
                     }
                     chooseAssignment(lord);
@@ -511,10 +511,10 @@ public class LordAI implements EveryFrameScript {
             case VENTURE:
                 if (Utils.getDaysSince(lord.getAssignmentStartTime()) > STANDBY_DURATION) {
                     MarketAPI market = lord.getTarget().getMarket();
-                    lord.addWealth(PoliticsController.getTradeMultiplier(lord.getFaction()) * FiefController.getTrade(market));
+                    lord.addWealth((float) (PoliticsController.getTradeMultiplier(lord.getFaction()) * FiefController.getTrade(market) * lord.getTradeIncomeMulti()));
                     // TODO make more frequent trades generate more taxes
-                    FiefController.setTax(market, FiefController.getTax(market)
-                            + PoliticsController.getTradeMultiplier(market.getFaction()) * FiefController.getTrade(market) / 2);
+                    FiefController.setTax(market, (float) ((FiefController.getTax(market)
+                                                + PoliticsController.getTradeMultiplier(market.getFaction()) * FiefController.getTrade(market) * 0.5) * lord.getTradeIncomeMulti()));
                     FiefController.setTrade(market, 0);
                     chooseAssignment(lord);
                 }

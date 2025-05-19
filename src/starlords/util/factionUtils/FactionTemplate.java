@@ -16,9 +16,31 @@ public class FactionTemplate {
     * 2) I have made it so some markets cannot be attacked (hopefully)
     *   -note: I still need to make it so nexerlin can override invasion permissions.
     * what do I need to do?:
-    * 3) make it so only valid markets can be fiefs.
-    * 4) make it so only valid markets can be traded with.
-    * 5) implement the faction.json*/
+    * 3)(maybe done?) make it so only valid markets can be fiefs.
+    * 4)(done) make it so only valid markets can be traded with.
+    * 5)(done) make it so only factions that are warable can have war declared.
+    * 6) (done)make it so only factions that are diplomatic can have peace / war actions.
+    * 7) (done, needs testing)make it so only factions that can have policys can have policys
+    * 8) implement the faction.json
+    *
+    * note:
+    *   things I need to test (both with pirates and not):
+    *   1) can I press the policy buttons?
+    *   2) who can I declare war / peace with?
+    *   3) can I have a fief?
+    *   4) can a marshal exist?
+    *   5) can a campain be lead?
+    *   6) what does this faction target (for trade, and for raids, and for campains)?
+    *
+    *   other alturations:
+    *       having a polics / deplomancy true, and a policys / deplomancy false
+    *       installing nexerlin
+    *       turning on debug mode to see what policys are formed.
+    *
+    *   other improvements:
+    *       make a system that 'gives' pirate type factions a fief? so pirates can have there own fief.
+    *
+    * */
     /*
     * issue: my settings for what types of attacks are available make no sense. like...
     * well, I guess they do, kinda?
@@ -140,12 +162,20 @@ public class FactionTemplate {
     private boolean canPreformPolicy;
     private boolean canPreformFeasts;
 
+    private boolean canTrade;
+    private boolean canBeTradedWith;
+
     private boolean canGiveFiefs;
     private boolean canLordsTakeFiefsWithDefection;
     private int maxNumberFiefsPerLord;
 
     private double lordFiefIncomeMulti;
     private double lordCombatIncomeMulti;
+    private double lordTradeIncomeMulti;
+    private double lordCommissionedIncomeMulti;
+
+    private double lordRepChangeFromKillsMulti;
+    private double lordFleetUpkeepCostMulti;
     //private double starlordsOnStartMulti = 1;
     //private double starlordsLifeMulti = 1;
     public FactionTemplate(String factionID){
@@ -179,13 +209,21 @@ public class FactionTemplate {
         setCanPreformPolicy("canPreformPolicy",json);
         setCanPreformFeasts("canHoldFeasts",json);
 
+        setCanTrade("canTrade",json);
+        setCanBeTradedWith("canBeTradedWith",json);
+
         setCanGiveFiefs("canGivesFiefs",json);
         setCanLordsTakeFiefsWithDefection("canLordsTakeFiefsWithDefection",json);
         setMaxNumberFiefsPerLord("maxNumberOfFiefs",json);
 
         setLordFiefIncomeMulti("fiefIncomeMulti",json);
         setLordCombatIncomeMulti("combatIncomeMulti",json);
+        setLordTradeIncomeMulti("tradeIncomeMulti",json);
+        setLordCommissionedIncomeMulti("commissionIncomeMulti",json);
 
+        setLordFleetUpkeepCostMulti("lordFleetUpkeepCostMulti",json);
+
+        setLordRepChangeFromKillsMulti("lordRepGainPerWin",json);
     }
     @SneakyThrows
     private void setT0_title(String key, JSONObject json){
@@ -366,6 +404,24 @@ public class FactionTemplate {
         canPreformFeasts = true;
     }
 
+
+    @SneakyThrows
+    private void setCanTrade(String key, JSONObject json){
+        if (json != null && json.has(key)){
+            canTrade = json.getBoolean(key);
+            return;
+        }
+        canTrade = true;
+    }
+    @SneakyThrows
+    private void setCanBeTradedWith(String key, JSONObject json){
+        if (json != null && json.has(key)){
+            canBeTradedWith = json.getBoolean(key);
+            return;
+        }
+        canBeTradedWith = true;
+    }
+
     @SneakyThrows
     private void setCanGiveFiefs(String key, JSONObject json){
         if (json != null && json.has(key)){
@@ -405,7 +461,7 @@ public class FactionTemplate {
         }
         boolean isPirate = Misc.isPirateFaction(Global.getSector().getFaction(factionID));
         if (isPirate){
-            lordFiefIncomeMulti = 1;
+            lordFiefIncomeMulti = 0.5;
             return;
         }
         lordFiefIncomeMulti = 1;
@@ -419,13 +475,62 @@ public class FactionTemplate {
         }
         boolean isPirate = Misc.isPirateFaction(Global.getSector().getFaction(factionID));
         if (isPirate){
-            lordCombatIncomeMulti = 1;
+            lordCombatIncomeMulti = 2;
             return;
         }
         lordCombatIncomeMulti = 1;
 
     }
+    @SneakyThrows
+    private void setLordTradeIncomeMulti(String key, JSONObject json){
+        if (json != null && json.has(key)){
+            lordTradeIncomeMulti = json.getDouble(key);
+            return;
+        }
+        boolean isPirate = Misc.isPirateFaction(Global.getSector().getFaction(factionID));
+        if (isPirate){
+            lordTradeIncomeMulti = 1;
+            return;
+        }
+        lordTradeIncomeMulti = 1;
 
+    }
+    @SneakyThrows
+    private void setLordCommissionedIncomeMulti(String key, JSONObject json){
+        if (json != null && json.has(key)){
+            lordCommissionedIncomeMulti = json.getDouble(key);
+            return;
+        }
+        boolean isPirate = Misc.isPirateFaction(Global.getSector().getFaction(factionID));
+        if (isPirate){
+            lordCommissionedIncomeMulti = 2;
+            return;
+        }
+        lordCommissionedIncomeMulti = 1;
+    }
+
+    @SneakyThrows
+    private void setLordFleetUpkeepCostMulti(String key, JSONObject json){
+        if (json != null && json.has(key)){
+            lordFleetUpkeepCostMulti = json.getDouble(key);
+            return;
+        }
+        lordFleetUpkeepCostMulti = 1;
+    }
+
+    @SneakyThrows
+    private void setLordRepChangeFromKillsMulti(String key, JSONObject json){
+        if (json != null && json.has(key)){
+            lordRepChangeFromKillsMulti = json.getDouble(key);
+            return;
+        }
+        boolean isPirate = Misc.isPirateFaction(Global.getSector().getFaction(factionID));
+        if (isPirate){
+            lordRepChangeFromKillsMulti = 1;
+            return;
+        }
+        lordRepChangeFromKillsMulti = 0;
+    }
 
     public boolean isCanBeAttacked(){
         if (!canBeAttacked) return false;

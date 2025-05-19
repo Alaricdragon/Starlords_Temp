@@ -330,9 +330,12 @@ public class Utils {
         return numEnemies;
     }*/
     public static int getNumMajorEnemiesForDiplomacy(FactionAPI faction){
+        if (!FactionTemplateController.getTemplate(faction).isCanPreformDiplomacy()) return 0;
         int numEnemies = 0;
         for (FactionAPI faction2 : LordController.getFactionsWithLords()) {
-            if (Utils.canHaveRelations(faction2) && faction.isHostileTo(faction2)) numEnemies += 1;
+            if (!FactionTemplateController.getTemplate(faction2).isCanPreformDiplomacy()) continue;
+            if (TargetUtils.isAtWar(faction,faction2)) numEnemies++;
+            //if (Utils.canHaveRelations(faction2) && faction.isHostileTo(faction2)) numEnemies += 1;
         }
         return numEnemies;
     }
@@ -559,7 +562,7 @@ public class Utils {
     private static HashSet<String> forcedRelations;
     @Setter
     private static HashSet<String> forcedNoRelations;
-    public static boolean canHaveRelations(FactionAPI faction){
+    /*public static boolean canHaveRelations(FactionAPI faction){
         HashSet<String> forced = forcedRelations;
         HashSet<String> prevented = forcedNoRelations;
         if (forced.contains(faction.getId())) return true;
@@ -567,14 +570,14 @@ public class Utils {
         //if (isMinorFaction(faction)) return false;
         if (!Global.getSettings().getModManager().isModEnabled("nexerelin")) return !isMinorFaction(faction);//return true;
         return NexerlinUtilitys.canChangeRelations(faction);
-    }
+    }/**/
     //prevents some factions from having war / peace declared, engaging/getting in invasions, and being raided (like pirates, for not pirates)
 
 	@Setter
 	private static HashSet<String> forcedMinorFaction;
 	@Setter
 	private static HashSet<String> forcedNotMinorFaction;
-
+    /*
 	public static boolean isMinorFaction(FactionAPI faction) {
 		HashSet<String> forced = forcedMinorFaction;
 		HashSet<String> prevented = forcedNotMinorFaction;
@@ -583,7 +586,7 @@ public class Utils {
 		if (!Global.getSettings().getModManager().isModEnabled("nexerelin")) return Misc.isPirateFaction(faction);
 		//to do: use nexerlin to determine if a faction is a minor faction.
 		return NexerlinUtilitys.isMinorFaction(faction);
-	}
+	}*/
 
 	public static float getTravelTime(SectorEntityToken origin, SectorEntityToken target) {
 		float distance = Misc.getDistanceLY(origin,target);
