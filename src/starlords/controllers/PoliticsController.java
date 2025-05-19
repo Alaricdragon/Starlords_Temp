@@ -174,7 +174,10 @@ public class PoliticsController implements EveryFrameScript {
             FactionAPI faction = Global.getSector().getFaction(laws.getFactionId());
             MarketAPI award = laws.getFiefAward();
 
-            if (award == null || Global.getSector().getEconomy().getMarket(award.getId()) == null || !faction.equals(award.getFaction())) {
+            if (award == null
+                    || Global.getSector().getEconomy().getMarket(award.getId()) == null
+                    || !faction.equals(award.getFaction())
+                    || FiefController.getOwner(award) != null) {
                 MarketAPI newAward = FiefController.chooseNextFiefAward(faction);
                 laws.setFiefAward(newAward);
             }
