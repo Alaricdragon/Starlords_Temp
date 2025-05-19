@@ -1,3 +1,10 @@
+V0.3.40:
+    thanks Aleksandros for the following:
+        Added doNotAdvanceAI check and set for fleet in progressAssignment - to fix idle lord fleets
+        Added doNotAdvance column to printLordsDetails
+        Added owner check for fief candidate in politics intel
+        Added RespawnLord command
+    note: for the person who didn't read, Aleksandros fixed the issue were starlords would sit there and do nothing forever.
 V0.3.39:
     fixes:
         fixed a crash when clicking on the open coms on the prisoner tab.
