@@ -15,7 +15,7 @@ public class FactionTemplate_player extends FactionTemplate {
     }
 
     @Override
-    protected void setLeader(String key, JSONObject json) {
-        leader = Global.getSector().getPlayerPerson();
+    public PersonAPI getLeader() {
+        return Global.getSector().getPlayerPerson();
     }
 }

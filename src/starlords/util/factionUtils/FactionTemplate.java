@@ -2,12 +2,14 @@ package starlords.util.factionUtils;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.characters.PersonAPI;
+import com.fs.starfarer.api.impl.campaign.ids.People;
 import com.fs.starfarer.api.util.Misc;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import starlords.lunaSettings.StoredSettings;
+import starlords.plugins.LordInteractionDialogPluginImpl;
 import starlords.util.NexerlinUtilitys;
 import starlords.util.StringUtil;
 import starlords.util.Utils;
@@ -29,7 +31,9 @@ public class FactionTemplate {
     * note:
     *   things I need to test (both with pirates and not):
     *   1) can I press the policy buttons?
+    *       -heg: yes.
     *   2) who can I declare war / peace with?
+    *
     *   3) can I have a fief?
     *   4) can a marshal exist?
     *   5) can a campain be lead?
@@ -37,11 +41,6 @@ public class FactionTemplate {
     *   7) AFTER I AM DONE, TURN OFF DEBUG MODE! ARG....
     *
     * issues:
-    *   lords voting:
-    *       1) the faction leader is not present for votes.
-    *       2) lords seem to always say no to votes.
-    *       3) there is a lot more doplacate votes then I remember.
-    *       4-) I am going to do a short test on the fixes branch to see if the issues were caused by me or not.
     *
     *   other alturations:
     *       having a polics / deplomancy true, and a policys / deplomancy false
@@ -152,8 +151,8 @@ public class FactionTemplate {
     * */
     protected String factionID;
 
-    protected PersonAPI leader;
-    //protected String leaderID;
+    //protected PersonAPI leader;
+    protected String leaderID;
     protected String T0_title;
     protected String T1_title;
     protected String T2_title;
@@ -201,7 +200,7 @@ public class FactionTemplate {
         init(factionID,json);
     }
     private void init(String factionID,JSONObject json){
-        setLeader("leaderID",json);
+        setLeaderID("leaderID",json);
         setT0_title("rank_0",json);
         setT1_title("rank_1",json);
         setT2_title("rank_2",json);
@@ -239,25 +238,32 @@ public class FactionTemplate {
 
         setLordRepChangeFromKillsMulti("lordRepGainPerWin",json);
     }
-    @SneakyThrows
+    /*@SneakyThrows
     protected void setLeader(String key, JSONObject json){
         if (json != null && json.has(key)){
             String temp = json.getString(key);
             leader = Global.getSector().getImportantPeople().getPerson(temp);
+            LordInteractionDialogPluginImpl.log.info("got leader as a person of: "+leader);
             return;
         }
+        LordInteractionDialogPluginImpl.log.info("got leader as null");
         leader = null;
+    }*/
+    public PersonAPI getLeader(){
+        if (leaderID == null) return null;
+        PersonAPI person = Global.getSector().getImportantPeople().getPerson(leaderID);
+        return person;
     }
-    /*@SneakyThrows
+    @SneakyThrows
     protected void setLeaderID(String key, JSONObject json){
         if (json != null && json.has(key)){
             leaderID = json.getString(key);
-            leader = Global.getSector().getImportantPeople().getPerson(leaderID);
+            //leader = Global.getSector().getImportantPeople().getPerson(leaderID);
             return;
         }
         leaderID = null;
-        leader = null;
-    }*/
+        //leader = null;
+    }
     @SneakyThrows
     protected void setT0_title(String key, JSONObject json){
         if (json != null && json.has(key)){

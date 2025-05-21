@@ -3,7 +3,7 @@
 
   },
   "hegemony": {
-    "leaderID": "DAUD",
+    "leaderID": "daud",
     "rank_0": "Lord Admiral",
     "rank_1": "Lord High Admiral",
     "rank_2": "First Star Lord"
@@ -15,28 +15,28 @@
 
   },
   "persean": {
-    "leaderID": "REYNARD_HANNAN",
+    "leaderID": "reynard_hannan",
     "rank_0": "Megas Doux",
     "rank_1": "Doux",
     "rank_2": "Megas Doux"
 
   },
   "sindrian_diktat": {
-    "leaderID": "ANDRADA",
+    "leaderID": "andrada",
     "rank_0": "Deputy Star Marshal",
     "rank_1": "Star Marshal",
     "rank_2": "Generalissimo"
 
   },
   "tritachyon": {
-    "leaderID": "SUN",
+    "leaderID": "sun",
     "rank_0": "SVP",
     "rank_1": "Executive",
     "rank_2": "COO"
 
   },
   "luddic_path": {
-    "leaderID": "COTTON",
+    "leaderID": "cotton",
     "rank_0": "Brother",
     "rank_1": "Brother",
     "rank_2": "Brother"
