@@ -1,10 +1,13 @@
 package starlords.util.factionUtils;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.util.Misc;
 import lombok.Getter;
 import lombok.SneakyThrows;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
+import starlords.lunaSettings.StoredSettings;
 import starlords.util.NexerlinUtilitys;
 import starlords.util.StringUtil;
 import starlords.util.Utils;
@@ -21,7 +24,7 @@ public class FactionTemplate {
     * 5)(done) make it so only factions that are warable can have war declared.
     * 6) (done)make it so only factions that are diplomatic can have peace / war actions.
     * 7) (done, needs testing)make it so only factions that can have policys can have policys
-    * 8) implement the faction.json
+    * 8) (done, but only basic data is complete) implement the faction.json
     *
     * note:
     *   things I need to test (both with pirates and not):
@@ -31,6 +34,14 @@ public class FactionTemplate {
     *   4) can a marshal exist?
     *   5) can a campain be lead?
     *   6) what does this faction target (for trade, and for raids, and for campains)?
+    *   7) AFTER I AM DONE, TURN OFF DEBUG MODE! ARG....
+    *
+    * issues:
+    *   lords voting:
+    *       1) the faction leader is not present for votes.
+    *       2) lords seem to always say no to votes.
+    *       3) there is a lot more doplacate votes then I remember.
+    *       4-) I am going to do a short test on the fixes branch to see if the issues were caused by me or not.
     *
     *   other alturations:
     *       having a polics / deplomancy true, and a policys / deplomancy false
@@ -139,43 +150,45 @@ public class FactionTemplate {
     *   - XP gain
     *
     * */
-    private String factionID;
+    protected String factionID;
 
-    private String T0_title;
-    private String T1_title;
-    private String T2_title;
+    protected PersonAPI leader;
+    //protected String leaderID;
+    protected String T0_title;
+    protected String T1_title;
+    protected String T2_title;
 
-    private boolean canAttack;
-    private boolean canBeAttacked;
-    private boolean canInvade;
-    private boolean canBeRaided;
-    private boolean canRaid;
-    private boolean canBeSatBomb;
-    private boolean canSatBomb;
-    private boolean canTacticalBomb;
-    private boolean canBeTacticalBomb;
-    private boolean canHaveCampaigns;
+    protected boolean canAttack;
+    protected boolean canBeAttacked;
+    protected boolean canInvade;
+    protected boolean canBeRaided;
+    protected boolean canRaid;
+    protected boolean canBeSatBomb;
+    protected boolean canSatBomb;
+    protected boolean canTacticalBomb;
+    protected boolean canBeTacticalBomb;
+    protected boolean canHaveCampaigns;
 
-    private boolean canStarlordsJoin;
+    protected boolean canStarlordsJoin;
 
-    private boolean canPreformDiplomacy;
-    private boolean canPreformPolicy;
-    private boolean canPreformFeasts;
+    protected boolean canPreformDiplomacy;
+    protected boolean canPreformPolicy;
+    protected boolean canPreformFeasts;
 
-    private boolean canTrade;
-    private boolean canBeTradedWith;
+    protected boolean canTrade;
+    protected boolean canBeTradedWith;
 
-    private boolean canGiveFiefs;
-    private boolean canLordsTakeFiefsWithDefection;
-    private int maxNumberFiefsPerLord;
+    protected boolean canGiveFiefs;
+    protected boolean canLordsTakeFiefsWithDefection;
+    protected int maxNumberFiefsPerLord;
 
-    private double lordFiefIncomeMulti;
-    private double lordCombatIncomeMulti;
-    private double lordTradeIncomeMulti;
-    private double lordCommissionedIncomeMulti;
+    protected double lordFiefIncomeMulti;
+    protected double lordCombatIncomeMulti;
+    protected double lordTradeIncomeMulti;
+    protected double lordCommissionedIncomeMulti;
 
-    private double lordRepChangeFromKillsMulti;
-    private double lordFleetUpkeepCostMulti;
+    protected double lordRepChangeFromKillsMulti;
+    protected double lordFleetUpkeepCostMulti;
     //private double starlordsOnStartMulti = 1;
     //private double starlordsLifeMulti = 1;
     public FactionTemplate(String factionID){
@@ -188,6 +201,7 @@ public class FactionTemplate {
         init(factionID,json);
     }
     private void init(String factionID,JSONObject json){
+        setLeader("leaderID",json);
         setT0_title("rank_0",json);
         setT1_title("rank_1",json);
         setT2_title("rank_2",json);
@@ -226,7 +240,26 @@ public class FactionTemplate {
         setLordRepChangeFromKillsMulti("lordRepGainPerWin",json);
     }
     @SneakyThrows
-    private void setT0_title(String key, JSONObject json){
+    protected void setLeader(String key, JSONObject json){
+        if (json != null && json.has(key)){
+            String temp = json.getString(key);
+            leader = Global.getSector().getImportantPeople().getPerson(temp);
+            return;
+        }
+        leader = null;
+    }
+    /*@SneakyThrows
+    protected void setLeaderID(String key, JSONObject json){
+        if (json != null && json.has(key)){
+            leaderID = json.getString(key);
+            leader = Global.getSector().getImportantPeople().getPerson(leaderID);
+            return;
+        }
+        leaderID = null;
+        leader = null;
+    }*/
+    @SneakyThrows
+    protected void setT0_title(String key, JSONObject json){
         if (json != null && json.has(key)){
             T0_title = json.getString(key);
             return;
@@ -234,7 +267,7 @@ public class FactionTemplate {
         T0_title = StringUtil.getString("starlords_title", "title_default_" + 0);
     }
     @SneakyThrows
-    private void setT1_title(String key, JSONObject json){
+    protected void setT1_title(String key, JSONObject json){
         if (json != null && json.has(key)){
             T1_title = json.getString(key);
             return;
@@ -242,7 +275,7 @@ public class FactionTemplate {
         T1_title = StringUtil.getString("starlords_title", "title_default_" + 1);
     }
     @SneakyThrows
-    private void setT2_title(String key, JSONObject json){
+    protected void setT2_title(String key, JSONObject json){
         if (json != null && json.has(key)){
             T2_title = json.getString(key);
             return;
@@ -250,7 +283,7 @@ public class FactionTemplate {
         T2_title = StringUtil.getString("starlords_title", "title_default_" + 2);
     }
     @SneakyThrows
-    private void setCanAttack(String key,JSONObject json){
+    protected void setCanAttack(String key,JSONObject json){
         if (json != null && json.has(key)){
             canAttack = json.getBoolean(key);
             return;
@@ -259,7 +292,7 @@ public class FactionTemplate {
 
     }
     @SneakyThrows
-    private void setCanBeAttacked(String key,JSONObject json){
+    protected void setCanBeAttacked(String key,JSONObject json){
         if (json != null && json.has(key)){
             canBeAttacked = json.getBoolean(key);
             return;
@@ -272,7 +305,7 @@ public class FactionTemplate {
         canBeAttacked = !isPirate;
     }
     @SneakyThrows
-    private void setCanInvade(String key,JSONObject json){
+    protected void setCanInvade(String key,JSONObject json){
         if (json != null && json.has(key)){
             canInvade = json.getBoolean(key);
             return;
@@ -286,7 +319,7 @@ public class FactionTemplate {
 
     }
     @SneakyThrows
-    private void setCanSatBomb(String key,JSONObject json){
+    protected void setCanSatBomb(String key,JSONObject json){
         if (json != null && json.has(key)){
             canSatBomb = json.getBoolean(key);
             return;
@@ -295,7 +328,7 @@ public class FactionTemplate {
 
     }
     @SneakyThrows
-    private void setCanBeSatBomb(String key,JSONObject json){
+    protected void setCanBeSatBomb(String key,JSONObject json){
         if (json != null && json.has(key)){
             canBeSatBomb = json.getBoolean(key);
             return;
@@ -303,7 +336,7 @@ public class FactionTemplate {
         canBeSatBomb = canInvade;
     }
     @SneakyThrows
-    private void setCanRaid(String key,JSONObject json){
+    protected void setCanRaid(String key,JSONObject json){
         if (json != null && json.has(key)){
             canRaid = json.getBoolean(key);
             return;
@@ -318,7 +351,7 @@ public class FactionTemplate {
 
     }
     @SneakyThrows
-    private void setCanTacticalBomb(String key,JSONObject json){
+    protected void setCanTacticalBomb(String key,JSONObject json){
         if (json != null && json.has(key)){
             canTacticalBomb = json.getBoolean(key);
             return;
@@ -327,7 +360,7 @@ public class FactionTemplate {
 
     }
     @SneakyThrows
-    private void setCanBeTacticalBomb(String key,JSONObject json){
+    protected void setCanBeTacticalBomb(String key,JSONObject json){
         if (json != null && json.has(key)){
             canBeTacticalBomb = json.getBoolean(key);
             return;
@@ -335,7 +368,7 @@ public class FactionTemplate {
         canBeTacticalBomb = canInvade;
     }
     @SneakyThrows
-    private void setCanBeRaided(String key,JSONObject json){
+    protected void setCanBeRaided(String key,JSONObject json){
         if (json != null && json.has(key)){
             canBeRaided = json.getBoolean(key);
             return;
@@ -349,7 +382,7 @@ public class FactionTemplate {
 
     }
     @SneakyThrows
-    private void setCanHaveCampaigns(String key,JSONObject json){
+    protected void setCanHaveCampaigns(String key,JSONObject json){
         if (json != null && json.has(key)){
             canBeRaided = json.getBoolean(key);
             return;
@@ -364,7 +397,7 @@ public class FactionTemplate {
     }
 
     @SneakyThrows
-    private void setCanStarlordsJoin(String key, JSONObject json){
+    protected void setCanStarlordsJoin(String key, JSONObject json){
         if (json != null && json.has(key)){
             canStarlordsJoin = json.getBoolean(key);
             return;
@@ -372,7 +405,7 @@ public class FactionTemplate {
         canStarlordsJoin = true;
     }
     @SneakyThrows
-    private void setCanPreformDiplomacy(String key, JSONObject json){
+    protected void setCanPreformDiplomacy(String key, JSONObject json){
         if (json != null && json.has(key)){
             canPreformDiplomacy = json.getBoolean(key);
             return;
@@ -386,7 +419,7 @@ public class FactionTemplate {
 
     }
     @SneakyThrows
-    private void setCanPreformPolicy(String key, JSONObject json){
+    protected void setCanPreformPolicy(String key, JSONObject json){
         if (json != null && json.has(key)){
             canPreformPolicy = json.getBoolean(key);
             return;
@@ -396,7 +429,7 @@ public class FactionTemplate {
 
     }
     @SneakyThrows
-    private void setCanPreformFeasts(String key, JSONObject json){
+    protected void setCanPreformFeasts(String key, JSONObject json){
         if (json != null && json.has(key)){
             canPreformFeasts = json.getBoolean(key);
             return;
@@ -406,7 +439,7 @@ public class FactionTemplate {
 
 
     @SneakyThrows
-    private void setCanTrade(String key, JSONObject json){
+    protected void setCanTrade(String key, JSONObject json){
         if (json != null && json.has(key)){
             canTrade = json.getBoolean(key);
             return;
@@ -414,7 +447,7 @@ public class FactionTemplate {
         canTrade = true;
     }
     @SneakyThrows
-    private void setCanBeTradedWith(String key, JSONObject json){
+    protected void setCanBeTradedWith(String key, JSONObject json){
         if (json != null && json.has(key)){
             canBeTradedWith = json.getBoolean(key);
             return;
@@ -423,7 +456,7 @@ public class FactionTemplate {
     }
 
     @SneakyThrows
-    private void setCanGiveFiefs(String key, JSONObject json){
+    protected void setCanGiveFiefs(String key, JSONObject json){
         if (json != null && json.has(key)){
             canGiveFiefs = json.getBoolean(key);
             return;
@@ -432,7 +465,7 @@ public class FactionTemplate {
 
     }
     @SneakyThrows
-    private void setCanLordsTakeFiefsWithDefection(String key, JSONObject json){
+    protected void setCanLordsTakeFiefsWithDefection(String key, JSONObject json){
         if (json != null && json.has(key)){
             canLordsTakeFiefsWithDefection = json.getBoolean(key);
             return;
@@ -440,7 +473,7 @@ public class FactionTemplate {
         canLordsTakeFiefsWithDefection = canInvade;
     }
     @SneakyThrows
-    private void setMaxNumberFiefsPerLord(String key, JSONObject json){
+    protected void setMaxNumberFiefsPerLord(String key, JSONObject json){
         if (json != null && json.has(key)){
             maxNumberFiefsPerLord = json.getInt(key);
             return;
@@ -454,7 +487,7 @@ public class FactionTemplate {
     }
 
     @SneakyThrows
-    private void setLordFiefIncomeMulti(String key, JSONObject json){
+    protected void setLordFiefIncomeMulti(String key, JSONObject json){
         if (json != null && json.has(key)){
             lordFiefIncomeMulti = json.getDouble(key);
             return;
@@ -468,7 +501,7 @@ public class FactionTemplate {
 
     }
     @SneakyThrows
-    private void setLordCombatIncomeMulti(String key, JSONObject json){
+    protected void setLordCombatIncomeMulti(String key, JSONObject json){
         if (json != null && json.has(key)){
             lordCombatIncomeMulti = json.getDouble(key);
             return;
@@ -482,7 +515,7 @@ public class FactionTemplate {
 
     }
     @SneakyThrows
-    private void setLordTradeIncomeMulti(String key, JSONObject json){
+    protected void setLordTradeIncomeMulti(String key, JSONObject json){
         if (json != null && json.has(key)){
             lordTradeIncomeMulti = json.getDouble(key);
             return;
@@ -496,7 +529,7 @@ public class FactionTemplate {
 
     }
     @SneakyThrows
-    private void setLordCommissionedIncomeMulti(String key, JSONObject json){
+    protected void setLordCommissionedIncomeMulti(String key, JSONObject json){
         if (json != null && json.has(key)){
             lordCommissionedIncomeMulti = json.getDouble(key);
             return;
@@ -510,7 +543,7 @@ public class FactionTemplate {
     }
 
     @SneakyThrows
-    private void setLordFleetUpkeepCostMulti(String key, JSONObject json){
+    protected void setLordFleetUpkeepCostMulti(String key, JSONObject json){
         if (json != null && json.has(key)){
             lordFleetUpkeepCostMulti = json.getDouble(key);
             return;
@@ -519,7 +552,7 @@ public class FactionTemplate {
     }
 
     @SneakyThrows
-    private void setLordRepChangeFromKillsMulti(String key, JSONObject json){
+    protected void setLordRepChangeFromKillsMulti(String key, JSONObject json){
         if (json != null && json.has(key)){
             lordRepChangeFromKillsMulti = json.getDouble(key);
             return;

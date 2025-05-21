@@ -1,8 +1,9 @@
 please note: this file references 'private factions' a lot. a pirate faction is determined by the custom:{"pirateBehavior"} value in a given data\world\factions file.
 faction templates contain a large amount of data to fully customize your faction. the data you can have is as follows.
-* "rank_0": String. this is what the common starlords rank string. defalt value is __
-* "rank_1": String. this is what the promoted starlords rank string. defalt value is __
-* "rank_2": String. this is what the highest rank starlords rank string. defalt value is __
+* "leaderID": String. this is the person ID of the leader of this faction. default value is null.
+* "rank_0": String. this is what the common starlords rank string. default value is __
+* "rank_1": String. this is what the promoted starlords rank string. default value is __
+* "rank_2": String. this is what the highest rank starlords rank string. default value is __
 * 
 * "canBeAttacked": boolean. this determines if a faction can be attacked in any way at all. default is false if this faction is a pirate faction.
 * "canAttack": boolean. this determines if a faction can attack others in any way at all. default is true.

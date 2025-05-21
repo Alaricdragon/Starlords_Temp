@@ -44,12 +44,14 @@ public class Utils {
     private static boolean showMessageLordCaptureReleaseEscape;
     public static final Random rand = new Random(); // for low-priority rng that doesn't need to be savescum-proof
     public static String getFactionTitle(String faction,int ranking){
-        String titleStr = "title_" + faction + "_" + ranking;
-        String ret = StringUtil.getString("starlords_title", titleStr);
-        if (ret != null && ret.startsWith("Missing string")) {
-            ret = StringUtil.getString("starlords_title", "title_default_" + ranking);
+        switch (ranking){
+            case 2:
+                return FactionTemplateController.getTemplate(faction).getT2_title();
+            case 1:
+                return FactionTemplateController.getTemplate(faction).getT1_title();
+            default:
+                return FactionTemplateController.getTemplate(faction).getT0_title();
         }
-        return ret;
     }
     public static int nextInt(int bound) {
         return rand.nextInt(bound);
@@ -340,7 +342,8 @@ public class Utils {
         return numEnemies;
     }
     public static PersonAPI getLeader(FactionAPI faction) {
-        switch (faction.getId()) {
+        return FactionTemplateController.getTemplate(faction).getLeader();
+        /*switch (faction.getId()) {
             case Factions.PIRATES:
             case Factions.LUDDIC_CHURCH:
                 return null;
@@ -357,11 +360,14 @@ public class Utils {
             case Factions.PLAYER:
                 return Global.getSector().getPlayerPerson();
         }
-        return null;
+        return null;*/
     }
 
     public static String getLiegeName(FactionAPI faction) {
-        switch (faction.getId()) {
+        PersonAPI person = FactionTemplateController.getTemplate(faction).getLeader();
+        if (person == null) return null;
+        return person.getNameString();
+        /*switch (faction.getId()) {
             case Factions.PIRATES:
                 return null;
             case Factions.HEGEMONY:
@@ -379,7 +385,7 @@ public class Utils {
             case Factions.PLAYER:
                 return Global.getSector().getPlayerPerson().getNameString();
         }
-        return null;
+        return null;*/
     }
 
     public static PersonAPI clonePerson(PersonAPI person) {

@@ -1,3 +1,7 @@
+things I need to learn:
+    1) how to load a class with only the class path?
+        -FactionTemplateController thing = Global.getSettings().getScriptClassLoader().loadClass("starlords.util.factionUtils.FactionTemplateController").asSubclass(FactionTemplateController.class);//????
+
 structure:
     1) dialog:
         -I am currently working on this.

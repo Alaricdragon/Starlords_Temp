@@ -23,6 +23,7 @@ import starlords.scripts.ActionCompleteScript;
 import starlords.ui.*;
 import starlords.util.Constants;
 import starlords.util.Utils;
+import starlords.util.factionUtils.FactionTemplateController;
 
 import java.util.HashMap;
 
