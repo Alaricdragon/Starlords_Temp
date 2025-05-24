@@ -33,11 +33,18 @@ public class FactionTemplate {
     *   1) can I press the policy buttons?
     *       -heg: yes.
     *   2) who can I declare war / peace with?
-    *
+    *       -(in heg) player can declare war / peace with the right people.
+    *       -starlords seem to work in this? (he just tatical bombarded though. did I mess up somewere? need to test without this modification quickly)
     *   3) can I have a fief?
     *   4) can a marshal exist?
+    *       -the heg can have one
     *   5) can a campain be lead?
+    *       -heg lanched a campain. only defensive so far. possable issues with targeting prevent counter offencive?
     *   6) what does this faction target (for trade, and for raids, and for campains)?
+    *       -raids (target with player command) works?
+    *           -note: the 'raid' consided of the lord going aroud the system attacking random fleets. never attempted to attack the planet after the staion was destroyed. unknown reason.
+    *       -campain:
+    *           -the heg compain happend. only defensivly so far. unknown reason. possable issues with can attack...
     *   7) AFTER I AM DONE, TURN OFF DEBUG MODE! ARG....
     *
     * issues:

@@ -370,8 +370,8 @@ public class LawsIntelPlugin extends BaseIntelPlugin {
                 if (faction.equals(this.faction)) continue;
                 if (faction.equals(Global.getSector().getPlayerFaction())) continue;
                 //if (!Utils.canHaveRelations(faction)) continue;
-                if (FactionTemplateController.getTemplate(faction).isCanPreformDiplomacy()) continue;
-                if (FactionTemplateController.getTemplate(this.faction).isCanPreformDiplomacy()) continue;
+                if (!FactionTemplateController.getTemplate(faction).isCanPreformDiplomacy()) continue;
+                if (!FactionTemplateController.getTemplate(this.faction).isCanPreformDiplomacy()) continue;
                 if (faction.isHostileTo(this.faction) != (buttonId == DECLARE_WAR_BUTTON)) {
                     options.add(faction.getDisplayName());
                     retVals.add(faction.getId());

@@ -1,5 +1,6 @@
 package starlords.ai.utils;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.RepLevel;
 import com.fs.starfarer.api.campaign.econ.Industry;
@@ -12,10 +13,12 @@ import exerelin.campaign.intel.groundbattle.GBUtils;
 import exerelin.campaign.intel.groundbattle.GroundBattleIntel;
 import exerelin.campaign.intel.groundbattle.GroundUnitDef;
 import lombok.Setter;
+import org.apache.log4j.Logger;
 import starlords.controllers.EventController;
 import starlords.controllers.LordController;
 import starlords.person.Lord;
 import starlords.person.LordEvent;
+import starlords.plugins.LordInteractionDialogPluginImpl;
 import starlords.util.NexerlinUtilitys;
 import starlords.util.Utils;
 import starlords.util.factionUtils.FactionTemplate;
@@ -27,6 +30,7 @@ import static starlords.ai.LordAI.*;
 
 @Setter
 public class TargetUtils {
+    public static Logger log = Global.getLogger(TargetUtils.class);
     /*NOTE TO SELF:
     * YES THIS IS NOT EXPANDABLE. YES IT FEELS UNFINISHED. YA IT KINDA SUCKS.
     * THE ONLY REALY WAY TO IMPROVE THIS WITHOUT CREATING MORE ISSUES IS TO REPLACE THE INTIER LORD AI.
@@ -90,7 +94,7 @@ public class TargetUtils {
     }
     public static boolean canBeAttackedByCampaign(Lord lord, MarketAPI market){
         if (!isAttackable(lord,market)) return false;
-        boolean[] attacks = possibleAttacksFaction(lord,market.getFaction(),ATTACK_TYPE_RAID);
+        boolean[] attacks = possibleAttacksLord(lord,market.getFaction(),ATTACK_TYPE_RAID);
         if (attacks == null) return false;
         for (boolean a : attacks){
             if (a) return true;
@@ -100,16 +104,16 @@ public class TargetUtils {
     public static boolean isAttackable(Lord lord, MarketAPI market){
         FactionTemplate a = FactionTemplateController.getTemplate(lord.getFaction());
         FactionTemplate b = FactionTemplateController.getTemplate(market.getFaction());
+        if (!isValidMarket(market)) return false;
         if (!a.isCanAttack()) return false;
         if (!b.isCanBeAttacked()) return false;
         //note: this is needed at the following functions: EventController.getPreferredRaidLocation, EventController.getCampaignTarget
-        if (!isValidMarket(market)) return false;
         if (!market.getFaction().isHostileTo(lord.getLordAPI().getFaction())) return false;
         //if (!Utils.canBeAttacked(market.getFaction())) return false;
         if ((Utils.nexEnabled() && !NexerlinUtilitys.canBeAttacked(market))) return false;
         //if (!isAttackable(lord,market.getFaction())) return false;
         if (Misc.getDaysSinceLastRaided(market) < RAID_COOLDOWN) return false;
-        if (!(LordController.getFactionsWithLords().contains(market.getFaction()) || market.getFaction().isPlayerFaction())) return false;
+        if (!(LordController.getFactionsWithLords().contains(market.getFaction()) && !market.getFaction().isPlayerFaction())) return false;
         return true;
     }
 
@@ -167,7 +171,8 @@ public class TargetUtils {
         return possibleAttacksMarket(lord, market,null, type);
     }
     private static boolean[] possibleAttacksMarket(Lord lord, MarketAPI market,LordEvent event, String type){
-        boolean[] out = possibleAttacksFaction(lord,market.getFaction(),type);
+        log.info("modifying attacks to determine what is possible on this market....");
+        boolean[] out = possibleAttacksLord(lord,market.getFaction(),type);
         if (out == null) return null;
         //vilance left is not required. that just seems to be used, (in the contect of chosing attacks) to prevent lords from invading or raiding at random.
         if (out[0]){
@@ -232,6 +237,9 @@ public class TargetUtils {
                 out[4] = false;
             }
         }
+        for (boolean a : out){
+            log.info("  got modified market data as: " + a);
+        }
         return out;
     }
     public static boolean canRaidIndustry(MarketAPI market) {
@@ -264,7 +272,8 @@ public class TargetUtils {
         return Math.max(0,maxViolenceAgainstTarget - currentViolenceAgainstTarget);*/
     }
 
-    private static boolean[] possibleAttacksFaction(Lord lord, FactionAPI factionAPI, String type){
+    private static boolean[] possibleAttacksLord(Lord lord, FactionAPI factionAPI, String type){
+        log.info("getting possable attacks for lord...");
         int typesOfAttacks = 5;
         boolean[] out = possibleAttacksFaction(lord.getFaction(),factionAPI,type);
         if (out == null) return out;
@@ -278,10 +287,12 @@ public class TargetUtils {
         boolean[] output = new boolean[typesOfAttacks];
         for (int c = 0; c < typesOfAttacks; c++){
             output[c] = out[c] && lordAttacks[c];
+            log.info("  getting combat (lord) possability as: "+output[c]);
         }
         return output;
     }
     private static boolean[] possibleAttacksFaction(FactionAPI factionAPI_0, FactionAPI factionAPI_1, String type){
+        log.info("getting faction targets for factions "+factionAPI_0.getId()+" to "+factionAPI_1.getId());
         int typesOfAttacks = 5;
         boolean[] settings = new boolean[typesOfAttacks];
         switch (type){
@@ -325,14 +336,19 @@ public class TargetUtils {
         boolean[] output = new boolean[typesOfAttacks];
         for (int c = 0; c < typesOfAttacks; c++){
             output[c] = lordFactionAttacks[c] && targetFactionAttacks[c] && settings[c];
+            log.info("  getting combat (faction) possability as: "+output[c]);
         }
         return output;
     }
     public static LordEvent.OffensiveType getOffencive(Lord lord,MarketAPI market,LordEvent event,String type){
+        log.info("got offencive possibility as:");
         boolean[] out = possibleAttacksMarket(lord,market,event,type);
         ArrayList<LordEvent.OffensiveType> options = new ArrayList<>();
         ArrayList<Integer> weights = new ArrayList<>();
         if (out == null) return null;
+        for (boolean a : out){
+            log.info("  getting offencive possibility: "+a);
+        }
         if (out[0]){
             //canRaid. (basic). this is always true for now.
             options.add(LordEvent.OffensiveType.RAID_GENERIC);
