@@ -110,7 +110,7 @@ public class TargetUtils {
         //note: this is needed at the following functions: EventController.getPreferredRaidLocation, EventController.getCampaignTarget
         if (!market.getFaction().isHostileTo(lord.getLordAPI().getFaction())) return false;
         //if (!Utils.canBeAttacked(market.getFaction())) return false;
-        if ((Utils.nexEnabled() && !NexerlinUtilitys.canBeAttacked(market))) return false;
+        //if ((Utils.nexEnabled() && !NexerlinUtilitys.canBeAttacked(market))) return false;
         //if (!isAttackable(lord,market.getFaction())) return false;
         if (Misc.getDaysSinceLastRaided(market) < RAID_COOLDOWN) return false;
         if (!(LordController.getFactionsWithLords().contains(market.getFaction()) && !market.getFaction().isPlayerFaction())) return false;
@@ -199,42 +199,50 @@ public class TargetUtils {
             }
         }
         if (out[3]){
-            //canInvade
-            GroundBattleIntel tmp = new GroundBattleIntel(market, lord.getFaction(), market.getFaction());
-            tmp.init();
-            float defenderStr = GBUtils.estimateTotalDefenderStrength(tmp, true);
-            tmp.endImmediately();
-            float attackerStr = 0;
-            if (event != null) {
-                float marines = event.getTotalMarines();
-                float heavies = event.getTotalArms();
-                marines = Math.max(0, marines - heavies * GroundUnitDef.getUnitDef(GroundUnitDef.HEAVY).personnel.mult);
-                attackerStr = marines * GroundUnitDef.getUnitDef(GroundUnitDef.MARINE).strength
-                        + heavies * GroundUnitDef.getUnitDef(GroundUnitDef.HEAVY).strength;
-            }else{
-                float marines = lord.getFleet().getCargo().getMarines();
-                float heavies = lord.getFleet().getCargo().getCommodityQuantity(Commodities.HAND_WEAPONS);
-                marines = Math.max(0, marines - heavies * GroundUnitDef.getUnitDef(GroundUnitDef.HEAVY).personnel.mult);
-                attackerStr = marines * GroundUnitDef.getUnitDef(GroundUnitDef.MARINE).strength
-                        + heavies * GroundUnitDef.getUnitDef(GroundUnitDef.HEAVY).strength;
-            }
-            if (attackerStr <= 0.8 * defenderStr) {
+            if (Utils.nexEnabled() && !NexerlinUtilitys.canBeInvaded(market)){
                 out[3] = false;
+            }else {
+                //canInvade
+                GroundBattleIntel tmp = new GroundBattleIntel(market, lord.getFaction(), market.getFaction());
+                tmp.init();
+                float defenderStr = GBUtils.estimateTotalDefenderStrength(tmp, true);
+                tmp.endImmediately();
+                float attackerStr = 0;
+                if (event != null) {
+                    float marines = event.getTotalMarines();
+                    float heavies = event.getTotalArms();
+                    marines = Math.max(0, marines - heavies * GroundUnitDef.getUnitDef(GroundUnitDef.HEAVY).personnel.mult);
+                    attackerStr = marines * GroundUnitDef.getUnitDef(GroundUnitDef.MARINE).strength
+                            + heavies * GroundUnitDef.getUnitDef(GroundUnitDef.HEAVY).strength;
+                } else {
+                    float marines = lord.getFleet().getCargo().getMarines();
+                    float heavies = lord.getFleet().getCargo().getCommodityQuantity(Commodities.HAND_WEAPONS);
+                    marines = Math.max(0, marines - heavies * GroundUnitDef.getUnitDef(GroundUnitDef.HEAVY).personnel.mult);
+                    attackerStr = marines * GroundUnitDef.getUnitDef(GroundUnitDef.MARINE).strength
+                            + heavies * GroundUnitDef.getUnitDef(GroundUnitDef.HEAVY).strength;
+                }
+                if (attackerStr <= 0.8 * defenderStr) {
+                    out[3] = false;
+                }
             }
 
         }
         if (out[4]){
-            //canSatBomb.
-            //limit the amount of sat bombs allowed.
-            int fuelCost = MarketCMD.getBombardmentCost(market, lord.getFleet());
-            int fuelAmt=0;
-            if (event != null){
-                fuelAmt = (int) event.getTotalFuel();
-            }else{
-                fuelAmt = (int) lord.getFleet().getCargo().getFuel();
-            }
-            if (fuelAmt < fuelCost) {
+            if (Utils.nexEnabled() && !NexerlinUtilitys.canBeInvaded(market)){
                 out[4] = false;
+            }else {
+                //canSatBomb.
+                //limit the amount of sat bombs allowed.
+                int fuelCost = MarketCMD.getBombardmentCost(market, lord.getFleet());
+                int fuelAmt = 0;
+                if (event != null) {
+                    fuelAmt = (int) event.getTotalFuel();
+                } else {
+                    fuelAmt = (int) lord.getFleet().getCargo().getFuel();
+                }
+                if (fuelAmt < fuelCost) {
+                    out[4] = false;
+                }
             }
         }
         for (boolean a : out){

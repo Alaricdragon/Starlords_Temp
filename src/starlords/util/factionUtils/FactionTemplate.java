@@ -32,17 +32,25 @@ public class FactionTemplate {
     *   things I need to test (both with pirates and not):
     *   1) can I press the policy buttons?
     *       -heg: yes.
+    *       -player: yes.
+    *       -player before starlords: no
     *   2) who can I declare war / peace with?
     *       -(in heg) player can declare war / peace with the right people.
+    *       -(in player) player can declare war / peace with the right people.
     *       -starlords seem to work in this? (he just tatical bombarded though. did I mess up somewere? need to test without this modification quickly)
     *   3) can I have a fief?
+    *       -(in own faction) yes? buttons were fighting me, but thats just the 'once a month' update thing.
     *   4) can a marshal exist?
     *       -the heg can have one
+    *       -player can have one.
     *   5) can a campain be lead?
     *       -heg lanched a campain. only defensive so far. possable issues with targeting prevent counter offencive?
+    *       -(player) I need to check this.
+    *           -UNKNWON if this fucking aafrjnaskmcfasdas dm HURRY UP DAM IT. (it should work, by my calculations.)
     *   6) what does this faction target (for trade, and for raids, and for campains)?
     *       -raids (target with player command) works?
     *           -note: the 'raid' consided of the lord going aroud the system attacking random fleets. never attempted to attack the planet after the staion was destroyed. unknown reason.
+    *           -note: this is likely a issue in the base starlords. I barely understand the AI.
     *       -campain:
     *           -the heg compain happend. only defensivly so far. unknown reason. possable issues with can attack...
     *   7) AFTER I AM DONE, TURN OFF DEBUG MODE! ARG....
@@ -311,7 +319,7 @@ public class FactionTemplate {
             return;
         }
         if (Utils.nexEnabled()){
-            canBeAttacked = NexerlinUtilitys.canBeAttacked(Global.getSector().getFaction(factionID));
+            canBeAttacked = NexerlinUtilitys.canInvade(Global.getSector().getFaction(factionID));
             return;
         }
         boolean isPirate = Misc.isPirateFaction(Global.getSector().getFaction(factionID));
@@ -324,7 +332,7 @@ public class FactionTemplate {
             return;
         }
         if (Utils.nexEnabled()){
-            canInvade = NexerlinUtilitys.canBeAttacked(Global.getSector().getFaction(factionID));
+            canInvade = NexerlinUtilitys.canInvade(Global.getSector().getFaction(factionID));
             return;
         }
         boolean isPirate = Misc.isPirateFaction(Global.getSector().getFaction(factionID));
@@ -337,7 +345,7 @@ public class FactionTemplate {
             canSatBomb = json.getBoolean(key);
             return;
         }
-        canBeRaided = canInvade;
+        canBeRaided = true;
 
     }
     @SneakyThrows
@@ -346,7 +354,7 @@ public class FactionTemplate {
             canBeSatBomb = json.getBoolean(key);
             return;
         }
-        canBeSatBomb = canInvade;
+        canBeSatBomb = true;
     }
     @SneakyThrows
     protected void setCanRaid(String key,JSONObject json){
@@ -386,12 +394,11 @@ public class FactionTemplate {
             canBeRaided = json.getBoolean(key);
             return;
         }
-        if (Utils.nexEnabled()){
+        /*if (Utils.nexEnabled()){
             canBeRaided = NexerlinUtilitys.canBeAttacked(Global.getSector().getFaction(factionID));
             return;
-        }
-        boolean isPirate = Misc.isPirateFaction(Global.getSector().getFaction(factionID));
-        canBeRaided = !isPirate;
+        }*/
+        canBeRaided = true;
 
     }
     @SneakyThrows
@@ -401,7 +408,7 @@ public class FactionTemplate {
             return;
         }
         if (Utils.nexEnabled()){
-            canHaveCampaigns = NexerlinUtilitys.canBeAttacked(Global.getSector().getFaction(factionID));
+            canHaveCampaigns = NexerlinUtilitys.canInvade(Global.getSector().getFaction(factionID));
             return;
         }
         boolean isPirate = Misc.isPirateFaction(Global.getSector().getFaction(factionID));
@@ -424,7 +431,7 @@ public class FactionTemplate {
             return;
         }
         if (Utils.nexEnabled()){
-            canPreformDiplomacy = NexerlinUtilitys.canChangeRelations(Global.getSector().getFaction(factionID));
+            canPreformDiplomacy = NexerlinUtilitys.canPreformDiplomacy(Global.getSector().getFaction(factionID));
             return;
         }
         boolean isPirate = Misc.isPirateFaction(Global.getSector().getFaction(factionID));
@@ -435,6 +442,10 @@ public class FactionTemplate {
     protected void setCanPreformPolicy(String key, JSONObject json){
         if (json != null && json.has(key)){
             canPreformPolicy = json.getBoolean(key);
+            return;
+        }
+        if (Utils.nexEnabled()){
+            canPreformPolicy = NexerlinUtilitys.canPreformDiplomacy(Global.getSector().getFaction(factionID));
             return;
         }
         boolean isPirate = Misc.isPirateFaction(Global.getSector().getFaction(factionID));

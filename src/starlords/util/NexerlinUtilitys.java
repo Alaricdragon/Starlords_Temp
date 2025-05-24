@@ -23,15 +23,40 @@ public class NexerlinUtilitys {
     public static void declareWar(FactionAPI proposer,FactionAPI propose){
         DiplomacyManager.adjustRelations(proposer,propose,-1.1f,null,null,RepLevel.HOSTILE);
     }
-    public static boolean canBeAttacked(FactionAPI faction){
+
+    public static boolean canPreformDiplomacy(FactionAPI faction){
+        if (!NexConfig.enableDiplomacy) return false;
+        if (NexConfig.getFactionConfig(faction.getId()).disableDiplomacy) return false;
         if (NexConfig.getFactionConfig(faction.getId()).pirateFaction) return false;
         if (!NexConfig.getFactionConfig(faction.getId()).canInvade) return false;
         if (!NexConfig.getFactionConfig(faction.getId()).playableFaction) return false;
         return true;
     }
-    public static boolean canBeAttacked(MarketAPI market){
-        return NexUtilsMarket.canBeInvaded(market,false);
+    public static boolean canBeInvaded(MarketAPI market){
+        if (!NexConfig.enableInvasions) return false;
+        return NexUtilsMarket.shouldTargetForInvasions(market,3);
     }
+    public static boolean canInvade(FactionAPI factionAPI){
+        if (!NexConfig.enableInvasions) return false;
+        if (!NexConfig.getFactionConfig(factionAPI.getId()).canInvade) return false;
+        return true;
+    }
+
+
+
+
+
+    /*public static boolean canBeAttacked(FactionAPI faction){
+        if (NexConfig.getFactionConfig(faction.getId()).pirateFaction) return false;
+        if (!NexConfig.getFactionConfig(faction.getId()).canInvade) return false;
+        if (!NexConfig.getFactionConfig(faction.getId()).playableFaction) return false;
+        //NexConfig.
+        //NexConfig has a lot of things here that might prove usefull. constants, but not functions.
+        return true;
+    }*/
+    /*public static boolean canBeAttacked(MarketAPI market){
+        return NexUtilsMarket.canBeInvaded(market,false);
+    }*/
     public static boolean canChangeRelations(FactionAPI faction){
         //if (NexConfig.getFactionConfig(faction.getId()).hostileToAll || NexConfig.getFactionConfig(faction.getId()).playableFaction) return false;
         if (!NexConfig.getFactionConfig(faction.getId()).playableFaction) return false;
@@ -39,10 +64,10 @@ public class NexerlinUtilitys {
         if (Misc.isPirateFaction(faction)) return false;
         return true;
     }
-    public static boolean isMinorFaction(FactionAPI faction){
+    /*public static boolean isMinorFaction(FactionAPI faction){
         //ok, so I have lined wether or not something is a minor faction and can be attacked together. this can be overwritten independently, but for now this makes sense I think?
         return !canBeAttacked(faction);
-    }
+    }*/
 
     public static Map<Alliance.Alignment, Float> getFactionAlignments(String factionId) {
         return NexConfig.getFactionConfig(factionId).getAlignmentValues();

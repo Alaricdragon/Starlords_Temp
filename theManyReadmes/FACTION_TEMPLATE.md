@@ -10,7 +10,7 @@ faction templates contain a large amount of data to fully customize your faction
 * "canInvade": boolean. this determines if this faction can invade / be invaded or not. default value is determined by nexerlin has decided for this faction.
 * "canSatBomb": boolean. this determines if a faction can preform sat bombardments or not. default value copys canInvade. if nexerlin is not enabled, is false if the faction is a 'pirate' faction.
 * "canBeSatBomb": boolean. this determines if a faction can be sat bombardments or not. default value copys canInvade. if nexerlin is not enabled, is false if the faction is a 'pirate' faction.
-* "canBeRaided": boolean. this determines if this faction can be raided. default is false if this faction is a 'pirate' faction . if nexerlin is installed, default value is determined by nexerlin.
+* "canBeRaided": boolean. this determines if this faction can be raided. default is true.
 * "canRaid": boolean. this determines if this faction can raid. default value is true.
 * "canTacticalBombed": boolean. this determines if a faction can preform tatical bombarded. default value is true.
 * "canBeTacticalBomb": boolean. this determines if a faction can be tatical bombarded. default value is true.
@@ -19,7 +19,7 @@ faction templates contain a large amount of data to fully customize your faction
 * "canStarlordsJoin": boolean. this determines if this faction can have starlords join or leave it. default value is true.
 * 
 * "canPreformDiplomacy": boolean. this determines if this faction can do things like declare war and peace, as well as have others declare war and peace. default is false if this faction is a 'pirate' faction. if nexerlin is installed, default value is determined by nexerlin. 
-* "canPreformPolicy": boolean. this determines if this faction can have policy's be voted on. default is false if this faction is a 'pirate' faction.
+* "canPreformPolicy": boolean. this determines if this faction can have policy's be voted on. default is false if this faction is a 'pirate' faction. if nexerlin is installed, default value is determined by nexerlin.
 * "canHoldFeasts": boolean. this determines if this faction can hold feasts or not. default value is true.
 * 
 * "canTrade": boolean. this determines if starlords in this faction can trade with others. default value is true
