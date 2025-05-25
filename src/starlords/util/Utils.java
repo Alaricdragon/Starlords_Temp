@@ -267,8 +267,13 @@ public class Utils {
             return "Hyperspace near " + Misc.getNearestStarSystem(fleet);
         } else {
             SectorEntityToken out = findNearestLocation(fleet);
-            if (out != null && out.getName() != null) return out.getName() + " in " + fleet.getContainingLocation().getName();
-            return "in "+fleet.getContainingLocation().getName();
+            if (out != null && out.getName() != null){
+                if (out.getContainingLocation() != null) return out.getName() + " in " + out.getContainingLocation().getName();
+                if (fleet.getContainingLocation() != null) return out.getName() + " in " + fleet.getContainingLocation().getName();
+                return out.getName() + "";
+            }
+            if (fleet.getContainingLocation() != null) return "in " + fleet.getContainingLocation().getName();
+            return "in an unknown location";
         }
     }
 
@@ -746,6 +751,7 @@ public class Utils {
 		String location = "";
 		String fiefs = "";
 		String chance = "";
+        String fleetDoNotAdvance = "";
 
 		for (Lord lord : LordController.getLordsList()) {
 			Lord marshall = PoliticsController.getLordMarshall(lord);
@@ -766,8 +772,12 @@ public class Utils {
 				location = String.valueOf(lord.getFleet());
 			fiefs = String.valueOf(lord.getFiefs().size());
 			chance = String.valueOf(DefectionUtils.getAutoBetrayalChance(lord));
+            if (lord.getFleet() != null)
+                fleetDoNotAdvance = lord.getFleet().isDoNotAdvanceAI().toString();
+            else
+                fleetDoNotAdvance = "null";
 
-			list.add(new String[]{id, name, personality, faction, relWithFaction, relWithMarshall, currAction, location, fiefs, chance});
+			list.add(new String[]{id, name, personality, faction, relWithFaction, relWithMarshall, currAction, location, fiefs, chance, fleetDoNotAdvance});
 
 		}
 
@@ -783,6 +793,7 @@ public class Utils {
 				+ "\tLocation"
 				+ "\tFiefs"
 				+ "\tChance"
+				+ "\tFleet Do Not Advance"
 				+ System.lineSeparator();
 		for (String[] item : list) {
 			output += "[Star Lords]"
@@ -796,6 +807,7 @@ public class Utils {
 					+ "\t" + item[7]
 					+ "\t" + item[8]
 					+ "\t" + item[9]
+					+ "\t" + item[10]
 					+ System.lineSeparator();
 		}
 

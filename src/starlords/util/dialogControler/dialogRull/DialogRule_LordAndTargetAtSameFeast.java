@@ -17,6 +17,6 @@ public class DialogRule_LordAndTargetAtSameFeast extends DialogRule_Base{
     @Override
     public boolean condition(Lord lord, Lord targetLord, MarketAPI market) {
         if (lord.getCurrAction() != LordAction.FEAST || targetLord.getCurrAction() != LordAction.FEAST) return false;
-        return bol == EventController.getCurrentFeast(lord.getLordAPI().getFaction()).equals(EventController.getCurrentFeast(lord.getLordAPI().getFaction()));
+        return bol == EventController.getCurrentFeast(lord.getLordAPI().getFaction()).equals(EventController.getCurrentFeast(targetLord.getLordAPI().getFaction()));
     }
 }
