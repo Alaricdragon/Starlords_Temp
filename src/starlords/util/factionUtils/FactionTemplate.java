@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.SneakyThrows;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
+import starlords.ai.utils.TargetUtils;
 import starlords.lunaSettings.StoredSettings;
 import starlords.plugins.LordInteractionDialogPluginImpl;
 import starlords.util.NexerlinUtilitys;
@@ -164,6 +165,8 @@ public class FactionTemplate {
     *   - XP gain
     *
     * */
+    public static Logger log = Global.getLogger(TargetUtils.class);
+
     protected String factionID;
 
     //protected PersonAPI leader;
@@ -211,10 +214,13 @@ public class FactionTemplate {
         init(factionID,new JSONObject());
     }
     public FactionTemplate(String factionID, JSONObject json){
-        this(factionID);
+        this.factionID = factionID;
+        FactionTemplateController.addTemplate(this);
         init(factionID,json);
     }
     private void init(String factionID,JSONObject json){
+        log.info("setting up faction template for: "+factionID);
+
         setLeaderID("leaderID",json);
         setT0_title("rank_0",json);
         setT1_title("rank_1",json);
@@ -252,6 +258,40 @@ public class FactionTemplate {
         setLordFleetUpkeepCostMulti("lordFleetUpkeepCostMulti",json);
 
         setLordRepChangeFromKillsMulti("lordRepGainPerWin",json);
+
+        insureAttackStatusCorrect();
+
+        log.info("  leaderID "+this.leaderID);
+        log.info("  rank0 "+this.T0_title);
+        log.info("  rank1 "+this.T1_title);
+        log.info("  rank2 "+this.T2_title);
+        log.info("");
+        log.info("  canBeAttacked: "+this.canBeAttacked);
+        log.info("  canAttack: "+this.canAttack);
+        log.info("  canInvade: "+this.canInvade);
+        log.info("  canSatBomb: "+this.canSatBomb);
+        log.info("  canBeSatBomb "+this.canBeSatBomb);
+        log.info("  canBeRaided "+this.canBeRaided);
+        log.info("  canRaid "+this.canRaid);
+        log.info("  canTacticalBombed "+this.canTacticalBomb);
+        log.info("  canHaveCompaings: "+this.canHaveCampaigns);
+        log.info("");
+        log.info("  canStarlordsJoin :"+this.canStarlordsJoin);
+        log.info("  canPreformDeplomancy: "+this.canPreformDiplomacy);
+        log.info("  canHoldFeasts: "+this.canPreformFeasts);
+        log.info("  canTrade: "+this.canTrade);
+        log.info("  canBeTradedWith: "+this.canBeTradedWith);
+        log.info("  canGiveFiefs: "+this.canGiveFiefs);
+        log.info("  canTakeFiefsWithWhenDefecting: "+this.canLordsTakeFiefsWithDefection);
+        log.info("  (not yet working) max number of fiefs per lord: "+this.maxNumberFiefsPerLord);
+        log.info("");
+        log.info("  fiefIncomeMulti: "+this.lordFiefIncomeMulti);
+        log.info("  combatIncomeMulti: "+this.lordCombatIncomeMulti);
+        log.info("  tradeIncomeMulti: "+this.lordTradeIncomeMulti);
+        log.info("  commissionIncomeMulti: "+this.lordCommissionedIncomeMulti);
+        log.info("  fleetUpkeepCostMulti: "+this.lordFleetUpkeepCostMulti);
+        log.info("  lordRepGainPerWinMulti: "+this.lordRepChangeFromKillsMulti);
+
     }
     /*@SneakyThrows
     protected void setLeader(String key, JSONObject json){
@@ -345,7 +385,7 @@ public class FactionTemplate {
             canSatBomb = json.getBoolean(key);
             return;
         }
-        canBeRaided = true;
+        canSatBomb = true;
 
     }
     @SneakyThrows
@@ -377,7 +417,7 @@ public class FactionTemplate {
             canTacticalBomb = json.getBoolean(key);
             return;
         }
-        canTacticalBomb = canBeRaided;
+        canTacticalBomb = true;
 
     }
     @SneakyThrows
@@ -386,7 +426,7 @@ public class FactionTemplate {
             canBeTacticalBomb = json.getBoolean(key);
             return;
         }
-        canBeTacticalBomb = canInvade;
+        canBeTacticalBomb = true;
     }
     @SneakyThrows
     protected void setCanBeRaided(String key,JSONObject json){
@@ -404,7 +444,7 @@ public class FactionTemplate {
     @SneakyThrows
     protected void setCanHaveCampaigns(String key,JSONObject json){
         if (json != null && json.has(key)){
-            canBeRaided = json.getBoolean(key);
+            canHaveCampaigns = json.getBoolean(key);
             return;
         }
         if (Utils.nexEnabled()){
@@ -590,14 +630,24 @@ public class FactionTemplate {
     }
 
     public boolean isCanBeAttacked(){
-        if (!canBeAttacked) return false;
-        if (!canBeTacticalBomb && !canBeSatBomb && !canBeRaided && !canInvade) return false;
-        return true;
+        return canBeAttacked;
+        //if (!canBeAttacked) return false;
+        //if (!canBeTacticalBomb && !canBeSatBomb && !canBeRaided && !canInvade) return false;
+        //return true;
     }
     public boolean isCanAttack(){
-        if (!canAttack) return false;
-        if (!canTacticalBomb && !canSatBomb && !canRaid && !canInvade) return false;
-        return true;
+        return canAttack;
+        //if (!canAttack) return false;
+        //if (!canTacticalBomb && !canSatBomb && !canRaid && !canInvade) return false;
+        //return true;
 
+    }
+    private void insureAttackStatusCorrect(){
+        if (canAttack){
+            canAttack = canTacticalBomb || canSatBomb || canRaid || canInvade;
+        }
+        if (canBeAttacked){
+            canBeAttacked = canTacticalBomb || canSatBomb || canRaid || canInvade;
+        }
     }
 }

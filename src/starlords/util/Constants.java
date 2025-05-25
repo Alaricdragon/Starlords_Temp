@@ -26,7 +26,7 @@ public class Constants {
 
     public static final String MOD_ID = "starlords";
     public static final long ONE_DAY = 24L * 60 * 60 * 1000;
-    public static final boolean DEBUG_MODE = true;
+    public static final boolean DEBUG_MODE = false;
 
     // Keys for persistent data
     public static final String LORD_TABLE_KEY = "starlords_lords";

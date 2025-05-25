@@ -94,7 +94,7 @@ public class TargetUtils {
     }
     public static boolean canBeAttackedByCampaign(Lord lord, MarketAPI market){
         if (!isAttackable(lord,market)) return false;
-        boolean[] attacks = possibleAttacksLord(lord,market.getFaction(),ATTACK_TYPE_RAID);
+        boolean[] attacks = possibleAttacksLord(lord,market.getFaction(),ATTACK_TYPE_CAMPAIGN);
         if (attacks == null) return false;
         for (boolean a : attacks){
             if (a) return true;
@@ -171,7 +171,7 @@ public class TargetUtils {
         return possibleAttacksMarket(lord, market,null, type);
     }
     private static boolean[] possibleAttacksMarket(Lord lord, MarketAPI market,LordEvent event, String type){
-        log.info("modifying attacks to determine what is possible on this market....");
+        //log.info("modifying attacks to determine what is possible on this market....");
         boolean[] out = possibleAttacksLord(lord,market.getFaction(),type);
         if (out == null) return null;
         //vilance left is not required. that just seems to be used, (in the contect of chosing attacks) to prevent lords from invading or raiding at random.
@@ -300,9 +300,11 @@ public class TargetUtils {
         return output;
     }
     private static boolean[] possibleAttacksFaction(FactionAPI factionAPI_0, FactionAPI factionAPI_1, String type){
-        log.info("getting faction targets for factions "+factionAPI_0.getId()+" to "+factionAPI_1.getId());
+        //log.info("getting faction targets of "+type+" for factions "+factionAPI_0.getId()+" to "+factionAPI_1.getId());
         int typesOfAttacks = 5;
         boolean[] settings = new boolean[typesOfAttacks];
+        //(not required. faction template handles this.)boolean canInvadeTemp = (Utils.nexEnabled() || NexerlinUtilitys.canInvade(factionAPI_0));
+        //boolean canBeInvadedTemp = (Utils.nexEnabled() || NexerlinUtilitys.canInvade(factionAPI_1));
         switch (type){
             case ATTACK_TYPE_RAID:
                 settings = new boolean[]{
@@ -344,7 +346,7 @@ public class TargetUtils {
         boolean[] output = new boolean[typesOfAttacks];
         for (int c = 0; c < typesOfAttacks; c++){
             output[c] = lordFactionAttacks[c] && targetFactionAttacks[c] && settings[c];
-            log.info("  getting combat (faction) possability as: "+output[c]);
+            //log.info("  getting combat (faction) possability as: "+output[c]);
         }
         return output;
     }
