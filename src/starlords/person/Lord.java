@@ -1,6 +1,8 @@
 package starlords.person;
 
 import com.fs.starfarer.api.util.Misc;
+import exerelin.campaign.alliances.Alliance;
+import jdk.jshell.execution.Util;
 import lombok.Setter;
 import starlords.ai.LordStrategicModule;
 import com.fs.starfarer.api.Global;
@@ -14,19 +16,12 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.FullName;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Skills;
-import starlords.controllers.PoliticsController;
-import starlords.controllers.RequestController;
-import starlords.controllers.RelationController;
-import starlords.controllers.LordController;
+import starlords.controllers.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.lwjgl.util.vector.Vector2f;
 import starlords.ui.PrisonerIntelPlugin;
-import starlords.util.LordTags;
-import starlords.util.StringUtil;
-import starlords.util.Utils;
-import starlords.util.DefectionUtils;
-import starlords.util.Constants;
+import starlords.util.*;
 import starlords.util.memoryUtils.DataHolder;
 
 import java.util.ArrayList;
@@ -62,6 +57,8 @@ public class Lord {
     private SectorEntityToken target;
 
     private ArrayList<String> prisoners;
+
+    private Map<Alliance.Alignment, Float> alignments;
 
     private String captor;
 
@@ -155,6 +152,13 @@ public class Lord {
                 ((List<String>) persistentData.get("fief")).add(template.fief);
             }
         }
+
+        if (Utils.nexEnabled()) {
+            persistentData.put("alignments", new HashMap<Alliance.Alignment, Float>());
+            this.alignments = NexerlinUtilitys.generateLordAlignments(this);
+            persistentData.put("alignments", alignments);
+        }
+
         String[] splitname = template.name.split(" ");
         String lastName = "";
         for (int i = 1; i < splitname.length; i++) {
@@ -218,6 +222,11 @@ public class Lord {
                 template.customSkills.forEach((skillName, skillLevel) -> lord.getStats().setSkillLevel(skillName, skillLevel));
             } catch (Exception e) {
             }
+        }
+
+        //Nexerelin Alignments
+        if (Utils.nexEnabled()) {
+
         }
     }
 
@@ -549,14 +558,21 @@ public class Lord {
 
 		int chance = DefectionUtils.getAutoBetrayalChance(this);
 		if (chance > 0) {
-			Random rand = new Random(this.getLordAPI().getId().hashCode() * Global.getSector().getClock().getTimestamp());
-			if (rand.nextInt(100) < chance) {
+			if (Utils.getRandomChance(this,100) < chance) {
 				return true;
 			}
 		}
 		return false;
 
 	}
+
+	public HashMap<String,Integer> getFleetComposition(){
+        if (LordMemoryController.containsLord(getLordAPI().getId()) && LordMemoryController.getLordMemory(getLordAPI().getId()).overridingFleetComposition.size() != 0){
+            return LordMemoryController.getLordMemory(getLordAPI().getId()).overridingFleetComposition;
+        }
+        return template.shipPrefs;
+    }
+
     private DataHolder DATA_HOLDER;
     public DataHolder getLordDataHolder(){
         DataHolder data_holder = DATA_HOLDER;
@@ -579,6 +595,15 @@ public class Lord {
         Lord player = new Lord(Global.getSector().getPlayerPerson());
         player.isPlayer = true;
         return player;
+    }
+
+    public Map<Alliance.Alignment, Float> getAlignments() {
+        if (this.alignments == null) {
+            persistentData.put("alignments", new HashMap<Alliance.Alignment, Float>());
+            this.alignments = NexerlinUtilitys.generateLordAlignments(this);
+            persistentData.put("alignments", alignments);
+        }
+        return this.alignments;
     }
 
 }

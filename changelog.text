@@ -1,3 +1,38 @@
+V0.3.41:
+    fixed rep gain calculation from interacting with a lord at a feast increasing rep with every starlord at a feast.
+V0.3.40:
+    thanks Aleksandros for the following:
+        Added doNotAdvanceAI check and set for fleet in progressAssignment - to fix idle lord fleets
+        Added doNotAdvance column to printLordsDetails
+        Added owner check for fief candidate in politics intel
+        Added RespawnLord command
+    note: for the person who didn't read, Aleksandros fixed the issue were starlords would sit there and do nothing forever.
+V0.3.39:
+    fixes:
+        fixed a crash when clicking on the open coms on the prisoner tab.
+V0.3.38:
+    fixes:
+        fixed lords not being able to be interacted with (sorry about that).
+    thanks Aleksandros for the following:
+        Added Lord alignments if Nexerelin is present - for now only used in defection calculation
+        Added console commands PrintLordsAlignments and PrintLordsDefectionWeights
+        fixed issue with defection chance logic
+V0.3.37:
+    new:
+        changed the way starlords handle dialog. although there is not mush new yet (some escape hotkeys keys, a very small number of fixed dialog, bribing a starlord will give that starlord wealth), and its not 100% done (yet), it lays (most) of the ground work for furture upgrades, as well as allows players to build completely custom dialog for each and every starlord, should they so chose.
+        I have been working on this since the last day of april. I thought it would take a week. there are like, 200 new classes just to handle what I did. im never saying 'oh it will just take a week' again.
+        please report any dialog bugs to me. I will fix them as soon as possable.
+V0.3.36:
+    fixes:
+        fixed another getContaining location null crash.
+    did a small amount of internal stuff. nothing should change yet.
+V0.3.35:
+    (thanks Aleksandros for the following):
+        fixed a intel message triggering when it should not have.
+V0.3.34:
+    fixed lord Smods being removed on game load (hopefully).
+V0.3.33:
+    fixed a crash related to a null campaign.
 V0.3.32:
     fixed:
         fixed a issue with the prisoner logger again. hopefully it wont crash again.

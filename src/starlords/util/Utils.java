@@ -10,6 +10,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin;
 import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.util.Misc;
+import exerelin.campaign.alliances.Alliance;
 import lombok.Setter;
 import org.apache.log4j.Logger;
 import org.lwjgl.util.vector.Vector2f;
@@ -126,7 +127,7 @@ public class Utils {
 		}
 	}
 
-	public static void printFleetdData(CampaignFleetAPI fleet) {
+	public static void printFleetData(CampaignFleetAPI fleet) {
 		log.info("[StarLords] Fleet Name Check: " + fleet.getName());
 		log.info("[StarLords] Fleet ID: " + fleet.getId());
 		try {
@@ -269,8 +270,13 @@ public class Utils {
             return "Hyperspace near " + Misc.getNearestStarSystem(fleet);
         } else {
             SectorEntityToken out = findNearestLocation(fleet);
-            if (out != null && out.getName() != null) return out.getName() + " in " + fleet.getContainingLocation().getName();
-            return "in "+fleet.getContainingLocation().getName();
+            if (out != null && out.getName() != null){
+                if (out.getContainingLocation() != null) return out.getName() + " in " + out.getContainingLocation().getName();
+                if (fleet.getContainingLocation() != null) return out.getName() + " in " + fleet.getContainingLocation().getName();
+                return out.getName() + "";
+            }
+            if (fleet.getContainingLocation() != null) return "in " + fleet.getContainingLocation().getName();
+            return "in an unknown location";
         }
     }
 
@@ -409,10 +415,10 @@ public class Utils {
         MarketAPI friendly = null;
         MarketAPI notHostile = null;
         MarketAPI any = null;
-        float sameFactionD = 99999999;
-        float friendlyD = 99999999;
-        float notHostileD = 99999999;
-        float anyD = 99999999;
+        float sameFactionD = 2147483647;
+        float friendlyD = 2147483647;
+        float notHostileD = 2147483647;
+        float anyD = 2147483647;
         for (MarketAPI b : a){
             if (b.getPrimaryEntity().getFaction().equals(target.getFaction())){
                 float x = target.getLocationInHyperspace().x - b.getPrimaryEntity().getLocationInHyperspace().x;
@@ -713,9 +719,13 @@ public class Utils {
 			    try {
                     output += "[Star Lords] " + lord.getLordAPI().getNameString() + "(" + lord.getLordAPI().getId() + ")";
                     Lord prisoner = LordController.getLordById(prisonerID);
-                    output += " has prisoner " + prisoner.getLordAPI().getNameString() + "(" + prisoner.getLordAPI().getId() + ")"
-                            + " captor " + prisoner.getCaptor()
-                            + System.lineSeparator();
+                    if (prisoner != null)
+                        output += " has prisoner " + prisoner.getLordAPI().getNameString() + "(" + prisoner.getLordAPI().getId() + ")"
+                                + " captor " + prisoner.getCaptor()
+                                + System.lineSeparator();
+                    else
+                        output += " has prisoner " + "(" + prisonerID + ") but id doesn't exist"
+                                + System.lineSeparator();
                 }catch (Exception e){
 			        output += "\n ERROR. failed to get a prisoner. error of: "+e.getMessage();
                 }
@@ -737,6 +747,7 @@ public class Utils {
 		String location = "";
 		String fiefs = "";
 		String chance = "";
+        String fleetDoNotAdvance = "";
 
 		for (Lord lord : LordController.getLordsList()) {
 			Lord marshall = PoliticsController.getLordMarshall(lord);
@@ -757,8 +768,12 @@ public class Utils {
 				location = String.valueOf(lord.getFleet());
 			fiefs = String.valueOf(lord.getFiefs().size());
 			chance = String.valueOf(DefectionUtils.getAutoBetrayalChance(lord));
+            if (lord.getFleet() != null)
+                fleetDoNotAdvance = lord.getFleet().isDoNotAdvanceAI().toString();
+            else
+                fleetDoNotAdvance = "null";
 
-			list.add(new String[]{id, name, personality, faction, relWithFaction, relWithMarshall, currAction, location, fiefs, chance});
+			list.add(new String[]{id, name, personality, faction, relWithFaction, relWithMarshall, currAction, location, fiefs, chance, fleetDoNotAdvance});
 
 		}
 
@@ -774,6 +789,7 @@ public class Utils {
 				+ "\tLocation"
 				+ "\tFiefs"
 				+ "\tChance"
+				+ "\tFleet Do Not Advance"
 				+ System.lineSeparator();
 		for (String[] item : list) {
 			output += "[Star Lords]"
@@ -787,6 +803,7 @@ public class Utils {
 					+ "\t" + item[7]
 					+ "\t" + item[8]
 					+ "\t" + item[9]
+					+ "\t" + item[10]
 					+ System.lineSeparator();
 		}
 
@@ -816,4 +833,89 @@ public class Utils {
 			output = "[Star Lords] No Requests";
 		log.info(output);
 	}
+
+    public static void printLordsAlignments() {
+        if (nexEnabled() == false) {
+            log.info("Nexerelin Mod not enabled. Nothing to print.");
+            return;
+        }
+
+        List<List<String>> list = new ArrayList<>();
+
+        String id = "";
+        String name = "";
+        String faction = "";
+
+        List<Alliance.Alignment> keySet = new ArrayList<>(NexerlinUtilitys.getFactionAlignments(LordController.getPlayerLord().getFaction().getId()).keySet());
+        keySet.sort((a, b) -> a.getName().compareToIgnoreCase(b.getName()));
+
+        Map<Alliance.Alignment, Float> rowAlignments = new LinkedHashMap<>();
+        for (Alliance.Alignment key : keySet)
+            rowAlignments.put(key,-2f);
+
+        for (Lord lord : LordController.getLordsList()) {
+
+            for (Map.Entry<Alliance.Alignment, Float> alignment : rowAlignments.entrySet()) {
+                alignment.setValue(-2f);
+            }
+
+
+            id = lord.getLordAPI().getId();
+            name = lord.getLordAPI().getNameString();
+            faction = lord.getFaction().getDisplayName();
+            List<String> row = new ArrayList<>();
+            Map<Alliance.Alignment, Float> lordAlignments = lord.getAlignments();
+
+            for (Map.Entry<Alliance.Alignment, Float> alignment : lordAlignments.entrySet()) {
+                rowAlignments.merge(alignment.getKey(),alignment.getValue(), (defaultValue, lordValue) -> lordValue);
+            }
+
+            row.add(id);
+            row.add(name);
+            row.add(faction);
+            Map<Alliance.Alignment, Float> factionAlignments = NexerlinUtilitys.getFactionAlignments(lord.getFaction().getId());
+            for (Map.Entry<Alliance.Alignment, Float> alignment : rowAlignments.entrySet()) {
+                row.add(String.valueOf(alignment.getValue()));
+                row.add(String.valueOf(factionAlignments.get(alignment.getKey())));
+
+            }
+
+            list.add(row);
+
+        }
+
+        //Header
+        String output = "[Star Lords] Lords Alignments: " + System.lineSeparator();
+        output += "[Star Lords]"
+                + "\tID"
+                + "\tName"
+                + "\tFaction";
+
+        for (Map.Entry<Alliance.Alignment, Float> alignment : rowAlignments.entrySet()) {
+            output += "\tLord " + alignment.getKey().getName();
+            output += "\tFaction " + alignment.getKey().getName();
+        }
+        output += System.lineSeparator();
+
+        for (List<String> row : list) {
+            output += "[Star Lords]";
+            for (String item : row) {
+                output += "\t" + item;
+            }
+            output += System.lineSeparator();
+        }
+
+        log.info(output);
+
+    }
+
+    public static int getRandomChance(Lord lord, int bound) {
+        Random rand = new Random(lord.getLordAPI().getId().hashCode() * Global.getSector().getClock().getTimestamp());
+        return rand.nextInt(bound);
+    }
+
+    public static int getRandomChance(int bound) {
+        Random rand = new Random();
+        return rand.nextInt(bound);
+    }
 }

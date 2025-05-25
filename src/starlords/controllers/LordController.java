@@ -1,5 +1,8 @@
 package starlords.controllers;
 
+import com.fs.starfarer.api.combat.ShipVariantAPI;
+import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import com.fs.starfarer.api.loading.VariantSource;
 import starlords.ai.LordStrategicModule;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
@@ -198,10 +201,13 @@ public class LordController {
         }
     }
     public static void saveLordData(){
+        //todo: merge all this into the LordMemoryController.
         for (int a = 0; a < lordsList.size(); a++){
             Lord lord = lordsList.get(a);
             if (lord.getLordDataHolder().hasData()) lord.saveLordDataHolder();
         }
+        saveFleetSMods();
+        LordMemoryController.save();
     }
     public static void LoadSavedLord(Lord newLord){
         LordTemplate template = (LordTemplate) Global.getSector().getMemory().get(getSavedLordsMemeoryKey(newLord));
@@ -429,6 +435,69 @@ public class LordController {
             }
         }
         return Global.getSector().getEconomy().getMarket(id);
+    }
+
+    public static void saveFleetSMods(){
+        HashMap<String,HashMap<String,ArrayList<String>>> data = new HashMap<>();
+        //log.info("saving fleet data as:");
+        for (int a = 0; a < lordsList.size(); a++){
+            Lord lord = lordsList.get(a);
+            String id = lord.getLordAPI().getId();
+            CampaignFleetAPI fleet = lord.getFleet();
+            if (fleet == null || !fleet.isAlive()) continue;
+            HashMap<String,ArrayList<String>> map = new HashMap<>();
+            int number = 0;
+            //log.info("fleet commander: "+lord.getLordAPI().getNameString());
+            for (FleetMemberAPI member : fleet.getFleetData().getMembersInPriorityOrder()){
+                number++;
+                String memberID = ""+number;//member.getId();
+                //log.info("  shipID "+memberID);
+                ArrayList<String> sMods = new ArrayList<>();
+                for (Object modT : member.getVariant().getSMods().toArray()){
+                    String mod = (String) modT;
+                    //log.info("      Smod saved: "+mod);
+                    sMods.add(mod);
+                }
+                map.put(memberID,sMods);
+            }
+            data.put(id,map);
+        }
+        Global.getSector().getMemory().set("$STARLORDS_SMODS_MEMORY",data);
+    }
+    public static void loadFleetSMods(){
+        if (!Global.getSector().getMemory().contains("$STARLORDS_SMODS_MEMORY")) return;
+        Object dataT = Global.getSector().getMemory().get("$STARLORDS_SMODS_MEMORY");
+        HashMap<String,HashMap<String,ArrayList<String>>> data = (HashMap<String, HashMap<String, ArrayList<String>>>) dataT;
+        //log.info("loading fleet data as:");
+        for (int a = 0; a < lordsList.size(); a++){
+            Lord lord = lordsList.get(a);
+            String id = lord.getLordAPI().getId();
+            CampaignFleetAPI fleet = lord.getFleet();
+            if (fleet == null || !fleet.isAlive() || !data.containsKey(id)) continue;
+            HashMap<String,ArrayList<String>> map = data.get(id);
+            int number = 0;
+            //log.info("fleet commander: "+lord.getLordAPI().getNameString());
+            for (FleetMemberAPI member : fleet.getFleetData().getMembersInPriorityOrder()){
+                number++;
+                String memberID = ""+number;//member.getId();
+                //log.info("  shipID "+memberID);
+                ArrayList<String> sMods = map.get(memberID);
+                if (sMods.size() == 0) continue;
+                ShipVariantAPI target = member.getVariant();
+                target = target.clone();
+                for (Object modT : member.getVariant().getSMods().toArray()){
+                    String mod = (String) modT;
+                    //log.info("      Smod still present of: "+mod);
+                    sMods.add(mod);
+                }
+                for (String sMod : sMods){
+                    if (target.getSMods().contains(sMod))continue;
+                    //log.info("      Smod added: "+sMod);
+                    target.addPermaMod(sMod, true);
+                }
+                member.setVariant(target,false,true);
+            }
+        }
     }
 
     public static void logAllLords(){

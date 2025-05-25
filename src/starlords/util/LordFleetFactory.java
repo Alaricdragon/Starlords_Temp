@@ -16,6 +16,7 @@ import com.fs.starfarer.api.fleet.ShipRolePick;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetFactoryV3;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
 import com.fs.starfarer.api.impl.campaign.ids.*;
+import com.fs.starfarer.api.loading.VariantSource;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import lombok.Setter;
@@ -213,6 +214,15 @@ public class LordFleetFactory extends FleetFactoryV3 {
             if (modToAdd != null) {
                 totalCost += modCost;
                 member.getVariant().addPermaMod(modToAdd, true);
+
+                //this works. but I want to try to optimize it.
+                /*member.getVariant().setHullVariantId(null);
+                ShipVariantAPI target = member.getVariant();
+                //log.info("  getting a single variant of name: " + target.getDisplayName() + ", hullVariantID: " + target.getHullVariantId());
+                target = target.clone();
+                target.setSource(VariantSource.REFIT);
+                target.addPermaMod(modToAdd, true);
+                member.setVariant(target,false,true);*/
             }
         }
         return totalCost;
@@ -229,7 +239,7 @@ public class LordFleetFactory extends FleetFactoryV3 {
             CampaignFleetAPI stationFleet = Misc.getStationFleet(market);
             if (stationFleet == null) return 0;  // TODO
             totalCost = addToLordFleet(
-                    lord.getTemplate().shipPrefs, stationFleet, new Random(), GARRISON_DP_CAP, cash);
+                    lord.getFleetComposition(), stationFleet, new Random(), GARRISON_DP_CAP, cash);
             FleetParamsV3 params = new FleetParamsV3();
             params.factionId = market.getFactionId();
             params.officerLevelLimit = 5;
@@ -296,7 +306,7 @@ public class LordFleetFactory extends FleetFactoryV3 {
                 lord.getWealth() - shipFunds,
                 FUEL_COST * Math.max(100, 500 - cargo.getFuel()) + MARINE_COST * Math.max(0, 200 - cargo.getMarines()));
         float modFunds = 3 * (lord.getWealth() - shipFunds - minCargoFunds) / 4;
-        float cost = addToLordFleet(lord.getTemplate().shipPrefs, lord.getFleet(), new Random(), DP_CAP, shipFunds);
+        float cost = addToLordFleet(lord.getFleetComposition(), lord.getFleet(), new Random(), DP_CAP, shipFunds);
         lord.addWealth(-1 * cost);
         //log.info("Lord " + lord.getLordAPI().getNameString() + " purchased " + Math.round(cost) + " of ships.");
         cost = addModsToFleet(lord.getFleet(), modFunds, lord);

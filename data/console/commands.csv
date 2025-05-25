@@ -1,5 +1,6 @@
 command,class,tags,syntax,help
 WarpLord,starlords.console.WarpLord,"starlords", warplord <lord first name>, Teleports the specified lord next to you.
+RespawnLord,starlords.console.RespawnLord,"starlords", respawnlord <lord first name>, Destroys lord fleet and begins respawn.
 AddLordWealth,starlords.console.AddLordWealth,"starlords", addlordwealth <lord first name> <amount>, Add or remove the specified wealth from the lord.
 AddLordRaid,starlords.console.AddLordRaid,"starlords", addlordraid <Lord ID> <target market>, Add raid for lord on target market.
 AddLordRelation,starlords.console.AddLordRelation,"starlords", addlordrelation <lord first name> <amount>, Increase or decrease player relations with the lord.
@@ -12,3 +13,5 @@ FixLordsPrisonerProblems,starlords.console.FixLordsPrisonerProblems,"starlords",
 PrintLordsRequests,starlords.console.PrintLordsRequests,"starlords", printlordsrequests, Print existing Lord Requests to log
 PrintLordsDetails,starlords.console.PrintLordsDetails,"starlords", printlordsdetails, Print tab separated lord faction, relations , fiefs, defect chance etc.
 PrintLordTravel,starlords.console.PrintLordTravel,"starlords", printlordtravel <lord id>, Print lord's distance, speed, estimated time of arrival to current lord target.
+PrintLordsAlignments,starlords.console.PrintLordsAlignments,"starlords", printlordsalignments, "Print tab separated lord id, name, faction, alignments"
+PrintLordsDefectionWeights,starlords.console.PrintLordsDefectionWeights,"starlords", printlordsdefectionweights, "Print tab separated lord id, name, faction, Weight, Alignment Difference"

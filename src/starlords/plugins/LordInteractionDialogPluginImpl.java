@@ -279,23 +279,4 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
             prevPlugin.optionSelected(null, FleetInteractionDialogPluginImpl.OptionId.CUT_COMM);
         }
     }
-
-
-
-
-    private void applyRepIncrease(TextPanelAPI textPanel, Lord lord,Lord secondLord,MarketAPI targetMarket, int rep){
-        lord.getLordAPI().getRelToPlayer().adjustRelationship((float) (rep*0.01), null);
-        HashMap<String,String> inserts = new HashMap<>();
-        inserts.put("%c0",""+rep);
-        DialogSet.addParaWithInserts("relation_increase",lord,secondLord,targetMarket,textPanel,options,dialog,false,inserts);
-        //String line = DialogSet.getLineWithInserts(lord,secondLord,targetMarket,"relation_increase");
-        //line = DialogSet.insertData(line,"%c0",""+rep);
-        //textPanel.addPara(line, Color.GREEN);
-    }
-    private void applyRepDecrease(TextPanelAPI textPanel,Lord lord, int rep){
-        lord.getLordAPI().getRelToPlayer().adjustRelationship((float) (rep*-0.01), null);
-        String line = DialogSet.getLineWithInserts(lord,"relation_decrease");
-        line = DialogSet.insertData(line,"%c0",""+rep);
-        textPanel.addPara(line, Color.RED);
-    }
 }
