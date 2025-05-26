@@ -41,6 +41,9 @@ public class NexerlinUtilitys {
         if (!NexConfig.enableInvasions) return false;
         NexFactionConfig factionConfig = NexConfig.getFactionConfig(factionAPI.getId());
         if (!factionConfig.canInvade) return false;
+        if(NexConfig.invasionsOnlyAfterPlayerColony){
+            if (NexUtilsFaction.getPlayerMarkets(true,false).size() == 0) return false;
+        }
         if (factionConfig.pirateFaction && !NexConfig.allowPirateInvasions) return false;
         return true;
     }

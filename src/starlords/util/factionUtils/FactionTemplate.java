@@ -17,6 +17,32 @@ import starlords.util.Utils;
 
 @Getter
 public class FactionTemplate {
+    /*crashes:
+    *163121 [Thread-2] INFO  com.fs.starfarer.api.impl.campaign.events.RepTrackerEvent  - Not enough trade/smuggling with the temp for a rep change (0.0, 0.0)
+165882 [Thread-2] INFO  com.fs.starfarer.api.impl.campaign.fleets.FleetFactoryV3  - Adding mod reinforcedhull. Ship has 0 out of 3
+166617 [Thread-2] INFO  com.fs.starfarer.api.impl.campaign.intel.SurveyPlanetMissionIntel  - Created SurveyPlanetMissionIntel: Kalico, faction: Persean League
+169630 [Thread-2] INFO  com.fs.starfarer.api.impl.campaign.intel.AnalyzeEntityMissionIntel  - Created AnalyzeEntityMissionIntel: Domain-era Probe, faction: Tri-Tachyon
+173408 [Thread-2] INFO  starlords.ai.utils.TargetUtils  - got offencive possibility as:
+173409 [Thread-2] INFO  starlords.ai.utils.TargetUtils  - modifying attacks of type ATTACK_TYPE_RAID to determine what is possible on this market....
+173409 [Thread-2] INFO  starlords.ai.utils.TargetUtils  - getting possable attacks for lord...
+173412 [Thread-2] INFO  starlords.ai.utils.TargetUtils  - getting faction targets of ATTACK_TYPE_RAID for factions luddic_church to pirates
+173828 [Thread-2] ERROR com.fs.starfarer.combat.CombatMain  - java.lang.NullPointerException: Cannot invoke "starlords.person.LordEvent$OffensiveType.toString()" because "choice" is null
+java.lang.NullPointerException: Cannot invoke "starlords.person.LordEvent$OffensiveType.toString()" because "choice" is null
+	at starlords.ai.LordAI.chooseNewOffensiveType(LordAI.java:1142)
+	at starlords.ai.LordAI.progressAssignment(LordAI.java:633)
+	at starlords.ai.LordAI.advance(LordAI.java:97)
+	at com.fs.starfarer.campaign.CampaignEngine.advance(Unknown Source)
+	at com.fs.starfarer.campaign.CampaignState.advance(Unknown Source)
+	at com.fs.starfarer.BaseGameState.traverse(Unknown Source)
+	at com.fs.state.AppDriver.begin(Unknown Source)
+	at com.fs.starfarer.combat.CombatMain.main(Unknown Source)
+	at com.fs.starfarer.StarfarerLauncher.super(Unknown Source)
+	at com.fs.starfarer.StarfarerLauncher$1.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Unknown Source)
+
+ *
+ * so, this crash: it was caused, by the looks of it, by a faction having its 'can attack' vauble false but still getting targeted for an attack?????? unknown reason. should not be target-able. will need to fix this.
+ * also note: make it so the LordAI.choss offencive type needs to have a check when there is no offencive type available.*/
     /*what have I done?
     * 1) I have made it so lords in factions that don't allow defection cant defect, cant defect to factions that dont allow it (hopefully).
     * 2) I have made it so some markets cannot be attacked (hopefully)

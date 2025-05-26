@@ -94,7 +94,7 @@ public class TargetUtils {
     }
     public static boolean canBeAttackedByCampaign(Lord lord, MarketAPI market){
         if (!isAttackable(lord,market)) return false;
-        boolean[] attacks = possibleAttacksLord(lord,market.getFaction(),ATTACK_TYPE_CAMPAIGN);
+        boolean[] attacks = possibleAttacksMarket(lord,market,ATTACK_TYPE_CAMPAIGN);
         if (attacks == null) return false;
         for (boolean a : attacks){
             if (a) return true;
@@ -172,6 +172,7 @@ public class TargetUtils {
     }
     private static boolean[] possibleAttacksMarket(Lord lord, MarketAPI market,LordEvent event, String type){
         //modifying attacks of type ATTACK_TYPE_CAMPAIGN
+        //modifying attacks of type ATTACK_TYPE_RAID
         log.info("modifying attacks of type "+type+" to determine what is possible on this market....");
         boolean[] out = possibleAttacksLord(lord,market.getFaction(),type);
         if (out == null) return null;
