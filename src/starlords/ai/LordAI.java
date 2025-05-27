@@ -631,6 +631,9 @@ public class LordAI implements EveryFrameScript {
                                     && Utils.isSomewhatClose(lord.getFleet(), raid.getTarget())) {
                                 // plan new offensive
                                 chooseNewOffensiveType(lord, raid);
+                                //if (raid.getOffensiveType() == null){
+                                    //this is coverd in the second line of the endRaid equadtion
+                                //}
                             }
                         } else {
                             // fleet is distracted, reset any offensive
@@ -842,6 +845,9 @@ public class LordAI implements EveryFrameScript {
                                                 && TargetUtils.getViolenceLeft(campaign) > 0) {
                                             // plan new offensive
                                             chooseNewOffensiveType(lord, campaign);
+                                            if (campaign.getOffensiveType() == null){
+                                                campaign.setTarget(null);
+                                            }
                                         }
                                     } else {
                                         // fleet is distracted, reset any offensive
@@ -1137,7 +1143,10 @@ public class LordAI implements EveryFrameScript {
         String type = event.getType().equals(LordEvent.CAMPAIGN) ? TargetUtils.ATTACK_TYPE_CAMPAIGN : TargetUtils.ATTACK_TYPE_RAID;
         MarketAPI market = event.getTarget().getMarket();
         LordEvent.OffensiveType choice = TargetUtils.getOffencive(lord,market,event,type);
-
+        if (choice == null) {
+            event.setOffensiveType(null);
+            return;
+        }
         lord.getFleet().addAssignmentAtStart(FleetAssignment.GO_TO_LOCATION, market.getPrimaryEntity(), 2,
                 StringUtil.getString(CATEGORY, "offensive_" + choice.toString().toLowerCase(), "Preparing"), null);
         lord.getFleet().addAssignmentAtStart(FleetAssignment.ORBIT_PASSIVE, market.getPrimaryEntity(), 100,

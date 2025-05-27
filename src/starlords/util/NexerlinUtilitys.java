@@ -10,6 +10,7 @@ import com.sun.source.tree.CaseTree;
 import exerelin.campaign.DiplomacyManager;
 import exerelin.campaign.alliances.Alliance;
 import exerelin.utilities.*;
+import lombok.Setter;
 import starlords.person.Lord;
 
 import javax.swing.text.ChangedCharSetException;
@@ -17,6 +18,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NexerlinUtilitys {
+    private static boolean areInvasionsEnabled = true;
+    public static void calculateInvasionsEnabled(){
+        if (!NexConfig.enableInvasions) {
+            areInvasionsEnabled = false;
+            return;
+        }
+        if(NexConfig.invasionsOnlyAfterPlayerColony && NexUtilsFaction.getPlayerMarkets(true,false).size() == 0){
+            areInvasionsEnabled = false;
+            return;
+        }
+        //NexConfig.invasionGracePeriod;
+        areInvasionsEnabled = true;
+    }
     public static void declarePeace(FactionAPI proposer,FactionAPI propose){
         DiplomacyManager.adjustRelations(proposer,propose,0.51f,null,null,RepLevel.INHOSPITABLE);
     }
@@ -37,13 +51,12 @@ public class NexerlinUtilitys {
         //if (!NexConfig.enableInvasions) return false;
         return NexUtilsMarket.shouldTargetForInvasions(market,3);
     }
+    public static boolean invasionsEnabled(){
+        return areInvasionsEnabled;
+    }
     public static boolean canInvade(FactionAPI factionAPI){
-        if (!NexConfig.enableInvasions) return false;
         NexFactionConfig factionConfig = NexConfig.getFactionConfig(factionAPI.getId());
         if (!factionConfig.canInvade) return false;
-        if(NexConfig.invasionsOnlyAfterPlayerColony){
-            if (NexUtilsFaction.getPlayerMarkets(true,false).size() == 0) return false;
-        }
         if (factionConfig.pirateFaction && !NexConfig.allowPirateInvasions) return false;
         return true;
     }

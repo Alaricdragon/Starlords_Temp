@@ -10,9 +10,7 @@ import org.apache.log4j.Logger;
 import starlords.person.Lord;
 import starlords.person.LordAction;
 import starlords.person.LordRequest;
-import starlords.util.Constants;
-import starlords.util.DefectionUtils;
-import starlords.util.LordFleetFactory;
+import starlords.util.*;
 import starlords.util.factionUtils.FactionTemplateController;
 
 import java.util.List;
@@ -30,6 +28,7 @@ public class MonthlyUpkeepListener extends BaseCampaignEventListener {
 
     @Override
     public void reportEconomyMonthEnd() {
+        if (Utils.nexEnabled()) NexerlinUtilitys.calculateInvasionsEnabled();
         // Give all lords their base monthly wage and pay fleet upkeep.
         List<Lord> lords = LordController.getLordsList();
         for (Lord lord : lords) {

@@ -313,8 +313,8 @@ public class TargetUtils {
                         canRaid_lord,//there are two types of raids.
                         canRaid_lord,
                         canTacticalBomb_lord,
-                        canInvade_lord && Utils.nexEnabled(),
-                        canSatbomb_lord
+                        canInvade_lord && Utils.nexEnabled() && NexerlinUtilitys.invasionsEnabled(),
+                        canSatbomb_lord && (!Utils.nexEnabled() || NexerlinUtilitys.invasionsEnabled())
                 };
                 break;
             case ATTACK_TYPE_CAMPAIGN:
@@ -322,8 +322,8 @@ public class TargetUtils {
                         canRaid_campaign,
                         canRaid_campaign,
                         canTacticalBomb_campaign,
-                        canInvade_campaign && Utils.nexEnabled(),
-                        canSatbomb_campaign
+                        canInvade_campaign && Utils.nexEnabled() && NexerlinUtilitys.invasionsEnabled(),
+                        canSatbomb_campaign && (!Utils.nexEnabled() || NexerlinUtilitys.invasionsEnabled())
                 };
                 break;
         }
