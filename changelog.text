@@ -1,3 +1,9 @@
+V0.3.42:
+    fixes:
+        fixed broken starlord raid / campaign targeting
+        fixed starlords considering things that are not markets markets (so no more nexerlin outposts counting as fiefs. or invasion targets)
+        fixed starlords not respecting nexerlin invasion settings. (hopefully, for the last time) (thanks Histidine for assistance in understanding all the conditions related to invasions)
+    added in a system for having some custom faction data, in relation to starlords. its incomplete, but for now can go into the data/lords/faction.json and change the rank names of the players faction for example.
 V0.3.41:
     fixed rep gain calculation from interacting with a lord at a feast increasing rep with every starlord at a feast.
 V0.3.40:

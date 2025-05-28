@@ -11,6 +11,7 @@ import starlords.generator.support.LordGeneratorListinerTemp;
 import starlords.listeners.LordGeneratorListener_base;
 import starlords.person.Lord;
 import starlords.util.Utils;
+import starlords.util.factionUtils.FactionTemplateController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -140,7 +141,7 @@ public class NewGameLordPicker {
         log.info("DEBUG: attempting to add lords to "+(String)factionID+" with a size of "+size+" and "+markets.size()+" number of markets.");
         double multi = 1;
         if (bonusFactionLordSize.get((String)factionID) != null)multi= bonusFactionLordSize.get((String) factionID);
-        boolean allowFiefs = !Utils.isMinorFaction(Global.getSector().getFaction(factionID));
+        boolean allowFiefs = FactionTemplateController.getTemplate(factionID).isCanGiveFiefs();//!Utils.isMinorFaction(Global.getSector().getFaction(factionID));
         T0Lords*=multi;
         T1Lords*=multi;
         //T2Lords*=multi;

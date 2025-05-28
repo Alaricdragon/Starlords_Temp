@@ -1737,6 +1737,10 @@ public class DialogSet {
                     break;
                 case "compareStrings":
                     rules.add(addRule_compareStrings(rulesTemp,key));
+                    break;
+                case "isValidMarket":
+                    rules.add(addRule_isValidMarket(rulesTemp,key));
+                    break;
             }
         }
         return rules;
@@ -2346,5 +2350,9 @@ public class DialogSet {
     @SneakyThrows
     private static DialogRule_Base addRule_compareStrings(JSONObject json,String key){
         return new DialogRule_compareStrings(json,key);
+    }
+    @SneakyThrows
+    private static DialogRule_Base addRule_isValidMarket(JSONObject json,String key){
+        return new DialogRule_isValidMarket(json,key);
     }
 }

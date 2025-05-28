@@ -9880,6 +9880,7 @@
               "type": "targetMarket",
               "optionData":"option_suggest_patrol_target",
               "rules": {
+                "isValidMarket": true,
                 "or": [
                   {
                     "marketPlayerFaction": true

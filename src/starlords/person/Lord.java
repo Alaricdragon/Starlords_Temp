@@ -22,6 +22,7 @@ import lombok.Getter;
 import org.lwjgl.util.vector.Vector2f;
 import starlords.ui.PrisonerIntelPlugin;
 import starlords.util.*;
+import starlords.util.factionUtils.FactionTemplateController;
 import starlords.util.memoryUtils.DataHolder;
 
 import java.util.ArrayList;
@@ -529,7 +530,7 @@ public class Lord {
 //				+ " Player Commission: " + Misc.getCommissionFaction()
 //				+ " Current Request: " + RequestController.getCurrentDefectionRequest(this)
 //		);
-
+        if (!FactionTemplateController.getTemplate(getFaction()).isCanStarlordsJoin()) return false;
 		if (this.getEscapeAttempts() >= Constants.FAILED_PRISON_ESCAPES_ASK_ASSISTANCE
 				&& LordController.getLordById(this.captor).isPlayer() == false
 				&& RelationController.getRelation(this, LordController.getPlayerLord()) >= Utils.getThreshold(RepLevel.SUSPICIOUS)
@@ -555,7 +556,7 @@ public class Lord {
 	}
 
 	public boolean wantsToDefect() {
-
+        if (!isAllowedToDefect()) return false;
 		int chance = DefectionUtils.getAutoBetrayalChance(this);
 		if (chance > 0) {
 			if (Utils.getRandomChance(this,100) < chance) {
@@ -571,6 +572,48 @@ public class Lord {
             return LordMemoryController.getLordMemory(getLordAPI().getId()).overridingFleetComposition;
         }
         return template.shipPrefs;
+    }
+
+    public boolean canRaid(){
+        //todo: finish this.
+        return true;
+    }
+    public boolean canTacticallyBomb(){
+        return true;
+    }
+    public boolean canPreformInvasion(){
+        //todo: finish this.
+        return true;
+    }
+    public boolean canSatBomb(){
+        if (getPersonality().equals(LordPersonality.QUARRELSOME)) return true;
+        return false;
+    }
+    public boolean isAllowedToDefect(){
+        return true;
+    }
+
+    public boolean canHoldFeast(){
+        return FactionTemplateController.getTemplate(getFaction()).isCanPreformFeasts();
+    }
+    public double getFiefIncomeMulti(){
+        return FactionTemplateController.getTemplate(getFaction()).getLordFiefIncomeMulti();
+    }
+    public double getTradeIncomeMulti(){
+        return FactionTemplateController.getTemplate(getFaction()).getLordTradeIncomeMulti();
+    }
+    public double getCommissionedIncomeMulti(){
+        return FactionTemplateController.getTemplate(getFaction()).getLordCommissionedIncomeMulti();
+    }
+    public double getCombatIncomeMulti(){
+        return FactionTemplateController.getTemplate(getFaction()).getLordCombatIncomeMulti();
+    }
+    public double getFleetUpkeepMulti(){
+        return FactionTemplateController.getTemplate(getFaction()).getLordFleetUpkeepCostMulti();
+    }
+
+    public double getRepGainFromKillsMulti(){
+        return FactionTemplateController.getTemplate(getFaction()).getLordRepChangeFromKillsMulti();
     }
 
     private DataHolder DATA_HOLDER;

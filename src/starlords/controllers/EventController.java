@@ -18,6 +18,7 @@ import com.fs.starfarer.api.util.Pair;
 import exerelin.campaign.intel.fleets.OffensiveFleetIntel;
 import lombok.Getter;
 import org.apache.log4j.Logger;
+import starlords.ai.utils.TargetUtils;
 import starlords.person.Lord;
 import starlords.person.LordAction;
 import starlords.person.LordEvent;
@@ -26,6 +27,8 @@ import starlords.ui.EventIntelPlugin;
 import starlords.ui.HostileEventIntelPlugin;
 import starlords.util.StringUtil;
 import starlords.util.Utils;
+import starlords.util.factionUtils.FactionTemplate;
+import starlords.util.factionUtils.FactionTemplateController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -274,9 +277,7 @@ public class EventController extends BaseIntelPlugin {
         // check offensive options
         if (!currCampaign.isDefensive()) {
             for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
-                FactionAPI otherFaction = market.getFaction();
-                if (Utils.canBeAttacked(otherFaction) && (LordController.getFactionsWithLords().contains(otherFaction) || otherFaction.isPlayerFaction())
-                        && otherFaction.isHostileTo(faction) && Utils.canBeAttacked(market)) {
+                if (TargetUtils.canBeAttackedByCampaign(lord,market)) {
                     int weight = 15000 - (int) Utils.getHyperspaceDistance(market.getPrimaryEntity(), lord.getLordAPI().getFleet());
                     if (weight > preferredWeight) {
                         preferred = market;
@@ -350,10 +351,7 @@ public class EventController extends BaseIntelPlugin {
             }
         }
         for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
-            if (!market.getFaction().isHostileTo(lord.getLordAPI().getFaction())) continue;
-            if (!Utils.canBeAttacked(market.getFaction())) continue;
-            if (seen.contains(market)) continue;
-            if (Misc.getDaysSinceLastRaided(market) < RAID_COOLDOWN) continue;
+            if (!TargetUtils.canBeAttackedByLord(lord,market)) continue;
             int currWeight = getMilitaryOpWeight(lord, market, null, false);
             if (currWeight > preferredWeight) {
                 preferred = market;
@@ -453,12 +451,14 @@ public class EventController extends BaseIntelPlugin {
     public static int getStartCampaignWeight(Lord lord) {
         // no campaigns for LP/pirates
         FactionAPI faction = lord.getLordAPI().getFaction();
-        if (!Utils.canBeAttacked(faction)) return 0;
+        FactionTemplate attackerTemplate = FactionTemplateController.getTemplate(faction.getId());
+        // no campaigns for factions that cant attack or defend.
+        if (!attackerTemplate.isCanHaveCampaigns()) return 0;
+        if (!attackerTemplate.isCanAttack() && !attackerTemplate.isCanBeAttacked()) return 0;
         boolean isAtWar = false;
         for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
             FactionAPI otherFaction = market.getFaction();
-            if (LordController.getFactionsWithLords().contains(otherFaction)
-                    && Utils.canBeAttacked(otherFaction) && faction.isHostileTo(otherFaction)) {
+            if (TargetUtils.isAtWar(faction,otherFaction)) {
                 isAtWar = true;
                 break;
             }

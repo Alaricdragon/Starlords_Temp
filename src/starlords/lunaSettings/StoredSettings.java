@@ -25,6 +25,7 @@ import starlords.util.SModSupport.SModSet;
 import starlords.util.Utils;
 import starlords.util.WeightedRandom;
 import starlords.util.dialogControler.DialogSet;
+import starlords.util.factionUtils.FactionTemplateController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,9 +37,10 @@ public class StoredSettings {
         getUniversalSettings();
         if (Global.getSettings().getModManager().isModEnabled("lunalib")){
             getLunaSettings();
-            return;
+        }else {
+            getConfigSettings();
         }
-        getConfigSettings();
+        FactionTemplateController.init();
     }
     public static void attemptEnableLunalib(){
         if (!Global.getSettings().getModManager().isModEnabled("lunalib")) return;

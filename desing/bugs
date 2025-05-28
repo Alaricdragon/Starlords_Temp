@@ -21,6 +21,18 @@ NOTE: I forgot to record the original list, so there are some bugs missing from 
     d2) valid targets for raids, invasions, and trade need to be calculated separately
     e) starlords attending a feast will not defend there allies if they are attacked (they should protect the world, and anyone at the feast if they are attacked)
     f) starlords 100% ARE still be attacking things they should not be allowed to (dispute nexerlin settings).
+    g) starlords will stand around and do nothing, iggnoring all attempts at control:
+        g.0) attempt to run the following in lord AI:
+            if(lord.isStuckLord){
+                    lord.setCurrAction(LordAction.PATROL);
+                    fleetAI.clearAssignments();
+                    Misc.clearFlag(mem, MemFlags.FLEET_BUSY);
+                    fleetAI.addAssignmentAtStart(FleetAssignment.PATROL_SYSTEM, null, 1000, null);
+            }
+            check the lord memoryFlags and compair them all?
+            force the lord to run the 'chooseAssignment' function?
+
+V0.3.38:
 2) tornaments:
     a) with Aod QoL instaled, you cant fight in tornaments hosted by your own faction
     b) possible tournament ships include things like station and ship moduels.

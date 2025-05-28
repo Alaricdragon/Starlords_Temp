@@ -114,9 +114,21 @@ public class BattleListener extends BaseCampaignEventListener {
 			    levelUpWithChance(winner, 200 * killsFP / totalFP);
 
 			    // pirates get happier about being pirates when they kill stuff
-			    if (Utils.isMinorFaction(lord.getFaction()) && Utils.rand.nextFloat() < ((float) killsFP) / totalFP) {
-				    RelationController.modifyLoyalty(lord, 1);
+				//ok, this is... somewhat interesting. so: pirate faction gain relations with there faction based on chance of all things.
+				//possable solution.. give all lord rep gain? no, that feels wrong...
+				//when leader is null give rep gain? use this calculation to also give wealth per kill (that sounds good for pirates to...)
+				//arg... how do
+				lord.addWealth((float) (LORD_MURDER_INCOME * ((float)killsFP / (float)totalFP) * lord.getCombatIncomeMulti()));
+				float rep = ((float) killsFP) / ((float) totalFP);
+				float remainder = rep % 1;
+				rep = (int) (rep);
+			    if (Utils.rand.nextFloat() < remainder) {
+				    rep++;
 			    }
+			    rep = (int)(rep * lord.getRepGainFromKillsMulti());
+			    if (rep >= 1){
+					RelationController.modifyLoyalty(lord, (int) (rep));
+				}
 		    }
 	    }
 	    // record kills and levels up losers, but no relations increase
@@ -284,13 +296,13 @@ public class BattleListener extends BaseCampaignEventListener {
 		    }
 
 		    // Faction marshal gets controversy for lord being defeated
-		    if (!Utils.isMinorFaction(defeated.getFaction())) {
+		    //if (!Utils.isMinorFaction(defeated.getFaction())) {
 			    Lord marshal = LordController.getLordOrPlayerById(
 					    PoliticsController.getLaws(defeated.getFaction()).getMarshal());
 			    if (marshal != null) {
 				    marshal.setControversy(Math.min(100, marshal.getControversy() + 1));
 			    }
-		    }
+		    //}
 
 		    String afterPrisonerCalculation = "[Star Lords] Winner Lords:" + System.lineSeparator()
 				    + Utils.printLordsWithPrisoners(winnerLords) + System.lineSeparator()

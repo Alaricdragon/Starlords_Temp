@@ -22,7 +22,9 @@ import starlords.person.LordEvent;
 import starlords.scripts.ActionCompleteScript;
 import starlords.ui.*;
 import starlords.util.Constants;
+import starlords.util.NexerlinUtilitys;
 import starlords.util.Utils;
+import starlords.util.factionUtils.FactionTemplateController;
 
 import java.util.HashMap;
 
@@ -120,6 +122,8 @@ public class LordsModPlugin extends BaseModPlugin {
         LordController.fixAllLordsPartnerStatus();
         LordController.logAllLords();
         LordMemoryController.load();
+
+        if (Utils.nexEnabled()) NexerlinUtilitys.calculateInvasionsEnabled();
     }
 
 

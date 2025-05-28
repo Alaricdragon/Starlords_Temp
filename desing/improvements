@@ -1,3 +1,7 @@
+things I need to learn:
+    1) how to load a class with only the class path?
+        -FactionTemplateController thing = Global.getSettings().getScriptClassLoader().loadClass("starlords.util.factionUtils.FactionTemplateController").asSubclass(FactionTemplateController.class);//????
+
 structure:
     1) dialog:
         -I am currently working on this.
@@ -64,6 +68,8 @@ structure:
         NOTE: for each defalt lord, I might need something more advanced for fleet setup.
             -maybe, I could so something like having a list of defalt lords, and having an odds? (and maybe an option to only have one of each)?
             -alturnitively, it might be required to do something more advanced. like, having only most of the options available (additional ships, additional skills, additional tags, exstra.)
+    13) attack improvements
+        13.0) allow campaigns to have a 'max violence per market' value, that once its filled the campaign will chose a different target. have it separate from 'max campaign violence.'
 features:
     1) allow the player to promote a officer into a starlord. when promoting the starlord, you should have the following options:
         -) requires structure.6, and structure.3.0 "STARLORD_LOYAL_UNTIL_FIEF"
@@ -165,3 +171,6 @@ settings:
     3) life and death system:
         3.0) make it so the player spouse can have different death chance
         3.1) make it so lords around at game start can have a diffrent death chance.
+    4) attack settigns:
+        4.0) change the 'max violence' value of raids and campaigns
+        4.1) (required improvements.13.0) add a setting for 'max campaign violence'
