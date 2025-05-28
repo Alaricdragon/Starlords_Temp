@@ -173,7 +173,7 @@ public class TargetUtils {
     private static boolean[] possibleAttacksMarket(Lord lord, MarketAPI market,LordEvent event, String type){
         //modifying attacks of type ATTACK_TYPE_CAMPAIGN
         //modifying attacks of type ATTACK_TYPE_RAID
-        log.info("modifying attacks of type "+type+" to determine what is possible on this market....");
+        //log.info("modifying attacks of type "+type+" to determine what is possible on this market....");
         boolean[] out = possibleAttacksLord(lord,market.getFaction(),type);
         if (out == null) return null;
         //vilance left is not required. that just seems to be used, (in the contect of chosing attacks) to prevent lords from invading or raiding at random.
@@ -247,9 +247,9 @@ public class TargetUtils {
                 }
             }
         }
-        for (boolean a : out){
+        /*for (boolean a : out){
             log.info("  got modified market data as: " + a);
-        }
+        }*/
         return out;
     }
     public static boolean canRaidIndustry(MarketAPI market) {
@@ -283,7 +283,7 @@ public class TargetUtils {
     }
 
     private static boolean[] possibleAttacksLord(Lord lord, FactionAPI factionAPI, String type){
-        log.info("getting possable attacks for lord...");
+        //log.info("getting possable attacks for lord...");
         int typesOfAttacks = 5;
         boolean[] out = possibleAttacksFaction(lord.getFaction(),factionAPI,type);
         if (out == null) return out;
@@ -297,12 +297,12 @@ public class TargetUtils {
         boolean[] output = new boolean[typesOfAttacks];
         for (int c = 0; c < typesOfAttacks; c++){
             output[c] = out[c] && lordAttacks[c];
-            log.info("  getting combat (lord) possability as: "+output[c]);
+            //log.info("  getting combat (lord) possability as: "+output[c]);
         }
         return output;
     }
     private static boolean[] possibleAttacksFaction(FactionAPI factionAPI_0, FactionAPI factionAPI_1, String type){
-        log.info("getting faction targets of "+type+" for factions "+factionAPI_0.getId()+" to "+factionAPI_1.getId());
+       // log.info("getting faction targets of "+type+" for factions "+factionAPI_0.getId()+" to "+factionAPI_1.getId());
         int typesOfAttacks = 5;
         boolean[] settings = new boolean[typesOfAttacks];
         //(not required. faction template handles this.)boolean canInvadeTemp = (Utils.nexEnabled() || NexerlinUtilitys.canInvade(factionAPI_0));
@@ -348,18 +348,18 @@ public class TargetUtils {
         boolean[] output = new boolean[typesOfAttacks];
         for (int c = 0; c < typesOfAttacks; c++){
             output[c] = lordFactionAttacks[c] && targetFactionAttacks[c] && settings[c];
-            log.info("  getting combat (faction) possability as: "+output[c]);
+           // log.info("  getting combat (faction) possability as: "+output[c]);
         }
         return output;
     }
     public static LordEvent.OffensiveType getOffencive(Lord lord,MarketAPI market,LordEvent event,String type){
-        log.info("got offencive possibility as:");
+        //log.info("got offencive possibility as:");
         boolean[] out = possibleAttacksMarket(lord,market,event,type);
         ArrayList<LordEvent.OffensiveType> options = new ArrayList<>();
         ArrayList<Integer> weights = new ArrayList<>();
         if (out == null) return null;
         for (boolean a : out){
-            log.info("  getting offencive possibility: "+a);
+            //log.info("  getting offencive possibility: "+a);
         }
         if (out[0]){
             //canRaid. (basic). this is always true for now.

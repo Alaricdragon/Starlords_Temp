@@ -28,6 +28,10 @@ public class NexerlinUtilitys {
             areInvasionsEnabled = false;
             return;
         }
+        if (NexUtils.getTrueDaysSinceStart() < NexConfig.invasionGracePeriod){
+            areInvasionsEnabled = false;
+            return;
+        }
         //NexConfig.invasionGracePeriod;
         areInvasionsEnabled = true;
     }
