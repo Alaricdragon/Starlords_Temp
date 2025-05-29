@@ -70,7 +70,7 @@ public class SCLordsFactory {
     private static String pickRandomSkill(SCOfficer officer, List<String> unlockedSkills) {
         WeightedRandomPicker<String> unlockableSkills = new WeightedRandomPicker<>();
         SCBaseAptitudePlugin aptitude = officer.getAptitudePlugin();
-        aptitude.clearSections();
+        //aptitude.clearSections();
         aptitude.createSections();
         List<SCAptitudeSection> sections = aptitude.getSections();
         for (SCAptitudeSection section : sections) {

@@ -1,3 +1,6 @@
+V0.3.43:
+    fixes:
+        fixed a crash related to second in command on startup. thanks Lukas04 for the help.
 V0.3.42:
     fixes:
         fixed broken starlord raid / campaign targeting
