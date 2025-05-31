@@ -19,9 +19,10 @@ structure:
             -) also add the ability to have difffrent AI cores on your ships. how could I do that? I dont know.
         3.3) allow a option to have a raito of upgrades to new ships.
             -) like, weather the lord will chose to upgrade there ships with Smods first, or something else first.
-    4) add the ability to have custom AI cores be used as officers for automated ships how this would work is unknown
+        3.4) add a system for cost weights, income weights, and AI wieghts for varus things.
     5) allow a starlords data to be changed -after- starlord creation.
         5.0) so, first I require 2 classes stored in the starlord: the main -lord template- and the overriding data.
+             note: overriding data has been added early. it will be worked on farther, or compleatly readjusted.
              the 'overriding data' will only save the things that are diffrent about this starlord from the template (so if I changed the flagship, that would be saved).
              then when starlords is loaded, and any data from the template is checked, it will first check the overriding template for a change, then the base template for the normal data.
              the reason for doing it this way is to allow someone to change there starlord with the json file, provided that bit of data has not been changed with code.
@@ -34,11 +35,17 @@ structure:
         -) the ability to prevent you from changing the lords fleet name, flagship, or available ships / smods.
         -) the ability to set other data, like lord personality, or skills, or so on.
     7) allow custom code that allows a modder to change the possibility for lord upgrades.
+        -) the way this could be done, I could use a system simaler to the hullmods.CSV were it calls on a custom class. then the following would happen:
+            1) the lord would go into all classes, and get the weight of preforming each upgrade.
+            2) the lord would start upgrading whatever -vailid- upgrade had the most weight (or do I chose randomly? lets go with random, based on weight)
+            3) this will repeat, and every time it does, a varuble for 'save mony' will be increased. this will act as an upgrade, with a weight being added and increased when the starlords remaining credits are <= to the credits value stored here. (this will simulate starlords saving credits for a rainy day)
         -) right now, there are 2 upgrade paths. new ships, and s-mods.
         -) other options I know of: 'exotic technologys' mod. but that's not for me to try. just create the framework
     8) change the way 'LordAI.chooseAssignment, LordAI.beginAssignment, LordAI.progressAssignment' works. make this have a system that's highly modifiable.
-        -) the best way to handle this, were to have a class that handles a given lord behaver. it would hold classes to determin when the lord changes job, and what the lord does.
-        -) this would be a titen of a task. I will need to do it though.
+        -) I havve thought about this. this is effectivly an AI upgrade. how I should handle it should be as follows:
+            1) make it so I have a CSV file with all the AI commands linked on it. I can also store some varubles that can be used as weights here (for if I chose this command, or even for income multis).
+            2) make it so lords and factions can mess with the weights of a given command to modifiy the odds of it happing (it chosen randomly based of weight right now, so this should help)
+            3) make it so lords and factions can ban / approve AI tasks. this lets factions or starlords have there own AI actions that they might take at a given time.
     10) intil plugins:
         a contrubuter suggested some changed here. they are quite powerfull. need this arg.
     11) lord generator:
@@ -69,7 +76,12 @@ structure:
             -maybe, I could so something like having a list of defalt lords, and having an odds? (and maybe an option to only have one of each)?
             -alturnitively, it might be required to do something more advanced. like, having only most of the options available (additional ships, additional skills, additional tags, exstra.)
     13) attack improvements
+        -) note: this is part of the AI improvments. its prepared, but not yet implemented.
         13.0) allow campaigns to have a 'max violence per market' value, that once its filled the campaign will chose a different target. have it separate from 'max campaign violence.'
+    14) politics improvements:
+        -) make it so each policy has its own mention in a new policys.CSV file.
+        -) make it so all lords can have there own thoughts and custom messages on each policy.
+        -) please note: I arg view the god dam upgrade thing for this its teh same sadmkasdksadas
 features:
     1) allow the player to promote a officer into a starlord. when promoting the starlord, you should have the following options:
         -) requires structure.6, and structure.3.0 "STARLORD_LOYAL_UNTIL_FIEF"

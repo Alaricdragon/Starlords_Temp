@@ -31,8 +31,6 @@ NOTE: I forgot to record the original list, so there are some bugs missing from 
             }
             check the lord memoryFlags and compair them all?
             force the lord to run the 'chooseAssignment' function?
-
-V0.3.38:
 2) tornaments:
     a) with Aod QoL instaled, you cant fight in tornaments hosted by your own faction
     b) possible tournament ships include things like station and ship moduels.
@@ -51,13 +49,14 @@ V0.3.38:
     a) I need to remove the T2, T1 lords from settings. T2 and T1 lords are not how powerfull the lords are, its how important the lord is to a faction.
        instead, I should just make sure each faction fills the lord slots in order of having 1 T2, and 3 T1 lords, before the rest are T0.
 6) S-Mods system:
-    a) (fixed)S-Mods have been reported to not be presistant between saves (the S-mods changing when rebooting starsector). I need to look into this.
     b) phase based S-mods are hopping on ships without the phase system.
     c) S-mods can be instaled even when they should be incompatible.
         -look into magiclibs??? hullmod compatibility system for help with this.
 7) politics
-    when starlords declare war, they sometimes... just dont care????? like, are they even at war???? (needs farther conformation)
+    starlords will create multiple of the same politics request instead of joining forces.
+    starlords will not respect nexerlin alliances (resalting in war being declared, followed by peace over and over again.)
 8) garrisons:
     a) station regenerates if you destroy it, but not all the escorts
     b) ship CR is not saved between battles.
     c) you cant see all the escorts, or the difficulty rating
+    d) AI ships in garrisons will sometimes have human officers instead of AI cores.
