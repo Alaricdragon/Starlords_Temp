@@ -130,7 +130,7 @@ public class LordController {
         QuestController.addLord(currLord);
         PoliticsController.addLord(currLord);
         RelationController.addLord(currLord);
-
+        factionsWithLords.add(currLord.getFaction());
         return fleet;
     }
     public static CampaignFleetAPI addLordMidGame(LordTemplate template,MarketAPI lordMarket) {
@@ -177,6 +177,7 @@ public class LordController {
 
         //also this. dont know if it helps or not though.
         ensureLordOrder();
+        updateFactionsWithLords();
 
     }
     private static String StarlordMemoryKey = "$starlord_extraLordMemory_";

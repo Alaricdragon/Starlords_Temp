@@ -122,6 +122,7 @@ public class LordsModPlugin extends BaseModPlugin {
         LordController.fixAllLordsPartnerStatus();
         LordController.logAllLords();
         LordMemoryController.load();
+        LordController.updateFactionsWithLords();
 
         if (Utils.nexEnabled()) NexerlinUtilitys.calculateInvasionsEnabled();
     }

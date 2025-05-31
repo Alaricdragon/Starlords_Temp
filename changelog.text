@@ -1,3 +1,7 @@
+V0.3.44:
+    fixes:
+        maybe fixed a issue that prevented generated starlords from updating what factions contain lords.
+        maybe fixed a issue were starlords was unable to tell what factions have lords untill the one defects?
 V0.3.43:
     fixes:
         fixed a crash related to second in command on startup. thanks Lukas04 for the help.
