@@ -14,6 +14,8 @@ import starlords.plugins.LordInteractionDialogPluginImpl;
 import starlords.util.NexerlinUtilitys;
 import starlords.util.StringUtil;
 import starlords.util.Utils;
+import starlords.util.weights.IncomeWeights;
+import starlords.util.weights.UpgradeWeights;
 
 @Getter
 public class FactionTemplate {
@@ -67,10 +69,12 @@ public class FactionTemplate {
     protected boolean canLordsTakeFiefsWithDefection;
     protected int maxNumberFiefsPerLord;
 
-    protected double lordFiefIncomeMulti;
+    protected UpgradeWeights upgradeWeights = new UpgradeWeights();
+    protected IncomeWeights incomeWeights = new IncomeWeights();
+    /*protected double lordFiefIncomeMulti;
     protected double lordCombatIncomeMulti;
     protected double lordTradeIncomeMulti;
-    protected double lordCommissionedIncomeMulti;
+    protected double lordCommissionedIncomeMulti;*/
 
     protected double lordRepChangeFromKillsMulti;
     protected double lordFleetUpkeepCostMulti;
@@ -153,10 +157,7 @@ public class FactionTemplate {
         log.info("  canTakeFiefsWithWhenDefecting: "+this.canLordsTakeFiefsWithDefection);
         log.info("  (not yet working) max number of fiefs per lord: "+this.maxNumberFiefsPerLord);
         log.info("");
-        log.info("  fiefIncomeMulti: "+this.lordFiefIncomeMulti);
-        log.info("  combatIncomeMulti: "+this.lordCombatIncomeMulti);
-        log.info("  tradeIncomeMulti: "+this.lordTradeIncomeMulti);
-        log.info("  commissionIncomeMulti: "+this.lordCommissionedIncomeMulti);
+        this.incomeWeights.log(log);
         log.info("  fleetUpkeepCostMulti: "+this.lordFleetUpkeepCostMulti);
         log.info("  lordRepGainPerWinMulti: "+this.lordRepChangeFromKillsMulti);
 
@@ -421,57 +422,57 @@ public class FactionTemplate {
     @SneakyThrows
     protected void setLordFiefIncomeMulti(String key, JSONObject json){
         if (json != null && json.has(key)){
-            lordFiefIncomeMulti = json.getDouble(key);
+            this.incomeWeights.lordFiefIncomeMulti = json.getDouble(key);
             return;
         }
         boolean isPirate = Misc.isPirateFaction(Global.getSector().getFaction(factionID));
         if (isPirate){
-            lordFiefIncomeMulti = 0.5;
+            this.incomeWeights.lordFiefIncomeMulti = 0.5;
             return;
         }
-        lordFiefIncomeMulti = 1;
+        this.incomeWeights.lordFiefIncomeMulti = 1;
 
     }
     @SneakyThrows
     protected void setLordCombatIncomeMulti(String key, JSONObject json){
         if (json != null && json.has(key)){
-            lordCombatIncomeMulti = json.getDouble(key);
+            this.incomeWeights.lordCombatIncomeMulti = json.getDouble(key);
             return;
         }
         boolean isPirate = Misc.isPirateFaction(Global.getSector().getFaction(factionID));
         if (isPirate){
-            lordCombatIncomeMulti = 2;
+            this.incomeWeights.lordCombatIncomeMulti = 2;
             return;
         }
-        lordCombatIncomeMulti = 1;
+        this.incomeWeights.lordCombatIncomeMulti = 1;
 
     }
     @SneakyThrows
     protected void setLordTradeIncomeMulti(String key, JSONObject json){
         if (json != null && json.has(key)){
-            lordTradeIncomeMulti = json.getDouble(key);
+            this.incomeWeights.lordTradeIncomeMulti = json.getDouble(key);
             return;
         }
         boolean isPirate = Misc.isPirateFaction(Global.getSector().getFaction(factionID));
         if (isPirate){
-            lordTradeIncomeMulti = 1;
+            this.incomeWeights.lordTradeIncomeMulti = 1;
             return;
         }
-        lordTradeIncomeMulti = 1;
+        this.incomeWeights.lordTradeIncomeMulti = 1;
 
     }
     @SneakyThrows
     protected void setLordCommissionedIncomeMulti(String key, JSONObject json){
         if (json != null && json.has(key)){
-            lordCommissionedIncomeMulti = json.getDouble(key);
+            this.incomeWeights.lordCommissionedIncomeMulti = json.getDouble(key);
             return;
         }
         boolean isPirate = Misc.isPirateFaction(Global.getSector().getFaction(factionID));
         if (isPirate){
-            lordCommissionedIncomeMulti = 2;
+            this.incomeWeights.lordCommissionedIncomeMulti = 2;
             return;
         }
-        lordCommissionedIncomeMulti = 1;
+        this.incomeWeights.lordCommissionedIncomeMulti = 1;
     }
 
     @SneakyThrows

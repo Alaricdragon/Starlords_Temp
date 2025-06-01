@@ -24,6 +24,8 @@ import starlords.ui.PrisonerIntelPlugin;
 import starlords.util.*;
 import starlords.util.factionUtils.FactionTemplateController;
 import starlords.util.memoryUtils.DataHolder;
+import starlords.util.weights.IncomeWeights;
+import starlords.util.weights.UpgradeWeights;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -121,6 +123,12 @@ public class Lord {
     //because it budged me that the god dammed way to decide weather or not you were a dress or not arg....
     @Setter
     private String formalWear;
+
+    //costMaps for all relevent AI and none AI based things.
+    @Getter
+    private UpgradeWeights upgradeWeights = new UpgradeWeights();
+    @Getter
+    private IncomeWeights incomeWeights = new IncomeWeights();
     // Creates a lord from scratch, only run at campaign start
     public Lord(LordTemplate template) {
         FullName.Gender gender = template.isMale ? FullName.Gender.MALE : FullName.Gender.FEMALE;
@@ -597,16 +605,16 @@ public class Lord {
         return FactionTemplateController.getTemplate(getFaction()).isCanPreformFeasts();
     }
     public double getFiefIncomeMulti(){
-        return FactionTemplateController.getTemplate(getFaction()).getLordFiefIncomeMulti();
+        return FactionTemplateController.getTemplate(getFaction()).getIncomeWeights().lordFiefIncomeMulti * this.incomeWeights.lordFiefIncomeMulti;
     }
     public double getTradeIncomeMulti(){
-        return FactionTemplateController.getTemplate(getFaction()).getLordTradeIncomeMulti();
+        return FactionTemplateController.getTemplate(getFaction()).getIncomeWeights().lordTradeIncomeMulti * this.incomeWeights.lordTradeIncomeMulti;
     }
     public double getCommissionedIncomeMulti(){
-        return FactionTemplateController.getTemplate(getFaction()).getLordCommissionedIncomeMulti();
+        return FactionTemplateController.getTemplate(getFaction()).getIncomeWeights().lordCommissionedIncomeMulti * this.incomeWeights.lordCommissionedIncomeMulti;
     }
     public double getCombatIncomeMulti(){
-        return FactionTemplateController.getTemplate(getFaction()).getLordCombatIncomeMulti();
+        return FactionTemplateController.getTemplate(getFaction()).getIncomeWeights().lordCombatIncomeMulti * this.incomeWeights.lordCombatIncomeMulti;
     }
     public double getFleetUpkeepMulti(){
         return FactionTemplateController.getTemplate(getFaction()).getLordFleetUpkeepCostMulti();
