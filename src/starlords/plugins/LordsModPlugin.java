@@ -25,6 +25,7 @@ import starlords.util.Constants;
 import starlords.util.NexerlinUtilitys;
 import starlords.util.Utils;
 import starlords.util.factionUtils.FactionTemplateController;
+import starlords.util.lordUpgrades.UpgradeController;
 
 import java.util.HashMap;
 
@@ -125,6 +126,7 @@ public class LordsModPlugin extends BaseModPlugin {
         LordController.updateFactionsWithLords();
 
         if (Utils.nexEnabled()) NexerlinUtilitys.calculateInvasionsEnabled();
+        UpgradeController.init();
     }
 
 
