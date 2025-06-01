@@ -1,3 +1,6 @@
+V0.3.45:
+    fixes:
+        fixed starlords attacking hidden markets. (the [hidden for spoiler reasons] should be safe now).
 V0.3.44:
     fixes:
         maybe fixed a issue that prevented generated starlords from updating what factions contain lords.

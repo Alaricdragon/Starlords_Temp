@@ -107,6 +107,7 @@ public class TargetUtils {
         if (!isValidMarket(market)) return false;
         if (!a.isCanAttack()) return false;
         if (!b.isCanBeAttacked()) return false;
+        if (market.isHidden()) return false;
         //note: this is needed at the following functions: EventController.getPreferredRaidLocation, EventController.getCampaignTarget
         if (!market.getFaction().isHostileTo(lord.getLordAPI().getFaction())) return false;
         //if (!Utils.canBeAttacked(market.getFaction())) return false;
