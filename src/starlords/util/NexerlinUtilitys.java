@@ -62,6 +62,7 @@ public class NexerlinUtilitys {
         NexFactionConfig factionConfig = NexConfig.getFactionConfig(factionAPI.getId());
         if (!factionConfig.canInvade) return false;
         if (factionConfig.pirateFaction && !NexConfig.allowPirateInvasions) return false;
+        if (factionConfig.invasionPointMult == 0) return false;
         return true;
     }
 
