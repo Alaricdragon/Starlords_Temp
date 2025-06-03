@@ -5,6 +5,7 @@ import lombok.SneakyThrows;
 import lunalib.lunaSettings.LunaSettings;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
+import starlords.ai.utils.TargetUtils;
 import starlords.controllers.LifeAndDeathController;
 import starlords.controllers.PoliticsController;
 import starlords.generator.LordGenerator;
@@ -236,11 +237,16 @@ public class StoredSettings {
         LordsIntelPlugin.setAllowLordsToBeViewed(LunaSettings.getBoolean(Constants.MOD_ID,"Other_showAllLordsIntelByDefault"));
         Utils.setShowMessageLordCaptureReleaseEscape(LunaSettings.getBoolean(Constants.MOD_ID,"Other_showMessageLordCaptureReleaseEscape"));
         PoliticsController.PLAYER_EXTRA_COUNCIL_WEIGHT = LunaSettings.getInt(Constants.MOD_ID,"Other_playerExtraCouncilWeight");
+        //player faction being attacked settings
+        TargetUtils.setCanPlayerBeAttacked(LunaSettings.getBoolean(Constants.MOD_ID,"features_canPlayerFactionBeAttacked"));
+        TargetUtils.setCanPlayerBeAttackedBeforeStarlords(LunaSettings.getBoolean(Constants.MOD_ID,"features_canPlayerFactionBeAttackedBeforeStarlords"));
 
         int maxSMods = LunaSettings.getInt(Constants.MOD_ID,"Other_maxSMods");
         if (LunaSettings.getBoolean(Constants.MOD_ID,"Other_exstraSModsForSpecalMods") && Global.getSettings().getModManager().isModEnabled("progressiveSMods")) maxSMods += 5;
         LordFleetFactory.setMaxSMods(maxSMods);
+
         log.info("DEBUG: luna settings loaded successfully.");
+
     }
     @SneakyThrows
     private static void getConfigSettings(){
@@ -432,6 +438,9 @@ public class StoredSettings {
         LordsIntelPlugin.setAllowLordsToBeViewed(json.getBoolean("showAllLordsIntelByDefault"));
         Utils.setShowMessageLordCaptureReleaseEscape(json.getBoolean("showMessageLordCaptureReleaseEscape"));
         PoliticsController.PLAYER_EXTRA_COUNCIL_WEIGHT = json.getInt("playerExtraCouncilWeight");
+        TargetUtils.setCanPlayerBeAttacked(json.getBoolean("features_canPlayerFactionBeAttacked"));
+        TargetUtils.setCanPlayerBeAttackedBeforeStarlords(json.getBoolean("features_canPlayerFactionBeAttackedBeforeStarlords"));
+
 
 
         int maxSMods = json.getInt("Other_maxSMods");

@@ -1,3 +1,11 @@
+V0.3.46:
+    fixes:
+        fixed starlords being unable to target the player faction, ever, for any reason. and only the player faction.
+        (yes, I know crisies fleets could sometimes have starlords, but I have never seen that. im talking about proper attacks.)
+        fixed a given faction being able to create many instances of the same attack at the same target. I broke this at some ponit.
+    settings:
+        added a setting to allow attacks on the player faction from starlords. (default true)
+        added a setting to allow attacks on the player faction before the player has at least one starlord (default false)
 V0.3.45:
     fixes:
         fixed starlords attacking hidden markets. (the [hidden for spoiler reasons] should be safe now).

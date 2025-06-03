@@ -58,6 +58,11 @@ public class TargetUtils {
     private static boolean canTacticalBomb_campaign = true;
     private static boolean canInvade_campaign = true;
     private static boolean canSatbomb_campaign = true;
+
+    @Setter
+    private static boolean canPlayerBeAttacked = true;
+    @Setter
+    private static boolean canPlayerBeAttackedBeforeStarlords = false;
     public static boolean isValidMarket(MarketAPI market){
         if (market == null) return false;
         if (market.isInHyperspace()) return false;
@@ -105,6 +110,7 @@ public class TargetUtils {
         FactionTemplate a = FactionTemplateController.getTemplate(lord.getFaction());
         FactionTemplate b = FactionTemplateController.getTemplate(market.getFaction());
         if (!isValidMarket(market)) return false;
+        if (market.getFaction().isPlayerFaction() && !canPlayerBeAttacked) return false;
         if (!a.isCanAttack()) return false;
         if (!b.isCanBeAttacked()) return false;
         if (market.isHidden()) return false;
@@ -114,7 +120,8 @@ public class TargetUtils {
         //if ((Utils.nexEnabled() && !NexerlinUtilitys.canBeAttacked(market))) return false;
         //if (!isAttackable(lord,market.getFaction())) return false;
         if (Misc.getDaysSinceLastRaided(market) < RAID_COOLDOWN) return false;
-        if (!(LordController.getFactionsWithLords().contains(market.getFaction()) && !market.getFaction().isPlayerFaction())) return false;
+        if (market.getFaction().isPlayerFaction() && canPlayerBeAttackedBeforeStarlords) return true;
+        if (!LordController.getFactionsWithLords().contains(market.getFaction())) return false;
         return true;
     }
 
