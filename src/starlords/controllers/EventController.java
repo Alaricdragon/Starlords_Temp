@@ -352,6 +352,7 @@ public class EventController extends BaseIntelPlugin {
         }
         for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
             if (!TargetUtils.canBeAttackedByLord(lord,market)) continue;
+            if (seen.contains(market)) continue;
             int currWeight = getMilitaryOpWeight(lord, market, null, false);
             if (currWeight > preferredWeight) {
                 preferred = market;
