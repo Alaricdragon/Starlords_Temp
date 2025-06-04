@@ -269,7 +269,7 @@ public class DefectionUtils {
         // fiefs defect with the lord as long as they aren't turning pirate
         // changed this into faction that can be attacked. I considered this for all minor factions, but some of them can be attacked, and such can get back there markets so...
         if (includeFiefs && FactionTemplateController.getTemplate(oldFaction).isCanLordsTakeFiefsWithDefection() && !FactionTemplateController.getTemplate(faction).isCanLordsTakeFiefsWithDefection()) {
-            for (SectorEntityToken fief : lord.getFiefs()) {
+            for (SectorEntityToken fief : new ArrayList<>(lord.getFiefs())) {
                 if (fief.getMarket().getStabilityValue() < 7) {
 	                fief.getMarket().setFactionId(faction.getId());
 	                fief.setFaction(faction.getId());
