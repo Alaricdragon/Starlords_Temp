@@ -1,3 +1,27 @@
+V0.3.46:
+    fixes:
+        fixed starlords being unable to target the player faction, ever, for any reason. and only the player faction.
+        (yes, I know crisies fleets could sometimes have starlords, but I have never seen that. im talking about proper attacks.)
+        fixed a given faction being able to create many instances of the same attack at the same target. I broke this at some ponit.
+    settings:
+        added a setting to allow attacks on the player faction from starlords. (default true)
+        added a setting to allow attacks on the player faction before the player has at least one starlord (default false)
+V0.3.45:
+    fixes:
+        fixed starlords attacking hidden markets. (the [hidden for spoiler reasons] should be safe now).
+V0.3.44:
+    fixes:
+        maybe fixed a issue that prevented generated starlords from updating what factions contain lords.
+        maybe fixed a issue were starlords was unable to tell what factions have lords untill the one defects?
+V0.3.43:
+    fixes:
+        fixed a crash related to second in command on startup. thanks Lukas04 for the help.
+V0.3.42:
+    fixes:
+        fixed broken starlord raid / campaign targeting
+        fixed starlords considering things that are not markets markets (so no more nexerlin outposts counting as fiefs. or invasion targets)
+        fixed starlords not respecting nexerlin invasion settings. (hopefully, for the last time) (thanks Histidine for assistance in understanding all the conditions related to invasions)
+    added in a system for having some custom faction data, in relation to starlords. its incomplete, but for now can go into the data/lords/faction.json and change the rank names of the players faction for example.
 V0.3.41:
     fixed rep gain calculation from interacting with a lord at a feast increasing rep with every starlord at a feast.
 V0.3.40:

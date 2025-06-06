@@ -87,6 +87,7 @@ this is the 'dialog rules' json object. within, I will cover the 3 different 'ru
       * "playerHasLiege": if the lord has a liege or not (some factions don't have lieges.)
       * "isPersonalityKnown": if the player knows the lords personality yet.
       * "hasInteractedThisFeast": if the player has interacted to this feast well this lord was here.
+      * "isValidMarket": if this market is a valid market, as desided by starlords rules.
   * "compareStrings": {"a":JSONObject, "b":JSONObject}. compares to strings together. if they are the same, returns true. "a" and "b" contain the following data:
       "type": String. this is what type of string you are compairing. types are as follows:
         "MEMORY" gets a string from memory (with a ID of "data")

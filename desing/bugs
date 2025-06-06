@@ -21,6 +21,16 @@ NOTE: I forgot to record the original list, so there are some bugs missing from 
     d2) valid targets for raids, invasions, and trade need to be calculated separately
     e) starlords attending a feast will not defend there allies if they are attacked (they should protect the world, and anyone at the feast if they are attacked)
     f) starlords 100% ARE still be attacking things they should not be allowed to (dispute nexerlin settings).
+    g) starlords will stand around and do nothing, iggnoring all attempts at control:
+        g.0) attempt to run the following in lord AI:
+            if(lord.isStuckLord){
+                    lord.setCurrAction(LordAction.PATROL);
+                    fleetAI.clearAssignments();
+                    Misc.clearFlag(mem, MemFlags.FLEET_BUSY);
+                    fleetAI.addAssignmentAtStart(FleetAssignment.PATROL_SYSTEM, null, 1000, null);
+            }
+            check the lord memoryFlags and compair them all?
+            force the lord to run the 'chooseAssignment' function?
 2) tornaments:
     a) with Aod QoL instaled, you cant fight in tornaments hosted by your own faction
     b) possible tournament ships include things like station and ship moduels.
@@ -39,13 +49,14 @@ NOTE: I forgot to record the original list, so there are some bugs missing from 
     a) I need to remove the T2, T1 lords from settings. T2 and T1 lords are not how powerfull the lords are, its how important the lord is to a faction.
        instead, I should just make sure each faction fills the lord slots in order of having 1 T2, and 3 T1 lords, before the rest are T0.
 6) S-Mods system:
-    a) (fixed)S-Mods have been reported to not be presistant between saves (the S-mods changing when rebooting starsector). I need to look into this.
     b) phase based S-mods are hopping on ships without the phase system.
     c) S-mods can be instaled even when they should be incompatible.
         -look into magiclibs??? hullmod compatibility system for help with this.
 7) politics
-    when starlords declare war, they sometimes... just dont care????? like, are they even at war???? (needs farther conformation)
+    starlords will create multiple of the same politics request instead of joining forces.
+    starlords will not respect nexerlin alliances (resalting in war being declared, followed by peace over and over again.)
 8) garrisons:
     a) station regenerates if you destroy it, but not all the escorts
     b) ship CR is not saved between battles.
     c) you cant see all the escorts, or the difficulty rating
+    d) AI ships in garrisons will sometimes have human officers instead of AI cores.

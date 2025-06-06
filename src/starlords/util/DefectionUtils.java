@@ -16,6 +16,7 @@ import starlords.controllers.RelationController;
 import starlords.controllers.RequestController;
 import starlords.person.Lord;
 import starlords.person.LordRequest;
+import starlords.util.factionUtils.FactionTemplateController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -143,14 +144,15 @@ public class DefectionUtils {
 	}
 
 	public static boolean getFactionDefectionEligibility(Lord lord, FactionAPI faction) {
-		if (Utils.isMinorFaction(faction)) return false;
+		if (!FactionTemplateController.getTemplate(faction).isCanStarlordsJoin()) return false;
 		//todo: If i get the time, i really really need to make it so lords can offer to defect over to the player faction. please I beg of you let that happen. I waited for nearly 4 cycles for one to join me and now I learn that is not a thing and this can cause a issue with large number of lords were you cant get any up to the required reputation and this bugs me. plz fix.
+		//todo:... is this fixed? arg, I dont knowwwwww. I better ignore it.
 		if (Misc.getCommissionFaction() != null && faction.isPlayerFaction()) return false;
 		if (faction.isPlayerFaction() && lord.getLordAPI().getRelToPlayer().isAtBest(RepLevel.WELCOMING)) return false;
 		if (faction.isPlayerFaction() && !LordController.getFactionsWithLords().contains(faction)) return false;
 		if (faction.equals(lord.getFaction())) return false;
 		//todo: switch this from 'independents' to a function that sees if this faction does not allow lords.
-		if (faction.getId().equals(Factions.INDEPENDENT)) return false;
+		//if (faction.getId().equals(Factions.INDEPENDENT)) return false;
 
 		return true;
 	}
@@ -249,6 +251,7 @@ public class DefectionUtils {
     // defects to specified faction
     public static void performDefection(Lord lord, FactionAPI faction, boolean showMessage,boolean includeFiefs) {
         EventController.removeFromAllEvents(lord);
+        FactionAPI oldFaction = lord.getFaction();
         String oldFactionName = lord.getFaction().getDisplayNameWithArticle();
         if (faction.isPlayerFaction()) lord.setKnownToPlayer(true);
         lord.getLordAPI().getFleet().setFaction(faction.getId(), true);
@@ -264,7 +267,7 @@ public class DefectionUtils {
         }
         // fiefs defect with the lord as long as they aren't turning pirate
         // changed this into faction that can be attacked. I considered this for all minor factions, but some of them can be attacked, and such can get back there markets so...
-        if (!Utils.canBeAttacked(faction) && includeFiefs) {
+        if (includeFiefs && FactionTemplateController.getTemplate(oldFaction).isCanLordsTakeFiefsWithDefection() && !FactionTemplateController.getTemplate(faction).isCanLordsTakeFiefsWithDefection()) {
             for (SectorEntityToken fief : lord.getFiefs()) {
                 fief.getMarket().setFactionId(faction.getId());
                 fief.setFaction(faction.getId());

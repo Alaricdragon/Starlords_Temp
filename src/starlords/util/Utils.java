@@ -14,6 +14,7 @@ import exerelin.campaign.alliances.Alliance;
 import lombok.Setter;
 import org.apache.log4j.Logger;
 import org.lwjgl.util.vector.Vector2f;
+import starlords.ai.utils.TargetUtils;
 import starlords.controllers.LordController;
 import starlords.controllers.EventController;
 import starlords.controllers.PoliticsController;
@@ -23,6 +24,7 @@ import starlords.person.Lord;
 import starlords.person.LordAction;
 import starlords.person.LordEvent;
 import starlords.person.LordRequest;
+import starlords.util.factionUtils.FactionTemplateController;
 
 import java.util.*;
 
@@ -42,12 +44,14 @@ public class Utils {
     private static boolean showMessageLordCaptureReleaseEscape;
     public static final Random rand = new Random(); // for low-priority rng that doesn't need to be savescum-proof
     public static String getFactionTitle(String faction,int ranking){
-        String titleStr = "title_" + faction + "_" + ranking;
-        String ret = StringUtil.getString("starlords_title", titleStr);
-        if (ret != null && ret.startsWith("Missing string")) {
-            ret = StringUtil.getString("starlords_title", "title_default_" + ranking);
+        switch (ranking){
+            case 2:
+                return FactionTemplateController.getTemplate(faction).getT2_title();
+            case 1:
+                return FactionTemplateController.getTemplate(faction).getT1_title();
+            default:
+                return FactionTemplateController.getTemplate(faction).getT0_title();
         }
-        return ret;
     }
     public static int nextInt(int bound) {
         return rand.nextInt(bound);
@@ -196,14 +200,7 @@ public class Utils {
         return patrolStrength + stationStrength;
     }
 
-    public static boolean canRaidIndustry(MarketAPI market) {
-        for (Industry industry : market.getIndustries()) {
-            if (!industry.canBeDisrupted()) continue;
-            if (industry.getSpec().hasTag(Industries.TAG_UNRAIDABLE)) continue;
-            return true;
-        }
-        return false;
-    }
+
 
     public static Industry getIndustryToRaid(MarketAPI market) {
         ArrayList<Industry> options = new ArrayList<>();
@@ -332,22 +329,26 @@ public class Utils {
         }
         return numEnemies;
     }*/
-    public static int getNumMajorEnemiesForAttacks(FactionAPI faction){
+    /*public static int getNumMajorEnemiesForAttacks(FactionAPI faction){
         int numEnemies = 0;
         for (FactionAPI faction2 : LordController.getFactionsWithLords()) {
             if (Utils.canBeAttacked(faction2) && faction.isHostileTo(faction2)) numEnemies += 1;
         }
         return numEnemies;
-    }
+    }*/
     public static int getNumMajorEnemiesForDiplomacy(FactionAPI faction){
+        if (!FactionTemplateController.getTemplate(faction).isCanPreformDiplomacy()) return 0;
         int numEnemies = 0;
         for (FactionAPI faction2 : LordController.getFactionsWithLords()) {
-            if (Utils.canHaveRelations(faction2) && faction.isHostileTo(faction2)) numEnemies += 1;
+            if (!FactionTemplateController.getTemplate(faction2).isCanPreformDiplomacy()) continue;
+            if (TargetUtils.isAtWar(faction,faction2)) numEnemies++;
+            //if (Utils.canHaveRelations(faction2) && faction.isHostileTo(faction2)) numEnemies += 1;
         }
         return numEnemies;
     }
     public static PersonAPI getLeader(FactionAPI faction) {
-        switch (faction.getId()) {
+        return FactionTemplateController.getTemplate(faction).getLeader();
+        /*switch (faction.getId()) {
             case Factions.PIRATES:
             case Factions.LUDDIC_CHURCH:
                 return null;
@@ -364,11 +365,14 @@ public class Utils {
             case Factions.PLAYER:
                 return Global.getSector().getPlayerPerson();
         }
-        return null;
+        return null;*/
     }
 
     public static String getLiegeName(FactionAPI faction) {
-        switch (faction.getId()) {
+        PersonAPI person = FactionTemplateController.getTemplate(faction).getLeader();
+        if (person == null) return null;
+        return person.getNameString();
+        /*switch (faction.getId()) {
             case Factions.PIRATES:
                 return null;
             case Factions.HEGEMONY:
@@ -386,7 +390,7 @@ public class Utils {
             case Factions.PLAYER:
                 return Global.getSector().getPlayerPerson().getNameString();
         }
-        return null;
+        return null;*/
     }
 
     public static PersonAPI clonePerson(PersonAPI person) {
@@ -549,7 +553,7 @@ public class Utils {
     private static HashSet<String> forcedAttack;
     @Setter
     private static HashSet<String> forcedNoAttack;
-    public static boolean canBeAttacked(MarketAPI market) {
+    /*public static boolean canBeAttacked(MarketAPI market) {
         if (!canBeAttacked(market.getFaction())) return false;
         if (!Global.getSettings().getModManager().isModEnabled("nexerelin")) return true;
         return NexerlinUtilitys.canBeAttacked(market);
@@ -563,13 +567,13 @@ public class Utils {
         //if (isMinorFaction(faction)) return false;
         if (!Global.getSettings().getModManager().isModEnabled("nexerelin")) return !isMinorFaction(faction);
         return NexerlinUtilitys.canBeAttacked(faction);
-    }
+    }*/
     //determines if a faction can have there relations change. (aka, pirates don't have relationship changes. nore do some modded content.)
     @Setter
     private static HashSet<String> forcedRelations;
     @Setter
     private static HashSet<String> forcedNoRelations;
-    public static boolean canHaveRelations(FactionAPI faction){
+    /*public static boolean canHaveRelations(FactionAPI faction){
         HashSet<String> forced = forcedRelations;
         HashSet<String> prevented = forcedNoRelations;
         if (forced.contains(faction.getId())) return true;
@@ -577,14 +581,14 @@ public class Utils {
         //if (isMinorFaction(faction)) return false;
         if (!Global.getSettings().getModManager().isModEnabled("nexerelin")) return !isMinorFaction(faction);//return true;
         return NexerlinUtilitys.canChangeRelations(faction);
-    }
+    }/**/
     //prevents some factions from having war / peace declared, engaging/getting in invasions, and being raided (like pirates, for not pirates)
 
 	@Setter
 	private static HashSet<String> forcedMinorFaction;
 	@Setter
 	private static HashSet<String> forcedNotMinorFaction;
-
+    /*
 	public static boolean isMinorFaction(FactionAPI faction) {
 		HashSet<String> forced = forcedMinorFaction;
 		HashSet<String> prevented = forcedNotMinorFaction;
@@ -593,7 +597,7 @@ public class Utils {
 		if (!Global.getSettings().getModManager().isModEnabled("nexerelin")) return Misc.isPirateFaction(faction);
 		//to do: use nexerlin to determine if a faction is a minor faction.
 		return NexerlinUtilitys.isMinorFaction(faction);
-	}
+	}*/
 
 	public static float getTravelTime(SectorEntityToken origin, SectorEntityToken target) {
 		float distance = Misc.getDistanceLY(origin,target);

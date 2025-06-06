@@ -77,27 +77,6 @@
   "starlords_title": {
     "title_default_0": "Lord",
     "title_default_1": "High Lord",
-    "title_default_2": "First Lord",
-    "title_hegemony_2": "First Star Lord",
-    "title_hegemony_1": "Lord High Admiral",
-    "title_hegemony_0": "Lord Admiral",
-    "title_tritachyon_2": "COO",
-    "title_tritachyon_1": "Executive",
-    "title_tritachyon_0": "SVP",
-    "title_persean_2": "Megas Doux",
-    "title_persean_1": "Doux",
-    "title_persean_0": "Archon",
-    "title_sindrian_diktat_0": "Deputy Star Marshal",
-    "title_sindrian_diktat_1": "Star Marshal",
-    "title_sindrian_diktat_2": "Generalissimo",
-    "title_luddic_church_0": "Bishop",
-    "title_luddic_church_1": "Archbishop",
-    "title_luddic_church_2": "Cardinal",
-    "title_luddic_path_0": "Brother",
-    "title_luddic_path_1": "Brother",
-    "title_luddic_path_2": "Brother",
-    "title_pirates_0": "Pirate Lord",
-    "title_pirates_1": "Pirate Lord",
-    "title_pirates_2": "Pirate Lord"
+    "title_default_2": "First Lord"
   }
 }
