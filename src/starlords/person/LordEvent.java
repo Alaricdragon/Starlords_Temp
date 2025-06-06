@@ -141,7 +141,9 @@ public class LordEvent {
     public float getTotalFuel() {
         if (originator == null) return 0;
         float fuel = originator.getFleet().getCargo().getFuel();
+        if (originator.getFleet().getContainingLocation() == null) return fuel;
         for (Lord supporter : participants) {
+            if (supporter.getFleet().getContainingLocation() == null) continue;
             if (originator.getFleet().getContainingLocation().equals(
                     supporter.getFleet().getContainingLocation())) {
                 fuel += supporter.getFleet().getCargo().getFuel();

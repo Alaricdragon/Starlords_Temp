@@ -437,7 +437,7 @@ public class LordAI implements EveryFrameScript {
                 fleet.setDoNotAdvanceAI(false);
 
         // check for lord fleet defeat
-        if (fleet.isEmpty() && lord.getCurrAction() != LordAction.RESPAWNING
+        if ((fleet.isEmpty() || fleet.getContainingLocation() == null) && lord.getCurrAction() != LordAction.RESPAWNING
                 && lord.getCurrAction() != LordAction.IMPRISONED) {
             beginRespawn(lord);
             return;

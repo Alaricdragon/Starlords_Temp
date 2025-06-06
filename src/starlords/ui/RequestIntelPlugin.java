@@ -1,28 +1,32 @@
 package starlords.ui;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.SettingsAPI;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
+import com.fs.starfarer.api.impl.codex.CodexDataV2;
+import com.fs.starfarer.api.impl.codex.CodexEntryPlugin;
+import com.fs.starfarer.api.impl.codex.CodexEntryV2;
 import com.fs.starfarer.api.ui.*;
 import com.fs.starfarer.api.util.Misc;
-import exerelin.utilities.NexUtilsFaction;
-import exerelin.utilities.NexUtilsReputation;
-import exerelin.utilities.StringHelper;
 import org.lwjgl.input.Keyboard;
 import starlords.controllers.LordController;
 import starlords.controllers.RequestController;
 import starlords.person.Lord;
+import starlords.person.LordAction;
 import starlords.person.LordRequest;
 import org.apache.log4j.Logger;
 import starlords.util.Utils;
 
+import javax.tools.Tool;
 import java.awt.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.List;
 
 // Small intel entry to remind player of existing Lord requests
 public class RequestIntelPlugin extends BaseIntelPlugin {
@@ -68,6 +72,8 @@ public class RequestIntelPlugin extends BaseIntelPlugin {
 							+ "If you defeat " + captor.getLordAPI().getNameString() + " and release me I will join you as a loyal lord of the realm. "
 							+ ". So what do you say?", opad);
 
+					Utils.addShipHullsWithCodex(info, originator, pad);
+
 					if (request.hasPlayerAgreed() == true) {
 
 						info.addPara("Accepted", Color.GREEN, opad);
@@ -94,6 +100,8 @@ public class RequestIntelPlugin extends BaseIntelPlugin {
 							+ "If you agree to gift one of your fiefs I will join you as a loyal lord of the realm."
 							+ ". So what do you say?", opad);
 
+					Utils.addShipHullsWithCodex(info, originator, pad);
+
 					if (request.hasPlayerAgreed() == true) {
 
 						info.addPara("Accepted", Color.GREEN, opad);
@@ -102,8 +110,6 @@ public class RequestIntelPlugin extends BaseIntelPlugin {
 							info.addButton(fief.getName(), fief.getMarket(), getFactionForUIColors().getBaseUIColor(),
 									getFactionForUIColors().getDarkUIColor(), (int) width, 20, opad);
 						}
-
-
 					}
 
 					if (request.hasPlayerAgreed() == false) {

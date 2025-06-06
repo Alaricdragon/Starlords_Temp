@@ -1,14 +1,19 @@
 package starlords.util;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.SettingsAPI;
 import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.econ.Industry;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
+import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.combat.StatBonus;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin;
 import com.fs.starfarer.api.impl.campaign.ids.*;
+import com.fs.starfarer.api.impl.codex.CodexDataV2;
+import com.fs.starfarer.api.ui.TooltipMakerAPI;
+import com.fs.starfarer.api.ui.UIPanelAPI;
 import com.fs.starfarer.api.util.Misc;
 import exerelin.campaign.alliances.Alliance;
 import lombok.Setter;
@@ -24,9 +29,12 @@ import starlords.person.Lord;
 import starlords.person.LordAction;
 import starlords.person.LordEvent;
 import starlords.person.LordRequest;
+import starlords.ui.ToolTip;
 import starlords.util.factionUtils.FactionTemplateController;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 import static starlords.util.Constants.*;
 
@@ -42,7 +50,7 @@ public class Utils {
     private static final int HEAVY_PATROL_FP = 65;
     @Setter
     private static boolean showMessageLordCaptureReleaseEscape;
-    public static final Random rand = new Random(); // for low-priority rng that doesn't need to be savescum-proof
+	public static final Random rand = new Random(); // for low-priority rng that doesn't need to be savescum-proof
     public static String getFactionTitle(String faction,int ranking){
         switch (ranking){
             case 2:
@@ -108,6 +116,50 @@ public class Utils {
 			}
 		}
 		return orderStr;
+	}
+
+	public static void addShipHullsWithCodex (TooltipMakerAPI info, Lord lord, float pad) {
+		info.beginImageWithText("",5,200,true);
+		info.addImageWithText(pad);
+
+		float totalChance = 0;
+
+		SettingsAPI settings = Global.getSettings();
+		List<ShipHullSpecAPI> hullList = new ArrayList<>();
+		Map<ShipHullSpecAPI,Integer> hullIdQtyMap = new LinkedHashMap<>();
+		for (Map.Entry<String,Integer> ship : lord.getTemplate().shipPrefs.entrySet()) {
+			ShipHullSpecAPI shipHull = settings.getHullSpec(Misc.getHullIdForVariantId(ship.getKey()));
+			if (hullList.contains(shipHull) == false){
+				hullList.add(shipHull);
+				hullIdQtyMap.merge(shipHull,ship.getValue(),Integer::sum);
+				totalChance += ship.getValue();
+			}
+		}
+		hullList.sort(Comparator.comparing(ShipHullSpecAPI::getHullSize));
+		Collections.reverse(hullList);
+
+		UIPanelAPI firstItem = null;
+		UIPanelAPI prevItem = null;
+		UIPanelAPI newItem = null;
+		for (ShipHullSpecAPI ship : hullList) {
+			TooltipMakerAPI image = info.beginImageWithText(ship.getSpriteName(),40,40,false);
+			if (firstItem == null) {
+				firstItem = info.addImageWithText(pad);;
+				prevItem = firstItem;
+			}
+			else
+			{
+				newItem = info.addImageWithText(pad);
+				newItem.getPosition().rightOfTop(prevItem, pad);
+				prevItem = newItem;;
+			}
+			String tooltipStr = (int) Math.ceil((hullIdQtyMap.get(ship) / totalChance) * 30f)  + " x " + ship.getNameWithDesignationWithDashClass();
+			info.addTooltipToPrevious( new ToolTip(200, tooltipStr, Color.WHITE, CodexDataV2.getShipEntryId(ship.getHullId())), TooltipMakerAPI.TooltipLocation.LEFT);
+		}
+
+		info.beginImageWithText("",5,200,true);
+		newItem = info.addImageWithText(pad);
+		newItem.getPosition().belowLeft(firstItem, pad);
 	}
 
 	public static void printLordData(Lord lord) {

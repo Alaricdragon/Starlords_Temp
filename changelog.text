@@ -1,3 +1,12 @@
+V0.3.47:
+    fixes:
+        fixed a fuel related, null containing location crash
+    (thanks Aleksandros for the following):
+        upon defection, fiefs only defect if they have less than 7 stability
+        lord fleet preferences now appear in lord requests
+        fixes:
+            orbital stations now defect with the market, whereas before this wasn't the case
+            lords were not able to spawn if they defected while imprisoned or during spawn process (I think)
 V0.3.46:
     fixes:
         fixed starlords being unable to target the player faction, ever, for any reason. and only the player faction.

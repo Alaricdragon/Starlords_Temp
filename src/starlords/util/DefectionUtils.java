@@ -5,6 +5,7 @@ import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.RepLevel;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Entities;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
 import com.fs.starfarer.api.util.Misc;
@@ -268,9 +269,18 @@ public class DefectionUtils {
         // fiefs defect with the lord as long as they aren't turning pirate
         // changed this into faction that can be attacked. I considered this for all minor factions, but some of them can be attacked, and such can get back there markets so...
         if (includeFiefs && FactionTemplateController.getTemplate(oldFaction).isCanLordsTakeFiefsWithDefection() && !FactionTemplateController.getTemplate(faction).isCanLordsTakeFiefsWithDefection()) {
-            for (SectorEntityToken fief : lord.getFiefs()) {
-                fief.getMarket().setFactionId(faction.getId());
-                fief.setFaction(faction.getId());
+            for (SectorEntityToken fief : new ArrayList<>(lord.getFiefs())) {
+                if (fief.getMarket().getStabilityValue() < 7) {
+	                fief.getMarket().setFactionId(faction.getId());
+	                fief.setFaction(faction.getId());
+
+	                for (SectorEntityToken entity : fief.getMarket().getConnectedEntities()) {
+		                if (entity.getCustomEntityType().equals(Entities.STATION_BUILT_FROM_INDUSTRY))
+		                    entity.setFaction(faction.getId());
+	                }
+                }
+				else
+	                FiefController.setOwner(fief.getMarket(), null);
             }
         } else {
             for (SectorEntityToken fief : new ArrayList<>(lord.getFiefs())) {
