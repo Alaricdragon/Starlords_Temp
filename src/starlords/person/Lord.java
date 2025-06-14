@@ -531,8 +531,12 @@ public class Lord {
 //				+ " Current Request: " + RequestController.getCurrentDefectionRequest(this)
 //		);
         if (!FactionTemplateController.getTemplate(getFaction()).isCanStarlordsJoin()) return false;
+        if (this.captor == null || LordController.getLordById(this.captor) == null){
+            setCaptor(null);
+            return false;
+        }
 		if (this.getEscapeAttempts() >= Constants.FAILED_PRISON_ESCAPES_ASK_ASSISTANCE
-				&& LordController.getLordById(this.captor).isPlayer() == false
+				&& !LordController.getLordById(this.captor).isPlayer()
 				&& RelationController.getRelation(this, LordController.getPlayerLord()) >= Utils.getThreshold(RepLevel.SUSPICIOUS)
 				&& Misc.getCommissionFaction() == null
 				&& RequestController.getCurrentDefectionRequest(this) == null)
