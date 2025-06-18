@@ -9,6 +9,7 @@ import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
+import jdk.jfr.EventType;
 import lombok.Getter;
 import starlords.person.Lord;
 import starlords.person.LordEvent;
@@ -19,13 +20,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-// intel entry to notify player of hostile raids and campaigns targeting their faction
+// intel entry to notify player of hostile raids and campaigns targeting their faction and raids initiated by allied lords
 public class HostileEventIntelPlugin extends BaseIntelPlugin {
 
     @Getter
     private final SectorEntityToken target;
     @Getter
     private final LordEvent event;
+	private final boolean playerTargeted;
+	private final boolean alliedOriginator;
+	private final String eventType;
     private static final float pad = 3;
     private static final float opad = 10;
 
@@ -33,6 +37,13 @@ public class HostileEventIntelPlugin extends BaseIntelPlugin {
         setImportant(true);
         this.event = event;
         target = event.getTarget();
+		playerTargeted = target.getFaction().equals(Utils.getRecruitmentFaction());
+		if (event.getOriginator() != null)
+			alliedOriginator = event.getOriginator().getFaction().equals(Utils.getRecruitmentFaction());
+		else
+			alliedOriginator = false;
+		if (alliedOriginator) eventType = "Allied";
+			else eventType = "Hostile";
     }
 
 	@Override
@@ -42,10 +53,10 @@ public class HostileEventIntelPlugin extends BaseIntelPlugin {
 		FactionAPI faction = originator.getFaction();
 		info.addImages(256, 128, pad, 0, faction.getCrest(),
 				originator.getLordAPI().getPortraitSprite());
-		info.addPara("You've received reports of an imminent hostile incursion led by "
+		info.addPara("You've received reports of an imminent " + eventType.toLowerCase() + " incursion led by "
 				+ originator.getLordAPI().getNameString() + ".", opad);
 		info.addPara("Target: " + target.getName(), uiColor, opad);
-		info.addPara("Hostile fleets: " + (event.getParticipants().size() + 1), uiColor, pad);
+		info.addPara(eventType + " fleets: " + (event.getParticipants().size() + 1), uiColor, pad);
 
 		String arrivalDays = Utils.getLordTravelTimeString(event.getOriginator(), event.getTarget());
 		String arrivalStr = originator.getLordAPI().getNameString() + " - estimated arrival: " + arrivalDays;
@@ -108,8 +119,11 @@ public class HostileEventIntelPlugin extends BaseIntelPlugin {
     @Override
     public boolean isDone() {
         if (event.getTarget() == null) return true;
-        return !event.isAlive() || !playerTargeted()
-                || !event.getTarget().equals(target);
+        if (!event.isAlive() || !event.getTarget().equals(target))
+			return true;
+		if (playerTargeted || alliedOriginator)
+			return false;
+		return true;
     }
 
     @Override
@@ -124,7 +138,7 @@ public class HostileEventIntelPlugin extends BaseIntelPlugin {
 
     @Override
     public String getName() {
-        return "Hostile Alert: " + target.getName();
+        return eventType + " Action Alert: " + target.getName();
     }
 
     @Override
@@ -144,21 +158,16 @@ public class HostileEventIntelPlugin extends BaseIntelPlugin {
 	@Override
 	public Set<String> getIntelTags(SectorMapAPI map) {
 		Set<String> tags = super.getIntelTags(map);
-		tags.add("Military");
-		tags.add(Tags.INTEL_COLONIES);
+		tags.add("Lord Actions");
+		if (playerTargeted)
+			tags.add(Tags.INTEL_COLONIES);
 		return tags;
 	}
 
-    private boolean playerTargeted() {
-        // warning: we don't do null check here
-        FactionAPI faction = event.getTarget().getFaction();
-        return faction.equals(Utils.getRecruitmentFaction()) || faction.equals(Global.getSector().getPlayerFaction());
-    }
-
 	@Override
 	public void reportRemovedIntel() {
-		if (playerTargeted())
-			Global.getSector().getCampaignUI().addMessage("Raid against "
+		if (playerTargeted || alliedOriginator)
+			Global.getSector().getCampaignUI().addMessage(eventType + " Raid against "
 					+ this.target.getName()
 					+ " HAS ENDED.", Color.LIGHT_GRAY);
 	}
