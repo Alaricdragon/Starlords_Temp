@@ -26,6 +26,7 @@ public final class LordTemplate {
     public final String flagShip;
     public final String lore;
     public final HashMap<String, Integer> shipPrefs;
+    public final HashMap<String, Float> alignments;
     public final HashMap<String, Integer> customSkills;
 
     public final HashMap<String, Integer> customLordSMods;
@@ -94,6 +95,16 @@ public final class LordTemplate {
             String key = (String) it.next();
             shipPrefs.put(key, prefJson.getInt(key));
         }
+        // Alignments initialization
+        alignments = new HashMap<>();
+        if (template.has("alignments")) {
+            JSONObject alignmentsJson = template.getJSONObject("alignments");
+            for (Iterator it = alignmentsJson.keys(); it.hasNext(); ) {
+                String key = (String) it.next();
+                alignments.put(key, (float) alignmentsJson.getDouble(key));
+            }
+        }
+
         customSkills = new HashMap<>();
         if (template.has("customSkills")) {
             JSONObject skillJson = template.getJSONObject("customSkills");
@@ -191,6 +202,7 @@ public final class LordTemplate {
         level = template.level;
         ranking = template.ranking;
         shipPrefs = template.shipPrefs;
+        alignments = new HashMap<>();
         customSkills = new HashMap<>();
         executiveOfficers = new HashMap<>();
         customLordSMods = new HashMap<String,Integer>();

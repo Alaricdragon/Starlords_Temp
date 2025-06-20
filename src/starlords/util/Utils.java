@@ -222,6 +222,16 @@ public class Utils {
         return ret;
     }
 
+	public static MarketAPI getFactionMarket(String marketName, String factionId)
+	{
+		for (MarketAPI market : getFactionMarkets(factionId))
+			if (market.getName().equalsIgnoreCase(marketName))
+			{
+				return market;
+			}
+		return null;
+	}
+
     public static float getHyperspaceDistance(SectorEntityToken entity1, SectorEntityToken entity2)
     {
         if (entity1.getContainingLocation() == entity2.getContainingLocation()) return 0;
@@ -948,8 +958,8 @@ public class Utils {
                 + "\tFaction";
 
         for (Map.Entry<Alliance.Alignment, Float> alignment : rowAlignments.entrySet()) {
-            output += "\tLord " + alignment.getKey().getName();
-            output += "\tFaction " + alignment.getKey().getName();
+            output += " \tLord " + alignment.getKey().getName();
+            output += " \tFaction " + alignment.getKey().getName();
         }
         output += System.lineSeparator();
 

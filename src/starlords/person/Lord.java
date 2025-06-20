@@ -156,7 +156,12 @@ public class Lord {
 
         if (Utils.nexEnabled()) {
             persistentData.put("alignments", new HashMap<Alliance.Alignment, Float>());
-            this.alignments = NexerlinUtilitys.generateLordAlignments(this);
+            if (template.alignments.isEmpty()) {
+                this.alignments = NexerlinUtilitys.generateLordAlignments(this);
+            }
+            else {
+                this.alignments = NexerlinUtilitys.generateLordAlignmentsFromTemplate(this);
+            }
             persistentData.put("alignments", alignments);
         }
 

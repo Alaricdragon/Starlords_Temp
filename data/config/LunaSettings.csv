@@ -17,6 +17,7 @@ Other_requiredRepForKnowledgeOfCurAction,Required reputation for knowing a lords
 Other_showAllLordsIntelByDefault,Show lords in the intel tab before you meet them,Boolean,false,,,,,Other
 Other_showMessageLordCaptureReleaseEscape,"Show UI Message when lords are captured, released or escape",Boolean,false,,This setting is always true for lords of your own faction or faction you have a commission with.,,,Other
 Other_playerExtraCouncilWeight,Player Extra Own Faction Council Weight,Int,2000,,This setting adds the configured value to the player's weight in own faction's council votes..,0,5000,Other
+Other_minStabilityToPreventFiefDefection,"Minimum Stability to Prevent Fief Defection",Int,7,,"This setting sets the minimum stability the fief/market needs to have in order to not defect with the lord. If the market has lower stability than the configured value, then it will defect.",0,10,Other
 ,,,,,,,,
 Header_lordFleetSettings,,Header,Lord fleet settings,,,,,Other
 Other_maxSMods,Maximum number of S-Mods a starlord can have on each ship,Int,3,,,0,100,Other
