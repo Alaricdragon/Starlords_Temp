@@ -20,11 +20,8 @@ import starlords.generator.types.fleet.LordFleetGenerator_Desing;
 import starlords.generator.types.fleet.LordFleetGenerator_Hullmod;
 import starlords.generator.types.fleet.LordFleetGenerator_System;
 import starlords.ui.LordsIntelPlugin;
-import starlords.util.Constants;
-import starlords.util.LordFleetFactory;
+import starlords.util.*;
 import starlords.util.SModSupport.SModSet;
-import starlords.util.Utils;
-import starlords.util.WeightedRandom;
 import starlords.util.dialogControler.DialogSet;
 import starlords.util.factionUtils.FactionTemplateController;
 
@@ -237,6 +234,7 @@ public class StoredSettings {
         LordsIntelPlugin.setAllowLordsToBeViewed(LunaSettings.getBoolean(Constants.MOD_ID,"Other_showAllLordsIntelByDefault"));
         Utils.setShowMessageLordCaptureReleaseEscape(LunaSettings.getBoolean(Constants.MOD_ID,"Other_showMessageLordCaptureReleaseEscape"));
         PoliticsController.PLAYER_EXTRA_COUNCIL_WEIGHT = LunaSettings.getInt(Constants.MOD_ID,"Other_playerExtraCouncilWeight");
+        DefectionUtils.MIN_STABILITY_TO_PREVENT_FIEF_DEFECTION = LunaSettings.getInt(Constants.MOD_ID,"Other_minStabilityToPreventFiefDefection");
         //player faction being attacked settings
         TargetUtils.setCanPlayerBeAttacked(LunaSettings.getBoolean(Constants.MOD_ID,"features_canPlayerFactionBeAttacked"));
         TargetUtils.setCanPlayerBeAttackedBeforeStarlords(LunaSettings.getBoolean(Constants.MOD_ID,"features_canPlayerFactionBeAttackedBeforeStarlords"));
@@ -438,6 +436,7 @@ public class StoredSettings {
         LordsIntelPlugin.setAllowLordsToBeViewed(json.getBoolean("showAllLordsIntelByDefault"));
         Utils.setShowMessageLordCaptureReleaseEscape(json.getBoolean("showMessageLordCaptureReleaseEscape"));
         PoliticsController.PLAYER_EXTRA_COUNCIL_WEIGHT = json.getInt("playerExtraCouncilWeight");
+        DefectionUtils.MIN_STABILITY_TO_PREVENT_FIEF_DEFECTION = json.getInt("minStabilityToPreventFiefDefection");
         TargetUtils.setCanPlayerBeAttacked(json.getBoolean("features_canPlayerFactionBeAttacked"));
         TargetUtils.setCanPlayerBeAttackedBeforeStarlords(json.getBoolean("features_canPlayerFactionBeAttackedBeforeStarlords"));
 

@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import starlords.controllers.*;
 import starlords.person.Lord;
 import starlords.person.LordAction;
+import starlords.person.LordEvent;
 import starlords.person.LordRequest;
 import starlords.util.DefectionUtils;
 import starlords.util.LordFleetFactory;
@@ -261,7 +262,7 @@ public class BattleListener extends BaseCampaignEventListener {
 
 			    LordRequest prisonerRequest = RequestController.getCurrentRequest(existingPrisoner, LordRequest.PRISON_BREAK);
 			    if (prisonerRequest != null && prisonerRequest.hasPlayerAgreed() && playerWon) {
-				    DefectionUtils.performDefection(existingPrisoner, captor.getFaction(), true);
+				    DefectionUtils.performDefection(existingPrisoner, Utils.getRecruitmentFaction(), true);
 				    freed = true;
 			    }
 
@@ -303,6 +304,15 @@ public class BattleListener extends BaseCampaignEventListener {
 				    marshal.setControversy(Math.min(100, marshal.getControversy() + 1));
 			    }
 		    //}
+
+		    //Check if lord was defeated in a battle that was leading a campaign, and if so, remove the campaign
+		    LordEvent campaign = EventController.getCurrentCampaign(defeated.getFaction());
+		    if (campaign != null) {
+			    if (campaign.getOriginator() != null)
+				    if (campaign.getOriginator().equals(defeated))
+					    EventController.endCampaign(campaign);
+		    }
+
 
 		    String afterPrisonerCalculation = "[Star Lords] Winner Lords:" + System.lineSeparator()
 				    + Utils.printLordsWithPrisoners(winnerLords) + System.lineSeparator()

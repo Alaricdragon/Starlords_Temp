@@ -2,6 +2,7 @@ package starlords.util;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionAPI;
+import com.fs.starfarer.api.campaign.FleetActionTextProvider;
 import com.fs.starfarer.api.campaign.RepLevel;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.impl.campaign.missions.academy.GACelestialObject;
@@ -16,6 +17,7 @@ import starlords.person.Lord;
 import javax.swing.text.ChangedCharSetException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class NexerlinUtilitys {
     private static boolean areInvasionsEnabled = true;
@@ -123,6 +125,16 @@ public class NexerlinUtilitys {
         }
 
     return lordAlignments;
+    }
+
+    public static Map<Alliance.Alignment, Float> generateLordAlignmentsFromTemplate(Lord lord) {
+        Map<Alliance.Alignment, Float> lordAlignments = new HashMap<>();
+
+        for (Alliance.Alignment alignment : Alliance.Alignment.getAlignments()) {
+            Float value = Objects.requireNonNullElse(lord.getTemplate().alignments.get(alignment.toString()),0f);
+            lordAlignments.put(alignment, value);
+        }
+        return lordAlignments;
     }
 
     public static float getAlignmentsComparison(Map<Alliance.Alignment, Float> a, Map<Alliance.Alignment, Float> b) {

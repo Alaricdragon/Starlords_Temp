@@ -96,6 +96,7 @@ public class LawProposal {
             if (!faction.equals(Global.getSector().getPlayerFaction())) {
                 ctr += PoliticsController.getPoliticalWeight(LordController.getPlayerLord());
             } else  {
+                ctr += PoliticsController.PLAYER_EXTRA_COUNCIL_WEIGHT;
                 ctr *= PoliticsController.getLiegeMultiplier(Global.getSector().getPlayerFaction());
             }
         }

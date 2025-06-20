@@ -115,9 +115,13 @@ public class EventController extends BaseIntelPlugin {
     public static void addRaid(LordEvent raid) {
         getInstance().raids.add(raid);
         FactionAPI targetFaction = raid.getTarget().getFaction();
-        if (raid.getOriginator() != null && (targetFaction.equals(Utils.getRecruitmentFaction())
-                || targetFaction.equals(Global.getSector().getPlayerFaction()))) {
-            Global.getSector().getIntelManager().addIntel(new HostileEventIntelPlugin(raid));
+        FactionAPI playerFaction = Global.getSector().getPlayerFaction();
+        Lord originator = raid.getOriginator();
+        if (originator != null)
+            if (targetFaction.equals(Utils.getRecruitmentFaction())
+                    || targetFaction.equals(playerFaction)
+                    || originator.getFaction().equals(Utils.getRecruitmentFaction())) {
+                Global.getSector().getIntelManager().addIntel(new HostileEventIntelPlugin(raid));
         }
         LordAI.triggerPreemptingEvent(raid);
     }

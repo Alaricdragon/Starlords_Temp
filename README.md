@@ -72,6 +72,15 @@ If you're a modder or just want to put your own characters into the game, all yo
 * "preferredItem" can be any of `domestic_goods`, `food`, `luxury_goods`, `drugs`, `hand_weapons`, `alpha_core`, or `lobster`.
 * "executiveOfficers" for custom second in command officer layouts. It is a json object where the id is the officer's aptitude, and the value a list of his chosen skills. Skills will continue to be added at random until the executive officers are fully leveled up if they are not specified. 
 * "dialogOverride" for custom lord dialogs. Is is a json array were the id is the dialog id (matched to the id of a object in the dialog.json). will attempt to run said Dialogs, but will also run the normal dialogs if the line it is looking for does not exsist in the inputed Dialogs (or if the lord fails to meet the requirements for the wanted line)
+* "alignments" requires nexerlin to work. lords will prefer to defect to factions with alignments similar to themselfs. all values must be between -1 and 1. example as follows:
+*    "alignments": {
+     "CORPORATE": -0.5,
+     "TECHNOCRATIC": -0.5,
+     "MILITARIST": 0.5,
+     "HIERARCHICAL": 0.5,
+     "DIPLOMATIC": -0.5,
+     "IDEOLOGICAL": 0.5
+     }
 * Flagship and ship preferences must contain valid ship variant ids. You can find these under the `/data/variants` folder of `starsector-core` or any mod directories.
 * Faction and fief will be automatically converted to lower case. Ship variants are case-sensitive.
 
