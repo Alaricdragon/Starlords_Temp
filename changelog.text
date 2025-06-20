@@ -1,3 +1,13 @@
+V0.3.49:
+    fixes:
+        (hopefully) fixed a issue were the game would crash on freeing a prisoner
+    (thanks Aleksandros for the following):
+        AddLordFief Command can now resolve markets based on name in addition to ids
+        Campaign is now finished if campaign leader is defeated. Previously, participant lords would just have their AI broken and leader would be stuck in an endless loop of respawn -> attack
+        Added Setting for "Minimum Stability to Prevent Fief Defection". set this to prevent fiefs from defecting if their stability is greater or equal than set value
+        Added Intel Plugin for allied lords participating and starting raids
+        Added Extra Player Council weight in calculation of next proposal to be voted
+        Added possibility to configure Alignments for lords in lords.json:
 V0.3.48:
     (hopefully) fixed a crash related to a lords capture not existing for some reason?
 V0.3.47:

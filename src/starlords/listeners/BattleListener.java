@@ -262,7 +262,7 @@ public class BattleListener extends BaseCampaignEventListener {
 
 			    LordRequest prisonerRequest = RequestController.getCurrentRequest(existingPrisoner, LordRequest.PRISON_BREAK);
 			    if (prisonerRequest != null && prisonerRequest.hasPlayerAgreed() && playerWon) {
-				    DefectionUtils.performDefection(existingPrisoner, captor.getFaction(), true);
+				    DefectionUtils.performDefection(existingPrisoner, Utils.getRecruitmentFaction(), true);
 				    freed = true;
 			    }
 
