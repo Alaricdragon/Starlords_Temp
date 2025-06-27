@@ -181,7 +181,7 @@ public class LordAI implements EveryFrameScript {
                     priority = LordAction.FEAST.priority;
                 } else {
                     // weight of staying at feast
-                    if (!currFeast.getOriginator().equals(lord)) {
+                    if (currFeast.getOriginator() == null || !currFeast.getOriginator().equals(lord)) {
                         feastWeight = 20;
                         priority = LordAction.FEAST.priority;
                     } else if (Utils.getDaysSince(currFeast.getStart()) < FEAST_MAX_DURATION) {
