@@ -1,3 +1,6 @@
+V0.3.50:
+    fixes:
+        fixed a crash that could prevent you from loading your save if a lord died well hosting a feast.
 V0.3.49:
     fixes:
         (hopefully) fixed a issue were the game would crash on freeing a prisoner
