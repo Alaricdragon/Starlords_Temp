@@ -1,3 +1,6 @@
+V0.3.52:
+    fixes:
+        (hopefully) fixed a crash on game load related to a starlord not be accessible from the relation controler
 V0.3.51:
     fixes:
         fixed a crash that could prevent you from loading your save if a lord died well hosting a feast.

@@ -150,6 +150,12 @@ public class RelationController extends BaseIntelPlugin {
         }catch (Exception e){
             Logger log = Global.getLogger(RelationController.class);
             log.info("ERROR: failed to get lords for relation change. ignoring relation changes");
+            return;
+        }
+        if (idx1 == -1 || idx2 == -1){
+            Logger log = Global.getLogger(RelationController.class);
+            log.info("ERROR: failed to get lords for relation change. ignoring relation changes");
+            return;
         }
         int newRel = Math.max(-100, Math.min(100, getInstance().lordRelations[Math.min(idx1, idx2)][Math.max(idx1, idx2)] + amount));
         getInstance().lordRelations[Math.min(idx1, idx2)][Math.max(idx1, idx2)] = newRel;
