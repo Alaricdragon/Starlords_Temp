@@ -749,7 +749,7 @@ public class PoliticsController implements EveryFrameScript {
         switch (proposal.law) {
             case APPOINT_MARSHAL:
                 lord = LordController.getLordOrPlayerById(proposal.getTargetLord());
-                if (lord.getRanking() == 2) {
+                if (lord != null && lord.getRanking() == 2) {
                     delta = 25;
                 } else {
                     delta = -25;
@@ -761,13 +761,18 @@ public class PoliticsController implements EveryFrameScript {
                 if (marshal != null) {
                     marshalControversy = marshal.getControversy();
                 }
-                delta = marshalControversy - lord.getControversy();
+                delta = marshalControversy;
+                if (lord != null) delta -= lord.getControversy();
                 approval += delta;
                 reasons.add(addPlus(delta) + " Relative controversy");
                 break;
             case AWARD_FIEF:
                 lord = LordController.getLordOrPlayerById(proposal.getTargetLord());
-                delta = 25 * (2 - lord.getFiefs().size());
+                int size = 0;
+                if (lord != null){
+                    size = lord.getFiefs().size();
+                }
+                delta = 25 * (2 - size);
                 approval += delta;
                 if (delta > 0) reasons.add(addPlus(delta) + " Recipient has few fiefs");
                 if (delta < 0) reasons.add(addPlus(delta) + " Recipient has many fiefs");
