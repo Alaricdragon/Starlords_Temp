@@ -1,3 +1,8 @@
+V0.3.54:
+    fixes:
+        (hopefully)fixed a crash involving a lord not exsisting, but still suporting a proposal
+        (hopefully) fixed a crash when a starlord tried to defect well holding a feif of a none combatable type. (plz dont ask)
+        fixed a crash were a lord would die well hosting a feast and take the sector with them.
 V0.3.53:
     fixes:
         (hopefully) fixed a crash when a lord dies and is that target of a proposal? hopefully?
