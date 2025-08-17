@@ -440,7 +440,7 @@ public class EventController extends BaseIntelPlugin {
                 case FEAST:
                     LordEvent feast = EventController.getCurrentFeast(lord.getFaction());
                     if (feast != null) {
-                        if (feast.getOriginator().equals(lord)) {
+                        if (lord != null && (feast.getOriginator() == null || feast.getOriginator().equals(lord))) {
                             EventController.endFeast(feast);
                         } else {
                             feast.getParticipants().remove(lord);

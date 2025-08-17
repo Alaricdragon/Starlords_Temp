@@ -276,6 +276,7 @@ public class DefectionUtils {
 	                fief.setFaction(faction.getId());
 
 	                for (SectorEntityToken entity : fief.getMarket().getConnectedEntities()) {
+						if (entity == null || entity.getCustomEntityType() == null) continue;
 		                if (entity.getCustomEntityType().equals(Entities.STATION_BUILT_FROM_INDUSTRY))
 		                    entity.setFaction(faction.getId());
 	                }

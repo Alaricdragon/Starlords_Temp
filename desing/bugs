@@ -61,3 +61,5 @@ NOTE: I forgot to record the original list, so there are some bugs missing from 
     b) ship CR is not saved between battles.
     c) you cant see all the escorts, or the difficulty rating
     d) AI ships in garrisons will sometimes have human officers instead of AI cores.
+9) defection:
+    a) feifs without a 'entity.getCustomEntityType' will not join defections do to possible crashes. frustrating.

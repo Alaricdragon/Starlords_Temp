@@ -1315,6 +1315,7 @@ public class PoliticsController implements EveryFrameScript {
     }
 
     public static int getPoliticalWeight(Lord lord) {
+        //if (lord == null || lord.getFaction() == null) return 0;//todo: find out why lords sometimes have no internal faction.
         LawLevel nobleAuthority = getLaws(lord.getFaction()).getNobleAuthority();
         float upperNobleMult = 0;
         switch (nobleAuthority) {
