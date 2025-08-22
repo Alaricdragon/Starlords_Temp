@@ -1,7 +1,12 @@
 things I need to learn:
     1) how to load a class with only the class path?
         -FactionTemplateController thing = Global.getSettings().getScriptClassLoader().loadClass("starlords.util.factionUtils.FactionTemplateController").asSubclass(FactionTemplateController.class);//????
-
+(random):
+    have starlords go to the faction leader to request support
+        -have starlords go to the player to request support. (using the unfinished 'lord request' system, to request things like larger fleets, more income, so on and so forth.)
+        -have the ability to give out quests for starlords
+    let us pick out images and details.
+        -let us edit our lords images, and fleet details. this is for the lore. at least add in a dev mode..
 structure:
     1) dialog:
         -I am currently working on this.
@@ -153,6 +158,44 @@ features:
         6.0) contacts. I want to beable to use the contact system on starlords. letting the player have some very complecated missions. (also this lets starlords have more personality in there missions. because of differing contact types).
         6.1) starting missions. this is the hard part. I like the fact you can just go up to starlords and talk to them. but it would be nice if they could like... talk to you. like what happens in normal bar missions. I dont know what this would require.
         -) I for sure want 6.0 though. that is just really really important.
+    7) power structures and balances: (henceforth referred to as 'PMC's)
+        -) requires an complete upgrade to the politics system
+        -) what this would do, is effectively allow starlords to 'employ' other starlords and NPC fleets (generic fleets) to preform actions on there beneath. this function would replace garrisons (because they are a nightmare of issues).
+        -) issues:
+            -) the number of starlords currently present would need to be pruned, or otherwize reduced (or just make most starlords be poor people forced to work for there overlords (make it hard to get enough income to do something sneaky?))
+        -) features:
+            -) the ability to recruit starlords to work for the player / other starlords.
+            -) starlords in a 'PMC' would have the following limitations:
+                -they would gain income from there employers stockpile of credits.
+                -they would only beable to rearm at wereever there might be a bace for the 'PMC' (player would have some type of free support there instead)
+                -they would have considerably reduced political power.
+                -voting against whoever controls the 'PMC' could have dire repercussions. (your boss is mad at you)
+                -the ability to complete quests for the owner of the 'PMC' to acquire rep, privileges, and credits.
+                -starlords inside of a 'PMC' would beable to form there own, lesser 'PMC's if they somehow get enouth income. (although most would prefer to leave, especially if they become more powerful then there boss. rebellion macanics?)
+                -starlords withen a 'PMC' can request additional support from there leaders if they feel they deserve it. this would be completed however...
+                -starlords that are part of a 'PMC' would have the ability to join a lower ranking 'PMC' (aka a 'PMC' working for the 'PMC' they are already a part of) at will, provided the faction laws allow it.
+            -) starlords who control a 'PMC' would have the following powers:
+                -the ability to issue timed quests to the 'PMC'.
+                -the ability to force starlords in the 'PMC' to use selected ships? (maybe only the player will get this power...? (or only enabled in the lords.json))
+                -the ability to decide (not vote for decide) on Law within the 'PMC'. (requires a politics rewrite)
+                    -laws on if someone is allowed to leave.
+                    -laws dictating income for each NPC or Starlord.
+                    -laws dictating tax on trade? (a trade based PMC. a PTC? (private trade compony)) all sorts of laws, this is for the law rewrite ignore for now.
+                -the ability to forcefully remove, or disband the PMC.
+                -complete control on who is allowed to join, or is forced to leave.
+                -the ability to start a 'campaign' for everyone in the PMC. (smaller campaigns yay)
+                -the ability to funnle contracts from any 'PMC' they are working for, down into there own PMC (all well taking a percent of the income as 'taxes' for the opportunity)
+                -set other tasks, such as system bounty's, worlds to defend, so on and so forth.
+            -) 'PMC's all the way up.
+                - in code based structure, this could allow for PMC's to function all the way up to the top. as in the very top. as in the faction politics would, in code, be a PMC. just a mush more grand and interesting one.
+                - decentralized factions (only pirates for now) would not have the highest level of structure be a PMC. instead, they would only beable to do things like hold feasts? maybe? (or maybe just make it a very lose PMC.)
+                - faction 'PMC's would have there income decided based on something like a projected total market income? (to mirror the player faction) (without AOFD getting in the way?)
+        -7.0) build up the core 'PMC' system. this will require a new controller.
+        -7.1) reorganize the politic system to force the politics system to be attached to PMC's instead of factions.
+        -7.2) upgrade the starlord request system to allow for starlords to give each-other missions.
+            -note: also add in a system to allow for missions to reach a PMC / starlord from -outside- the PMC's structure and controlling PMC. (but as more of a suggestion then a command. this is useful for the bounty system later.)
+        -7.3) do some minor work on the AI to allow for starlords to take missions from other sorces (or just do the PMC system after the AI upgrade) (or make it part of the AI upgrade)
+        -7.4) update starlords writing, and interrupts, to allow for starlords requesting things of there bosses / subordinates (and the player.)
 misc improvements:
     1) s-mod improvements:
         1.0) I want to go into the SMods.json and add a bunch of Smod possabilitys
