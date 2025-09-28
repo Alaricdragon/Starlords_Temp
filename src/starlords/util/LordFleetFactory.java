@@ -61,6 +61,9 @@ public class LordFleetFactory extends FleetFactoryV3 {
                 ship.setCaptain(lord.getLordAPI());
             } else {
                 PersonAPI officer = lord.getLordAPI().getFaction().createRandomPerson();
+                if (officer == null){
+                    officer = Global.getSector().getPlayerFaction().createRandomPerson();
+                }
 
                 boolean isAuxiliaryAIShip = !officer.isAICore() && Misc.isAutomated(ship);
 
