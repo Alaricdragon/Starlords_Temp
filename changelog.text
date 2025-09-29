@@ -1,3 +1,6 @@
+V0.3.56:
+    fixes:
+        fixed a save breaking bug for when you place an nexerlin outpost in the abyss then the game destroys it because the abyss is the death of all things.
 V0.3.55:
     fixes:
         maybe fixed a rare crash that could happen when a fleet attempted to aquire officers
