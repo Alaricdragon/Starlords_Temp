@@ -254,6 +254,7 @@ public class Lord {
         }
         List<String> storedFiefs = (List<String>) persistentData.get("fief");
         for (String fiefStr : storedFiefs) {
+            if(Global.getSector().getEconomy().getMarket(fiefStr) == null) continue;
             fiefs.add(Global.getSector().getEconomy().getMarket(fiefStr).getPrimaryEntity());
         }
         if (persistentData.containsKey("prisoners")) {
