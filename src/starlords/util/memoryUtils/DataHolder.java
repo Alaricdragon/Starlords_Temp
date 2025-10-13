@@ -12,17 +12,21 @@ public class DataHolder {
     protected HashMap<String,Long> sTimestamp = new HashMap<>();
     protected HashMap<String,Long> bTimestamp = new HashMap<>();
     protected HashMap<String,Long> iTimestamp = new HashMap<>();
+    protected HashMap<String,Long> oTimestamp = new HashMap<>();
     protected HashMap<String,Integer> sExpire = new HashMap<>();
     protected HashMap<String,Integer> bExpire = new HashMap<>();
     protected HashMap<String,Integer> iExpire = new HashMap<>();
+    protected HashMap<String,Integer> oExpire = new HashMap<>();
 
     protected HashMap<String,String> strings = new HashMap<>();
     protected HashMap<String,Boolean> booleans = new HashMap<>();
     protected HashMap<String,Integer> integers = new HashMap<>();
+    protected HashMap<String,Object> objects = new HashMap<>();
     public boolean hasData(){
-        if (strings.size() != 0) return true;
-        if (booleans.size() != 0) return true;
-        if (integers.size() != 0) return true;
+        if (!strings.isEmpty()) return true;
+        if (!booleans.isEmpty()) return true;
+        if (!integers.isEmpty()) return true;
+        if (!objects.isEmpty()) return true;
         return false;
     }
     private void setStringInternal(String key, String data){
@@ -33,6 +37,9 @@ public class DataHolder {
     }
     private void setIntegerInternal(String key, int data){
         integers.put(key,data);
+    }
+    private void setIntegerObject(String key, Object data){
+        objects.put(key,data);
     }
     public void setString(String key, String data){
         setStringInternal(key, data);
@@ -49,6 +56,11 @@ public class DataHolder {
         iTimestamp.remove(key);
         iExpire.remove(key);
     }
+    public void setObject(String key, Object data){
+        setIntegerObject(key, data);
+        oTimestamp.remove(key);
+        oExpire.remove(key);
+    }
     public void setString(String key, String data,int time){
         setStringInternal(key, data);
         sTimestamp.put(key,Global.getSector().getClock().getTimestamp());
@@ -63,6 +75,11 @@ public class DataHolder {
         setIntegerInternal(key, data);
         iTimestamp.put(key,Global.getSector().getClock().getTimestamp());
         iExpire.put(key,time);
+    }
+    public void setObject(String key, Object data,int time){
+        setIntegerObject(key, data);
+        oTimestamp.put(key,Global.getSector().getClock().getTimestamp());
+        oExpire.put(key,time);
     }
 
 
@@ -103,5 +120,23 @@ public class DataHolder {
             return 0;
         }
         return integers.get(key);
+    }
+    public Object getObject(String key){
+        /*Logger log = Global.getLogger(DialogValuesList.class);
+        String exspire = "null";
+        String timePassed = "null";
+        String value = "null";
+        if (iExpire.containsKey(key))exspire=iExpire.get(key)+"";
+        if (iTimestamp.containsKey(key))timePassed=Global.getSector().getClock().getElapsedDaysSince(iTimestamp.get(key))+"";
+        if (integers.containsKey(key))value = integers.get(key)+"";
+        log.info("getting data holder integer data from key: "+key+" as: expire: "+exspire+", timePassed: "+timePassed+", and value of: "+value);*/
+        if (!objects.containsKey(key)) return null;
+        if (oExpire.containsKey(key) && oExpire.get(key) <= Global.getSector().getClock().getElapsedDaysSince(oTimestamp.get(key))){
+            oExpire.remove(key);
+            oTimestamp.remove(key);
+            objects.remove(key);
+            return null;
+        }
+        return objects.get(key);
     }
 }

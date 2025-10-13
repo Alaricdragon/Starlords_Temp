@@ -9,7 +9,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import starlords.person.Lord;
 import starlords.util.Utils;
-import starlords.util.factionUtils.FactionTemplate;
 import starlords.util.factionUtils.FactionTemplateController;
 import starlords.util.weights.UpgradeWeights;
 
@@ -17,6 +16,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class UpgradeController {
+    /*more notes:
+    * so, what structure do I want the upgrades to have?
+    * first of all, I dont want each starlord to hold onto the identifying string for each upgrade. so:
+    * I will create a stored bit of data that holds a hashmap organizing all Strings and what data they represent in an upgrade. (this will then be organized into a hashmap when given to an upgrade class).
+    * each time I load a save, I will need to look and compare the new CSV file data to the old one, to make sure I am getting the right data.
+    * (so if a new data point is added to a upgrade, all starlords get the new data point added to there 'inventory', and the data in storage related to said upgrade is reorganized)
+    * this should prevent... issues. to be blunt. also it stops all starlords from needing to map each data point. that should count for something, right?*/
     /*ok... ok...
     * so heres what I know:
     * 1) I asked in the misc modding questions how to read a CSV file. I think that works, but it needs testing.
@@ -42,10 +48,18 @@ public class UpgradeController {
     * 5) the 'group' data allows a given upgrade to be added to a group. so you can enable and disable them in groups.
     *    if something is part of a 'group'....
     *    ... I dont like groups. I dont like them at all. they might be needed later, but for now let sleeping dogos lie.*/
+
+    private static HashMap<String,UpgradeSettings> randomizers = new HashMap<>();
     @Getter
     private static HashMap<String, UpgradeBase> upgrades = new HashMap<>();
     @Getter
+    private static HashMap<String, Boolean> defaultOn = new HashMap<>();
+    @Getter
+    @Deprecated
     private static HashMap<String, ArrayList<String>> groups = new HashMap<>();
+
+    @Getter
+    private static HashMap<String,UpgradeSettingRandomizer> randomizer = new HashMap<>();
     @SneakyThrows
     public static void init(){
         /*so heres the plan on preperation for this nonesense.
@@ -76,16 +90,15 @@ public class UpgradeController {
     private static void addUpgrade(JSONObject json) throws JSONException {
         String path = json.getString("script");
         UpgradeBase newItem = (UpgradeBase) Global.getSettings().getInstanceOfScript(path);
-        newItem.init(json);
         String id = json.getString("id");
+        defaultOn.put(id,json.getBoolean("defaultEnabled"));
         upgrades.put(id,newItem);
-        if (json.has("group") && !json.isNull("group") && !json.getString("group").isEmpty()){
-            String group = json.getString("group");
-            ArrayList<String> list = groups.getOrDefault(group,new ArrayList<>());
-            list.add(id);
-            groups.put(group,list);
-        }
 
+        UpgradeSettings upgradeSettings = new UpgradeSettings();//???
+        randomizers.put(id,upgradeSettings);
+        //this creates a single instance of upgrade path for each and every item.
+        //please note, in this contect, -->the upgrade strings, and the AI strings in the CSV file are flavor only. the acstual data is added in the settings.<--
+        //finaly issue: the settings for each upgrade compoment
     }
 
     public UpgradeBase getUpgrade(Lord lord,UpgradeData data){
@@ -104,7 +117,7 @@ public class UpgradeController {
         * so in conclusion...
         * 1 number for cost.
         * multible numbers for AI*/
-        ArrayList<UpgradeBase> options = new ArrayList<>();
+        /*ArrayList<UpgradeBase> options = new ArrayList<>();
         ArrayList<Integer> weights = new ArrayList<>();
         UpgradeWeights factionUpgrades = FactionTemplateController.getTemplate(lord.getFaction()).getUpgradeWeights();
         UpgradeWeights lordUpgrades = lord.getUpgradeWeights();
@@ -113,10 +126,6 @@ public class UpgradeController {
             if (!factionUpgrades.getEnabled().get(a) && !factionUpgrades.getEnabled().get(a)) continue;
             if (data.lastUpgrade.equals(a)) continue;
             if (!upgrade.canPreformUpgrade(lord)) continue;
-            /*int cost = upgrade.getMinWealthForUpgrade(lord);
-            for (String b : upgrade.getCostWeightsId()){
-                cost += upgrade.getMinWealthForUpgrade(lord,b) * lordUpgrades.getCostWeights().get(a).getWeights().get(b) * factionUpgrades.getCostWeights().get(a).getWeights().get(b);
-            }*/
             if (upgrade.getMinWealthForUpgrade(lord) > lord.getWealth() * factionUpgrades.getCostWeights().get(a)*lordUpgrades.getCostWeights().get(a)) continue;
             int weight = 0;
             for (String b : upgrade.getCostWeightsId()){
@@ -126,7 +135,8 @@ public class UpgradeController {
             options.add(upgrade);
             weights.add(weight);
         }
-        return Utils.weightedSample(options,weights,Utils.rand);
+        return Utils.weightedSample(options,weights,Utils.rand);*/
+        return null;
     }
     public void performUpgrades(Lord lord){
         UpgradeData data = new UpgradeData();
@@ -142,7 +152,7 @@ public class UpgradeController {
         //upgrade.preformUpgrade(lord,!!!!);
     }
 
-    private static void attemptToFindAFile(String path){
+    /*private static void attemptToFindAFile(String path){
         Logger log = Global.getLogger(UpgradeController.class);
         log.info("attempting to get a class from a path of: "+path);
         Object thing = Global.getSettings().getInstanceOfScript(path);
@@ -154,5 +164,9 @@ public class UpgradeController {
         ((UpgradeBase) thing).attemptThing();
         log.info("  "+thing2.getClass());
         log.info("  "+thing2.toString());
+    }*/
+
+    public static UpgradeSettingRandomizer getRandomizer(String name){
+        return randomizer.get(name);
     }
 }
