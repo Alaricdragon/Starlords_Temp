@@ -6,7 +6,7 @@ import lombok.Setter;
 import java.util.HashMap;
 
 public class ShipData {
-    //this is a array to meet all the different types of things one variant can be.
+    //this is a array to meet all the different control of things one variant can be.
     @Getter
     private HashMap<String, Float> spawnWeight = new HashMap<>();
     @Getter

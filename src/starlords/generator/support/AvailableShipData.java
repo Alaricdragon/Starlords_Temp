@@ -212,7 +212,7 @@ public class AvailableShipData {
         if (a.length == 0) return null;
         return (ShipData) a[(int)(LordGenerator.getRandom().nextInt(a.length))];
     }
-    /*public ShipData getRandomShip(int[] types, int[] sizes){
+    /*public ShipData getRandomShip(int[] control, int[] sizes){
         Object[] a = this.organizedShips.get(type).get(size).values().toArray();
         if (a.length == 0) return null;
         return (ShipData) a[(int)(Math.random()*a.length)];

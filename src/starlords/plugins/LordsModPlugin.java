@@ -26,6 +26,7 @@ import starlords.util.NexerlinUtilitys;
 import starlords.util.Utils;
 import starlords.util.factionUtils.FactionTemplateController;
 import starlords.util.lordUpgrades.UpgradeController;
+import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
 
 import java.util.HashMap;
 
@@ -80,6 +81,7 @@ public class LordsModPlugin extends BaseModPlugin {
             LordController.loadLords();
             log.info(LordController.getLordsList().size() + " Lords found");
         }
+        MemCompressedMasterList.load();
 
         StoredSettings.attemptEnableLunalib();
         StoredSettings.getSettings();
@@ -156,5 +158,6 @@ public class LordsModPlugin extends BaseModPlugin {
         LordController.logAllLords();
         LordController.saveUnusualLords();
         LordController.saveLordData();
+        MemCompressedMasterList.save();
     }
 }

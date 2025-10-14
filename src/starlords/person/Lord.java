@@ -2,7 +2,6 @@ package starlords.person;
 
 import com.fs.starfarer.api.util.Misc;
 import exerelin.campaign.alliances.Alliance;
-import jdk.jshell.execution.Util;
 import lombok.Setter;
 import starlords.ai.LordStrategicModule;
 import com.fs.starfarer.api.Global;
@@ -23,6 +22,8 @@ import org.lwjgl.util.vector.Vector2f;
 import starlords.ui.PrisonerIntelPlugin;
 import starlords.util.*;
 import starlords.util.factionUtils.FactionTemplateController;
+import starlords.util.memoryUtils.Compressed.MemCompressedHolder;
+import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
 import starlords.util.memoryUtils.DataHolder;
 import starlords.util.weights.IncomeWeights;
 import starlords.util.weights.UpgradeWeights;
@@ -31,10 +32,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
-import static starlords.util.Constants.LORD_TABLE_KEY;
-import static starlords.util.Constants.STARLORD_ADDITIONAL_MEMORY_KEY;
+import static starlords.util.Constants.*;
 
 @Getter
 public class Lord {
@@ -646,6 +645,23 @@ public class Lord {
         Lord player = new Lord(Global.getSector().getPlayerPerson());
         player.isPlayer = true;
         return player;
+    }
+    @Getter
+    private MemCompressedHolder<MemCompressedHolder<?>> COMPRESSED_MEMORY = new MemCompressedHolder<>(MemCompressedMasterList.getLordMaster(),this);
+    public void loadConnectedMemory(){
+        String key = STARLORD_COMPRESSED_MEMORY_KEY+getLordAPI().getId();
+        MemCompressedHolder<MemCompressedHolder<?>> temp;
+        if (Global.getSector().getMemory().contains(key)){
+            temp = (MemCompressedHolder<MemCompressedHolder<?>>) Global.getSector().getMemory().get(key);
+        }else{
+            temp = COMPRESSED_MEMORY;
+        }
+        COMPRESSED_MEMORY = temp;
+    }
+    public void saveLordCompressedMemory(){
+        String key = STARLORD_COMPRESSED_MEMORY_KEY+getLordAPI().getId();
+        MemCompressedHolder<MemCompressedHolder<?>> data = COMPRESSED_MEMORY;
+        Global.getSector().getMemory().set(key,data);
     }
 
     public Map<Alliance.Alignment, Float> getAlignments() {

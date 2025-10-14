@@ -3,6 +3,7 @@ package starlords.util.lordUpgrades;
 import lombok.Getter;
 import starlords.controllers.LordController;
 import starlords.person.Lord;
+import starlords.util.memoryUtils.Compressed.reader.LordUpgradeMemory;
 
 import java.util.ArrayList;
 import java.util.HashMap;

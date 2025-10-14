@@ -1,9 +1,10 @@
 package starlords.util.lordUpgrades;
 
-import com.thoughtworks.xstream.mapper.Mapper;
 import lombok.Getter;
 import starlords.controllers.LordController;
 import starlords.person.Lord;
+import starlords.util.memoryUtils.Compressed.reader.LordFullUpgradeMemory;
+import starlords.util.memoryUtils.Compressed.reader.LordUpgradeMemory;
 
 import java.util.ArrayList;
 import java.util.HashMap;

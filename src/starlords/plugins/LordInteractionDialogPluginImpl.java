@@ -175,7 +175,7 @@ public class LordInteractionDialogPluginImpl implements InteractionDialogPlugin 
         *   2) (done) I need to go into all lines and imporve them just a bit. by adding in the new utility functions I added in the first place.
         *   3) (done) I need to go into anything that uses a diffrent option set, and make it so instead of setting all the options right there, it gets a different option set instead (because having a cenralized option set to change prevents modders from having to keep trake of every time I add a dialog option. it is important.)
         * dialog fixes:
-        *   1) (done) speak privately right now, does not have an option that prevents it from working. I messed up somewhere. (or maybe just for certain lord types?)
+        *   1) (done) speak privately right now, does not have an option that prevents it from working. I messed up somewhere. (or maybe just for certain lord control?)
         *       -(done) also, when you are in the prisoners dialog, runs the normal dialog list when it attmepts to return the player to 'greetings'
         *   2) (this can be done latter.) add in a custom defection refusal to the template, for when lords can never defect by the player hands.
         *   3) (done) many options are calling optionSet greetings. I need to do one of the following:

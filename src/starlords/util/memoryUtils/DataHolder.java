@@ -1,10 +1,7 @@
 package starlords.util.memoryUtils;
 
 import com.fs.starfarer.api.Global;
-import lombok.Getter;
-import lombok.Setter;
-import org.apache.log4j.Logger;
-import starlords.util.dialogControler.dialogValues.DialogValuesList;
+import starlords.util.memoryUtils.Compressed.MemCompressedHolder;
 
 import java.util.HashMap;
 
@@ -13,22 +10,30 @@ public class DataHolder {
     protected HashMap<String,Long> bTimestamp = new HashMap<>();
     protected HashMap<String,Long> iTimestamp = new HashMap<>();
     protected HashMap<String,Long> oTimestamp = new HashMap<>();
+    protected HashMap<String,Long> CMTimestamp = new HashMap<>();
+
     protected HashMap<String,Integer> sExpire = new HashMap<>();
     protected HashMap<String,Integer> bExpire = new HashMap<>();
     protected HashMap<String,Integer> iExpire = new HashMap<>();
     protected HashMap<String,Integer> oExpire = new HashMap<>();
+    protected HashMap<String,Integer> CMExpire = new HashMap<>();
 
     protected HashMap<String,String> strings = new HashMap<>();
     protected HashMap<String,Boolean> booleans = new HashMap<>();
     protected HashMap<String,Integer> integers = new HashMap<>();
     protected HashMap<String,Object> objects = new HashMap<>();
+    protected HashMap<String, MemCompressedHolder> connectedMemory = new HashMap<>();
     public boolean hasData(){
         if (!strings.isEmpty()) return true;
         if (!booleans.isEmpty()) return true;
         if (!integers.isEmpty()) return true;
         if (!objects.isEmpty()) return true;
+        if (!connectedMemory.isEmpty()) return true;
         return false;
     }
+
+
+
     private void setStringInternal(String key, String data){
         strings.put(key,data);
     }
@@ -38,9 +43,31 @@ public class DataHolder {
     private void setIntegerInternal(String key, int data){
         integers.put(key,data);
     }
-    private void setIntegerObject(String key, Object data){
+    private void setObjectInternal(String key, Object data){
         objects.put(key,data);
     }
+    private void setCMInternal(String key, MemCompressedHolder data){
+        connectedMemory.put(key,data);
+    }
+    /*public void set(String key, Object data){
+        if (data instanceof Integer){
+            setInteger(key,(int)data);
+            return;
+        }
+        if (data instanceof Boolean) {
+            setBoolean(key,(boolean)data);
+            return;
+        }
+        if (data instanceof String){
+            setString(key,(String) data);
+            return;
+        }
+        if (data instanceof MemCompressedHolder<?>){
+            setCM(key, (MemCompressedHolder<?>) data);
+            return;
+        }
+    }*/
+
     public void setString(String key, String data){
         setStringInternal(key, data);
         sTimestamp.remove(key);
@@ -57,9 +84,14 @@ public class DataHolder {
         iExpire.remove(key);
     }
     public void setObject(String key, Object data){
-        setIntegerObject(key, data);
+        setObjectInternal(key, data);
         oTimestamp.remove(key);
         oExpire.remove(key);
+    }
+    public void setCM(String key, MemCompressedHolder<?> data){
+        setCMInternal(key, data);
+        CMTimestamp.remove(key);
+        CMExpire.remove(key);
     }
     public void setString(String key, String data,int time){
         setStringInternal(key, data);
@@ -77,9 +109,14 @@ public class DataHolder {
         iExpire.put(key,time);
     }
     public void setObject(String key, Object data,int time){
-        setIntegerObject(key, data);
+        setObjectInternal(key, data);
         oTimestamp.put(key,Global.getSector().getClock().getTimestamp());
         oExpire.put(key,time);
+    }
+    public void setCM(String key, MemCompressedHolder<?> data, int time){
+        setCMInternal(key, data);
+        CMTimestamp.put(key,Global.getSector().getClock().getTimestamp());
+        CMExpire.put(key,time);
     }
 
 
@@ -138,5 +175,15 @@ public class DataHolder {
             return null;
         }
         return objects.get(key);
+    }
+    public MemCompressedHolder<?> getCM(String key){
+        if (!connectedMemory.containsKey(key)) return null;
+        if (CMExpire.containsKey(key) && CMExpire.get(key) <= Global.getSector().getClock().getElapsedDaysSince(CMTimestamp.get(key))){
+            CMExpire.remove(key);
+            CMTimestamp.remove(key);
+            connectedMemory.remove(key);
+            return null;
+        }
+        return connectedMemory.get(key);
     }
 }

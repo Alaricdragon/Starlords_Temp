@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public class DialogSet {
-    //for getting dialog types with a search
+    //for getting dialog control with a search
     //private static HashMap<String,DialogSet> dialogSets = new HashMap<>();
     //for getting organized dialog data
     //private static ArrayList<ArrayList<DialogSet>> organizedDialogSets = new ArrayList<>();

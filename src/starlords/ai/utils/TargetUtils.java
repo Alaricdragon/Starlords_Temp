@@ -311,7 +311,7 @@ public class TargetUtils {
         switch (type){
             case ATTACK_TYPE_RAID:
                 settings = new boolean[]{
-                        canRaid_lord,//there are two types of raids.
+                        canRaid_lord,//there are two control of raids.
                         canRaid_lord,
                         canTacticalBomb_lord,
                         canInvade_lord && Utils.nexEnabled() && NexerlinUtilitys.invasionsEnabled(),

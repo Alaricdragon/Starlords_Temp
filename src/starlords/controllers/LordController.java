@@ -206,6 +206,7 @@ public class LordController {
         for (int a = 0; a < lordsList.size(); a++){
             Lord lord = lordsList.get(a);
             if (lord.getLordDataHolder().hasData()) lord.saveLordDataHolder();
+            lord.saveLordCompressedMemory();
         }
         saveFleetSMods();
         LordMemoryController.save();
@@ -272,6 +273,7 @@ public class LordController {
                 if (!newLord.getLordAPI().hasTag("coff_nocapture")) {
                     newLord.getLordAPI().addTag("coff_nocapture");
                 }
+                newLord.loadConnectedMemory();
                 addLord(newLord);
             }
         }

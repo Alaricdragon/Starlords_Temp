@@ -144,7 +144,7 @@ public class UpgradeController {
         if (upgrade == null) return;
         /*ok. so a few things: I want a new 'seed' function. this function will be saved for... each upgrade on each ship maybe?
         * then when a save load is preformed, the upgrades can be readded? so long as the upgrade uses the same seed, it should be fine right????? right??????
-        * ok, so ok... instead lets save one seed per ship. most upgrade types DO NOT REQUIRE there own seed. right now, its just S-mods. but it could also include things like exsotic technologys requireing an seed. so, one seed per ship.
+        * ok, so ok... instead lets save one seed per ship. most upgrade control DO NOT REQUIRE there own seed. right now, its just S-mods. but it could also include things like exsotic technologys requireing an seed. so, one seed per ship.
         * so, on each lord I require a 'seed map' of some type. just... save the seed on each ship. it should be fine right??? RIGHT?!?!?! can I even save a seed on a given ship????
         * wait... um....
         * ok so an issue: right now, this is set to only get the 'seed' of the fleet. I would need to go though for each ship. so the upgrade is preformed on each ship.
