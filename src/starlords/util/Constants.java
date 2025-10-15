@@ -53,4 +53,7 @@ public class Constants {
     public static final String STARLORD_ADDITIONAL_MEMORY_KEY= "$STARLORDS_LORD_ADDITIONAL_MEMORY_";
     public static final String STARLORD_COMPRESSED_MEMORY_KEY= "$STARLORDS_LORD_COMPRESSED_MEMORY_";
 
+
+    //constants for compressed memory keys (in primary hashmap)
+    public static final String STARLORD_COMPRESSED_ORGANIZER_KEY = "LORD_COMPRESSED_ORGANIZER";
 }

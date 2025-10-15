@@ -24,7 +24,6 @@ import starlords.ui.*;
 import starlords.util.Constants;
 import starlords.util.NexerlinUtilitys;
 import starlords.util.Utils;
-import starlords.util.factionUtils.FactionTemplateController;
 import starlords.util.lordUpgrades.UpgradeController;
 import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
 
@@ -75,13 +74,13 @@ public class LordsModPlugin extends BaseModPlugin {
         if (!sector.getPersistentData().containsKey(LORD_TABLE_KEY)) {
             sector.getPersistentData().put(LORD_TABLE_KEY, new HashMap<String, HashMap<String, Object>>());
         }
+        MemCompressedMasterList.load();
 
         if (!newGame) {
             LordController.parseLordTemplates();
             LordController.loadLords();
             log.info(LordController.getLordsList().size() + " Lords found");
         }
-        MemCompressedMasterList.load();
 
         StoredSettings.attemptEnableLunalib();
         StoredSettings.getSettings();
@@ -129,6 +128,8 @@ public class LordsModPlugin extends BaseModPlugin {
 
         if (Utils.nexEnabled()) NexerlinUtilitys.calculateInvasionsEnabled();
         UpgradeController.init();
+
+        MemCompressedMasterList.loadFinal();
     }
 
 
