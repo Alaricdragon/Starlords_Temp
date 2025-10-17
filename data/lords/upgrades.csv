@@ -1,2 +1,3 @@
-id,defaultEnabled,weight,AI_modifiers,group,script
-,,,,,
+id,defaultEnabled,weight,AI_modifiers,cost,group,script
+thing_a,false,"Weight1:20:10:5:1
+Weight2:10:-10:2:12",,,,

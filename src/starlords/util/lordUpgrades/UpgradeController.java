@@ -3,15 +3,18 @@ package starlords.util.lordUpgrades;
 import com.fs.starfarer.api.Global;
 import lombok.Getter;
 import lombok.SneakyThrows;
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import starlords.generator.LordGenerator;
 import starlords.person.Lord;
 import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
 import starlords.util.memoryUtils.Compressed.MemCompressedOrganizer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import static starlords.util.Constants.COMPRESSED_ORGANIZER_LORD_KEY;
 
@@ -63,6 +66,7 @@ public class UpgradeController {
     @Deprecated
     private static HashMap<String, ArrayList<String>> groups = new HashMap<>();
 
+    private static final Logger log = Global.getLogger(UpgradeController.class);
     @SneakyThrows
     public static void init(){
         /*so heres the plan on preperation for this nonesense.
@@ -72,7 +76,9 @@ public class UpgradeController {
         JSONArray jsons = Global.getSettings().loadCSV(path,true);
         MemCompressedOrganizer<?, ?> organizer = MemCompressedMasterList.getMemory().get(COMPRESSED_ORGANIZER_LORD_KEY);
         for (int a = 0; a < jsons.length(); a++){
-            addUpgrade(jsons.getJSONObject(a),organizer);
+            //addUpgrade(jsons.getJSONObject(a),organizer);
+            log.info("checking item with an ID of: "+jsons.getJSONObject(a).getString("id"));
+            test(jsons.getJSONObject(a));
         }
 
     }
@@ -102,7 +108,36 @@ public class UpgradeController {
     public UpgradeBase getUpgrade(Lord lord,UpgradeData data){
         return null;
     }
+    @SneakyThrows
+    private static void test(JSONObject json){
+        //and THIS FUCKING WORKS.
+        //I can get all the fucking data I want here. finaly. at long fucking last.
+        //yaaaa
+        log.info("HERE HERE HERE! IT IS HERE. DONT MISS THIS!!");
+        log.info("String is: "+json.getString("weight"));
+        String[] lines = json.getString("weight").split(""+'\n');
+        log.info("getting split string as:");
+        for (String a : lines){
+            String[] vars = a.split(":");
+            log.info("  name:"+vars[0]+", vars:"+vars[1]+","+vars[2]+","+vars[3]+","+vars[4]);
+        }
+    }
+    /*
+    private void test(){
+        JSONArray array = new JSONArray();
+        JSONArray array1 = new JSONArray();
+        array1.put("hello");
+        array1.put("you");
+        array1.put("person");
+        JSONArray array2 = new JSONArray();
 
+        array2.put("how");
+        array2.put("dare");
+        array2.put("thee");
+        array.put(array1);
+        array.put(array2);
+
+    }*/
 
 
 
