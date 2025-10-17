@@ -647,7 +647,7 @@ public class Lord {
         return player;
     }
     @Getter
-    private MemCompressedHolder<MemCompressedHolder<?>> COMPRESSED_MEMORY = (MemCompressedHolder<MemCompressedHolder<?>>) MemCompressedMasterList.getMemory().get(STARLORD_COMPRESSED_ORGANIZER_KEY).getHolderStructure(this);
+    private MemCompressedHolder<MemCompressedHolder<?>> COMPRESSED_MEMORY = (MemCompressedHolder<MemCompressedHolder<?>>) MemCompressedMasterList.getMemory().get(COMPRESSED_ORGANIZER_LORD_KEY).getHolderStructure(this);
     public void loadConnectedMemory(){
         String key = STARLORD_COMPRESSED_MEMORY_KEY+getLordAPI().getId();
         MemCompressedHolder<MemCompressedHolder<?>> temp;

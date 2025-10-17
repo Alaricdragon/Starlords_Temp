@@ -49,8 +49,8 @@ public class MemCompressedOrganizer<A,B> {
     * issues:
     *   although I can insure the structure of the masterlist is prepared early,
     * */
-    public HashMap<String,Integer> map = new HashMap<>();
-    public ArrayList<B> list = new ArrayList<>();
+    protected HashMap<String,Integer> map = new HashMap<>();
+    protected ArrayList<B> list = new ArrayList<>();
 
     public void setItem(String id,B thing){
         if (map.containsKey(id)){

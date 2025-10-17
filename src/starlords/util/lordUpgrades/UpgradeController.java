@@ -3,19 +3,25 @@ package starlords.util.lordUpgrades;
 import com.fs.starfarer.api.Global;
 import lombok.Getter;
 import lombok.SneakyThrows;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import starlords.person.Lord;
-import starlords.util.Utils;
-import starlords.util.factionUtils.FactionTemplateController;
-import starlords.util.weights.UpgradeWeights;
+import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
+import starlords.util.memoryUtils.Compressed.MemCompressedOrganizer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static starlords.util.Constants.COMPRESSED_ORGANIZER_LORD_KEY;
+
 public class UpgradeController {
+    /*so: I am compleatly remaking this intier class.
+    * why? because I changed the internal data, and it now makes more sense to just... not use the newly created MemCompressedOrganizer to handle the following:
+    *   1) the random data applied to a starlord at starlord creation.
+    *   2) the internal storge of the random data in relation to the star lords.
+    * */
+
     /*more notes:
     * so, what structure do I want the upgrades to have?
     * first of all, I dont want each starlord to hold onto the identifying string for each upgrade. so:
@@ -49,7 +55,6 @@ public class UpgradeController {
     *    if something is part of a 'group'....
     *    ... I dont like groups. I dont like them at all. they might be needed later, but for now let sleeping dogos lie.*/
 
-    private static HashMap<String,UpgradeSettings> randomizers = new HashMap<>();
     @Getter
     private static HashMap<String, UpgradeBase> upgrades = new HashMap<>();
     @Getter
@@ -58,8 +63,6 @@ public class UpgradeController {
     @Deprecated
     private static HashMap<String, ArrayList<String>> groups = new HashMap<>();
 
-    @Getter
-    private static HashMap<String,UpgradeSettingRandomizer> randomizer = new HashMap<>();
     @SneakyThrows
     public static void init(){
         /*so heres the plan on preperation for this nonesense.
@@ -67,106 +70,46 @@ public class UpgradeController {
         * aftorwords, I can start to look into farther improvements.*/
         String path = "data/lords/upgrades.csv";
         JSONArray jsons = Global.getSettings().loadCSV(path,true);
+        MemCompressedOrganizer<?, ?> organizer = MemCompressedMasterList.getMemory().get(COMPRESSED_ORGANIZER_LORD_KEY);
         for (int a = 0; a < jsons.length(); a++){
-            addUpgrade(jsons.getJSONObject(a));
-
+            addUpgrade(jsons.getJSONObject(a),organizer);
         }
 
-
-
-
-        /*String[] paths = {
-                "starlords.util.lordUpgrades.UpgradeTempAttempt",
-        };
-        for (String a : paths){
-            try {
-                attemptToFindAFile(a);
-            }catch (Exception e){
-                Logger log = Global.getLogger(UpgradeController.class);
-                log.info("  ERROR: failed to get path of: "+a);
-            }
-        }*/
     }
-    private static void addUpgrade(JSONObject json) throws JSONException {
+    private static void addUpgrade(JSONObject json, MemCompressedOrganizer<?, ?> organizer) throws JSONException {
         String path = json.getString("script");
         UpgradeBase newItem = (UpgradeBase) Global.getSettings().getInstanceOfScript(path);
         String id = json.getString("id");
         defaultOn.put(id,json.getBoolean("defaultEnabled"));
         upgrades.put(id,newItem);
 
-        UpgradeSettings upgradeSettings = new UpgradeSettings();//???
-        randomizers.put(id,upgradeSettings);
-        //this creates a single instance of upgrade path for each and every item.
-        //please note, in this contect, -->the upgrade strings, and the AI strings in the CSV file are flavor only. the acstual data is added in the settings.<--
-        //finaly issue: the settings for each upgrade compoment
-    }
-
-    public UpgradeBase getUpgrade(Lord lord,UpgradeData data){
-        /*I need to focus:
-        * first, how should the upgrades be desided in relation to cost? should there be more then one cost modifier for item (like how there can be more then one AI modifier?)
-        * ... no. why would there? like, I cant think of a reason.
-        * second, should there be more than one modifier related to weight?
-        * ... no..? only one AI modifer per item then? mmmmm
-        * ok, so cost modifers, in what would would there need to be more then one? when more then one cost is imposed. some type of dull upgrade?
-        * mmmmmm I cant think of anything.
+        /*the following needs to happen here:
+        * 1) I need to add all the 'upgrade data' the the organizer. (this just means I need to manage the upgrade weights to the organizer.)
+        * remember that the key to the upgrade data equals:
+        * a) STARLORD_COMPRESSED_ORGANIZER_UPGRADE_KEY + "NameOfUpgrade_" + STARLORD_COMPRESSED_ORGANIZER_UPGRADE_WEIGHT_KEY+"NameOfWeight"
+        * b) STARLORD_COMPRESSED_ORGANIZER_UPGRADE_KEY + "NameOfUpgrade_" + STARLORD_COMPRESSED_ORGANIZER_UPGRADE_COST_KEY+"NameOfWeight"
         *
-        * what would multible AI modifers do? like, number of ships left, and credits left, and what have you?
-        * I can see a situation were you would want like, a weight based on missing ships, and another based on extra credits (for more costly upgrades), and one for number of fiefs, so on so forth.
-        * no wait, I cant see a reason for that. like, for Smods there is one. were one has higher AI value when there is more higher level officers, and one for number of missing S-mods.
-        * for AI cores is another. one for adding AI cores, one for ships missing AI cores, one for cost relative to wealth (AI coes are costly)
-        * so in conclusion...
-        * 1 number for cost.
-        * multible numbers for AI*/
-        /*ArrayList<UpgradeBase> options = new ArrayList<>();
-        ArrayList<Integer> weights = new ArrayList<>();
-        UpgradeWeights factionUpgrades = FactionTemplateController.getTemplate(lord.getFaction()).getUpgradeWeights();
-        UpgradeWeights lordUpgrades = lord.getUpgradeWeights();
-        for (String a : upgrades.keySet()){
-            UpgradeBase upgrade = upgrades.get(a);
-            if (!factionUpgrades.getEnabled().get(a) && !factionUpgrades.getEnabled().get(a)) continue;
-            if (data.lastUpgrade.equals(a)) continue;
-            if (!upgrade.canPreformUpgrade(lord)) continue;
-            if (upgrade.getMinWealthForUpgrade(lord) > lord.getWealth() * factionUpgrades.getCostWeights().get(a)*lordUpgrades.getCostWeights().get(a)) continue;
-            int weight = 0;
-            for (String b : upgrade.getCostWeightsId()){
-                weight += (int) (upgrade.getAIWeightOfType(lord,b) * lordUpgrades.getAIWeights().get(a).getWeights().get(b) * factionUpgrades.getAIWeights().get(a).getWeights().get(b));
-            }
-            if (weight <0 )continue;
-            options.add(upgrade);
-            weights.add(weight);
-        }
-        return Utils.weightedSample(options,weights,Utils.rand);*/
+        * */
+        prepareUpgradeDefaults_Cost(id,json,organizer);
+        prepareUpgradeDefaults_Weight(id,json,organizer);
+    }
+    private static void prepareUpgradeDefaults_Cost(String name,JSONObject json,MemCompressedOrganizer<?, ?> organizer){
+        //STARLORD_COMPRESSED_ORGANIZER_UPGRADE_KEY + name + STARLORD_COMPRESSED_ORGANIZER_UPGRADE_COST_KEY+"NameOfWeight"
+    }
+    private static void prepareUpgradeDefaults_Weight(String name,JSONObject json,MemCompressedOrganizer<?, ?> organizer){
+       //STARLORD_COMPRESSED_ORGANIZER_UPGRADE_KEY + name + STARLORD_COMPRESSED_ORGANIZER_UPGRADE_WEIGHT_KEY+"NameOfWeight"
+    }
+    public UpgradeBase getUpgrade(Lord lord,UpgradeData data){
         return null;
     }
+
+
+
+
+
     public void performUpgrades(Lord lord){
         UpgradeData data = new UpgradeData();
         UpgradeBase upgrade = getUpgrade(lord,data);
         if (upgrade == null) return;
-        /*ok. so a few things: I want a new 'seed' function. this function will be saved for... each upgrade on each ship maybe?
-        * then when a save load is preformed, the upgrades can be readded? so long as the upgrade uses the same seed, it should be fine right????? right??????
-        * ok, so ok... instead lets save one seed per ship. most upgrade control DO NOT REQUIRE there own seed. right now, its just S-mods. but it could also include things like exsotic technologys requireing an seed. so, one seed per ship.
-        * so, on each lord I require a 'seed map' of some type. just... save the seed on each ship. it should be fine right??? RIGHT?!?!?! can I even save a seed on a given ship????
-        * wait... um....
-        * ok so an issue: right now, this is set to only get the 'seed' of the fleet. I would need to go though for each ship. so the upgrade is preformed on each ship.
-        * that should be simple enouth.*/
-        //upgrade.preformUpgrade(lord,!!!!);
-    }
-
-    /*private static void attemptToFindAFile(String path){
-        Logger log = Global.getLogger(UpgradeController.class);
-        log.info("attempting to get a class from a path of: "+path);
-        Object thing = Global.getSettings().getInstanceOfScript(path);
-        log.info("  scaning gotten thing....");
-        log.info("  "+thing.getClass());
-        log.info("  "+thing.toString());
-        UpgradeBase thing2 = (UpgradeBase) thing;
-        log.info("  "+"gotting thing as UpgradeBase...");
-        ((UpgradeBase) thing).attemptThing();
-        log.info("  "+thing2.getClass());
-        log.info("  "+thing2.toString());
-    }*/
-
-    public static UpgradeSettingRandomizer getRandomizer(String name){
-        return randomizer.get(name);
     }
 }

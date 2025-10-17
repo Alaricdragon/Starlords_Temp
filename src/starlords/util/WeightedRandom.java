@@ -1,14 +1,14 @@
 package starlords.util;
 
 public class WeightedRandom {
-    /*TODO: this was suppose to create a controlable bell curve with an equadtion. but I gave up, becasue I only know basic math. it now brute forces the eq with while loops. its not terrable, so long as its not, lets say, runing every tick*/
-    private int target;
+    /*TODO: this was suppose to create a controlable bell curve with an equadtion. but I gave up, becasue I only know basic math. it now brute forces the eq with while loops. its not terrible, so long as its not, lets say, runing every tick*/
+    private double target;
     private double i;
     private double downChance;
 
-    private int max;
-    private int min;
-    public WeightedRandom(int max, int min, double i, int target){
+    private double max;
+    private double min;
+    public WeightedRandom(double max, double min, double i, double target){
         this.i = 1/i;
         min = Math.min(min,max);
         max = Math.max(min,max);
@@ -21,10 +21,10 @@ public class WeightedRandom {
         if(max == target) downChance = 1;
         if(min == target) downChance = 0;
     }
-    public int getRandom(){
+    public double getRandom(){
         //int range = upRange;
         int multi = 1;
-        int limit = max;
+        double limit = max;
         if (Math.random() >= downChance){
             //range = downRange;
             multi = -1;

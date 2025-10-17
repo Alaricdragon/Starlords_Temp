@@ -132,7 +132,7 @@ public class LordGenerator {
         log.info("DEBUG: generating a new starlord...");
         PosdoLordTemplate lord = new PosdoLordTemplate();
         lord.factionId=factionID;
-        lord.level=starlordLevelRatio.getRandom();
+        lord.level=(int)starlordLevelRatio.getRandom();
         lord.personality = personalities[getValueFromWeight(personalityRatio)];
         lord.battlePersonality = battlePersonalities[getValueFromWeight(battlePersonalityRatio)];
         lord.ranking=0;
@@ -247,18 +247,18 @@ public class LordGenerator {
 
     private static void generateAllShipsForLord(PosdoLordTemplate lord, String factionID){
         int[] sizeratio = {
-                sizeRatio[0].getRandom(),
-                sizeRatio[1].getRandom(),
-                sizeRatio[2].getRandom(),
-                sizeRatio[3].getRandom()
+                (int)sizeRatio[0].getRandom(),
+                (int)sizeRatio[1].getRandom(),
+                (int)sizeRatio[2].getRandom(),
+                (int)sizeRatio[3].getRandom()
         };
         if (sizeratio[0] == 0 && sizeratio[1] == 0 && sizeratio[2] == 0 && sizeratio[3] == 0){
             sizeratio[(int)(random.nextInt(4))] = 1;
         }
         int[] typeratio = {
-                typeRatio[0].getRandom(),
-                typeRatio[1].getRandom(),
-                typeRatio[2].getRandom()
+                (int)typeRatio[0].getRandom(),
+                (int)typeRatio[1].getRandom(),
+                (int)typeRatio[2].getRandom()
                 /*typeRatio[3].getRandom(),
                 typeRatio[4].getRandom(),
                 typeRatio[5].getRandom(),
@@ -272,8 +272,8 @@ public class LordGenerator {
         if (typeratio[0] == 0 && typeratio[1] == 0 && typeratio[2] == 0){
             typeratio[(int)(random.nextInt(3))] = 1;
         }
-        int maxShip = maxShipRatio.getRandom();
-        int minShip = minShipRatio.getRandom();
+        int maxShip = (int)maxShipRatio.getRandom();
+        int minShip = (int)minShipRatio.getRandom();
         maxShip = Math.max(maxShip,minShip);
         boolean useAllShips = oddsOfNonePriorityShips > random.nextDouble();
         //lord.shipPrefs=generateShips(factionID,useAllShips,minShip,maxShip,sizeratio,typeratio);

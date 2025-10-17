@@ -6,7 +6,7 @@ import starlords.util.memoryUtils.Compressed.types.MemCompressed_Lord;
 
 import java.util.HashMap;
 
-import static starlords.util.Constants.STARLORD_COMPRESSED_ORGANIZER_KEY;
+import static starlords.util.Constants.COMPRESSED_ORGANIZER_LORD_KEY;
 
 public class MemCompressedMasterList {
     /*so, in regards to lords compressed memory: its organization is:
@@ -49,7 +49,7 @@ public class MemCompressedMasterList {
         if (Global.getSector().getMemory().contains(key)){
             temp = (HashMap<String,MemCompressedOrganizer<?,?>>) Global.getSector().getMemory().get(key);
         }else{
-            temp = new HashMap<String,MemCompressedOrganizer<?,?>>();
+            temp = new HashMap<>();
         }
         memory = temp;
 
@@ -68,8 +68,8 @@ public class MemCompressedMasterList {
 
     private static void insureCoreStructurePresent(){
         //this is were all the basic classes are intialized. basicly, it is the preperation of structure, provided any bit of it is not present.
-        if (!MemCompressedMasterList.memory.containsKey(STARLORD_COMPRESSED_ORGANIZER_KEY)){
-            MemCompressedMasterList.getMemory().put(STARLORD_COMPRESSED_ORGANIZER_KEY,new MemCompressed_Lord());
+        if (!MemCompressedMasterList.memory.containsKey(COMPRESSED_ORGANIZER_LORD_KEY)){
+            MemCompressedMasterList.getMemory().put(COMPRESSED_ORGANIZER_LORD_KEY,new MemCompressed_Lord());
         }
 
     }
