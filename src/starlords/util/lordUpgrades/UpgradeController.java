@@ -7,16 +7,17 @@ import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import starlords.generator.LordGenerator;
 import starlords.person.Lord;
+import starlords.util.WeightedRandom;
 import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
 import starlords.util.memoryUtils.Compressed.MemCompressedOrganizer;
+import starlords.util.memoryUtils.Compressed.types.MemCompressed_Lord;
+import starlords.util.memoryUtils.Compressed.types.MemCompressed_Lord_WeightedRandom_Double;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
-import static starlords.util.Constants.COMPRESSED_ORGANIZER_LORD_KEY;
+import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.*;
 
 public class UpgradeController {
     /*so: I am compleatly remaking this intier class.
@@ -69,45 +70,61 @@ public class UpgradeController {
     private static final Logger log = Global.getLogger(UpgradeController.class);
     @SneakyThrows
     public static void init(){
-        /*so heres the plan on preperation for this nonesense.
-        * first, use my knowlage gained in my very first starlord generator on how the hell to read CSV files. we can go about building an 'upgrade.csv' from there.
-        * aftorwords, I can start to look into farther improvements.*/
         String path = "data/lords/upgrades.csv";
         JSONArray jsons = Global.getSettings().loadCSV(path,true);
-        MemCompressedOrganizer<?, ?> organizer = MemCompressedMasterList.getMemory().get(COMPRESSED_ORGANIZER_LORD_KEY);
-        for (int a = 0; a < jsons.length(); a++){
-            //addUpgrade(jsons.getJSONObject(a),organizer);
-            log.info("checking item with an ID of: "+jsons.getJSONObject(a).getString("id"));
-            test(jsons.getJSONObject(a));
+        MemCompressed_Lord lordmemory = (MemCompressed_Lord) MemCompressedMasterList.getMemory().get(LORD_KEY);
+        //for lord upgrades:
+        if (lordmemory.hasItem(TYPE_UPGRADE_KEY)){
+            lordmemory.setItem(TYPE_UPGRADE_KEY,new MemCompressed_Lord_WeightedRandom_Double());
         }
+        MemCompressedOrganizer<Double,WeightedRandom> organizer = (MemCompressedOrganizer<Double, WeightedRandom>) lordmemory.getItem(TYPE_UPGRADE_KEY);
+        addUpgradeOrganizer(organizer,jsons);
 
+        //for faction upgrades:
+        //todo: copy the 'for lord upgrades' for a new faction file system.
+        //please note that the faction files are presently none exsistant.
     }
-    private static void addUpgrade(JSONObject json, MemCompressedOrganizer<?, ?> organizer) throws JSONException {
+    @SneakyThrows
+    private static void addUpgradeOrganizer(MemCompressedOrganizer<Double, WeightedRandom> organizer, JSONArray json){
+        for (int a = 0; a < json.length(); a++){
+            log.info("checking item with an ID of: "+json.getJSONObject(a).getString("id"));
+            addUpgrade(json.getJSONObject(a),organizer);
+        }
+    }
+    private static void addUpgrade(JSONObject json, MemCompressedOrganizer<Double, WeightedRandom> organizer) throws JSONException {
         String path = json.getString("script");
         UpgradeBase newItem = (UpgradeBase) Global.getSettings().getInstanceOfScript(path);
         String id = json.getString("id");
         defaultOn.put(id,json.getBoolean("defaultEnabled"));
         upgrades.put(id,newItem);
 
-        /*the following needs to happen here:
-        * 1) I need to add all the 'upgrade data' the the organizer. (this just means I need to manage the upgrade weights to the organizer.)
-        * remember that the key to the upgrade data equals:
-        * a) STARLORD_COMPRESSED_ORGANIZER_UPGRADE_KEY + "NameOfUpgrade_" + STARLORD_COMPRESSED_ORGANIZER_UPGRADE_WEIGHT_KEY+"NameOfWeight"
-        * b) STARLORD_COMPRESSED_ORGANIZER_UPGRADE_KEY + "NameOfUpgrade_" + STARLORD_COMPRESSED_ORGANIZER_UPGRADE_COST_KEY+"NameOfWeight"
-        *
-        * */
-        prepareUpgradeDefaults_Cost(id,json,organizer);
-        prepareUpgradeDefaults_Weight(id,json,organizer);
+        //note: I need to devide the upgrades here into there respective string lines.
+        String costKey = "cost";
+        String weightKey = "weight";
+        log.info("-getting costs....");
+        prepareUpgradeDefaults(id,UPGRADE_COST_KEY,costKey,json,organizer);
+        log.info("-getting weights....");
+        prepareUpgradeDefaults(id,UPGRADE_WEIGHT_KEY,weightKey,json,organizer);
     }
-    private static void prepareUpgradeDefaults_Cost(String name,JSONObject json,MemCompressedOrganizer<?, ?> organizer){
-        //STARLORD_COMPRESSED_ORGANIZER_UPGRADE_KEY + name + STARLORD_COMPRESSED_ORGANIZER_UPGRADE_COST_KEY+"NameOfWeight"
+    @SneakyThrows
+    private static void prepareUpgradeDefaults(String name,String type,String key, JSONObject json, MemCompressedOrganizer<Double, WeightedRandom> organizer){
+        //name+TYPE+"NameOfWeight"
+        String[] lines = json.getString(key).split(""+'\n');
+        for (String a : lines){
+            String[] vars = a.split(":");
+            log.info("  name:"+vars[0]+", vars:"+vars[1]+","+vars[2]+","+vars[4]+","+vars[3]);//please dont ask me why 4 and 3 are mixed around.
+            String id = getNameInMemory(name,type,vars[0]);
+            WeightedRandom random = new WeightedRandom(Double.parseDouble(vars[1]),Double.parseDouble(vars[2]),Double.parseDouble(vars[4]),Double.parseDouble(vars[3]));
+            organizer.setItem(id,random);
+        }
     }
-    private static void prepareUpgradeDefaults_Weight(String name,JSONObject json,MemCompressedOrganizer<?, ?> organizer){
-       //STARLORD_COMPRESSED_ORGANIZER_UPGRADE_KEY + name + STARLORD_COMPRESSED_ORGANIZER_UPGRADE_WEIGHT_KEY+"NameOfWeight"
+    private static String getNameInMemory(String name,String type,String varuble){
+        return WEIGHTEDRANDOM_DOUBLE_KEY+TYPE_UPGRADE_KEY+name+type+varuble;
     }
-    public UpgradeBase getUpgrade(Lord lord,UpgradeData data){
+    public static UpgradeBase getUpgrade(Lord lord,UpgradeData data){
         return null;
     }
+    /*
     @SneakyThrows
     private static void test(JSONObject json){
         //and THIS FUCKING WORKS.
@@ -121,24 +138,7 @@ public class UpgradeController {
             String[] vars = a.split(":");
             log.info("  name:"+vars[0]+", vars:"+vars[1]+","+vars[2]+","+vars[3]+","+vars[4]);
         }
-    }
-    /*
-    private void test(){
-        JSONArray array = new JSONArray();
-        JSONArray array1 = new JSONArray();
-        array1.put("hello");
-        array1.put("you");
-        array1.put("person");
-        JSONArray array2 = new JSONArray();
-
-        array2.put("how");
-        array2.put("dare");
-        array2.put("thee");
-        array.put(array1);
-        array.put(array2);
-
     }*/
-
 
 
 

@@ -52,6 +52,12 @@ public class MemCompressedOrganizer<A,B> {
     protected HashMap<String,Integer> map = new HashMap<>();
     protected ArrayList<B> list = new ArrayList<>();
 
+    public boolean hasItem(String id){
+        for (String a : map.keySet()){
+            if (a.equals(id)) return true;
+        }
+        return false;
+    }
     public void setItem(String id,B thing){
         if (map.containsKey(id)){
             list.set(map.get(id),thing);

@@ -5,23 +5,10 @@ import starlords.person.Lord;
 import starlords.util.WeightedRandom;
 import starlords.util.memoryUtils.Compressed.MemCompressedOrganizer;
 
-import static starlords.util.Constants.COMPRESSED_ORGANIZER_UPGRADE_KEY;
-import static starlords.util.Constants.COMPRESSED_ORGANIZER_UPGRADE_WEIGHT_KEY;
+import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.WEIGHTEDRANDOM_DOUBLE_KEY;
 
-public class MemCompressed_Lord_Upgrade extends MemCompressedOrganizer<Double, WeightedRandom> {
-    private String name;
-    //upgrade, weight and type name are for finding this data in the json file
-    private String upgradeName;
-    private String weightName;
-    private String typeName;
-    public MemCompressed_Lord_Upgrade(String name,String upgradeName,String weightName,String typeName){
-        //name structure would be:
-        this.name = COMPRESSED_ORGANIZER_UPGRADE_KEY + "NameOfUpgrade_" + COMPRESSED_ORGANIZER_UPGRADE_WEIGHT_KEY +"NameOfWeight";
-        this.name = name;
-        this.upgradeName = upgradeName;
-        this.weightName = weightName;
-        this.typeName = typeName;
-    }
+
+public class MemCompressed_Lord_WeightedRandom_Double extends MemCompressedOrganizer<Double, WeightedRandom> {
     /*@SneakyThrows
     public void addStructure(JSONObject jsonObject){
         JSONObject min = jsonObject.getJSONObject("max");
@@ -46,10 +33,11 @@ public class MemCompressed_Lord_Upgrade extends MemCompressedOrganizer<Double, W
     public void load() {
         //todo: place the json file for this lord here.
         //theory: hold the lords .json file -inside- the starlord. once starlord is loaded, dismiss the json files in full.
-        //this would allow
+        //notes on this theory: I should have a section of code that handles all json based starlord setting changes. this would help a lot in the long run.
+        //final notes: I should not apply this data here. instead, I should apply this data somewere inside the lord class. but that is for later.
         for (Lord lord : LordController.getLordsList()) {
-            this.repair(lord.getCOMPRESSED_MEMORY().getItem(name),lord);
-            //replace starlord data that exists inside of json here. (aka, data that was not default.)
+            //note: this repairs all starlords perfectly. just like that. they all have there default data's set. and nothing else needs to happen.
+            this.repair(lord.getCOMPRESSED_MEMORY().getItem(WEIGHTEDRANDOM_DOUBLE_KEY),lord);
         }
         //todo: remove the saved json here. it is no longer required.
     }

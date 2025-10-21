@@ -54,11 +54,5 @@ public class Constants {
     public static final String STARLORD_COMPRESSED_MEMORY_KEY= "$STARLORDS_LORD_COMPRESSED_MEMORY_";
 
 
-    //constants for compressed memory keys (in primary hashmap)
-    public static final String COMPRESSED_ORGANIZER_LORD_KEY = "LORD";
-    //constants for upgrade keys:
-    public static final String COMPRESSED_ORGANIZER_UPGRADE_KEY = "UPGRADE_";
-    public static final String COMPRESSED_ORGANIZER_UPGRADE_WEIGHT_KEY = "WEIGHT_";
-    public static final String COMPRESSED_ORGANIZER_UPGRADE_COST_KEY = "COST_";
 
 }

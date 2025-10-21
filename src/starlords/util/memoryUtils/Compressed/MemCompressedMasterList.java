@@ -6,8 +6,6 @@ import starlords.util.memoryUtils.Compressed.types.MemCompressed_Lord;
 
 import java.util.HashMap;
 
-import static starlords.util.Constants.COMPRESSED_ORGANIZER_LORD_KEY;
-
 public class MemCompressedMasterList {
     /*so, in regards to lords compressed memory: its organization is:
     * holder<holder<?>>
@@ -28,6 +26,15 @@ public class MemCompressedMasterList {
     *
     * */
 
+
+    //constants for compressed memory keys (in primary hashmap)
+    public static final String LORD_KEY = "LORD";
+    //constants for disorganized types:
+    public static final String WEIGHTEDRANDOM_DOUBLE_KEY = "WEIGHTED-RANDOM->DOUBLE_";
+    //constants for upgrade keys:
+    public static final String TYPE_UPGRADE_KEY = "UPGRADE_";
+    public static final String UPGRADE_WEIGHT_KEY = "_WEIGHT_";
+    public static final String UPGRADE_COST_KEY = "_COST_";
 
     @Getter
     private static HashMap<String,MemCompressedOrganizer<?,?>> memory = new HashMap<>();
@@ -68,8 +75,8 @@ public class MemCompressedMasterList {
 
     private static void insureCoreStructurePresent(){
         //this is were all the basic classes are intialized. basicly, it is the preperation of structure, provided any bit of it is not present.
-        if (!MemCompressedMasterList.memory.containsKey(COMPRESSED_ORGANIZER_LORD_KEY)){
-            MemCompressedMasterList.getMemory().put(COMPRESSED_ORGANIZER_LORD_KEY,new MemCompressed_Lord());
+        if (!MemCompressedMasterList.memory.containsKey(LORD_KEY)){
+            MemCompressedMasterList.getMemory().put(LORD_KEY,new MemCompressed_Lord());
         }
 
     }

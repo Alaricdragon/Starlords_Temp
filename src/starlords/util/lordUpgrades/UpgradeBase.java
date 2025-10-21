@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public interface UpgradeBase {
-    boolean defaultOn = true;
-    double weight = 0;
     /*@SneakyThrows
     void init(JSONObject json){
         if (json.has("defaultEnabled")){

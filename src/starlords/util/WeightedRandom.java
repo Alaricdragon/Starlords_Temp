@@ -22,6 +22,8 @@ public class WeightedRandom {
         if(min == target) downChance = 0;
     }
     public double getRandom(){
+        double M = 1000;
+        //this simplest solution, would be to mult all the numbers by say, 1000x, then once the EQ is over, devide them by 1000x.
         //int range = upRange;
         int multi = 1;
         double limit = max;
@@ -30,19 +32,23 @@ public class WeightedRandom {
             multi = -1;
             limit = min;
         }
+        //limit *= M;
         int a = 0;
+
         //double chance = (1/i);//((i-1) / i);//2 I want 50%. 3 I want 66%. 4 I want 75%.
         int c = 0;
         while(c < 5){
-            while(a <= limit && Math.random() < i){//this i  is equal to 1 / inputed i
+            //while(a <= limit && Math.random() < i){//this i  is equal to 1 / inputed i
+            while(a <= limit && Math.random() < i*M){//this i  is equal to 1 / inputed i
                 a++;
             }
-            if(a <= limit) break;
+            if(a <= limit) break;//if a is within limits, dont modifi data.
             c++;
             a=0;
         }
         if(a > limit) a = 0;
         a*=multi;
+        //return ((target*M)+a)/M;
         return target+a;
     }
 }
