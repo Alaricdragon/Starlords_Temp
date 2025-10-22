@@ -22,6 +22,15 @@ public class WeightedRandom {
         if(min == target) downChance = 0;
     }
     public double getRandom(){
+        /*If I ever want to rewrite the EQ in full, all im doing is having an equation that grows expansively.
+        * so basicly, something with a ^ in it. so like ran^i. or something.
+        * wait, could I not just use less then 1 values of i to get the right resalt?
+        * ran^0.1, would be what percentage below 10 anyways? arg...
+        * I will look at this all next time.
+        *
+        * */
+
+
         double M = 1000;
         //this simplest solution, would be to mult all the numbers by say, 1000x, then once the EQ is over, devide them by 1000x.
         //int range = upRange;
