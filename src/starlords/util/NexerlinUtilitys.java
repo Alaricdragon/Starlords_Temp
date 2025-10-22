@@ -140,6 +140,7 @@ public class NexerlinUtilitys {
     public static float getAlignmentsComparison(Map<Alliance.Alignment, Float> a, Map<Alliance.Alignment, Float> b) {
         float difference = 0;
         for (Map.Entry<Alliance.Alignment, Float> alignment : a.entrySet()) {
+            if (!b.containsKey(alignment.getKey())) continue;
             difference += Math.abs(alignment.getValue() - b.get(alignment.getKey()));
         }
         return difference;
