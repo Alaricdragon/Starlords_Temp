@@ -24,6 +24,7 @@ import starlords.ui.*;
 import starlords.util.Constants;
 import starlords.util.NexerlinUtilitys;
 import starlords.util.Utils;
+import starlords.util.WeightedRandom;
 import starlords.util.lordUpgrades.UpgradeController;
 import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
 
@@ -35,9 +36,9 @@ import static starlords.util.Constants.LORD_TABLE_KEY;
 public class LordsModPlugin extends BaseModPlugin {
 
     public static Logger log = Global.getLogger(LordsModPlugin.class);
-
     @Override
     public void configureXStream(XStream x) {
+        //WeightedRandom.attemptLog();
         // for backwards compatibility
         x.alias("ai.LordAI", LordAI.class);
         x.alias("ai.LordStrategicModule", LordStrategicModule.class);

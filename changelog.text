@@ -1,3 +1,11 @@
+This value represents the standard deviation of this standard distribution equation. It effectively represents how 'flat' the curve of random odds is.
+example: with a value of 5 items between target-5 and target+5 will have a 68% chance to appear, items between target-10 and target+10 will have a 95% change to appear, and items between target-15 and target+15 will have a 99.7% chance to appear.
+in effect, the smaller this value, the more 'flat' the distribution of values will be.
+set to 0 for true random.
+
+V0.3.??:
+    fixes:
+        improved the standard distribution function to work instead of suck.
 V0.3.45:
     fixes:
         fixed starlords attacking hidden markets. (the [hidden for spoiler reasons] should be safe now).

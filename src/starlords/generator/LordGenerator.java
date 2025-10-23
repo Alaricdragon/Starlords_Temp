@@ -132,7 +132,7 @@ public class LordGenerator {
         log.info("DEBUG: generating a new starlord...");
         PosdoLordTemplate lord = new PosdoLordTemplate();
         lord.factionId=factionID;
-        lord.level=(int)starlordLevelRatio.getRandom();
+        lord.level=starlordLevelRatio.getRandomInt();
         lord.personality = personalities[getValueFromWeight(personalityRatio)];
         lord.battlePersonality = battlePersonalities[getValueFromWeight(battlePersonalityRatio)];
         lord.ranking=0;
@@ -247,10 +247,10 @@ public class LordGenerator {
 
     private static void generateAllShipsForLord(PosdoLordTemplate lord, String factionID){
         int[] sizeratio = {
-                (int)sizeRatio[0].getRandom(),
-                (int)sizeRatio[1].getRandom(),
-                (int)sizeRatio[2].getRandom(),
-                (int)sizeRatio[3].getRandom()
+                sizeRatio[0].getRandomInt(),
+                sizeRatio[1].getRandomInt(),
+                sizeRatio[2].getRandomInt(),
+                sizeRatio[3].getRandomInt()
         };
         if (sizeratio[0] == 0 && sizeratio[1] == 0 && sizeratio[2] == 0 && sizeratio[3] == 0){
             sizeratio[(int)(random.nextInt(4))] = 1;
