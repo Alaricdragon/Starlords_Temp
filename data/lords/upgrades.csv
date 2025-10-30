@@ -1,13 +1,4 @@
-id,defaultEnabled,weight,weight multi,cost,cost multi,AI_modifiers,AI_modifiers_multi,group,script
-#internal ID of this upgrade.,if this effects all lords by defalt.,"the odds of this upgrade being chosen over other upgrades.
-the values are:
-ID_Of_Modifier: max : min : target : drag
-ID_Of_Modifier is the id of this modifier in code. used in the script.
-max is the max value this random can have.
-min is the min value this random can have.
-target is the target value this random can have. this is what the '0' value is for this random.
-drag is what percentage of values is within....
-I need to redesing this. I need to make something better.",,,,,,,
-thing_a,false,"Weight1:20:10:5:1
-Weight2:10:-10:2:12",,,,,,,
-,,,,,,,,,
+id,defaultEnabled,script
+#internal ID of this upgrade.,if this effects all lords by defalt.,
+thing_a,false,
+,,

@@ -27,7 +27,7 @@
     "min": 0,
     "max": 400,
     "target": 50,
-    "i": 1.05
+    "i": 0
   },
   "excluded_factions": {
     "1": "derelict",

@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import starlords.person.Lord;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public interface UpgradeBase {
@@ -20,12 +21,12 @@ public interface UpgradeBase {
         }
         if (json.has("weight")) weight = json.getDouble("weight");
     }*/
-    double getWeight(Lord lord,UpgradeData data);
-    double getAIWeight(Lord lord);
-    int getCost(Lord lord,UpgradeData data);
-    void applyUpgrade(Lord lord,UpgradeData data, int creditsSpent);
+    double getWeight(Lord lord, UpgradeData data, HashMap<String,Double> modifiers);
+    double getAIWeight(Lord lord, HashMap<String,Double> modifiers);
+    double getCost(Lord lord,UpgradeData data, HashMap<String,Double> modifiers);
+    void applyUpgrade(Lord lord,UpgradeData data, double creditsSpent, HashMap<String,Double> costModifiers);
     boolean canPreformUpgrade(Lord lord, UpgradeData data);
-    boolean hasEnoughCreditsForUpgrade(Lord lord, UpgradeData data);
+    //boolean hasEnoughCreditsForUpgrade(Lord lord, UpgradeData data);
 
 
 }

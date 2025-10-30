@@ -299,7 +299,7 @@ public class Utils {
         return ret;
     }
 
-    public static <T> T weightedSample(List<T> data, List<Integer> weights, Random rand) {
+    /*public static <T> T weightedSample(List<T> data, List<Integer> weights, Random rand) {
         if (data.isEmpty()) return null;
         if (rand == null) rand = new Random();
         int totalWeight = 0;
@@ -307,6 +307,25 @@ public class Utils {
             totalWeight += w;
         }
         int choice = rand.nextInt(totalWeight);
+        T curr = null;
+        for (int i = 0; i < weights.size(); i++) {
+            if (weights.get(i) > choice) {
+                curr = data.get(i);
+                break;
+            } else {
+                choice -= weights.get(i);
+            }
+        }
+        return curr;
+    }*/
+    public static <T> T weightedSample(List<T> data, List<Double> weights, Random rand) {
+        if (data.isEmpty()) return null;
+        if (rand == null) rand = new Random();
+        double totalWeight = 0;
+        for (double w : weights) {
+            totalWeight += w;
+        }
+        double choice = rand.nextDouble()*totalWeight;//(totalWeight);
         T curr = null;
         for (int i = 0; i < weights.size(); i++) {
             if (weights.get(i) > choice) {

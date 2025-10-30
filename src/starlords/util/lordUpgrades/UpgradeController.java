@@ -1,21 +1,19 @@
 package starlords.util.lordUpgrades;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.util.Pair;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import starlords.person.Lord;
-import starlords.util.WeightedRandom;
+import starlords.util.Utils;
 import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
-import starlords.util.memoryUtils.Compressed.MemCompressedOrganizer;
-import starlords.util.memoryUtils.Compressed.types.MemCompressed_Lord;
-import starlords.util.memoryUtils.Compressed.types.MemCompressed_Lord_WeightedRandom_Double;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.*;
 
@@ -69,82 +67,107 @@ public class UpgradeController {
 
     private static final Logger log = Global.getLogger(UpgradeController.class);
     @SneakyThrows
-    public static void init(){
+    public static void init() {
         String path = "data/lords/upgrades.csv";
-        JSONArray jsons = Global.getSettings().loadCSV(path,true);
-        MemCompressed_Lord lordmemory = (MemCompressed_Lord) MemCompressedMasterList.getMemory().get(LORD_KEY);
-        //for lord upgrades:
-        if (lordmemory.hasItem(TYPE_UPGRADE_KEY)){
-            lordmemory.setItem(TYPE_UPGRADE_KEY,new MemCompressed_Lord_WeightedRandom_Double());
+        JSONArray jsons = Global.getSettings().loadCSV(path, true);
+        for (int a = 0; a < jsons.length(); a++){
+            JSONObject json = jsons.getJSONObject(a);
+            String id = json.getString("id");
+            boolean bol = json.getBoolean("defaultEnabled");
+            String path2 = json.getString("script");
+            upgrades.put(id, (UpgradeBase) Global.getSettings().getInstanceOfScript(path2));
+            defaultOn.put(id,bol);
         }
-        MemCompressedOrganizer<Double,WeightedRandom> organizer = (MemCompressedOrganizer<Double, WeightedRandom>) lordmemory.getItem(TYPE_UPGRADE_KEY);
-        addUpgradeOrganizer(organizer,jsons);
+    }
+    public static String getRandomDataID(String[] data,String id){
+        String type = data[2];
+        switch (type){
+            case "COST":
+                type = UPGRADE_COST_KEY;
+                break;
+            case "WEIGHT":
+                type = UPGRADE_WEIGHT_KEY;
+                break;
+        }
+        return getNameInMemory(data[1],type,id);
+    }
 
-        //for faction upgrades:
-        //todo: copy the 'for lord upgrades' for a new faction file system.
-        //please note that the faction files are presently none exsistant.
-    }
-    @SneakyThrows
-    private static void addUpgradeOrganizer(MemCompressedOrganizer<Double, WeightedRandom> organizer, JSONArray json){
-        for (int a = 0; a < json.length(); a++){
-            log.info("checking item with an ID of: "+json.getJSONObject(a).getString("id"));
-            addUpgrade(json.getJSONObject(a),organizer);
-        }
-    }
-    private static void addUpgrade(JSONObject json, MemCompressedOrganizer<Double, WeightedRandom> organizer) throws JSONException {
-        String path = json.getString("script");
-        UpgradeBase newItem = (UpgradeBase) Global.getSettings().getInstanceOfScript(path);
-        String id = json.getString("id");
-        defaultOn.put(id,json.getBoolean("defaultEnabled"));
-        upgrades.put(id,newItem);
-
-        //note: I need to devide the upgrades here into there respective string lines.
-        String costKey = "cost";
-        String weightKey = "weight";
-        log.info("-getting costs....");
-        prepareUpgradeDefaults(id,UPGRADE_COST_KEY,costKey,json,organizer);
-        log.info("-getting weights....");
-        prepareUpgradeDefaults(id,UPGRADE_WEIGHT_KEY,weightKey,json,organizer);
-    }
-    @SneakyThrows
-    private static void prepareUpgradeDefaults(String name,String type,String key, JSONObject json, MemCompressedOrganizer<Double, WeightedRandom> organizer){
-        //name+TYPE+"NameOfWeight"
-        String[] lines = json.getString(key).split(""+'\n');
-        for (String a : lines){
-            String[] vars = a.split(":");
-            log.info("  name:"+vars[0]+", vars:"+vars[1]+","+vars[2]+","+vars[4]+","+vars[3]);//please dont ask me why 4 and 3 are mixed around.
-            String id = getNameInMemory(name,type,vars[0]);
-            WeightedRandom random = new WeightedRandom(Double.parseDouble(vars[1]),Double.parseDouble(vars[2]),Double.parseDouble(vars[4]),Double.parseDouble(vars[3]));
-            organizer.setItem(id,random);
-        }
-    }
     private static String getNameInMemory(String name,String type,String varuble){
-        return WEIGHTEDRANDOM_DOUBLE_KEY+TYPE_UPGRADE_KEY+name+type+varuble;
+        return TYPE_UPGRADE_KEY+name+type+varuble;
     }
-    public static UpgradeBase getUpgrade(Lord lord,UpgradeData data){
-        return null;
-    }
-    /*
-    @SneakyThrows
-    private static void test(JSONObject json){
-        //and THIS FUCKING WORKS.
-        //I can get all the fucking data I want here. finaly. at long fucking last.
-        //yaaaa
-        log.info("HERE HERE HERE! IT IS HERE. DONT MISS THIS!!");
-        log.info("String is: "+json.getString("weight"));
-        String[] lines = json.getString("weight").split(""+'\n');
-        log.info("getting split string as:");
-        for (String a : lines){
-            String[] vars = a.split(":");
-            log.info("  name:"+vars[0]+", vars:"+vars[1]+","+vars[2]+","+vars[3]+","+vars[4]);
+    public static Pair<HashMap<String,Double>,UpgradeBase> getUpgrade(Lord lord,UpgradeData data){
+        //HashMap<String,Double> availableWeight = new HashMap<>();
+        List<Pair<HashMap<String,Double>,UpgradeBase>> availableUpgrades = new ArrayList<>();
+        List<Double> availableWeight = new ArrayList<>();
+        HashMap<String,Double> costs = getCosts(lord,data);
+        HashMap<String,Double> weight = getWeights(lord,data);
+        for (String b : weight.keySet()){
+            if (costs.containsKey(b)){
+                Pair<HashMap<String,Double>,UpgradeBase> temp = new Pair<>();
+                temp.one = getCombinedCost(b,lord,data);
+                temp.two = upgrades.get(b);
+                availableUpgrades.add(temp);
+                availableWeight.add(weight.get(b));
+            }
         }
-    }*/
+        //get a random upgrade from here.
+        return Utils.weightedSample(availableUpgrades,availableWeight,Utils.rand);
+    }
+    public static HashMap<String,Double> getCosts(Lord lord, UpgradeData data){
+        HashMap<String,Double> output = new HashMap<>();
+        double credits = data.wealthReservedForUpgrades;
+        for (String a : upgrades.keySet()){
+            UpgradeBase b = upgrades.get(a);
+            double cost = b.getCost(lord,data,getCombinedCost(a,lord,data));
+            //todo: modify the weight with the weight from all available modifiers here (example: faction mods, PMC mods, Settings mods)
+            if (cost < credits) continue;
+            output.put(a,cost);
+        }
+        return output;
+    }
+    public static HashMap<String,Double> getWeights(Lord lord, UpgradeData data){
+        HashMap<String,Double> output = new HashMap<>();
+        for (String a : upgrades.keySet()){
+            UpgradeBase b = upgrades.get(a);
+            if(!b.canPreformUpgrade(lord,data)) continue;
+            double weight = b.getWeight(lord,data,getCombinedWeight(a,lord,data));
+            if (weight <= 0) continue;
+            output.put(a,weight);
+        }
+        return output;
+    }
+    public static HashMap<String,Double> getCombinedWeight(String upgradeID,Lord lord, UpgradeData data){
+        HashMap<String,Double> output = new HashMap<>();
+        //MemCompressedMasterList.getMemory().get(LORD_KEY);
 
+        //todo: modify the weight with the weight from all available modifiers here (example: faction mods, PMC mods, Settings mods)
+        //so... how is this going to work:
+        //1: I need to save all the identifiers of all the upgrade datas when I am loading the random data.
+        //2: I need to call them here, retranslating them back though only the upgrade ID, and the modifier ID.
+        //3: I need to remember that there are multiple 'forms' a given random can take. I need to...
+        //   ... ok this is not the case. the stored data --not the organizer-- is always a double. so I only need to multiply them all together
+        //   ... also note: I  might need more modifiers, like max S-mods or something. that would be kinda cool I suppose....
+        return output;
+    }
+    public static HashMap<String,Double> getCombinedCost(String upgradeID, Lord lord, UpgradeData data){
+        HashMap<String,Double> output = new HashMap<>();
 
-
+        return output;
+    }
     public void performUpgrades(Lord lord){
         UpgradeData data = new UpgradeData();
-        UpgradeBase upgrade = getUpgrade(lord,data);
-        if (upgrade == null) return;
+        data.wealthAtUpgradeStart = lord.getWealth();
+        data.wealthReservedForUpgrades = lord.getWealth();
+        while(true) {
+            Pair<HashMap<String,Double>,UpgradeBase> pair = getUpgrade(lord, data);
+            if (pair == null) break;
+            UpgradeBase upgrade = pair.two;
+            HashMap<String,Double> combinedCost = pair.one;
+            double cost = upgrade.getCost(lord,data,combinedCost);
+            data.wealthReservedForUpgrades -= cost;
+            data.wealthUsed += cost;
+            upgrade.applyUpgrade(lord,data,cost,combinedCost);
+        }
+        lord.addWealth(-1*data.wealthUsed);
     }
 }

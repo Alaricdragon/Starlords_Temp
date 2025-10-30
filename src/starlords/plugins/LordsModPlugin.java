@@ -27,6 +27,7 @@ import starlords.util.Utils;
 import starlords.util.WeightedRandom;
 import starlords.util.lordUpgrades.UpgradeController;
 import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
+import starlords.util.randomLoader.RandomLoader_Controler;
 
 import java.util.HashMap;
 
@@ -76,7 +77,7 @@ public class LordsModPlugin extends BaseModPlugin {
             sector.getPersistentData().put(LORD_TABLE_KEY, new HashMap<String, HashMap<String, Object>>());
         }
         MemCompressedMasterList.load();
-
+        RandomLoader_Controler.init();
         if (!newGame) {
             LordController.parseLordTemplates();
             LordController.loadLords();
