@@ -16,7 +16,7 @@ public class DialogAddon_setLordMemoryData_String extends DialogAddon_setDialogD
 
     @Override
     protected void applyString(String string, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket) {
-        DataHolder DATA_HOLDER = lord.getLordDataHolder();
+        DataHolder DATA_HOLDER = lord.getDataHolder();
         if (time != null) {
             DATA_HOLDER.setString(key,string,time.getValue(lord, targetLord, targetMarket));
             return;

@@ -23,7 +23,6 @@ import starlords.ui.PrisonerIntelPlugin;
 import starlords.util.*;
 import starlords.util.factionUtils.FactionTemplateController;
 import starlords.util.memoryUtils.Compressed.MemCompressedHolder;
-import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
 import starlords.util.memoryUtils.DataHolder;
 import starlords.util.weights.IncomeWeights;
 import starlords.util.weights.UpgradeWeights;
@@ -624,7 +623,7 @@ public class Lord {
     }
 
     private DataHolder DATA_HOLDER;
-    public DataHolder getLordDataHolder(){
+    public DataHolder getDataHolder(){
         DataHolder data_holder = DATA_HOLDER;
         if (DATA_HOLDER != null) return data_holder;
         String key = STARLORD_ADDITIONAL_MEMORY_KEY+getLordAPI().getId();
@@ -636,7 +635,7 @@ public class Lord {
         DATA_HOLDER = data_holder;
         return data_holder;
     }
-    public void saveLordDataHolder(){
+    public void saveDataHolder(){
         String key = STARLORD_ADDITIONAL_MEMORY_KEY+getLordAPI().getId();
         DataHolder data_holder = DATA_HOLDER;
         Global.getSector().getMemory().set(key,data_holder);
@@ -658,11 +657,10 @@ public class Lord {
         }
         COMPRESSED_MEMORY = temp;
     }
-    public void saveLordCompressedMemory(){
+    public void saveCompressedMemory(){
         String key = STARLORD_COMPRESSED_MEMORY_KEY+getLordAPI().getId();
         MemCompressedHolder<MemCompressedHolder<?>> data = COMPRESSED_MEMORY;
         Global.getSector().getMemory().set(key,data);
-
     }
 
     public Map<Alliance.Alignment, Float> getAlignments() {

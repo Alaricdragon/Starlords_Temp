@@ -1,12 +1,10 @@
 package starlords.util.dialogControler.dialogAddon;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.OptionPanelAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.SneakyThrows;
-import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import starlords.person.Lord;
 import starlords.util.Utils;
@@ -15,8 +13,6 @@ import starlords.util.memoryUtils.DataHolder;
 
 import java.util.HashMap;
 import java.util.Iterator;
-
-import static starlords.util.Constants.STARLORD_ADDITIONAL_MEMORY_KEY;
 
 public class DialogAddon_setLordMemoryData extends DialogAddon_setDialogData{
     HashMap<String, DialogValuesList> time = new HashMap<>();
@@ -35,7 +31,7 @@ public class DialogAddon_setLordMemoryData extends DialogAddon_setDialogData{
     }
     @Override
     public void apply(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord,Lord targetLord, MarketAPI targetMarket) {
-        DataHolder DATA_HOLDER = lord.getLordDataHolder();
+        DataHolder DATA_HOLDER = lord.getDataHolder();
         applyStrings(DATA_HOLDER,lord,targetLord,targetMarket);
         applyBooleans(DATA_HOLDER,lord,targetLord,targetMarket);
         applyFloats(DATA_HOLDER,lord,targetLord,targetMarket);

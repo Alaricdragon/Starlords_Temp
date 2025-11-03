@@ -9,7 +9,7 @@ will move this upgrade into the 'sMods' upgrade from the 'UPGRADE' section as a 
 For example: WEIGHTED_RANDOM:DOUBLE would turn a weighted random into a dobule.
 'Value' should have the current input poncuation for each Data Type.
 Data Types are:
-STRING:DOUBLE		classPath to a 'RandomLoader_CustomRandom_Double' class
+STRING:DOUBLE		classPath to a 'MemCompressed_Random_Double_Base' class
 DOUBLE			a number value
 WEIGHTED_RANDOM:DOUBLE	a weighted random equadtion","this represents the defalt value of a given stat. for randomization of starlords data
 values represent:

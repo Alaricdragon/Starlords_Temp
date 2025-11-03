@@ -21,6 +21,9 @@ public interface UpgradeBase {
         }
         if (json.has("weight")) weight = json.getDouble("weight");
     }*/
+    ArrayList<String> getAIModifiers(Lord lord, UpgradeData data);
+    ArrayList<String> getCostModifiers(Lord lord, UpgradeData data);
+    ArrayList<String> getWeightModifiers(Lord lord, UpgradeData data);
     double getWeight(Lord lord, UpgradeData data, HashMap<String,Double> modifiers);
     double getAIWeight(Lord lord, HashMap<String,Double> modifiers);
     double getCost(Lord lord,UpgradeData data, HashMap<String,Double> modifiers);

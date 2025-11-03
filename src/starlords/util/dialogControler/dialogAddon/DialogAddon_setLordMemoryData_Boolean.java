@@ -15,7 +15,7 @@ public class DialogAddon_setLordMemoryData_Boolean extends DialogAddon_setDialog
 
     @Override
     protected void applyBoolean(boolean bol, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket) {
-        DataHolder DATA_HOLDER = lord.getLordDataHolder();
+        DataHolder DATA_HOLDER = lord.getDataHolder();
         if (time != null) {
             DATA_HOLDER.setBoolean(key,bol,time.getValue(lord, targetLord, targetMarket));
             return;

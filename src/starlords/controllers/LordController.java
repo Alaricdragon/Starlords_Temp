@@ -2,7 +2,6 @@ package starlords.controllers;
 
 import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
-import com.fs.starfarer.api.loading.VariantSource;
 import starlords.ai.LordStrategicModule;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
@@ -205,8 +204,8 @@ public class LordController {
         //todo: merge all this into the LordMemoryController.
         for (int a = 0; a < lordsList.size(); a++){
             Lord lord = lordsList.get(a);
-            if (lord.getLordDataHolder().hasData()) lord.saveLordDataHolder();
-            lord.saveLordCompressedMemory();
+            if (lord.getDataHolder().hasData()) lord.saveDataHolder();
+            lord.saveCompressedMemory();
         }
         saveFleetSMods();
         LordMemoryController.save();

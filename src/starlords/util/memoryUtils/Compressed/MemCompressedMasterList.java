@@ -2,9 +2,8 @@ package starlords.util.memoryUtils.Compressed;
 
 import com.fs.starfarer.api.Global;
 import lombok.Getter;
-import starlords.util.memoryUtils.Compressed.types.MemCompressed_DoubleScript;
+import starlords.util.memoryUtils.Compressed.types.MemCompressed_Lord_DoubleScript;
 import starlords.util.memoryUtils.Compressed.types.MemCompressed_Lord;
-import starlords.util.memoryUtils.Compressed.types.MemCompressed_Lord_WeightedRandom_Double;
 
 import java.util.HashMap;
 
@@ -30,19 +29,18 @@ public class MemCompressedMasterList {
 
 
     //constants for compressed memory keys (in primary hashmap)
-    public static final String LORD_KEY = "LORD";
-    public static final String FACTION_KEY = "FACTION";
-    public static final String PMC_KEY = "PMC";
+    public static final String LORD_KEY = "LORD_";
+    public static final String FACTION_KEY = "FACTION_";
+    public static final String PMC_KEY = "PMC_";
     //constants for disorganized types:
-    public static final String WEIGHTEDRANDOM_DOUBLE_KEY = "WEIGHTED-RANDOM->DOUBLE_";
-    public static final String STRING_DOUBLE_KEY = "STRING->DOUBLE_";//for classPaths
-    public static final String DOUBLE_DOUBLE_KEY = "DOUBLE->DOUBLE_";
+    public static final String DOUBLE_KEY = "DOUBLE_";
     //default key for random value:
     public static final String NO_CUSTOM_KEY = "NULLKEY_";
     //constants for upgrade keys:
     public static final String TYPE_UPGRADE_KEY = "UPGRADE_";
     public static final String UPGRADE_WEIGHT_KEY = "_WEIGHT_";
     public static final String UPGRADE_COST_KEY = "_COST_";
+    public static final String UPGRADE_AIWEIGHT_KEY = "_AIWEIGHT_";
 
     @Getter
     private static HashMap<String,MemCompressedOrganizer<?,?>> memory = new HashMap<>();
@@ -87,14 +85,8 @@ public class MemCompressedMasterList {
             MemCompressedMasterList.getMemory().put(LORD_KEY,new MemCompressed_Lord());
         }
         MemCompressed_Lord lordmemory = (MemCompressed_Lord) MemCompressedMasterList.getMemory().get(LORD_KEY);
-        if (!lordmemory.hasItem(WEIGHTEDRANDOM_DOUBLE_KEY)){
-            lordmemory.setItem(WEIGHTEDRANDOM_DOUBLE_KEY,new MemCompressed_Lord_WeightedRandom_Double());
-        }
-        if (!lordmemory.hasItem(STRING_DOUBLE_KEY)){
-            lordmemory.setItem(STRING_DOUBLE_KEY,new MemCompressed_DoubleScript());
-        }
-        if (!lordmemory.hasItem(DOUBLE_DOUBLE_KEY)){
-            lordmemory.setItem(DOUBLE_DOUBLE_KEY,new MemCompressedOrganizer<Double,Double>());
+        if (!lordmemory.hasItem(DOUBLE_KEY)){
+            lordmemory.setItem(DOUBLE_KEY,new MemCompressed_Lord_DoubleScript());
         }
 
     }

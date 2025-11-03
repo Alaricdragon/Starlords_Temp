@@ -52,7 +52,7 @@ public class DialogRule_compareStrings extends DialogRule_Base{
             case 1:
                 return LordInteractionDialogPluginImpl.DATA_HOLDER.getString(data);
             case 2:
-                return lord.getLordDataHolder().getString(data);
+                return lord.getDataHolder().getString(data);
             case 3:
                 String out = "";
                 if(Global.getSector().getMemory().contains(data) && Global.getSector().getMemory().get(data) instanceof String) out = Global.getSector().getMemory().getString(data);

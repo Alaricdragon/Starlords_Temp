@@ -8,6 +8,9 @@ import starlords.util.WeightedRandom;
 import starlords.util.lordUpgrades.UpgradeController;
 import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
 import starlords.util.memoryUtils.Compressed.MemCompressedOrganizer;
+import starlords.util.memoryUtils.Compressed.hTypes.MemCompressed_Random_Double_Base;
+import starlords.util.memoryUtils.Compressed.hTypes.MemCompressed_Random_Double_Static;
+import starlords.util.memoryUtils.Compressed.hTypes.MemCompressed_Random_Double_WeightedRandom;
 import starlords.util.memoryUtils.Compressed.types.MemCompressed_Lord;
 
 import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.*;
@@ -48,15 +51,18 @@ public class RandomLoader_Controler {
         Object output = null;
         switch (type){
             case TYPE_DOUBLE:
-                output = json.getDouble("Value");
+                double temp_0 = json.getDouble("Value");
+                output = new MemCompressed_Random_Double_Static(temp_0);
                 break;
             case TYPE_WR_DOUBLE:
                 String[] vars = json.getString("Value").split(":");
                 //log.info("  name:"+vars[0]+", vars:"+vars[1]+","+vars[2]+","+vars[4]+","+vars[3]);//please dont ask me why 4 and 3 are mixed around.
-                output = new WeightedRandom(Double.parseDouble(vars[0]),Double.parseDouble(vars[1]),Double.parseDouble(vars[3]),Double.parseDouble(vars[2]));
+                WeightedRandom temp_1 = new WeightedRandom(Double.parseDouble(vars[0]),Double.parseDouble(vars[1]),Double.parseDouble(vars[3]),Double.parseDouble(vars[2]));
+                output = new MemCompressed_Random_Double_WeightedRandom(temp_1);
                 break;
             case TYPE_PATH_DOUBLE:
                 output = Global.getSettings().getInstanceOfScript(json.getString("Value"));
+                break;
             default:
                 break;
         }
@@ -81,16 +87,10 @@ public class RandomLoader_Controler {
         }
         switch (type){
             case TYPE_WR_DOUBLE:
-                MemCompressedOrganizer<Double,WeightedRandom> temp_0 = (MemCompressedOrganizer<Double, WeightedRandom>) memory.getItem(WEIGHTEDRANDOM_DOUBLE_KEY);
-                temp_0.setItem(memoryID, (WeightedRandom) data);
-                break;
             case TYPE_DOUBLE:
-                MemCompressedOrganizer<Double,Double> temp_1 = (MemCompressedOrganizer<Double, Double>) memory.getItem(DOUBLE_DOUBLE_KEY);
-                temp_1.setItem(memoryID, (Double) data);
-                break;
             case TYPE_PATH_DOUBLE:
-                MemCompressedOrganizer<Double, RandomLoader_CustomRandom_Double> temp_2 = (MemCompressedOrganizer<Double, RandomLoader_CustomRandom_Double>) memory.getItem(STRING_DOUBLE_KEY);
-                temp_2.setItem(memoryID, (RandomLoader_CustomRandom_Double) data);
+                MemCompressedOrganizer<Double, MemCompressed_Random_Double_Base> temp_2 = (MemCompressedOrganizer<Double, MemCompressed_Random_Double_Base>) memory.getItem(DOUBLE_KEY);
+                temp_2.setItem(memoryID, (MemCompressed_Random_Double_Base) data);
         }
     }
     private static MemCompressedOrganizer<?,?> getMemoryFromKey(String key){
@@ -104,9 +104,9 @@ public class RandomLoader_Controler {
         }
         return null;//this will cause a crash, and for good reason. if it is triggering, something went wrong.
     }
-    public static final String TYPE_WR_DOUBLE = "WEIGHTED_RANDOM";
-    public static final String TYPE_DOUBLE = "VALUE";
-    public static final String TYPE_PATH_DOUBLE = "PATH";
+    public static final String TYPE_WR_DOUBLE = "WEIGHTED_RANDOM_DOUBLE";
+    public static final String TYPE_DOUBLE = "VALUE_DOUBLE";
+    public static final String TYPE_PATH_DOUBLE = "PATH_DOUBLE";
     @SneakyThrows
     private static String getDataType(JSONObject json){
         switch (json.getString("DATA_TYPE")){

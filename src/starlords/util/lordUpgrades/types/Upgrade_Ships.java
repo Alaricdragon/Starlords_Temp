@@ -4,9 +4,25 @@ import starlords.person.Lord;
 import starlords.util.lordUpgrades.UpgradeBase;
 import starlords.util.lordUpgrades.UpgradeData;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Upgrade_Ships implements UpgradeBase {
+    @Override
+    public ArrayList<String> getAIModifiers(Lord lord, UpgradeData data) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<String> getCostModifiers(Lord lord, UpgradeData data) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<String> getWeightModifiers(Lord lord, UpgradeData data) {
+        return null;
+    }
+
     @Override
     public double getWeight(Lord lord, UpgradeData data, HashMap<String, Double> modifiers) {
         return 0;
