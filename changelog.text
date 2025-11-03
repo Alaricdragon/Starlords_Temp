@@ -1,3 +1,7 @@
+V0.3.58:
+    fixes:
+        fixed a crash do to trying to get a negative random number.
+        fixed the wrong linked mod thread.
 V0.3.57:
     fixes:
         fixed a end of month crash involving a failure of the defection calculator

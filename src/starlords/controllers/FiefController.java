@@ -151,7 +151,7 @@ public class FiefController extends BaseIntelPlugin {
                 totalWeight += weights.get(weights.size() - 1);
             }
         }
-        if (totalWeight == 0) return null;
+        if (totalWeight <= 0) return null;
         Random random = new Random();
         int rand = random.nextInt(totalWeight);
         for (int i = 0; i < options.size(); i++) {
