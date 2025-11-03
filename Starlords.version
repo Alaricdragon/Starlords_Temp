@@ -1,12 +1,12 @@
 {
     "masterVersionFile":"https://raw.githubusercontent.com/Alaricdragon/Starlords_Temp/master/Starlords.version",
     "modName":"Starlords",
-    "modThreadId":30548,
+    "modThreadId":34114,
     "modVersion":
     {
         "major":0,
         "minor":3,
-        "patch":"57"
+        "patch":"58"
     },
 	"starsectorVersion":"0.98a-RC5",
 	"directDownloadURL":"https://github.com/Alaricdragon/Starlords_Temp/archive/refs/heads/master.zip",
