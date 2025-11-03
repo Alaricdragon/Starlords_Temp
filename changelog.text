@@ -4,6 +4,8 @@ in effect, the smaller this value, the more 'flat' the distribution of values wi
 set to 0 for true random.
 
 V0.3.??:
+    important:
+        I have modified some base values in the LunaSettings. I highly advice you to reset your mod settings. If not, the generater might start to act strange.
     fixes:
         improved the standard distribution function to work instead of suck.
 V0.3.45:
