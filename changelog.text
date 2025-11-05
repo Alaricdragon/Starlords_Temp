@@ -1,3 +1,7 @@
+V0.3.59:
+    fixes:
+        hopefully fixed a crash related to a missing lord map?
+        added some logs to better understand completely insane crashes that make no sense.
 V0.3.58:
     fixes:
         fixed a crash do to trying to get a negative random number.

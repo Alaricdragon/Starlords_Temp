@@ -72,35 +72,46 @@ public class LordsModPlugin extends BaseModPlugin {
         // creates table for lords in persistent data
         if (!sector.getPersistentData().containsKey(LORD_TABLE_KEY)) {
             sector.getPersistentData().put(LORD_TABLE_KEY, new HashMap<String, HashMap<String, Object>>());
+            log.info("reset presistant data...");
         }
 
         if (!newGame) {
             LordController.parseLordTemplates();
             LordController.loadLords();
+            log.info("loaded saved starlords...");
             log.info(LordController.getLordsList().size() + " Lords found");
         }
 
         StoredSettings.attemptEnableLunalib();
         StoredSettings.getSettings();
-
+        log.info("got settings...");
         //Instantiate Controllers
         FiefController.getInstance(true);
+        log.info("set fief controller...");
         EventController.getInstance(true);
+        log.info("set event controller..");
         RequestController.getInstance(true);
+        log.info("set request controller..");
         QuestController.getInstance(true);
+        log.info("set quest controller...");
         RelationController.getInstance(true);
+        log.info("set relation controller...");
         PoliticsController.getInstance(true);
+        log.info("set politics controller...");
         LifeAndDeathController.getInstance(true);
+        log.info("set life and death controller...");
 
         //Instantiate Static Intel Plugins
         LawsIntelPlugin.getInstance(true);
+        log.info("set Law Plugin...");
         CouncilIntelPlugin.getInstance(true);
-
+        log.info("set council plugin...");
 
         if (Utils.nexEnabled()) {
             sector.getListenerManager().addListener(new MarketStateChangeNexListener(), true);
         }
         sector.registerPlugin(new LordsCampaignPlugin());
+        log.info("set capmain plugin...");
 
         if (newGame && Constants.ENABLE_NEW_LORDS_ON_GAME_START){
             NewGameLordPicker.instance.addAll();
@@ -119,12 +130,18 @@ public class LordsModPlugin extends BaseModPlugin {
             //log.info("is the "+a+" playable? "+ NexConfig.getFactionConfig(a).playableFaction);
         }/**/
         LordController.loadFleetSMods();
+        log.info("loaded fleet Smods....");
         LordController.fixAllLordsPartnerStatus();
+        log.info("repaired partnear status...");
         LordController.logAllLords();
+        log.info("loged all lords...");
         LordMemoryController.load();
+        log.info("prepared memory controler....");
         LordController.updateFactionsWithLords();
+        log.info("updated lord factions...");
 
         if (Utils.nexEnabled()) NexerlinUtilitys.calculateInvasionsEnabled();
+        log.info("starlords loading completed...");
     }
 
 
