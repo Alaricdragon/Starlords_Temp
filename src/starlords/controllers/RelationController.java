@@ -229,6 +229,13 @@ public class RelationController extends BaseIntelPlugin {
                     throw new IllegalStateException("Should only be one RelationController intel registered");
                 }
                 instance = (RelationController) intel.get(0);
+                if (instance.lordMap == null){
+                    Logger log = Global.getLogger(RelationController.class);
+                    log.info("failed to get lord map from memory. Forcefully resting relationship controller...");
+                    Global.getSector().getIntelManager().removeIntel(instance);
+                    instance = new RelationController();
+                    Global.getSector().getIntelManager().addIntel(instance,true);
+                }
             }
         }
         return instance;
