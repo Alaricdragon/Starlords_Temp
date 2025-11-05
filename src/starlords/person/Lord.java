@@ -1,8 +1,10 @@
 package starlords.person;
 
 import com.fs.starfarer.api.util.Misc;
+import com.fs.starfarer.api.util.Pair;
 import exerelin.campaign.alliances.Alliance;
 import lombok.Setter;
+import starlords.PMC.PMC;
 import starlords.ai.LordStrategicModule;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
@@ -23,6 +25,7 @@ import starlords.ui.PrisonerIntelPlugin;
 import starlords.util.*;
 import starlords.util.factionUtils.FactionTemplateController;
 import starlords.util.memoryUtils.Compressed.MemCompressedHolder;
+import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
 import starlords.util.memoryUtils.DataHolder;
 import starlords.util.weights.IncomeWeights;
 import starlords.util.weights.UpgradeWeights;
@@ -263,6 +266,7 @@ public class Lord {
             prisoners = new ArrayList<>();
             persistentData.put("prisoners", prisoners);
         }
+        loadConnectedMemory();//this insures the structure is present.
     }
 
     public void addFief(MarketAPI fief) {
@@ -622,6 +626,18 @@ public class Lord {
         return FactionTemplateController.getTemplate(getFaction()).getLordRepChangeFromKillsMulti();
     }
 
+    public ArrayList<Pair<Double,PMC>> getPMCs(){
+        //this gets PMCs for this lord, and how mush of the 'effect' of each PMC is effecting this starlord.
+        //right now there is  only the faction PMC to worry about.
+        ArrayList<Pair<Double,PMC>> output = new ArrayList<>();
+        Pair<Double,PMC> temp = new Pair<>();
+        temp.one = 1d;
+        temp.two = FactionTemplateController.getTemplate(getFaction().getId()).getPrimaryPMC();
+        output.add(temp);
+
+        return output;
+    }
+
     private DataHolder DATA_HOLDER;
     public DataHolder getDataHolder(){
         DataHolder data_holder = DATA_HOLDER;
@@ -653,7 +669,9 @@ public class Lord {
         if (Global.getSector().getMemory().contains(key)){
             temp = (MemCompressedHolder<MemCompressedHolder<?>>) Global.getSector().getMemory().get(key);
         }else{
-            temp = COMPRESSED_MEMORY;
+            temp = new MemCompressedHolder<>(MemCompressedMasterList.getMemory().get(MemCompressedMasterList.LORD_KEY), this);
+            //temp.repair(this);
+            //temp = COMPRESSED_MEMORY;
         }
         COMPRESSED_MEMORY = temp;
     }

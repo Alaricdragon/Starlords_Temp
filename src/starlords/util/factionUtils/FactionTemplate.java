@@ -2,15 +2,14 @@ package starlords.util.factionUtils;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.characters.PersonAPI;
-import com.fs.starfarer.api.impl.campaign.ids.People;
 import com.fs.starfarer.api.util.Misc;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.SneakyThrows;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
+import starlords.PMC.PMC;
 import starlords.ai.utils.TargetUtils;
-import starlords.lunaSettings.StoredSettings;
-import starlords.plugins.LordInteractionDialogPluginImpl;
 import starlords.util.NexerlinUtilitys;
 import starlords.util.StringUtil;
 import starlords.util.Utils;
@@ -36,7 +35,8 @@ public class FactionTemplate {
     *
     * */
     public static Logger log = Global.getLogger(TargetUtils.class);
-
+    @Setter
+    protected PMC primaryPMC;
     protected String factionID;
 
     //protected PersonAPI leader;

@@ -329,7 +329,7 @@ public class LordFleetFactory extends FleetFactoryV3 {
         officer.getStats().setSkillLevel(candidates.get(new Random().nextInt(candidates.size())), skillLevel);
     }
 
-    private static void getCustomSMod(FleetMemberAPI member,HashMap<String,Integer> s_list,ArrayList<String> options, ArrayList<Integer> weights){
+    private static void getCustomSMod(FleetMemberAPI member,HashMap<String,Integer> s_list,ArrayList<String> options, ArrayList<Double> weights){
         for (String customLordSMod : s_list.keySet()) {
             //if (member.getVariant().getPermaMods().contains(customLordSMod)) continue;
             //if (!member.getVariant().hasHullMod(customLordSMod)){
@@ -339,7 +339,7 @@ public class LordFleetFactory extends FleetFactoryV3 {
     }
     private static String chooseSMod(FleetMemberAPI member, Lord lord) {
         ArrayList<String> options = new ArrayList<>();
-        ArrayList<Integer> weights = new ArrayList<>();
+        ArrayList<Double> weights = new ArrayList<>();
         if (!lord.getTemplate().customFleetSMods.isEmpty() && !member.isFlagship()) {
             getCustomSMod(member,lord.getTemplate().customFleetSMods,options,weights);
             log.info("GOT Fleet Smods: "+lord.getTemplate().fleetName+". options.size, flagship, forcedLordSMods, forcedFleetSMods "+options.size()+", "+member.isFlagship()+", "+lord.getTemplate().forceLordSMods+", "+lord.getTemplate().forceFleetSMods);
@@ -423,8 +423,8 @@ public class LordFleetFactory extends FleetFactoryV3 {
     }
 
     private static void addOption(
-            ArrayList<String> options, ArrayList<Integer> weights,
-            FleetMemberAPI member, String option, int weight) {
+            ArrayList<String> options, ArrayList<Double> weights,
+            FleetMemberAPI member, String option, double weight) {
         if (member.getVariant().hasHullMod(option)) return;
         assert !member.getVariant().getPermaMods().contains(option);
         options.add(option);

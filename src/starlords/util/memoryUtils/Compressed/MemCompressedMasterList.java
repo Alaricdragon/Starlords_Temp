@@ -81,6 +81,12 @@ public class MemCompressedMasterList {
 
     private static void insureCoreStructurePresent(){
         //this is were all the basic classes are intialized. basicly, it is the preperation of structure, provided any bit of it is not present.
+        insureStructureLordPresent();
+        insureStructurePMCPresent();
+
+
+    }
+    private static void insureStructureLordPresent(){
         if (!MemCompressedMasterList.memory.containsKey(LORD_KEY)){
             MemCompressedMasterList.getMemory().put(LORD_KEY,new MemCompressed_Lord());
         }
@@ -88,6 +94,14 @@ public class MemCompressedMasterList {
         if (!lordmemory.hasItem(DOUBLE_KEY)){
             lordmemory.setItem(DOUBLE_KEY,new MemCompressed_Lord_DoubleScript());
         }
-
+    }
+    private static void insureStructurePMCPresent(){
+        if (!MemCompressedMasterList.memory.containsKey(PMC_KEY)){
+            MemCompressedMasterList.getMemory().put(PMC_KEY,new MemCompressed_Lord());
+        }
+        MemCompressed_Lord pmcMemory = (MemCompressed_Lord) MemCompressedMasterList.getMemory().get(PMC_KEY);
+        if (!pmcMemory.hasItem(DOUBLE_KEY)){
+            pmcMemory.setItem(DOUBLE_KEY,new MemCompressed_Lord_DoubleScript());
+        }
     }
 }

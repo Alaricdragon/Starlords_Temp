@@ -105,7 +105,7 @@ public class LordAI implements EveryFrameScript {
         float milLevel = lord.getMilitaryLevel();
         MarketAPI ventureTarget = null;
 
-        ArrayList<Integer> weights = new ArrayList<>();
+        List<Double> weights = new ArrayList<>();
         ArrayList<LordAction> actions = new ArrayList<>();
         // if a time-sensitive priority task is in consideration, all lesser-priority task are blocked
         int priority = 10;
@@ -120,7 +120,7 @@ public class LordAI implements EveryFrameScript {
                     //log.info("Campaign start weight: " + weight);
                     // weight += 1000000; // TODO
                     if (weight > 0) {
-                        weights.add(weight);
+                        weights.add((double) weight);
                         actions.add(LordAction.CAMPAIGN);
                     }
                 }
@@ -130,7 +130,7 @@ public class LordAI implements EveryFrameScript {
                 int weight = EventController.getJoinCampaignWeight(lord);
                 if (weight > 0) {
                     priority = LordAction.CAMPAIGN.priority;
-                    weights.add(weight);
+                    weights.add((double) weight);
                     actions.add(LordAction.CAMPAIGN);
                 }
             }
@@ -154,7 +154,7 @@ public class LordAI implements EveryFrameScript {
 
             if (raidWeight > 0) {
                 if (attack != null) priority = LordAction.RAID.priority;
-                weights.add(raidWeight);
+                weights.add((double) raidWeight);
                 actions.add(LordAction.RAID_TRANSIT);
             }
         }
@@ -165,7 +165,7 @@ public class LordAI implements EveryFrameScript {
             int defenseWeight = defenseChoice.two;
             if (defense != null && defenseWeight > 0) {
                 priority = LordAction.DEFEND.priority;
-                weights.add(defenseWeight);
+                weights.add((double) defenseWeight);
                 actions.add(LordAction.DEFEND_TRANSIT);
             }
         }
@@ -197,7 +197,7 @@ public class LordAI implements EveryFrameScript {
                     feastWeight = 10;
                 }
             }
-            weights.add(feastWeight);
+            weights.add((double) feastWeight);
             if (lord.getCurrAction() == LordAction.FEAST) {
                 actions.add(LordAction.FEAST); // skip transit if already present
             } else {
@@ -218,7 +218,7 @@ public class LordAI implements EveryFrameScript {
                     patrolWeight = 10;
             }
             patrolWeight = (int) Math.max(patrolWeight * milLevel, 1);
-            weights.add(patrolWeight);
+            weights.add((double) patrolWeight);
             actions.add(LordAction.PATROL_TRANSIT);
         }
 
@@ -228,7 +228,7 @@ public class LordAI implements EveryFrameScript {
                 taxWeight += FiefController.getTax(fief.getMarket()) / 1000;
             }
             if (taxWeight > 0) {
-                weights.add(taxWeight);
+                weights.add((double) taxWeight);
                 actions.add(LordAction.COLLECT_TAXES_TRANSIT);
             }
         }
@@ -249,7 +249,7 @@ public class LordAI implements EveryFrameScript {
                 }
                 ventureWeight *= (2 - econLevel);
                 if (ventureWeight > 0) {
-                    weights.add(ventureWeight);
+                    weights.add((double) ventureWeight);
                     actions.add(LordAction.VENTURE_TRANSIT);
                 }
             }
@@ -267,7 +267,7 @@ public class LordAI implements EveryFrameScript {
                 upgradeWeight += 10;
                 upgradeWeight *= 2;
             }
-            weights.add(upgradeWeight);
+            weights.add((double) upgradeWeight);
             actions.add(LordAction.UPGRADE_FLEET_TRANSIT);
         }
 

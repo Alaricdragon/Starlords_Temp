@@ -1,4 +1,9 @@
 id,defaultEnabled,script
 #internal ID of this upgrade.,if this effects all lords by defalt.,
-thing_a,false,
+GetAICores,true,starlords.util.lordUpgrades.types.AddAICores
+GetSMods,true,starlords.util.lordUpgrades.types.AddSMods
+GetOfficers,true,starlords.util.lordUpgrades.types.CreateOfficers
+GetStarbaseDefense,true,starlords.util.lordUpgrades.types.FortifiyStarbases
+GetShips,true,starlords.util.lordUpgrades.types.PurchasesShips
 ,,
+SiC_CreateAttributes,true,starlords.util.lordUpgrades.types.SiC_Attributes

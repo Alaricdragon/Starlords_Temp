@@ -29,6 +29,7 @@ public interface UpgradeBase {
     double getCost(Lord lord,UpgradeData data, HashMap<String,Double> modifiers);
     void applyUpgrade(Lord lord,UpgradeData data, double creditsSpent, HashMap<String,Double> costModifiers);
     boolean canPreformUpgrade(Lord lord, UpgradeData data);
+    boolean canBeAddedToGame();
     //boolean hasEnoughCreditsForUpgrade(Lord lord, UpgradeData data);
 
 

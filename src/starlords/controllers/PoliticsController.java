@@ -1437,7 +1437,7 @@ public class PoliticsController implements EveryFrameScript {
     private String getPreferredLordTarget(Lord lord, boolean isAwardFief) {
         int weight;
         ArrayList<String> options = new ArrayList<>();
-        ArrayList<Integer> weights = new ArrayList<>();
+        List<Double> weights = new ArrayList<>();
 
         if (lord.getFaction().equals(Utils.getRecruitmentFaction())) {
             Lord player = LordController.getPlayerLord();
@@ -1449,7 +1449,7 @@ public class PoliticsController implements EveryFrameScript {
                 if (player.isMarshal()) weight = 0;
             }
             if (weight > 0) {
-                weights.add(weight);
+                weights.add((double) weight);
                 options.add(player.getLordAPI().getId());
             }
         }
@@ -1468,7 +1468,7 @@ public class PoliticsController implements EveryFrameScript {
                 if (option.isMarshal()) weight = 0;
             }
             if (weight > 0) {
-                weights.add(weight);
+                weights.add((double) weight);
                 options.add(option.getLordAPI().getId());
             }
         }

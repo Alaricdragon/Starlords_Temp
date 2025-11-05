@@ -95,6 +95,7 @@ public class LordsModPlugin extends BaseModPlugin {
         RelationController.getInstance(true);
         PoliticsController.getInstance(true);
         LifeAndDeathController.getInstance(true);
+        PMCController.initPMCs();
 
         //Instantiate Static Intel Plugins
         LawsIntelPlugin.getInstance(true);

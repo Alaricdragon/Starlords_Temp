@@ -25,6 +25,7 @@ import starlords.util.factionUtils.FactionTemplate;
 import starlords.util.factionUtils.FactionTemplateController;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static starlords.ai.LordAI.*;
 
@@ -357,7 +358,7 @@ public class TargetUtils {
         //log.info("got offencive possibility as:");
         boolean[] out = possibleAttacksMarket(lord,market,event,type);
         ArrayList<LordEvent.OffensiveType> options = new ArrayList<>();
-        ArrayList<Integer> weights = new ArrayList<>();
+        List<Double> weights = new ArrayList<>();
         if (out == null) return null;
         for (boolean a : out){
             //log.info("  getting offencive possibility: "+a);
@@ -365,27 +366,27 @@ public class TargetUtils {
         if (out[0]){
             //canRaid. (basic). this is always true for now.
             options.add(LordEvent.OffensiveType.RAID_GENERIC);
-            weights.add(3);
+            weights.add(3d);
         }
         if (out[1]){
             //canRaid. (industry)
             options.add(LordEvent.OffensiveType.RAID_INDUSTRY);
-            weights.add(3);
+            weights.add(3d);
         }
         if (out[2]){
             //canTacticalBomb
             options.add(LordEvent.OffensiveType.BOMBARD_TACTICAL);
-            weights.add(10);
+            weights.add(10d);
         }
         if (out[3]){
             //canInvade
             options.add(LordEvent.OffensiveType.NEX_GROUND_BATTLE);
-            weights.add(20);
+            weights.add(20d);
         }
         if (out[4]) {
             //canSatBomb.
             options.add(LordEvent.OffensiveType.BOMBARD_SATURATION);
-            weights.add(20);
+            weights.add(20d);
         }
         return Utils.weightedSample(options, weights, null);
     }

@@ -7,7 +7,13 @@ import starlords.util.lordUpgrades.UpgradeData;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Upgrade_SMods implements UpgradeBase {
+public class SiC_Attributes implements UpgradeBase {
+    /*
+    * todo: make it so this only activates when a starlord 'respawns'
+    *       make this so its not considered 'addable' when SiC is not installed.
+    *       change the way random Attributes work, so its not true random, because right now there is a lot of piracy on the hegemony.
+    *
+    * */
     @Override
     public ArrayList<String> getAIModifiers(Lord lord, UpgradeData data) {
         return null;
@@ -45,6 +51,11 @@ public class Upgrade_SMods implements UpgradeBase {
 
     @Override
     public boolean canPreformUpgrade(Lord lord, UpgradeData data) {
+        return false;
+    }
+
+    @Override
+    public boolean canBeAddedToGame() {
         return false;
     }
 }

@@ -4,6 +4,7 @@ import com.fs.starfarer.api.Global;
 import lombok.Getter;
 import starlords.person.Lord;
 import starlords.util.memoryUtils.Compressed.MemCompressedHolder;
+import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
 import starlords.util.memoryUtils.DataHolder;
 
 import java.util.ArrayList;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import static starlords.util.Constants.*;
 
 public class PMC {
+    //todo: it might be required to merge the PMC and the faction template together into one thing. maybe put the faction template inside the PMC instead of the other way around?
+    //who knows....
     @Getter
     private String id;
     private ArrayList<Lord> lords = new ArrayList<>();
@@ -18,6 +21,7 @@ public class PMC {
     private Lord commander;//I can get the PMC the 'commander' is in form the commander itself.
     public PMC(String id){
         this.id = id;
+        loadConnectedMemory();
     }
 
     @Getter
@@ -28,7 +32,8 @@ public class PMC {
         if (Global.getSector().getMemory().contains(key)){
             temp = (MemCompressedHolder<MemCompressedHolder<?>>) Global.getSector().getMemory().get(key);
         }else{
-            temp = COMPRESSED_MEMORY;
+            temp = new MemCompressedHolder<>(MemCompressedMasterList.getMemory().get(MemCompressedMasterList.PMC_KEY), this);
+            //temp.repair(this);
         }
         COMPRESSED_MEMORY = temp;
     }

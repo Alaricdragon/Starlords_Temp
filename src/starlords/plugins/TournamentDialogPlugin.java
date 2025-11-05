@@ -577,7 +577,7 @@ public class TournamentDialogPlugin extends FleetInteractionDialogPluginImpl {
         boolean memed = false;
         while (participants.size() < 15) {
             ArrayList<Integer> options = new ArrayList<>();
-            ArrayList<Integer> weights = new ArrayList<>();
+            List<Double> weights = new ArrayList<>();
 
             // 0 - player officers
             if (!playerOfficers.isEmpty() && playerOfficers.get(0).getPerson().isPlayer()) {
@@ -585,18 +585,18 @@ public class TournamentDialogPlugin extends FleetInteractionDialogPluginImpl {
             }
             if (!playerOfficers.isEmpty()) {
                 options.add(0);
-                weights.add(50);
+                weights.add(50d);
             }
 
             // 1 - Some meme characters
             if (!memed) {
                 options.add(1);
-                weights.add(5);
+                weights.add(5d);
             }
 
             // 2 - pather and pirate characters
             options.add(2);
-            weights.add(10);
+            weights.add(10d);
 
             // 3 - station characters
             while (!marketPeople.isEmpty() && (
@@ -605,12 +605,12 @@ public class TournamentDialogPlugin extends FleetInteractionDialogPluginImpl {
             }
             if (!marketPeople.isEmpty()) {
                 options.add(3);
-                weights.add(50);
+                weights.add(50d);
             }
 
             // 4 - Random faction character
             options.add(4);
-            weights.add(25);
+            weights.add(25d);
             int option = Utils.weightedSample(options, weights, Utils.rand);
             boolean addSkills = false;
             boolean elite = false;
@@ -699,9 +699,9 @@ public class TournamentDialogPlugin extends FleetInteractionDialogPluginImpl {
 
     // for when player is eliminated
     private PersonAPI getRandWinner() {
-        ArrayList<Integer> weights = new ArrayList<>();
+        List<Double> weights = new ArrayList<>();
         for (PersonAPI person : participants) {
-            weights.add((int) Math.pow(person.getStats().getLevel(), 2));
+            weights.add(Math.pow(person.getStats().getLevel(), 2));
         }
         return Utils.weightedSample(participants, weights, Utils.rand);
     }

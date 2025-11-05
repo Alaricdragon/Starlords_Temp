@@ -7,7 +7,13 @@ import starlords.util.lordUpgrades.UpgradeData;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Upgrade_Officers implements UpgradeBase {
+public class CreateOfficers implements UpgradeBase {
+    /*
+    * todo: first, I need a way to read the json file for a given starlord, to override what ship should get what officer, and what personality / skill / name / protrate the officer should have.
+    *       second, I need to make this respect the settings for the max number of officers in a given fleet (in addition to there max level & elite skills, but thats a diffrent spot that handles that) (still should do it though.)
+    *
+    *
+    * */
     @Override
     public ArrayList<String> getAIModifiers(Lord lord, UpgradeData data) {
         return null;
@@ -46,5 +52,10 @@ public class Upgrade_Officers implements UpgradeBase {
     @Override
     public boolean canPreformUpgrade(Lord lord, UpgradeData data) {
         return false;
+    }
+
+    @Override
+    public boolean canBeAddedToGame() {
+        return true;
     }
 }
