@@ -1,0 +1,30 @@
+{
+  "name":"Victor Wallis",
+  "portrait": "interesting_portrait_diktat20",
+  "personality": "Upstanding",
+  "battle_personality": "Aggressive",
+  "preferredItem": "lobster",
+  "level": 13,
+  "isMale": true,
+  "fief": "Nachiketa",
+  "ranking": 1,
+  "lore": "Lord High Admiral Victor Wallis is the longest-serving officer in the Hegemony Navy. Tutored by the last survivors of the First AI War, Wallis embodies hegemony military tradition that stretches back for over a century. Though overshadowed by Andrada in his early years, Wallis rose to prominence following Andrada's betrayal. Choosing to remain loyal to the hegemony, he sought to rebuild a grand fleet to restore the Hegemony's prestige. He served with distinction in the Second AI War against both Persean and Tri-Tachyon forces. Wallis finetuned and perfected the Hegemony's core line-of-battle doctrine. In order to combat the AI threat, Wallis' men became machines unto themselves, following orders with mechanical precision and disregard for their individual lives. As the backbone of the hegemony's forces, Wallis soon gained the nickname \"The Great\", and his fleet was accordingly called The Great Wall. After the war, the High Hegemon himself became wary of Wallis' popularity. Fearing a second Andrada situation, Wallis was passed over as First Star Lord and sent to the outskirts to guard Nachiketa, which he has contented himself to until this day.",
+  "fleetName": "The Great Wall",
+  "faction": "Hegemony",
+  "flagship": "onslaught_Outdated",
+  "shipPref": {
+    "centurion_Assault": 5,
+    "kite_Standard": 5,
+    "lasher_CS": 5,
+    "wolf_hegemony_Assault": 5,
+    "enforcer_Elite": 10,
+    "enforcer_XIV_Elite": 5,
+    "dominator_Support": 10,
+    "dominator_XIV_Elite": 10,
+    "eagle_Assault": 5,
+    "eagle_xiv_Elite": 5,
+    "legion_xiv_Elite": 10,
+    "onslaught_Elite": 15,
+    "onslaught_xiv_Elite": 10
+  }
+}

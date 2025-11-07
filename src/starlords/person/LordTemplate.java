@@ -43,8 +43,142 @@ public final class LordTemplate {
     public final String preferredItemId;
 
     public final ArrayList<String> dialogOverride;
+    /*
+    *      todo: shit to do here:
+    *           -note: the CSV file will just hold links to jsons for single starlords. the reason for this is because starlords files are going to be massive for now on.
+    *           -note: ask Alex if there is a way to read all files in a certen location. would remove the need for a CSV file. but just build the CSV file for now.
+    *           -this requires a way to link repacement scripts for upgrade types (for fun TM)
+    *           -this requires a way to make it so ships can spawn in very pasific raitios.
+    *           -this requires a way for officers to spawn on certen ships with custom personalitys (create a script getter for getting what skills, looks and so on a person should have)
+    *           -this requires a way for custom Smods to be handled. (maybe also a script just for it.)
+    *           -this requires a way for custom 'action scripts' to be present. (command AI and flagship AI).
+    *           -add custom tags to starlord.
+    *           --maybe things like music as well.
+    *           --no stratigic AI before the AI upgrade.
+    *
+    *      todo: additional notes:
+    *            -for modability reasons, it should be possable to have scripts for most things. such as, but not limited to:
+    *             -name,
+    *             -fleetName,
+    *             -isMale (note: get a full gender utility working),
+    *             -personality,
+    *             -lord,
+    *             -portrate,
+    *             -prefierd item ID,
+    *               -note: right now this defaults to food. make it defalt to a random item.
+    *             -battle personality,
+    *             -level & skills,
+    *             -ranking,
+    *             -XO-officers,
+    *             -Smods,
+    *             -Dialog override.
+    *             -custom tags
+    *             -fleet compasition,
+     * */
     @SneakyThrows
     public LordTemplate(String name, JSONObject template){
+        this.name = name;
+        switch (template.getString("faction").toLowerCase()) {
+            case "hegemony":
+                factionId = Factions.HEGEMONY;
+                break;
+            case "sindrian_diktat":
+                factionId = Factions.DIKTAT;
+                break;
+            case "tritachyon":
+                factionId = Factions.TRITACHYON;
+                break;
+            case "persean":
+                factionId = Factions.PERSEAN;
+                break;
+            case "luddic_church":
+                factionId = Factions.LUDDIC_CHURCH;
+                break;
+            case "pirates":
+                factionId = Factions.PIRATES;
+                break;
+            case "luddic_path":
+                factionId = Factions.LUDDIC_PATH;
+                break;
+            default:
+                factionId = template.getString("faction");
+        }
+        fleetName = template.getString("fleetName");
+        isMale = template.getBoolean("isMale");
+        personality = LordPersonality.valueOf(template.getString("personality").toUpperCase());
+        flagShip = template.getString("flagship");
+        lore = template.getString("lore");
+        portrait = template.getString("portrait");
+        if (template.has("preferredItem")) {
+            preferredItemId = template.getString("preferredItem");
+        } else {  // everyone likes butter by default
+            preferredItemId = "food";
+        }
+        // What kind of parser maps null to the string null???
+        String fief = template.getString("fief").toLowerCase();  // TODO this could be case-sensitive
+        this.fief = fief.equals("null") ? null : fief;
+        battlePersonality = template.getString("battle_personality").toLowerCase();
+        level = template.getInt("level");
+        ranking = template.getInt("ranking");
+        shipPrefs = new HashMap<>();
+        JSONObject prefJson = template.getJSONObject("shipPref");
+        for (Iterator it = prefJson.keys(); it.hasNext(); ) {
+            String key = (String) it.next();
+            shipPrefs.put(key, prefJson.getInt(key));
+        }
+        customSkills = new HashMap<>();
+        if (template.has("customSkills")) {
+            JSONObject skillJson = template.getJSONObject("customSkills");
+            for (Iterator it = skillJson.keys(); it.hasNext();) {
+                String key = (String) it.next();
+                customSkills.put(key, skillJson.getInt(key));
+            }
+        }
+
+        executiveOfficers = new HashMap<>();
+        if (template.has("executiveOfficers") && Utils.secondInCommandEnabled()) {
+            JSONObject officerJson = template.getJSONObject("executiveOfficers");
+            for (Iterator it = officerJson.keys(); it.hasNext();) {
+                String key = (String) it.next();
+                if (!officerJson.isNull(key)) {
+                    JSONArray aptitudeSkillList = officerJson.getJSONArray(key);
+                    List<String> executiveOfficerSkills = new ArrayList<>();
+                    for (int i = 0; i < aptitudeSkillList.length(); i++) {
+                        executiveOfficerSkills.add(aptitudeSkillList.getString(i));
+                    }
+                    executiveOfficers.put(key, executiveOfficerSkills);
+                }
+            }
+        }
+
+        customLordSMods = new HashMap<String,Integer>();
+        customFleetSMods = new HashMap<String,Integer>();
+        if (template.has("customFleetSMods")) {
+            JSONObject customSModsInTemplate = template.getJSONObject("customFleetSMods");
+            for (Iterator it = customSModsInTemplate.keys(); it.hasNext();) {
+                String key = (String) it.next();
+                customFleetSMods.put(key,customSModsInTemplate.getInt(key));
+            }
+        }
+        if (template.has("customLordSMods")) {
+            JSONObject customSModsInTemplate = template.getJSONObject("customLordSMods");
+            for (Iterator it = customSModsInTemplate.keys(); it.hasNext();) {
+                String key = (String) it.next();
+                customLordSMods.put(key,customSModsInTemplate.getInt(key));
+            }
+        }
+        forceFleetSMods = !(template.has("fleetForceCustomSMods") && !template.getBoolean("fleetForceCustomSMods"));
+        forceLordSMods = !(template.has("flagshipForceCustomSMods") && !template.getBoolean("flagshipForceCustomSMods"));
+        dialogOverride = new ArrayList<>();
+        if (template.has("dialogOverride")){
+            JSONArray dialogConditions = template.getJSONArray("dialogOverride");
+            for (int a = 0; a < dialogConditions.length(); a++){
+                dialogOverride.add(dialogConditions.getString(a));
+            }
+        }
+    }
+    @SneakyThrows
+    public LordTemplate(String name, JSONObject template,boolean isold){
         this.name = name;
         switch (template.getString("faction").toLowerCase()) {
             case "hegemony":

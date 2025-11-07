@@ -22,18 +22,13 @@ import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.*;
 public class UpgradeController {
     /*
     * todo: 1) create the starlords 'csv' file, linking to all starlords, so upgrades can be considered from that data.
-    *           -note: the CSV file will just hold links to jsons for single starlords. the reason for this is because starlords files are going to be massive for now on.
-    *           -note: ask Alex if there is a way to read all files in a certen location. would remove the need for a CSV file. but just build the CSV file for now.
-    *           -this requires a way to link repacement scripts for upgrade types (for fun TM)
-    *           -this requires a way to make it so ships can spawn in very pasific raitios.
-    *           -this requires a way for officers to spawn on certen ships with custom personalitys (create a script getter for getting what skills, looks and so on a person should have)
-    *           -this requires a way for custom Smods to be handled. (maybe also a script just for it.)
-    *           -this requires a way for custom 'action scripts' to be present. (command AI and flagship AI).
-    *           --maybe things like music as well.
-    *           --no stratigic AI before the AI upgrade.
     *       2) create a command for printing the current fleet as a json file. for people to create there own starlords.
     *       3) create the 'types'
     *           -remember to read the to do on each one!
+    *       4) create the random values for each type.
+    *           -remember that Second In Command also needs random values. And it should be in the CSV file, no cheating!
+    *       5) go into the starlord generater and CSV file every aspect of starlord generation
+    *           -no. I am not fucking jokeing you asshole. This needs to happen. For real though, this upgrade upgrade has gotten out of control a little. but that should be alll.
     *
     *
     *
