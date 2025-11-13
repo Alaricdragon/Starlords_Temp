@@ -570,7 +570,7 @@ public class LordAI implements EveryFrameScript {
                     // if this lord is the feast holder and ends the feast, update feast controller
                     if (lord.getCurrAction() != LordAction.FEAST) {
                         LordEvent currFeast = EventController.getCurrentFeast(lord.getFaction());
-                        if (lord.equals(currFeast.getOriginator())) {
+                        if (currFeast == null || lord.equals(currFeast.getOriginator())) {
                             EventController.endFeast(currFeast);
                         } else {
                             currFeast.getParticipants().remove(lord);
