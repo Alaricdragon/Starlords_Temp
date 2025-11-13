@@ -9,6 +9,8 @@ import org.json.JSONObject;
 import starlords.lunaSettings.StoredSettings;
 import starlords.util.Utils;
 import starlords.util.dialogControler.LordDialogController;
+import starlords.util.overriders.OverridersDouble;
+import starlords.util.overriders.OverridersString;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,7 +48,6 @@ public final class LordTemplate {
     /*
     *      todo: shit to do here:
     *           -note: the CSV file will just hold links to jsons for single starlords. the reason for this is because starlords files are going to be massive for now on.
-    *           -note: ask Alex if there is a way to read all files in a certen location. would remove the need for a CSV file. but just build the CSV file for now.
     *           -this requires a way to link repacement scripts for upgrade types (for fun TM)
     *           -this requires a way to make it so ships can spawn in very pasific raitios.
     *           -this requires a way for officers to spawn on certen ships with custom personalitys (create a script getter for getting what skills, looks and so on a person should have)
@@ -56,27 +57,56 @@ public final class LordTemplate {
     *           --maybe things like music as well.
     *           --no stratigic AI before the AI upgrade.
     *
+    *      todo: stuff to do elsewere:
     *      todo: additional notes:
+    *            . so idea: make it so -everything- can be a script by starting it with a ~. this would make life a lot fucking simpler. like a lot.
+    *            . I will do that.
+    *            .
     *            -for modability reasons, it should be possable to have scripts for most things. such as, but not limited to:
-    *             -name,
-    *             -fleetName,
-    *             -isMale (note: get a full gender utility working),
-    *             -personality,
-    *             -lord,
-    *             -portrate,
-    *             -prefierd item ID,
-    *               -note: right now this defaults to food. make it defalt to a random item.
-    *             -battle personality,
-    *             -level & skills,
-    *             -ranking,
-    *             -XO-officers,
-    *             -Smods,
-    *             -Dialog override.
-    *             -custom tags
-    *             -fleet compasition,
+    *            -see the LORD_JSON.md file for details.
      * */
+
+    @SneakyThrows
+    private static boolean isScript(JSONObject object, String id){
+        String thing = object.getString(id);
+        if (thing.length() <= 1) return false;
+        return thing.startsWith("~");
+    }
+    @SneakyThrows
+    private static String getStringFromScript(JSONObject object, String id){
+        String link = object.getString(id);
+        OverridersString thing = (OverridersString) Global.getSettings().getInstanceOfScript(link);
+        return thing.getValue();
+    }
+    @SneakyThrows
+    private static double getDoubleFromScript(JSONObject object, String id){
+        String link = object.getString(id);
+        OverridersDouble thing = (OverridersDouble) Global.getSettings().getInstanceOfScript(link);
+        return thing.getValue();
+    }
+
     @SneakyThrows
     public LordTemplate(String name, JSONObject template){
+        //note: person data has been compleatly revamped. I will use a diffrent methood of applying it.
+        //note: the 'template' might no longer be required, in a sense. The template right now is being saved, as important static data. this is nearly redundant.
+        //note: I need to swap out the template with something else. or rather, completely redo the template.
+        //some template data will still need to be saved. this will require a diffrent system to handle the saved data on templates.
+        //todo: I need to completely change lord formation. The template should be reserved for static data that will never change ever.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         this.name = name;
         switch (template.getString("faction").toLowerCase()) {
             case "hegemony":

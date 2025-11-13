@@ -16,6 +16,6 @@ values represent:
 max:min:target:standard deviation
 --not yet compleated-- can also be a single intiger for a normal defalt value.
 can also be a script of the 'RandomLoader_CustomRandom' class"
-,LORD,UPGRADE:UPGRADEid:COST/WEIGHT,WEIGHTED_RANDOM:DOUBLEWEIGHTED_RANDOM:DOUBLE,20:10:5:1
+,LORD,UPGRADE:UPGRADEid:COST/WEIGHT,WEIGHTED_RANDOM:DOUBLE,20:10:5:1
 ,,,,
 ,,,,
