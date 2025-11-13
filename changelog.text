@@ -1,3 +1,6 @@
+V0.3.60:
+    fixes:
+        fixed a crash related to a lord trying to leave a feast that does not exsist
 V0.3.59:
     fixes:
         hopefully fixed a crash related to a missing lord map?
