@@ -388,6 +388,7 @@ public class EventController extends BaseIntelPlugin {
 
     public static void endFeast(LordEvent feast) {
         getInstance().feasts.remove(feast);
+        if (feast == null) return;
         feast.setAlive(false);
         FactionAPI faction = feast.getFaction();
         for (Lord lord : LordController.getLordsList()) {

@@ -1,3 +1,7 @@
+V0.3.61:
+    fixes:
+        fixed a crash related to a null lord inside of a relation change.
+        fixed a crash related to a null feast that somehow happend.
 V0.3.60:
     fixes:
         fixed a crash related to a lord trying to leave a feast that does not exsist
