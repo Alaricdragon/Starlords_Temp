@@ -4,6 +4,8 @@ import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.Pair;
 import exerelin.campaign.alliances.Alliance;
 import lombok.Setter;
+import lombok.SneakyThrows;
+import org.json.JSONObject;
 import starlords.PMC.PMC;
 import starlords.ai.LordStrategicModule;
 import com.fs.starfarer.api.Global;
@@ -21,6 +23,8 @@ import starlords.controllers.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.lwjgl.util.vector.Vector2f;
+import starlords.generator.LordBaseDataBuilder;
+import starlords.generator.LordBaseDataController;
 import starlords.ui.PrisonerIntelPlugin;
 import starlords.util.*;
 import starlords.util.factionUtils.FactionTemplateController;
@@ -35,6 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static starlords.controllers.LordController.finalizeLordCreation;
 import static starlords.util.Constants.*;
 
 @Getter
@@ -131,6 +136,25 @@ public class Lord {
     @Getter
     private IncomeWeights incomeWeights = new IncomeWeights();
     // Creates a lord from scratch, only run at campaign start
+    @SneakyThrows
+    public Lord(JSONObject json){
+        for (LordBaseDataBuilder a : LordBaseDataController.getFormaters()){
+            LordBaseDataBuilder b = a;
+            //todo: check and make sure that the lord here does not have an overriding script for this LordBaseDataBuilder, and if it does, swap the data builder I am useing.
+            //      thats what the 'if(false) is for. changing b to the new class.
+            if (false){
+                String path2 = json.getJSONObject("??").getString("??");
+                b = ((LordBaseDataBuilder) Global.getSettings().getInstanceOfScript(path2));
+            }
+            if (b.shouldGenerate(json)){
+                b.generate(this);
+            }else{
+                b.lordJSon(json,this);
+            }
+        }
+        finalizeLordCreation(this);
+    }
+    @Deprecated
     public Lord(LordTemplate template) {
         FullName.Gender gender = template.isMale ? FullName.Gender.MALE : FullName.Gender.FEMALE;
 
@@ -242,6 +266,7 @@ public class Lord {
 
 
     // Creates special wrapper lords such as the player or lieges
+    //todo: this requires upgrades to make sure it is in line with the new data storge doctrine.
     private Lord(PersonAPI player) {
         Map lordDataMap = (Map) Global.getSector().getPersistentData().get(LORD_TABLE_KEY);
         if (!lordDataMap.containsKey(player.getId())) {

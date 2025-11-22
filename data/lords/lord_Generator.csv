@@ -1,0 +1,31 @@
+id,order,script
+#internal ID of starlord attrubute,lower number items are generated first,"the 'LordBaseDataBuilder' scrip this is attached to.
+please note: this scrip is responcable for both reading the a lord.json file, and for generating the data related to itself, provided it is required."
+availableShips,0,starlords.generator.dataBuilders.availableShips
+availableShipsCiv,0.1,starlords.generator.dataBuilders.availableShipsCiv
+shipCompasitionValues,0.2,starlords.generator.dataBuilders.shipCompasitionValues
+shipCompasitionFinal,0.3,starlords.generator.dataBuilders.shipCompositionFinal
+officerSkillsAndPersonality,0.4,starlords.generator.dataBuilders.officerSkills
+#fleet preferd Smods,,
+#indevidual ship Smods,,
+#officer placement,,
+,,
+flagship,1,starlords.generator.dataBuilders.flagship
+lordCombatPersonality,1.1,starlords.generator.dataBuilders.lordCombatPersonality
+lordCombatSkills,1.2,starlords.generator.dataBuilders.lordCombatSkills
+lordFleetSkills,1.3,starlords.generator.dataBuilders.lordFleetSkills
+,,
+,,
+LordPersonality,2,starlords.generator.dataBuilders.LordPersonality
+LordFavFood,2.1,starlords.generator.dataBuilders.LordFavFood
+LordLooksAndName,2.2,starlords.generator.dataBuilders.LordLooksAndName
+fleetName,,starlords.generator.dataBuilders.fleetName
+#AI changes here,3,
+#stat changes here,4,
+,,
+fiefs,5,starlords.generator.dataBuilders.fiefs
+,,
+,,
+#mod stuff here,,
+#SiC here,6,
+,,

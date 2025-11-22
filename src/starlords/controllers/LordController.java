@@ -2,6 +2,8 @@ package starlords.controllers;
 
 import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import lombok.SneakyThrows;
+import org.json.JSONArray;
 import starlords.ai.LordStrategicModule;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
@@ -16,6 +18,7 @@ import com.fs.starfarer.api.impl.campaign.ids.*;
 import lombok.Getter;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
+import starlords.generator.LordBaseDataBuilder;
 import starlords.person.Lord;
 import starlords.person.LordTemplate;
 import starlords.ui.LordsIntelPlugin;
@@ -29,6 +32,11 @@ import static starlords.util.Constants.DEBUG_MODE;
 import static starlords.util.Constants.STARLORD_ADDITIONAL_MEMORY_KEY;
 
 public class LordController {
+    /*  todo: (not doing some of the things here now because I am already a little overloaded.)
+              1) remove lords compressed memory and data holder from memory. They are already stored on the starlord itself, so there is no fucking reason to keep them there.
+                - remove the 'save' process.
+                - remove the 'load' process
+    * */
 
     @Getter
     private static List<Lord> lordsList = new ArrayList<>();
@@ -47,7 +55,7 @@ public class LordController {
     private static Lord playerLord;
 
     // maps lord name to corresponding template
-    public static HashMap<String, LordTemplate> lordTemplates;
+    //public static HashMap<String, LordTemplate> lordTemplates;
 
     public static Logger log = Global.getLogger(LordController.class);
 
@@ -183,9 +191,7 @@ public class LordController {
     private static String getSavedLordsMemeoryKey(Lord lord){
         return StarlordMemoryKey+lord.getLordAPI().getId();
     }
-    public static void saveUnusualLords(){
-        //ArrayList<Lord> savedLords = new ArrayList<>();
-        //saveTemplates
+    /*public static void saveUnusualLords(){
         List<IntelInfoPlugin> lordIntel = Global.getSector().getIntelManager().getIntel();
         for (IntelInfoPlugin plugin : lordIntel) {
             if (plugin instanceof LordsIntelPlugin) {
@@ -199,7 +205,7 @@ public class LordController {
                 }
             }
         }
-    }
+    }*/
     public static void saveLordData(){
         //todo: merge all this into the LordMemoryController.
         for (int a = 0; a < lordsList.size(); a++){
@@ -259,7 +265,9 @@ public class LordController {
         for (IntelInfoPlugin plugin : lordIntel) {
             if (plugin instanceof LordsIntelPlugin) {
                 Lord newLord = ((LordsIntelPlugin) plugin).getLord();
-                boolean gotLord = false;
+                //todo: make it so lords with a json file can have stats changed from here.
+                //      note: this might mess with the ability to change stats directly from the lord interaction interface. I will add that instead.
+                /*boolean gotLord = false;
                 if (lordTemplates.containsKey(newLord.getTemplate().name)) {
                     newLord.setTemplate(lordTemplates.get(newLord.getTemplate().name));
                     gotLord = true;
@@ -267,7 +275,7 @@ public class LordController {
                 }
                 if (!gotLord){
                     LoadSavedLord(newLord);
-                }
+                }*/
                 // prevents capture from take no prisoners
                 if (!newLord.getLordAPI().hasTag("coff_nocapture")) {
                     newLord.getLordAPI().addTag("coff_nocapture");
@@ -286,48 +294,42 @@ public class LordController {
         log.info("Generating lords");
         lordsList.clear();
         lordsMap.clear();
+        createStarlordsFromJsons();
+        //generate lords here.
 
-        HashSet<String> allocatedFiefs = new HashSet<>();
-        for (LordTemplate template : lordTemplates.values()) {
-            if (template.fief != null) allocatedFiefs.add(template.fief);
-        }
+        log.info("DEBUG: Generated " + lordsList.size() + " lords");
+        ensureLordOrder();
+        playerLord = Lord.createPlayer();
+    }
+    public static void finalizeLordCreation(Lord currLord){
+        //todo: this requires work, removing a bunch of data that links to the template, and useing upgrade data sucsesfully.
+        MarketAPI lordMarket = null;
+        if (currLord.getFiefs().isEmpty()) {
+            //todo: I think there is a system for finding 'any valid market' somewere that might be usefull.
 
-        for (LordTemplate template : lordTemplates.values()) {
-            Lord currLord = new Lord(template);
-            MarketAPI lordMarket = null;
-            if (currLord.getFiefs().isEmpty()) {
-                if (template.fief != null) {
-                    // world map was changed by some other mod, give this lord a random fief
-                    lordMarket = getDefaultSpawnLoc(currLord, allocatedFiefs);
-                    if (lordMarket != null) {
-                        log.info("Dynamic allocating fief " + lordMarket.getId() + " to " + currLord.getLordAPI().getNameString());
-                        allocatedFiefs.add(lordMarket.getId());
-                        currLord.addFief(lordMarket);
-                    }
-                }
-                // backup
-                if (lordMarket == null) {
-                    lordMarket = getDefaultSpawnLoc(currLord, null);
-                }
-                // backup-backup
-                if (lordMarket == null) {
-                    List<MarketAPI> markets = Global.getSector().getEconomy().getMarketsCopy();
-                    lordMarket = markets.get(Utils.rand.nextInt(markets.size()));
-                }
-            } else {
-                lordMarket = currLord.getFiefs().get(0).getMarket();
+            // backup
+            if (lordMarket == null) {
+                lordMarket = getDefaultSpawnLoc(currLord, null);
             }
-            // TODO DEBUG
-            if (DEBUG_MODE) {
-                Global.getSector().getPlayerFleet().getCargo().getCredits().add(5000000);
-                if (currLord.getLordAPI().getFaction().getId().equals(Factions.HEGEMONY))
-                    lordMarket = Global.getSector().getEconomy().getMarket("jangala");
-                if (new Random().nextInt(2) == 0) {
-                    currLord.getLordAPI().getRelToPlayer().setRel(2 * new Random().nextFloat() - 1);
-                } else {
-                    currLord.getLordAPI().getRelToPlayer().setRel(1);
-                }
-                currLord.getLordAPI().getRelToPlayer().setRel(0.95f);
+            // backup-backup
+            if (lordMarket == null) {
+                List<MarketAPI> markets = Global.getSector().getEconomy().getMarketsCopy();
+                lordMarket = markets.get(Utils.rand.nextInt(markets.size()));
+            }
+        } else {
+            lordMarket = currLord.getFiefs().get(0).getMarket();
+        }
+        // TODO DEBUG
+        if (DEBUG_MODE) {
+            Global.getSector().getPlayerFleet().getCargo().getCredits().add(5000000);
+            if (currLord.getLordAPI().getFaction().getId().equals(Factions.HEGEMONY))
+                lordMarket = Global.getSector().getEconomy().getMarket("jangala");
+            if (new Random().nextInt(2) == 0) {
+                currLord.getLordAPI().getRelToPlayer().setRel(2 * new Random().nextFloat() - 1);
+            } else {
+                currLord.getLordAPI().getRelToPlayer().setRel(1);
+            }
+            currLord.getLordAPI().getRelToPlayer().setRel(0.95f);
 //                if (currLord.getLordAPI().getFaction().getId().equals(Factions.PIRATES)) {
 //                    lordMarket = Global.getSector().getEconomy().getMarket("jangala");
 //                    currLord.getLordAPI().getRelToPlayer().setRel(0.5f);
@@ -336,53 +338,66 @@ public class LordController {
 //                    lordMarket = Global.getSector().getEconomy().getMarket("jangala");
 //                    currLord.getLordAPI().getRelToPlayer().setRel(1);
 //                }
-                currLord.setKnownToPlayer(true);
-                currLord.setPersonalityKnown(true);
-            }
-
-            log.info("Spawning lord in " + lordMarket.getId());
-
-            FleetParamsV3 params = new FleetParamsV3();
-            params.setSource(lordMarket, false);
-
-            CampaignFleetAPI fleet = FleetFactoryV3.createEmptyFleet(
-                    template.factionId, FleetTypes.TASK_FORCE, lordMarket);
-            fleet.setName(template.fleetName);
-            fleet.setNoFactionInName(true);
-            fleet.setAIMode(true);
-            fleet.setCommander(currLord.getLordAPI());
-            fleet.setNoAutoDespawn(true);
-            currLord.getLordAPI().setFleet(fleet);
-
-            LordFleetFactory.addToLordFleet(new ShipRolePick(template.flagShip), fleet, new Random());
-            fleet.getFleetData().getMembersInPriorityOrder().get(0).setFlagship(true);
-            LordFleetFactory.addToLordFleet(template.shipPrefs, fleet, new Random(), 150, 1e8f);
-            LordFleetFactory.populateCaptains(currLord);
-
-            lordMarket.getPrimaryEntity().getContainingLocation().addEntity(fleet);
-            fleet.setLocation(lordMarket.getPrimaryEntity().getLocation().x,
-                    lordMarket.getPrimaryEntity().getLocation().y);
-            fleet.getMemoryWithoutUpdate().set(MemFlags.MEMORY_KEY_WAR_FLEET, true);
-            fleet.getMemoryWithoutUpdate().set(MemFlags.DO_NOT_TRY_TO_AVOID_NEARBY_FLEETS, true);
-            fleet.addAbility(Abilities.TRANSVERSE_JUMP);
-            //fleet.setAI(new LordCampaignFleetAI(currLord, fleet.getAI()));
-            ModularFleetAIAPI baseAI = (ModularFleetAIAPI) fleet.getAI();
-            baseAI.setStrategicModule(new LordStrategicModule(currLord, baseAI.getStrategicModule()));
-            LordController.addLord(currLord);
-            LordsIntelPlugin.createProfile(currLord);
-            if (DEBUG_MODE) {
-                fleet.getCargo().addFuel(fleet.getCargo().getFreeFuelSpace());
-                fleet.getCargo().addMarines(fleet.getCargo().getFreeCrewSpace());
-                fleet.getCargo().addCommodity(Commodities.HAND_WEAPONS, 200);
-            }
+            currLord.setKnownToPlayer(true);
+            currLord.setPersonalityKnown(true);
         }
-        log.info("DEBUG: Generated " + lordsList.size() + " lords");
-        ensureLordOrder();
-        playerLord = Lord.createPlayer();
-    }
+        log.info("Spawning lord in " + lordMarket.getId());
 
+        FleetParamsV3 params = new FleetParamsV3();
+        params.setSource(lordMarket, false);
+
+        CampaignFleetAPI fleet = FleetFactoryV3.createEmptyFleet(
+                currLord.getFaction().getId(), FleetTypes.TASK_FORCE, lordMarket);
+        fleet.setName(currLord.getTemplate().fleetName);
+        fleet.setNoFactionInName(true);
+        fleet.setAIMode(true);
+        fleet.setCommander(currLord.getLordAPI());
+        fleet.setNoAutoDespawn(true);
+        currLord.getLordAPI().setFleet(fleet);
+
+        LordFleetFactory.addToLordFleet(new ShipRolePick(currLord.getTemplate().flagShip), fleet, new Random());
+        fleet.getFleetData().getMembersInPriorityOrder().get(0).setFlagship(true);
+        LordFleetFactory.addToLordFleet(currLord.getTemplate().shipPrefs, fleet, new Random(), 150, 1e8f);
+        LordFleetFactory.populateCaptains(currLord);
+
+        lordMarket.getPrimaryEntity().getContainingLocation().addEntity(fleet);
+        fleet.setLocation(lordMarket.getPrimaryEntity().getLocation().x,
+                lordMarket.getPrimaryEntity().getLocation().y);
+        fleet.getMemoryWithoutUpdate().set(MemFlags.MEMORY_KEY_WAR_FLEET, true);
+        fleet.getMemoryWithoutUpdate().set(MemFlags.DO_NOT_TRY_TO_AVOID_NEARBY_FLEETS, true);
+        fleet.addAbility(Abilities.TRANSVERSE_JUMP);
+        //fleet.setAI(new LordCampaignFleetAI(currLord, fleet.getAI()));
+        ModularFleetAIAPI baseAI = (ModularFleetAIAPI) fleet.getAI();
+        baseAI.setStrategicModule(new LordStrategicModule(currLord, baseAI.getStrategicModule()));
+        LordController.addLord(currLord);
+        LordsIntelPlugin.createProfile(currLord);
+    }
+    @SneakyThrows
+    private static void createStarlordsFromJsons(){
+        JSONObject templates = null;
+        templates = Global.getSettings().getMergedJSONForMod("data/lords/lords.json", Constants.MOD_ID);
+        ArrayList<JSONObject> objects = new ArrayList<>();
+        for (Iterator it = templates.keys(); it.hasNext(); ) {
+            String key = (String) it.next();
+            objects.add(templates.getJSONObject(key));
+        }
+        String path = "data/lords/starlords.csv";
+        JSONArray jsons = Global.getSettings().loadCSV(path, true);
+        for (int a = 0; a < jsons.length(); a++){
+            JSONObject json = jsons.getJSONObject(a);
+            String id = json.getString("id");
+            String path2 = json.getString("script");
+            objects.add(Global.getSettings().getMergedJSONForMod(path2, Constants.MOD_ID));
+        }
+        for (JSONObject a : objects){
+            Lord currlord = new Lord(a);
+        }
+
+        //this is an example of finalizing lord createion.
+        finalizeLordCreation(null);
+    }
     // parses lord templates from lords.json
-    public static void parseLordTemplates() {
+    /*public static void parseLordTemplates() {
         if (lordTemplates != null) return;
         lordTemplates = new HashMap<>();
         JSONObject templates = null;
@@ -399,7 +414,7 @@ public class LordController {
 
             }
         }
-    }
+    }*/
 
     public static void updateFactionsWithLords() {
         factionsWithLords.clear();

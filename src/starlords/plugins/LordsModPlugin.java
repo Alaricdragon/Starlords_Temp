@@ -160,7 +160,7 @@ public class LordsModPlugin extends BaseModPlugin {
     @Override
     public void beforeGameSave() {
         LordController.logAllLords();
-        LordController.saveUnusualLords();
+        //LordController.saveUnusualLords();
         LordController.saveLordData();
         MemCompressedMasterList.save();
     }

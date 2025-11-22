@@ -59,11 +59,31 @@ public final class LordTemplate {
     *
     *      todo: stuff to do elsewere:
     *      todo: additional notes:
-    *            . so idea: make it so -everything- can be a script by starting it with a ~. this would make life a lot fucking simpler. like a lot.
-    *            . I will do that.
-    *            .
     *            -for modability reasons, it should be possable to have scripts for most things. such as, but not limited to:
     *            -see the LORD_JSON.md file for details.
+    *
+    *       todo: additional notes:
+    *           by its nature, the lordTemplate file, and the starlord generator are linked in a way that is impossable to untie.
+    *           theory:
+    *               1) make it so creating a new starlord 'generates' a starlord for all stats that are not used.
+    *                   -for this, do the following:
+    *                       1.2) remove the LordTemplate file -in its intierity-. instead, replace it with some type of 'presistant data' class. this class will hold:
+    *                           - all lord memory (dataHolder, Compressed, so on so forth)
+    *                           - lord personality.
+    *                           - lord fleet composition data
+    *                           - lord action data and so forth.
+    *                           - have a way to change this data that resalts in a backup being created (so there are only 2 copys when required, this will be helpfull in changing the starlord data later)
+    *                           ! note: in regard to this, it turns out that the Lord itself is saved in intil. that's right! there is 100% no fucking reason to be putting anything inside of it into memory. its already saved, this just causes issues.
+    *                                   how the fuck did I miss that up?!? there is nothing to save?!?! how how HOW??? aaaa.....
+    *                       1.4) don't forget to add in a way to override the scrips for this value type. (on a lord, and faction basis.)
+    *               2) remove the current implementation of saving lord templates in lord control, for something that instead saves lord data.
+     *
+     *
+     *
+     *
+     *  todo:
+     *        1) remove
+     *
      * */
 
     @SneakyThrows
