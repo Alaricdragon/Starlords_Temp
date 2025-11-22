@@ -48,7 +48,6 @@ Most of these are inspired by Mount & Blade.
 * Continued Lord AI improvement and optimization.
 * Political marriage/courtship system for forming marriage alliances.
 * Expanded subterfuge system involving scheming with friendly lords to increase your status in the realm or discredit mutual rivals.
-* "Freelancer" system for enlisting in a Lord's army and fighting as a common pilot.
 * Flesh out feast system, with feast tournaments as friendly competition with fellow Lords
 * Better integration with Nexerelin invasions and base game crises.
 *  Custom questlines for certain lords, e.g. allowing AI-sympathizing lords to field [REDACTED] fleets.
@@ -124,3 +123,5 @@ the many contubuters:
   * "alaricdragon" for the starlords generator and many random small upgrades and fixes
   * "(forum)Erlkönig / (discord)Zeilon" for random fixes, random upgrades and some other things?
   * "Aleksandros" for obscure fixes, an upgraded system for defection, and allow lords to defect to the player faction without breaking everything
+  * 
+  * "DeadFinder" for minor assistance with a single crash
