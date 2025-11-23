@@ -50,6 +50,8 @@ public class Constants {
     public static final int MIN_STARTING_LOYALTY_DEFECTION = 15; // all lord loyalties are reset to at least this much after defecting
 
     //constants for memory keys
+    public static final String STARLORD_CONTROLER_LOADEDLORDS_MEMORY_KEY = "$STARLORDS_LORDCONTROLER_LOADEDLORDS_MEMORY";
+
     public static final String STARLORD_ADDITIONAL_MEMORY_KEY= "$STARLORDS_LORD_ADDITIONAL_MEMORY_";
     public static final String STARLORD_COMPRESSED_MEMORY_KEY= "$STARLORDS_LORD_COMPRESSED_MEMORY_";
 

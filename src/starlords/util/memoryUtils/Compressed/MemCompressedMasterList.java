@@ -2,7 +2,7 @@ package starlords.util.memoryUtils.Compressed;
 
 import com.fs.starfarer.api.Global;
 import lombok.Getter;
-import starlords.util.memoryUtils.Compressed.types.MemCompressed_Lord_DoubleScript;
+import starlords.util.memoryUtils.Compressed.types.MemCompressed_DoubleScript;
 import starlords.util.memoryUtils.Compressed.types.MemCompressed_Lord;
 
 import java.util.HashMap;
@@ -32,10 +32,17 @@ public class MemCompressedMasterList {
     public static final String LORD_KEY = "LORD_";
     public static final String FACTION_KEY = "FACTION_";
     public static final String PMC_KEY = "PMC_";
+    public static final String FLEET_KEY = "FLEET_";
+    public static final String SHIP_KEY = "SHIP_";
     //constants for disorganized types:
     public static final String DOUBLE_KEY = "DOUBLE_";
     //default key for random value:
     public static final String NO_CUSTOM_KEY = "NULLKEY_";
+
+    public static final String[] standerdDataAsArray = {
+            DOUBLE_KEY,
+            NO_CUSTOM_KEY
+    };
     //constants for upgrade keys:
     public static final String TYPE_UPGRADE_KEY = "UPGRADE_";
     public static final String UPGRADE_WEIGHT_KEY = "_WEIGHT_";
@@ -86,22 +93,44 @@ public class MemCompressedMasterList {
 
 
     }
+    private static void insureStructurePresent(String key){
+        MemCompressedOrganizer<?,MemCompressedOrganizer<?,?>> memory = (MemCompressedOrganizer<?, MemCompressedOrganizer<?, ?>>) MemCompressedMasterList.getMemory().get(key);
+        if (!memory.hasItem(DOUBLE_KEY)){
+            memory.setItem(DOUBLE_KEY,new MemCompressed_DoubleScript());
+        }
+        //todo: make a few more things like this for: String, Boolean.
+
+    }
     private static void insureStructureLordPresent(){
         if (!MemCompressedMasterList.memory.containsKey(LORD_KEY)){
             MemCompressedMasterList.getMemory().put(LORD_KEY,new MemCompressed_Lord());
         }
-        MemCompressed_Lord lordmemory = (MemCompressed_Lord) MemCompressedMasterList.getMemory().get(LORD_KEY);
-        if (!lordmemory.hasItem(DOUBLE_KEY)){
-            lordmemory.setItem(DOUBLE_KEY,new MemCompressed_Lord_DoubleScript());
+        insureStructurePresent(LORD_KEY);
+    }
+    private static void insureStructureFleetComp(){
+        //todo: create a MemCompressed_ for fleet comp
+        //      note: it is NOT POSSABLE to make this compleatly generatic. the reasons is because of the 'repair' data. that data needs to be stored somewere and
+        //            ... ok so it is possible to make generic. just fuck me. do I really want to it just moves the issue somewhere else for fuck sakes! Yes, I could do it. but it is easyer this way, I think.
+        if (true) return;
+        if (!MemCompressedMasterList.memory.containsKey(FLEET_KEY)){
+            MemCompressedMasterList.getMemory().put(FLEET_KEY,new MemCompressed_Lord());
         }
+        insureStructurePresent(FLEET_KEY);
+    }
+    private static void insureStructureShipComp(){
+        //todo: create a MemCompressed_ for ship comp
+        if (true) return;
+        if (!MemCompressedMasterList.memory.containsKey(SHIP_KEY)){
+            MemCompressedMasterList.getMemory().put(SHIP_KEY,new MemCompressed_Lord());
+        }
+        insureStructurePresent(SHIP_KEY);
     }
     private static void insureStructurePMCPresent(){
+        //todo: this cannot use 'MemCompressed_Lord'
+        if (true) return;
         if (!MemCompressedMasterList.memory.containsKey(PMC_KEY)){
             MemCompressedMasterList.getMemory().put(PMC_KEY,new MemCompressed_Lord());
         }
-        MemCompressed_Lord pmcMemory = (MemCompressed_Lord) MemCompressedMasterList.getMemory().get(PMC_KEY);
-        if (!pmcMemory.hasItem(DOUBLE_KEY)){
-            pmcMemory.setItem(DOUBLE_KEY,new MemCompressed_Lord_DoubleScript());
-        }
+        insureStructurePresent(PMC_KEY);
     }
 }

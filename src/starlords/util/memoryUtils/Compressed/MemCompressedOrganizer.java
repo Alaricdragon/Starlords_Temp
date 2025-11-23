@@ -84,7 +84,25 @@ public class MemCompressedOrganizer<A,B> {
         a.map = new ArrayList<>(this.map.size());
         return a;
     }
-
+    public void repairStructuresOfMasterCompressedOrganizer(MemCompressedHolder<?> memory,Object linkedObject){
+        for (String a : MemCompressedMasterList.standerdDataAsArray){
+            //MemCompressedHolder<?> b = (MemCompressedHolder<?>)memory.getItem(a);
+            MemCompressedOrganizer<?,?> c = (MemCompressedOrganizer<?,?>)this.getItem(a);
+            c.repair((MemCompressedHolder) memory.getItem(a),linkedObject);
+            //MemCompressedOrganizer<?,?> c = this.map.get(a);
+            //b.repair(linkedObject);
+        }
+        //MemCompressedMasterList.standerdDataAsArray
+            /*for (String a : map.keySet()) {
+                //note that it is repaired, not loaded. this could be an issue. alturation...?
+                MemCompressedOrganizer<?, ?> b  = list.get(map.get(a));
+                b.repair(lord.getCOMPRESSED_MEMORY().getItem(a),lord);
+            }*/
+        //for (String a : map.keySet()){
+        //    MemCompressedOrganizer<?, ?> b  = list.get(map.get(a));
+        //    b.repair(lord.getCOMPRESSED_MEMORY().getItem(),lord);
+        //}
+    }
     public void load(){}
     public void save(){}
 }

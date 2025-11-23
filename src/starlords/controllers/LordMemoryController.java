@@ -6,6 +6,8 @@ import starlords.util.memoryUtils.LordOverridingMemory;
 import java.util.HashMap;
 
 public class LordMemoryController {
+    //todo: remove this.
+    //      the reason for this exsistance is to override a starlords fleet compaistion, but it was never used. the new memory system is far better for this task then.... this.
     private static final String memKey = "$STARLORDS_LORD_MEMORY_CONTROLLER";
     private HashMap<String, LordOverridingMemory> memory = new HashMap<>();
     private static LordMemoryController controller;

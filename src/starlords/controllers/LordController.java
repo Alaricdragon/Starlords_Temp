@@ -19,17 +19,19 @@ import lombok.Getter;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import starlords.generator.LordBaseDataBuilder;
+import starlords.generator.LordBaseDataController;
+import starlords.generator.NewGameLordPicker;
 import starlords.person.Lord;
 import starlords.person.LordTemplate;
 import starlords.ui.LordsIntelPlugin;
 import starlords.util.Constants;
 import starlords.util.LordFleetFactory;
 import starlords.util.Utils;
+import starlords.util.memoryUtils.DataHolder;
 
 import java.util.*;
 
-import static starlords.util.Constants.DEBUG_MODE;
-import static starlords.util.Constants.STARLORD_ADDITIONAL_MEMORY_KEY;
+import static starlords.util.Constants.*;
 
 public class LordController {
     /*  todo: (not doing some of the things here now because I am already a little overloaded.)
@@ -208,13 +210,14 @@ public class LordController {
     }*/
     public static void saveLordData(){
         //todo: merge all this into the LordMemoryController.
+        //      edit: some of this data upfront needs to be removed compleatly.
         for (int a = 0; a < lordsList.size(); a++){
             Lord lord = lordsList.get(a);
-            if (lord.getDataHolder().hasData()) lord.saveDataHolder();
-            lord.saveCompressedMemory();
+            //if (lord.getDataHolder().hasData()) lord.saveDataHolder();
+            //lord.saveCompressedMemory();
         }
         saveFleetSMods();
-        LordMemoryController.save();
+        //LordMemoryController.save();
     }
     public static void LoadSavedLord(Lord newLord){
         LordTemplate template = (LordTemplate) Global.getSector().getMemory().get(getSavedLordsMemeoryKey(newLord));
@@ -280,12 +283,21 @@ public class LordController {
                 if (!newLord.getLordAPI().hasTag("coff_nocapture")) {
                     newLord.getLordAPI().addTag("coff_nocapture");
                 }
-                newLord.loadConnectedMemory();
+                //newLord.loadConnectedMemory();
                 addLord(newLord);
             }
         }
+        createStarlordsFromJsons();//this is here to ensure any starlords in the starlords json will be loaded.
         ensureLordOrder();
         playerLord = Lord.createPlayer();
+        for (Lord a : lordsList){
+            LordBaseDataController.load(a);
+        }
+    }
+    public static void saveLords(){
+        for (Lord a : lordsList){
+            LordBaseDataController.save(a);
+        }
     }
 
     // Creates lords from templates in new game
@@ -296,6 +308,11 @@ public class LordController {
         lordsMap.clear();
         createStarlordsFromJsons();
         //generate lords here.
+        //todo: change the new game lord picker to use the new subsystems. This is really important.
+        if (Constants.ENABLE_NEW_LORDS_ON_GAME_START){
+            NewGameLordPicker.instance.addAll();
+        }
+        NewGameLordPicker.instance = null;
 
         log.info("DEBUG: Generated " + lordsList.size() + " lords");
         ensureLordOrder();
@@ -372,8 +389,27 @@ public class LordController {
         LordController.addLord(currLord);
         LordsIntelPlugin.createProfile(currLord);
     }
+
+    private static void loadLoadedLords(){
+        HashSet<String> data;
+        String key = STARLORD_CONTROLER_LOADEDLORDS_MEMORY_KEY;
+        if (Global.getSector().getMemory().contains(key)){
+            data = (HashSet<String>) Global.getSector().getMemory().get(key);
+        }else{
+            data = new HashSet<String>();
+        }
+        loadedLords = data;
+    }
+    private static void saveLoadedLords(){
+        String key = STARLORD_CONTROLER_LOADEDLORDS_MEMORY_KEY;
+        HashSet<String> data = loadedLords;
+        Global.getSector().getMemory().set(key,loadedLords);
+    }
+    private static HashSet<String> loadedLords = new HashSet<>();
     @SneakyThrows
     private static void createStarlordsFromJsons(){
+        //todo: I need to test and make sure starlords are not being readded every time I turn on the game.
+        loadLoadedLords();
         JSONObject templates = null;
         templates = Global.getSettings().getMergedJSONForMod("data/lords/lords.json", Constants.MOD_ID);
         ArrayList<JSONObject> objects = new ArrayList<>();
@@ -386,6 +422,8 @@ public class LordController {
         for (int a = 0; a < jsons.length(); a++){
             JSONObject json = jsons.getJSONObject(a);
             String id = json.getString("id");
+            if (loadedLords.contains(id)) continue;
+            loadedLords.add(id);
             String path2 = json.getString("script");
             objects.add(Global.getSettings().getMergedJSONForMod(path2, Constants.MOD_ID));
         }
@@ -394,7 +432,8 @@ public class LordController {
         }
 
         //this is an example of finalizing lord createion.
-        finalizeLordCreation(null);
+        //finalizeLordCreation(null);
+        saveLoadedLords();
     }
     // parses lord templates from lords.json
     /*public static void parseLordTemplates() {

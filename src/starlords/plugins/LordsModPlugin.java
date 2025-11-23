@@ -79,7 +79,7 @@ public class LordsModPlugin extends BaseModPlugin {
         MemCompressedMasterList.load();
         RandomLoader_Controler.init();
         if (!newGame) {
-            LordController.parseLordTemplates();
+            //LordController.parseLordTemplates();
             LordController.loadLords();
             log.info(LordController.getLordsList().size() + " Lords found");
         }
@@ -107,10 +107,6 @@ public class LordsModPlugin extends BaseModPlugin {
         }
         sector.registerPlugin(new LordsCampaignPlugin());
 
-        if (newGame && Constants.ENABLE_NEW_LORDS_ON_GAME_START){
-            NewGameLordPicker.instance.addAll();
-        }
-        NewGameLordPicker.instance = null;
         /*/String[] factionsTemp = {
                 "HIVER",
                 "pirates",
@@ -126,7 +122,7 @@ public class LordsModPlugin extends BaseModPlugin {
         LordController.loadFleetSMods();
         LordController.fixAllLordsPartnerStatus();
         LordController.logAllLords();
-        LordMemoryController.load();
+        //LordMemoryController.load();
         LordController.updateFactionsWithLords();
 
         if (Utils.nexEnabled()) NexerlinUtilitys.calculateInvasionsEnabled();
@@ -146,7 +142,7 @@ public class LordsModPlugin extends BaseModPlugin {
         }
 
         // TODO reset instances when multiple saves are loaded
-        LordController.parseLordTemplates();
+        //LordController.parseLordTemplates();
         LordController.createAllLords();
 
         // these classes and their fields persist between save loads
@@ -162,6 +158,7 @@ public class LordsModPlugin extends BaseModPlugin {
         LordController.logAllLords();
         //LordController.saveUnusualLords();
         LordController.saveLordData();
+        LordController.saveLords();
         MemCompressedMasterList.save();
     }
 }

@@ -31,6 +31,7 @@ import starlords.util.factionUtils.FactionTemplateController;
 import starlords.util.memoryUtils.Compressed.MemCompressedHolder;
 import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
 import starlords.util.memoryUtils.DataHolder;
+import starlords.util.scriptOverrider.ScripOverriderController;
 import starlords.util.weights.IncomeWeights;
 import starlords.util.weights.UpgradeWeights;
 
@@ -136,22 +137,28 @@ public class Lord {
     @Getter
     private IncomeWeights incomeWeights = new IncomeWeights();
     // Creates a lord from scratch, only run at campaign start
+
+    @Getter
+    private ScripOverriderController scrips;
     @SneakyThrows
     public Lord(JSONObject json){
-        for (LordBaseDataBuilder a : LordBaseDataController.getFormaters()){
-            LordBaseDataBuilder b = a;
-            //todo: check and make sure that the lord here does not have an overriding script for this LordBaseDataBuilder, and if it does, swap the data builder I am useing.
-            //      thats what the 'if(false) is for. changing b to the new class.
-            if (false){
-                String path2 = json.getJSONObject("??").getString("??");
+        scrips = new ScripOverriderController();
+        for (Pair<String,LordBaseDataBuilder> a : LordBaseDataController.getFormaters()){
+            LordBaseDataBuilder b = a.two;
+            String generatorScripKey = LordBaseDataController.generatorScripKey;
+            if (json!= null && json.has("scripOverride") && json.has(generatorScripKey) && json.has(a.one)){
+                String path2 = json.getJSONObject(generatorScripKey).getString(a.one);
                 b = ((LordBaseDataBuilder) Global.getSettings().getInstanceOfScript(path2));
+                scrips.addScript(generatorScripKey,a.one,path2);
             }
-            if (b.shouldGenerate(json)){
+            if (b.shouldGenerate(json) || json == null){
                 b.generate(this);
             }else{
                 b.lordJSon(json,this);
             }
         }
+        COMPRESSED_MEMORY = new MemCompressedHolder<>(MemCompressedMasterList.getMemory().get(MemCompressedMasterList.LORD_KEY), this);
+        DATA_HOLDER = new DataHolder();
         finalizeLordCreation(this);
     }
     @Deprecated
@@ -291,7 +298,9 @@ public class Lord {
             prisoners = new ArrayList<>();
             persistentData.put("prisoners", prisoners);
         }
-        loadConnectedMemory();//this insures the structure is present.
+        //loadConnectedMemory();//this insures the structure is present.
+        COMPRESSED_MEMORY = new MemCompressedHolder<>(MemCompressedMasterList.getMemory().get(MemCompressedMasterList.LORD_KEY), this);
+        DATA_HOLDER = new DataHolder();
     }
 
     public void addFief(MarketAPI fief) {
@@ -603,9 +612,9 @@ public class Lord {
 	}
 
 	public HashMap<String,Integer> getFleetComposition(){
-        if (LordMemoryController.containsLord(getLordAPI().getId()) && LordMemoryController.getLordMemory(getLordAPI().getId()).overridingFleetComposition.size() != 0){
-            return LordMemoryController.getLordMemory(getLordAPI().getId()).overridingFleetComposition;
-        }
+        //if (LordMemoryController.containsLord(getLordAPI().getId()) && LordMemoryController.getLordMemory(getLordAPI().getId()).overridingFleetComposition.size() != 0){
+        //    return LordMemoryController.getLordMemory(getLordAPI().getId()).overridingFleetComposition;
+        //}
         return template.shipPrefs;
     }
 
@@ -665,7 +674,7 @@ public class Lord {
 
     private DataHolder DATA_HOLDER;
     public DataHolder getDataHolder(){
-        DataHolder data_holder = DATA_HOLDER;
+        /*DataHolder data_holder = DATA_HOLDER;
         if (DATA_HOLDER != null) return data_holder;
         String key = STARLORD_ADDITIONAL_MEMORY_KEY+getLordAPI().getId();
         if (Global.getSector().getMemory().contains(key)){
@@ -674,13 +683,14 @@ public class Lord {
             data_holder = new DataHolder();
         }
         DATA_HOLDER = data_holder;
-        return data_holder;
+        return data_holder;*/
+        return DATA_HOLDER;
     }
-    public void saveDataHolder(){
+    /*public void saveDataHolder(){
         String key = STARLORD_ADDITIONAL_MEMORY_KEY+getLordAPI().getId();
         DataHolder data_holder = DATA_HOLDER;
         Global.getSector().getMemory().set(key,data_holder);
-    }
+    }*/
     public static Lord createPlayer() {
         Lord player = new Lord(Global.getSector().getPlayerPerson());
         player.isPlayer = true;
@@ -688,7 +698,7 @@ public class Lord {
     }
     @Getter
     private MemCompressedHolder<MemCompressedHolder<?>> COMPRESSED_MEMORY;// = (MemCompressedHolder<MemCompressedHolder<?>>) MemCompressedMasterList.getMemory().get(COMPRESSED_ORGANIZER_LORD_KEY).getHolderStructure(this);
-    public void loadConnectedMemory(){
+    /*public void loadConnectedMemory(){
         String key = STARLORD_COMPRESSED_MEMORY_KEY+getLordAPI().getId();
         MemCompressedHolder<MemCompressedHolder<?>> temp;
         if (Global.getSector().getMemory().contains(key)){
@@ -699,12 +709,13 @@ public class Lord {
             //temp = COMPRESSED_MEMORY;
         }
         COMPRESSED_MEMORY = temp;
-    }
-    public void saveCompressedMemory(){
+    }*/
+    /*public void saveCompressedMemory(){
+
         String key = STARLORD_COMPRESSED_MEMORY_KEY+getLordAPI().getId();
         MemCompressedHolder<MemCompressedHolder<?>> data = COMPRESSED_MEMORY;
         Global.getSector().getMemory().set(key,data);
-    }
+    }*/
 
     public Map<Alliance.Alignment, Float> getAlignments() {
         if (this.alignments == null) {

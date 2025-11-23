@@ -24,4 +24,14 @@ public class availableShips implements LordBaseDataBuilder {
     public void prepareStorgeInMemCompressedOrganizer() {
 
     }
+
+    @Override
+    public void saveLord(Lord lord) {
+
+    }
+
+    @Override
+    public void loadLord(Lord lord) {
+
+    }
 }

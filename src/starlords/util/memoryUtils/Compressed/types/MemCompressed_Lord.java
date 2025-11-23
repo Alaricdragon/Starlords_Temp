@@ -21,16 +21,21 @@ public class MemCompressed_Lord extends MemCompressedOrganizer<MemCompressedHold
                 MemCompressedOrganizer<?, ?> b  = list.get(map.get(a));
                 b.repair(lord.getCOMPRESSED_MEMORY().getItem(a),lord);
             }*/
+            this.repairStructuresOfMasterCompressedOrganizer(lord.getCOMPRESSED_MEMORY(),lord);
+            //for (String a : map.keySet()){
+            //    MemCompressedOrganizer<?, ?> b  = list.get(map.get(a));
+            //    b.repair(lord.getCOMPRESSED_MEMORY().getItem(),lord);
+            //}
         }
-        for (String a : map.keySet()){
+        /*for (String a : map.keySet()){
             MemCompressedOrganizer<?, ?> b  = list.get(map.get(a));
             //I will need to run the repair inside of each of the load functions for each item?
             b.load();
-        }
+        }*/
     }
 
     @Override
     public void save() {
-
+        //this is saved elsewere.
     }
 }
