@@ -3,7 +3,6 @@ package starlords.generator;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.Industry;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import com.fs.starfarer.api.campaign.econ.MarketDemandAPI;
 import com.fs.starfarer.api.campaign.econ.MutableCommodityQuantity;
 import com.fs.starfarer.api.characters.FullName;
 import com.fs.starfarer.api.characters.PersonAPI;
@@ -22,7 +21,7 @@ import starlords.person.Lord;
 import starlords.person.LordTemplate;
 import starlords.person.PosdoLordTemplate;
 import starlords.util.Utils;
-import starlords.util.WeightedRandom;
+import starlords.util.randomLoader.WeightedRandom;
 
 import java.util.*;
 

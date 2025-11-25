@@ -2,8 +2,7 @@ package starlords.util.memoryUtils.Compressed;
 
 import com.fs.starfarer.api.Global;
 import lombok.Getter;
-import starlords.util.memoryUtils.Compressed.types.MemCompressed_DoubleScript;
-import starlords.util.memoryUtils.Compressed.types.MemCompressed_Lord;
+import starlords.util.memoryUtils.Compressed.types.*;
 
 import java.util.HashMap;
 
@@ -36,11 +35,15 @@ public class MemCompressedMasterList {
     public static final String SHIP_KEY = "SHIP_";
     //constants for disorganized types:
     public static final String DOUBLE_KEY = "DOUBLE_";
+    public static final String STRING_KEY = "STRING_";
+    public static final String BOOLEAN_KEY = "BOOLEAN_";
     //default key for random value:
     public static final String NO_CUSTOM_KEY = "NULLKEY_";
 
     public static final String[] standerdDataAsArray = {
             DOUBLE_KEY,
+            STRING_KEY,
+            BOOLEAN_KEY,
             NO_CUSTOM_KEY
     };
     //constants for upgrade keys:
@@ -98,8 +101,15 @@ public class MemCompressedMasterList {
         if (!memory.hasItem(DOUBLE_KEY)){
             memory.setItem(DOUBLE_KEY,new MemCompressed_DoubleScript());
         }
-        //todo: make a few more things like this for: String, Boolean.
-
+        if (!memory.hasItem(STRING_KEY)){
+            memory.setItem(STRING_KEY,new MemCompressed_StringScript());
+        }
+        if (!memory.hasItem(BOOLEAN_KEY)){
+            memory.setItem(BOOLEAN_KEY,new MemCompressed_BooleanScript());
+        }
+        if (!memory.hasItem(NO_CUSTOM_KEY)){
+            memory.setItem(NO_CUSTOM_KEY,new MemCompressed_OtherScript());
+        }
     }
     private static void insureStructureLordPresent(){
         if (!MemCompressedMasterList.memory.containsKey(LORD_KEY)){

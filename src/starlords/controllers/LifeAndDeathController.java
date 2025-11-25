@@ -10,12 +10,11 @@ import org.apache.log4j.Logger;
 import starlords.generator.LordGenerator;
 import starlords.generator.support.LifeAndDeath_LordGeneratorListiner;
 import starlords.listeners.LordGeneratorListener_base;
-import starlords.lunaSettings.StoredSettings;
 import starlords.person.Lord;
 import starlords.util.Constants;
 import starlords.util.LordTags;
 import starlords.util.StringUtil;
-import starlords.util.WeightedRandom;
+import starlords.util.randomLoader.WeightedRandom;
 
 import java.util.ArrayList;
 import java.util.HashMap;

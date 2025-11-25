@@ -1,21 +1,53 @@
-id,Type,Section,DataType,Value
+id,Type,DataType,Value
 #please note that the ID only needs to be uneake in its type and section,"what this random will apply to
 possabilitys:
 LORD
 FACTION
-PMC (not yet implemented)","the section this applies to. for example:
-'UPGRADE:sMods:COST'
-will move this upgrade into the 'sMods' upgrade from the 'UPGRADE' section as a cost modifier","This represents the data transoformation happing for this random.
+PMC (not yet implemented)","This represents the data transoformation happing for this random.
+example: ~starlords/util/memoryUtils/Compressed/hTypes/MemCompressed_R_Double_Base can override a double value
 For example: WEIGHTED_RANDOM:DOUBLE would turn a weighted random into a dobule.
 'Value' should have the current input poncuation for each Data Type.
 Data Types are:
-STRING:DOUBLE		classPath to a 'MemCompressed_Random_Double_Base' class
+doubles:
 DOUBLE			a number value
-WEIGHTED_RANDOM:DOUBLE	a weighted random equadtion","this represents the defalt value of a given stat. for randomization of starlords data
-values represent:
-max:min:target:standard deviation
---not yet compleated-- can also be a single intiger for a normal defalt value.
-can also be a script of the 'RandomLoader_CustomRandom' class"
-,LORD,UPGRADE:UPGRADEid:COST/WEIGHT,WEIGHTED_RANDOM:DOUBLE,20:10:5:1
-,,,,
-,,,,
+RANDOM:DOUBLE		a random value between a min and max value. should look like:
+	min:double
+	max:double	
+RANDOM_LIST:DOUBLE	a list of values and there odds. should look like:
+	value:odds
+	value:odds
+	value:odds
+	...
+WEIGHTED_RANDOM:DOUBLE	a weighted random equadtion should look like: 'max:min:target:standard deviation' were:
+	max: the max value of this random.
+	min: the min value of this random.
+	target: the target value of this random.
+	standard deviation: the standard deviation of this random (in effect, 64.2% of items are withen 1 sd of the target. 27.2% of items are between 1 and 2 sd, and 4.2% of items are between 2 and 3 sd)
+
+Strings:
+STRING			a string
+RANDOM_LIST:STRING	a list of values and there odds. should look like:
+	value:odds
+	value:odds
+	value:odds
+	...
+
+Booleans:
+BOOLEAN			a true / false value
+RANDOM:BOOLEAN		a double value between 0 and 1. if a randomly chosen value is less then this, returns true
+
+Other:
+OTHER: this is a link to some random item. should always link to a 'MemCompressed_R_Object_Base'. usefull for storing more complecated varubles and objects","this represents the defalt value of a given stat. for randomization of starlords data
+what is stored here depends on what is in the DataType section. please see that for details on this structure.
+please note that it is possable to replace -any value- with a script. any time a given peace of data calls for a value, one can replace it with a class by changing the value to:
+~classPath. the following values can be represented by the following classes:
+double: MemCompressed_R_Double_Base
+boolean:MemCompressed_R_Boolean_Base
+String: MemCompressed_R_String_Base
+Object: MemCompressed_R_Object_Base
+
+example:
+~src/thingy/overwritenDoubleBase could replace a double for within a given value"
+UPGRADE:UPGRADEid:COST/WEIGHT,LORD,WEIGHTED_RANDOM:DOUBLE,20:10:5:1
+,,,
+,,,

@@ -23,7 +23,7 @@ import starlords.util.Constants;
 import starlords.util.LordFleetFactory;
 import starlords.util.SModSupport.SModSet;
 import starlords.util.Utils;
-import starlords.util.WeightedRandom;
+import starlords.util.randomLoader.WeightedRandom;
 import starlords.util.dialogControler.DialogSet;
 import starlords.util.factionUtils.FactionTemplateController;
 
