@@ -1,11 +1,11 @@
 package starlords.util.memoryUtils.Compressed.types;
 
+import starlords.util.ScriptedValues.SV_Boolean;
 import starlords.util.memoryUtils.Compressed.MemCompressedOrganizer;
-import starlords.util.memoryUtils.Compressed.hTypes.MemCompressed_R_Boolean_Base;
 
-public class MemCompressed_BooleanScript extends MemCompressedOrganizer<Boolean, MemCompressed_R_Boolean_Base> {
+public class MemCompressed_BooleanScript extends MemCompressedOrganizer<Boolean, SV_Boolean> {
     @Override
     public Boolean getDefaltData(int a, Object linkedObject) {
-        return list.get(a).getRandom(linkedObject);
+        return list.get(a).getValue(linkedObject);
     }
 }

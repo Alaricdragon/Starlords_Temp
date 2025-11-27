@@ -4,17 +4,12 @@ import com.fs.starfarer.api.Global;
 import lombok.SneakyThrows;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import starlords.util.ScriptedValues.SV_Base;
+import starlords.util.ScriptedValues.ScriptedValueController;
 import starlords.util.Utils;
-import starlords.util.lordUpgrades.UpgradeController;
 import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
 import starlords.util.memoryUtils.Compressed.MemCompressedOrganizer;
-import starlords.util.memoryUtils.Compressed.hTypes.MemCompressed_R_Double_Base;
-import starlords.util.memoryUtils.Compressed.hTypes.MemCompressed_R_Double_RandomList;
-import starlords.util.memoryUtils.Compressed.hTypes.MemCompressed_R_Double_Static;
-import starlords.util.memoryUtils.Compressed.hTypes.MemCompressed_R_Double_WeightedRandom;
-import starlords.util.memoryUtils.Compressed.types.MemCompressed_Lord;
 
-import java.util.ArrayList;
 
 import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.*;
 
@@ -28,16 +23,16 @@ public class RandomLoader_Controler {
         //as this will happen --before-- all lords are loaded, lord json data can just be loaded afterwords.
         String path = "data/lords/randoms.csv";
         JSONArray jsons = Global.getSettings().loadCSV(path,true);
-        MemCompressed_Lord lordmemory = (MemCompressed_Lord) MemCompressedMasterList.getMemory().get(LORD_KEY);
+        //MemCompressed_Lord lordmemory = (MemCompressed_Lord) MemCompressedMasterList.getMemory().get(LORD_KEY);
         for (int a = 0; a < jsons.length(); a++){
             JSONObject json = jsons.getJSONObject(a);
             //determine how the data type will be organized here.
             String dataType = getDataType(json);
-            if (dataType == null){
-                Utils.log.info("ERROR: failed to get random data type for random ID of: "+json.getString("id"));
-                continue;
-            }
-            Object data = getDataFromJson(json,dataType);
+            //if (dataType == null){
+            //    Utils.log.info("ERROR: failed to get random data type for random ID of: "+json.getString("id"));
+            //    continue;
+            //}
+            SV_Base data = getDataFromJson(json,dataType);
             storeRandomInObject(json,dataType,data);
         }
 
@@ -51,6 +46,20 @@ public class RandomLoader_Controler {
         //addUpgradeOrganizer(organizer,jsons);
 
     }
+    @SneakyThrows
+    private static SV_Base getDataFromJson(JSONObject json, String type){
+        String valueS = "Value";
+        ScriptedValueController calulater = new ScriptedValueController(json.getString(valueS));
+        SV_Base out = switch (type) {
+            case ScriptedValueController.TYPE_BOOLEAN -> calulater.getNextBoolean();
+            case ScriptedValueController.TYPE_DOUBLE -> calulater.getNextDouble();
+            case ScriptedValueController.TYPE_STRING -> calulater.getNextString();
+            case ScriptedValueController.TYPE_OBJECT -> calulater.getNextObject();
+            default -> null;
+        };
+        return out;
+    }
+    /*
     @SneakyThrows
     private static Object getDataFromJson(JSONObject json, String type){
         //this should output whatever thing is required here. be it an int, or something else.
@@ -154,8 +163,30 @@ public class RandomLoader_Controler {
             outs[a] = Double.parseDouble(data[a]);
         }
         return outs;
-    }
+    }*/
     @SneakyThrows
+    private static void storeRandomInObject(JSONObject json, String type, SV_Base data){
+        String id = json.getString("id");
+        String randomType = json.getString("Type");
+        MemCompressedOrganizer<?, ?> memory = getMemoryFromKey(randomType);
+        if (memory == null){
+            Utils.log.info("ERROR: failed to find memory object for random data of ID: "+id);
+            return;
+        }
+        MemCompressedOrganizer<?, SV_Base> out = switch (type) {
+            case ScriptedValueController.TYPE_BOOLEAN -> out = (MemCompressedOrganizer<?, SV_Base>) memory.getItem(BOOLEAN_KEY);
+            case ScriptedValueController.TYPE_DOUBLE -> out = (MemCompressedOrganizer<?, SV_Base>) memory.getItem(DOUBLE_KEY);
+            case ScriptedValueController.TYPE_STRING -> out = (MemCompressedOrganizer<?, SV_Base>) memory.getItem(STRING_KEY);
+            case ScriptedValueController.TYPE_OBJECT -> out = (MemCompressedOrganizer<?, SV_Base>) memory.getItem(NO_CUSTOM_KEY);
+            default -> null;
+        };
+        if (out == null){
+            Utils.log.info("ERROR: failed to load random data of ID: "+id);
+            return;
+        }
+        out.setItem(id,data);
+    }
+    /*@SneakyThrows
     private static void storeRandomInObject(JSONObject json, String type, Object data){
         //this should place the object wereever it should go. I think it needs to be a MemCompressedHolder???? (or whatever item goes within)
         String randomType = json.getString("Type");
@@ -179,18 +210,22 @@ public class RandomLoader_Controler {
                 MemCompressedOrganizer<Double, MemCompressed_R_Double_Base> temp_2 = (MemCompressedOrganizer<Double, MemCompressed_R_Double_Base>) memory.getItem(DOUBLE_KEY);
                 temp_2.setItem(memoryID, (MemCompressed_R_Double_Base) data);
         }
-    }
+    }*/
     private static MemCompressedOrganizer<?,?> getMemoryFromKey(String key){
-        switch (key){
-            case "LORD":
-                return MemCompressedMasterList.getMemory().get(LORD_KEY);
-            case "FACTION":
-                return MemCompressedMasterList.getMemory().get(FACTION_KEY);
-            case "PMC":
-                return MemCompressedMasterList.getMemory().get(PMC_KEY);
-        }
-        return null;//this will cause a crash, and for good reason. if it is triggering, something went wrong.
+        return switch (key) {
+            case "LORD" -> MemCompressedMasterList.getMemory().get(LORD_KEY);
+            case "FACTION" -> MemCompressedMasterList.getMemory().get(FACTION_KEY);
+            case "PMC" -> MemCompressedMasterList.getMemory().get(PMC_KEY);
+            default -> null;
+        };
     }
+
+
+    @SneakyThrows
+    private static String getDataType(JSONObject json){
+        return json.getString("Data_Type");
+    }
+    /*
     public static final String TYPE_WR_DOUBLE = "WEIGHTED_RANDOM:DOUBLE";
     public static final String TYPE_DOUBLE = "DOUBLE";
     public static final String TYPE_RANDOM_LIST_DOUBLE = "RANDOM_LIST:DOUBLE";
@@ -206,7 +241,6 @@ public class RandomLoader_Controler {
     public static final String TYPE_PATH_BOOLEAN = "PATH:BOOLEAN";
 
     public static final String TYPE_OTHER = "OTHER";
-
     @SneakyThrows
     private static String getDataType(JSONObject json){
         String[] allTypes = {
@@ -243,5 +277,5 @@ public class RandomLoader_Controler {
                 }
         }
         return null;
-    }
+    }*/
 }

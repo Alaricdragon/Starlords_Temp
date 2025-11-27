@@ -25,9 +25,6 @@ import starlords.person.LordAction;
 import starlords.person.LordEvent;
 import starlords.person.LordRequest;
 import starlords.util.factionUtils.FactionTemplateController;
-import starlords.util.memoryUtils.Compressed.hTypes.MemCompressed_R_Boolean_Base;
-import starlords.util.memoryUtils.Compressed.hTypes.MemCompressed_R_Double_Base;
-import starlords.util.memoryUtils.Compressed.hTypes.MemCompressed_R_String_Base;
 
 import java.util.*;
 
@@ -945,68 +942,4 @@ public class Utils {
         return rand.nextInt(bound);
     }
 
-    public static ArrayList<Double> getDoublesFromArrayWithScripts(ArrayList<Object> values,Object linkedObject){
-        ArrayList<Double> out = new ArrayList<>();
-        for (Object a : values){
-            Object script = isScript(a);
-            if (script != null){
-                MemCompressed_R_Double_Base b = (MemCompressed_R_Double_Base) script;
-                out.add(b.getRandom(linkedObject));
-                continue;
-            }
-            out.add((Double) a);
-        }
-        return out;
-    }
-    public static ArrayList<String> getStringsFromArrayWithScripts(ArrayList<Object> values,Object linkedObject){
-        ArrayList<String> out = new ArrayList<>();
-        for (Object a : values){
-            Object script = isScript(a);
-            if (script != null){
-                MemCompressed_R_String_Base b = (MemCompressed_R_String_Base) script;
-                out.add(b.getRandom(linkedObject));
-                continue;
-            }
-            out.add((String) a);
-        }
-        return out;
-    }
-    public static ArrayList<Boolean> getBooleansFromArrayWithScripts(ArrayList<Object> values,Object linkedObject){
-        ArrayList<Boolean> out = new ArrayList<>();
-        for (Object a : values){
-            Object script = isScript(a);
-            if (script != null){
-                MemCompressed_R_Boolean_Base b = (MemCompressed_R_Boolean_Base) script;
-                out.add(b.getRandom(linkedObject));
-                continue;
-            }
-            out.add((Boolean) a);
-        }
-        return out;
-    }
-    public static double getScriptValueDouble(Object data,Object linkedObject){
-        Object script = Utils.isScript(data);
-        if (script != null) return ((MemCompressed_R_Double_Base)script).getRandom(linkedObject);
-        return (Double) data;
-    }
-    public static String getScriptValueString(Object data,Object linkedObject){
-        Object script = Utils.isScript(data);
-        if (script != null) return ((MemCompressed_R_String_Base)script).getRandom(linkedObject);
-        return (String) data;
-    }
-    public static boolean getScriptValueBoolean(Object data,Object linkedObject){
-        Object script = Utils.isScript(data);
-        if (script != null) return ((MemCompressed_R_Boolean_Base)script).getRandom(linkedObject);
-        return (Boolean) data;
-    }
-    public static Object isScript(Object object){
-        if (object instanceof String){
-            String string = (String) object;
-            if (string != null && string.startsWith("~")) {
-                String[] list = string.split("~");
-                return Global.getSettings().getInstanceOfScript(list[list.length-1]);
-            }
-        }
-        return null;
-    }
 }

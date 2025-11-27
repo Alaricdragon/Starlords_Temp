@@ -28,6 +28,7 @@ import starlords.generator.LordBaseDataController;
 import starlords.ui.PrisonerIntelPlugin;
 import starlords.util.*;
 import starlords.util.factionUtils.FactionTemplateController;
+import starlords.util.fleetCompasition.FleetCompositionData;
 import starlords.util.memoryUtils.Compressed.MemCompressedHolder;
 import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
 import starlords.util.memoryUtils.DataHolder;
@@ -45,6 +46,7 @@ import static starlords.util.Constants.*;
 
 @Getter
 public class Lord {
+
     // Data stored in this dict will be persistent.
     @Getter(AccessLevel.NONE)
     private Map<String, Object> persistentData;

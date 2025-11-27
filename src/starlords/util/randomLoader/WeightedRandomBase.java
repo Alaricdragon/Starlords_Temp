@@ -18,7 +18,7 @@ public abstract class WeightedRandomBase {
         return (int)target;
     }
     public abstract double getRandom();
-    public double getRandom(double target, double i, double max, double min){
+    public static double getRandom(double target, double i, double max, double min){
         if (i == 0) return (ran.nextDouble()*(max-min))+min;
         int a = 0;
         while(a < 5) {
