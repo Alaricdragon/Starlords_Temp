@@ -1,2 +1,2 @@
-id,Path
-example,data/lords/starlords/example.json
+id,Path,loadPriority
+example,data/lords/starlords/example.json,0

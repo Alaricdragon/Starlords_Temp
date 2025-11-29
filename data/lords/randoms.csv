@@ -1,4 +1,4 @@
-id,Type,DataType,Value
+id,Type,DataType,Value,loadPriority
 #please note that the ID only needs to be uneake in its type and section,"what this random will apply to
 possabilitys:
 LORD
@@ -9,7 +9,9 @@ Boolean
 Double
 String
 Object","this represents the defalt value of a given stat. for randomization of starlords data
-LinkedObject is: ????"
-UPGRADE:UPGRADEid:COST/WEIGHT,LORD,Double,D_WR:20:10:5:1
-,,,
-,,,
+LinkedObject is: ????","starlords will only remember the item with the highest 'loadPriority' for each id + Type
+type: double
+linkedObject: null"
+UPGRADE:UPGRADEid:COST/WEIGHT,LORD,Double,D_WR:20:10:5:1,0
+,,,,
+,,,,

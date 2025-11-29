@@ -15,13 +15,13 @@ public class MemCompressed_Lord extends MemCompressedOrganizer<MemCompressedHold
     @Override
     public void load() {
         for (Lord lord : LordController.getLordsList()) {
-            this.repair(lord.getCOMPRESSED_MEMORY(),lord);
+            this.repair(lord.getMemory().getMemForRepairOnly(), lord);
             /*for (String a : map.keySet()) {
                 //note that it is repaired, not loaded. this could be an issue. alturation...?
                 MemCompressedOrganizer<?, ?> b  = list.get(map.get(a));
                 b.repair(lord.getCOMPRESSED_MEMORY().getItem(a),lord);
             }*/
-            this.repairStructuresOfMasterCompressedOrganizer(lord.getCOMPRESSED_MEMORY(),lord);
+            this.repairStructuresOfMasterCompressedOrganizer(lord.getMemory().getMemForRepairOnly(),lord);
             //for (String a : map.keySet()){
             //    MemCompressedOrganizer<?, ?> b  = list.get(map.get(a));
             //    b.repair(lord.getCOMPRESSED_MEMORY().getItem(),lord);

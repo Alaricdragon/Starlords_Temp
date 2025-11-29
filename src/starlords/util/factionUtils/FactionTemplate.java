@@ -16,6 +16,7 @@ import starlords.util.Utils;
 import starlords.util.weights.IncomeWeights;
 import starlords.util.weights.UpgradeWeights;
 
+@Deprecated
 @Getter
 public class FactionTemplate {
     /*what have I done?

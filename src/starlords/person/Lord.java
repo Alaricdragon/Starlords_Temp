@@ -28,10 +28,9 @@ import starlords.generator.LordBaseDataController;
 import starlords.ui.PrisonerIntelPlugin;
 import starlords.util.*;
 import starlords.util.factionUtils.FactionTemplateController;
-import starlords.util.fleetCompasition.FleetCompositionData;
-import starlords.util.memoryUtils.Compressed.MemCompressedHolder;
 import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
 import starlords.util.memoryUtils.DataHolder;
+import starlords.util.memoryUtils.GenericMemory;
 import starlords.util.scriptOverrider.ScripOverriderController;
 import starlords.util.weights.IncomeWeights;
 import starlords.util.weights.UpgradeWeights;
@@ -46,9 +45,11 @@ import static starlords.util.Constants.*;
 
 @Getter
 public class Lord {
+    private GenericMemory Memory;
 
     // Data stored in this dict will be persistent.
     @Getter(AccessLevel.NONE)
+    @Deprecated
     private Map<String, Object> persistentData;
 
     private PersonAPI lordAPI;
@@ -144,6 +145,7 @@ public class Lord {
     private ScripOverriderController scrips;
     @SneakyThrows
     public Lord(JSONObject json){
+        Memory = new GenericMemory(MemCompressedMasterList.KEY_LORD,this);
         scrips = new ScripOverriderController();
         for (Pair<String,LordBaseDataBuilder> a : LordBaseDataController.getFormaters()){
             LordBaseDataBuilder b = a.two;
@@ -159,8 +161,6 @@ public class Lord {
                 b.lordJSon(json,this);
             }
         }
-        COMPRESSED_MEMORY = new MemCompressedHolder<>(MemCompressedMasterList.getMemory().get(MemCompressedMasterList.LORD_KEY), this);
-        DATA_HOLDER = new DataHolder();
         finalizeLordCreation(this);
     }
     @Deprecated
@@ -301,8 +301,7 @@ public class Lord {
             persistentData.put("prisoners", prisoners);
         }
         //loadConnectedMemory();//this insures the structure is present.
-        COMPRESSED_MEMORY = new MemCompressedHolder<>(MemCompressedMasterList.getMemory().get(MemCompressedMasterList.LORD_KEY), this);
-        DATA_HOLDER = new DataHolder();
+        Memory = new GenericMemory(MemCompressedMasterList.KEY_LORD,this);
     }
 
     public void addFief(MarketAPI fief) {
@@ -674,7 +673,8 @@ public class Lord {
         return output;
     }
 
-    private DataHolder DATA_HOLDER;
+    //private DataHolder DATA_HOLDER;
+    @Deprecated
     public DataHolder getDataHolder(){
         /*DataHolder data_holder = DATA_HOLDER;
         if (DATA_HOLDER != null) return data_holder;
@@ -686,7 +686,7 @@ public class Lord {
         }
         DATA_HOLDER = data_holder;
         return data_holder;*/
-        return DATA_HOLDER;
+        return Memory.getDATA_HOLDER();//DATA_HOLDER;
     }
     /*public void saveDataHolder(){
         String key = STARLORD_ADDITIONAL_MEMORY_KEY+getLordAPI().getId();
@@ -698,8 +698,8 @@ public class Lord {
         player.isPlayer = true;
         return player;
     }
-    @Getter
-    private MemCompressedHolder<MemCompressedHolder<?>> COMPRESSED_MEMORY;// = (MemCompressedHolder<MemCompressedHolder<?>>) MemCompressedMasterList.getMemory().get(COMPRESSED_ORGANIZER_LORD_KEY).getHolderStructure(this);
+    //@Getter
+    //private MemCompressedHolder<MemCompressedHolder<?>> COMPRESSED_MEMORY;// = (MemCompressedHolder<MemCompressedHolder<?>>) MemCompressedMasterList.getMemory().get(COMPRESSED_ORGANIZER_LORD_KEY).getHolderStructure(this);
     /*public void loadConnectedMemory(){
         String key = STARLORD_COMPRESSED_MEMORY_KEY+getLordAPI().getId();
         MemCompressedHolder<MemCompressedHolder<?>> temp;

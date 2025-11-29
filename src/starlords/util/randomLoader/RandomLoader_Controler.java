@@ -4,12 +4,15 @@ import com.fs.starfarer.api.Global;
 import lombok.SneakyThrows;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import starlords.util.CsvFilerReader;
 import starlords.util.ScriptedValues.SV_Base;
 import starlords.util.ScriptedValues.ScriptedValueController;
 import starlords.util.Utils;
 import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
 import starlords.util.memoryUtils.Compressed.MemCompressedOrganizer;
 
+
+import java.util.HashMap;
 
 import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.*;
 
@@ -23,17 +26,15 @@ public class RandomLoader_Controler {
         //as this will happen --before-- all lords are loaded, lord json data can just be loaded afterwords.
         String path = "data/lords/randoms.csv";
         JSONArray jsons = Global.getSettings().loadCSV(path,true);
+        HashMap<String,HashMap<String,JSONObject>> list = CsvFilerReader.computeFile(jsons,"Type");
         //MemCompressed_Lord lordmemory = (MemCompressed_Lord) MemCompressedMasterList.getMemory().get(LORD_KEY);
-        for (int a = 0; a < jsons.length(); a++){
-            JSONObject json = jsons.getJSONObject(a);
-            //determine how the data type will be organized here.
-            String dataType = getDataType(json);
-            //if (dataType == null){
-            //    Utils.log.info("ERROR: failed to get random data type for random ID of: "+json.getString("id"));
-            //    continue;
-            //}
-            SV_Base data = getDataFromJson(json,dataType);
-            storeRandomInObject(json,dataType,data);
+        for (String a : list.keySet()){
+            for (String b : list.get(a).keySet()) {
+                JSONObject json = list.get(a).get(b);
+                String dataType = getDataType(json);
+                SV_Base data = getDataFromJson(json, dataType);
+                storeRandomInObject(json, dataType, data);
+            }
         }
 
 
@@ -174,10 +175,10 @@ public class RandomLoader_Controler {
             return;
         }
         MemCompressedOrganizer<?, SV_Base> out = switch (type) {
-            case ScriptedValueController.TYPE_BOOLEAN -> out = (MemCompressedOrganizer<?, SV_Base>) memory.getItem(BOOLEAN_KEY);
-            case ScriptedValueController.TYPE_DOUBLE -> out = (MemCompressedOrganizer<?, SV_Base>) memory.getItem(DOUBLE_KEY);
-            case ScriptedValueController.TYPE_STRING -> out = (MemCompressedOrganizer<?, SV_Base>) memory.getItem(STRING_KEY);
-            case ScriptedValueController.TYPE_OBJECT -> out = (MemCompressedOrganizer<?, SV_Base>) memory.getItem(NO_CUSTOM_KEY);
+            case ScriptedValueController.TYPE_BOOLEAN -> out = (MemCompressedOrganizer<?, SV_Base>) memory.getItem(MTYPE_KEY_BOOLEAN);
+            case ScriptedValueController.TYPE_DOUBLE -> out = (MemCompressedOrganizer<?, SV_Base>) memory.getItem(MTYPE_KEY_DOUBLE);
+            case ScriptedValueController.TYPE_STRING -> out = (MemCompressedOrganizer<?, SV_Base>) memory.getItem(MTYPE_KEY_STRING);
+            case ScriptedValueController.TYPE_OBJECT -> out = (MemCompressedOrganizer<?, SV_Base>) memory.getItem(MTYPE_KEY_NO_CUSTOM);
             default -> null;
         };
         if (out == null){
@@ -213,9 +214,9 @@ public class RandomLoader_Controler {
     }*/
     private static MemCompressedOrganizer<?,?> getMemoryFromKey(String key){
         return switch (key) {
-            case "LORD" -> MemCompressedMasterList.getMemory().get(LORD_KEY);
-            case "FACTION" -> MemCompressedMasterList.getMemory().get(FACTION_KEY);
-            case "PMC" -> MemCompressedMasterList.getMemory().get(PMC_KEY);
+            case "LORD" -> MemCompressedMasterList.getMemory().get(KEY_LORD);
+            case "FACTION" -> MemCompressedMasterList.getMemory().get(KEY_FACTION);
+            case "PMC" -> MemCompressedMasterList.getMemory().get(KEY_PMC);
             default -> null;
         };
     }

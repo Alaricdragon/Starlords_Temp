@@ -9,9 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import starlords.PMC.PMC;
 import starlords.person.Lord;
+import starlords.util.CsvFilerReader;
 import starlords.util.Utils;
-import starlords.util.memoryUtils.Compressed.MemCompressedHolder;
-import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,8 +46,9 @@ public class UpgradeController {
     public static void init() {
         String path = "data/lords/upgrades.csv";
         JSONArray jsons = Global.getSettings().loadCSV(path, true);
-        for (int a = 0; a < jsons.length(); a++){
-            JSONObject json = jsons.getJSONObject(a);
+        HashMap<String,JSONObject> list = CsvFilerReader.computeFile(jsons);
+        for (String a : list.keySet()){
+            JSONObject json = list.get(a);
             String id = json.getString("id");
             boolean bol = json.getBoolean("defaultEnabled");
             String path2 = json.getString("script");
@@ -70,7 +70,7 @@ public class UpgradeController {
     }
 
     private static String getNameInMemory(String name,String type,String varuble){
-        return TYPE_UPGRADE_KEY+name+type+varuble;
+        return BUILDER_UPGRADE_KEY +name+type+varuble;
     }
     public static Pair<HashMap<String,Double>,UpgradeBase> getUpgrade(Lord lord,UpgradeData data){
         //HashMap<String,Double> availableWeight = new HashMap<>();
@@ -117,9 +117,9 @@ public class UpgradeController {
         ArrayList<String> mods = upgrades.get(upgradeID).getWeightModifiers(lord,data);
         for (String a : mods) {
             String id = getNameInMemory(upgradeID,typeID,a);
-            double value = (double) lord.getCOMPRESSED_MEMORY().getItem(DOUBLE_KEY).getItem(id);
+            double value = (double) lord.getMemory().getCompressedDouble(id);
             for (Pair<Double, PMC> b : lord.getPMCs()){
-                value *= (b.one * (double) b.two.getCOMPRESSED_MEMORY().getItem(DOUBLE_KEY).getItem(id));
+                value *= (b.one * (double) b.two.getCOMPRESSED_MEMORY().getItem(MTYPE_KEY_DOUBLE).getItem(id));
             }
             output.put(a,value);
         }

@@ -2,25 +2,47 @@ package starlords.util.memoryUtils.Compressed.types;
 
 import starlords.controllers.LordController;
 import starlords.person.Lord;
+import starlords.util.fleetCompasition.FleetCompositionData;
+import starlords.util.fleetCompasition.ShipCompositionData;
 import starlords.util.memoryUtils.Compressed.MemCompressedHolder;
+import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
 import starlords.util.memoryUtils.Compressed.MemCompressedOrganizer;
+import starlords.util.memoryUtils.GenericMemory;
+
+import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.*;
 
 public class MemCompressed_FleetComp extends MemCompressedOrganizer<MemCompressedHolder<?>, MemCompressedOrganizer<?,?>>{
-    /*todo: the 'load' phase of this needs a link into all ship compositions.
-            how it will work:
-                1) in LordCompressedMemory.other memory, I will store 2 fleet compositions MemCompressedHolders. One for active fleet, and one for 'backup' fleet.
-                    -note: backup fleet can be null because if it is it means the fleet is using its 'starting' fleet.
-                    -note: for backup data, it might be wize to have a hashmap that stores links to all the relevent 'backup' data in memory. (or even just holding it in the data holder, not everything needs backup data)
-                2) I will get said memory in the load function.
-                3) I will also run MemCompressed_ShipComp .load / .repair in all of said data points. (so that class can be free).
-
-
-     */
     @Override
     public void load() {
         for (Lord lord : LordController.getLordsList()) {
-            //this.repair(lord.getCOMPRESSED_MEMORY(),lord);
-            //this.repairStructuresOfMasterCompressedOrganizer(lord.getCOMPRESSED_MEMORY(),lord);
+            loadAllFleetCompsForMemory(lord.getMemory());
         }
+    }
+    private void loadAllFleetCompsForMemory(GenericMemory Memory){
+        FleetCompositionData data = (FleetCompositionData)Memory.getCompressedOther(BUILDER_FLEETCOMP_KEY+FLEET_COMBAT);
+        loadSingleFleetComp(data);
+
+        data = (FleetCompositionData)Memory.getCompressedOther(BUILDER_FLEETCOMP_KEY+FLEET_FUEL);
+        loadSingleFleetComp(data);
+
+        data = (FleetCompositionData)Memory.getCompressedOther(BUILDER_FLEETCOMP_KEY+FLEET_PERSONAL);
+        loadSingleFleetComp(data);
+
+        data = (FleetCompositionData)Memory.getCompressedOther(BUILDER_FLEETCOMP_KEY+FLEET_CARGO);
+        loadSingleFleetComp(data);
+
+        data = (FleetCompositionData)Memory.getCompressedOther(BUILDER_FLEETCOMP_KEY+FLEET_TUG);
+        loadSingleFleetComp(data);
+    }
+    private void loadSingleFleetComp(FleetCompositionData data){
+        for (String a : data.getData().keySet()){
+            //this is running the 'load' for the ShipCompositionData.
+            MemCompressedOrganizer<?, ?> comp = MemCompressedMasterList.getMemory().get(MemCompressedMasterList.KEY_SHIP);
+            ShipCompositionData ship = data.getData().get(a);
+            comp.repair(ship.getMemory().getMemForRepairOnly(),ship);
+            comp.repairStructuresOfMasterCompressedOrganizer(ship.getMemory().getMemForRepairOnly(),ship);
+        }
+        this.repair(data.getMemory().getMemForRepairOnly(),data);
+        this.repairStructuresOfMasterCompressedOrganizer(data.getMemory().getMemForRepairOnly(),data);
     }
 }

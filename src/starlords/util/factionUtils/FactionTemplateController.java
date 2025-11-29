@@ -10,6 +10,7 @@ import starlords.util.factionUtils.customTemplates.FactionTemplate_player;
 import java.util.HashMap;
 import java.util.Iterator;
 
+@Deprecated
 public class FactionTemplateController {
     private static HashMap<String, FactionTemplate> templates = new HashMap<String, FactionTemplate>();
     public static void addTemplate(FactionTemplate template){

@@ -6,6 +6,7 @@ import lombok.SneakyThrows;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import starlords.person.Lord;
+import starlords.util.CsvFilerReader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,11 +20,12 @@ public class LordBaseDataController {
     public static void init(){
         String path = "data/lords/lordGenerator.csv";
         JSONArray jsons = Global.getSettings().loadCSV(path, true);
+        HashMap<String,JSONObject> list = CsvFilerReader.computeFile(jsons);
         ArrayList<Double> order = new ArrayList<>();
         ArrayList<LordBaseDataBuilder> data = new ArrayList<>();
         ArrayList<String> ids = new ArrayList<>();
-        for (int a = 0; a < jsons.length(); a++){
-            JSONObject json = jsons.getJSONObject(a);
+        for (String a : list.keySet()){
+            JSONObject json = list.get(a);
             String id = json.getString("id");
             Double orderT = json.getDouble("order");
             String path2 = json.getString("script");

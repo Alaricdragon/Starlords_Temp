@@ -10,25 +10,25 @@ public class DataHolder {
     protected HashMap<String,Long> bTimestamp = new HashMap<>();
     protected HashMap<String,Long> iTimestamp = new HashMap<>();
     protected HashMap<String,Long> oTimestamp = new HashMap<>();
-    protected HashMap<String,Long> CMTimestamp = new HashMap<>();
+    //protected HashMap<String,Long> CMTimestamp = new HashMap<>();
 
     protected HashMap<String,Integer> sExpire = new HashMap<>();
     protected HashMap<String,Integer> bExpire = new HashMap<>();
     protected HashMap<String,Integer> iExpire = new HashMap<>();
     protected HashMap<String,Integer> oExpire = new HashMap<>();
-    protected HashMap<String,Integer> CMExpire = new HashMap<>();
+    //protected HashMap<String,Integer> CMExpire = new HashMap<>();
 
     protected HashMap<String,String> strings = new HashMap<>();
     protected HashMap<String,Boolean> booleans = new HashMap<>();
     protected HashMap<String,Integer> integers = new HashMap<>();
     protected HashMap<String,Object> objects = new HashMap<>();
-    protected HashMap<String, MemCompressedHolder> connectedMemory = new HashMap<>();
+    //protected HashMap<String, MemCompressedHolder> connectedMemory = new HashMap<>();
     public boolean hasData(){
         if (!strings.isEmpty()) return true;
         if (!booleans.isEmpty()) return true;
         if (!integers.isEmpty()) return true;
         if (!objects.isEmpty()) return true;
-        if (!connectedMemory.isEmpty()) return true;
+        //if (!connectedMemory.isEmpty()) return true;
         return false;
     }
 
@@ -46,9 +46,9 @@ public class DataHolder {
     private void setObjectInternal(String key, Object data){
         objects.put(key,data);
     }
-    private void setCMInternal(String key, MemCompressedHolder data){
+    /*private void setCMInternal(String key, MemCompressedHolder data){
         connectedMemory.put(key,data);
-    }
+    }*/
     /*public void set(String key, Object data){
         if (data instanceof Integer){
             setInteger(key,(int)data);
@@ -88,11 +88,11 @@ public class DataHolder {
         oTimestamp.remove(key);
         oExpire.remove(key);
     }
-    public void setCM(String key, MemCompressedHolder<?> data){
+    /*public void setCM(String key, MemCompressedHolder<?> data){
         setCMInternal(key, data);
         CMTimestamp.remove(key);
         CMExpire.remove(key);
-    }
+    }*/
     public void setString(String key, String data,int time){
         setStringInternal(key, data);
         sTimestamp.put(key,Global.getSector().getClock().getTimestamp());
@@ -113,11 +113,11 @@ public class DataHolder {
         oTimestamp.put(key,Global.getSector().getClock().getTimestamp());
         oExpire.put(key,time);
     }
-    public void setCM(String key, MemCompressedHolder<?> data, int time){
+    /*public void setCM(String key, MemCompressedHolder<?> data, int time){
         setCMInternal(key, data);
         CMTimestamp.put(key,Global.getSector().getClock().getTimestamp());
         CMExpire.put(key,time);
-    }
+    }*/
 
 
     public String getString(String key){
@@ -176,7 +176,7 @@ public class DataHolder {
         }
         return objects.get(key);
     }
-    public MemCompressedHolder<?> getCM(String key){
+    /*public MemCompressedHolder<?> getCM(String key){
         if (!connectedMemory.containsKey(key)) return null;
         if (CMExpire.containsKey(key) && CMExpire.get(key) <= Global.getSector().getClock().getElapsedDaysSince(CMTimestamp.get(key))){
             CMExpire.remove(key);
@@ -185,5 +185,5 @@ public class DataHolder {
             return null;
         }
         return connectedMemory.get(key);
-    }
+    }*/
 }

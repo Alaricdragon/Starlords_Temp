@@ -32,7 +32,7 @@ public class PMC {
         if (Global.getSector().getMemory().contains(key)){
             temp = (MemCompressedHolder<MemCompressedHolder<?>>) Global.getSector().getMemory().get(key);
         }else{
-            temp = new MemCompressedHolder<>(MemCompressedMasterList.getMemory().get(MemCompressedMasterList.PMC_KEY), this);
+            temp = new MemCompressedHolder<>(MemCompressedMasterList.getMemory().get(MemCompressedMasterList.KEY_PMC), this);
             //temp.repair(this);
         }
         COMPRESSED_MEMORY = temp;

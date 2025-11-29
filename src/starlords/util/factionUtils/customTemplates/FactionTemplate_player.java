@@ -5,6 +5,7 @@ import com.fs.starfarer.api.characters.PersonAPI;
 import org.json.JSONObject;
 import starlords.util.factionUtils.FactionTemplate;
 
+@Deprecated
 public class FactionTemplate_player extends FactionTemplate {
     public FactionTemplate_player(String factionID) {
         super(factionID);
