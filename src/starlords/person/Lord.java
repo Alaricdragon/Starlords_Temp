@@ -45,7 +45,14 @@ import static starlords.util.Constants.*;
 
 @Getter
 public class Lord {
+    //todo: this intier class is a complete fucking mess. most things should be moved out of here if possible.
+    //      I want most memory to use GenericMemory instead. I also want most functions to be moved out into diffrent areas.
+    //      the reason for this is because this class is not something I can easly replace by a script. if someone wants to code there starlord to do something different, they need to use scripts for that.
+    //      this makes everything here.... unrequired by nature. or even detrimental.
+    //      I CANNOT DO THAT RIGHT NOW. what I can do is slowly, very slowly, move all the data here outside of this class when possable.
+
     private GenericMemory Memory;
+    private String jsonID = "";
 
     // Data stored in this dict will be persistent.
     @Getter(AccessLevel.NONE)
@@ -128,6 +135,7 @@ public class Lord {
 
     // stores reference to lords fleet, so when the lord does not have there own flagship, they can still get there own fleet
     @Setter
+    @Deprecated //I am going to replace this with a new 'back up' system for starlords.
     private CampaignFleetAPI backupFleet;
 
     //because it budged me that the god dammed way to decide weather or not you were a dress or not arg....
@@ -145,6 +153,7 @@ public class Lord {
     private ScripOverriderController scrips;
     @SneakyThrows
     public Lord(JSONObject json){
+        if (json != null) this.jsonID = json.getString("id");
         Memory = new GenericMemory(MemCompressedMasterList.KEY_LORD,this);
         scrips = new ScripOverriderController();
         for (Pair<String,LordBaseDataBuilder> a : LordBaseDataController.getFormaters()){
@@ -302,6 +311,25 @@ public class Lord {
         }
         //loadConnectedMemory();//this insures the structure is present.
         Memory = new GenericMemory(MemCompressedMasterList.KEY_LORD,this);
+    }
+
+    @SneakyThrows
+    public void attemptCoreRepair(JSONObject json){
+        for (Pair<String,LordBaseDataBuilder> a : LordBaseDataController.getFormaters()){
+            LordBaseDataBuilder b = a.two;
+            String generatorScripKey = LordBaseDataController.generatorScripKey;
+            if (json!= null && json.has("scripOverride") && json.has(generatorScripKey) && json.has(a.one)){
+                String path2 = json.getJSONObject(generatorScripKey).getString(a.one);
+                b = ((LordBaseDataBuilder) Global.getSettings().getInstanceOfScript(path2));
+                scrips.addScript(generatorScripKey,a.one,path2);
+            }
+            if (!b.shouldRepair(this,json)) continue;
+            if (b.shouldGenerate(json) || json == null){
+                b.generate(this);
+            }else{
+                b.lordJSon(json,this);
+            }
+        }
     }
 
     public void addFief(MarketAPI fief) {

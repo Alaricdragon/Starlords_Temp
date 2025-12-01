@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LordBaseDataController {
-    /*todo: issue with data storge:
-    *       do to the nature of data storge in this capacity, I */
+    /* this handles forming the basic data structures that all lords follow. it also handles lord generation. please dont forget this again for fucks sakes.*/
     private static HashMap<String, LordBaseDataBuilder> map = new HashMap<>();
     private static HashMap<String,Double> priorityMap = new HashMap<>();
     @SneakyThrows
@@ -87,5 +86,9 @@ public class LordBaseDataController {
             }
             b.loadLord(lord);
         }
+    }
+
+    public static void repairIfRequired(Lord lord,JSONObject json){
+
     }
 }

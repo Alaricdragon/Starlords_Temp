@@ -25,6 +25,7 @@ import starlords.person.Lord;
 import starlords.person.LordTemplate;
 import starlords.ui.LordsIntelPlugin;
 import starlords.util.Constants;
+import starlords.util.CsvFilerReader;
 import starlords.util.LordFleetFactory;
 import starlords.util.Utils;
 import starlords.util.memoryUtils.DataHolder;
@@ -259,6 +260,7 @@ public class LordController {
     }
 
     // Loads existing lords on save load.
+    @SneakyThrows
     public static void loadLords() {
         lordsList.clear();
         lordsMap.clear();
@@ -290,8 +292,11 @@ public class LordController {
         createStarlordsFromJsons();//this is here to ensure any starlords in the starlords json will be loaded.
         ensureLordOrder();
         playerLord = Lord.createPlayer();
+        HashMap<String,JSONObject> csv = CsvFilerReader.computeFile(Global.getSettings().loadCSV("data/lords/starlords.csv", true));
         for (Lord a : lordsList){
             LordBaseDataController.load(a);
+            JSONObject json = csv.getOrDefault(a.getJsonID(),null);
+            a.attemptCoreRepair(json);
         }
     }
     public static void saveLords(){
@@ -418,9 +423,9 @@ public class LordController {
             objects.add(templates.getJSONObject(key));
         }
         String path = "data/lords/starlords.csv";
-        JSONArray jsons = Global.getSettings().loadCSV(path, true);
-        for (int a = 0; a < jsons.length(); a++){
-            JSONObject json = jsons.getJSONObject(a);
+        HashMap<String,JSONObject> csv = CsvFilerReader.computeFile(Global.getSettings().loadCSV(path, true));
+        for (String a : csv.keySet()){
+            JSONObject json = csv.get(a);
             String id = json.getString("id");
             if (loadedLords.contains(id)) continue;
             loadedLords.add(id);

@@ -70,6 +70,8 @@ public class UpgradeController {
     }
 
     private static String getNameInMemory(String name,String type,String varuble){
+        //todo: this form of data getting is exstreamly messy.
+        //      what I should do, is instead of this, have each 'upgrade base' get the varuble names it uses.
         return BUILDER_UPGRADE_KEY +name+type+varuble;
     }
     public static Pair<HashMap<String,Double>,UpgradeBase> getUpgrade(Lord lord,UpgradeData data){
@@ -118,6 +120,7 @@ public class UpgradeController {
         for (String a : mods) {
             String id = getNameInMemory(upgradeID,typeID,a);
             double value = (double) lord.getMemory().getCompressedDouble(id);
+            //todo: I understand what I was doing here, trying to get the combined modifier including data from the PMC, but this should be handled in the lord class for generic acsess.
             for (Pair<Double, PMC> b : lord.getPMCs()){
                 value *= (b.one * (double) b.two.getCOMPRESSED_MEMORY().getItem(MTYPE_KEY_DOUBLE).getItem(id));
             }

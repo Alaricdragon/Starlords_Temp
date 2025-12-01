@@ -12,5 +12,6 @@ public interface LordBaseDataBuilder {
     void prepareStorgeInMemCompressedOrganizer();//in case I ever forget what this is for: this is for preparing a 'default' data in MemCompressedOrganizer. this is so I dont need an additional entry in the 'randoms' file (as the random data is being preset in the generater data. (that or I could put it in randoms. and it could be generated right then. but in this case, the order is VERY IMPORTANT, so I require this function to compensate.)).
     void saveLord(Lord lord);
     void loadLord(Lord lord);
-    //or I could go into MemCompressedOrganizer and make it 'repair' in order. but that would be really really really hard to do. I do not want to do it.
+
+    boolean shouldRepair(Lord lord, JSONObject json);//on gameload, if should repair is true, run LordBaseDataControler.
 }

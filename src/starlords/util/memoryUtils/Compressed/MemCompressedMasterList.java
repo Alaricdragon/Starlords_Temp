@@ -47,19 +47,24 @@ public class MemCompressedMasterList {
             MTYPE_KEY_NO_CUSTOM
     };
     //constants for upgrade keys:
+    public static final String TYPE_UPGRADE_WEIGHT_KEY = "UPGRADE_WEIGHT";
+    public static final String TYPE_UPGRADE_COST_KEY = "UPGRADE_COST";
+    public static final String TYPE_UPGRADE_AIWEIGHT_KEY = "UPGRADE_AIWEIGHT";
+    @Deprecated
     public static final String BUILDER_UPGRADE_KEY = "UPGRADE_";
+    @Deprecated
     public static final String UPGRADE_WEIGHT_KEY = "_WEIGHT_";
+    @Deprecated
     public static final String UPGRADE_COST_KEY = "_COST_";
+    @Deprecated
     public static final String UPGRADE_AIWEIGHT_KEY = "_AIWEIGHT_";
 
     //constants for fleet keys:
-    public static final String BUILDER_FLEETCOMP_KEY = "FLEETCOMP_";
-    public static final String FLEET_COMBAT = "COMBAT_";
-    public static final String FLEET_FUEL = "FUEL_";
-    public static final String FLEET_CARGO = "CARGO_";
-    public static final String FLEET_PERSONAL = "PERSONAL_";
-    public static final String FLEET_TUG = "TUG_";
-
+    public static final String FLEETCOMP_COMBAT = "FLEETCOMP_COMBAT";
+    public static final String FLEETCOMP_FUEL = "FLEETCOMP_FUEL";
+    public static final String FLEETCOMP_CARGO = "FLEETCOMP_CARGO";
+    public static final String FLEETCOMP_PERSONAL = "FLEETCOMP_PERSONAL";
+    public static final String FLEETCOMP_TUG = "FLEETCOMP_TUG";
 
     @Getter
     private static HashMap<String,MemCompressedOrganizer<?,?>> memory = new HashMap<>();
@@ -106,7 +111,8 @@ public class MemCompressedMasterList {
         //this is were all the basic classes are intialized. basicly, it is the preperation of structure, provided any bit of it is not present.
         insureStructureLordPresent();
         insureStructurePMCPresent();
-
+        insureStructureFleetComp();
+        insureStructureShipComp();
 
     }
     private static void insureStructurePresent(String key){
@@ -131,20 +137,14 @@ public class MemCompressedMasterList {
         insureStructurePresent(KEY_LORD);
     }
     private static void insureStructureFleetComp(){
-        //todo: create a MemCompressed_ for fleet comp
-        //      note: it is NOT POSSABLE to make this compleatly generatic. the reasons is because of the 'repair' data. that data needs to be stored somewere and
-        //            ... ok so it is possible to make generic. just fuck me. do I really want to it just moves the issue somewhere else for fuck sakes! Yes, I could do it. but it is easyer this way, I think.
-        if (true) return;
         if (!MemCompressedMasterList.memory.containsKey(KEY_FLEET)){
-            MemCompressedMasterList.getMemory().put(KEY_FLEET,new MemCompressed_Lord());
+            MemCompressedMasterList.getMemory().put(KEY_FLEET,new MemCompressed_FleetComp());
         }
         insureStructurePresent(KEY_FLEET);
     }
     private static void insureStructureShipComp(){
-        //todo: create a MemCompressed_ for ship comp
-        if (true) return;
         if (!MemCompressedMasterList.memory.containsKey(KEY_SHIP)){
-            MemCompressedMasterList.getMemory().put(KEY_SHIP,new MemCompressed_Lord());
+            MemCompressedMasterList.getMemory().put(KEY_SHIP,new MemCompressed_ShipComp());
         }
         insureStructurePresent(KEY_SHIP);
     }

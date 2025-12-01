@@ -46,6 +46,11 @@ public class FleetCompositionData {
 
         Memory = new GenericMemory(MemCompressedMasterList.KEY_FLEET,this);
     }
+    public void addShip(String id, ShipCompositionData data, int ratio){
+        this.data.put(id,data);
+        this.numShips.put(id,ratio);
+    }
+
     public int getNumberOfShips(String shipID){
         //todo: in order for this function to work, fleet compasition needs to know the number of each ship, by ID, in the fleet.
         /*todo: I could get the ship compasition by doing the following:

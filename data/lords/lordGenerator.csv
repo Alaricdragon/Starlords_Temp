@@ -1,31 +1,39 @@
 id,order,script,loadPriority
 #internal ID of starlord attrubute,lower number items are generated first,"the 'LordBaseDataBuilder' scrip this is attached to.
 please note: this scrip is responcable for both reading the a lord.json file, and for generating the data related to itself, provided it is required.",
-availableShips,0,starlords.generator.dataBuilders.availableShips,0
-availableShipsCiv,0.1,starlords.generator.dataBuilders.availableShipsCiv,0
-shipCompasitionValues,0.2,starlords.generator.dataBuilders.shipCompasitionValues,0
-shipCompasitionFinal,0.3,starlords.generator.dataBuilders.shipCompositionFinal,0
-officerSkillsAndPersonality,0.4,starlords.generator.dataBuilders.officerSkills,0
+"#what faction this starlords has. used in many things, so it is loaded first",,,
+faction,0,starlords.generator.dataBuilders.faction,0
+culture,0.1,starlords.generator.dataBuilders.culture,0
+#the ships that the starlord will use. ,,,
+availableShipsCombat,5,starlords.generator.dataBuilders.availableShips,0
+availableShipsCiv_Tug,5.1,starlords.generator.dataBuilders.availableShipsCiv,0
+availableShipsCiv_Cargo,5.2,starlords.generator.dataBuilders.availableShipsCiv,0
+availableShipsCiv_Fuel,5.3,starlords.generator.dataBuilders.availableShipsCiv,0
+availableShipsCiv_Personal,5.4,starlords.generator.dataBuilders.availableShipsCiv,0
+,,,
+shipCompasitionValues,5.2,starlords.generator.dataBuilders.shipCompasitionValues,0
+shipCompasitionFinal,5.3,starlords.generator.dataBuilders.shipCompositionFinal,0
+officerSkillsAndPersonality,5.4,starlords.generator.dataBuilders.officerSkills,0
 #fleet preferd Smods,,,
 #indevidual ship Smods,,,
 #officer placement,,,
 ,,,
-flagship,1,starlords.generator.dataBuilders.flagship,0
-lordCombatPersonality,1.1,starlords.generator.dataBuilders.lordCombatPersonality,0
-lordCombatSkills,1.2,starlords.generator.dataBuilders.lordCombatSkills,0
-lordFleetSkills,1.3,starlords.generator.dataBuilders.lordFleetSkills,0
+flagship,6,starlords.generator.dataBuilders.flagship,0
+lordCombatPersonality,6.1,starlords.generator.dataBuilders.lordCombatPersonality,0
+lordCombatSkills,6.2,starlords.generator.dataBuilders.lordCombatSkills,0
+lordFleetSkills,6.3,starlords.generator.dataBuilders.lordFleetSkills,0
 ,,,
 ,,,
-LordPersonality,2,starlords.generator.dataBuilders.LordPersonality,0
-LordFavFood,2.1,starlords.generator.dataBuilders.LordFavFood,0
-LordLooksAndName,2.2,starlords.generator.dataBuilders.LordLooksAndName,0
+LordPersonality,7,starlords.generator.dataBuilders.LordPersonality,0
+LordFavFood,7.1,starlords.generator.dataBuilders.LordFavFood,0
+LordLooksAndName,7.2,starlords.generator.dataBuilders.LordLooksAndName,0
 fleetName,,starlords.generator.dataBuilders.fleetName,0
-#AI changes here,3,,
-#stat changes here,4,,
+#AI changes here,8,,
+#stat changes here,9,,
 ,,,
-fiefs,5,starlords.generator.dataBuilders.fiefs,0
+fiefs,10,starlords.generator.dataBuilders.fiefs,0
 ,,,
 ,,,
 #mod stuff here,,,
-#SiC here,6,,
+#SiC here,11,,
 ,,,

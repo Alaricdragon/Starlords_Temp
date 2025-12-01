@@ -17,7 +17,7 @@ public class MemCompressedPrimeSetterUtils extends MemCompressedOrganizer<MemCom
         MemCompressedOrganizer<?, SV_Boolean_Code> a = (MemCompressedOrganizer<?, SV_Boolean_Code>) holder.getItem(MTYPE_KEY_BOOLEAN);
         a.setItem(key,item);
     }
-    public void setDouble_Code(String key, SV_Double_Code item){
+    public void setDouble(String key, SV_Double_Code item){
         MemCompressedOrganizer<?, SV_Double_Code> a = (MemCompressedOrganizer<?, SV_Double_Code>) holder.getItem(MTYPE_KEY_DOUBLE);
         a.setItem(key,item);
     }

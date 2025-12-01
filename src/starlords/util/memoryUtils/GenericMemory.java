@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import starlords.util.memoryUtils.Compressed.MemCompressedHolder;
 import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
+import starlords.util.memoryUtils.Compressed.types.MemCompressed_DoubleScript;
 
 @Getter
 public class GenericMemory {
@@ -28,6 +29,18 @@ public class GenericMemory {
     }
     public Object getCompressedOther(String id){
         return COMPRESSED_MEMORY.getItem(MemCompressedMasterList.MTYPE_KEY_NO_CUSTOM).getItem(id);
+    }
+    public void setCompressedDouble(String id,double data){
+        ((MemCompressedHolder<Double>) COMPRESSED_MEMORY.getItem(MemCompressedMasterList.MTYPE_KEY_DOUBLE)).putItem(id,data);
+    }
+    public void setCompressedBoolean(String id,boolean data){
+        ((MemCompressedHolder<Boolean>) COMPRESSED_MEMORY.getItem(MemCompressedMasterList.MTYPE_KEY_BOOLEAN)).putItem(id,data);
+    }
+    public void setCompressedString(String id,String data){
+        ((MemCompressedHolder<String>) COMPRESSED_MEMORY.getItem(MemCompressedMasterList.MTYPE_KEY_STRING)).putItem(id,data);
+    }
+    public void setCompressedOther(String id,Object data){
+        ((MemCompressedHolder<Object>) COMPRESSED_MEMORY.getItem(MemCompressedMasterList.MTYPE_KEY_NO_CUSTOM)).putItem(id,data);
     }
     public MemCompressedHolder<MemCompressedHolder<?>> getMemForRepairOnly(){
         return COMPRESSED_MEMORY;

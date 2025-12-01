@@ -20,10 +20,7 @@ public class ShipCompositionData {
     public ShipCompositionData(String variant){
         //this is for the generator to handle. I will have to think about this in time...
         Memory = new GenericMemory(MemCompressedMasterList.KEY_SHIP,this);
-    }
-    public ShipCompositionData(JSONObject json){
-
-        Memory = new GenericMemory(MemCompressedMasterList.KEY_SHIP,this);
+        this.variant = variant;
     }
     public double getPriorityToBuild(FleetCompositionData data){
         //todo: this gets the priority to build this ship.

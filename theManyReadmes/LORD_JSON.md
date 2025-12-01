@@ -42,13 +42,13 @@ also note: many values can be replaced by scripts. any value that can be will be
   * "civFleet_Cargo": 'Fleet_Json_Object'. [not required] This is all the ships that the fleet will try to add when it wants more cargo space.
   * "civFleet_Personal": 'Fleet_Json_Object'. [not required] This is all the ships that the fleet will try to add when it wants more personel space.
   * 'Fleet_Json_Object' is a JsonObject holding the following:
-    * "script": String. [not required] a class path to a '__' class. handles what ship to select and when. every function that you dont override there will use the rest of the data here.
+    * note: if you require more custom data, I would advise using 'scripOverride' on the lordGenerator functions. especially 'availableShips'
     * "ships": a jsonArray [required] holding a list of 'ship_Json_Object' 
     * "SMods": a 'sMods_Json_Object' object [not required] (any Smods inside of the 'ships' folder will be added before the Smods here.)
     * "officers": is a 'person_Json_Object' object [not required]
     * [note] I need a way to make sure ship ratios are possible. in addition to 'a ship variant per b ship variant'.
   * 'ship_Json_Object' is a jsonObject structured as follows:
-    * "script": String. [not required] a class path to a '__' class. handles anything you might need a custom script for in this section.
+    * note: if you require more custom data, I would advise using 'scripOverride' on the lordGenerator functions. especially 'availableShips', as well as basicly everything else.
     * "variant": String. [required] the variant ID of the ship.
     * "idOverride": String. replaces the 'variant' of a ship in the context of the 'required' json object. useful if you happen to have more then one ship in your Fleet_Json_Object of the same variantID (something that can happen if you want more then one ship of the same variant with different officers.)
     * "SMods": is a 'sMods_Json_Object' object [not required]
@@ -104,3 +104,7 @@ also note: many values can be replaced by scripts. any value that can be will be
   * "lordGenerator": JsonObject [not required]. the jsonObject is structured as:
     * "generatorID": String. were 'generatorID' is the ID of a generator property (as defined in lordGenerator.json), and String is a classpath to 'starlords\generator\LordBaseDataBuilder.java'
   * [TO DO: this is not yet compleated. I require addition data here.]
+*
+* "listeners": JsonObject [not required]. This is a list of listeners that you want to be added to the lord class.
+  * -NOTE: examples of listeners I should add: lord spawn listener, lord battle listener, lord trade listener, lord capture listener, upgrade listener, and so forth
+    * -this will also enable the ability to change lord data at will. for example: changing the lords fleet name. changing the lords fleet composition. changing the lords used dialog. so on, so forth.
