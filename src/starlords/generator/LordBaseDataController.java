@@ -88,7 +88,8 @@ public class LordBaseDataController {
         }
     }
 
+    @Deprecated
     public static void repairIfRequired(Lord lord,JSONObject json){
-
+        //this is handled inside the lord class.
     }
 }

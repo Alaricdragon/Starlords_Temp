@@ -63,18 +63,18 @@ public class DialogAddon_setLordMemoryData extends DialogAddon_setDialogData{
         for (String key : setInts.keySet()) {
             int data = setInts.get(key).getValue(lord, targetLord, targetMarket);
             if (!time.containsKey(key)) {
-                DATA_HOLDER.setInteger(key, data);
+                DATA_HOLDER.setDouble(key, data);
                 continue;
             }
             int time = this.time.get(key).getValue(lord,targetLord,targetMarket);
-            DATA_HOLDER.setInteger(key, data,time);
+            DATA_HOLDER.setDouble(key, data,time);
         }
     }
     public void applyAddFloats(DataHolder DATA_HOLDER,Lord lord,Lord targetLord, MarketAPI targetMarket){
         for (String key : addIntsMin.keySet()) {
             int min = addIntsMin.get(key).getValue(lord, targetLord,targetMarket);
             int max = addIntsMax.get(key).getValue(lord, targetLord,targetMarket);
-            int baseValue = DATA_HOLDER.getInteger(key);
+            int baseValue = DATA_HOLDER.getDouble(key);
             max = Math.max(min,max);
             int range = max - min;
             if (range != 0){
@@ -88,11 +88,11 @@ public class DialogAddon_setLordMemoryData extends DialogAddon_setDialogData{
             }
             int data = baseValue + (min+range);
             if (!time.containsKey(key)) {
-                DATA_HOLDER.setInteger(key, data);
+                DATA_HOLDER.setDouble(key, data);
                 continue;
             }
             int time = this.time.get(key).getValue(lord,targetLord,targetMarket);
-            DATA_HOLDER.setInteger(key, data,time);
+            DATA_HOLDER.setDouble(key, data,time);
         }
     }
 }

@@ -2,13 +2,17 @@ package starlords.generator.dataBuilders;
 
 import com.fs.starfarer.api.Global;
 import lombok.SneakyThrows;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import starlords.generator.LordBaseDataBuilder;
 import starlords.person.Lord;
+import starlords.util.ScriptedValues.ScriptedValueController;
 import starlords.util.Utils;
 import starlords.util.fleetCompasition.FleetCompositionData;
 import starlords.util.fleetCompasition.ShipCompositionData;
 import starlords.util.memoryUtils.Compressed.MemCompressedPrimeSetterUtils;
+
+import java.util.Iterator;
 
 import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.FLEETCOMP_COMBAT;
 import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.KEY_LORD;
@@ -17,32 +21,55 @@ public class availableShipsCombat implements LordBaseDataBuilder {
     @SneakyThrows
     @Override
     public boolean shouldGenerate(JSONObject json) {
+        if (json.has("shipPref")) return false;
         return (json.has("fleetComposition") && json.getJSONObject("fleetComposition").has("combatFleet"));
     }
     @SneakyThrows
     @Override
     public void lordJSon(JSONObject json, Lord lord) {
+        if (json.has("shipPref")){
+            loadOutdated(json,lord);
+            return;
+        }
+        json = json.getJSONObject("fleetComposition");
         lord.getMemory().getDATA_HOLDER().setBoolean("json_combatFleet",true,1);
-        try {
-            if (json.getString("json_combatFleet").charAt(0) == '~') {
-                lord.getMemory().setCompressedOther(FLEETCOMP_COMBAT, Global.getSettings().getInstanceOfScript(json.getString("json_combatFleet")));
-                return;
-            }
-        }catch (Exception e){
-            Utils.log.info("failed to get a script for a starlord. error of: "+e);
+        Object script = Utils.isScriptOrObject(json,"json_combatFleet",lord);
+        if (script!= null){
+            FleetCompositionData data = (FleetCompositionData) script;
+            lord.getMemory().setCompressed_Object(FLEETCOMP_COMBAT, data);
+            return;
         }
         FleetCompositionData data = new FleetCompositionData();
-        //for (){
-            //ShipCompositionData ship = new ShipCompositionData();
-        //}
-        //read json file here.
+        JSONArray array = json.getJSONArray("ships");
+        for (int a = 0; a < array.length(); a++){
+            script = Utils.isScriptOrObject(array,a,lord);
+            if (script != null){
+                ShipCompositionData ship = (ShipCompositionData) script;
+                ship.init(data);
+                continue;
+            }
+            JSONObject b = array.getJSONObject(a);
+            ShipCompositionData.addShipToFleetCompFromJson(data,b,lord);
+        }
         //so: all this needs to do is read every ship in space, and NOTHING ELSE.
         //only ships and there ratios need to be read.
-        lord.getMemory().setCompressedOther(FLEETCOMP_COMBAT, data);
+        lord.getMemory().setCompressed_Object(FLEETCOMP_COMBAT, data);
     }
     @Override
     public void generate(Lord lord) {
-        lord.getMemory().getDATA_HOLDER().setBoolean("json_combatFleet",false,1);
+        getPossableShips();
+    }
+    public void getPossableShips(){
+        /* so this needs to:
+           1) get all possable combat ships.
+           the data structure should look like:
+           HashMap<String,data> (String is ID of ship type (COMBAT,PHASE,CARRIER))
+           data:
+           variant ID, defaultOdds.
+
+            2) if no ships are found:
+            get the kytes. The pirate kytes.
+        */
     }
     @Override
     public void prepareStorgeInMemCompressedOrganizer() {
@@ -60,11 +87,29 @@ public class availableShipsCombat implements LordBaseDataBuilder {
 
     }
 
+    @SneakyThrows
+    public void loadOutdated(JSONObject json, Lord lord){
+        FleetCompositionData data = new FleetCompositionData();
+        json = json.getJSONObject("shipPref");
+        for (Iterator it = json.keys(); it.hasNext(); ) {
+            String key = (String) it.next();
+            ShipCompositionData ship = new ShipCompositionData();
+            ship.init(data,key,json.getDouble(key));
+        }
+        lord.getMemory().setBackupOrCurrent_Object(FLEETCOMP_COMBAT, data);
+    }
+
+    @SneakyThrows
     @Override
     public boolean shouldRepair(Lord lord, JSONObject json) {
-        //todo: I need a way for any 'json' lord, to check between the current fleetComp and its containers and this one.
-        //      if any differences are detected, simply reset everything
-        //      additional note: completely ignore scripts for this EQ. they want there scripts to regernerate a lot? overwrite this function.
+        //holy fuck this is confusing.
+        //first: how do I even identify if this requires repair or not?
+        //my mind says: look for whats diffrent between this
+
+        //so, as mush as I would love to have the jsons beable to 'reset' a giving lords 'ships'....
+        //this is going to have to wait for now. or is it? it is. I just fucking cant.
+        //the structure is here now, but its 2 complecated for me to do all at once. lets do this one step at a time.
+        //I can return here afterwords.
         return false;
     }
 }

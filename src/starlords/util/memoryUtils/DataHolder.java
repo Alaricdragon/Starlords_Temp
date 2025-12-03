@@ -1,38 +1,128 @@
 package starlords.util.memoryUtils;
 
 import com.fs.starfarer.api.Global;
-import starlords.util.memoryUtils.Compressed.MemCompressedHolder;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DataHolder {
     protected HashMap<String,Long> sTimestamp = new HashMap<>();
     protected HashMap<String,Long> bTimestamp = new HashMap<>();
-    protected HashMap<String,Long> iTimestamp = new HashMap<>();
+    protected HashMap<String,Long> dTimestamp = new HashMap<>();
     protected HashMap<String,Long> oTimestamp = new HashMap<>();
     //protected HashMap<String,Long> CMTimestamp = new HashMap<>();
 
     protected HashMap<String,Integer> sExpire = new HashMap<>();
     protected HashMap<String,Integer> bExpire = new HashMap<>();
-    protected HashMap<String,Integer> iExpire = new HashMap<>();
+    protected HashMap<String,Integer> dExpire = new HashMap<>();
     protected HashMap<String,Integer> oExpire = new HashMap<>();
     //protected HashMap<String,Integer> CMExpire = new HashMap<>();
 
     protected HashMap<String,String> strings = new HashMap<>();
     protected HashMap<String,Boolean> booleans = new HashMap<>();
-    protected HashMap<String,Integer> integers = new HashMap<>();
+    protected HashMap<String,Double> doubles = new HashMap<>();
     protected HashMap<String,Object> objects = new HashMap<>();
     //protected HashMap<String, MemCompressedHolder> connectedMemory = new HashMap<>();
     public boolean hasData(){
         if (!strings.isEmpty()) return true;
         if (!booleans.isEmpty()) return true;
-        if (!integers.isEmpty()) return true;
+        if (!doubles.isEmpty()) return true;
         if (!objects.isEmpty()) return true;
         //if (!connectedMemory.isEmpty()) return true;
         return false;
     }
 
+    public void repair(){
+        repairString();
+        repairBoolean();
+        repairDouble();
+        repairObject();
+    }
+    private void repairString(){
+        ArrayList<String> removes = new ArrayList<>();
+        for (String key : strings.keySet()){
+            if (sExpire.containsKey(key) && sExpire.get(key) > Global.getSector().getClock().getElapsedDaysSince(sTimestamp.get(key))){
+                removes.add(key);
+            }
+        }
+        for (String key : removes){
+            sExpire.remove(key);
+            sTimestamp.remove(key);
+            strings.remove(key);
+        }
+    }
+    private void repairBoolean(){
+        ArrayList<String> removes = new ArrayList<>();
+        for (String key : booleans.keySet()){
+            if (bExpire.containsKey(key) && bExpire.get(key) > Global.getSector().getClock().getElapsedDaysSince(bTimestamp.get(key))){
+                removes.add(key);
+            }
+        }
+        for (String key : removes){
+            bExpire.remove(key);
+            bTimestamp.remove(key);
+            booleans.remove(key);
+        }
+    }
+    private void repairDouble(){
+        ArrayList<String> removes = new ArrayList<>();
+        for (String key : doubles.keySet()){
+            if (dExpire.containsKey(key) && dExpire.get(key) > Global.getSector().getClock().getElapsedDaysSince(dTimestamp.get(key))){
+                removes.add(key);
+            }
+        }
+        for (String key : removes){
+            dExpire.remove(key);
+            dTimestamp.remove(key);
+            doubles.remove(key);
+        }
+    }
+    private void repairObject(){
+        ArrayList<String> removes = new ArrayList<>();
+        for (String key : objects.keySet()){
+            if (oExpire.containsKey(key) && oExpire.get(key) > Global.getSector().getClock().getElapsedDaysSince(oTimestamp.get(key))){
+                removes.add(key);
+            }
+        }
+        for (String key : removes){
+            oExpire.remove(key);
+            oTimestamp.remove(key);
+            objects.remove(key);
+        }
+    }
 
+    public boolean hasString(String key){
+        if (sExpire.containsKey(key) && sExpire.get(key) > Global.getSector().getClock().getElapsedDaysSince(sTimestamp.get(key))){
+            sExpire.remove(key);
+            sTimestamp.remove(key);
+            strings.remove(key);
+        }
+        return strings.containsKey(key);
+    }
+    public boolean hasBoolean(String key){
+        if (bExpire.containsKey(key) && bExpire.get(key) > Global.getSector().getClock().getElapsedDaysSince(bTimestamp.get(key))){
+            bExpire.remove(key);
+            bTimestamp.remove(key);
+            booleans.remove(key);
+        }
+        return booleans.containsKey(key);
+    }
+    public boolean hasDouble(String key){
+        if (dExpire.containsKey(key) && dExpire.get(key) > Global.getSector().getClock().getElapsedDaysSince(dTimestamp.get(key))){
+            dExpire.remove(key);
+            dTimestamp.remove(key);
+            doubles.remove(key);
+        }
+        return doubles.containsKey(key);
+    }
+    public boolean hasObject(String key){
+        if (oExpire.containsKey(key) && oExpire.get(key) > Global.getSector().getClock().getElapsedDaysSince(oTimestamp.get(key))){
+            oExpire.remove(key);
+            oTimestamp.remove(key);
+            objects.remove(key);
+        }
+        return objects.containsKey(key);
+    }
 
     private void setStringInternal(String key, String data){
         strings.put(key,data);
@@ -40,8 +130,8 @@ public class DataHolder {
     private void setBooleanInternal(String key, boolean data){
         booleans.put(key,data);
     }
-    private void setIntegerInternal(String key, int data){
-        integers.put(key,data);
+    private void setDoubleInternal(String key, double data){
+        doubles.put(key,data);
     }
     private void setObjectInternal(String key, Object data){
         objects.put(key,data);
@@ -78,10 +168,10 @@ public class DataHolder {
         bTimestamp.remove(key);
         bExpire.remove(key);
     }
-    public void setInteger(String key, int data){
-        setIntegerInternal(key, data);
-        iTimestamp.remove(key);
-        iExpire.remove(key);
+    public void setDouble(String key, double data){
+        setDoubleInternal(key, data);
+        dTimestamp.remove(key);
+        dExpire.remove(key);
     }
     public void setObject(String key, Object data){
         setObjectInternal(key, data);
@@ -103,10 +193,10 @@ public class DataHolder {
         bTimestamp.put(key,Global.getSector().getClock().getTimestamp());
         bExpire.put(key,time);
     }
-    public void setInteger(String key, int data,int time){
-        setIntegerInternal(key, data);
-        iTimestamp.put(key,Global.getSector().getClock().getTimestamp());
-        iExpire.put(key,time);
+    public void setDouble(String key, double data, int time){
+        setDoubleInternal(key, data);
+        dTimestamp.put(key,Global.getSector().getClock().getTimestamp());
+        dExpire.put(key,time);
     }
     public void setObject(String key, Object data,int time){
         setObjectInternal(key, data);
@@ -140,7 +230,7 @@ public class DataHolder {
         }
         return booleans.get(key);
     }
-    public int getInteger(String key){
+    public double getDouble(String key){
         /*Logger log = Global.getLogger(DialogValuesList.class);
         String exspire = "null";
         String timePassed = "null";
@@ -149,14 +239,14 @@ public class DataHolder {
         if (iTimestamp.containsKey(key))timePassed=Global.getSector().getClock().getElapsedDaysSince(iTimestamp.get(key))+"";
         if (integers.containsKey(key))value = integers.get(key)+"";
         log.info("getting data holder integer data from key: "+key+" as: expire: "+exspire+", timePassed: "+timePassed+", and value of: "+value);*/
-        if (!integers.containsKey(key)) return 0;
-        if (iExpire.containsKey(key) && iExpire.get(key) <= Global.getSector().getClock().getElapsedDaysSince(iTimestamp.get(key))){
-            iExpire.remove(key);
-            iTimestamp.remove(key);
-            integers.remove(key);
+        if (!doubles.containsKey(key)) return 0;
+        if (dExpire.containsKey(key) && dExpire.get(key) <= Global.getSector().getClock().getElapsedDaysSince(dTimestamp.get(key))){
+            dExpire.remove(key);
+            dTimestamp.remove(key);
+            doubles.remove(key);
             return 0;
         }
-        return integers.get(key);
+        return doubles.get(key);
     }
     public Object getObject(String key){
         /*Logger log = Global.getLogger(DialogValuesList.class);

@@ -98,14 +98,14 @@ public class DialogAddon_setDialogData extends DialogAddon_Base{
     }
     public void applyFloats(InteractionDialogAPI dialog, Lord lord,Lord targetLord, MarketAPI targetMarket){
         for (String key : setInts.keySet()) {
-            LordInteractionDialogPluginImpl.DATA_HOLDER.setInteger(key, setInts.get(key).getValue(lord, targetLord, targetMarket));
+            LordInteractionDialogPluginImpl.DATA_HOLDER.setDouble(key, setInts.get(key).getValue(lord, targetLord, targetMarket));
         }
     }
     public void applyAddFloats(InteractionDialogAPI dialog, Lord lord,Lord targetLord, MarketAPI targetMarket){
         for (String key : addIntsMin.keySet()) {
             int min = addIntsMin.get(key).getValue(lord,targetLord,targetMarket);
             int max = addIntsMax.get(key).getValue(lord,targetLord,targetMarket);
-            int baseValue = LordInteractionDialogPluginImpl.DATA_HOLDER.getInteger(key);
+            int baseValue = LordInteractionDialogPluginImpl.DATA_HOLDER.getDouble(key);
             max = Math.max(min,max);
             int range = max - min;
             if (range != 0){
@@ -118,7 +118,7 @@ public class DialogAddon_setDialogData extends DialogAddon_Base{
                 if (negitive) range *=-1;
             }
             int data = baseValue + (min+range);
-            LordInteractionDialogPluginImpl.DATA_HOLDER.setInteger(key,data);
+            LordInteractionDialogPluginImpl.DATA_HOLDER.setDouble(key,data);
         }
     }
 }

@@ -1,13 +1,11 @@
 package starlords.generator.dataBuilders;
 
-import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.FactionAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.generator.LordBaseDataBuilder;
 import starlords.person.Lord;
 import starlords.util.ScriptedValues.ScriptedValueController;
-import starlords.util.Utils;
 import starlords.util.memoryUtils.Compressed.MemCompressedPrimeSetterUtils;
 
 import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.KEY_LORD;
@@ -23,11 +21,31 @@ public class culture implements LordBaseDataBuilder {
     public void lordJSon(JSONObject json, Lord lord) {
         if (json.has("culture")) {
             String a = new ScriptedValueController(json.getString("culture")).getNextString().getValue(lord);
-            lord.getMemory().setCompressedString("culture",a);
+            a = switch (a.toLowerCase()) {
+                case "hegemony" -> Factions.HEGEMONY;
+                case "sindrian_diktat" -> Factions.DIKTAT;
+                case "tritachyon" -> Factions.TRITACHYON;
+                case "persean" -> Factions.PERSEAN;
+                case "luddic_church" -> Factions.LUDDIC_CHURCH;
+                case "pirates" -> Factions.PIRATES;
+                case "luddic_path" -> Factions.LUDDIC_PATH;
+                default -> a;
+            };
+            lord.getMemory().setCompressed_String("culture",a);
             return;
         }
         String a = new ScriptedValueController(json.getString("faction")).getNextString().getValue(lord);
-        lord.getMemory().setCompressedString("culture",a);
+        a = switch (a.toLowerCase()) {
+            case "hegemony" -> Factions.HEGEMONY;
+            case "sindrian_diktat" -> Factions.DIKTAT;
+            case "tritachyon" -> Factions.TRITACHYON;
+            case "persean" -> Factions.PERSEAN;
+            case "luddic_church" -> Factions.LUDDIC_CHURCH;
+            case "pirates" -> Factions.PIRATES;
+            case "luddic_path" -> Factions.LUDDIC_PATH;
+            default -> a;
+        };
+        lord.getMemory().setCompressed_String("culture",a);
     }
 
     @Override
@@ -39,7 +57,7 @@ public class culture implements LordBaseDataBuilder {
         //fac.getDoctrine();
         //fac.getFactionSpec();
         //fac.getRestrictToVariants();
-        lord.getMemory().setCompressedString("culture",lord.getMemory().getCompressedString("faction"));
+        lord.getMemory().setCompressed_String("culture",lord.getMemory().getCompressed_String("faction"));
     }
 
     @Override

@@ -12,7 +12,10 @@ import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.util.Misc;
 import exerelin.campaign.alliances.Alliance;
 import lombok.Setter;
+import lombok.SneakyThrows;
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 import starlords.ai.utils.TargetUtils;
 import starlords.controllers.LordController;
@@ -24,7 +27,9 @@ import starlords.person.Lord;
 import starlords.person.LordAction;
 import starlords.person.LordEvent;
 import starlords.person.LordRequest;
+import starlords.util.ScriptedValues.ScriptedValueController;
 import starlords.util.factionUtils.FactionTemplateController;
+import starlords.util.fleetCompasition.ShipCompositionData;
 
 import java.util.*;
 
@@ -942,4 +947,40 @@ public class Utils {
         return rand.nextInt(bound);
     }
 
+    @SneakyThrows
+    public static Object isScriptOrObject(JSONArray json, int key, Object linkedObject){
+        boolean isArray = true;
+        boolean isObject = true;
+        try {
+            json.getJSONObject(key);
+        }catch (Exception e){
+            isObject = false;
+        }
+        try {
+            json.getJSONArray(key);
+        }catch (Exception e){
+            isArray = false;
+        }
+        if (isArray || isObject) return null;
+        String b = new ScriptedValueController(json.getString(key)).getNextString().getValue(linkedObject);
+        return Global.getSettings().getInstanceOfScript(b);
+    }
+    @SneakyThrows
+    public static Object isScriptOrObject(JSONObject json, String key, Object linkedObject){
+        boolean isArray = true;
+        boolean isObject = true;
+        try {
+            json.getJSONObject(key);
+        }catch (Exception e){
+            isObject = false;
+        }
+        try {
+            json.getJSONArray(key);
+        }catch (Exception e){
+            isArray = false;
+        }
+        if (isArray || isObject) return null;
+        String b = new ScriptedValueController(json.getString(key)).getNextString().getValue(linkedObject);
+        return Global.getSettings().getInstanceOfScript(b);
+    }
 }

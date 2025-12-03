@@ -18,6 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 
 // Contains all immutable traits of a lord, from lords.json
+@Deprecated
 public final class LordTemplate {
 
     public final String name;

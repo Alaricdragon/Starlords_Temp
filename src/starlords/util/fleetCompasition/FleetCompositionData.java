@@ -10,20 +10,8 @@ public class FleetCompositionData {
     //note: data is stored as: ID:value, NOT as VarientID:value.
     @Getter
     private HashMap<String,ShipCompositionData> data = new HashMap<>();
-    @Getter
-    private HashMap<String,Integer> numShips = new HashMap<>();//this is for storing the number of each ship active in the fleet.
-    /*todo: what the hell am I even doing again????
-            so, I am trying to get the upgrade scripts to work. doing things like digging out sections in memory and what have you.
-            so... thats done. me being here is just confusing me right now.
-            what I should do:
-            1) go back into LordBaseDataControler and LordBaseDataBuilder and start to get though the functions one by one.
-               as I go through them, I can simply upgrade FleetCompositionData and ShipCompositionData
-               ...
-               ya. lets do that. just gotta look into the functions.
-
-
-    */
-
+    //@Getter
+    //private HashMap<String,Double> numShips = new HashMap<>();//this is for storing the number of each ship active in the fleet.
     /*todo: so... how the hell is this even going to work?
             ---NOTE: THI IS ONLY BEING KEEPT BECAUSE IT EXSPLAINS WHY I NEED A MEMORY OBJECT HERE---
             well, I am going to need the following:
@@ -43,12 +31,11 @@ public class FleetCompositionData {
     @Getter
     private final GenericMemory Memory;
     public FleetCompositionData(){
-
         Memory = new GenericMemory(MemCompressedMasterList.KEY_FLEET,this);
     }
-    public void addShip(String id, ShipCompositionData data, int ratio){
+    public void addShip(String id, ShipCompositionData data){//, double ratio){
         this.data.put(id,data);
-        this.numShips.put(id,ratio);
+        //this.numShips.put(id,ratio);
     }
 
     public int getNumberOfShips(String shipID){
@@ -56,7 +43,7 @@ public class FleetCompositionData {
         /*todo: I could get the ship compasition by doing the following:
         *  1) in 'create ship' upgrade, add a tag to ships determining there ID in this object.
         *  2) read the saved id for the ship, matching it to the saved ID of the data here.*/
-        return numShips.getOrDefault(shipID,0);
+        return 0;//numShips.getOrDefault(shipID,0);
     }
     public ShipCompositionData getCurrentToBuildShip(){
         double priority = Double.MIN_VALUE;

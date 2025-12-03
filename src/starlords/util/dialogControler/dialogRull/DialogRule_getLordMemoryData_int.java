@@ -14,7 +14,7 @@ public class DialogRule_getLordMemoryData_int extends DialogRule_getDialogData_i
     protected int getValue(Lord lord,Lord targetLord, MarketAPI targetMarket){
         DataHolder DATA_HOLDER = lord.getDataHolder();
         int out = 0;
-        out = DATA_HOLDER.getInteger(this.key);
+        out = DATA_HOLDER.getDouble(this.key);
         return out;
     }
 }

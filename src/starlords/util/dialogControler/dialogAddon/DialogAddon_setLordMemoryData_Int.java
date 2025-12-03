@@ -16,17 +16,17 @@ public class DialogAddon_setLordMemoryData_Int extends DialogAddon_setDialogData
     @Override
     protected int getCurrentValue(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket) {
         DataHolder DATA_HOLDER = lord.getDataHolder();
-        return DATA_HOLDER.getInteger(key);
+        return DATA_HOLDER.getDouble(key);
     }
 
     @Override
     protected void change(int value, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket) {
         DataHolder DATA_HOLDER = lord.getDataHolder();
-        value = DATA_HOLDER.getInteger(key)+value;
+        value = DATA_HOLDER.getDouble(key)+value;
         if (time != null) {
-            DATA_HOLDER.setInteger(key,value,time.getValue(lord, targetLord, targetMarket));
+            DATA_HOLDER.setDouble(key,value,time.getValue(lord, targetLord, targetMarket));
             return;
         }
-        DATA_HOLDER.setInteger(key,value);
+        DATA_HOLDER.setDouble(key,value);
     }
 }

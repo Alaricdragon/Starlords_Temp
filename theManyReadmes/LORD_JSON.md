@@ -43,23 +43,24 @@ also note: many values can be replaced by scripts. any value that can be will be
   * "civFleet_Personal": 'Fleet_Json_Object'. [not required] This is all the ships that the fleet will try to add when it wants more personel space.
   * 'Fleet_Json_Object' is a JsonObject holding the following:
     * note: if you require more custom data, I would advise using 'scripOverride' on the lordGenerator functions. especially 'availableShips'
+    * note: if you want to use a script, it needs to be a FleetCompositionData class. if used, you will need to create all the ships yourself. sorry.
     * "ships": a jsonArray [required] holding a list of 'ship_Json_Object' 
     * "SMods": a 'sMods_Json_Object' object [not required] (any Smods inside of the 'ships' folder will be added before the Smods here.)
     * "officers": is a 'person_Json_Object' object [not required]
     * [note] I need a way to make sure ship ratios are possible. in addition to 'a ship variant per b ship variant'.
   * 'ship_Json_Object' is a jsonObject structured as follows:
-    * note: if you require more custom data, I would advise using 'scripOverride' on the lordGenerator functions. especially 'availableShips', as well as basicly everything else.
+    * note: if you require more custom data, I would advise using 'scripOverride' on the lordGenerator functions.
+    * note: you -can- use a script here. it needs to be a ShipCompositionData class. (you will need to use the init function to add the ship to a fleet composition if you do.) This should only be used to 1) override functions, and 2) set the variables here: 'variant', 'idOverride', 'weight', 'priority', 'min', 'max' values.
     * "variant": String. [required] the variant ID of the ship.
     * "idOverride": String. replaces the 'variant' of a ship in the context of the 'required' json object. useful if you happen to have more then one ship in your Fleet_Json_Object of the same variantID (something that can happen if you want more then one ship of the same variant with different officers.)
-    * "SMods": is a 'sMods_Json_Object' object [not required]
-    * "officers": is a JSonArray of 'person_Json_Object' objects [not required]
-    * "priority": Double [not required]. is the priority of this ship variant being built. default is zero. a 'Fleet_JSon_Object' will always try to build the ship with the highest priority regardless of context.
-    * "required": JSonObject [not required]. is structured as:
-      * "variantID": Double. is the 'variantID' that must be in the fleet, and the number of them, per 1 of this ship.
-    * "min": JSonObject [not required] is structured as:
-      * "variantID/idOverride": double. the number of this ship is less then 'double * variantID', increase the priroity of building this ship to 1000, effectively making this ship produce itself first.
-    * "max": JSonObject [not required] is structured as:
-      * "variantID/idOverride": double. the number of this ship is equal or greater then 'double * variantID', decrease the priority of building this ship to -1000, effectively making this ship never be produced.
+    * "SMods": is a 'sMods_Json_Object' object
+    * "officers": is a JSonArray of 'person_Json_Object' objects
+    * "weight": Double . is the weight to build a given ship. default value is 1.
+    * "priority": Double. is the priority of this ship variant being built. default is zero. a 'Fleet_JSon_Object' will always try to build the ship with the highest priority regardless of context.
+    * "min": JSonObject is structured as:
+      * "variantID/idOverride": double. the number of this ship is less then 'double * variantID', increase the priroity of building this ship by 10 per difference, effectively making this ship produce itself first.
+    * "max": JSonObject is structured as:
+      * "variantID/idOverride": double. the number of this ship is equal or greater then 'double * variantID', decrease the priority of building this ship by 10 per difference, effectively making this ship never be produced.
   * 'sMods_Json_Object' is a boolean were 'false' will force this ship / ships not to have Smods, || is a jsonObject structured as follows:
     * "sModsID": Integer || JSonObject. SModsID is the hullmod you want to SMods. Integer is the 'wieght' of a given Smod being added. JSonObject 
       * "script": String. [required] a classpath to a '__' class. handles the Smod installation, and ship modification.

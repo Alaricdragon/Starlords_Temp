@@ -9,7 +9,6 @@ import org.json.JSONObject;
 import starlords.person.Lord;
 import starlords.plugins.LordInteractionDialogPluginImpl;
 import starlords.util.dialogControler.dialogAddon.bases.DialogAddon_changeValue;
-import starlords.util.dialogControler.dialogValues.DialogValue_base;
 import starlords.util.dialogControler.dialogValues.DialogValuesList;
 
 public class DialogAddon_setDialogData_Int extends DialogAddon_changeValue {
@@ -29,16 +28,16 @@ public class DialogAddon_setDialogData_Int extends DialogAddon_changeValue {
 
     @Override
     protected int getCurrentValue(TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket) {
-        return LordInteractionDialogPluginImpl.DATA_HOLDER.getInteger(key);
+        return LordInteractionDialogPluginImpl.DATA_HOLDER.getDouble(key);
     }
     protected void change(int value, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket){
-        int data = LordInteractionDialogPluginImpl.DATA_HOLDER.getInteger(key);
+        int data = LordInteractionDialogPluginImpl.DATA_HOLDER.getDouble(key);
         data = data+value;
         if (time != null) {
-            LordInteractionDialogPluginImpl.DATA_HOLDER.setInteger(key, data + value,time.getValue(lord, targetLord, targetMarket));
+            LordInteractionDialogPluginImpl.DATA_HOLDER.setDouble(key, data + value,time.getValue(lord, targetLord, targetMarket));
             return;
         }
-        LordInteractionDialogPluginImpl.DATA_HOLDER.setInteger(key, data + value);
+        LordInteractionDialogPluginImpl.DATA_HOLDER.setDouble(key, data + value);
     }
     @Override
     protected void decreaseChange(int value, TextPanelAPI textPanel, OptionPanelAPI options, InteractionDialogAPI dialog, Lord lord, Lord targetLord, MarketAPI targetMarket) {

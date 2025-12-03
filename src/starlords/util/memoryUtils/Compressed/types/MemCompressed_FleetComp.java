@@ -19,19 +19,19 @@ public class MemCompressed_FleetComp extends MemCompressedOrganizer<MemCompresse
         }
     }
     private void loadAllFleetCompsForMemory(GenericMemory Memory){
-        FleetCompositionData data = (FleetCompositionData)Memory.getCompressedOther(FLEETCOMP_COMBAT);
+        FleetCompositionData data = (FleetCompositionData)Memory.getCompressed_Object(FLEETCOMP_COMBAT);
         loadSingleFleetComp(data);
 
-        data = (FleetCompositionData)Memory.getCompressedOther(FLEETCOMP_CARGO);
+        data = (FleetCompositionData)Memory.getCompressed_Object(FLEETCOMP_CARGO);
         loadSingleFleetComp(data);
 
-        data = (FleetCompositionData)Memory.getCompressedOther(FLEETCOMP_FUEL);
+        data = (FleetCompositionData)Memory.getCompressed_Object(FLEETCOMP_FUEL);
         loadSingleFleetComp(data);
 
-        data = (FleetCompositionData)Memory.getCompressedOther(FLEETCOMP_PERSONAL);
+        data = (FleetCompositionData)Memory.getCompressed_Object(FLEETCOMP_PERSONAL);
         loadSingleFleetComp(data);
 
-        data = (FleetCompositionData)Memory.getCompressedOther(FLEETCOMP_TUG);
+        data = (FleetCompositionData)Memory.getCompressed_Object(FLEETCOMP_TUG);
         loadSingleFleetComp(data);
     }
     private void loadSingleFleetComp(FleetCompositionData data){

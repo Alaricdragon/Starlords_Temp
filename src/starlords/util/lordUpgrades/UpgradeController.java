@@ -119,7 +119,7 @@ public class UpgradeController {
         ArrayList<String> mods = upgrades.get(upgradeID).getWeightModifiers(lord,data);
         for (String a : mods) {
             String id = getNameInMemory(upgradeID,typeID,a);
-            double value = (double) lord.getMemory().getCompressedDouble(id);
+            double value = (double) lord.getMemory().getCompressed_Double(id);
             //todo: I understand what I was doing here, trying to get the combined modifier including data from the PMC, but this should be handled in the lord class for generic acsess.
             for (Pair<Double, PMC> b : lord.getPMCs()){
                 value *= (b.one * (double) b.two.getCOMPRESSED_MEMORY().getItem(MTYPE_KEY_DOUBLE).getItem(id));

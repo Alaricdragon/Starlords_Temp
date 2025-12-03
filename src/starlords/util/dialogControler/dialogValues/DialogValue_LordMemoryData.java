@@ -14,7 +14,7 @@ public class DialogValue_LordMemoryData extends DialogValue_base{
     @Override
     public int value(Lord lord, Lord targetLord) {
         DataHolder DATA_HOLDER = lord.getDataHolder();
-        return DATA_HOLDER.getInteger(this.key);
+        return DATA_HOLDER.getDouble(this.key);
     }
 
 }
