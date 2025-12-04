@@ -1,3 +1,6 @@
+V0.3.62:
+    fixes:
+        hopefully fixed a crash related to a null lord inside of a relation change (for real this time)
 V0.3.61:
     fixes:
         fixed a crash related to a null lord inside of a relation change.
