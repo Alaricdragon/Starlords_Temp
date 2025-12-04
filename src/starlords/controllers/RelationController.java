@@ -134,6 +134,7 @@ public class RelationController extends BaseIntelPlugin {
     }
 
     public static void modifyRelation(Lord lord1, Lord lord2, int amount) {
+        if (lord1 == null || lord2 == null) return;
         if (lord1 != null && lord1.isPlayer())  {
             lord2.getLordAPI().getRelToPlayer().adjustRelationship(amount / 100f, null);
             return;
