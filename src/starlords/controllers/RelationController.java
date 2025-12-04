@@ -163,6 +163,7 @@ public class RelationController extends BaseIntelPlugin {
     }
 
     public static int getRelation(Lord lord1, Lord lord2) {
+        if (lord1 == null || lord2 == null) return 0;
         if (lord1.isPlayer())  {
             return lord2.getLordAPI().getRelToPlayer().getRepInt();
         }
