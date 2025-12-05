@@ -450,7 +450,7 @@ public class PoliticsController implements EveryFrameScript {
                 case SUE_FOR_PEACE:
                     LawProposal tmp = new LawProposal(
                             Lawset.LawType.SUE_FOR_PEACE, proposal.getOriginator(), null, null,
-                            proposal.getFaction().getId(), 0);
+                            proposal.getFaction().getId(), 0,true);
                     tmp.faction = Global.getSector().getFaction(proposal.getTargetFaction()); // have to mess with this a bit
                     updateProposal(tmp);
                     Pair<Integer, Integer> results = countVotes(tmp, null, null);

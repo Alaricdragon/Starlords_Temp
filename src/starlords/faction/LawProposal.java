@@ -75,6 +75,30 @@ public class LawProposal {
         alive = true;
     }
 
+    public LawProposal(Lawset.LawType law, String originator,
+                       String targetLord, String targetFief, String targetFaction, int targetLevel,boolean isTemp) {
+        //this is a different function for the sole reason that I want to beable to get a crash report if LawProposal gets a null lord as its input.
+        this.originator = originator;
+        this.targetLord = targetLord;
+        this.targetFief = targetFief;
+        this.targetFaction = targetFaction;
+        this.targetLevel = targetLevel;
+        this.law = law;
+        if (LordController.getLordOrPlayerById(originator) != null) this.faction = LordController.getLordOrPlayerById(originator).getFaction();
+        creationTimestamp = Global.getSector().getClock().getTimestamp();
+        supporters = new ArrayList<>();
+        opposers = new ArrayList<>();
+        supporterReasons = new ArrayList<>();
+        opposerReasons = new ArrayList<>();
+        supporterVals = new ArrayList<>();
+        opposersVals = new ArrayList<>();
+        pledgedAgainst = new HashSet<>();
+        pledgedFor = new HashSet<>();
+        alive = true;
+    }
+
+
+
     public void cacheSupporters() {
         supporterReasons.clear();
         opposerReasons.clear();
