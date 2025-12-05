@@ -1,7 +1,7 @@
 package starlords.generator.types.fleet;
 
 import com.fs.starfarer.api.Global;
-import starlords.generator.support.AvailableShipData;
+import starlords.generator.support.AvailableShipData_OUTDATED;
 import starlords.generator.support.ShipData;
 
 public class LordFleetGenerator_Desing extends LordFleetGeneratorBase{
@@ -12,7 +12,7 @@ public class LordFleetGenerator_Desing extends LordFleetGeneratorBase{
     }
 
     @Override
-    public AvailableShipData skimPossibleShips(AvailableShipData input) {
+    public AvailableShipData_OUTDATED skimPossibleShips(AvailableShipData_OUTDATED input) {
         ShipData a = input.getRandomShip();
         target = Global.getSettings().getHullSpec(a.getHullID()).getManufacturer();
         return super.skimPossibleShips(input);

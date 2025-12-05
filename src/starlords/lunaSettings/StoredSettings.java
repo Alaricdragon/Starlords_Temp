@@ -10,6 +10,7 @@ import starlords.controllers.PoliticsController;
 import starlords.generator.LordGenerator;
 import starlords.generator.NewGameLordPicker;
 import starlords.generator.support.AvailableShipData;
+import starlords.generator.support.AvailableShipData_OUTDATED;
 import starlords.generator.types.flagship.LordFlagshipPickerBase;
 import starlords.generator.types.flagship.LordFlagshipPicker_Cost;
 import starlords.generator.types.flagship.LordFlagshipPicker_DP;
@@ -443,6 +444,7 @@ public class StoredSettings {
     @SneakyThrows
     private static void getUniversalSettings(){
         AvailableShipData.startup();
+        //AvailableShipData_OUTDATED.startup();
         JSONObject json = Global.getSettings().getMergedJSONForMod("data/lords/SMods.json",Constants.MOD_ID);
         SModSet.applySModSets(json);
 

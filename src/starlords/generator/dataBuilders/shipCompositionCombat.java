@@ -1,36 +1,31 @@
 package starlords.generator.dataBuilders;
 
-import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.generator.LordBaseDataBuilder;
 import starlords.person.Lord;
-import starlords.util.fleetCompasition.FleetCompositionData;
-import starlords.util.memoryUtils.Compressed.MemCompressedPrimeSetterUtils;
 
-import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.*;
-
-public class availableShipsCiv_Cargo implements LordBaseDataBuilder {
-    @SneakyThrows
+public class shipCompositionCombat implements LordBaseDataBuilder {
     @Override
     public boolean shouldGenerate(JSONObject json) {
-        return !json.has("fleetComposition") || !json.getJSONObject("fleetComposition").has("json_civFleet_Cargo");
+        return true;
     }
 
     @Override
     public void lordJSon(JSONObject json, Lord lord) {
-
+        //cant load from json
     }
 
     @Override
     public void generate(Lord lord) {
+        //only generate if availableShipsCombat lets me. remember to save data.
+        /*todo:
+        *  */
 
     }
 
     @Override
     public void prepareStorgeInMemCompressedOrganizer() {
 
-        MemCompressedPrimeSetterUtils mem = MemCompressedPrimeSetterUtils.getHolder(KEY_LORD);
-        mem.setObject(FLEETCOMP_CARGO, linkedObject -> new FleetCompositionData());
     }
 
     @Override

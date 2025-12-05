@@ -12,7 +12,7 @@ import lombok.Setter;
 import lombok.SneakyThrows;
 import org.apache.log4j.Logger;
 import starlords.controllers.LordController;
-import starlords.generator.support.AvailableShipData;
+import starlords.generator.support.AvailableShipData_OUTDATED;
 import starlords.generator.support.ShipData;
 import starlords.generator.types.flagship.LordFlagshipPickerBase;
 import starlords.generator.types.fleet.LordFleetGeneratorBase;
@@ -165,28 +165,28 @@ public class LordGenerator {
         for(Object a : lord.shipPrefs.keySet().toArray()){
             log.info("          "+((String) a) + "at weight of : "+lord.shipPrefs.get((String) a));
             int weight = lord.shipPrefs.get((String) a);
-            ShipData b = AvailableShipData.getDefaultShips().getUnorganizedShips().get(Global.getSettings().getVariant((String)a).getHullSpec().getHullId());//Global.getSettings().getVariant((String)a).getHullSpec().getHullId()
+            ShipData b = AvailableShipData_OUTDATED.getDefaultShips().getUnorganizedShips().get(Global.getSettings().getVariant((String)a).getHullSpec().getHullId());//Global.getSettings().getVariant((String)a).getHullSpec().getHullId()
             switch (b.getHullType()){
-                case AvailableShipData.HULLTYPE_WARSHIP:
+                case AvailableShipData_OUTDATED.HULLTYPE_WARSHIP:
                     warship+=weight;
                     break;
-                case AvailableShipData.HULLTYPE_PHASE:
+                case AvailableShipData_OUTDATED.HULLTYPE_PHASE:
                     phaseship+=weight;
                     break;
-                case AvailableShipData.HULLTYPE_CARRIER:
+                case AvailableShipData_OUTDATED.HULLTYPE_CARRIER:
                     carrier+=weight;
                     break;
                 default:
                     break;
             }
             //cant switch this because I suck
-            if (b.getHullSize().equals(AvailableShipData.HULLSIZE_FRIGATE)) friget+=weight;
-            if (b.getHullSize().equals(AvailableShipData.HULLSIZE_DESTROYER)) destroyer+=weight;
-            if (b.getHullSize().equals(AvailableShipData.HULLSIZE_CRUISER)) cruiser+=weight;
-            if (b.getHullSize().equals(AvailableShipData.HULLSIZE_CAPITALSHIP)) capital3+=weight;
+            if (b.getHullSize().equals(AvailableShipData_OUTDATED.HULLSIZE_FRIGATE)) friget+=weight;
+            if (b.getHullSize().equals(AvailableShipData_OUTDATED.HULLSIZE_DESTROYER)) destroyer+=weight;
+            if (b.getHullSize().equals(AvailableShipData_OUTDATED.HULLSIZE_CRUISER)) cruiser+=weight;
+            if (b.getHullSize().equals(AvailableShipData_OUTDATED.HULLSIZE_CAPITALSHIP)) capital3+=weight;
         }
-        log.info("      fleet size composition: "+AvailableShipData.HULLSIZE_FRIGATE+": "+friget+", "+AvailableShipData.HULLSIZE_DESTROYER+": "+destroyer+", "+AvailableShipData.HULLSIZE_CRUISER+": "+cruiser+", "+AvailableShipData.HULLSIZE_CAPITALSHIP+": "+capital3);
-        log.info("      fleet type composition: "+AvailableShipData.HULLTYPE_WARSHIP+": "+warship+", "+AvailableShipData.HULLTYPE_CARRIER+": "+carrier+", "+AvailableShipData.HULLTYPE_PHASE+": "+phaseship);
+        log.info("      fleet size composition: "+ AvailableShipData_OUTDATED.HULLSIZE_FRIGATE+": "+friget+", "+ AvailableShipData_OUTDATED.HULLSIZE_DESTROYER+": "+destroyer+", "+ AvailableShipData_OUTDATED.HULLSIZE_CRUISER+": "+cruiser+", "+ AvailableShipData_OUTDATED.HULLSIZE_CAPITALSHIP+": "+capital3);
+        log.info("      fleet type composition: "+ AvailableShipData_OUTDATED.HULLTYPE_WARSHIP+": "+warship+", "+ AvailableShipData_OUTDATED.HULLTYPE_CARRIER+": "+carrier+", "+ AvailableShipData_OUTDATED.HULLTYPE_PHASE+": "+phaseship);
 
         /*/
         log.info("      getting temp possable ships of 'carrier large'");
@@ -278,25 +278,25 @@ public class LordGenerator {
         //lord.shipPrefs=generateShips(factionID,useAllShips,minShip,maxShip,sizeratio,typeratio);
         generateShips(lord,factionID,useAllShips,minShip,maxShip,sizeratio,typeratio);
     }
-    private static ArrayList<ShipData> getShips(AvailableShipData ships,int[] sizeratio,int[] typeratio,int targetShips){
+    private static ArrayList<ShipData> getShips(AvailableShipData_OUTDATED ships, int[] sizeratio, int[] typeratio, int targetShips){
         ArrayList<ShipData> output = new ArrayList<>();
         String[] sizes = {
-                AvailableShipData.HULLSIZE_FRIGATE,
-                AvailableShipData.HULLSIZE_DESTROYER,
-                AvailableShipData.HULLSIZE_CRUISER,
-                AvailableShipData.HULLSIZE_CAPITALSHIP
+                AvailableShipData_OUTDATED.HULLSIZE_FRIGATE,
+                AvailableShipData_OUTDATED.HULLSIZE_DESTROYER,
+                AvailableShipData_OUTDATED.HULLSIZE_CRUISER,
+                AvailableShipData_OUTDATED.HULLSIZE_CAPITALSHIP
         };
         String[] types = {
-                AvailableShipData.HULLTYPE_WARSHIP,
-                AvailableShipData.HULLTYPE_CARRIER,
-                AvailableShipData.HULLTYPE_PHASE
-                /*AvailableShipData.HULLTYPE_CARGO,
-                AvailableShipData.HULLTYPE_COMBATCIV,
-                AvailableShipData.HULLTYPE_LINER,
-                AvailableShipData.HULLTYPE_PERSONNEL,
-                AvailableShipData.HULLTYPE_TANKER,
-                AvailableShipData.HULLTYPE_TUG,
-                AvailableShipData.HULLTYPE_UTILITY,*/
+                AvailableShipData_OUTDATED.HULLTYPE_WARSHIP,
+                AvailableShipData_OUTDATED.HULLTYPE_CARRIER,
+                AvailableShipData_OUTDATED.HULLTYPE_PHASE
+                /*AvailableShipData_OUTDATED.HULLTYPE_CARGO,
+                AvailableShipData_OUTDATED.HULLTYPE_COMBATCIV,
+                AvailableShipData_OUTDATED.HULLTYPE_LINER,
+                AvailableShipData_OUTDATED.HULLTYPE_PERSONNEL,
+                AvailableShipData_OUTDATED.HULLTYPE_TANKER,
+                AvailableShipData_OUTDATED.HULLTYPE_TUG,
+                AvailableShipData_OUTDATED.HULLTYPE_UTILITY,*/
         };
         int[] tempSize = new int[sizeratio.length];
         int[] tempType = new int[typeratio.length];
@@ -340,9 +340,9 @@ public class LordGenerator {
     }
     private static int getIdTypes(String type){
         String[] a = new String[]{
-            AvailableShipData.HULLTYPE_WARSHIP,
-            AvailableShipData.HULLTYPE_CARRIER,
-            AvailableShipData.HULLTYPE_PHASE
+            AvailableShipData_OUTDATED.HULLTYPE_WARSHIP,
+            AvailableShipData_OUTDATED.HULLTYPE_CARRIER,
+            AvailableShipData_OUTDATED.HULLTYPE_PHASE
         };
         for (int b = 0; b < a.length; b++){
             if (a[b].equals(type)) return b;
@@ -351,10 +351,10 @@ public class LordGenerator {
     }
     private static int getIdSizes(String size){
         String[] a = new String[]{
-            AvailableShipData.HULLSIZE_FRIGATE,
-            AvailableShipData.HULLSIZE_DESTROYER,
-            AvailableShipData.HULLSIZE_CRUISER,
-            AvailableShipData.HULLSIZE_CAPITALSHIP
+            AvailableShipData_OUTDATED.HULLSIZE_FRIGATE,
+            AvailableShipData_OUTDATED.HULLSIZE_DESTROYER,
+            AvailableShipData_OUTDATED.HULLSIZE_CRUISER,
+            AvailableShipData_OUTDATED.HULLSIZE_CAPITALSHIP
         };
         for (int b = 0; b < a.length; b++){
             if (a[b].equals(size)) return b;
@@ -441,7 +441,7 @@ public class LordGenerator {
     }
     private static void generateShips(PosdoLordTemplate lord,String factionID,boolean useAllShips,int minShip,int maxShip,int[] sizeratio,int[] typeratio){
         //generate possible ships
-        AvailableShipData availableShipData = getAvailableShips(factionID,useAllShips);
+        AvailableShipData_OUTDATED availableShipData = getAvailableShips(factionID,useAllShips);
         ArrayList<ShipData> ships = new ArrayList<>();
         if (availableShipData == null){
             //the 'spawn of malice' are the custom people I asked malice to make for this easter egg. a reword for finding so many dammed crashes.
@@ -472,7 +472,7 @@ public class LordGenerator {
         //log.info("  type ratio is: "+typeratio[0]+", "+typeratio[1]+", "+typeratio[2]);
         while (availableShipData.getUnorganizedShips().size() != 0 && ships.size() < targetShip && maxLoops > 0) {
             //so, since this is the stage were I get any ships I might want, lets ignore the max ship count here.
-            AvailableShipData skimmedShips = fleetGeneratorTypes.get(getValueFromWeight(fleetGeneratorRatio)).skimPossibleShips(availableShipData);
+            AvailableShipData_OUTDATED skimmedShips = fleetGeneratorTypes.get(getValueFromWeight(fleetGeneratorRatio)).skimPossibleShips(availableShipData);
             //log.info("      got "+skimmedShips.getUnorganizedShips().size()+" ships from skiming..");
             ArrayList<ShipData> newShips = getShips(skimmedShips,sizeratio,typeratio,targetShip);
             //log.info("      got "+newShips.size()+" ships after adjusting for sizes...");
@@ -486,7 +486,7 @@ public class LordGenerator {
         //backup generator. runs if I failed to reach the min number of ships I wanted with more picky generators.
         if(ships.size() < minShip){
             log.info("  attempting to generate ships using first backup...");
-            AvailableShipData skimmedShips = fleetGeneratorBackup.skimPossibleShips(availableShipData);
+            AvailableShipData_OUTDATED skimmedShips = fleetGeneratorBackup.skimPossibleShips(availableShipData);
             //log.info("      got "+skimmedShips.getUnorganizedShips().size()+" ships from skiming..");
             ArrayList<ShipData> newShips = getShips(skimmedShips,sizeratio,typeratio,targetShip);
             //log.info("      got "+newShips.size()+" ships after adjusting for sizes...");
@@ -526,11 +526,11 @@ public class LordGenerator {
         }
         return flagshipPickerTypes.get(getValueFromWeight(flagshipPickerRatio)).pickFlagship(ships);
     }
-    public static AvailableShipData getAvailableShips(String factionID,boolean allShips){
+    public static AvailableShipData_OUTDATED getAvailableShips(String factionID, boolean allShips){
         Logger log = Global.getLogger(LordGenerator.class);
         //log.info("DEBUG: attempting to get available ships with a factionID, allShips of: "+factionID+", "+allShips);
         Set<String> a = null;
-        AvailableShipData b=null;
+        AvailableShipData_OUTDATED b=null;
         //Global.getSector().getFaction("").ship
         if (!allShips) {
             log.info("DEBUG: attempting to get priority ships...");
@@ -550,7 +550,7 @@ public class LordGenerator {
             a.addAll(Global.getSector().getFaction(factionID).getVariantsForRole(ShipRoles.PHASE_MEDIUM));
             a.addAll(Global.getSector().getFaction(factionID).getVariantsForRole(ShipRoles.PHASE_SMALL));
             if (a.size() != 0) {
-                b = AvailableShipData.getNewASD(a,true);
+                b = AvailableShipData_OUTDATED.getNewASD(a,true);
                 log.info("DEBUG: got available ships ships (from priority) as: "+b.getUnorganizedShips().size());
             }
         }
@@ -559,7 +559,7 @@ public class LordGenerator {
             a = Global.getSector().getFaction(factionID).getKnownShips();
             //a = Global.getSector().getFaction(factionID).getFactionSpec().getKnownShips();
             if (a.size() != 0) {
-                b = AvailableShipData.getNewASD(a,false);
+                b = AvailableShipData_OUTDATED.getNewASD(a,false);
                 //log.info("DEBUG: got available ships ships (from all) as: "+b.getUnorganizedShips().size());
             }
         }

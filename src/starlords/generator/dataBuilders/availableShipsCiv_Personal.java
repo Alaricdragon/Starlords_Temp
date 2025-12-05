@@ -16,7 +16,7 @@ public class availableShipsCiv_Personal implements LordBaseDataBuilder {
     @SneakyThrows
     @Override
     public boolean shouldGenerate(JSONObject json) {
-        return (json.has("fleetComposition") && json.getJSONObject("fleetComposition").has("json_civFleet_Personal"));
+        return !json.has("fleetComposition") || !json.getJSONObject("fleetComposition").has("json_civFleet_Personal");
     }
 
     @Override

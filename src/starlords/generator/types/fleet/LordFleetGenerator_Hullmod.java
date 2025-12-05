@@ -2,7 +2,7 @@ package starlords.generator.types.fleet;
 
 import com.fs.starfarer.api.Global;
 import starlords.generator.LordGenerator;
-import starlords.generator.support.AvailableShipData;
+import starlords.generator.support.AvailableShipData_OUTDATED;
 import starlords.generator.support.ShipData;
 
 public class LordFleetGenerator_Hullmod extends LordFleetGeneratorBase{
@@ -13,7 +13,7 @@ public class LordFleetGenerator_Hullmod extends LordFleetGeneratorBase{
     }
 
     @Override
-    public AvailableShipData skimPossibleShips(AvailableShipData input) {
+    public AvailableShipData_OUTDATED skimPossibleShips(AvailableShipData_OUTDATED input) {
         int maxLoops = 5;
         while(maxLoops > 0 && target == null) {
             ShipData a = input.getRandomShip();

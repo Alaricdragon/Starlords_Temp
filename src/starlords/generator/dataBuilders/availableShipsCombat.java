@@ -1,12 +1,14 @@
 package starlords.generator.dataBuilders;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.impl.campaign.ids.ShipRoles;
 import lombok.SneakyThrows;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import starlords.generator.LordBaseDataBuilder;
+import starlords.generator.support.AvailableShipData;
+import starlords.generator.support.AvailableShipData_OUTDATED;
 import starlords.person.Lord;
-import starlords.util.ScriptedValues.ScriptedValueController;
 import starlords.util.Utils;
 import starlords.util.fleetCompasition.FleetCompositionData;
 import starlords.util.fleetCompasition.ShipCompositionData;
@@ -22,7 +24,7 @@ public class availableShipsCombat implements LordBaseDataBuilder {
     @Override
     public boolean shouldGenerate(JSONObject json) {
         if (json.has("shipPref")) return false;
-        return (json.has("fleetComposition") && json.getJSONObject("fleetComposition").has("combatFleet"));
+        return !json.has("fleetComposition") || !json.getJSONObject("fleetComposition").has("combatFleet");
     }
     @SneakyThrows
     @Override
@@ -57,19 +59,11 @@ public class availableShipsCombat implements LordBaseDataBuilder {
     }
     @Override
     public void generate(Lord lord) {
-        getPossableShips();
+        lord.getMemory().getDATA_HOLDER().setObject("generativeShips_Combat",getPossableShips(lord));
     }
-    public void getPossableShips(){
-        /* so this needs to:
-           1) get all possable combat ships.
-           the data structure should look like:
-           HashMap<String,data> (String is ID of ship type (COMBAT,PHASE,CARRIER))
-           data:
-           variant ID, defaultOdds.
-
-            2) if no ships are found:
-            get the kytes. The pirate kytes.
-        */
+    public AvailableShipData getPossableShips(Lord lord){
+        String fac = lord.getMemory().getCompressed_String("culture");
+        return AvailableShipData.getAvailableShips(fac,AvailableShipData.HULLTYPE_CARRIER,AvailableShipData.HULLTYPE_WARSHIP,AvailableShipData.HULLTYPE_PHASE);
     }
     @Override
     public void prepareStorgeInMemCompressedOrganizer() {
