@@ -1,3 +1,6 @@
+V0.3.64:
+    fixes:
+        fixed a crash were a lord that preposed peace in the council died mid vote.
 V0.3.63:
     fixes:
         hopefully fixed a crash related to a null lord inside of a relation check.
