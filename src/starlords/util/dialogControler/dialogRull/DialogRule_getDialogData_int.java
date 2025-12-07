@@ -17,7 +17,7 @@ public class DialogRule_getDialogData_int extends DialogRule_minmax {
     @Override
     protected int getValue(Lord lord,Lord targetLord, MarketAPI targetMarket){
         int rel = 0;
-        rel = LordInteractionDialogPluginImpl.DATA_HOLDER.getDouble(key);
+        rel = (int) LordInteractionDialogPluginImpl.DATA_HOLDER.getDouble(key);
         return rel;
     }
 }

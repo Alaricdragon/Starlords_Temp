@@ -2,6 +2,7 @@ package starlords.generator.types.fleet;
 
 import com.fs.starfarer.api.Global;
 import starlords.generator.LordGenerator;
+import starlords.generator.support.AvailableShipData;
 import starlords.generator.support.AvailableShipData_OUTDATED;
 import starlords.generator.support.ShipData;
 
@@ -13,37 +14,27 @@ public class LordFleetGenerator_Hullmod extends LordFleetGeneratorBase{
     }
 
     @Override
-    public AvailableShipData_OUTDATED skimPossibleShips(AvailableShipData_OUTDATED input) {
+    public AvailableShipData skimPossibleShips(AvailableShipData input, boolean withRemoval) {
         int maxLoops = 5;
         while(maxLoops > 0 && target == null) {
-            ShipData a = input.getRandomShip();
-            Object[] b = a.getSpawnWeight().keySet().toArray();
-            b = Global.getSettings().getVariant((String) b[LordGenerator.getRandom().nextInt(b.length)]).getHullMods().toArray();
+            String a = input.getRandomShip();
+            Object[] b;
+            b = Global.getSettings().getVariant(a).getHullMods().toArray();
             if (b.length == 0){
                 maxLoops--;
                 continue;
             }
             target = (String) b[(int) LordGenerator.getRandom().nextInt(b.length)];
-            return super.skimPossibleShips(input);
+            return super.skimPossibleShips(input,withRemoval);
             //target = Global.getSettings().getHullSpec(a.getHullID());
         }
-        return LordGenerator.getFleetGeneratorBackup().skimPossibleShips(input);
+        return super.skimPossibleShips(input,withRemoval);
     }
+
     @Override
-    public ShipData filterShipData(ShipData data) {
-        Object[] b = data.getSpawnWeight().keySet().toArray();
-        boolean add = false;
-        ShipData ship = new ShipData("","","");// = new ShipData();
-        for (Object a : b){
-            if (Global.getSettings().getVariant((String) a).getHullMods().contains(target)){
-                if (!add){
-                    ship = new ShipData(data.getHullID(),data.getHullSize(),data.getHullType());
-                    add = true;
-                }
-                ship.addVariant((String)a,data.getSpawnWeight().get((String)a));
-            }
-        }
-        if (!add) return null;
-        return super.filterShipData(ship);
+    public boolean canUseShip(String ship) {
+        if (target == null) return false;
+        if (Global.getSettings().getVariant(ship).getHullMods().contains(target)) return true;
+        return super.canUseShip(ship);
     }
 }

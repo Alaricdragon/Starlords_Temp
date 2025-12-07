@@ -12,7 +12,7 @@ import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.KEY_
 
 public class faction implements LordBaseDataBuilder {
     @Override
-    public boolean shouldGenerate(JSONObject json) {
+    public boolean shouldGenerate(Lord lord, JSONObject json) {
         return (json == null || !json.has("faction"));
     }
 

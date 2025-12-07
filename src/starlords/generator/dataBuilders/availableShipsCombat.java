@@ -1,13 +1,10 @@
 package starlords.generator.dataBuilders;
 
-import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.impl.campaign.ids.ShipRoles;
 import lombok.SneakyThrows;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import starlords.generator.LordBaseDataBuilder;
 import starlords.generator.support.AvailableShipData;
-import starlords.generator.support.AvailableShipData_OUTDATED;
 import starlords.person.Lord;
 import starlords.util.Utils;
 import starlords.util.fleetCompasition.FleetCompositionData;
@@ -22,19 +19,20 @@ import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.KEY_
 public class availableShipsCombat implements LordBaseDataBuilder {
     @SneakyThrows
     @Override
-    public boolean shouldGenerate(JSONObject json) {
+    public boolean shouldGenerate(Lord lord, JSONObject json) {
         if (json.has("shipPref")) return false;
         return !json.has("fleetComposition") || !json.getJSONObject("fleetComposition").has("combatFleet");
     }
+
     @SneakyThrows
     @Override
     public void lordJSon(JSONObject json, Lord lord) {
+        lord.getMemory().getDATA_HOLDER().setBoolean("json_combatFleet",true,1);
         if (json.has("shipPref")){
-            loadOutdated(json,lord);
+            loadJsonOutdated(json,lord);
             return;
         }
         json = json.getJSONObject("fleetComposition");
-        lord.getMemory().getDATA_HOLDER().setBoolean("json_combatFleet",true,1);
         Object script = Utils.isScriptOrObject(json,"json_combatFleet",lord);
         if (script!= null){
             FleetCompositionData data = (FleetCompositionData) script;
@@ -59,11 +57,17 @@ public class availableShipsCombat implements LordBaseDataBuilder {
     }
     @Override
     public void generate(Lord lord) {
-        lord.getMemory().getDATA_HOLDER().setObject("generativeShips_Combat",getPossableShips(lord));
+        lord.getMemory().getDATA_HOLDER().setObject("generativeShips_Combat",getPossableShips(lord),1);
     }
     public AvailableShipData getPossableShips(Lord lord){
         String fac = lord.getMemory().getCompressed_String("culture");
-        return AvailableShipData.getAvailableShips(fac,AvailableShipData.HULLTYPE_CARRIER,AvailableShipData.HULLTYPE_WARSHIP,AvailableShipData.HULLTYPE_PHASE);
+        AvailableShipData out = AvailableShipData.getAvailableShips(fac,AvailableShipData.HULLTYPE_CARRIER,AvailableShipData.HULLTYPE_WARSHIP,AvailableShipData.HULLTYPE_PHASE);
+        if (out.getUnorganizedShips().isEmpty()) {
+            Utils.log.info("WARNING: was forced to use the final emergency fleet generator for a starlords fleet");
+            String finalBackup = "kite_pirates_Raider";//the ultimate weapon of the final war
+            out.addShip(finalBackup,1,AvailableShipData.HULLTYPE_WARSHIP);
+        }
+        return out;
     }
     @Override
     public void prepareStorgeInMemCompressedOrganizer() {
@@ -81,8 +85,9 @@ public class availableShipsCombat implements LordBaseDataBuilder {
 
     }
 
+    @Deprecated
     @SneakyThrows
-    public void loadOutdated(JSONObject json, Lord lord){
+    public void loadJsonOutdated(JSONObject json, Lord lord){
         FleetCompositionData data = new FleetCompositionData();
         json = json.getJSONObject("shipPref");
         for (Iterator it = json.keys(); it.hasNext(); ) {

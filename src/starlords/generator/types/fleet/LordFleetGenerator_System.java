@@ -1,6 +1,7 @@
 package starlords.generator.types.fleet;
 
 import com.fs.starfarer.api.Global;
+import starlords.generator.support.AvailableShipData;
 import starlords.generator.support.AvailableShipData_OUTDATED;
 import starlords.generator.support.ShipData;
 
@@ -12,14 +13,15 @@ public class LordFleetGenerator_System extends LordFleetGeneratorBase{
     }
 
     @Override
-    public AvailableShipData_OUTDATED skimPossibleShips(AvailableShipData_OUTDATED input) {
-        ShipData a = input.getRandomShip();
-        target = Global.getSettings().getHullSpec(a.getHullID()).getShipSystemId();
-        return super.skimPossibleShips(input);
+    public AvailableShipData skimPossibleShips(AvailableShipData input, boolean withRemoval) {
+        String a = input.getRandomShip();
+        target = Global.getSettings().getVariant(a).getHullSpec().getShipSystemId();
+        return super.skimPossibleShips(input, withRemoval);
     }
+
     @Override
-    public ShipData filterShipData(ShipData data) {
-        if (!Global.getSettings().getHullSpec(data.getHullID()).getShipSystemId().equals(target)) return null;
-        return super.filterShipData(data);
+    public boolean canUseShip(String ship) {
+        if (!Global.getSettings().getVariant(ship).getHullSpec().getShipSystemId().equals(target)) return false;
+        return super.canUseShip(ship);
     }
 }

@@ -27,7 +27,9 @@ import java.util.*;
 
 public class LordGenerator {
     @Setter
+    @Getter
     private static WeightedRandom[] sizeRatio = new WeightedRandom[4];
+    @Getter
     @Setter
     private static WeightedRandom[] typeRatio = new WeightedRandom[3];
     @Setter
@@ -79,6 +81,13 @@ public class LordGenerator {
     private static final Logger log = Global.getLogger(LordGenerator.class);
     @Getter
     private static Random random = new Random();
+
+
+    public static LordFleetGeneratorBase getRandomFleetGenerator(){
+        return fleetGeneratorTypes.get(getValueFromWeight(fleetGeneratorRatio));//.skimPossibleShips(availableShipData);
+    }
+
+
 
     public static void tempTest(){
         Logger log = Global.getLogger(LordGenerator.class);;
@@ -472,7 +481,7 @@ public class LordGenerator {
         //log.info("  type ratio is: "+typeratio[0]+", "+typeratio[1]+", "+typeratio[2]);
         while (availableShipData.getUnorganizedShips().size() != 0 && ships.size() < targetShip && maxLoops > 0) {
             //so, since this is the stage were I get any ships I might want, lets ignore the max ship count here.
-            AvailableShipData_OUTDATED skimmedShips = fleetGeneratorTypes.get(getValueFromWeight(fleetGeneratorRatio)).skimPossibleShips(availableShipData);
+            AvailableShipData_OUTDATED skimmedShips = fleetGeneratorTypes.get(getValueFromWeight(fleetGeneratorRatio)).skimPossibleShips_OUTDATED(availableShipData);
             //log.info("      got "+skimmedShips.getUnorganizedShips().size()+" ships from skiming..");
             ArrayList<ShipData> newShips = getShips(skimmedShips,sizeratio,typeratio,targetShip);
             //log.info("      got "+newShips.size()+" ships after adjusting for sizes...");
@@ -486,7 +495,7 @@ public class LordGenerator {
         //backup generator. runs if I failed to reach the min number of ships I wanted with more picky generators.
         if(ships.size() < minShip){
             log.info("  attempting to generate ships using first backup...");
-            AvailableShipData_OUTDATED skimmedShips = fleetGeneratorBackup.skimPossibleShips(availableShipData);
+            AvailableShipData_OUTDATED skimmedShips = fleetGeneratorBackup.skimPossibleShips_OUTDATED(availableShipData);
             //log.info("      got "+skimmedShips.getUnorganizedShips().size()+" ships from skiming..");
             ArrayList<ShipData> newShips = getShips(skimmedShips,sizeratio,typeratio,targetShip);
             //log.info("      got "+newShips.size()+" ships after adjusting for sizes...");

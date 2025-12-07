@@ -21,7 +21,6 @@ public class AvailableShipData {
     private static AvailableShipData defaultShips;
     private static HashMap<String, AvailableShipData> factionShips;
     @Getter
-    @Deprecated
     private HashMap<String, Double> unorganizedShips = new HashMap<>(); //this is disorganized ships for the reason of
     //how this works, the first inputted string is the ship type (phase, carrier, extra), the second inputed string is the hullsize.
     @Getter
@@ -132,11 +131,22 @@ public class AvailableShipData {
             return;
         }
         organizedShips.get(size).get(type).put(vareantID,weight);
+        unorganizedShips.put(vareantID,weight);
     }
-    public ShipData getRandomShip(){
+    public void removeShip(String vareantID,String type){
+        String hull = Global.getSettings().getVariant(vareantID).getHullSpec().getHullId();
+        String size = Global.getSettings().getVariant(vareantID).getHullSpec().getHullSize().name();
+        if (size.equals(HULLSIZE_FIGHTER)) {
+            size = HULLSIZE_FRIGATE;
+        }
+        organizedShips.get(size).get(type).remove(vareantID);
+        unorganizedShips.remove(vareantID);
+
+    }
+    public String getRandomShip(){
         Object[] a = this.unorganizedShips.values().toArray();
         if (a.length == 0) return null;
-        return (ShipData) a[(int)(LordGenerator.getRandom().nextInt(a.length))];
+        return (String) a[(int)(Utils.rand.nextInt(a.length))];
     }
     public String getRandomShip(String type,String size){
         Object[] a = this.organizedShips.get(type).get(size).keySet().toArray();
@@ -256,12 +266,47 @@ public class AvailableShipData {
         AvailableShipData out = new AvailableShipData();
         AvailableShipData data = getOrCreateFactionShips(factionID);
         for (String a : type){
-            out.organizedShips.get(HULLSIZE_CAPITALSHIP).put(a,data.organizedShips.get(HULLSIZE_CAPITALSHIP).get(a));
-            out.organizedShips.get(HULLSIZE_CRUISER).put(a,data.organizedShips.get(HULLSIZE_CRUISER).get(a));
-            out.organizedShips.get(HULLSIZE_DESTROYER).put(a,data.organizedShips.get(HULLSIZE_DESTROYER).get(a));
-            out.organizedShips.get(HULLSIZE_FRIGATE).put(a,data.organizedShips.get(HULLSIZE_FRIGATE).get(a));
+            mergeShips(out,data,a);
         }
         return out;
+    }
+    public static void mergeShips(AvailableShipData to, AvailableShipData from){
+        String[] types = {
+                HULLTYPE_CARRIER,
+                HULLTYPE_PHASE,
+                HULLTYPE_WARSHIP,
+                HULLTYPE_CARGO,
+                HULLTYPE_LINER,
+                HULLTYPE_COMBATCIV,
+                HULLTYPE_TANKER,
+                HULLTYPE_PERSONNEL,
+                HULLTYPE_TUG,
+                HULLTYPE_UTILITY
+        };
+        for(String a : types) mergeShips(to,from,a);
+    }
+    public static void mergeShips(AvailableShipData to, AvailableShipData from, String type){
+        to.organizedShips.get(HULLSIZE_CAPITALSHIP).put(type,from.organizedShips.get(HULLSIZE_CAPITALSHIP).get(type));
+        to.organizedShips.get(HULLSIZE_CRUISER).put(type,from.organizedShips.get(HULLSIZE_CRUISER).get(type));
+        to.organizedShips.get(HULLSIZE_DESTROYER).put(type,from.organizedShips.get(HULLSIZE_DESTROYER).get(type));
+        to.organizedShips.get(HULLSIZE_FRIGATE).put(type,from.organizedShips.get(HULLSIZE_FRIGATE).get(type));
+
+        HashMap<String, Double> temp = from.organizedShips.get(HULLSIZE_CAPITALSHIP).get(type);
+        for (String a : temp.keySet()) {
+            to.unorganizedShips.put(a,temp.get(a));
+        }
+        temp = from.organizedShips.get(HULLSIZE_CRUISER).get(type);
+        for (String a : temp.keySet()) {
+            to.unorganizedShips.put(a,temp.get(a));
+        }
+        temp = from.organizedShips.get(HULLSIZE_DESTROYER).get(type);
+        for (String a : temp.keySet()) {
+            to.unorganizedShips.put(a,temp.get(a));
+        }
+        temp = from.organizedShips.get(HULLSIZE_FRIGATE).get(type);
+        for (String a : temp.keySet()) {
+            to.unorganizedShips.put(a,temp.get(a));
+        }
     }
     public static AvailableShipData getOrCreateFactionShips(String factionID){
         AvailableShipData out = new AvailableShipData();
@@ -269,6 +314,35 @@ public class AvailableShipData {
         if (factionShips.containsKey(factionID)) return factionShips.get(factionID);
         out.getFactionsBaseShips(fac);
         factionShips.put(factionID,out);
+        return out;
+    }
+    public AvailableShipData clone(){
+        AvailableShipData out = new AvailableShipData();
+        String[] types = {
+                HULLTYPE_CARRIER,
+                HULLTYPE_PHASE,
+                HULLTYPE_WARSHIP,
+                HULLTYPE_CARGO,
+                HULLTYPE_LINER,
+                HULLTYPE_COMBATCIV,
+                HULLTYPE_TANKER,
+                HULLTYPE_PERSONNEL,
+                HULLTYPE_TUG,
+                HULLTYPE_UTILITY
+        };
+        String[] sizes = {
+                HULLSIZE_FRIGATE,
+                HULLSIZE_DESTROYER,
+                HULLSIZE_CRUISER,
+                HULLSIZE_CAPITALSHIP
+        };
+        for (String type : types){
+            for (String size : sizes){
+                for (String a : organizedShips.get(type).get(size).keySet()){
+                    out.addShip(a,organizedShips.get(type).get(size).get(a),type);
+                }
+            }
+        }
         return out;
     }
 }

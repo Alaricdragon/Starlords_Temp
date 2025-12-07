@@ -6,13 +6,17 @@ faction,0,starlords.generator.dataBuilders.faction,0,
 culture,0.1,starlords.generator.dataBuilders.culture,0,Calture defalts to faction if otherwize unset
 #the ships that the starlord will use. ,,,,
 availableShipsCombat,1,starlords.generator.dataBuilders.availableShips,0,"if you overwrite this, I would advise you to override the 'getPossableShips' function, useing the AvailbleShipData.addShip function for compleat and total control over what ships a giving lord could randomly generate"
+availableShipsCiv_Tug,1.01,starlords.generator.dataBuilders.availableShipsCiv,0,-
+availableShipsCiv_Cargo,1.02,starlords.generator.dataBuilders.availableShipsCiv,0,-
+availableShipsCiv_Fuel,1.03,starlords.generator.dataBuilders.availableShipsCiv,0,-
+availableShipsCiv_Personal,1.04,starlords.generator.dataBuilders.availableShipsCiv,0,-
+#desides on the theams a givin fleet will use,,,,
+choseFleetTheams,1.1,starlords.generator.dataBuilders.choseFleetTheams,0,
+,,,,
+,,,,
 shipCompositionCombat,1.1,starlords.generator.dataBuilders.shipCompositionCombat,0,"this gets what ships should be used from the available combat ships. Effectivly, it narrows down the ships into groups that are part of a type of pirority system"
 ,,,,
 ,,,,
-availableShipsCiv_Tug,5.1,starlords.generator.dataBuilders.availableShipsCiv,0,
-availableShipsCiv_Cargo,5.2,starlords.generator.dataBuilders.availableShipsCiv,0,
-availableShipsCiv_Fuel,5.3,starlords.generator.dataBuilders.availableShipsCiv,0,
-availableShipsCiv_Personal,5.4,starlords.generator.dataBuilders.availableShipsCiv,0,
 ,,,,
 shipCompasitionValues,5.2,starlords.generator.dataBuilders.shipCompasitionValues,0,
 shipCompasitionFinal,5.3,starlords.generator.dataBuilders.shipCompositionFinal,0,

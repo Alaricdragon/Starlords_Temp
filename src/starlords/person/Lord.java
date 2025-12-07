@@ -164,7 +164,7 @@ public class Lord {
                 b = ((LordBaseDataBuilder) Global.getSettings().getInstanceOfScript(path2));
                 scrips.addScript(generatorScripKey,a.one,path2);
             }
-            if (b.shouldGenerate(json) || json == null){
+            if (b.shouldGenerate(this,json) || json == null){
                 b.generate(this);
             }else{
                 b.lordJSon(json,this);
@@ -324,7 +324,7 @@ public class Lord {
                 scrips.addScript(generatorScripKey,a.one,path2);
             }
             if (!b.shouldRepair(this,json)) continue;
-            if (b.shouldGenerate(json) || json == null){
+            if (b.shouldGenerate(this,json) || json == null){
                 b.generate(this);
             }else{
                 b.lordJSon(json,this);
