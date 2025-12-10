@@ -10,31 +10,32 @@ availableShipsCiv_Tug,1.01,starlords.generator.dataBuilders.availableShipsCiv,0,
 availableShipsCiv_Cargo,1.02,starlords.generator.dataBuilders.availableShipsCiv,0,-
 availableShipsCiv_Fuel,1.03,starlords.generator.dataBuilders.availableShipsCiv,0,-
 availableShipsCiv_Personal,1.04,starlords.generator.dataBuilders.availableShipsCiv,0,-
-#desides on the theams a givin fleet will use,,,,
+#desides on the theams a givin fleet will use (only for generated fleets),,,,
 choseFleetTheams,1.1,starlords.generator.dataBuilders.choseFleetTheams,0,
+#desides on the final fleet compasistion a fleet will use (only for generated fleets),,,,
+shipCompositionCombat,1.2,starlords.generator.dataBuilders.shipCompositionCombat,0,this is the final equadion to deside what ship and ship ratios out of the 'acseptable' ships are used in this fleet compasition
+shipCompositionCiv_Tug,1.21,starlords.generator.dataBuilders.shipCompositionCiv_Tug,0,this is the final equadion to deside what ship and ship ratios out of the 'acseptable' ships are used in this fleet compasition
+shipCompositionCiv_Cargo,1.22,starlords.generator.dataBuilders.shipCompositionCiv_Cargo,0,this is the final equadion to deside what ship and ship ratios out of the 'acseptable' ships are used in this fleet compasition
+shipCompositionCiv_Fuel,1.23,starlords.generator.dataBuilders.shipCompositionCiv_Fuel,0,this is the final equadion to deside what ship and ship ratios out of the 'acseptable' ships are used in this fleet compasition
+shipCompositionCiv_Personal,1.24,starlords.generator.dataBuilders.shipCompositionCiv_Personal,0,this is the final equadion to deside what ship and ship ratios out of the 'acseptable' ships are used in this fleet compasition
+#create the starlord in its intierity,,,,
+LordPersonality,2,starlords.generator.dataBuilders.LordPersonality,0,
+flagship,2,starlords.generator.dataBuilders.flagship,0,
+lordCombatPersonality,2,starlords.generator.dataBuilders.lordCombatPersonality,0,
+LordFavFood,2,starlords.generator.dataBuilders.LordFavFood,0,
+LordGender,2,starlords.generator.dataBuilders.LordGender,0,
+LordLooksAndName,2,starlords.generator.dataBuilders.LordLooksAndName,0,
+fleetName,2,starlords.generator.dataBuilders.fleetName,0,
+lordCombatSkills,2,starlords.generator.dataBuilders.lordCombatSkills,0,
+lordFleetSkills,2,starlords.generator.dataBuilders.lordFleetSkills,0,
 ,,,,
-,,,,
-shipCompositionCombat,1.1,starlords.generator.dataBuilders.shipCompositionCombat,0,"this gets what ships should be used from the available combat ships. Effectivly, it narrows down the ships into groups that are part of a type of pirority system"
-,,,,
-,,,,
-,,,,
-shipCompasitionValues,5.2,starlords.generator.dataBuilders.shipCompasitionValues,0,
-shipCompasitionFinal,5.3,starlords.generator.dataBuilders.shipCompositionFinal,0,
 officerSkillsAndPersonality,5.4,starlords.generator.dataBuilders.officerSkills,0,
 #fleet preferd Smods,,,,
 #indevidual ship Smods,,,,
 #officer placement,,,,
 ,,,,
-flagship,6,starlords.generator.dataBuilders.flagship,0,
-lordCombatPersonality,6.1,starlords.generator.dataBuilders.lordCombatPersonality,0,
-lordCombatSkills,6.2,starlords.generator.dataBuilders.lordCombatSkills,0,
-lordFleetSkills,6.3,starlords.generator.dataBuilders.lordFleetSkills,0,
 ,,,,
 ,,,,
-LordPersonality,7,starlords.generator.dataBuilders.LordPersonality,0,
-LordFavFood,7.1,starlords.generator.dataBuilders.LordFavFood,0,
-LordLooksAndName,7.2,starlords.generator.dataBuilders.LordLooksAndName,0,
-fleetName,,starlords.generator.dataBuilders.fleetName,0,
 #AI changes here,8,,,
 #stat changes here,9,,,
 ,,,,

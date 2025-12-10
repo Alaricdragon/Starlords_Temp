@@ -12,9 +12,12 @@ public class LordFlagshipPickerBase {
     public LordFlagshipPickerBase(String name){
         this.name = name;
     }
-    public String pickFlagship(ArrayList<ShipData> ships){
+    @Deprecated
+    public String pickFlagship(ArrayList<ShipData> ships,boolean old){
         Object[] a = (ships.get((int)(LordGenerator.getRandom().nextInt(ships.size())))).getSpawnWeight().keySet().toArray();
         return (String)a[(int) (LordGenerator.getRandom().nextInt(a.length))];
-
+    }
+    public String pickFlagship(ArrayList<String> ships){
+        return  ships.get(((LordGenerator.getRandom().nextInt(ships.size()))));
     }
 }

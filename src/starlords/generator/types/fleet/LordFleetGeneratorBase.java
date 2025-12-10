@@ -28,7 +28,7 @@ public class LordFleetGeneratorBase {
     public boolean canUseShip(String ship){
         return true;
     }
-    public AvailableShipData skimPossibleShips(AvailableShipData input,boolean withRemoval){
+    public AvailableShipData skimPossibleShips(AvailableShipData input,Object possibleShipData,boolean withRemoval){
         //holy fuck this is outdated.
         AvailableShipData output = new AvailableShipData();
         AvailableShipData out = new AvailableShipData();
@@ -61,6 +61,11 @@ public class LordFleetGeneratorBase {
             }
         }
         return output;
+    }
+    public Object setPossibleShipData(AvailableShipData input){
+        //this sets the data for the possible ships. is only ran once on creation of this data
+        //this wont work. a single instance of each class is available.
+        return null;
     }
     @Deprecated
     public ShipData filterShipData_OUTDATED(ShipData data){

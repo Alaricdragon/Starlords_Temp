@@ -10,24 +10,25 @@ import starlords.person.Lord;
 import starlords.util.Utils;
 import starlords.util.fleetCompasition.FleetCompositionData;
 import starlords.util.fleetCompasition.ShipCompositionData;
+import starlords.util.memoryUtils.DataHolder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import static starlords.generator.dataBuilders.choseFleetTheams.*;
 import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.FLEETCOMP_COMBAT;
+import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.FLEETCOMP_TUG;
 
-public class shipCompositionCombat implements LordBaseDataBuilder {
-    public static final String memoryKey_finalShips = "generator_shipCompCombat";
-
+public class shipCompositionCiv_Tug implements LordBaseDataBuilder {
     @Override
     public boolean shouldGenerate(Lord lord, JSONObject json) {
-        return !lord.getMemory().getDATA_HOLDER().getBoolean("json_combatFleet");
+        DataHolder a = lord.getMemory().getDATA_HOLDER();
+        return !a.getBoolean(availableShipsCiv_Tug.hasLoadedJSonKey);
     }
 
     @Override
     public void lordJSon(JSONObject json, Lord lord) {
-        //this does nothing in cases were generation might be required.
+
     }
 
     @Override
@@ -35,7 +36,7 @@ public class shipCompositionCombat implements LordBaseDataBuilder {
         ArrayList<Pair<LordFleetGeneratorBase,Object>> fleets = (ArrayList<Pair<LordFleetGeneratorBase,Object>>) lord.getMemory().getDATA_HOLDER().getObject(memoryKey_theams);
         int[] sizes = (int[]) lord.getMemory().getDATA_HOLDER().getObject(memoryKey_sizeRatio);
         int[] types = (int[]) lord.getMemory().getDATA_HOLDER().getObject(memoryKey_typeRatio);
-        AvailableShipData ships = (AvailableShipData) lord.getMemory().getDATA_HOLDER().getObject("generativeShips_Combat");
+        AvailableShipData ships = (AvailableShipData) lord.getMemory().getDATA_HOLDER().getObject(availableShipsCiv_Tug.fleetMemoryKey);
         int maxShip = (int) LordGenerator.getMaxShipRatio().getRandom();
         int minShip = (int)LordGenerator.getMinShipRatio().getRandom();
         int targetShip = (int) ((Utils.rand.nextDouble() * (maxShip-minShip)) + minShip);
@@ -50,16 +51,12 @@ public class shipCompositionCombat implements LordBaseDataBuilder {
         }
         HashMap<String,Double> shipsToUse = LordGenerator.assingFleetSpawnWeights(acceptedShips,sizes,types);
 
-        //move new ships into FLEETCOMP_COMBAT
+        //move new ships into fleetcomp
         FleetCompositionData data = new FleetCompositionData();
         for (String a : shipsToUse.keySet()){
             ShipCompositionData.addShipToFleetCompFromGenerator(data,a,shipsToUse.get(a));
         }
-        lord.getMemory().setCompressed_Object(FLEETCOMP_COMBAT, data);
-
-        //save both used ships, and all possable ships. this is for flagship generation
-        Pair<HashMap<String,Double>,AvailableShipData> out = new Pair<>(shipsToUse,ships);
-        lord.getMemory().getDATA_HOLDER().setObject(memoryKey_finalShips,out,1);
+        lord.getMemory().setCompressed_Object(FLEETCOMP_TUG, data);
     }
 
     @Override

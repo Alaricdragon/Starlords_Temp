@@ -50,6 +50,7 @@ public class Lord {
     //      the reason for this is because this class is not something I can easly replace by a script. if someone wants to code there starlord to do something different, they need to use scripts for that.
     //      this makes everything here.... unrequired by nature. or even detrimental.
     //      I CANNOT DO THAT RIGHT NOW. what I can do is slowly, very slowly, move all the data here outside of this class when possable.
+    public static final String MEMKEY_Personality = "PERSONALITY", MEMKEY_Culture = "CULTURE", MEMKEY_Faction = "FACTION", MEMKEY_Flagship = "FLAGSHIP";
 
     private GenericMemory Memory;
     private String jsonID = "";
@@ -68,6 +69,7 @@ public class Lord {
     private float wealth;
 
     @Setter
+    @Deprecated
     private LordTemplate template;
 
     private List<SectorEntityToken> fiefs;

@@ -13,10 +13,16 @@ public class LordFleetGenerator_Desing extends LordFleetGeneratorBase{
     }
 
     @Override
-    public AvailableShipData skimPossibleShips(AvailableShipData input, boolean withRemoval) {
+    public AvailableShipData skimPossibleShips(AvailableShipData input,Object possibleShipData, boolean withRemoval) {
+        String a = (String) possibleShipData;
+        return super.skimPossibleShips(input,possibleShipData, withRemoval);
+    }
+
+    @Override
+    public Object setPossibleShipData(AvailableShipData input) {
         String a = input.getRandomShip();
-        target = Global.getSettings().getVariant(a).getHullSpec().getManufacturer();
-        return super.skimPossibleShips(input, withRemoval);
+        String target = Global.getSettings().getVariant(a).getHullSpec().getManufacturer();
+        return target;
     }
 
     @Override

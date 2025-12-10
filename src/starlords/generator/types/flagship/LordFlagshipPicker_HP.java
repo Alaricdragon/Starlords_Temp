@@ -12,18 +12,18 @@ public class LordFlagshipPicker_HP extends LordFlagshipPickerBase{
     }
 
     @Override
-    public String pickFlagship(ArrayList<ShipData> ships) {
+    public String pickFlagship(ArrayList<String> ships) {
         //Object[] a = (ships.get((int)(Math.random()*ships.size()))).getSpawnWeight().keySet().toArray();
         float max = 0;
-        ShipData ship = null;
-        for (ShipData a : ships){
-            float hp = Global.getSettings().getHullSpec(a.getHullID()).getHitpoints();
+        String out = null;
+        for (String a : ships){
+            float hp = Global.getSettings().getVariant(a).getHullSpec().getHitpoints();
             if (hp > max){
                 max = hp;
-                ship = a;
+                out = a;
             }
         }
-        Object[] a = ship.getSpawnWeight().keySet().toArray();
-        return (String)a[(int) (LordGenerator.getRandom().nextInt(a.length))];
+        //Object[] a = ship.getSpawnWeight().keySet().toArray();
+        return out;
     }
 }

@@ -1,9 +1,11 @@
 package starlords.generator.dataBuilders;
 
+import com.fs.starfarer.api.util.Pair;
 import org.json.JSONObject;
 import starlords.generator.LordBaseDataBuilder;
 import starlords.generator.LordGenerator;
 import starlords.generator.support.AvailableShipData;
+import starlords.generator.types.fleet.LordFleetGeneratorBase;
 import starlords.person.Lord;
 import starlords.util.Utils;
 import starlords.util.memoryUtils.DataHolder;
@@ -39,7 +41,7 @@ public class choseFleetTheams implements LordBaseDataBuilder {
         lord.getMemory().getDATA_HOLDER().setObject(memoryKey_sizeRatio,getSizeRatio(lord),1);
         lord.getMemory().getDATA_HOLDER().setObject(memoryKey_typeRatio,getTypeRatio(lord),1);
     }
-    public ArrayList<AvailableShipData> getShipData(Lord lord){
+    public ArrayList<Pair<LordFleetGeneratorBase,Object>> getShipData(Lord lord){
         AvailableShipData data = new AvailableShipData();
         if (!lord.getMemory().getDATA_HOLDER().getBoolean("json_combatFleet")){
             AvailableShipData a = (AvailableShipData) lord.getMemory().getDATA_HOLDER().getObject("generativeShips_Combat");
@@ -52,12 +54,19 @@ public class choseFleetTheams implements LordBaseDataBuilder {
             if(!m.getBoolean(availableShipsCiv_Personal.hasLoadedJSonKey))AvailableShipData.mergeShips(data,(AvailableShipData) lord.getMemory().getDATA_HOLDER().getObject(availableShipsCiv_Personal.fleetMemoryKey));
         }
         data = data.clone();//this copys the internal data, letting me preform modifications and get theams without fear.
-        ArrayList<AvailableShipData> theams = new ArrayList<>();
+        ArrayList<Pair<LordFleetGeneratorBase,Object>> theams = new ArrayList<>();
         for (int a = 0; a < 10 && !data.getUnorganizedShips().isEmpty(); a++){
-            AvailableShipData newData = LordGenerator.getRandomFleetGenerator().skimPossibleShips(data,true);
-            theams.add(newData);
+            LordFleetGeneratorBase base = LordGenerator.getRandomFleetGenerator();
+            Object inData = base.setPossibleShipData(data);
+            base.skimPossibleShips(data,inData,true);//only to remove the ships from data, so I dont try to get the same ship twice.
+            theams.add(new Pair<>(base,inData));
         }
-        if (!data.getUnorganizedShips().isEmpty()) theams.add(LordGenerator.getFleetGeneratorBackup().skimPossibleShips(data,true));
+        if (!data.getUnorganizedShips().isEmpty()) {
+            LordFleetGeneratorBase base = LordGenerator.getFleetGeneratorBackup();
+            Object inData = base.setPossibleShipData(data);
+            base.skimPossibleShips(data,inData,true);//only to remove the ships from data, so I dont try to get the same ship twice.
+            theams.add(new Pair<>(base,inData));
+        }
         return theams;
     }
     public int[] getSizeRatio(Lord lord){
@@ -74,6 +83,7 @@ public class choseFleetTheams implements LordBaseDataBuilder {
         return sizeratio;
     }
     public int[] getTypeRatio(Lord lord){
+        //note: this is only used for combat ships.
         int[] typeratio = {
                 (int)LordGenerator.getTypeRatio()[0].getRandom(),
                 (int)LordGenerator.getTypeRatio()[1].getRandom(),
@@ -86,7 +96,6 @@ public class choseFleetTheams implements LordBaseDataBuilder {
                 typeRatio[8].getRandom(),
                 typeRatio[9].getRandom()*/
         };
-        //log.info("  sizeRatio: "+sizeratio[0]+", "+sizeratio[1]+", "+sizeratio[2]+", "+sizeratio[3]);
         //log.info("  typeRatio: "+typeratio[0]+", "+typeratio[1]+", "+typeratio[2]);
         if (typeratio[0] == 0 && typeratio[1] == 0 && typeratio[2] == 0){
             typeratio[(int)(Utils.rand.nextInt(3))] = 1;

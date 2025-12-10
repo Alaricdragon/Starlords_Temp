@@ -5,6 +5,7 @@ import starlords.generator.LordGenerator;
 import starlords.generator.support.AvailableShipData;
 import starlords.generator.support.AvailableShipData_OUTDATED;
 import starlords.generator.support.ShipData;
+import starlords.util.Utils;
 
 public class LordFleetGenerator_Hullmod extends LordFleetGeneratorBase{
     String target = null;
@@ -14,7 +15,15 @@ public class LordFleetGenerator_Hullmod extends LordFleetGeneratorBase{
     }
 
     @Override
-    public AvailableShipData skimPossibleShips(AvailableShipData input, boolean withRemoval) {
+    public AvailableShipData skimPossibleShips(AvailableShipData input,Object possibleShipData, boolean withRemoval) {
+        target = null;
+        if (possibleShipData != null) target = (String)possibleShipData;
+        return super.skimPossibleShips(input,possibleShipData,withRemoval);
+    }
+
+    @Override
+    public Object setPossibleShipData(AvailableShipData input) {
+        String target = null;
         int maxLoops = 5;
         while(maxLoops > 0 && target == null) {
             String a = input.getRandomShip();
@@ -24,11 +33,9 @@ public class LordFleetGenerator_Hullmod extends LordFleetGeneratorBase{
                 maxLoops--;
                 continue;
             }
-            target = (String) b[(int) LordGenerator.getRandom().nextInt(b.length)];
-            return super.skimPossibleShips(input,withRemoval);
-            //target = Global.getSettings().getHullSpec(a.getHullID());
+            target = (String) b[(int) Utils.rand.nextInt(b.length)];
         }
-        return super.skimPossibleShips(input,withRemoval);
+        return target;
     }
 
     @Override

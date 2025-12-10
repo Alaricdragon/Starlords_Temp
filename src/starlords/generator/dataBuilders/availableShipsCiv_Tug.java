@@ -67,7 +67,7 @@ public class availableShipsCiv_Tug implements LordBaseDataBuilder {
             script = Utils.isScriptOrObject(array,a,lord);
             if (script != null){
                 ShipCompositionData ship = (ShipCompositionData) script;
-                ship.init(data);
+                ship.init(lord,fleetKey);
                 continue;
             }
             JSONObject b = array.getJSONObject(a);

@@ -2,7 +2,6 @@ package starlords.util.fleetCompasition;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import starlords.person.Lord;
 import starlords.util.ScriptedValues.ScriptedValueController;
@@ -33,7 +32,7 @@ public class ShipCompositionData {
         this.weight = weight;
         data.addShip(variant,this);
     }
-    public void init(FleetCompositionData data){
+    public void init(Lord lord,String fleet){
         //this is for the scripted structure. You must place certen values within
         //data.addShip(id,this);
     }
@@ -86,5 +85,11 @@ public class ShipCompositionData {
         }
         ship.Memory.getDATA_HOLDER().setObject("json",json,1);
         data.addShip(id,ship);
+    }
+    public static void addShipToFleetCompFromGenerator(FleetCompositionData data, String variantID, double weight){
+        ShipCompositionData ship = new ShipCompositionData();
+        ship.variant = variantID;
+        ship.weight = weight;
+        data.addShip(variantID,ship);
     }
 }
