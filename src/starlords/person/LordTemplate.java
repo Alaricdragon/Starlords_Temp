@@ -49,7 +49,7 @@ public final class LordTemplate {
     /*
     *      todo: shit to do here:
     *           -note: the CSV file will just hold links to jsons for single starlords. the reason for this is because starlords files are going to be massive for now on.
-    *           -this requires a way to link repacement scripts for upgrade types (for fun TM)
+    *           -this requires a way to link repacement scripts for upgrade dataTypes (for fun TM)
     *           -this requires a way to make it so ships can spawn in very pasific raitios.
     *           -this requires a way for officers to spawn on certen ships with custom personalitys (create a script getter for getting what skills, looks and so on a person should have)
     *           -this requires a way for custom Smods to be handled. (maybe also a script just for it.)

@@ -139,7 +139,7 @@ set to 0 for true random.",1,5,Generator
 ,,,,,,,,
 Header_shipTypeRatio,,Header,Ship Type Ratio Chances,,,,,Generator
 Header_warshipRatio,,Header,Warship type ratio,,,,,Generator
-text_warshipRatio,,Text,This handles all the ratio of warships to other ship types in a generated lords fleet,,,,,Generator
+text_warshipRatio,,Text,This handles all the ratio of warships to other ship dataTypes in a generated lords fleet,,,,,Generator
 generator_warshipRatio_min,Mim number of warships,Int,0,,,1,100,Generator
 generator_warshipRatio_max,Max number of warships,Int,15,,,1,100,Generator
 generator_warshipRatio_target,Target number of warships,Int,7,,,1,100,Generator
@@ -148,7 +148,7 @@ example: with a value of items target - 5 and target + 5 will have a 68 percent 
 in effect, the smaller this value, the more 'flat' the distribution of values will be.
 set to 0 for true random.",1,5,Generator
 Header_carrier_ratio,,Header,Carrier type ratio,,,,,Generator
-text_carrierRatio,,Text,This handles all the ratio of carriers to other ship types in a generated lords fleet,,,,,Generator
+text_carrierRatio,,Text,This handles all the ratio of carriers to other ship dataTypes in a generated lords fleet,,,,,Generator
 generator_carrierRatio_min,Mim number of carriers,Int,0,,,1,100,Generator
 generator_carrierRatio_max,Max number of carriers,Int,15,,,1,100,Generator
 generator_carrierRatio_target,Target number of carriers,Int,7,,,1,100,Generator
@@ -198,7 +198,7 @@ generator_fleetAdjective,Fleet adjective,String,'s fleet,,The word that goes on 
 generator_oddsOfNonePriorityShips,Chance of using all ships,Double,0.05,,The odds of any given lord using ships that are not prioritized by there faction,0,1,Generator
 generator_oddsOfNoneSelectedFlagship,Chance of random flahship,Double,0.05,,The odds of any given lord using a flahship that is not present in there fleet in any other way,0,1,Generator
 Header_ShipSpawnWeightRaitio,,Header,ship Spawn ratio chances,,,,,Generator
-text_shipSpawnRatio,,Text,This applys a random multiplyer to the spawn raitio of a given ship well keeping the raitio of size / types the same,,,,,Generator
+text_shipSpawnRatio,,Text,This applys a random multiplyer to the spawn raitio of a given ship well keeping the raitio of size / dataTypes the same,,,,,Generator
 generator_shipSpawnRatio_min,Mim multiplier,Int,1,,,1,100,Generator
 generator_shipSpawnRatio_max,Max multiplier,Int,20,,,1,100,Generator
 generator_shipSpawnRatio_target,Target multiplier,Int,10,,,1,100,Generator

@@ -1,5 +1,6 @@
 package starlords.util.memoryUtils;
 
+import com.fs.starfarer.api.combat.MutableStat;
 import lombok.AccessLevel;
 import lombok.Getter;
 import starlords.util.memoryUtils.Compressed.MemCompressedHolder;
@@ -29,6 +30,9 @@ public class GenericMemory {
     public String getCompressed_String(String id){
         return (String) COMPRESSED_MEMORY.getItem(MemCompressedMasterList.MTYPE_KEY_STRING).getItem(id);
     }
+    public MutableStat getCompressed_MutableStat(String id){
+        return (MutableStat) COMPRESSED_MEMORY.getItem(MemCompressedMasterList.MTYPE_KEY_MUTABLE_STAT).getItem(id);
+    }
     public Object getCompressed_Object(String id){
         return COMPRESSED_MEMORY.getItem(MemCompressedMasterList.MTYPE_KEY_NO_CUSTOM).getItem(id);
     }
@@ -40,6 +44,9 @@ public class GenericMemory {
     }
     public void setCompressed_String(String id, String data){
         ((MemCompressedHolder<String>) COMPRESSED_MEMORY.getItem(MemCompressedMasterList.MTYPE_KEY_STRING)).putItem(id,data);
+    }
+    public void setCompressed_MutableStat(String id, MutableStat data){
+        ((MemCompressedHolder<MutableStat>) COMPRESSED_MEMORY.getItem(MemCompressedMasterList.MTYPE_KEY_MUTABLE_STAT)).putItem(id,data);
     }
     public void setCompressed_Object(String id, Object data){
         ((MemCompressedHolder<Object>) COMPRESSED_MEMORY.getItem(MemCompressedMasterList.MTYPE_KEY_NO_CUSTOM)).putItem(id,data);
@@ -64,6 +71,10 @@ public class GenericMemory {
         if (BACKUP.hasString(id)) return BACKUP.getString(id);
         return getCompressed_String(id);
     }
+    public MutableStat getBackupOrCurrent_MutableStat(String id){
+        if (BACKUP.hasMutableStat(id)) return BACKUP.getMutableStat(id);
+        return getCompressed_MutableStat(id);
+    }
     public Object getBackupOrCurrent_Object(String id){
         if (BACKUP.hasObject(id)) return BACKUP.getObject(id);
         return getCompressed_Object(id);
@@ -81,6 +92,10 @@ public class GenericMemory {
     public void setBackupOrCurrent_String(String id,String data){
         if (BACKUP.hasString(id)) BACKUP.setString(id,data);
         setCompressed_String(id,data);
+    }
+    public void setBackupOrCurrent_String(String id,MutableStat data){
+        if (BACKUP.hasMutableStat(id)) BACKUP.setMutableStat(id,data);
+        setCompressed_MutableStat(id,data);
     }
     public void setBackupOrCurrent_Object(String id, Object data){
         if (BACKUP.hasObject(id)) BACKUP.setObject(id,data);

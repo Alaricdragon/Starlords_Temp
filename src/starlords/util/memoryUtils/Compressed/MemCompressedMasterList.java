@@ -2,11 +2,80 @@ package starlords.util.memoryUtils.Compressed;
 
 import com.fs.starfarer.api.Global;
 import lombok.Getter;
-import starlords.util.memoryUtils.Compressed.types.*;
+import starlords.util.memoryUtils.Compressed.dataTypes.*;
+import starlords.util.memoryUtils.Compressed.types.MemCompressed_FleetComp;
+import starlords.util.memoryUtils.Compressed.types.MemCompressed_Lord;
+import starlords.util.memoryUtils.Compressed.types.MemCompressed_ShipComp;
 
 import java.util.HashMap;
 
 public class MemCompressedMasterList {
+    /*
+    YOU: i SEE YOU! look, this is a reminder:
+    THIS IS FOR HOLDING CONSISTANCY OF DATA OVER TIME
+    THIS IS ALSO FOR SMALL AMOUNTS OF DATA COMPRESSION.
+    each starlord can have upwards of 1k values in them.
+    because of the -disorganized- nature of starlords (things can change, people can add new stats to all lords, so on so forth) I effectivly need to use hashmaps for this.
+    this therefor cuts down the stored data by 50% - 1.
+    it does so by replacing all hashmaps with a 'greater' hashmap that stores links to id(int) of values.
+    ...
+    ...
+    ...
+    wait....
+    does this... make sense?
+    ...
+    ok so...
+    no...
+    no no no it does not...
+    um, OK so right now:
+    I am holding 2 datas:
+    1: hashmap<String, Integer> (single per item)
+    2: ArrayList<Object> (many)
+
+    storge space used = size3 + (size * lords)+lords.
+
+    if I just had hashmaps, for everything it would take:
+
+    2size * lords
+
+    3a + (a*b) + b
+        -
+    2a * b
+
+
+    if a = 100, and b = 100
+
+    this madness = 300 + 10000 + 100 = 11100
+    hashmaps     = 200 * 100 =         20000
+    ... ok that is a lot of diffrence. nearly 50%.
+    at 1000:
+    this madness = 3000 + 1000000 + 1000 = 1004000
+    hashmpas     = 2000 * 1000           = 2000000 = nearly 50%.
+    at 1000a - 100b: (big data, low lords)
+    this madness = 3000 + 100000 + 100 = 103100
+    hashmapss    = 2000 * 100          = 200000
+    at 100a - 1000b small data, big lords
+    this masness = 300 + 100000 + 1000 = 101300
+    hashmaps     = 200 * 1000          = 200000
+
+
+
+    for each lord, I gain 1a worth of space. this is only in effect after the second lord.
+    -assuming- the hashmaps are the costly part, then... I am saving space. But this is hell.
+    ok. I have convinced myself. because it only needs this one last part to be compleat, I will compleat it.
+
+
+
+    if you have 1k starlords, taht is 1m values.
+    but this, this BULLSHIT, cuts that down just a little bit.
+    it cuts the 1k values down to
+
+
+
+
+
+
+    */
     /*so, in regards to lords compressed memory: its organization is:
     * holder<holder<?>>
     * were the first holder refrences the 'lists of data'
@@ -33,10 +102,11 @@ public class MemCompressedMasterList {
     public static final String KEY_PMC = "PMC_";
     public static final String KEY_FLEET = "FLEET_";
     public static final String KEY_SHIP = "SHIP_";
-    //constants for disorganized types:
+    //constants for disorganized dataTypes:
     public static final String MTYPE_KEY_DOUBLE = "DOUBLE_";
     public static final String MTYPE_KEY_STRING = "STRING_";
     public static final String MTYPE_KEY_BOOLEAN = "BOOLEAN_";
+    public static final String MTYPE_KEY_MUTABLE_STAT = "MUTABLE_STAT_";
     //default key for random value:
     public static final String MTYPE_KEY_NO_CUSTOM = "NULLKEY_";
 
@@ -125,6 +195,9 @@ public class MemCompressedMasterList {
         }
         if (!memory.hasItem(MTYPE_KEY_BOOLEAN)){
             memory.setItem(MTYPE_KEY_BOOLEAN,new MemCompressed_BooleanScript());
+        }
+        if (!memory.hasItem(MTYPE_KEY_MUTABLE_STAT)){
+            memory.setItem(MTYPE_KEY_MUTABLE_STAT,new MemCompressed_MutableStatScript());
         }
         if (!memory.hasItem(MTYPE_KEY_NO_CUSTOM)){
             memory.setItem(MTYPE_KEY_NO_CUSTOM,new MemCompressed_OtherScript());

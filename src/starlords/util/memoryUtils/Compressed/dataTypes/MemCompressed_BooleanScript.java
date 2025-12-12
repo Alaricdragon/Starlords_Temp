@@ -1,4 +1,4 @@
-package starlords.util.memoryUtils.Compressed.types;
+package starlords.util.memoryUtils.Compressed.dataTypes;
 
 import starlords.util.ScriptedValues.SV_Boolean_Code;
 import starlords.util.memoryUtils.Compressed.MemCompressedOrganizer;

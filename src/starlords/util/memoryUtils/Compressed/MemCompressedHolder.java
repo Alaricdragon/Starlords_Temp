@@ -1,9 +1,12 @@
 package starlords.util.memoryUtils.Compressed;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 
 public class MemCompressedHolder<A> {
     private MemCompressedOrganizer master;
+    @Getter
     protected ArrayList<A> map = new ArrayList<>();
     public MemCompressedHolder(MemCompressedOrganizer master,Object LinkedObject){
         this.master = master;

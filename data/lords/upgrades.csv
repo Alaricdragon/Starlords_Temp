@@ -1,9 +1,9 @@
 id,defaultEnabled,script,loadPriority
 #internal ID of this upgrade.,if this effects all lords by defalt.,,
-GetAICores,true,starlords.util.lordUpgrades.types.AddAICores,0
-GetSMods,true,starlords.util.lordUpgrades.types.AddSMods,0
-GetOfficers,true,starlords.util.lordUpgrades.types.CreateOfficers,0
-GetStarbaseDefense,true,starlords.util.lordUpgrades.types.FortifiyStarbases,0
-GetShips,true,starlords.util.lordUpgrades.types.PurchasesShips,0
+GetAICores,true,starlords.util.lordUpgrades.dataTypes.AddAICores,0
+GetSMods,true,starlords.util.lordUpgrades.dataTypes.AddSMods,0
+GetOfficers,true,starlords.util.lordUpgrades.dataTypes.CreateOfficers,0
+GetStarbaseDefense,true,starlords.util.lordUpgrades.dataTypes.FortifiyStarbases,0
+GetShips,true,starlords.util.lordUpgrades.dataTypes.PurchasesShips,0
 ,,,
-SiC_CreateAttributes,true,starlords.util.lordUpgrades.types.SiC_Attributes,0
+SiC_CreateAttributes,true,starlords.util.lordUpgrades.dataTypes.SiC_Attributes,0

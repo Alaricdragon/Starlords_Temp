@@ -22,7 +22,7 @@ public class UpgradeController {
     /*
     * todo: 1) create the starlords 'csv' file, linking to all starlords, so upgrades can be considered from that data.
     *       2) create a command for printing the current fleet as a json file. for people to create there own starlords.
-    *       3) create the 'types'
+    *       3) create the 'dataTypes'
     *           -remember to read the to do on each one!
     *       4) create the random values for each type.
     *           -remember that Second In Command also needs random values. And it should be in the CSV file, no cheating!

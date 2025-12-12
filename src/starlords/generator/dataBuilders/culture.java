@@ -52,7 +52,7 @@ public class culture implements LordBaseDataBuilder {
     public void generate(Lord lord) {
         //todo: make it so I can generate with 'other' cultures from a given faction dictionary.
         //      something I could do, is add a 'factions' csv file early, and make each one have a 'sub factions' data.
-        //      the 'sub factions' data would be used here, allowing for random generation of starlord fleet types.
+        //      the 'sub factions' data would be used here, allowing for random generation of starlord fleet dataTypes.
         //FactionAPI fac = Global.getSector().getFaction(lord.getMemory().getCompressedString("faction"));
         //fac.getDoctrine();
         //fac.getFactionSpec();

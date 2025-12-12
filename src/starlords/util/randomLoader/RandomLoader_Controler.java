@@ -6,10 +6,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import starlords.util.CsvFilerReader;
 import starlords.util.ScriptedValues.SV_Base;
+import starlords.util.ScriptedValues.SV_MS_Blank;
 import starlords.util.ScriptedValues.ScriptedValueController;
 import starlords.util.Utils;
+import starlords.util.math.StarLord_MutableStat;
 import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
 import starlords.util.memoryUtils.Compressed.MemCompressedOrganizer;
+import starlords.util.memoryUtils.Compressed.dataTypes.MemCompressed_DoubleScript;
 
 
 import java.util.HashMap;
@@ -48,15 +51,15 @@ public class RandomLoader_Controler {
 
     }
     @SneakyThrows
-    private static SV_Base getDataFromJson(JSONObject json, String type){
+    private static SV_Base getDataFromJson(JSONObject json, String dataType){
         String valueS = "Value";
         ScriptedValueController calulater = new ScriptedValueController(json.getString(valueS));
-        SV_Base out = switch (type) {
+        SV_Base out = switch (dataType) {
             case ScriptedValueController.TYPE_BOOLEAN -> calulater.getNextBoolean();
-            case ScriptedValueController.TYPE_DOUBLE -> calulater.getNextDouble();
             case ScriptedValueController.TYPE_STRING -> calulater.getNextString();
             case ScriptedValueController.TYPE_OBJECT -> calulater.getNextObject();
-            default -> null;
+            case ScriptedValueController.TYPE_DOUBLE -> calulater.getNextDouble();
+            default -> calulater.getNextDouble();//this is for stat mod changes.
         };
         return out;
     }
@@ -166,7 +169,7 @@ public class RandomLoader_Controler {
         return outs;
     }*/
     @SneakyThrows
-    private static void storeRandomInObject(JSONObject json, String type, SV_Base data){
+    private static void storeRandomInObject(JSONObject json, String dataType, SV_Base data){
         String id = json.getString("id");
         String randomType = json.getString("Type");
         MemCompressedOrganizer<?, ?> memory = getMemoryFromKey(randomType);
@@ -174,7 +177,12 @@ public class RandomLoader_Controler {
             Utils.log.info("ERROR: failed to find memory object for random data of ID: "+id);
             return;
         }
-        MemCompressedOrganizer<?, SV_Base> out = switch (type) {
+        if (dataType.contains(":")) {
+            prefromStangeCalculation(id, randomType, dataType, data);
+            return;
+        }
+        MemCompressedOrganizer<?, SV_Base> out = null;
+        out = switch (dataType) {
             case ScriptedValueController.TYPE_BOOLEAN -> out = (MemCompressedOrganizer<?, SV_Base>) memory.getItem(MTYPE_KEY_BOOLEAN);
             case ScriptedValueController.TYPE_DOUBLE -> out = (MemCompressedOrganizer<?, SV_Base>) memory.getItem(MTYPE_KEY_DOUBLE);
             case ScriptedValueController.TYPE_STRING -> out = (MemCompressedOrganizer<?, SV_Base>) memory.getItem(MTYPE_KEY_STRING);
@@ -186,6 +194,37 @@ public class RandomLoader_Controler {
             return;
         }
         out.setItem(id,data);
+    }
+    private static void prefromStangeCalculation(String id,String randomType,String dataType, SV_Base data){
+        String[] temp = dataType.split(":");
+        String memTemp;
+        MemCompressedOrganizer looking;
+        switch (temp[0]){
+            case ScriptedValueController.TYPE_MUTABLE_STAT_BASE:
+                //step 1: get the ID of the memory organizer for this compressed object
+                memTemp = StarLord_MutableStat.getCompressedID(temp[1],randomType,ScriptedValueController.TYPE_MUTABLE_STAT_BASE);
+                //step 2: make sure a memory organizer for this compressed object exsists.
+                //        note how it is of type double. this is because it stores the random data for this stat.
+                if (!MemCompressedMasterList.getMemory().containsKey(memTemp)) MemCompressedMasterList.getMemory().put(memTemp,new MemCompressed_DoubleScript());
+                //step 3: add this data to the newly created stat mod
+                looking = MemCompressedMasterList.getMemory().get(memTemp);
+                looking.setItem(id,data);
+
+                //step 4: look into the randomType data, and make sure this stat mod exsists.
+                //        note how I look the random type. this is compleat fucking madness. what am I even doing?
+                //        regardless, It -should- work.
+                looking  = ((MemCompressedOrganizer<?,?>)MemCompressedMasterList.getMemory().get(randomType).getItem(MTYPE_KEY_MUTABLE_STAT))
+                if (!looking.hasItem(temp[1])) looking.setItem(temp[1],new SV_MS_Blank(temp[1],randomType));
+                //step 5: if it does not exsist, create it. from thin air. because power.
+                break;
+            case ScriptedValueController.TYPE_MUTABLE_STAT_FLAT:
+                break;
+            case ScriptedValueController.TYPE_MUTABLE_STAT_MULTI:
+                break;
+        }
+        return;
+        //temp[1] == ID of item in compressed memory.
+
     }
     /*@SneakyThrows
     private static void storeRandomInObject(JSONObject json, String type, Object data){

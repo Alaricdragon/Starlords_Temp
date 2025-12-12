@@ -1,5 +1,6 @@
 package starlords.person;
 
+import com.fs.starfarer.api.combat.MutableStat;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.Pair;
 import exerelin.campaign.alliances.Alliance;
@@ -155,6 +156,9 @@ public class Lord {
     private ScripOverriderController scrips;
     @SneakyThrows
     public Lord(JSONObject json){
+        //todo: make it so the base compressed from memory is nothing but nulls.
+        //      after all data is set, I will run a function that turns null values into new data, based on what it is suppose to be.
+        //      effectively randomizing some data, but keeping preset data the same as it is suppose to be.
         if (json != null) this.jsonID = json.getString("id");
         Memory = new GenericMemory(MemCompressedMasterList.KEY_LORD,this);
         scrips = new ScripOverriderController();

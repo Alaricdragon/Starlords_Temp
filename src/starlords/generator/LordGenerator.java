@@ -388,7 +388,7 @@ public class LordGenerator {
         ArrayList<String> shipDatas = new ArrayList<>();
         ArrayList<String> hullSize = new ArrayList<>();
         for (String a : ships.getOrganizedShips().keySet()){//sizes
-            for (String b : ships.getOrganizedShips().get(a).keySet()) {//types
+            for (String b : ships.getOrganizedShips().get(a).keySet()) {//dataTypes
                 for (String c : ships.getOrganizedShips().get(a).get(b).keySet()) {//ships
                     shipDatas.add(c);
                     hullSize.add(a);
@@ -443,7 +443,7 @@ public class LordGenerator {
         ArrayList<String> hullType = new ArrayList<>();
         ArrayList<String> hullSize = new ArrayList<>();
         for (String a : ships.getOrganizedShips().keySet()){//sizes
-            for (String b : ships.getOrganizedShips().get(a).keySet()) {//types
+            for (String b : ships.getOrganizedShips().get(a).keySet()) {//dataTypes
                 for (String c : ships.getOrganizedShips().get(a).get(b).keySet()) {//ships
                     shipDatas.add(c);
                     hullType.add(b);

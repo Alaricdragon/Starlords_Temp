@@ -1,6 +1,7 @@
 package starlords.util.memoryUtils;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.combat.MutableStat;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,24 +11,28 @@ public class DataHolder {
     protected HashMap<String,Long> bTimestamp = new HashMap<>();
     protected HashMap<String,Long> dTimestamp = new HashMap<>();
     protected HashMap<String,Long> oTimestamp = new HashMap<>();
+    protected HashMap<String,Long> msTimestamp = new HashMap<>();
     //protected HashMap<String,Long> CMTimestamp = new HashMap<>();
 
     protected HashMap<String,Integer> sExpire = new HashMap<>();
     protected HashMap<String,Integer> bExpire = new HashMap<>();
     protected HashMap<String,Integer> dExpire = new HashMap<>();
     protected HashMap<String,Integer> oExpire = new HashMap<>();
+    protected HashMap<String,Integer> msExpire = new HashMap<>();
     //protected HashMap<String,Integer> CMExpire = new HashMap<>();
 
     protected HashMap<String,String> strings = new HashMap<>();
     protected HashMap<String,Boolean> booleans = new HashMap<>();
     protected HashMap<String,Double> doubles = new HashMap<>();
     protected HashMap<String,Object> objects = new HashMap<>();
+    protected HashMap<String, MutableStat> mutableStats = new HashMap<>();
     //protected HashMap<String, MemCompressedHolder> connectedMemory = new HashMap<>();
     public boolean hasData(){
         if (!strings.isEmpty()) return true;
         if (!booleans.isEmpty()) return true;
         if (!doubles.isEmpty()) return true;
         if (!objects.isEmpty()) return true;
+        if (!mutableStats.isEmpty()) return true;
         //if (!connectedMemory.isEmpty()) return true;
         return false;
     }
@@ -37,6 +42,7 @@ public class DataHolder {
         repairBoolean();
         repairDouble();
         repairObject();
+        repairMutableStat();
     }
     private void repairString(){
         ArrayList<String> removes = new ArrayList<>();
@@ -90,6 +96,19 @@ public class DataHolder {
             objects.remove(key);
         }
     }
+    private void repairMutableStat(){
+        ArrayList<String> removes = new ArrayList<>();
+        for (String key : mutableStats.keySet()){
+            if (msExpire.containsKey(key) && msExpire.get(key) > Global.getSector().getClock().getElapsedDaysSince(msTimestamp.get(key))){
+                removes.add(key);
+            }
+        }
+        for (String key : removes){
+            msExpire.remove(key);
+            msTimestamp.remove(key);
+            mutableStats.remove(key);
+        }
+    }
 
     public boolean hasString(String key){
         if (sExpire.containsKey(key) && sExpire.get(key) > Global.getSector().getClock().getElapsedDaysSince(sTimestamp.get(key))){
@@ -123,6 +142,14 @@ public class DataHolder {
         }
         return objects.containsKey(key);
     }
+    public boolean hasMutableStat(String key){
+        if (msExpire.containsKey(key) && msExpire.get(key) > Global.getSector().getClock().getElapsedDaysSince(msTimestamp.get(key))){
+            msExpire.remove(key);
+            msTimestamp.remove(key);
+            mutableStats.remove(key);
+        }
+        return mutableStats.containsKey(key);
+    }
 
     private void setStringInternal(String key, String data){
         strings.put(key,data);
@@ -135,6 +162,9 @@ public class DataHolder {
     }
     private void setObjectInternal(String key, Object data){
         objects.put(key,data);
+    }
+    private void setMutableStatInternal(String key, MutableStat data){
+        mutableStats.put(key,data);
     }
     /*private void setCMInternal(String key, MemCompressedHolder data){
         connectedMemory.put(key,data);
@@ -178,6 +208,11 @@ public class DataHolder {
         oTimestamp.remove(key);
         oExpire.remove(key);
     }
+    public void setMutableStat(String key, MutableStat data){
+        setMutableStatInternal(key, data);
+        msTimestamp.remove(key);
+        msExpire.remove(key);
+    }
     /*public void setCM(String key, MemCompressedHolder<?> data){
         setCMInternal(key, data);
         CMTimestamp.remove(key);
@@ -198,10 +233,15 @@ public class DataHolder {
         dTimestamp.put(key,Global.getSector().getClock().getTimestamp());
         dExpire.put(key,time);
     }
-    public void setObject(String key, Object data,int time){
+    public void setObject(String key, MutableStat data,int time){
         setObjectInternal(key, data);
         oTimestamp.put(key,Global.getSector().getClock().getTimestamp());
         oExpire.put(key,time);
+    }
+    public void setMutableStat(String key, Object data, int time){
+        setObjectInternal(key, data);
+        msTimestamp.put(key,Global.getSector().getClock().getTimestamp());
+        msExpire.put(key,time);
     }
     /*public void setCM(String key, MemCompressedHolder<?> data, int time){
         setCMInternal(key, data);
@@ -249,14 +289,6 @@ public class DataHolder {
         return doubles.get(key);
     }
     public Object getObject(String key){
-        /*Logger log = Global.getLogger(DialogValuesList.class);
-        String exspire = "null";
-        String timePassed = "null";
-        String value = "null";
-        if (iExpire.containsKey(key))exspire=iExpire.get(key)+"";
-        if (iTimestamp.containsKey(key))timePassed=Global.getSector().getClock().getElapsedDaysSince(iTimestamp.get(key))+"";
-        if (integers.containsKey(key))value = integers.get(key)+"";
-        log.info("getting data holder integer data from key: "+key+" as: expire: "+exspire+", timePassed: "+timePassed+", and value of: "+value);*/
         if (!objects.containsKey(key)) return null;
         if (oExpire.containsKey(key) && oExpire.get(key) <= Global.getSector().getClock().getElapsedDaysSince(oTimestamp.get(key))){
             oExpire.remove(key);
@@ -265,6 +297,16 @@ public class DataHolder {
             return null;
         }
         return objects.get(key);
+    }
+    public MutableStat getMutableStat(String key){
+        if (!mutableStats.containsKey(key)) return null;
+        if (msExpire.containsKey(key) && msExpire.get(key) <= Global.getSector().getClock().getElapsedDaysSince(msTimestamp.get(key))){
+            msExpire.remove(key);
+            msTimestamp.remove(key);
+            mutableStats.remove(key);
+            return null;
+        }
+        return mutableStats.get(key);
     }
     /*public MemCompressedHolder<?> getCM(String key){
         if (!connectedMemory.containsKey(key)) return null;

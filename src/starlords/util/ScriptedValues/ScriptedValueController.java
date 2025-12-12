@@ -10,6 +10,7 @@ public class ScriptedValueController {
     //      this is considered acceptable. at least for now....
     private ArrayList<String> activeString;
     public static final String TYPE_DOUBLE = "Double", TYPE_STRING = "String", TYPE_BOOLEAN = "Boolean", TYPE_OBJECT = "Object";
+    public static final String TYPE_MUTABLE_STAT_BASE = "MutableStat", TYPE_MUTABLE_STAT_MULTI = "MutableStat_multi", TYPE_MUTABLE_STAT_FLAT = "MutableStat_flat";
     //private static final String TYPE_DOUBLE = "", TYPE_STRING = "", TYPE_BOOLEAN = "", TYPE_OBJECT = "";
     public ScriptedValueController(String input){
         String[] temp = input.split(":");
