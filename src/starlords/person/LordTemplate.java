@@ -69,7 +69,7 @@ public final class LordTemplate {
     *               1) make it so creating a new starlord 'generates' a starlord for all stats that are not used.
     *                   -for this, do the following:
     *                       1.2) remove the LordTemplate file -in its intierity-. instead, replace it with some type of 'presistant data' class. this class will hold:
-    *                           - all lord memory (dataHolder, Compressed, so on so forth)
+    *                           - all lord memory (dataHolder, Compressed_outdated, so on so forth)
     *                           - lord personality.
     *                           - lord fleet composition data
     *                           - lord action data and so forth.

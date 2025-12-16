@@ -3,8 +3,8 @@ package starlords.util.memoryUtils;
 import com.fs.starfarer.api.combat.MutableStat;
 import lombok.AccessLevel;
 import lombok.Getter;
-import starlords.util.memoryUtils.Compressed.MemCompressedHolder;
-import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedHolder;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList;
 
 @Getter
 public class GenericMemory {

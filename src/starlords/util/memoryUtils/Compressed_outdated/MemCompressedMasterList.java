@@ -1,15 +1,51 @@
-package starlords.util.memoryUtils.Compressed;
+package starlords.util.memoryUtils.Compressed_outdated;
 
 import com.fs.starfarer.api.Global;
 import lombok.Getter;
-import starlords.util.memoryUtils.Compressed.dataTypes.*;
-import starlords.util.memoryUtils.Compressed.types.MemCompressed_FleetComp;
-import starlords.util.memoryUtils.Compressed.types.MemCompressed_Lord;
-import starlords.util.memoryUtils.Compressed.types.MemCompressed_ShipComp;
+import starlords.util.memoryUtils.Compressed_outdated.dataTypes.*;
+import starlords.util.memoryUtils.Compressed_outdated.types.MemCompressed_FleetComp;
+import starlords.util.memoryUtils.Compressed_outdated.types.MemCompressed_Lord;
+import starlords.util.memoryUtils.Compressed_outdated.types.MemCompressed_ShipComp;
 
 import java.util.HashMap;
 
+@Deprecated
 public class MemCompressedMasterList {
+    /*
+    todo:
+        so...
+        this is fucking worthless. I am going to be forced to use stats anyways. its not usefull having a compressed memory -in this form-.
+        I need to get the memory down. the best plan:
+        1) have each starlord store a 'seed'. the 'seed' can and will be used to recreate all stats a starlord has.
+           -how? here is how it works:
+           Math.random can be givin a seed. give it one.
+           from there, go through the given stat data -in order-. (as desided by some yet to be determined json).
+           I can therefor recreate... recreate... um...
+           wait.
+           I would need to:
+           a: need to recreate all data on a starlord each time I wish to view anything
+           or
+           b: save the data in some type of temp storge anyways?????
+           ... is this useful? all it does is reduce the memory usage in the memory object. unuseful.
+           ... although it could reduce load times.
+           -!!!!) THIS WOULD WORK IF:
+            there was a way to get a random value consistently for little overhead. for example: reading a seed, and being able to get different values from any seed...
+            so, here is the idea:
+            each 'stat' has an order it is loaded in.
+            get true seed as order * seed. this would give each stat its own random data seed and avoid duplicit values (aka first random value always being false).
+            so... that works. we did it boys.
+            we can now get the full random data in a givin starlord.
+            IGNORING SCRIP OVERRIDES (it will be fine, just keep the same values.)
+            this fucking works.
+            issue: compressed data is now completely worthless. I need a new system.
+
+       2) instead of storing data as 'floating' (in easly acsessable random memory) I store the data in memory.
+          this could reduce ram useage.
+          but.. is it worth it?
+          need to calculate cost of calling memory and storing memory. likely high.
+
+
+    */
     /*
     YOU: i SEE YOU! look, this is a reminder:
     THIS IS FOR HOLDING CONSISTANCY OF DATA OVER TIME
@@ -44,7 +80,6 @@ public class MemCompressedMasterList {
 
 
     if a = 100, and b = 100
-
     this madness = 300 + 10000 + 100 = 11100
     hashmaps     = 200 * 100 =         20000
     ... ok that is a lot of diffrence. nearly 50%.
@@ -57,7 +92,29 @@ public class MemCompressedMasterList {
     at 100a - 1000b small data, big lords
     this masness = 300 + 100000 + 1000 = 101300
     hashmaps     = 200 * 1000          = 200000
-
+    at 10000
+    this madness = 30k + 100000k + 10k = 100040k
+    hashmaps     = 20k * 10k =           200000k
+    ...
+    FUCK YOU
+    THIS IS NOT FUCKING WORTH IT.
+    RECALCULATION REQUIRED.
+    WHY? BECAUSE DOUBLES ARE BIG IN MEMORY.
+    AND STRINGS ARE ALSO BIG, BUT ITS A 50% DECREASE.
+    AAAAA
+    THIS IS FUCKING FRUSTRATING.
+    HOW THE HELL DO I DEAL WITH THIS
+    I BUILT THIS INTER FUCKING SYSTEM, BUT IT IS NOT WORTH IT ITS JUST ENDLESS PAIN
+    I COULD POWER THOUGH, BUT IT MAKES NO FUCKING SENSE
+    AT SOME POINT IT JUST BREAKS DOWN. ITS NOT WORTH THE ADDITIONAL CALCULATION COST. ITS JUST NOT.
+    WHY? BECAUSE I FORGET TO CALCULATE THE OVERHEAD VALUE AS WELL.
+    ok...
+    ok...
+    so first of all: fuck you all.
+    secondly, I need a new way to get a givin lords stats.
+    I also need to reclaculate this intier fucking thing.
+    so:
+    I am going to put this at the top...
 
 
     for each lord, I gain 1a worth of space. this is only in effect after the second lord.

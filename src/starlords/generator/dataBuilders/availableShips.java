@@ -5,9 +5,9 @@ import org.json.JSONObject;
 import starlords.generator.LordBaseDataBuilder;
 import starlords.person.Lord;
 import starlords.util.fleetCompasition.FleetCompositionData;
-import starlords.util.memoryUtils.Compressed.MemCompressedPrimeSetterUtils;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedPrimeSetterUtils;
 
-import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.*;
+import static starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList.*;
 
 @Deprecated
 public class availableShips implements LordBaseDataBuilder {

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.*;
+import static starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList.*;
 
 public class UpgradeController {
     /*

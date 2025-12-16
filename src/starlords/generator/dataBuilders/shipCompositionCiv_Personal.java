@@ -3,7 +3,6 @@ package starlords.generator.dataBuilders;
 import starlords.generator.LordBaseDataBuilder;
 import com.fs.starfarer.api.util.Pair;
 import org.json.JSONObject;
-import starlords.generator.LordBaseDataBuilder;
 import starlords.generator.LordGenerator;
 import starlords.generator.support.AvailableShipData;
 import starlords.generator.types.fleet.LordFleetGeneratorBase;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static starlords.generator.dataBuilders.choseFleetTheams.*;
-import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.*;
+import static starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList.*;
 
 public class shipCompositionCiv_Personal implements LordBaseDataBuilder {
     @Override

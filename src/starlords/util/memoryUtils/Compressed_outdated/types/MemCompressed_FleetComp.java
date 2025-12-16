@@ -1,16 +1,17 @@
-package starlords.util.memoryUtils.Compressed.types;
+package starlords.util.memoryUtils.Compressed_outdated.types;
 
 import starlords.controllers.LordController;
 import starlords.person.Lord;
 import starlords.util.fleetCompasition.FleetCompositionData;
 import starlords.util.fleetCompasition.ShipCompositionData;
-import starlords.util.memoryUtils.Compressed.MemCompressedHolder;
-import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
-import starlords.util.memoryUtils.Compressed.MemCompressedOrganizer;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedHolder;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedOrganizer;
 import starlords.util.memoryUtils.GenericMemory;
 
-import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.*;
+import static starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList.*;
 
+@Deprecated
 public class MemCompressed_FleetComp extends MemCompressedOrganizer<MemCompressedHolder<?>, MemCompressedOrganizer<?,?>>{
     @Override
     public void load() {

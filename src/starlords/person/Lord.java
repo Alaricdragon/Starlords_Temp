@@ -1,6 +1,5 @@
 package starlords.person;
 
-import com.fs.starfarer.api.combat.MutableStat;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.Pair;
 import exerelin.campaign.alliances.Alliance;
@@ -29,7 +28,7 @@ import starlords.generator.LordBaseDataController;
 import starlords.ui.PrisonerIntelPlugin;
 import starlords.util.*;
 import starlords.util.factionUtils.FactionTemplateController;
-import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList;
 import starlords.util.memoryUtils.DataHolder;
 import starlords.util.memoryUtils.GenericMemory;
 import starlords.util.scriptOverrider.ScripOverriderController;

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static starlords.generator.dataBuilders.choseFleetTheams.*;
-import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.FLEETCOMP_COMBAT;
+import static starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList.FLEETCOMP_COMBAT;
 
 public class shipCompositionCombat implements LordBaseDataBuilder {
     public static final String memoryKey_finalShips = "generator_shipCompCombat";

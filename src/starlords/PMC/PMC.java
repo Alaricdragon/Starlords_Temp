@@ -3,8 +3,8 @@ package starlords.PMC;
 import com.fs.starfarer.api.Global;
 import lombok.Getter;
 import starlords.person.Lord;
-import starlords.util.memoryUtils.Compressed.MemCompressedHolder;
-import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedHolder;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList;
 import starlords.util.memoryUtils.DataHolder;
 
 import java.util.ArrayList;

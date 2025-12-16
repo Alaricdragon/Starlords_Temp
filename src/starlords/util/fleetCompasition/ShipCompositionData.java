@@ -5,7 +5,7 @@ import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.person.Lord;
 import starlords.util.ScriptedValues.ScriptedValueController;
-import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList;
 import starlords.util.memoryUtils.GenericMemory;
 
 import java.util.HashMap;

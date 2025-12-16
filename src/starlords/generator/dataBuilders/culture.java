@@ -6,9 +6,9 @@ import org.json.JSONObject;
 import starlords.generator.LordBaseDataBuilder;
 import starlords.person.Lord;
 import starlords.util.ScriptedValues.ScriptedValueController;
-import starlords.util.memoryUtils.Compressed.MemCompressedPrimeSetterUtils;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedPrimeSetterUtils;
 
-import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.KEY_LORD;
+import static starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList.KEY_LORD;
 
 public class culture implements LordBaseDataBuilder {
     @Override

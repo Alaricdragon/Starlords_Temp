@@ -9,10 +9,10 @@ import starlords.person.Lord;
 import starlords.util.Utils;
 import starlords.util.fleetCompasition.FleetCompositionData;
 import starlords.util.fleetCompasition.ShipCompositionData;
-import starlords.util.memoryUtils.Compressed.MemCompressedPrimeSetterUtils;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedPrimeSetterUtils;
 
-import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.*;
-import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.FLEETCOMP_TUG;
+import static starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList.*;
+import static starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList.FLEETCOMP_TUG;
 
 public class availableShipsCiv_Tug implements LordBaseDataBuilder {
     protected static final String jsonKey = "civFleet_Tug";

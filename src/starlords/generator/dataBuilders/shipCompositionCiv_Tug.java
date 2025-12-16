@@ -16,8 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static starlords.generator.dataBuilders.choseFleetTheams.*;
-import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.FLEETCOMP_COMBAT;
-import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.FLEETCOMP_TUG;
+import static starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList.FLEETCOMP_TUG;
 
 public class shipCompositionCiv_Tug implements LordBaseDataBuilder {
     @Override

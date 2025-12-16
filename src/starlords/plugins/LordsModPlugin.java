@@ -23,7 +23,7 @@ import starlords.ui.*;
 import starlords.util.NexerlinUtilitys;
 import starlords.util.Utils;
 import starlords.util.lordUpgrades.UpgradeController;
-import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList;
 import starlords.util.randomLoader.RandomLoader_Controler;
 
 import java.util.HashMap;

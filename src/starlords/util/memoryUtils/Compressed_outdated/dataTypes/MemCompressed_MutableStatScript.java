@@ -1,12 +1,13 @@
-package starlords.util.memoryUtils.Compressed.dataTypes;
+package starlords.util.memoryUtils.Compressed_outdated.dataTypes;
 
 import starlords.util.ScriptedValues.SV_MutableStat_Code;
 import starlords.util.ScriptedValues.ScriptedValueController;
 import starlords.util.math.StarLord_MutableStat;
-import starlords.util.memoryUtils.Compressed.MemCompressedHolder;
-import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
-import starlords.util.memoryUtils.Compressed.MemCompressedOrganizer;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedHolder;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedOrganizer;
 
+@Deprecated
 public class MemCompressed_MutableStatScript extends MemCompressedOrganizer<StarLord_MutableStat, SV_MutableStat_Code> {
     @Override
     public StarLord_MutableStat getDefaltData(int a, Object linkedObject) {

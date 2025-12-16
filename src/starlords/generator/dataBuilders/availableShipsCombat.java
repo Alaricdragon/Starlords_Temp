@@ -9,12 +9,12 @@ import starlords.person.Lord;
 import starlords.util.Utils;
 import starlords.util.fleetCompasition.FleetCompositionData;
 import starlords.util.fleetCompasition.ShipCompositionData;
-import starlords.util.memoryUtils.Compressed.MemCompressedPrimeSetterUtils;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedPrimeSetterUtils;
 
 import java.util.Iterator;
 
-import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.FLEETCOMP_COMBAT;
-import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.KEY_LORD;
+import static starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList.FLEETCOMP_COMBAT;
+import static starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList.KEY_LORD;
 
 public class availableShipsCombat implements LordBaseDataBuilder {
     @SneakyThrows

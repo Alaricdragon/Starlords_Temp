@@ -11,12 +11,12 @@ import starlords.person.Lord;
 import starlords.util.ScriptedValues.ScriptedValueController;
 import starlords.util.Utils;
 import starlords.util.fleetCompasition.ShipCompositionData;
-import starlords.util.memoryUtils.Compressed.MemCompressedPrimeSetterUtils;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedPrimeSetterUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.KEY_LORD;
+import static starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList.KEY_LORD;
 
 public class flagship implements LordBaseDataBuilder {
     @SneakyThrows

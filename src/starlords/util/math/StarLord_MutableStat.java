@@ -3,8 +3,8 @@ package starlords.util.math;
 import lombok.Getter;
 import lombok.Setter;
 import starlords.util.ScriptedValues.ScriptedValueController;
-import starlords.util.memoryUtils.Compressed.MemCompressedHolder;
-import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedHolder;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList;
 
 import java.util.HashMap;
 

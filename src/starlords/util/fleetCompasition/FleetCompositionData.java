@@ -1,7 +1,7 @@
 package starlords.util.fleetCompasition;
 
 import lombok.Getter;
-import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList;
 import starlords.util.memoryUtils.GenericMemory;
 
 import java.util.HashMap;

@@ -1,10 +1,11 @@
-package starlords.util.memoryUtils.Compressed.types;
+package starlords.util.memoryUtils.Compressed_outdated.types;
 
 import starlords.controllers.LordController;
 import starlords.person.Lord;
-import starlords.util.memoryUtils.Compressed.MemCompressedHolder;
-import starlords.util.memoryUtils.Compressed.MemCompressedOrganizer;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedHolder;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedOrganizer;
 
+@Deprecated
 public class MemCompressed_Lord extends MemCompressedOrganizer<MemCompressedHolder<?>,MemCompressedOrganizer<?,?>> {
     @Override
     public MemCompressedHolder<?> getDefaltData(int a, Object linkedObject) {

@@ -1,9 +1,10 @@
-package starlords.util.memoryUtils.Compressed;
+package starlords.util.memoryUtils.Compressed_outdated;
 
 import starlords.util.ScriptedValues.*;
 
-import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.*;
+import static starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList.*;
 
+@Deprecated
 public class MemCompressedPrimeSetterUtils extends MemCompressedOrganizer<MemCompressedHolder<?>, MemCompressedOrganizer<?,?>>{
     //notes: this is only a class to easier set data in relation to MemCompressedOrganizer without having to go through hell every day of my life.
     private MemCompressedOrganizer<MemCompressedHolder<?>, MemCompressedOrganizer<?,?>> holder;

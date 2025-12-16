@@ -10,18 +10,17 @@ import starlords.util.ScriptedValues.SV_MS_Blank;
 import starlords.util.ScriptedValues.ScriptedValueController;
 import starlords.util.Utils;
 import starlords.util.math.StarLord_MutableStat;
-import starlords.util.memoryUtils.Compressed.MemCompressedMasterList;
-import starlords.util.memoryUtils.Compressed.MemCompressedOrganizer;
-import starlords.util.memoryUtils.Compressed.dataTypes.MemCompressed_DoubleScript;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedOrganizer;
+import starlords.util.memoryUtils.Compressed_outdated.dataTypes.MemCompressed_DoubleScript;
 
 
 import java.util.HashMap;
 
-import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.*;
+import static starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList.*;
 
 public class RandomLoader_Controler {
-    //this will load everything from randoms.
-    //HashMap<String> arg;
+    //todo: this class needs to be compleatly redone or maybe even removed to make room for the _ system.
     @SneakyThrows
     public static void init(){
         //todo: make sure this works because omg does it?!? does it or does it not!?!!? I dont knowwwwwwwwww afas
@@ -52,6 +51,7 @@ public class RandomLoader_Controler {
     }
     @SneakyThrows
     private static SV_Base getDataFromJson(JSONObject json, String dataType){
+        //Random ran = new Random(1000000000);
         String valueS = "Value";
         ScriptedValueController calulater = new ScriptedValueController(json.getString(valueS));
         SV_Base out = switch (dataType) {
@@ -213,7 +213,7 @@ public class RandomLoader_Controler {
                 //step 4: look into the randomType data, and make sure this stat mod exsists.
                 //        note how I look the random type. this is compleat fucking madness. what am I even doing?
                 //        regardless, It -should- work.
-                looking  = ((MemCompressedOrganizer<?,?>)MemCompressedMasterList.getMemory().get(randomType).getItem(MTYPE_KEY_MUTABLE_STAT))
+                looking  = ((MemCompressedOrganizer<?,?>)MemCompressedMasterList.getMemory().get(randomType).getItem(MTYPE_KEY_MUTABLE_STAT));
                 if (!looking.hasItem(temp[1])) looking.setItem(temp[1],new SV_MS_Blank(temp[1],randomType));
                 //step 5: if it does not exsist, create it. from thin air. because power.
                 break;

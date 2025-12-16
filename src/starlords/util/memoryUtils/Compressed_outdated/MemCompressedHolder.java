@@ -1,9 +1,10 @@
-package starlords.util.memoryUtils.Compressed;
+package starlords.util.memoryUtils.Compressed_outdated;
 
 import lombok.Getter;
 
 import java.util.ArrayList;
 
+@Deprecated
 public class MemCompressedHolder<A> {
     private MemCompressedOrganizer master;
     @Getter

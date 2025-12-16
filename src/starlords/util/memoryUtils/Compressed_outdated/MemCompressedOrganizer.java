@@ -1,8 +1,9 @@
-package starlords.util.memoryUtils.Compressed;
+package starlords.util.memoryUtils.Compressed_outdated;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@Deprecated
 public class MemCompressedOrganizer<A,B> {
     /* ok... ok...
     * so what have I done:

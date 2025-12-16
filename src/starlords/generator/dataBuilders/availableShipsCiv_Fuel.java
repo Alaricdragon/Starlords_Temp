@@ -7,13 +7,11 @@ import starlords.generator.support.AvailableShipData;
 import starlords.person.Lord;
 import starlords.util.Utils;
 import starlords.util.fleetCompasition.FleetCompositionData;
-import starlords.util.memoryUtils.Compressed.MemCompressedPrimeSetterUtils;
+import starlords.util.memoryUtils.Compressed_outdated.MemCompressedPrimeSetterUtils;
 
 import static starlords.generator.dataBuilders.availableShipsCiv_Tug.loadJsonGeneric;
-import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.*;
-import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.FLEETCOMP_FUEL;
-import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.FLEETCOMP_PERSONAL;
-import static starlords.util.memoryUtils.Compressed.MemCompressedMasterList.FLEETCOMP_TUG;
+import static starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList.*;
+import static starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList.FLEETCOMP_FUEL;
 
 public class availableShipsCiv_Fuel implements LordBaseDataBuilder {
     protected static final String jsonKey = "civFleet_Fuel";
