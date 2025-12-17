@@ -1,0 +1,7 @@
+requires 'dialog' to be compleat.
+'dialog interupts' are interesting. but in the end, all I want is the following system:
+I need a set of listeners for all sorts of things a starlord can do. like AI actions being compleated, winging a battle, a month ending, raising vengence with a lord, just everything I can think of.
+then I want to beable to add a dialog interupt with code.
+I also want to beable to set it so the dialog interrupt activates after a certen number of days.
+I should probably also have a CSV file for generic dialog interrupts though. just a list of Ids and scripts.
+then again, since this is linked together with the listiners, I could likely just... have a system for 'listiners' that are just added to everything.

@@ -1,0 +1,22 @@
+'upgrades'? more like 'everything to do with lords'.
+this upgrade involves the following:
+modulizing upgrades and how they work.
+modulizing lord data and how they are randomly generated.
+modulizing Smods for starlords.
+modulizing the ability to edit starlords (in dev mode or other wize)
+moudlizing starlords internal stats.
+modulizing the lords files.
+adding a lord.csv file. links to starlords, and set there functions. possible functions:
+    1) 'on game start' lord. adds on game start.
+    2) 'generative lord' a starlord that spawns on generation.
+    3) 'life and death lord' a starlord that spawns from the life and death system.
+    5) 'lord premotion' a starlord that can be generated when attempted to premote an officer.
+    4) 'other' a starlord that can be called by other code to be generative.
+    keep in mind that all diffrent types of lord generation can have conditions as well, but by defalt will be restricted to factions.
+modulizing officer skills
+modulizing lord skills.
+adding in systems to make sure that lords respect the amount of Smods that should have (from mods that might add skills), as well as other modifications they might not respect otherwize.
+adding in a system to let lords 'fleet skills' be respected. effectively, modifiers that are automatically added based on skills.
+
+
+all modulized data ponits should be able to be overridin or otherwise modified.

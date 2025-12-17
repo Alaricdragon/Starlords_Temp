@@ -1,0 +1,34 @@
+requirements:
+    1) AI structure upgrade.
+    2) dialog structure upgrade.
+    3) 'dialog intrupt' structure update.
+
+'vengeance' is a point system simpler to reputation, but, it will lower by 1 each month.
+'debt' is the inverse of 'vengince' it will lower by the same amount.
+please note: do to the nature of starlords, a lord will hold 'vengeance' / 'debt' to mutlible lords / the player, so low 'vengeance' and low 'debt' will have a low trigger chance.
+please note: 'debt' is harder to get then 'vengence', so it should have a higher chance of triggering.
+
+'debt' and 'vengeance' are the same value. negative numbers are 'vengeance' positive values are 'debt'?
+or I keep them separate, and have lords be confused.
+I could also make it so gaiging 'vengence' or 'debt' from certen sorces causing a far faster gain then normal. like if you sat bomb a world, debt is massively reduced.
+
+attacking a starlords worlds, fleets, tradefleets, or doing things that lower your reputation will generate vengeance.
+adding a starlord in battles, defending hostile lord attacks, or helping a lord with quests will generate 'debt'.
+
+starlords that act on 'vengeance' or 'debt' will loes some 'vengeance' or 'debt'. so this stat does not stay forever. its something that needs to be continually upgraded.
+
+starlords with 'vengeance':
+    mid: will seek out the targets of there vengeance to hurt in some way. (effectively making enamys)
+        -such as raiding worlds belonging to the target, or hunting the PMC they are part of.
+        -maybe they will put a bounty on there head.
+    high values might cause the starlord to call and threaten the player.
+        -sometimes, they might even act on the threats.
+        -sometimes, they may propose things like 'honor duels'.
+        -sometimes, they might be slightly dishonorable duels.
+    very high 'vengeance' might up front hunt down the target.
+        a marshal might even organize a campain to destroy you. friends that owe a 'debt' involved.
+
+
+
+starlords with 'debt' might protect a targets lands, or be more liekly to do things like offer missions, or work with the target.
+    low debt: might do things like be more likely to votes on politics with you, or other things.

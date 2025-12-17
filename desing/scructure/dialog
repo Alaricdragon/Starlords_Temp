@@ -1,0 +1,30 @@
+dialogs right now are completely unuseable for the full fetures I want added.
+solution: copy the rules.csv system. passificly the following:
+1) change the system form a 'json file' to a list of CSV files.
+    1.a) the 'core dialog CSV' file. this holds the following data on each line:
+        1) this dialogs ID
+        2) a link to the dialog.csv file that mush be used.
+        3) a link to the id(s) that act as a backup to this one.
+            -a 'backup' dialog runs its line provided no line with the same ID exsists in a 'higher' priority dialog.csv
+            -this dialog also inharets all the 'backup' dialogs dialogs. But they act on a lower priority.
+    1.b) the 'dialog' csv files. this will hold the following on each line:
+        1) the line ID.
+        2) the 'fire all' / 'fire best' id. runs when 'fire all' and 'fire best' are ran.
+        3) the conditions to activate this line (must be true or line is not shown).
+        4) lines: the lines that are activated. allows 'fire all' and 'fire best'
+            -note: options only run this data when they are pressed.
+        5) options: the options that are activated when this is loaded.
+            -note: options only run this data when they are pressed.
+        4) the scripts that are fired when the line is loaded.
+            -includes fire all / fire best for options
+        5) the scripts that are ran when this item is pressed (buttons only)
+        6) the 'order' (order of displays)
+        7) the 'fire best priority' (only used on fire best. line with the highest value wins).
+
+2) 'fire all'
+    fire all will activate everything with a certen condition attached.
+    this will replace default_dialog_options
+3) 'fire best'
+    fires the best options, based on the 'fire best priroity'
+
+3) keep in mind, I also want a system simaler to the 'scripts' of a givin

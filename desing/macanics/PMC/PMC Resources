@@ -1,0 +1,32 @@
+PMCs have there own resorces system. this is consisting of 4 resources:
+1) Production (this represents the value of ships a PMC can produce at a given moment.)
+2) Officers (this represents the number of officers that are willing to work for this PMC).
+3) Specialists (this represents the number of Smods this PMC can add)
+4) AI cores (this represents the number of AI cores this pmc can add to fleets) (most PMCS will keep this hidden, as most will not use AI cores).
+5) troops (this represents the number of ground forces available to the PMC)
+6) credits: this is the 'floaty' resorse. 'credits' are only used to trade.
+
+for mission rewords, a PMC can give a lord things from this.
+if the leader of the PMC, you can use this at will?
+    -small PMCs should not beable to get lots of this, so it will never be a player bonus.
+
+as for how PMC resources are generated? from markets. different commodity's count to different things.
+resource                    commodity
+Production:                 hulls X10 Military bases  (phq = X5*size, MB = X10*size, HC = X15*size)
+Officers:                   crew X1 & marines X2
+Specialists:                crew X2 & marines X1
+AI Cores:                   ---
+Troops:                     marines X1 & heavy weapons X3
+Credits:                    all other commodity's are used as 'credits'. (based on market value compaired to market share)? maybe something else
+
+
+every month, a number of resources will be generated, equal to R_Speed * (commoditys * mutli)
+
+raiding:
+when raiding a market, a lord gains an amount of resources from the market. this number will not be added to the PMC the market belongs to.
+the lord can keep some of the resources, but is forced to give some to the PMC (depending on faction laws).
+
+trade:
+a PMC can trade for resources. all resources have a 'demand' and 'supply' on the global market, depending on how many are 'demanded' by a pmc, and how many are being 'sold' by a PMC.
+this allows them to supply themselfs with resorces, even if they dont have acsess. a PMC with no um....
+I messed up. everything comes from crew, marines, and hulls. I need more commodity's that do things.

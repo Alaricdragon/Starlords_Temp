@@ -127,7 +127,9 @@ public class StatsRandomOrganizer {
                 2) of note: there will be a 3rd type of input, that when past 1 will do the following:
                     note: 'value'
                     a) a>1
-                        output += (input * value-1)
+                        mult = 1
+                        for(a : values) mult+= (value-1)
+                        (multi will be stored, and used just before the normal multi values, but only appied to the base value.)
                     b) a<=1
                         mult = 1
                         for(a : values) mult*=a;
