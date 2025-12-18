@@ -5,6 +5,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import starlords.util.memoryUtils.Compressed_outdated.MemCompressedHolder;
 import starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList;
+import starlords.util.memoryUtils.Stats.StatsHolder;
+import starlords.util.memoryUtils.genaricLists.CustomHashmap_Boolean;
+import starlords.util.memoryUtils.genaricLists.CustomHashmap_Double;
+import starlords.util.memoryUtils.genaricLists.CustomHashmap_Object;
+import starlords.util.memoryUtils.genaricLists.CustomHashmap_String;
 
 @Getter
 public class GenericMemory {
@@ -12,16 +17,48 @@ public class GenericMemory {
     //if I want any type of generic memory structure, put it here. its so mush easier when organized.
     //todo: I need a way to remove DATA_HOLDER data on a game save. (some data is timed. that was the ponit of that intier class)
 
-    @Getter(AccessLevel.NONE)
-    private final MemCompressedHolder<MemCompressedHolder<?>> COMPRESSED_MEMORY;
+    //@Getter(AccessLevel.NONE)
+    //private final MemCompressedHolder<MemCompressedHolder<?>> COMPRESSED_MEMORY;
     private final DataHolder DATA_HOLDER;
     private final DataHolder BACKUP;//this is for things that I might change, for example: in dev mode, but might also want to restore. unlike standed DataHolder, it needs not 'forget' data.
+    private final CustomHashmap_String Strings;
+    private final CustomHashmap_Double Doubles;
+    private final CustomHashmap_Boolean Booleans;
+    private final CustomHashmap_Object Objects;
+    private final StatsHolder stats;
+
     public GenericMemory(String objectMemoryType, Object linkedObject){
-        COMPRESSED_MEMORY = new MemCompressedHolder<>(MemCompressedMasterList.getMemory().get(objectMemoryType), linkedObject);
+        /*todo: so, for this, what I want to do is make it so I know the 'true size' of a givin custom hashmap.
+            so how am I going to do this?
+            1) create a new class and call it 'defaultMemory'. 'defaultMemory' is used for the following:
+                1) it remember the required size of each CustomHashMap for each memory type (like, lord, PMC, Faction, and so on).
+                2) it remembers the 'random' value of a given memory. (and apples it if required).
+                3) if new 'random' data is added mid game, it is responsible for adding it to all objects.
+            2) modify randoms.csv file:
+                1) make it so the 'player default' value exists. this will set what the value the player has for a given stat. (so its not random). if unset, it does not matter.
+                2) make sure the 'stats' system in the randoms CSV file makes sense, at least a little sense.
+
+                1) Stats.csv
+                    -this will be for holding each one of the mutable stats a giving starlord has.
+                2) randoms.csv (already exists, I just need to redesign it.)
+                    -this will be used to mark out 'generic' data for a given item (aka what fills the custom hashmaps)
+                maybe I should keep the 'stats' inside of the 'random.csv'. file? it would certenly help...
+
+
+
+
+        */
+        stats = new StatsHolder(objectMemoryType);//I need to have the overriding memory prepared.
+        //COMPRESSED_MEMORY = new MemCompressedHolder<>(MemCompressedMasterList.getMemory().get(objectMemoryType), linkedObject);
         DATA_HOLDER = new DataHolder();
         BACKUP = new DataHolder();
     }
-    public double getCompressed_Double(String id){
+    public void repairHolders(){
+        BACKUP.repair();
+        DATA_HOLDER.repair();
+    }
+
+    /*public double getCompressed_Double(String id){
         return (double) COMPRESSED_MEMORY.getItem(MemCompressedMasterList.MTYPE_KEY_DOUBLE).getItem(id);
     }
     public boolean getCompressed_Boolean(String id){
@@ -54,10 +91,7 @@ public class GenericMemory {
     public MemCompressedHolder<MemCompressedHolder<?>> getMemForRepairOnly(){
         return COMPRESSED_MEMORY;
     }
-    public void repairHolders(){
-        BACKUP.repair();
-        DATA_HOLDER.repair();
-    }
+
 
     public double getBackupOrCurrent_Double(String id){
         if (BACKUP.hasDouble(id)) return BACKUP.getDouble(id);
@@ -100,5 +134,5 @@ public class GenericMemory {
     public void setBackupOrCurrent_Object(String id, Object data){
         if (BACKUP.hasObject(id)) BACKUP.setObject(id,data);
         setCompressed_Object(id,data);
-    }
+    }*/
 }

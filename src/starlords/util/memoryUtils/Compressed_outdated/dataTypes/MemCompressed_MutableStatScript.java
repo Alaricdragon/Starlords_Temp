@@ -17,7 +17,7 @@ public class MemCompressed_MutableStatScript extends MemCompressedOrganizer<Star
     @Override
     public void repair(MemCompressedHolder sur, Object linkedObject) {
         super.repair(sur, linkedObject);
-        for (String a : map.keySet()){
+        /*for (String a : map.keySet()){
             //if (!(list.get(map.get(a)) instanceof StarLord_MutableStat)) continue;
             StarLord_MutableStat stat = (StarLord_MutableStat) sur.getItem(a);
             String id = stat.getCompressedID(a, ScriptedValueController.TYPE_MUTABLE_STAT_BASE);//"TypeHeldPastThisOne(I dont yet have acsess to)_"+"StatModOrganizer_"+a;
@@ -32,7 +32,7 @@ public class MemCompressed_MutableStatScript extends MemCompressedOrganizer<Star
             id = stat.getCompressedID(a, ScriptedValueController.TYPE_MUTABLE_STAT_MULTI);//"TypeHeldPastThisOne(I dont yet have acsess to)_"+"StatModOrganizer_"+a;
             holder = stat.getMultiCompressedMods();
             MemCompressedMasterList.getMemory().get(id).repair(holder,linkedObject);
-        }
+        }*/
     }
 
 }

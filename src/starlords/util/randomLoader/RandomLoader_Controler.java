@@ -199,7 +199,7 @@ public class RandomLoader_Controler {
         String[] temp = dataType.split(":");
         String memTemp;
         MemCompressedOrganizer looking;
-        switch (temp[0]){
+        /*switch (temp[0]){
             case ScriptedValueController.TYPE_MUTABLE_STAT_BASE:
                 //step 1: get the ID of the memory organizer for this compressed object
                 memTemp = StarLord_MutableStat.getCompressedID(temp[1],randomType,ScriptedValueController.TYPE_MUTABLE_STAT_BASE);
@@ -221,7 +221,7 @@ public class RandomLoader_Controler {
                 break;
             case ScriptedValueController.TYPE_MUTABLE_STAT_MULTI:
                 break;
-        }
+        }*/
         return;
         //temp[1] == ID of item in compressed memory.
 
