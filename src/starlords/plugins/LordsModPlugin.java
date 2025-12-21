@@ -23,7 +23,8 @@ import starlords.ui.*;
 import starlords.util.NexerlinUtilitys;
 import starlords.util.Utils;
 import starlords.util.lordUpgrades.UpgradeController;
-import starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList;
+import starlords.util.memoryUtils.GenericMemory;
+import starlords.util.memoryUtils.genaricLists.SubStaticPreparationData;
 import starlords.util.randomLoader.RandomLoader_Controler;
 
 import java.util.HashMap;
@@ -68,12 +69,13 @@ public class LordsModPlugin extends BaseModPlugin {
 
     @Override
     public void onGameLoad(boolean newGame) {
+        insureIntercityOfStructures();
         SectorAPI sector = Global.getSector();
         // creates table for lords in persistent data
         if (!sector.getPersistentData().containsKey(LORD_TABLE_KEY)) {
             sector.getPersistentData().put(LORD_TABLE_KEY, new HashMap<String, HashMap<String, Object>>());
         }
-        MemCompressedMasterList.load();
+        //MemCompressedMasterList.load();
         RandomLoader_Controler.init();
         if (!newGame) {
             //LordController.parseLordTemplates();
@@ -125,7 +127,7 @@ public class LordsModPlugin extends BaseModPlugin {
         if (Utils.nexEnabled()) NexerlinUtilitys.calculateInvasionsEnabled();
         UpgradeController.init();
 
-        MemCompressedMasterList.loadFinal();
+        GenericMemory.afterLoadAll();
     }
 
 
@@ -156,6 +158,12 @@ public class LordsModPlugin extends BaseModPlugin {
         //LordController.saveUnusualLords();
         LordController.saveLordData();
         LordController.saveLords();
-        MemCompressedMasterList.save();
+        //MemCompressedMasterList.save();
+
+        GenericMemory.beforeSaveAll();
+    }
+
+    private void insureIntercityOfStructures(){
+        SubStaticPreparationData.insureIntergerty();
     }
 }

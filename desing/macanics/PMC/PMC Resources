@@ -13,8 +13,8 @@ if the leader of the PMC, you can use this at will?
 as for how PMC resources are generated? from markets. different commodity's count to different things.
 resource                    commodity
 Production:                 hulls X10 Military bases  (phq = X5*size, MB = X10*size, HC = X15*size)
-Officers:                   crew X1 & marines X2
-Specialists:                crew X2 & marines X1
+Officers:                   ///crew X2
+Specialists:                ///crew X2 & marines X1
 AI Cores:                   ---
 Troops:                     marines X1 & heavy weapons X3
 Credits:                    all other commodity's are used as 'credits'. (based on market value compaired to market share)? maybe something else
@@ -28,5 +28,29 @@ the lord can keep some of the resources, but is forced to give some to the PMC (
 
 trade:
 a PMC can trade for resources. all resources have a 'demand' and 'supply' on the global market, depending on how many are 'demanded' by a pmc, and how many are being 'sold' by a PMC.
-this allows them to supply themselfs with resorces, even if they dont have acsess. a PMC with no um....
-I messed up. everything comes from crew, marines, and hulls. I need more commodity's that do things.
+this allows them to supply themselves with resources, even if they don't have acsess.
+keep in mind that resources will become more costly the more they are demanded. this means that PMCs that sell such resources will gain more credits, and PMCs without will loes more resources.
+
+
+reconfiguration of resources:
+    the issue: resources don't make sense right now. everything comes from the same sources. this is a issue.
+    option a: remove all resources but 'ship hulls' and 'credits'. additionally, make it so that 'ship hulls' produce a lot of ship hulls.
+              credits would also be used here. PMCs with a lot of hulls would get rid of them to allow for credit payments to lords.
+    option b: make it so 'specialists' and 'officers' are gotten from different resources then crew.
+        I dont really understand how to set this up though...
+        on one hand, I could use other commodity's. On the other hand... does that make sense?
+        like, transpositions, metals, and volatiles could attract specialists, and 'luxury goods' and 'domestic goods' could attract officers.
+        so goods that could be used for officers:
+            crew
+            population
+            luxury goods.
+            drugs.
+            domestic goods.
+        so goods that could be used for specialists:
+            metal
+            rare metal
+            volatiles.
+            fuel.
+            supplies. (both supplies and hulls come from the same industry. not acceptable.)
+
+    option c: remove 'specialists'. no free Smods. but then again....

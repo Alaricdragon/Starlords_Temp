@@ -2,28 +2,26 @@ package starlords.util.memoryUtils.genaricLists;
 
 import lombok.Getter;
 
-public class CustomHashmap_Double {
+public class SubStaticHashmap_Boolean {
     /*  so... what the hell is this?
         the 'CustomHashmap_' classes are hashmaps that are -not designed to be modified in size at any time.
         you -can- change add and remove items, but you should not. ever, as it has a massive overhead cost.
     */
-    @Getter
-    private String[] keys;// = new a[];
-    @Getter
-    private double[] data;
-    public CustomHashmap_Double(int size){
+    protected String[] keys;// = new a[];
+    protected boolean[] data;
+    public SubStaticHashmap_Boolean(int size){
         keys = new String[size];
-        data = new double[size];
+        data = new boolean[size];
     }
     public boolean hasItem(String key){
         for (int a = 0; a < keys.length; a++) if (keys[a].equals(key)) return true;
         return false;
     }
-    public double getItem(String key){
+    public boolean getItem(String key){
         for (int a = 0; a < keys.length; a++) if (keys[a].equals(key)) return data[a];
-        return 0;
+        return false;
     }
-    public void setItem(String key, double value){
+    public void setItem(String key, boolean value){
         for (int a = 0; a < keys.length; a++) if (keys[a].equals(key)){
             data[a] = value;
             return;
@@ -40,7 +38,7 @@ public class CustomHashmap_Double {
     }
     private void resetItems(int newSize){
         String[] tempA = new String[newSize];
-        double[] tempB = new double[newSize];
+        boolean[] tempB = new boolean[newSize];
         for (int a = 0; a < keys.length && a < newSize; a++){
             tempA[a] = keys[a];
             tempB[a] = data[a];
@@ -50,7 +48,7 @@ public class CustomHashmap_Double {
     }
     private void resetItems(int newSize,int removed){
         String[] tempA = new String[newSize];
-        double[] tempB = new double[newSize];
+        boolean[] tempB = new boolean[newSize];
         int change = 0;
         for (int a = 0; a < keys.length && a < newSize -change; a++){
             if (a == removed) {

@@ -8,10 +8,6 @@ import java.util.HashMap;
 public class StatsHolder {
     protected HashMap<String, StarLord_MutableStat> data;
     protected HashMap<String,StatsHolder> linkedStats;
-    public StatsHolder(String TYPE, Object linkedObject,HashMap<String,String> overWritingData){
-        //this is only the default types.
-        StatsRandomOrganizer.getRandomOrganizer(TYPE).setData(this,linkedObject,overWritingData);
-    }
     public StarLord_MutableStat getStat(String id){
         return data.get(id);
     }

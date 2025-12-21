@@ -1,18 +1,14 @@
 package starlords.util.memoryUtils;
 
-import com.fs.starfarer.api.combat.MutableStat;
-import lombok.AccessLevel;
 import lombok.Getter;
-import starlords.util.memoryUtils.Compressed_outdated.MemCompressedHolder;
-import starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList;
+import starlords.controllers.LordController;
+import starlords.person.Lord;
 import starlords.util.memoryUtils.Stats.StatsHolder;
-import starlords.util.memoryUtils.genaricLists.CustomHashmap_Boolean;
-import starlords.util.memoryUtils.genaricLists.CustomHashmap_Double;
-import starlords.util.memoryUtils.genaricLists.CustomHashmap_Object;
-import starlords.util.memoryUtils.genaricLists.CustomHashmap_String;
+import starlords.util.memoryUtils.genaricLists.*;
 
 @Getter
 public class GenericMemory {
+    public static final String TYPE_LORD = "LORD", TYPE_PMC = "PMC", TYPE_FACTION = "FACTION";
     //note: If I am reading this, know this acts as the -core memory- to evey object in starsector. all nice and organized.
     //if I want any type of generic memory structure, put it here. its so mush easier when organized.
     //todo: I need a way to remove DATA_HOLDER data on a game save. (some data is timed. that was the ponit of that intier class)
@@ -21,43 +17,50 @@ public class GenericMemory {
     //private final MemCompressedHolder<MemCompressedHolder<?>> COMPRESSED_MEMORY;
     private final DataHolder DATA_HOLDER;
     private final DataHolder BACKUP;//this is for things that I might change, for example: in dev mode, but might also want to restore. unlike standed DataHolder, it needs not 'forget' data.
-    private final CustomHashmap_String Strings;
-    private final CustomHashmap_Double Doubles;
-    private final CustomHashmap_Boolean Booleans;
-    private final CustomHashmap_Object Objects;
+    private final SubStaticHashmap_String Strings;
+    private final SubStaticHashmap_Double Doubles;
+    private final SubStaticHashmap_Boolean Booleans;
+    private final SubStaticHashmap_Object Objects;
     private final StatsHolder stats;
 
-    public GenericMemory(String objectMemoryType, Object linkedObject){
-        /*todo: so, for this, what I want to do is make it so I know the 'true size' of a givin custom hashmap.
-            so how am I going to do this?
-            1) create a new class and call it 'defaultMemory'. 'defaultMemory' is used for the following:
-                1) it remember the required size of each CustomHashMap for each memory type (like, lord, PMC, Faction, and so on).
-                2) it remembers the 'random' value of a given memory. (and apples it if required).
-                3) if new 'random' data is added mid game, it is responsible for adding it to all objects.
-            2) modify randoms.csv file:
-                1) make it so the 'player default' value exists. this will set what the value the player has for a given stat. (so its not random). if unset, it does not matter.
-                2) make sure the 'stats' system in the randoms CSV file makes sense, at least a little sense.
-
-                1) Stats.csv
-                    -this will be for holding each one of the mutable stats a giving starlord has.
-                2) randoms.csv (already exists, I just need to redesign it.)
-                    -this will be used to mark out 'generic' data for a given item (aka what fills the custom hashmaps)
-                maybe I should keep the 'stats' inside of the 'random.csv'. file? it would certenly help...
-
-
-
-
-        */
-        stats = new StatsHolder(objectMemoryType);//I need to have the overriding memory prepared.
+    public GenericMemory(String TYPE, Object linkedObject){
+        /*todo: so, issues with primary data storge:
+            first of all: overriding scrips: this is a thing.
+            I need to beable to get the overriding scripts (organized as 'Hashmap<String,String> (first value: id_of_override, second value: rar string data from json file) from a given object.)
+            -
+            secondly, I need to fix the stats. that will happen after I fix the StatsRandomOrganizer though.
+        * */
+        Booleans = SubStaticPreparationData.prepBoolean(TYPE,linkedObject);
+        Strings = SubStaticPreparationData.prepString(TYPE,linkedObject);
+        Doubles = SubStaticPreparationData.prepDouble(TYPE,linkedObject);
+        Objects = SubStaticPreparationData.prepObject(TYPE,linkedObject);
+        stats = new StatsHolder(TYPE);//I need to have the overriding memory prepared.
         //COMPRESSED_MEMORY = new MemCompressedHolder<>(MemCompressedMasterList.getMemory().get(objectMemoryType), linkedObject);
         DATA_HOLDER = new DataHolder();
         BACKUP = new DataHolder();
     }
-    public void repairHolders(){
+    public void beforeSave(){
         BACKUP.repair();
         DATA_HOLDER.repair();
     }
+    public void afterLoad(String TYPE, Object linkedObject){
+        SubStaticPreparationData.repairBoolean(TYPE,linkedObject,Booleans);
+        SubStaticPreparationData.repairString(TYPE,linkedObject,Strings);
+        SubStaticPreparationData.repairDouble(TYPE,linkedObject,Doubles);
+        SubStaticPreparationData.repairObject(TYPE,linkedObject,Objects);
+    }
 
+    public static void beforeSaveAll(){
+        for (Lord a : LordController.getLordsList()){
+            a.getMemory().beforeSave();
+        }
+    }
+    public static void afterLoadAll(){
+        for (Lord a : LordController.getLordsList()){
+            a.getMemory().afterLoad(TYPE_LORD,a);
+        }
+
+    }
     /*public double getCompressed_Double(String id){
         return (double) COMPRESSED_MEMORY.getItem(MemCompressedMasterList.MTYPE_KEY_DOUBLE).getItem(id);
     }

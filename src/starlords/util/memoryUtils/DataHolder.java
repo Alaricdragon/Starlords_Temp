@@ -38,6 +38,7 @@ public class DataHolder {
     }
 
     public void repair(){
+        //this is for 'before save' type data.
         repairString();
         repairBoolean();
         repairDouble();

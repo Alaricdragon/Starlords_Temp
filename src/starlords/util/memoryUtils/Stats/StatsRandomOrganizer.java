@@ -1,34 +1,64 @@
 package starlords.util.memoryUtils.Stats;
 
+import starlords.util.ScriptedValues.SV_Double_Code;
 import starlords.util.math.StarLord_MutableStat;
+import starlords.util.memoryUtils.GenericMemory;
+import starlords.util.memoryUtils.genaricLists.SubStaticPreparationData;
+
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class StatsRandomOrganizer {
-    public static final String TYPE_LORD = "LORD",TYPE_PMC = "PMC", TYPE_FACTION = "FACTION";
-    private static HashMap<String, StatsRandomOrganizer> organizers;
+    public static final String TYPE_BASE = "MutableStat", TYPE_MULTI = "MutableStat_multi", TYPE_FLAT = "MutableStat_flat";
+    //NOTE: type is stored in the GenericMemory.
+    //public static final String TYPE_LORD = "LORD",TYPE_PMC = "PMC", TYPE_FACTION = "FACTION";
+    private static HashMap<String, StatsRandomOrganizer> masterList;
     //this is randomDataToBeSet. in effect, this is the stat values that will be set to a givin lord / other.
     //it is stored as a string to allow for scripts to run. it will be stored in better values once started.
-    private HashMap<String,String> randomDataToBeSet;
-    public StatsRandomOrganizer(String id, String path){
-        //load data here (from json path).
-        organizers.put(id,this);
+    //data is: statmodID, statID,
+    private HashMap<String,HashMap<String, SV_Double_Code>> randomData_Base;
+    private HashMap<String,HashMap<String, SV_Double_Code>> randomData_Flat;
+    private HashMap<String,HashMap<String, SV_Double_Code>> randomData_Multi;
+
+    /*todo:
+        1) I already have a stored list of 'organizers'. so that fine.
+        2) create a set of static functions. they will do the following:
+            1: set a default data.
+            2: fix integrity with a given stat mod.
+            3: set the random data of a given stat holder.
+
+        note: this intier function sucks. I need to refactor. By compleat deleation of all data. sorry.
+
+    */
+    public static void setStatData_Base(String TYPE, String mutibleStatID, String statID, SV_Double_Code value){
+        masterList.get(TYPE).randomData_Base.get(mutibleStatID).put(statID,value);
     }
-    public static StatsRandomOrganizer getRandomOrganizer(String TYPE){
-        return organizers.get(TYPE);
+    public static void setStatData_Flat(String TYPE, String mutibleStatID, String statID, SV_Double_Code value){
+        masterList.get(TYPE).randomData_Flat.get(mutibleStatID).put(statID,value);
     }
-    public void setData(StatsHolder holder, Object linkedObject,HashMap<String,String> scripts){
-        for (String a : randomDataToBeSet.keySet()){
-            String value;
-            if (scripts.containsKey(a)) value = scripts.get(a);
-            else value = randomDataToBeSet.get(a);
-            setSingleItem(holder.data,linkedObject,value);
+    public static void setStatData_Multi(String TYPE, String mutibleStatID, String statID, SV_Double_Code value){
+        masterList.get(TYPE).randomData_Multi.get(mutibleStatID).put(statID,value);
+    }
+    public static StatsHolder prepStatsHolder(String TYPE, HashMap<String,String> scripts, Object linkedObject){
+        StatsRandomOrganizer s = masterList.get(TYPE);
+        StatsHolder out = new StatsHolder();
+
+        HashSet<String> prepedStats = new HashSet<>();
+        for (String a : s.randomData_Base.keySet()){
+            if (!out.data.containsKey(a)) out.data.put(a,new StarLord_MutableStat(1));
+            //todo: I was here. I am just trying to set the initalization data right now. it is very not set.
         }
+
+        return out;
     }
-    private void setSingleItem(HashMap<String, StarLord_MutableStat> data, Object linkedObject, String value){
-        String idOfItem="";
-        boolean isScript; //this is for if the item is a scrip of a mutible stat. if this is the case, the stat can change when it is called. This is rarely usefull, but should be implmented anyways.
-        if (!data.containsKey(idOfItem)){} //create new item here
-        StarLord_MutableStat stat = data.get(idOfItem);
-        //from here, all I need to do is get the relevant data. it should be simple hopefully.
+
+    public static void insureIntergerty(){
+        //example taken from SubStaticPreperationData.
+        if (!masterList.containsKey(GenericMemory.TYPE_FACTION)) new StatsRandomOrganizer(GenericMemory.TYPE_FACTION);
+        if (!masterList.containsKey(GenericMemory.TYPE_LORD)) new StatsRandomOrganizer(GenericMemory.TYPE_LORD);
+        if (!masterList.containsKey(GenericMemory.TYPE_PMC)) new StatsRandomOrganizer(GenericMemory.TYPE_PMC);
+    }
+    public StatsRandomOrganizer(String id){
+        masterList.put(id,this);
     }
 }

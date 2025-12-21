@@ -2,16 +2,14 @@ package starlords.util.memoryUtils.genaricLists;
 
 import lombok.Getter;
 
-public class CustomHashmap_String {
+public class SubStaticHashmap_String {
     /*  so... what the hell is this?
         the 'CustomHashmap_' classes are hashmaps that are -not designed to be modified in size at any time.
         you -can- change add and remove items, but you should not. ever, as it has a massive overhead cost.
     */
-    @Getter
-    private String[] keys;// = new a[];
-    @Getter
-    private String[] data;
-    public CustomHashmap_String(int size){
+    protected String[] keys;// = new a[];
+    protected String[] data;
+    public SubStaticHashmap_String(int size){
         keys = new String[size];
         data = new String[size];
     }
