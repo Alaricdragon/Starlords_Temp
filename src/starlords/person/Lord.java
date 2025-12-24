@@ -28,6 +28,7 @@ import starlords.generator.LordBaseDataController;
 import starlords.ui.PrisonerIntelPlugin;
 import starlords.util.*;
 import starlords.util.factionUtils.FactionTemplateController;
+import starlords.util.fleetCompasition.FullFleetCompositionData;
 import starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList;
 import starlords.util.memoryUtils.DataHolder;
 import starlords.util.memoryUtils.GenericMemory;
@@ -45,15 +46,47 @@ import static starlords.util.Constants.*;
 
 @Getter
 public class Lord {
-    //todo: this intier class is a complete fucking mess. most things should be moved out of here if possible.
-    //      I want most memory to use GenericMemory instead. I also want most functions to be moved out into diffrent areas.
-    //      the reason for this is because this class is not something I can easly replace by a script. if someone wants to code there starlord to do something different, they need to use scripts for that.
-    //      this makes everything here.... unrequired by nature. or even detrimental.
-    //      I CANNOT DO THAT RIGHT NOW. what I can do is slowly, very slowly, move all the data here outside of this class when possable.
-    public static final String MEMKEY_Personality = "PERSONALITY", MEMKEY_Culture = "CULTURE", MEMKEY_Faction = "FACTION", MEMKEY_Flagship = "FLAGSHIP";
+    /*todo: this intier class is a complete fucking mess. most things should be moved out of here if possible.
+          I want most memory to use GenericMemory instead. I also want most functions to be moved out into diffrent areas.
+          the reason for this is because this class is not something I can easly replace by a script. if someone wants to code there starlord to do something different, they need to use scripts for that.
+          this makes everything here.... unrequired by nature. or even detrimental.
+          I CANNOT DO THAT RIGHT NOW. what I can do is slowly, very slowly, move all the data here outside of this class when possable.
+
+
+      todo:
+        this class....
+        so I need to do the following:
+            1: I need to move the functions inside of this class -out-. Some things should be calculated on lords, but a lot of this data needs its own sections and classes.
+            2: I need to change the way the data is stored. right now, its a mess.
+                -yes, I do have 'GenericMemory', but that is not for things like 'number of kills' a lord has done. its for stats that might not be possable to put on the lord directly.
+                so ideas:
+                    1: simply organize the data here into little groups. would be relitivly simply, if frusterating by nature.
+                    2: organize the data into 'stat cards'. a 'stat card' could be stored in memory, and could be used to call on data directly? might not be required.
+                    ...
+                    stat cards: I could have them, not linked to 'generic memory' but instead linked to the giving class they are. like a varuble.
+                    its an option, but not a good one.
+     */
+    //public static final String MEMKEY_Personality = "PERSONALITY", MEMKEY_Culture = "CULTURE", MEMKEY_Faction = "FACTION", MEMKEY_Flagship = "FLAGSHIP";
 
     private GenericMemory Memory;
     private String jsonID = "";
+    //costMaps for all relevent AI and none AI based things.
+    @Getter
+    private UpgradeWeights upgradeWeights = new UpgradeWeights();
+    @Getter
+    private IncomeWeights incomeWeights = new IncomeWeights();
+    // Creates a lord from scratch, only run at campaign start
+
+    @Getter
+    private ScripOverriderController scrips;
+
+    @Getter
+    @Setter
+    private FullFleetCompositionData fleetCompositionData = new FullFleetCompositionData();
+
+
+
+    //!!--old data here. need to improve this--!!//
 
     // Data stored in this dict will be persistent.
     @Getter(AccessLevel.NONE)
@@ -144,22 +177,13 @@ public class Lord {
     @Setter
     private String formalWear;
 
-    //costMaps for all relevent AI and none AI based things.
-    @Getter
-    private UpgradeWeights upgradeWeights = new UpgradeWeights();
-    @Getter
-    private IncomeWeights incomeWeights = new IncomeWeights();
-    // Creates a lord from scratch, only run at campaign start
-
-    @Getter
-    private ScripOverriderController scrips;
     @SneakyThrows
     public Lord(JSONObject json){
         //todo: make it so the base compressed from memory is nothing but nulls.
         //      after all data is set, I will run a function that turns null values into new data, based on what it is suppose to be.
         //      effectively randomizing some data, but keeping preset data the same as it is suppose to be.
         if (json != null) this.jsonID = json.getString("id");
-        Memory = new GenericMemory(MemCompressedMasterList.KEY_LORD,this);
+        Memory = new GenericMemory(MemCompressedMasterList.KEY_LORD,json,this);
         scrips = new ScripOverriderController();
         for (Pair<String,LordBaseDataBuilder> a : LordBaseDataController.getFormaters()){
             LordBaseDataBuilder b = a.two;
@@ -315,7 +339,7 @@ public class Lord {
             persistentData.put("prisoners", prisoners);
         }
         //loadConnectedMemory();//this insures the structure is present.
-        Memory = new GenericMemory(MemCompressedMasterList.KEY_LORD,this);
+        Memory = new GenericMemory(MemCompressedMasterList.KEY_LORD,null,this);
     }
 
     @SneakyThrows

@@ -13,7 +13,7 @@ import static starlords.util.memoryUtils.Compressed_outdated.MemCompressedMaster
 
 @Deprecated
 public class MemCompressed_FleetComp extends MemCompressedOrganizer<MemCompressedHolder<?>, MemCompressedOrganizer<?,?>>{
-    @Override
+    /*@Override
     public void load() {
         for (Lord lord : LordController.getLordsList()) {
             loadAllFleetCompsForMemory(lord.getMemory());
@@ -45,5 +45,5 @@ public class MemCompressed_FleetComp extends MemCompressedOrganizer<MemCompresse
         }
         this.repair(data.getMemory().getMemForRepairOnly(),data);
         this.repairStructuresOfMasterCompressedOrganizer(data.getMemory().getMemForRepairOnly(),data);
-    }
+    }*/
 }

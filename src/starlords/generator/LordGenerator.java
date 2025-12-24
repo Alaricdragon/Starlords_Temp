@@ -26,6 +26,7 @@ import starlords.util.randomLoader.WeightedRandom;
 
 import java.util.*;
 
+@Deprecated
 public class LordGenerator {
     @Setter
     @Getter

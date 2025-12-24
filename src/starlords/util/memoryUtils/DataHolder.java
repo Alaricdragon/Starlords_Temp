@@ -234,12 +234,12 @@ public class DataHolder {
         dTimestamp.put(key,Global.getSector().getClock().getTimestamp());
         dExpire.put(key,time);
     }
-    public void setObject(String key, MutableStat data,int time){
+    public void setObject(String key, Object data,int time){
         setObjectInternal(key, data);
         oTimestamp.put(key,Global.getSector().getClock().getTimestamp());
         oExpire.put(key,time);
     }
-    public void setMutableStat(String key, Object data, int time){
+    public void setMutableStat(String key, MutableStat data, int time){
         setObjectInternal(key, data);
         msTimestamp.put(key,Global.getSector().getClock().getTimestamp());
         msExpire.put(key,time);

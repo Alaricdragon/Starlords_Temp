@@ -128,6 +128,8 @@ public class SubStaticPreparationData {
         if (!masterList.containsKey(GenericMemory.TYPE_FACTION)) new SubStaticPreparationData(GenericMemory.TYPE_FACTION);
         if (!masterList.containsKey(GenericMemory.TYPE_LORD)) new SubStaticPreparationData(GenericMemory.TYPE_LORD);
         if (!masterList.containsKey(GenericMemory.TYPE_PMC)) new SubStaticPreparationData(GenericMemory.TYPE_PMC);
+        if (!masterList.containsKey(GenericMemory.TYPE_FLEET)) new SubStaticPreparationData(GenericMemory.TYPE_FLEET);
+        if (!masterList.containsKey(GenericMemory.TYPE_SHIP)) new SubStaticPreparationData(GenericMemory.TYPE_SHIP);
     }
     public HashMap<String, SV_Boolean_Code> booleans;
     public HashMap<String, SV_Double_Code> doubles;

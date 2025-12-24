@@ -105,6 +105,11 @@ also note: many values can be replaced by scripts. any value that can be will be
   * "lordGenerator": JsonObject [not required]. the jsonObject is structured as:
     * "generatorID": String. were 'generatorID' is the ID of a generator property (as defined in lordGenerator.json), and String is a classpath to 'starlords\generator\LordBaseDataBuilder.java'
   * [TO DO: this is not yet compleated. I require addition data here.]
+  * "mutableStats": JsonObject. please note: this is for modifing stats within the starlords game. such as how mush upgrades cost. for other things please view the __ this jsonObject holds a list of the following:
+    * "mutableStatID": JsonObject. were 'mutableStatID' is the ID of the stat you want to override a value of. it is structured as follows:
+      * "modID_modType": Double. were 'modID' is the ID of your mod, 'modType' is the type of modification (chosen between 'base', 'flat' and 'multi'), and value is the double value that your stat mod will have. please note: that if your mutableStatID and modID match a item in the 'randoms.csv' file, this will override that value for this lord.
+  * "randoms": jsonObject. this is a jsonObject holding items from the 'randoms.csv' you wish to override. this is a set of json objects that as structured as follows:
+    * "ID": "value". were 'ID' is the ID of a of the data you with to override, and 'value' is the value of the data you wish to override. please note, that the inputted data must be a valid data type for its id, ad defined in the randoms.csv.
 *
 * "listeners": JsonObject [not required]. This is a list of listeners that you want to be added to the lord class.
   * -NOTE: examples of listeners I should add: lord spawn listener, lord battle listener, lord trade listener, lord capture listener, upgrade listener, and so forth

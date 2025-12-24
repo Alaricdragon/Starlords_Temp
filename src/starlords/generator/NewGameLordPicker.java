@@ -19,6 +19,14 @@ import java.util.List;
 import java.util.Random;
 
 public class NewGameLordPicker {
+    /*todo:
+        1: my settings that have T0,T1,T2 lord per size needs to change. this is simply not the way this should be working...?
+           lords should be assined rank -after- all lords are created. because there are a certen number of each type that should be active.
+        2: I need a way to 'remove' lords on game start. this is for the people that want to remove lords that were prebuilt, or otherwize want to evenly distrubute lords.
+        3: feifs cannot be assined in this function. there is a new system just for this that I am building in the lord.json filetype. it will be how starlords are generated.
+
+
+    */
     public static NewGameLordPicker instance;
     @Setter
     @Getter

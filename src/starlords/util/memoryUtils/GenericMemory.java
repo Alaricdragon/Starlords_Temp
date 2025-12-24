@@ -1,18 +1,25 @@
 package starlords.util.memoryUtils;
 
 import lombok.Getter;
+import org.json.JSONObject;
 import starlords.controllers.LordController;
 import starlords.person.Lord;
+import starlords.util.fleetCompasition.ShipCompositionData;
 import starlords.util.memoryUtils.Stats.StatsHolder;
+import starlords.util.memoryUtils.Stats.StatsRandomOrganizer;
 import starlords.util.memoryUtils.genaricLists.*;
+import starlords.util.overriders.ScriptOverrides_Memory;
 
 @Getter
 public class GenericMemory {
-    public static final String TYPE_LORD = "LORD", TYPE_PMC = "PMC", TYPE_FACTION = "FACTION";
+    public static final String TYPE_LORD = "LORD", TYPE_PMC = "PMC", TYPE_FACTION = "FACTION", TYPE_FLEET = "FLEET", TYPE_SHIP = "SHIP";
     //note: If I am reading this, know this acts as the -core memory- to evey object in starsector. all nice and organized.
     //if I want any type of generic memory structure, put it here. its so mush easier when organized.
-    //todo: I need a way to remove DATA_HOLDER data on a game save. (some data is timed. that was the ponit of that intier class)
-
+    //todo: I need to make it so I have a specal 'generative data' memory that is -just for storing random bits of data for generation-.
+    //      that, OR I could just check the memory one tick after it is created. it should be fine right?
+    //
+    //todo: optimization:
+    //      there is a possibility that it mgiht be better to store this data in the main starsector memory. just have it accessed from here. something to keep in mind.
     //@Getter(AccessLevel.NONE)
     //private final MemCompressedHolder<MemCompressedHolder<?>> COMPRESSED_MEMORY;
     private final DataHolder DATA_HOLDER;
@@ -23,19 +30,15 @@ public class GenericMemory {
     private final SubStaticHashmap_Object Objects;
     private final StatsHolder stats;
 
-    public GenericMemory(String TYPE, Object linkedObject){
-        /*todo: so, issues with primary data storge:
-            first of all: overriding scrips: this is a thing.
-            I need to beable to get the overriding scripts (organized as 'Hashmap<String,String> (first value: id_of_override, second value: rar string data from json file) from a given object.)
-            -
-            secondly, I need to fix the stats. that will happen after I fix the StatsRandomOrganizer though.
-        * */
-        Booleans = SubStaticPreparationData.prepBoolean(TYPE,linkedObject);
-        Strings = SubStaticPreparationData.prepString(TYPE,linkedObject);
-        Doubles = SubStaticPreparationData.prepDouble(TYPE,linkedObject);
-        Objects = SubStaticPreparationData.prepObject(TYPE,linkedObject);
-        stats = new StatsHolder(TYPE);//I need to have the overriding memory prepared.
-        //COMPRESSED_MEMORY = new MemCompressedHolder<>(MemCompressedMasterList.getMemory().get(objectMemoryType), linkedObject);
+    public GenericMemory(String TYPE, JSONObject json, Object linkedObject){
+        ScriptOverrides_Memory tempMemory = new ScriptOverrides_Memory(json);
+        Booleans = SubStaticPreparationData.prepBoolean(TYPE,tempMemory.getSubStaticItems(),linkedObject);
+        Strings = SubStaticPreparationData.prepString(TYPE,tempMemory.getSubStaticItems(),linkedObject);
+        Doubles = SubStaticPreparationData.prepDouble(TYPE,tempMemory.getSubStaticItems(),linkedObject);
+        Objects = SubStaticPreparationData.prepObject(TYPE,tempMemory.getSubStaticItems(),linkedObject);
+        stats = StatsRandomOrganizer.prepStatsHolder(TYPE,tempMemory.getStatModOverrides(),linkedObject);//I need to have the overriding memory prepared.
+        tempMemory.resetUnwantedDataAfterMemonyHasEaten();//num num.
+
         DATA_HOLDER = new DataHolder();
         BACKUP = new DataHolder();
     }
@@ -48,18 +51,47 @@ public class GenericMemory {
         SubStaticPreparationData.repairString(TYPE,linkedObject,Strings);
         SubStaticPreparationData.repairDouble(TYPE,linkedObject,Doubles);
         SubStaticPreparationData.repairObject(TYPE,linkedObject,Objects);
+
+        StatsRandomOrganizer.repair(TYPE,stats,linkedObject);
     }
 
     public static void beforeSaveAll(){
         for (Lord a : LordController.getLordsList()){
-            a.getMemory().beforeSave();
+            saveLord(a);
         }
     }
     public static void afterLoadAll(){
         for (Lord a : LordController.getLordsList()){
-            a.getMemory().afterLoad(TYPE_LORD,a);
+            loadLord(a);
         }
 
+    }
+    private static void saveLord(Lord lord){
+        lord.getMemory().beforeSave();
+        lord.getFleetCompositionData().getCombat().getMemory().beforeSave();
+        lord.getFleetCompositionData().getCargo().getMemory().beforeSave();
+        lord.getFleetCompositionData().getPersonal().getMemory().beforeSave();
+        lord.getFleetCompositionData().getFuel().getMemory().beforeSave();
+        lord.getFleetCompositionData().getTug().getMemory().beforeSave();
+        for (ShipCompositionData a : lord.getFleetCompositionData().getCombat().getData().values()) a.getMemory().beforeSave();
+        for (ShipCompositionData a : lord.getFleetCompositionData().getCargo().getData().values()) a.getMemory().beforeSave();
+        for (ShipCompositionData a : lord.getFleetCompositionData().getPersonal().getData().values()) a.getMemory().beforeSave();
+        for (ShipCompositionData a : lord.getFleetCompositionData().getFuel().getData().values()) a.getMemory().beforeSave();
+        for (ShipCompositionData a : lord.getFleetCompositionData().getTug().getData().values()) a.getMemory().beforeSave();
+
+    }
+    private static void loadLord(Lord lord){
+        lord.getMemory().afterLoad(TYPE_LORD,lord);
+        lord.getFleetCompositionData().getCombat().getMemory().afterLoad(TYPE_FLEET,lord.getFleetCompositionData().getCombat());
+        lord.getFleetCompositionData().getCargo().getMemory().afterLoad(TYPE_FLEET,lord.getFleetCompositionData().getCargo());
+        lord.getFleetCompositionData().getPersonal().getMemory().afterLoad(TYPE_FLEET,lord.getFleetCompositionData().getPersonal());
+        lord.getFleetCompositionData().getFuel().getMemory().afterLoad(TYPE_FLEET,lord.getFleetCompositionData().getFuel());
+        lord.getFleetCompositionData().getTug().getMemory().afterLoad(TYPE_FLEET,lord.getFleetCompositionData().getTug());
+        for (ShipCompositionData a : lord.getFleetCompositionData().getCombat().getData().values()) a.getMemory().afterLoad(TYPE_SHIP,a);
+        for (ShipCompositionData a : lord.getFleetCompositionData().getCargo().getData().values()) a.getMemory().afterLoad(TYPE_SHIP,a);
+        for (ShipCompositionData a : lord.getFleetCompositionData().getPersonal().getData().values()) a.getMemory().afterLoad(TYPE_SHIP,a);
+        for (ShipCompositionData a : lord.getFleetCompositionData().getFuel().getData().values()) a.getMemory().afterLoad(TYPE_SHIP,a);
+        for (ShipCompositionData a : lord.getFleetCompositionData().getTug().getData().values()) a.getMemory().afterLoad(TYPE_SHIP,a);
     }
     /*public double getCompressed_Double(String id){
         return (double) COMPRESSED_MEMORY.getItem(MemCompressedMasterList.MTYPE_KEY_DOUBLE).getItem(id);

@@ -24,6 +24,7 @@ import starlords.util.NexerlinUtilitys;
 import starlords.util.Utils;
 import starlords.util.lordUpgrades.UpgradeController;
 import starlords.util.memoryUtils.GenericMemory;
+import starlords.util.memoryUtils.Stats.StatsRandomOrganizer;
 import starlords.util.memoryUtils.genaricLists.SubStaticPreparationData;
 import starlords.util.randomLoader.RandomLoader_Controler;
 
@@ -165,5 +166,6 @@ public class LordsModPlugin extends BaseModPlugin {
 
     private void insureIntercityOfStructures(){
         SubStaticPreparationData.insureIntergerty();
+        StatsRandomOrganizer.insureCoreIntergerty();
     }
 }

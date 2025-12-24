@@ -23,7 +23,7 @@ public class ShipCompositionData {
     private double priority=0;
     //todo: put data here
     public ShipCompositionData(){
-        Memory = new GenericMemory(MemCompressedMasterList.KEY_SHIP,this);
+        Memory = new GenericMemory(MemCompressedMasterList.KEY_SHIP,null,this);
     }
     @Deprecated
     public void init(FleetCompositionData data, String variant,double weight){

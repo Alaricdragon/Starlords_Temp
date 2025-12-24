@@ -31,7 +31,7 @@ public class FleetCompositionData {
     @Getter
     private final GenericMemory Memory;
     public FleetCompositionData(){
-        Memory = new GenericMemory(MemCompressedMasterList.KEY_FLEET,this);
+        Memory = new GenericMemory(MemCompressedMasterList.KEY_FLEET,null,this);
     }
     public void addShip(String id, ShipCompositionData data){//, double ratio){
         this.data.put(id,data);
