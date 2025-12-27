@@ -1,3 +1,6 @@
+V0.3.65:
+    fixes:
+        maybe possibly fixed a crash involving the game thinking the player lost a battle and needed to be captured even though they were not in battle?
 V0.3.64:
     fixes:
         fixed a crash were a lord that preposed peace in the council died mid vote.
