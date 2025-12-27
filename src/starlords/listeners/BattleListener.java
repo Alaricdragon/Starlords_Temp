@@ -108,7 +108,7 @@ public class BattleListener extends BaseCampaignEventListener {
 			    }
 		    }
 		    winnerLords.add(lord);
-		    if (!lord.getFleet().isEmpty()) maybeCaptor.add(lord);
+		    if (!lord.getFleet().isEmpty() && !lord.isPlayer()) maybeCaptor.add(lord);
 
 		    // level up if enough stuff is killed
 		    if (!lord.isPlayer()) {
