@@ -1,0 +1,30 @@
+requirements:
+    1) AI structure upgrade.
+    2) dialog structure upgrade.
+    3) 'dialog interrupt' structure update.
+
+so, reputation. This was an important part of M&B warband. it represented how 'strong' you were.
+I would like something slightly more completed here
+
+each lord (and the player) would have the following values:
+    global:
+        1: 'fleet strength'
+        2: 'commander strength'
+    personal: (keep lord * lord values for this.)
+        1: 'matchup' strength.
+
+    1: fleet strength:
+        this is the global reputation this fleet has for fighting and destroying others. its basically what 'renown' is in mount and blade.
+        this is organized by the number of lords defeated+1 / time defeated+1, keeping in mind DP difference.
+        this value is considered when attempting to recruit, deciding to run / fight.
+        please keep in mind: this value is needs to be limited, in such a way it cannot rise infinitely. to do this, keep in mind DP differences in combat, and 'soft cap' this value based on how outmatched the lord was.
+    2: 'commander strength'
+        this is the reputation a giving lord has as a commander. this value can only be changed when preforming 'group' actions with other lords or PMC.
+        its calculated based on sucsesfull objectives compleated, friendly lords lost, hostile lords destroyed, and so on. (well in command of a campain).
+        this effects how mush other lords might want this person to lead them, as well as how 'respected' when leading a group attack.
+    3: 'matchup' strength.
+        this is a value based each lord holds to each other lord. (and the player). it determines how well this lord thinks they can fight the other lord.
+        this is organized by the number of victory's+1 / defeats+1, keeping in mind DP difference.
+        this acts the same as 'fleet strangth', but effects only the way a givin two lords interact with one another.
+        please keep in mind: this value is needs to be limited, in such a way it cannot rise infinitely. to do this, keep in mind DP differences in combat, and 'soft cap' this value based on how outmatched the lord was.
+

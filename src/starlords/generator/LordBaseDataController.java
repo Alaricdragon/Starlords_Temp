@@ -18,10 +18,8 @@ public class LordBaseDataController {
               1: I need to go into the 'dataBuilder' and make each and every one of them.... actually function under the new rules.
                  I am also going to attempt to avoid putting things inthe the GenericMemory. I built that system, and it is for things that cant, or should not be, put directly into the lord class.
                  example: the second in command data
-              2: I also need to review the lord generator
-
-
-
+                 -
+                 please note, in regards to this: I still dont know for sure what 'form' my final bits of data will take.
     */
     /* this handles forming the basic data structures that all lords follow. it also handles lord generation. please dont forget this again for fucks sakes.*/
     private static HashMap<String, LordBaseDataBuilder> map = new HashMap<>();

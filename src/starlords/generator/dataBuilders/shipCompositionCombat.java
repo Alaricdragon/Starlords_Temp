@@ -55,7 +55,7 @@ public class shipCompositionCombat implements LordBaseDataBuilder {
         for (String a : shipsToUse.keySet()){
             ShipCompositionData.addShipToFleetCompFromGenerator(data,a,shipsToUse.get(a));
         }
-        lord.getMemory().setCompressed_Object(FLEETCOMP_COMBAT, data);
+        lord.getFleetCompositionData().setCombat(data);
 
         //save both used ships, and all possable ships. this is for flagship generation
         Pair<HashMap<String,Double>,AvailableShipData> out = new Pair<>(shipsToUse,ships);

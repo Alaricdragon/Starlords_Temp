@@ -55,7 +55,7 @@ public class shipCompositionCiv_Tug implements LordBaseDataBuilder {
         for (String a : shipsToUse.keySet()){
             ShipCompositionData.addShipToFleetCompFromGenerator(data,a,shipsToUse.get(a));
         }
-        lord.getMemory().setCompressed_Object(FLEETCOMP_TUG, data);
+        lord.getFleetCompositionData().setTug(data);
     }
 
     @Override

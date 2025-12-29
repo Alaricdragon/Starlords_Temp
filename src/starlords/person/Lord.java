@@ -29,6 +29,7 @@ import starlords.ui.PrisonerIntelPlugin;
 import starlords.util.*;
 import starlords.util.factionUtils.FactionTemplateController;
 import starlords.util.fleetCompasition.FullFleetCompositionData;
+import starlords.util.fleetCompasition.ShipCompositionData;
 import starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList;
 import starlords.util.memoryUtils.DataHolder;
 import starlords.util.memoryUtils.GenericMemory;
@@ -43,6 +44,7 @@ import java.util.Map;
 
 import static starlords.controllers.LordController.finalizeLordCreation;
 import static starlords.util.Constants.*;
+
 
 @Getter
 public class Lord {
@@ -84,7 +86,19 @@ public class Lord {
     @Setter
     private FullFleetCompositionData fleetCompositionData = new FullFleetCompositionData();
 
+    @Setter
+    private ShipCompositionData flagship;
 
+    //!!-- temp data here. some of this might need to be moved for compression reasons. Some of it is fine. I need to take the time to work this out latter--!!//
+
+    @Setter
+    private String faction;//by default, this is bound to the lord API. regardless of that, I need to set this data very early on.
+
+    @Setter
+    private String culture;//this will always need to be here.
+
+    @Setter
+    LordPersonality personality;//this might need to be complacently changed at some point. make personalitys modifiable. but that would be in the dialog update maybe? I think so.
 
     //!!--old data here. need to improve this--!!//
 
@@ -401,7 +415,7 @@ public class Lord {
 
     public FactionAPI getFaction() {
         if (isPlayer) return Utils.getRecruitmentFaction();
-        return lordAPI.getFaction();
+        return Global.getSector().getFaction(faction);//lordAPI.getFaction();
     }
 
     public CampaignFleetAPI getFleet() {

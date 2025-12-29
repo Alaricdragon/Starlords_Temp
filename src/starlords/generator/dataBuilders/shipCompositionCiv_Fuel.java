@@ -55,7 +55,7 @@ public class shipCompositionCiv_Fuel implements LordBaseDataBuilder {
         for (String a : shipsToUse.keySet()){
             ShipCompositionData.addShipToFleetCompFromGenerator(data,a,shipsToUse.get(a));
         }
-        lord.getMemory().setCompressed_Object(FLEETCOMP_FUEL, data);
+        lord.getFleetCompositionData().setFuel(data);
     }
 
     @Override

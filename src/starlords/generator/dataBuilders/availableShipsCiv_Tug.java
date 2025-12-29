@@ -26,9 +26,7 @@ public class availableShipsCiv_Tug implements LordBaseDataBuilder {
 
     @Override
     public void prepareStorgeInMemCompressedOrganizer() {
-
-        MemCompressedPrimeSetterUtils mem = MemCompressedPrimeSetterUtils.getHolder(KEY_LORD);
-        mem.setObject(FLEETCOMP_TUG, linkedObject -> new FleetCompositionData());
+        //this data is set directly stored in the Lord class.
     }
 
     @Override
@@ -58,7 +56,7 @@ public class availableShipsCiv_Tug implements LordBaseDataBuilder {
         Object script = Utils.isScriptOrObject(json,jsonKey,lord);
         if (script!= null){
             FleetCompositionData data = (FleetCompositionData) script;
-            lord.getMemory().setCompressed_Object(fleetKey, data);
+            setFleetByType(lord,data,fleetKey);
             return;
         }
         FleetCompositionData data = new FleetCompositionData();
@@ -68,20 +66,39 @@ public class availableShipsCiv_Tug implements LordBaseDataBuilder {
             if (script != null){
                 ShipCompositionData ship = (ShipCompositionData) script;
                 ship.init(lord,fleetKey);
+                ship.getMemory().getDATA_HOLDER().setBoolean("isScript",true,1);
                 continue;
             }
             JSONObject b = array.getJSONObject(a);
             ShipCompositionData.addShipToFleetCompFromJson(data,b,lord);
         }
-        lord.getMemory().setCompressed_Object(fleetKey, data);
+        setFleetByType(lord,data,fleetKey);
+        lord.getFleetCompositionData().setTug(data);
 
+    }
+    private static void setFleetByType(Lord lord, FleetCompositionData data, String type){
+        switch (type){
+            case fleetMemoryKey:
+                lord.getFleetCompositionData().setTug(data);
+                break;
+            case availableShipsCiv_Cargo.fleetMemoryKey:
+                lord.getFleetCompositionData().setCargo(data);
+                break;
+            case availableShipsCiv_Fuel.fleetMemoryKey:
+                lord.getFleetCompositionData().setFuel(data);
+                break;
+            case availableShipsCiv_Personal.fleetMemoryKey:
+                lord.getFleetCompositionData().setPersonal(data);
+                break;
+        }
     }
     @Override
     public void generate(Lord lord) {
+        //this is held in latter stages for other stages of the generator. its separate for allowing someone to override data.
         lord.getMemory().getDATA_HOLDER().setObject(fleetMemoryKey, getPossibleShips(lord),1);
     }
     public AvailableShipData getPossibleShips(Lord lord){
-        String fac = lord.getMemory().getCompressed_String("culture");
+        String fac = lord.getCulture();
         AvailableShipData out = AvailableShipData.getAvailableShips(fac,AvailableShipData.HULLTYPE_TUG);
         if (out.getUnorganizedShips().isEmpty()) {
             Utils.log.info("WARNING: was forced to use the final emergency fleet generator for a starlords fleet (tug)");

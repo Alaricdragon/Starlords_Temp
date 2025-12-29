@@ -33,19 +33,19 @@ public class faction implements LordBaseDataBuilder {
 
         //lord.getLordAPI().setFaction(json.getString("faction"));
         //please keep in mind, this is not changed on defection -yet-. it will need to be later though.
-        lord.getMemory().setCompressed_String(Lord.MEMKEY_Faction,a);
+        lord.setFaction(a);
+        //lord.getMemory().setCompressed_String(Lord.MEMKEY_Faction,a);
     }
 
     @Override
     public void generate(Lord lord) {
         //todo: make it so the generator sets this before hand.
+        //      basically, this is not the issue of this function. it just cant be.
     }
 
     @Override
     public void prepareStorgeInMemCompressedOrganizer() {
-        //this might be needed some day, but its not for now.
-        MemCompressedPrimeSetterUtils mem = MemCompressedPrimeSetterUtils.getHolder(KEY_LORD);
-        mem.setString(Lord.MEMKEY_Faction,linkedObject -> "");
+        //this data is set directly stored in the Lord class.
     }
 
     @Override

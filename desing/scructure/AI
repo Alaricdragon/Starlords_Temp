@@ -2,3 +2,95 @@ AI structure needs to be upgraded for the full modability exspereance.
 this will allow me to change AI on a lord by lord bases, as well as dramatically improving mod ability.
 
 when I first do this, I wont work to hard on improving things, because I need to basicly redo the AI in the PMC update.
+...
+it might be better to do the 'hard to do things' in this update, before I get to the full rework. just don't include the PMC data -yet-.
+
+things in the AI that are broken:
+    1: retreat / avoid / can win this fight logic:
+        the AI cannot tell when it cannot win a fight, or when a fight is hard. They just... go to the objective.
+        this is fine, if they -wanted- to go to the objective. but they sometimes dont.
+
+    2: hostile fleet detection:
+        a lot of the time, the AI will not know who the player is, even when it is very very blantent, and all other fleets know who the player is.
+        I dont know how this effects other fleets.
+
+    3: group objective capture:
+        when in groups (only campaigns for now) multiple starlords will struggle to assist each other. this is bad.
+        some will run off to attack random fleets, some will just not help anyone ever. this can be even worse in the context of the player.
+
+    4: group multi target objectives:
+        sometimes, an attack might have multiple objectives that are all achievable. in such cases, it can be a really bad idea to stick together and wast time.
+        it might be better to let the lords split up in such a case.
+
+    5: invasions:
+        right now, invasions are completely unable to retrieve marines after an invasion.
+        implement this. this will also path the way to allowing a campain to preform multible invasions.
+
+    6: invasion targeting:
+        when targeting invasions, the following should be considered:
+            1: the ground combat strength of the target compaired to what is in the fleet.
+            2: the fleet defense strength of the planet, compaired to the power of the invasion force (campaign or otherwise)
+            3: the loss of invasion strength / fleet strength from attacking the target
+            4: other nearby targets for invasion / raids (if a campaign is ongoing) and there relevant target data (such as what is descused here).
+
+    7: raiding targeting:
+        when targeting raids, the following should be considered:
+            1: the ground defense of the target compaired to the raid strength of the attacking force.
+            2: the fleet defenses strength of the planet compaired to what is in the attacking force.
+            3: the loss of raiding strength / fleet strength from attacking the planet.
+            4: other nearby targets for raids and there relevent target data.
+    8: raiding and invasion gains:
+        raiding and invasion should generate credits on a successful attack.
+        if I really want to go all out, it should generate 'goods' that the fleet will then need to move to a friendly, not recently invaded market to sell.
+
+    9: single lord attack tactics (also apply to campaigns, but some of this wont be used in larger campaigns):
+        when attacking (invasions or raids), single lords should beable to engage in less direct combat. what I mean is:
+            1: lords should beable to 'sneak' into a hostile world to raid / invade.
+            2: lords should beable to do things like create distractions, hit trade fleets for stability, and hunt smaller fleets in a hostile system.
+            3: lords should beable to take into account things like senser strength, profile, and burn speed when doing this. so they know what they can do.
+        consider 'strange' tactics such as:
+            a: hiding around a star fortress / battle station when being hunted.
+            b: hunting down hostile lords (to sell or otherwise)
+            c: luring hostile fleets away from were the action is.
+            d: hiding in nebela or the outer sector to avoid an attacker.
+
+    10: campaign and group fight tactics:
+        when in a campaign of some type, more advanced tactics might be applicable. some examples:
+            1: sending multiple lords to different locations (split up, and such) to preform different objectives. such as:
+                a: capture points
+                b: distract hostile fleets
+                c: scouting ahead for hostile forces or the next target.
+            2: considering 'strange' tactics, such as:
+                a: (a feint) sending a fleet to the other side of the system to convince a defending force that is were you are attacking.
+                b: deliberately hunting down a hostile campaign when on the offensive (harm hostile lords if an advantage is already present)
+                c: running a luring a hostile campaign or group away from your worlds when they are hunting you.
+                d: splitting the campaign into multiple to 'pretend' one is the 'real' campaign.
+
+    11: 'seeing' hostile fleets:
+        right now, you get 'warning' when a fleet is planing on attacking you.
+        something I could do, is make it so that when your forces (or some other math) 'sees' a hostile lord, it can tell the player were they were last seen.
+        things like campaigns and larger group attacks could be seen earlier, and things like smaller raiding lords could be mush harder to spot.
+        this could also work quite well into the 'multiple targeting' on raids and such. letting you know when a lord is in the area.
+
+        I could also use this as a 'were is everyone' system, were we can look on the holonet and find were someone was last seen. this could be cool.
+
+        I could also use this system to allow lords to counter other lords. such as telling patroling lords were a giving lord was last seen.
+        lastly, this system could hold a 'com really delay' that is normally present on missions and such. make it so the farther away from the action, the less 'up to date' your information is.
+
+    12: 'seeing' the player in context of larger campaigns.
+        lords should beable to recognize the player, and other hostile lords, as a threat.
+        ...
+        seeing the player or center lords as more of a threat is something for latter.
+
+    13: allow lords to keep in mind fuel, supplies, and crew they have available. letting them plan for things like resupply and refuel.
+        examples:
+            a: supply use per day, well keeping supplies in fleet.
+            b: cargo gained in raids / attacks. moving back to friendly space to sell and gain credits.
+            c: fuel use as travel happens.
+            d: crew loess and cr modifiers from low crew as crew is lost.
+            e: lose cargo/fuel/crew as you loes storge space space.
+    14: player as marshal:
+        with this update, I am adding a lot of so called 'fleet tactics'. When marsal, one should beable to command (or 'politely ask' available lords to do so).
+        this will need its own interface (CSV file) to beable to do so.
+        ...
+        maybe move all the 'group tactics' stuff over to a new feature page? maybe something that requires this AI upgrade to be completed?

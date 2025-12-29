@@ -12,7 +12,7 @@ if the leader of the PMC, you can use this at will?
 
 as for how PMC resources are generated? from markets. different commodity's count to different things.
 resource                    commodity
-Production:                 hulls X10 Military bases  (phq = X5*size, MB = X10*size, HC = X15*size)
+Production:                 hulls X10 Military bases  (PHQ = X5*size, MB = X10*size, HC = X15*size)
 Officers:                   ///crew X2
 Specialists:                ///crew X2 & marines X1
 AI Cores:                   ---
@@ -54,3 +54,30 @@ reconfiguration of resources:
             supplies. (both supplies and hulls come from the same industry. not acceptable.)
 
     option c: remove 'specialists'. no free Smods. but then again....
+
+...
+let us think of it in a different light:
+(keeping in mind that some industry's produce more then one of said items at the same time.)
+commoditys are:
+Supplies
+Fuel
+Crew
+Marines
+
+Food
+Organics
+Volatiles
+Ore
+Transplutonic Ore
+Metals
+Transplutonics
+Heavy Machinery
+Domestic Goods
+
+Harvested Organs
+Recreational Drugs
+Heavy Armaments
+Luxury Goods
+Volturnian Lobster
+
+Ship Hulls & Weapons

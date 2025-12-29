@@ -50,16 +50,16 @@ also note: many values can be replaced by scripts. any value that can be will be
     * [note] I need a way to make sure ship ratios are possible. in addition to 'a ship variant per b ship variant'.
   * 'ship_Json_Object' is a jsonObject structured as follows:
     * note: if you require more custom data, I would advise using 'scripOverride' on the lordGenerator functions.
-    * note: you -can- use a script here. it needs to be a ShipCompositionData class. (you will need to use the init function to add the ship to a fleet composition if you do.) This should only be used to 1) override functions, and 2) set the variables here: 'variant', 'idOverride', 'weight', 'priority', 'min', 'max' values.
+    * note: you -can- use a script here. it needs to return a ShipCompositionData class. (you will need to use the init function to add the ship to a fleet composition if you do.) This should only be used to 1) override functions, and 2) set the variables here: 'variant', 'idOverride', 'weight', 'priority', 'min', 'max' values.
     * "variant": String. [required] the variant ID of the ship.
     * "idOverride": String. replaces the 'variant' of a ship in the context of the 'required' json object. useful if you happen to have more then one ship in your Fleet_Json_Object of the same variantID (something that can happen if you want more then one ship of the same variant with different officers.)
     * "SMods": is a 'sMods_Json_Object' object
-    * "officers": is a JSonArray of 'person_Json_Object' objects
-    * "weight": Double . is the weight to build a given ship. default value is 1.
-    * "priority": Double. is the priority of this ship variant being built. default is zero. a 'Fleet_JSon_Object' will always try to build the ship with the highest priority regardless of context.
-    * "min": JSonObject is structured as:
+    * "officers": JSonArray. [not used on lords] of 'person_Json_Object' objects
+    * "weight": Double . [not used for lords] is the weight to build a given ship. default value is 1.
+    * "priority": Double. [not used for lords] is the priority of this ship variant being built. default is zero. a 'Fleet_JSon_Object' will always try to build the ship with the highest priority regardless of context.
+    * "min": JSonObject [not used for lords] is structured as:
       * "variantID/idOverride": double. the number of this ship is less then 'double * variantID', increase the priroity of building this ship by 10 per difference, effectively making this ship produce itself first.
-    * "max": JSonObject is structured as:
+    * "max": JSonObject [not used on lords] is structured as:
       * "variantID/idOverride": double. the number of this ship is equal or greater then 'double * variantID', decrease the priority of building this ship by 10 per difference, effectively making this ship never be produced.
   * 'sMods_Json_Object' is a boolean were 'false' will force this ship / ships not to have Smods, || is a jsonObject structured as follows:
     * "sModsID": Integer || JSonObject. SModsID is the hullmod you want to SMods. Integer is the 'wieght' of a given Smod being added. JSonObject 
@@ -75,19 +75,18 @@ also note: many values can be replaced by scripts. any value that can be will be
       * "script": String [not required] is the script that determines what this portrait is.
       * "faction": String [not required] is the faction that this portrait will be taken from, at random.
       * "limited": int [not required] the max number of officers with the portrait allows to be assined to whatever the '!!' class is being applied to. 
-    * "priority": Double. [not required] the 'priority' of this ship / group getting an officer. if set to zero, will always try to add an officer to other ships first. higher values will get officers mush more often. 
-    * "battle_personality": String. [not required, required for lords] is the combat personality of the starlord. possible (base game) values are:
+    * "priority": Double. [not used on lords] the 'priority' of this ship / group getting an officer. if set to zero, will always try to add an officer to other ships first. higher values will get officers mush more often. 
+    * "battle_personality": String. [not required] is the combat personality of the starlord. possible (base game) values are:
       * "reckless"
       * "aggressive"
       * "steady"
       * "cautious"
       * "timid"
-    * "isMale": boolean|| String [not required, required for lords] is if the person uses man or women pronouns. If a string, is a class path to '__', allowing for full pronoun control.
-    * "name": String || JSonObject [not required, required for lords] is the randomly generated name the lord will use. if a String, is just the name. if a JSonObject, is structred like so:
-      * "faction": String [not required] the faction this person will randomly draw there dame from
-      * "nameSet": String || JSonObject [not required] if String, the 'personNames' category this person will draw there name from. if a JsonObject, is structured like so:
+    * "isMale": boolean|| String is if the person uses man or women pronouns. If a string, is a class path to '__', allowing for full pronoun control.
+    * "name": String || JSonObject is the randomly generated name the lord will use. if a String, is just the name. if a JSonObject, is structred like so:
+      * "faction": String [if used, 'nameSet' should not be used] the faction this person will randomly draw there dame from
+      * "nameSet": String || JSonObject [if used 'faction' should not be used] if String, the 'personNames' category this person will draw there name from. if a JsonObject, is structured like so:
         * "catagoryID" : Double [required]. were 'categoryID' is the category of a certen name, and Double is the weight of getting this category.
-      * "script": String [not required] a classpath to '__' returns the name of the officer / starlord.
     * "tags": String || JSonArray [not required]. if a String, is a classpath to '__'. adds tags to this person. if a JSonArray, is a list of tags to be added to this person.
 * "Stats": JSONObject [not required]. a list of 'stats' the starlord happens to have. the stats will be used in many diffrent things. if a given stat does not exsist, it will instead be set useing the 'lords/randoms.csv' file.
   * I need to take a closer look at how this would work.

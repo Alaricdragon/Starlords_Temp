@@ -33,7 +33,7 @@ public class availableShipsCiv_Fuel implements LordBaseDataBuilder {
         lord.getMemory().getDATA_HOLDER().setObject(fleetMemoryKey, getPossibleShips(lord),1);
     }
     public AvailableShipData getPossibleShips(Lord lord){
-        String fac = lord.getMemory().getCompressed_String("culture");
+        String fac = lord.getCulture();
         AvailableShipData out = AvailableShipData.getAvailableShips(fac,AvailableShipData.HULLTYPE_TANKER);
         if (out.getUnorganizedShips().isEmpty()) {
             Utils.log.info("WARNING: was forced to use the final emergency fleet generator for a starlords fleet (fuel)");
@@ -45,8 +45,7 @@ public class availableShipsCiv_Fuel implements LordBaseDataBuilder {
 
     @Override
     public void prepareStorgeInMemCompressedOrganizer() {
-        MemCompressedPrimeSetterUtils mem = MemCompressedPrimeSetterUtils.getHolder(KEY_LORD);
-        mem.setObject(FLEETCOMP_FUEL, linkedObject -> new FleetCompositionData());
+        //this data is set directly stored in the Lord class.
     }
 
     @Override

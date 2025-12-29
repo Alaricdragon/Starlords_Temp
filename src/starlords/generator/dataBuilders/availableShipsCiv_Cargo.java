@@ -32,7 +32,7 @@ public class availableShipsCiv_Cargo implements LordBaseDataBuilder {
         lord.getMemory().getDATA_HOLDER().setObject(fleetMemoryKey, getPossibleShips(lord),1);
     }
     public AvailableShipData getPossibleShips(Lord lord){
-        String fac = lord.getMemory().getCompressed_String("culture");
+        String fac = lord.getCulture();
         AvailableShipData out = AvailableShipData.getAvailableShips(fac,AvailableShipData.HULLTYPE_CARGO);
         if (out.getUnorganizedShips().isEmpty()) {
             Utils.log.info("WARNING: was forced to use the final emergency fleet generator for a starlords fleet (cargo)");
@@ -43,9 +43,7 @@ public class availableShipsCiv_Cargo implements LordBaseDataBuilder {
     }
     @Override
     public void prepareStorgeInMemCompressedOrganizer() {
-
-        MemCompressedPrimeSetterUtils mem = MemCompressedPrimeSetterUtils.getHolder(KEY_LORD);
-        mem.setObject(FLEETCOMP_CARGO, linkedObject -> new FleetCompositionData());
+        //this data is set directly stored in the Lord class.
     }
 
     @Override

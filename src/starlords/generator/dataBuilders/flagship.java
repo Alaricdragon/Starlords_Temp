@@ -32,20 +32,21 @@ public class flagship implements LordBaseDataBuilder {
             //old data
             ShipCompositionData ship = new ShipCompositionData();
             ship.variant = json.getString("flagship");
-            lord.getMemory().setCompressed_Object(Lord.MEMKEY_Flagship,ship);
+            lord.setFlagship(ship);
             return;
         }
         Object script = Utils.isScriptOrObject(json.getJSONObject("fleetComposition"),"flagship",lord);
         if (script != null){
             ShipCompositionData ship = (ShipCompositionData) script;
             ship.init(lord,"FLAGSHIP");
-            lord.getMemory().setCompressed_Object(Lord.MEMKEY_Flagship,ship);
+            lord.setFlagship(ship);
+            ship.getMemory().getDATA_HOLDER().setBoolean("isScript",true,1);
             return;
         }
         String value = new ScriptedValueController(json.getJSONObject("fleetComposition").getJSONObject("flagship").getString("variant")).getNextString().getValue(lord);
         ShipCompositionData ship = new ShipCompositionData();
         ship.variant = value;
-        lord.getMemory().setCompressed_Object(Lord.MEMKEY_Flagship,ship);
+        lord.setFlagship(ship);
     }
 
     @Override
@@ -64,14 +65,12 @@ public class flagship implements LordBaseDataBuilder {
         String value = generator.pickFlagship(ships);
         ShipCompositionData ship = new ShipCompositionData();
         ship.variant = value;
-        lord.getMemory().setCompressed_Object(Lord.MEMKEY_Flagship,ship);
-
+        lord.setFlagship(ship);
     }
 
     @Override
     public void prepareStorgeInMemCompressedOrganizer() {
-        MemCompressedPrimeSetterUtils mem = MemCompressedPrimeSetterUtils.getHolder(KEY_LORD);
-        mem.setObject(Lord.MEMKEY_Flagship,linkedObject -> "");
+        //this data is set directly stored in the Lord class.
     }
 
     @Override

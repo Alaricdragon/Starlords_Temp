@@ -31,21 +31,10 @@ public class culture implements LordBaseDataBuilder {
                 case "luddic_path" -> Factions.LUDDIC_PATH;
                 default -> a;
             };
-            lord.getMemory().setCompressed_String(Lord.MEMKEY_Culture,a);
+            lord.setCulture(a);
             return;
         }
-        String a = new ScriptedValueController(json.getString("faction")).getNextString().getValue(lord);
-        a = switch (a.toLowerCase()) {
-            case "hegemony" -> Factions.HEGEMONY;
-            case "sindrian_diktat" -> Factions.DIKTAT;
-            case "tritachyon" -> Factions.TRITACHYON;
-            case "persean" -> Factions.PERSEAN;
-            case "luddic_church" -> Factions.LUDDIC_CHURCH;
-            case "pirates" -> Factions.PIRATES;
-            case "luddic_path" -> Factions.LUDDIC_PATH;
-            default -> a;
-        };
-        lord.getMemory().setCompressed_String(Lord.MEMKEY_Culture,a);
+        lord.setCulture(lord.getFaction().getId());
     }
 
     @Override
@@ -54,16 +43,13 @@ public class culture implements LordBaseDataBuilder {
         //      something I could do, is add a 'factions' csv file early, and make each one have a 'sub factions' data.
         //      the 'sub factions' data would be used here, allowing for random generation of starlord fleet dataTypes.
         //FactionAPI fac = Global.getSector().getFaction(lord.getMemory().getCompressedString("faction"));
-        //fac.getDoctrine();
-        //fac.getFactionSpec();
-        //fac.getRestrictToVariants();
-        lord.getMemory().setCompressed_String(Lord.MEMKEY_Culture,lord.getMemory().getCompressed_String("faction"));
+
+        lord.setCulture(lord.getFaction().getId());
     }
 
     @Override
     public void prepareStorgeInMemCompressedOrganizer() {
-        MemCompressedPrimeSetterUtils mem = MemCompressedPrimeSetterUtils.getHolder(KEY_LORD);
-        mem.setString(Lord.MEMKEY_Culture,linkedObject -> "");
+        //this data is set directly stored in the Lord class.
     }
 
     @Override

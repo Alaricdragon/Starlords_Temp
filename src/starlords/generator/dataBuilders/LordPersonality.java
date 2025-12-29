@@ -41,21 +41,19 @@ public class LordPersonality implements LordBaseDataBuilder {
     public void lordJSon(JSONObject json, Lord lord) {
         String a = new ScriptedValueController(json.getString("personality")).getNextString().getValue(lord);
         starlords.person.LordPersonality personality = starlords.person.LordPersonality.valueOf(a.toUpperCase());
-        lord.getMemory().setCompressed_Object(Lord.MEMKEY_Personality,personality);
+        lord.setPersonality(personality);
     }
 
     @Override
     public void generate(Lord lord) {
         String a = LordGenerator.getPersonalities()[LordGenerator.getValueFromWeight(LordGenerator.getPersonalityRatio())];
         starlords.person.LordPersonality personality = starlords.person.LordPersonality.valueOf(a.toUpperCase());
-        lord.getMemory().setCompressed_Object(Lord.MEMKEY_Personality,personality);
-
+        lord.setPersonality(personality);
     }
 
     @Override
     public void prepareStorgeInMemCompressedOrganizer() {
-        MemCompressedPrimeSetterUtils mem = MemCompressedPrimeSetterUtils.getHolder(KEY_LORD);
-        mem.setObject(Lord.MEMKEY_Personality,linkedObject -> "");
+        //this data is set directly stored in the Lord class.
     }
 
     @Override

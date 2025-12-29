@@ -36,7 +36,7 @@ public class availableShipsCombat implements LordBaseDataBuilder {
         Object script = Utils.isScriptOrObject(json,"json_combatFleet",lord);
         if (script!= null){
             FleetCompositionData data = (FleetCompositionData) script;
-            lord.getMemory().setCompressed_Object(FLEETCOMP_COMBAT, data);
+            lord.getFleetCompositionData().setCombat(data);
             return;
         }
         FleetCompositionData data = new FleetCompositionData();
@@ -46,6 +46,7 @@ public class availableShipsCombat implements LordBaseDataBuilder {
             if (script != null){
                 ShipCompositionData ship = (ShipCompositionData) script;
                 ship.init(lord,FLEETCOMP_COMBAT);
+                ship.getMemory().getDATA_HOLDER().setBoolean("isScript",true,1);
                 continue;
             }
             JSONObject b = array.getJSONObject(a);
@@ -53,14 +54,14 @@ public class availableShipsCombat implements LordBaseDataBuilder {
         }
         //so: all this needs to do is read every ship in space, and NOTHING ELSE.
         //only ships and there ratios need to be read.
-        lord.getMemory().setCompressed_Object(FLEETCOMP_COMBAT, data);
+        lord.getFleetCompositionData().setCombat(data);
     }
     @Override
     public void generate(Lord lord) {
         lord.getMemory().getDATA_HOLDER().setObject("generativeShips_Combat",getPossableShips(lord),1);
     }
     public AvailableShipData getPossableShips(Lord lord){
-        String fac = lord.getMemory().getCompressed_String("culture");
+        String fac = lord.getCulture();
         AvailableShipData out = AvailableShipData.getAvailableShips(fac,AvailableShipData.HULLTYPE_CARRIER,AvailableShipData.HULLTYPE_WARSHIP,AvailableShipData.HULLTYPE_PHASE);
         if (out.getUnorganizedShips().isEmpty()) {
             Utils.log.info("WARNING: was forced to use the final emergency fleet generator for a starlords fleet");
@@ -71,8 +72,7 @@ public class availableShipsCombat implements LordBaseDataBuilder {
     }
     @Override
     public void prepareStorgeInMemCompressedOrganizer() {
-        MemCompressedPrimeSetterUtils mem = MemCompressedPrimeSetterUtils.getHolder(KEY_LORD);
-        mem.setObject(FLEETCOMP_COMBAT, linkedObject -> new FleetCompositionData());
+        //this data is set directly stored in the Lord class.
     }
 
     @Override
@@ -95,7 +95,7 @@ public class availableShipsCombat implements LordBaseDataBuilder {
             ShipCompositionData ship = new ShipCompositionData();
             ship.init(data,key,json.getDouble(key));
         }
-        lord.getMemory().setBackupOrCurrent_Object(FLEETCOMP_COMBAT, data);
+        lord.getFleetCompositionData().setCombat(data);
     }
 
     @SneakyThrows
