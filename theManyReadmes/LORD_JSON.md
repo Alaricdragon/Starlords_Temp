@@ -70,11 +70,10 @@ also note: many values can be replaced by scripts. any value that can be will be
     * "level": Integer. [not required, required for lords] the max level of the officer (and current level for starlord. should match the number of combat skills added in such a case.)
     * "skills": JsonObject || String [not required] if a String, is a class path to '__'. if a jsonObject, is a list of skills that this officer can have.
       * "ID": Integer. 'ID' is skill ID. Integer is skill level. (_ for normal, _ for elite. some skills will have more levels then that.)
-    * "portrait" String || JSonArray [not required] is a string, is the portrait your officer/starlord will use is By default, the mod will check for .PNGs in `data/graphics/portraits/` of the base game or any mod folder. If your portraits are located in an unusual location, you can specify the path directly e.g. `graphics/my_folder/my_portraits/my_portrait.png`. This portrait must also be registered in any faction config in `data/world/factions`. You may register it under the `starlords_nobility` faction if you want a lord-exclusive portrait. if a jsonArray, it holds a list of jsonObjects structured as:
-      * "portrait": String [not required] is the path to your portrait, as described aboth. 
-      * "script": String [not required] is the script that determines what this portrait is.
-      * "faction": String [not required] is the faction that this portrait will be taken from, at random.
-      * "limited": int [not required] the max number of officers with the portrait allows to be assined to whatever the '!!' class is being applied to. 
+    * "portrait" String. is the portrait your officer/starlord will use is By default, the mod will check for .PNGs in `data/graphics/portraits/` of the base game or any mod folder. If your portraits are located in an unusual location, you can specify the path directly e.g. `graphics/my_folder/my_portraits/my_portrait.png`. This portrait must also be registered in any faction config in `data/world/factions`. You may register it under the `starlords_nobility` faction if you want a lord-exclusive portrait.
+      * note: for officers, this is recalculated every time a lord attempts to create a new officer.
+      * please keep in mind: you can use the system described in 'theManyReadmes.LINKEDOBJECT_AND_SCRIPTEDVALUES' to have more completed data stored here. there are even some custom ones just for this. example:
+      * S_FactionPortrait
     * "priority": Double. [not used on lords] the 'priority' of this ship / group getting an officer. if set to zero, will always try to add an officer to other ships first. higher values will get officers mush more often. 
     * "battle_personality": String. [not required] is the combat personality of the starlord. possible (base game) values are:
       * "reckless"
@@ -82,7 +81,7 @@ also note: many values can be replaced by scripts. any value that can be will be
       * "steady"
       * "cautious"
       * "timid"
-    * "isMale": boolean|| String is if the person uses man or women pronouns. If a string, is a class path to '__', allowing for full pronoun control.
+    * "isMale": boolean|| String is if the person uses man or women pronouns. If a string, is a class path to '-note yet added. will be added latter dont worry-', allowing for full pronoun control.
     * "name": String || JSonObject is the randomly generated name the lord will use. if a String, is just the name. if a JSonObject, is structred like so:
       * "faction": String [if used, 'nameSet' should not be used] the faction this person will randomly draw there dame from
       * "nameSet": String || JSonObject [if used 'faction' should not be used] if String, the 'personNames' category this person will draw there name from. if a JsonObject, is structured like so:

@@ -73,16 +73,13 @@ public class Lord {
     private GenericMemory Memory;
     private String jsonID = "";
     //costMaps for all relevent AI and none AI based things.
-    @Getter
     private UpgradeWeights upgradeWeights = new UpgradeWeights();
-    @Getter
+
     private IncomeWeights incomeWeights = new IncomeWeights();
     // Creates a lord from scratch, only run at campaign start
 
-    @Getter
     private ScripOverriderController scrips;
 
-    @Getter
     @Setter
     private FullFleetCompositionData fleetCompositionData = new FullFleetCompositionData();
 
@@ -100,6 +97,11 @@ public class Lord {
     @Setter
     LordPersonality personality;//this might need to be complacently changed at some point. make personalitys modifiable. but that would be in the dialog update maybe? I think so.
 
+    @Setter
+    private String preferredItemId;
+
+    @Setter
+    private String fleetName;
     //!!--old data here. need to improve this--!!//
 
     // Data stored in this dict will be persistent.
@@ -107,6 +109,7 @@ public class Lord {
     @Deprecated
     private Map<String, Object> persistentData;
 
+    @Setter
     private PersonAPI lordAPI;
 
     private int kills;

@@ -1,9 +1,15 @@
 id,order,script,loadPriority,Notes
 #internal ID of starlord attrubute,lower number items are generated first,"the 'LordBaseDataBuilder' scrip this is attached to.
 please note: this scrip is responcable for both reading the a lord.json file, and for generating the data related to itself, provided it is required.",,
-"#what faction this starlords has. used in many things, so it is loaded first",,,,
+#Data related to the 'core' of the starlord,,,,
 faction,0,starlords.generator.dataBuilders.faction,0,
-culture,0.1,starlords.generator.dataBuilders.culture,0,Calture defalts to faction if otherwize unset
+culture,0.01,starlords.generator.dataBuilders.culture,0,Calture defalts to faction if otherwize unset
+LordPersonality,0.02,starlords.generator.dataBuilders.LordPersonality,0,
+LordGender,0.03,starlords.generator.dataBuilders.LordGender,0,
+LordName,0.04,starlords.generator.dataBuilders.LordName,0,
+LordPortrait,0.06,starlords.generator.dataBuilders.LordPortrait,,
+LordFavItem,0.07,starlords.generator.dataBuilders.LordFavFood,0,
+,,,,
 #the ships that the starlord will use. ,,,,
 availableShipsCombat,1,starlords.generator.dataBuilders.availableShips,0,"if you overwrite this, I would advise you to override the 'getPossableShips' function, useing the AvailbleShipData.addShip function for compleat and total control over what ships a giving lord could randomly generate"
 availableShipsCiv_Tug,1.01,starlords.generator.dataBuilders.availableShipsCiv,0,-
@@ -23,15 +29,9 @@ shipCompositionCiv_Personal,1.24,starlords.generator.dataBuilders.shipCompositio
 flagship,1.3,starlords.generator.dataBuilders.flagship,0,"this determins the lords flagship. if unset, it uses a ship from the 'combat' fleet of a lord."
 ,,,,
 #create the starlord in its intierity,,,,
-LordPersonality,2,starlords.generator.dataBuilders.LordPersonality,0,
-LordName,2.01,starlords.generator.dataBuilders.LordName,0,
-LordGender,2.02,starlords.generator.dataBuilders.LordGender,0,
-LordPortrait,2.03,starlords.generator.dataBuilders.LordPortrait,,
-LordFavFood,2.04,starlords.generator.dataBuilders.LordFavFood,0,
-lordCombatPersonality,2.05,starlords.generator.dataBuilders.lordCombatPersonality,0,
-fleetName,2.06,starlords.generator.dataBuilders.fleetName,0,
-lordCombatSkills,2.07,starlords.generator.dataBuilders.lordCombatSkills,0,
-lordFleetSkills,2.08,starlords.generator.dataBuilders.lordFleetSkills,0,
+lordCombatPersonality,2,starlords.generator.dataBuilders.lordCombatPersonality,0,
+lordCombatSkills,2.01,starlords.generator.dataBuilders.lordCombatSkills,0,
+lordFleetSkills,2.02,starlords.generator.dataBuilders.lordFleetSkills,0,
 ,,,,
 officerSkillsAndPersonality,5.4,starlords.generator.dataBuilders.officerSkills,0,
 #fleet preferd Smods,,,,
@@ -47,7 +47,7 @@ officerSkillsAndPersonality,5.4,starlords.generator.dataBuilders.officerSkills,0
 ,,,,
 fiefs,10,starlords.generator.dataBuilders.fiefs,0,
 ,,,,
-,,,,
+fleetName,11,starlords.generator.dataBuilders.FleetName,0,this is placed here so I can use random data about a givin lord to create there fleetname
 #mod stuff here,,,,
 #SiC here,11,,,
 ,,,,

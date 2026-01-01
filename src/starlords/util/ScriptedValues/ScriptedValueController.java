@@ -73,7 +73,7 @@ public class ScriptedValueController {
         return getBasicValue(got,type);
     }
     private SV_Base getBasicValue(String script,String type){
-        if (script.startsWith("!~")) script = script.replaceFirst("!~","");
+        if (script.startsWith("!~")) script = script.replaceFirst("!~","~");
         else if (script.startsWith("!!~")) script = script.replaceFirst("!","");
         SV_Base out = null;
         switch (type){
@@ -93,13 +93,16 @@ public class ScriptedValueController {
         return out;
     }
     public SV_Base getPrebuiltScript(String script){
-        String type = script.replaceFirst("~!","");
+        String type = script.replaceFirst("~~","");
         SV_Base out = switch (type) {
             case "B_R" -> new SV_B_R();
             case "D_R" -> new SV_D_R();
             case "D_WR" -> new SV_D_WR();
             case "D_LR" -> new SV_D_LR();
+
             case "S_LR" -> new SV_S_LR();
+            case "S_FactionPortrait" -> new SV_S_FactionPortrait();
+
             default -> null;
         };
         if (out == null){

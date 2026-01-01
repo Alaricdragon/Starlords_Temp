@@ -1,6 +1,9 @@
 package starlords.util.fleetCompasition;
 
 import lombok.Getter;
+import lombok.Setter;
+import starlords.util.ScriptedValues.SV_Double;
+import starlords.util.ScriptedValues.SV_String;
 import starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList;
 import starlords.util.memoryUtils.GenericMemory;
 
@@ -28,6 +31,15 @@ public class FleetCompositionData {
                     - for example: max 2 : astral_attack. for each astral_attack, make at most 2 of this ship before it is no longer an option.
 
      */
+    @Getter
+    @Setter
+    private SV_String portraitDefault;
+    @Getter
+    @Setter
+    private SV_String nameDefault;
+    @Getter
+    @Setter
+    private SV_Double genderDefault;
     @Getter
     private final GenericMemory Memory;
     public FleetCompositionData(){

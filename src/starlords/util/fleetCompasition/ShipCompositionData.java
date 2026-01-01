@@ -1,9 +1,12 @@
 package starlords.util.fleetCompasition;
 
+import com.fs.starfarer.api.characters.FullName;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 import starlords.person.Lord;
+import starlords.util.ScriptedValues.SV_Double;
+import starlords.util.ScriptedValues.SV_String;
 import starlords.util.ScriptedValues.ScriptedValueController;
 import starlords.util.memoryUtils.Compressed_outdated.MemCompressedMasterList;
 import starlords.util.memoryUtils.GenericMemory;
@@ -21,6 +24,11 @@ public class ShipCompositionData {
     private final GenericMemory Memory;
     private double weight=1;
     private double priority=0;
+
+    private SV_String portraitDefault;
+    private SV_String nameDefault;
+    private SV_Double genderDefault;
+
     //todo: put data here
     public ShipCompositionData(){
         Memory = new GenericMemory(MemCompressedMasterList.KEY_SHIP,null,this);
@@ -91,5 +99,36 @@ public class ShipCompositionData {
         ship.variant = variantID;
         ship.weight = weight;
         data.addShip(variantID,ship);
+    }
+
+    public String getOfficerPortrait(FullFleetCompositionData fullData, FleetCompositionData data,Object linkedObject){
+        //this will return null if the officer is not getting its own portrait. so if null, do whatever is the defalt data.
+        if (portraitDefault != null) return portraitDefault.getValue(linkedObject);
+        if (data != null) return data.getPortraitDefault().getValue(linkedObject);
+        if (fullData.getPortraitDefault() != null) return fullData.getPortraitDefault().getValue(linkedObject);
+        return null;
+    }
+    public String getOfficerName(FullFleetCompositionData fullData, FleetCompositionData data,Object linkedObject){
+        //this will return null if the officer is not getting its own portrait. so if null, do whatever is the defalt data.
+        if (nameDefault != null) return nameDefault.getValue(linkedObject);
+        if (data != null) return data.getNameDefault().getValue(linkedObject);
+        if (fullData.getNameDefault() != null) return fullData.getNameDefault().getValue(linkedObject);
+        return null;
+    }
+    public FullName.Gender getGender(FullFleetCompositionData fullData, FleetCompositionData data,Object linkedObject){
+        int value = genderValue(fullData, data, linkedObject);
+        if (value == -1) return null;
+        return switch (value){
+            case 0 -> FullName.Gender.ANY;
+            case 1 -> FullName.Gender.MALE;
+            case 2 -> FullName.Gender.FEMALE;
+            default -> null;
+        };
+    }
+    private int genderValue(FullFleetCompositionData fullData, FleetCompositionData data,Object linkedObject){
+        if (genderDefault != null) return (int) genderDefault.getValue(linkedObject);
+        if (data != null) return (int) data.getGenderDefault().getValue(linkedObject);
+        if (fullData.getGenderDefault() != null) return (int) fullData.getGenderDefault().getValue(linkedObject);
+        return -1;
     }
 }

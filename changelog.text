@@ -3,11 +3,14 @@ example: with a value of 5 items between target-5 and target+5 will have a 68% c
 in effect, the smaller this value, the more 'flat' the distribution of values will be.
 set to 0 for true random.
 
-V0.3.??:
+V0.4.0:
     important:
         I have modified some base values in the LunaSettings. I highly advice you to reset your mod settings. If not, the generater might start to act strange.
     fixes:
         improved the standard distribution function to work instead of suck.
+        I removed the ability for lords to have a fav item based on what markets they had. this is because they have no dialog options by nature. This will be returned in a feature update when I add that capability.
+    modding:
+        I have added a system called 'Scripted Values'. its not fully integrated yet, but all starlord.json files can make use of it for literally any value. It allows for scripts or other dynamic values to be used.
 V0.3.45:
     fixes:
         fixed starlords attacking hidden markets. (the [hidden for spoiler reasons] should be safe now).

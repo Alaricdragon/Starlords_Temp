@@ -39,6 +39,9 @@ this can be done by the following values:
       * d11: the 'weight' of this value in the list
       * keep in mind, d10 and d11 can repeat themselves as many times as required.
       * examples: '~~S_LR:4:cat:10:bird:5' (10/15 cat, 5/15 bird). '~~S_LR:10:cat:10:bird:5:dog:15:bear:20:frog:25' (10/85 cat, 5/85 bird, 15/85 dog, 20/85 bear, 25/85 frog)
+    * S_FactionPortrait: a path to a random portrait from the inputted faction. should look like: 'S_FactPort:s0:d1'
+      * s0: the faction ID you want to get a portrait from.
+      * d1: the 'gender'. set to 0 for any, set to 1 for male, set to 2 for female. rounds down.
   * for object:
 
 

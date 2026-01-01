@@ -15,11 +15,23 @@ public class LordBaseDataController {
     /*
         todo: so... what do I need to do here?
               everything is mostly in order. But I do need to preform some upgrades to things I have already done, to compensate for the fact that 'memCompressedOrganizer' was a terrible idea.
-              1: I need to go into the 'dataBuilder' and make each and every one of them.... actually function under the new rules.
+              1 (done. just need to finish other things): I need to go into the 'dataBuilder' and make each and every one of them.... actually function under the new rules.
                  I am also going to attempt to avoid putting things inthe the GenericMemory. I built that system, and it is for things that cant, or should not be, put directly into the lord class.
                  example: the second in command data
                  -
                  please note, in regards to this: I still dont know for sure what 'form' my final bits of data will take.
+             -
+             2) so.... in regards to fleet composition, and other relent data:
+                something I could do is make it so all ships variances, s-mods, and so forth are all scripted values.
+                this would let people have increadable control over what is in a giving fleet.
+                the real question would be: when is this recalculated? also, how would this effect ram useage?
+                ...
+                ok, so like.....
+                for each bit of data:
+                    for vareants: I should proboly reclaulate that each time I want to build a ship?
+                    or I could reclalculate it when a thing is called? arg....
+                    I dont know.....
+                    its an option. to refactor that in such a way. it really is.
     */
     /* this handles forming the basic data structures that all lords follow. it also handles lord generation. please dont forget this again for fucks sakes.*/
     private static HashMap<String, LordBaseDataBuilder> map = new HashMap<>();
