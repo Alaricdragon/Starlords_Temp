@@ -1,207 +1,204 @@
 fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValue,maxValue,tab
-Header_MainSettings,,Header,Fetures,,,,,Fetures
-text_MainSettings,,Text,This is the area were you can enable / disable features.,,,,,Fetures
-fetures_newLordsInNewGame,Enable additonal lords on startup,Boolean,false,,"If set to true, when starting a new game factions will create there own randomly generated starlords, provided said faction does not already have any",,,Fetures
-fetures_lifeAndDeathSystem,Enable life and death system,Boolean,false,,"If set to true, starlord will beable to die. in additional, new starlords will enter the game as time goes on",,,Fetures
-Header_AttackSettings,,Header,Player Attack Settings,,,,,Fetures
-text_AttackSettings,,Text,This is were you can deside how agressive starlords are to the player faction,,,,,Fetures
-features_canPlayerFactionBeAttacked,Enable player getting attacked,Boolean,true,,"If set to true, the player faction can be attacked by starlords.",,,Fetures
-features_canPlayerFactionBeAttackedBeforeStarlords,Enable player getting attacked before starlords,Boolean,false,,"If set to true, the player faction can be attacked before they have starlords in there faction. does not matter if 'Enable player getting attacked' is set to false",,,Fetures
+Header_MainSettings,,Header,Features,,,,,Features
+text_MainSettings,,Text,This is the area were you can enable / disable features.,,,,,Features
+fetures_newLordsInNewGame,Generate additional lords on new game start,Boolean,FALSE,,"If set to true, when starting a new game factions will create their own randomly generated lords, provided said faction does not already have any.",,,Features
+fetures_lifeAndDeathSystem,"Enable ""Life and Death"" system",Boolean,FALSE,,"If set to true, lords can be permanently killable and new lords will enter the game as time goes on.",,,Features
+Header_AttackSettings,,Header,Player Faction Attack Settings,,,,,Features
+text_AttackSettings,,Text,"Configure whether hostile lords attack the player faction, and how aggressively.",,,,,Features
+features_canPlayerFactionBeAttacked,Allow attacks on player faction,Boolean,TRUE,,"If set to true, the player's faction can be attacked by hostile lords.",,,Features
+features_canPlayerFactionBeAttackedBeforeStarlords,Allow attacks before any lords join,Boolean,FALSE,,"If set to true, the player's faction can be attacked before any lords join the faction. Has no effect if 'Allow attacks on player faction' is false.",,,Features
 ,,,,,,,,
-Header_lordRelationSettings,,Header,Lord intel interaction settings,,,,,Other
+Header_lordRelationSettings,,Header,Lord Intel Settings,,,,,Other
 Other_requiredRepForDirectContact,Required reputation for directly opening communications from the lords tab,Int,75,,,-100,100,Other
-Other_requiredRepForKnowledgeOfLocation,Required reputation for knowing a lords location from the lords tab,Int,75,,,-100,100,Other
-Other_requiredRepForKnowledgeOfShips,Required reputation for knowing a lords ships from the lords tab,Int,50,,,-100,100,Other
-Other_requiredRepForKnowledgeOfWealth,Required reputation for knowing a lords wealth from the lords tab,Int,25,,,-100,100,Other
-Other_requiredRepForKnowledgeOfCurAction,Required reputation for knowing a lords current action from the lords tab,Int,50,,,-100,100,Other
-Other_showAllLordsIntelByDefault,Show lords in the intel tab before you meet them,Boolean,false,,,,,Other
-Other_showMessageLordCaptureReleaseEscape,"Show UI Message when lords are captured, released or escape",Boolean,false,,This setting is always true for lords of your own faction or faction you have a commission with.,,,Other
-Other_playerExtraCouncilWeight,Player Extra Own Faction Council Weight,Int,2000,,This setting adds the configured value to the player's weight in own faction's council votes..,0,5000,Other
-Other_minStabilityToPreventFiefDefection,"Minimum Stability to Prevent Fief Defection",Int,7,,"This setting sets the minimum stability the fief/market needs to have in order to not defect with the lord. If the market has lower stability than the configured value, then it will defect.",0,10,Other
+Other_requiredRepForKnowledgeOfLocation,Required reputation for knowing a lord's location from the lords tab,Int,75,,,-100,100,Other
+Other_requiredRepForKnowledgeOfShips,Required reputation for knowing a lord's ships from the lords tab,Int,50,,,-100,100,Other
+Other_requiredRepForKnowledgeOfWealth,Required reputation for knowing a lord's wealth from the lords tab,Int,25,,,-100,100,Other
+Other_requiredRepForKnowledgeOfCurAction,Required reputation for knowing a lord's current action from the lords tab,Int,50,,,-100,100,Other
+Other_showAllLordsIntelByDefault,Show lords in the intel tab before you meet them,Boolean,FALSE,,,,,Other
+Other_showMessageLordCaptureReleaseEscape,"Show UI Message when lords are captured, released, or escape",Boolean,FALSE,,This setting is always true for lords of your own faction or faction you have a commission with.,,,Other
+Other_playerExtraCouncilWeight,Player extra council weight,Int,2000,,Player faction only. Adds the setting value to the player's own council votes.,0,5000,Other
+Other_minStabilityToPreventFiefDefection,Minimum stability to prevent fief defection,Int,7,,"Fief markets at or above this stability level will not defect. If stability drops below this value, the lord may defect and take the market with them.",0,10,Other
 ,,,,,,,,
-Header_lordFleetSettings,,Header,Lord fleet settings,,,,,Other
-Other_maxSMods,Maximum number of S-Mods a starlord can have on each ship,Int,3,,,0,100,Other
-Other_exstraSModsForSpecalMods,Increases the max number of S-Mods a each ship can have by 5 if 'Progressive S-Mods' is instaled,Boolean,true,,,,,Other
+Header_lordFleetSettings,,Header,Lord Fleet Settings,,,,,Other
+Other_maxSMods,Maximum number of S-Mods a lord can have on each ship,Int,3,,,0,100,Other
+Other_exstraSModsForSpecalMods,"If 'Progressive S-Mods' is installed, increase max number of S-Mods by 5",Boolean,TRUE,,,,,Other
 ,,,,,,,,
-EL_EnableAdditionalLords,Enable additonal lords for all faction,Boolean,false,,"if set to true, every faction will beable to gain additional starlords. regardless of if they already have starlords or not",,,Exstra Lords
-EL_EnableMaxLords,Enable a maximum number of lords that the generator will allow,Boolean,true,,"if set to true, starlords will not be generated past the maximum amount. instead, the game will attempt to reduce everyfactions generated starlords so a number around the max amount is generated",,,Exstra Lords
-EL_MaxGeneratedLords,The maximum number of lords that will be generated.,Int,1000,,"please keep in mind: this will calulate each tier of lords indevidualy. it will also round down for that. so if this triggers, you will very rarely get the max number of lords. will only trigger if the calculated number of lords to generate is greater then this value",1,10000,Exstra Lords
+EL_EnableAdditionalLords,Allow additional lords for all factions,Boolean,FALSE,,"Every faction will gain additional lords, regardless of whether they have any already.",,,Extra Lords
+EL_EnableMaxLords,Enable maximum total lord cap,Boolean,TRUE,,"Lords will not be generated past the maximum amount. Instead, the game will attempt to reduce every faction's generated lords so a number around the max amount is generated. Only affects randomly generated lords, and not the statically defined ones in json.",,,Extra Lords
+EL_MaxGeneratedLords,The maximum number of lords that will be generated,Int,1000,,"This will calculate each tier of lords individually, and then round down. This will only trigger if the calculated number of lords to generate is greater than this value.  This factors in statically defined lords.",1,10000,Extra Lords
 ,,,,,,,,
-Header_LordsPerSize,,Header,Lords Per faction Size,,,,,Exstra Lords
-text_LordsPerSize,,Text,This handles the number of lords generated per total market size of a given faction. ,,,,,Exstra Lords
-EL_T0PerSize,Tier 0 starlords per size,Double,0.1333,,,0,1,Exstra Lords
-EL_T1PerSize,Tier 1 starlords per size,Double,0.0589,,,0,1,Exstra Lords
-EL_T2PerSize,Tier 2 starlords per size,Double,0,,,0,1,Exstra Lords
+Header_LordsPerSize,,Header,Lords Per Faction Size,,,,,Extra Lords
+text_LordsPerSize,,Text,This handles the number of lords generated based on total combined market size of a given faction. ,,,,,Extra Lords
+EL_T0PerSize,Tier 0 lords per total combined size,Double,0.1333,,,0,1,Extra Lords
+EL_T1PerSize,Tier 1 lords per total combined size,Double,0.0589,,,0,1,Extra Lords
+EL_T2PerSize,Tier 2 lords per total combined size,Double,0,,,0,1,Extra Lords
 ,,,,,,,,
-Header_LordsAdditional,,Header,Additional Lords,,,,,Exstra Lords
-text_LordsAdditional,,Text,This handles the number of additonal lords generated in each faction. this is a static amount,,,,,Exstra Lords
-EL_T0Additional,Additional tier 0 starlords,Double,0,,,0,1000,Exstra Lords
-EL_T1Additional,Additional tier 1 starlords,Double,0,,,0,1000,Exstra Lords
-EL_T2Additional,Additional tier 2 starlords,Double,1,,,0,1000,Exstra Lords
+Header_LordsAdditional,,Header,Additional Lords,,,,,Extra Lords
+text_LordsAdditional,,Text,This handles the number of additional lords generated in each faction as a static amount on top of what is already calculated.,,,,,Extra Lords
+EL_T0Additional,Additional tier 0 lords,Double,0,,,0,1000,Extra Lords
+EL_T1Additional,Additional tier 1 lords,Double,0,,,0,1000,Extra Lords
+EL_T2Additional,Additional tier 2 lords,Double,1,,,0,1000,Extra Lords
 ,,,,,,,,
-Header_LordsOddsOfFief,,Header,Odds Of fief,,,,,Exstra Lords
-text_LordsOddsOfFief,,Text,"This handles the odds of a given starlord of a given tier having a fief at game start.
-please keep in mind that if to many starlords are selected for a fief, some starlords will be compleatly unable to gain a fief, regardless of how high you set this setting",,,,,Exstra Lords
-EL_T0OddsOfFief,Odds of fief for tier 0 starlords,Double,0.589,,,0,1,Exstra Lords
-EL_T1OddsOfFief,Odds of fief for tier 1 starlords,Double,0.9,,,0,1,Exstra Lords
-EL_T2OddsOfFief,Odds of fief for tier 2 starlords,Double,1,,,0,1,Exstra Lords
+Header_LordsOddsOfFief,,Header,Odds Of Fief,,,,,Extra Lords
+text_LordsOddsOfFief,,Text,"Odds of any given lord of a given tier having a fief at new game start. If many lords are selected for a fief, some may be unable to gain a fief regardless of how high these settings are.",,,,,Extra Lords
+EL_T0OddsOfFief,Odds of fief for tier 0 lords,Double,0.589,,,0,1,Extra Lords
+EL_T1OddsOfFief,Odds of fief for tier 1 lords,Double,0.9,,,0,1,Extra Lords
+EL_T2OddsOfFief,Odds of fief for tier 2 lords,Double,1,,,0,1,Extra Lords
 ,,,,,,,,
-Header_LAD_Fetures,,Header,Fetures,,,,,Life And Death
-Text_LAD_Fetures,,Text,Enable or disable parts of this feture here (only works if life and death is enabled),,,,,Life And Death
-LAD_AllowExstremests,Allow exstremests,Boolean,true,,,,,Life And Death
-LAD_AllowLife,Allow new lords to spawn,Boolean,true,,,,,Life And Death
-LAD_AllowDeath,Allow lords to die,Boolean,true,,,,,Life And Death
+Header_LAD_Fetures,,Header,Features,,,,,Life and Death
+Text_LAD_Fetures,,Text,Enable parts of the Life and Death system (if the system itself is enabled).,,,,,Life and Death
+LAD_AllowExstremests,Allow extremists,Boolean,TRUE,,"If enabled, 'extremists' (such as pirates, or Luddic Path) will spawn instead of a faction lord if market stability is low enough.",,,Life and Death
+LAD_AllowLife,Allow new lords to spawn,Boolean,TRUE,,,,,Life and Death
+LAD_AllowDeath,Allow lords to die,Boolean,TRUE,,,,,Life and Death
 ,,,,,,,,
-Header_LAD_HardLimits,,Header,Hard Limits,,,,,Life And Death
-Text_LAD_HardLimits,,Text,This is the limits to spawn amounts (the life and death system will not allow lords to spawn or be killed when past thease values),,,,,Life And Death
-LAD_hardMax,Maximum number of lords,Int,1000,,,1,10000,Life And Death
-LAD_hardMin,Minimum number of lords,Int,40,,,1,10000,Life And Death
+Header_LAD_HardLimits,,Header,Hard Limits,,,,,Life and Death
+Text_LAD_HardLimits,,Text,"Absolute limits for this system, lords cannot be generated or killed when past these values.",,,,,Life and Death
+LAD_hardMax,Hard maximum number of lords,Int,1000,,,1,10000,Life and Death
+LAD_hardMin,Hard minimum number of lords,Int,40,,,1,10000,Life and Death
 ,,,,,,,,
-Header_LAD_SoftLimits,,Header,Soft Limits,,,,,Life And Death
-Text_LAD_SoftLimits,,Text,this is the limits to spawn amounts (lord spawn / death raits will be modified by the _ values when past the soft min and max values),,,,,Life And Death
-LAD_softMax,Soft maximum number of lords,Int,400,,,1,10000,Life And Death
-LAD_softMin,Soft minimum number of lords,Int,100,,,1,10000,Life And Death
-LAD_softSpeedup,Speedup per lord under min,Double,0.1,,calculates speed up as a multiplyer equal to 1 + (Speedup per lord under min X missing lords),0,1,Life And Death
-LAD_softSlowdown,Slowdown per lord over max,Double,0.9,,calculates speed up as a multiplyer equal to Slowdown per lord over max ^ exstra lords,0,1,Life And Death
+Header_LAD_SoftLimits,,Header,Soft Limits,,,,,Life and Death
+Text_LAD_SoftLimits,,Text,"Control the spawn/death rates once lord counts moves outside the soft range, pushing it back into the soft range. ",,,,,Life and Death
+LAD_softMax,Soft maximum number of lords,Int,400,,,1,10000,Life and Death
+LAD_softMin,Soft minimum number of lords,Int,100,,,1,10000,Life and Death
+LAD_softSpeedup,Speedup per lord under min,Double,0.1,,Calculates speedup as a multiplier equal to 1 + (Speedup per lord under min * missing lords) to increase lord spawn rate.,0,1,Life and Death
+LAD_softSlowdown,Slowdown per lord over max,Double,0.9,,Calculates slowdown as a multiplier equal to (Slowdown per lord over max ^ extra lords) to increase lord death chance.,0,1,Life and Death
 ,,,,,,,,
-Header_LAD_PointGains,,Header,Lord Spawn Requirements And Gains,,,,,Life And Death
-Text_LAD_PointGains,,Text,"This controls the number of 'ponits' a market needs to generate to spawn a lord, as well as how quickly each market can generate ponits
-each market holds its own store of 'ponits' it uses to generate starlords. ponits are gained every month
-the equation used is ((size X multi per size) + (exspodent per size^size)) X 1-(missing stability X stability loss)
-",,,,,Life And Death
-LAD_PonitsRequired,Ponits required to generate lord,Int,400,,,1,10000,Life And Death
-LAD_PonitsSizeMulti,multi Per Size,Double,1,,,1,100,Life And Death
-LAD_PonitsSizeExscpoment,Power per size,Double,1,,,1,10,Life And Death
-LAD_PontsLostPerStability,Loss per missing stability,Double,0.09,,,0,1,Life And Death
+Header_LAD_PointGains,,Header,Lord Spawn Requirements And Gains,,,,,Life and Death
+Text_LAD_PointGains,,Text,"This controls the number of 'points' a market needs to accumulate to spawn a lord, as well as how quickly each market can generate points.
+Each market holds its own store of 'points' it uses to generate lords. Points are gained every month.
+The equation used is ((size * size mult) + (size exp ^ size)) * 1 - (missing stability * stability penalty).
+",,,,,Life and Death
+LAD_PonitsRequired,Points required to generate lord,Int,400,,,1,10000,Life and Death
+LAD_PonitsSizeMulti,Size mult,Double,1,,,1,100,Life and Death
+LAD_PonitsSizeExscpoment,Size exp,Double,1,,,1,10,Life and Death
+LAD_PontsLostPerStability,Stability penalty,Double,0.09,,,0,1,Life and Death
 ,,,,,,,,
-Header_LAD_SoftLimits,,Header,Odds Of Exstreamests,,,,,Life And Death
-Text_LAD_ponitsRequired,,Text,"this feture, if enabled, allows for 'exstreamests' to spawn (such as pirates, to luddic path) instead of the factions own starlord if stability is low enouth.",,,,,Life And Death
-LAD_StabilityforExstremests,Stability required for exstreamests,Int,3,,,0,10,Life And Death
-LAD_OddsOfExstremestsPerMissingStability,Odss of exstreamests per missing stability below par,Double,0.1,,,0,1,Life And Death
+Header_LAD_Extremists,,Header,Odds Of Extremists,,,,,Life and Death
+LAD_StabilityforExstremests,Par stability required for extremists,Int,3,,,0,10,Life and Death
+LAD_OddsOfExstremestsPerMissingStability,Odds of extremists per missing stability below par,Double,0.1,,,0,1,Life and Death
 ,,,,,,,,
-Header_LAD_DeathChance,,Header,Death chance,,,,,Life And Death
-Text_LAD_ponitsRequired,,Text,This controls the chance a lord will upfront die in a given battle,,,,,Life And Death
-LAD_BaseOddsOfDeath,Base odds,Double,0.005,,,0,1,Life And Death
+Header_LAD_DeathChance,,Header,Death Chance,,,,,Life and Death
+Text_LAD_ponitsRequired,,Text,The chance a lord will die if defeated in any given battle. ,,,,,Life and Death
+LAD_BaseOddsOfDeath,Odds of lord death,Double,0.005,,,0,1,Life and Death
 ,,,,,,,,
-Header_LAD_StartingPoints,,Header,Market Starting Ponit Ratio Chances,,,,,Life And Death
-text_LAD_StartingPoints,,Text,This handles all the ratio of a given markets 'starting ponits'. (as such allowing vareance of when lords start to spawn on new game),,,,,Life And Death
-LAD_StartingPonits_min,Min starting ponits,Int,0,,,0,10000,Life And Death
-LAD_StartingPonits_max,Max starting ponits,Int,350,,,0,10000,Life And Death
-LAD_StartingPonits_target,Target starting ponits,Int,50,,,0,10000,Life And Death
-LAD_StartingPonits_i,Weight,Double,1.05,,"The higher this value, the less vareance from the target level there will be.
-the equadtion used resalts in 1 : weight - 1 raitio of numbers at the current target, to numbers off by each point",1,5,Life And Death
+Header_LAD_StartingPoints,,Header,Market Starting Point Ratio Chances,,,,,Life and Death
+text_LAD_StartingPoints,,Text,"Ratio of a market having 'starting points' on new game, allowing variance of when lords start to spawn.",,,,,Life and Death
+LAD_StartingPonits_min,Min starting points,Int,0,,,0,10000,Life and Death
+LAD_StartingPonits_max,Max starting points,Int,350,,,0,10000,Life and Death
+LAD_StartingPonits_target,Target starting points,Int,50,,,0,10000,Life and Death
+LAD_StartingPonits_i,Weight,Double,1.05,,"Controls how strongly the random multipler is pulled towards the target value. Higher weight results in less variance.
+The equation results in the chance being 1/(weight^steps).",1,5,Life and Death
 ,,,,,,,,
 ,,,,,,,,
-Header_LordLevel,,Header,Lord level ratio,,,,,Generator
-text_lordLevel,,Text,This handles the ratio of possable lord levels,,,,,Generator
-generator_lordLevel_min,Mim lord level,Int,1,,,1,100,Generator
+Header_LordLevel,,Header,Lord Level Ratio,,,,,Generator
+text_lordLevel,,Text,Ratio of possible lord levels.,,,,,Generator
+generator_lordLevel_min,Min lord level,Int,1,,,1,100,Generator
 generator_lordLevel_max,Max lord level,Int,20,,,1,100,Generator
 generator_lordLevel_target,Target lord level,Int,10,,,1,100,Generator
-generator_lordLevel_i,Weight,Double,1.75,,"The higher this value, the less vareance from the target level there will be.
-the equadtion used resalts in 1 : weight - 1 raitio of numbers at the current target, to numbers off by each point",1,5,Generator
+generator_lordLevel_i,Level weight,Double,1.75,,"Controls how strongly the random multipler is pulled towards the target value. Higher weight results in less variance.
+The equation results in the chance being 1/(weight^steps).",1,5,Generator
 ,,,,,,,,
 Header_shipRatio,,Header,Ship Size Ratio Chances,,,,,Generator
-Header_frigateRatio,,Header,Frigate size ratio,,,,,Generator
-text_frigateRatio,,Text,This handles all the ratio of frigates to other ships in a generated lords fleet,,,,,Generator
-generator_frigateRatio_min,Mim number of frigates,Int,0,,,1,100,Generator
+Header_frigateRatio,,Header,Frigate Size Ratio,,,,,Generator
+text_frigateRatio,,Text,The ratio of frigates to other ships in a generated lord's fleet.,,,,,Generator
+generator_frigateRatio_min,Min number of frigates,Int,0,,,1,100,Generator
 generator_frigateRatio_max,Max number of frigates,Int,15,,,1,100,Generator
 generator_frigateRatio_target,Target number of frigates,Int,10,,,1,100,Generator
-generator_frigateRatio_i,Weight,Double,1.5,,"The higher this value, the less vareance from the target level there will be.
-the equadtion used resalts in 1 : weight - 1 raitio of numbers at the current target, to numbers off by each point",1,5,Generator
-Header_destroyer_ratio,,Header,Destroyer size ratio,,,,,Generator
-text_destroyerRatio,,Text,This handles all the ratio of destroyers to other ships in a generated lords fleet,,,,,Generator
-generator_destroyerRatio_min,Mim number of destroyers,Int,0,,,1,100,Generator
+generator_frigateRatio_i,Frigate weight,Double,1.5,,"Controls how strongly the random multipler is pulled towards the target value. Higher weight results in less variance.
+The equation results in the chance being 1/(weight^steps).",1,5,Generator
+Header_destroyer_ratio,,Header,Destroyer Size Ratio,,,,,Generator
+text_destroyerRatio,,Text,The ratio of destroyers to other ships in a generated lord's fleet.,,,,,Generator
+generator_destroyerRatio_min,Min number of destroyers,Int,0,,,1,100,Generator
 generator_destroyerRatio_max,Max number of destroyers,Int,15,,,1,100,Generator
 generator_destroyerRatio_target,Target number of destroyers,Int,9,,,1,100,Generator
-generator_destroyerRatio_i,Weight,Double,1.5,,"The higher this value, the less vareance from the target level there will be.
-the equadtion used resalts in 1 : weight - 1 raitio of numbers at the current target, to numbers off by each point",1,5,Generator
-Header_cruiserRatio,,Header,Cruiser size ratio,,,,,Generator
-text_cruiserRatio,,Text,This handles all the ratio of cruisers to other ships in a generated lords fleet,,,,,Generator
-generator_cruiserRatio_min,Mim number of cruisers,Int,0,,,1,100,Generator
+generator_destroyerRatio_i,Destroyer weight,Double,1.5,,"Controls how strongly the random multipler is pulled towards the target value. Higher weight results in less variance.
+The equation results in the chance being 1/(weight^steps).",1,5,Generator
+Header_cruiserRatio,,Header,Cruiser Size Ratio,,,,,Generator
+text_cruiserRatio,,Text,The ratio of cruisers to other ships in a generated lord's fleet.,,,,,Generator
+generator_cruiserRatio_min,Min number of cruisers,Int,0,,,1,100,Generator
 generator_cruiserRatio_max,Max number of cruisers,Int,15,,,1,100,Generator
 generator_cruiserRatio_target,Target number of cruisers,Int,8,,,1,100,Generator
-generator_cruiserRatio_i,Weight,Double,1.5,,"The higher this value, the less vareance from the target level there will be.
-the equadtion used resalts in 1 : weight - 1 raitio of numbers at the current target, to numbers off by each point",1,5,Generator
-Header_capitalRatio,,Header,Capital size ratio,,,,,Generator
-text_captialRatio,,Text,This handles all the ratio of capitals to other ships in a generated lords fleet,,,,,Generator
-generator_captialRatio_min,Mim number of captials,Int,0,,,1,100,Generator
-generator_captialRatio_max,Max number of captials,Int,15,,,1,100,Generator
-generator_captialRatio_target,Target number of captials,Int,7,,,1,100,Generator
-generator_captialRatio_i,Weight,Double,1.5,,"The higher this value, the less vareance from the target level there will be.
-the equadtion used resalts in 1 : weight - 1 raitio of numbers at the current target, to numbers off by each point",1,5,Generator
+generator_cruiserRatio_i,Cruiser weight,Double,1.5,,"Controls how strongly the random multipler is pulled towards the target value. Higher weight results in less variance.
+The equation results in the chance being 1/(weight^steps).",1,5,Generator
+Header_capitalRatio,,Header,Capital Size Ratio,,,,,Generator
+text_captialRatio,,Text,The ratio of capitals to other ships in a generated lord's fleet.,,,,,Generator
+generator_captialRatio_min,Min number of capitals,Int,0,,,1,100,Generator
+generator_captialRatio_max,Max number of capitals,Int,15,,,1,100,Generator
+generator_captialRatio_target,Target number of capitals,Int,7,,,1,100,Generator
+generator_captialRatio_i,Capital weight,Double,1.5,,"Controls how strongly the random multipler is pulled towards the target value. Higher weight results in less variance.
+The equation results in the chance being 1/(weight^steps).",1,5,Generator
 ,,,,,,,,
 Header_shipTypeRatio,,Header,Ship Type Ratio Chances,,,,,Generator
-Header_warshipRatio,,Header,Warship type ratio,,,,,Generator
-text_warshipRatio,,Text,This handles all the ratio of warships to other ship types in a generated lords fleet,,,,,Generator
-generator_warshipRatio_min,Mim number of warships,Int,0,,,1,100,Generator
+Header_warshipRatio,,Header,Warship Type Ratio,,,,,Generator
+text_warshipRatio,,Text,The ratio of warships to other ship types in a generated lord's fleet.,,,,,Generator
+generator_warshipRatio_min,Min number of warships,Int,0,,,1,100,Generator
 generator_warshipRatio_max,Max number of warships,Int,15,,,1,100,Generator
 generator_warshipRatio_target,Target number of warships,Int,7,,,1,100,Generator
-generator_warshipRatio_i,Weight,Double,1.5,,"The higher this value, the less vareance from the target level there will be.
-the equadtion used resalts in 1 : weight - 1 raitio of numbers at the current target, to numbers off by each point",1,5,Generator
-Header_carrier_ratio,,Header,Carrier type ratio,,,,,Generator
-text_carrierRatio,,Text,This handles all the ratio of carriers to other ship types in a generated lords fleet,,,,,Generator
+generator_warshipRatio_i,Warship weight,Double,1.5,,"Controls how strongly the random multipler is pulled towards the target value. Higher weight results in less variance.
+The equation results in the chance being 1/(weight^steps).",1,5,Generator
+Header_carrier_ratio,,Header,Carrier Type Ratio,,,,,Generator
+text_carrierRatio,,Text,The ratio of carriers to other ship types in a generated lord's fleet.,,,,,Generator
 generator_carrierRatio_min,Mim number of carriers,Int,0,,,1,100,Generator
 generator_carrierRatio_max,Max number of carriers,Int,15,,,1,100,Generator
 generator_carrierRatio_target,Target number of carriers,Int,7,,,1,100,Generator
-generator_carrierRatio_i,Weight,Double,1.5,,"The higher this value, the less vareance from the target level there will be.
-the equadtion used resalts in 1 : weight - 1 raitio of numbers at the current target, to numbers off by each point",1,5,Generator
-Header_phaseRatio,,Header,Phase Ship Type size ratio,,,,,Generator
-text_phaseRatio,,Text,This handles all the ratio of phase ships to other ships in a generated lords fleet,,,,,Generator
-generator_phaseRatio_min,Mim number of phases,Int,0,,,1,100,Generator
-generator_phaseRatio_max,Max number of phases,Int,15,,,1,100,Generator
-generator_phaseRatio_target,Target number of phases,Int,7,,,1,100,Generator
-generator_phaseRatio_i,Weight,Double,1.5,,"The higher this value, the less vareance from the target level there will be.
-the equadtion used resalts in 1 : weight - 1 raitio of numbers at the current target, to numbers off by each point",1,5,Generator
+generator_carrierRatio_i,Carrier weight,Double,1.5,,"Controls how strongly the random multipler is pulled towards the target value. Higher weight results in less variance.
+The equation results in the chance being 1/(weight^steps).",1,5,Generator
+Header_phaseRatio,,Header,Phase Ship Type Ratio,,,,,Generator
+text_phaseRatio,,Text,The ratio of phase ships to other ship types in a generated lord's fleet.,,,,,Generator
+generator_phaseRatio_min,Mim number of phase ships,Int,0,,,1,100,Generator
+generator_phaseRatio_max,Max number of phase ships,Int,15,,,1,100,Generator
+generator_phaseRatio_target,Target number of phase ships,Int,7,,,1,100,Generator
+generator_phaseRatio_i,Phase ship weight,Double,1.5,,"Controls how strongly the random multipler is pulled towards the target value. Higher weight results in less variance.
+The equation results in the chance being 1/(weight^steps).",1,5,Generator
 ,,,,,,,,
-Header_personalityRatio,,Header,Starlord Personality odds,,,,,Generator
+Header_personalityRatio,,Header,Lord Personality Odds,,,,,Generator
 generator_personalityRatio_Quarrelsome,Odds of a given lord having a Quarrelsome personality,Double,13,,,0,100,Generator
 generator_personalityRatio_Calculating,Odds of a given lord having a Calculating personality,Double,13,,,0,100,Generator
 generator_personalityRatio_Martial,Odds of a given lord having a Martial personality,Double,13,,,0,100,Generator
 generator_personalityRatio_Upstanding,Odds of a given lord having a Upstanding personality,Double,9,,,0,100,Generator
-,,,,,,,,
-Header_personalityRatio,,Header,Starlord Personality odds,,,,,Generator
 generator_battlePersonalityRatio_Timid,Odds of a given lord having a Timid battle personality,Double,0,,,0,100,Generator
 generator_battlePersonalityRatio_Cautious,Odds of a given lord having a Cautious battle personality,Double,5,,,0,100,Generator
 generator_battlePersonalityRatio_Steady,Odds of a given lord having a Steady battle personality,Double,15,,,0,100,Generator
 generator_battlePersonalityRatio_Aggressive,Odds of a given lord having a Aggressive battle personality,Double,18,,,0,100,Generator
 generator_battlePersonalityRatio_Reckless,Odds of a given lord having a Reckless battle personality,Double,10,,,0,100,Generator
 ,,,,,,,,
-Header_FleetTemplates,,Header,Fleet generation weights,,,,,Generator
-text_FleetTemplates,,Text,this is the odds of a given fleet generator being used on a randomly generated starlords fleet. set to 0 to disable,,,,,Generator
-generator_fleetTemplates_system,Odds of a given lord chosing there ships based of there system,Double,1,,,0,100,Generator
-generator_fleetTemplates_hullmod,Odds of a given lord chosing there ships based on there hullmods,Double,1,,,0,100,Generator
-generator_fleetTemplates_manufacture,Odds of a given lord chosing there ships based on there manufacture,Double,1,,,0,100,Generator
-generator_fleetTemplates_random,Odds of a given lord chosing there ships compleatly randomly,Double,0.1,,,0,100,Generator
+Header_FleetTemplates,,Header,Fleet Generation Weights,,,,,Generator
+text_FleetTemplates,,Text,Odds of a given fleet generator being used on a lord's randomly generated fleet. Set to 0 to disable the generator. ,,,,,Generator
+generator_fleetTemplates_system,Odds of a given lord choosing their ships based of ship system,Double,1,,,0,100,Generator
+generator_fleetTemplates_hullmod,Odds of a given lord choosing their ships based on hullmods,Double,1,,,0,100,Generator
+generator_fleetTemplates_manufacture,Odds of a given lord choosing their ships based on manufacturer,Double,1,,,0,100,Generator
+generator_fleetTemplates_random,Odds of a given lord choosing their ships completely randomly,Double,0.1,,,0,100,Generator
 ,,,,,,,,
-Header_FlagshipTemplates,,Header,Flagship picker weights,,,,,Generator
-text_FlagshipTemplates,,Text,this is the odds of a given flagship being used on a randomly generated starlords flagship. set to 0 to disable,,,,,Generator
-generator_flagshipPicker_Random,Odds of a given lord chosing there flahship randomly,Double,0.5,,,0,100,Generator
-generator_flagshipPicker_HP,Odds of a given lord chosing there flahship based of its HP,Double,1,,,0,100,Generator
-generator_flagshipPicker_Cost,Odds of a given lord chosing there flahship based of its cost,Double,1,,,0,100,Generator
+Header_FlagshipTemplates,,Header,Flagship Picker Weights,,,,,Generator
+text_FlagshipTemplates,,Text,Odds of a given flagship generator being used on a lord's randomly generated flagship. Set to 0 to disable the generator. ,,,,,Generator
+generator_flagshipPicker_Random,Odds of a given lord choosing their flagship randomly,Double,0.5,,,0,100,Generator
+generator_flagshipPicker_HP,Odds of a given lord choosing their flagship based on its HP,Double,1,,,0,100,Generator
+generator_flagshipPicker_Cost,Odds of a given lord choosing their flagship based on its cost,Double,1,,,0,100,Generator
 ,,,,,,,,
-Header_GeneratorMisc,,Header,Misc options,,,,,Generator
+Header_GeneratorMisc,,Header,Misc Options,,,,,Generator
 generator_isMaleChance,Male chance,Double,0.5,,"The odds of a given lord being male. set to 0 for every lord to be female, set to 1 for every lord to be male",0,1,Generator
-generator_fleetAdjective,Fleet adjective,String,'s fleet,,The word that goes on the end of a given lords fleet for example: with a value of ''s fleet' a lords fleet might be called Aderson Jaksons's fleet,,,Generator
+generator_fleetAdjective,Fleet suffix,String,'s fleet,,"The substring that goes on the end of a given lords fleet name. All lord fleets start with their name and end with this value.
+Example lord: Anderson Jackson, Example suffix: ""'s fleet"", Full fleet name: ""Anderson Jackson's fleet""",,,Generator
 generator_oddsOfNonePriorityShips,Chance of using all ships,Double,0.05,,The odds of any given lord using ships that are not prioritized by there faction,0,1,Generator
-generator_oddsOfNoneSelectedFlagship,Chance of random flahship,Double,0.05,,The odds of any given lord using a flahship that is not present in there fleet in any other way,0,1,Generator
-Header_ShipSpawnWeightRaitio,,Header,ship Spawn ratio chances,,,,,Generator
-text_shipSpawnRatio,,Text,This applys a random multiplyer to the spawn raitio of a given ship well keeping the raitio of size / types the same,,,,,Generator
-generator_shipSpawnRatio_min,Mim multiplier,Int,1,,,1,100,Generator
+generator_oddsOfNoneSelectedFlagship,Chance of random flagship,Double,0.05,,The odds of any given lord using a flagship that is not present in there fleet in any other way,0,1,Generator
+Header_ShipSpawnWeightRaitio,,Header,Absolute Ship Spawn Multipliers,,,,,Generator
+text_shipSpawnRatio,,Text,Applies a random multiplier to the spawn ratio of ships while keeping the size/type ratios the same.,,,,,Generator
+generator_shipSpawnRatio_min,Min multiplier,Int,1,,,1,100,Generator
 generator_shipSpawnRatio_max,Max multiplier,Int,20,,,1,100,Generator
 generator_shipSpawnRatio_target,Target multiplier,Int,10,,,1,100,Generator
-generator_shipSpawnRatio_i,Weight,Double,1.1,,"The higher this value, the less vareance from the target level there will be.
-the equadtion used resalts in 1 : weight - 1 raitio of numbers at the current target, to numbers off by each point",1,5,Generator
-Header_maxShipSpawnWeightRaitio,,Header,Maximum ships per lords fleet chances,,,,,Generator
-text_maxShipSpawnRatio,,Text,This handles the calculations that determin the maximum number of diffrent ship that a lord can build there fleet with,,,,,Generator
-generator_maxShipSpawnRatio_min,Mim multiplier,Int,5,,,1,100,Generator
+generator_shipSpawnRatio_i,Spawn weight,Double,1.1,,"Controls how strongly the random multipler is pulled towards the target value. Higher weight results in less variance.
+The equation results in the chance being 1/(weight^steps).",1,5,Generator
+Header_maxShipSpawnWeightRaitio,,Header,Maximum Ships Per Fleet Multipliers,,,,,Generator
+text_maxShipSpawnRatio,,Text,Applies a random multiplier to determine the maximum number of ships a lord's fleet can have.,,,,,Generator
+generator_maxShipSpawnRatio_min,Min multiplier,Int,5,,,1,100,Generator
 generator_maxShipSpawnRatio_max,Max multiplier,Int,30,,,1,100,Generator
 generator_maxShipSpawnRatio_target,Target multiplier,Int,15,,,1,100,Generator
-generator_maxShipSpawnRatio_i,Weight,Double,1.1,,"The higher this value, the less vareance from the target level there will be.
-the equadtion used resalts in 1 : weight - 1 raitio of numbers at the current target, to numbers off by each point",1,5,Generator
-Header_minShipSpawnWeightRaitio,,Header,ship Spawn ratio chances,,,,,Generator
-text_minShipSpawnRatio,,Text,This handles the calculations that determin the minmum number of diffrent ship that a lord can build there fleet with,,,,,Generator
-generator_minShipSpawnRatio_min,Mim multiplier,Int,1,,,1,100,Generator
+generator_maxShipSpawnRatio_i,Max num weight,Double,1.1,,"Controls how strongly the random multipler is pulled towards the target value. Higher weight results in less variance.
+The equation results in the chance being 1/(weight^steps).",1,5,Generator
+Header_minShipSpawnWeightRaitio,,Header,Minimum Ships Per Fleet Multipliers,,,,,Generator
+text_minShipSpawnRatio,,Text,Applies a random multiplier to determine the minimum number of ships a lord's fleet can have.,,,,,Generator
+generator_minShipSpawnRatio_min,Min multiplier,Int,1,,,1,100,Generator
 generator_minShipSpawnRatio_max,Max multiplier,Int,20,,,1,100,Generator
 generator_minShipSpawnRatio_target,Target multiplier,Int,5,,,1,100,Generator
-generator_minShipSpawnRatio_i,Weight,Double,1.1,,"The higher this value, the less vareance from the target level there will be.
-the equadtion used resalts in 1 : weight - 1 raitio of numbers at the current target, to numbers off by each point",1,5,Generator
+generator_minShipSpawnRatio_i,Min num weight,Double,1.1,,"Controls how strongly the random multipler is pulled towards the target value. Higher weight results in less variance.
+The equation results in the chance being 1/(weight^steps).",1,5,Generator
