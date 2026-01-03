@@ -1,3 +1,8 @@
+V0.3.66:
+    (thanks lightspeedgold for the following random improvements:)
+    improvements:
+        made the CSV file more readable (hopefully).
+
 V0.3.65:
     fixes:
         maybe possibly fixed a crash involving the game thinking the player lost a battle and needed to be captured even though they were not in battle?
