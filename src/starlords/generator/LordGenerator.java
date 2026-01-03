@@ -52,14 +52,14 @@ public class LordGenerator {
     };
     @Getter
     @Setter
-    private static double[] battlePersonalityRatio = {};
+    public static double[] battlePersonalityRatio = {};
     @Getter
-    private static final String[] battlePersonalities = {
-            "Timid",
-            "Cautious",
-            "Steady",
-            "Aggressive",
-            "Reckless"
+    public static final String[] battlePersonalities = {
+            "timid",
+            "cautious",
+            "steady",
+            "aggressive",
+            "reckless"
     };
     @Setter
     @Getter

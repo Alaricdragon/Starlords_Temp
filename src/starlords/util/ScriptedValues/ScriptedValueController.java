@@ -96,6 +96,11 @@ public class ScriptedValueController {
         String type = script.replaceFirst("~~","");
         SV_Base out = switch (type) {
             case "B_R" -> new SV_B_R();
+            case "B_Faction" -> new SV_B_Faction();
+            case "B_Culture" -> new SV_B_Culture();
+            case "B_NOT" -> new SV_B_NOT();
+            case "B_C" -> new SV_B_C();
+
             case "D_R" -> new SV_D_R();
             case "D_WR" -> new SV_D_WR();
             case "D_LR" -> new SV_D_LR();

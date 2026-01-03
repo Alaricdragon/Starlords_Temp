@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import starlords.generator.LordBaseDataBuilder;
 import starlords.person.Lord;
 import starlords.util.ScriptedValues.ScriptedValueController;
+import starlords.util.randomStrings.FleetNameController;
 
 public class FleetName implements LordBaseDataBuilder {
     @Override
@@ -21,16 +22,8 @@ public class FleetName implements LordBaseDataBuilder {
 
     @Override
     public void generate(Lord lord) {
-        /*todo:
-            so what have I dont:
-            I have created the json file for the fleet names. I still need to add more fleet names as required.
-            so what is left to do:
-                1: fill in the json files fleet names
-                2: create the holder for this csv compiled data, as well as the thing that reads said data (please note: I built a csv file reader. please use that to prevent doops)
-                3: make it so the generator creates a starlord.
-
-        */
-
+        lord.setFleetName(FleetNameController.generateFleetName(lord));
+        FleetNameController.confirmName();
     }
 
     @Override

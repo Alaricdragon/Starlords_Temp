@@ -1,0 +1,67 @@
+id,name,condition,weight,max uses,type,loadPriority,notes
+#internal ID of a fleet name,"the name of a random fleet name.
+please keep in mind: this uses DIALOG rules for replacing parts of strings
+
+lastly, yes. I used chat GPT for the names.","the conditiont that needs to be met to allow for this to apply to a givin starlord.
+linkedObject is: lord
+checked each time a lord attempts to get a random name","the 'wieght' of each name. high names ar more likely to be chosen
+linkedObject: null
+set once on new game","the maximum amount of times a giving fleet name can be used in a single game.
+leave blank for infinit useages.
+linkedObject: null
+set once on new game",possable types are: LORD,,
+base_a,%LORD_NAME's Fleet,true,100,,LORD,0,
+base_b,%LORD_NAME's Armada,true,100,,LORD,0,
+#base_c,%LORD_NAME's ,true,100,,LORD,0,
+,,,,,,,
+#player_a,,~~B_Faction:player,50,,LORD,0,
+#player_b,,~~B_Faction:player,50,,LORD,0,
+#player_c,,~~B_Faction:player,50,,LORD,0,
+,,,,,,,
+pirate_0,%LORD_NAME's Raiders,~~B_Faction:pirates,10,1,LORD,0,
+pirate_1,A Band Of Deadly Misfits,~~B_Faction:pirates,10,1,LORD,0,AI generated
+pirate_2,Red Hand Marauders,~~B_Faction:pirates,10,1,LORD,0,AI generated
+pirate_3,The Blood-Rust Corsairs,~~B_Faction:pirates,10,1,LORD,0,AI generated
+pirate_4,Starfall Plunder Fleet,~~B_Faction:pirates,10,1,LORD,0,AI generated
+pirate_5,The Ashen Flag,~~B_Faction:pirates,10,1,LORD,0,AI generated
+pirate_6,%LORD_NAME’s Scrapstorm Armada,~~B_Faction:pirates,10,1,LORD,0,AI generated
+pirate_7,%LORD_NAME’s Wreckhound Flotilla,~~B_Faction:pirates,10,1,LORD,0,AI generated
+pirate_8,%LORD_NAME’s Kanta-Blessed Cutthroats,~~B_Faction:pirates,10,1,LORD,0,AI generated
+,,,,,,,
+,,,,,,,
+luddic_path_0,The Glimmer Of Ludds Wrath,~~B_Faction:luddic_path,10,1,LORD,0,
+luddic_path_1,Fates Watchers,~~B_Faction:luddic_path,10,1,LORD,0,
+luddic_path_2,Wondering Jugment,~~B_Faction:luddic_path,10,1,LORD,0,
+luddic_path_3,Ludds Fallen Light,~~B_Faction:luddic_path,10,1,LORD,0,
+luddic_path_4,Renagent Of Past Mistakes,~~B_Faction:luddic_path,10,1,LORD,0,
+luddic_path_5,The Howling Testament,~~B_Faction:luddic_path,10,1,LORD,0,AI generated
+luddic_path_6,The Martyrs’ Wake,~~B_Faction:luddic_path,10,1,LORD,0,AI generated
+luddic_path_7,The Wrath Of Freed Souls,~~B_Faction:luddic_path,10,1,LORD,0,
+luddic_path_8,Fear Of The Abyss,~~B_Faction:luddic_path,10,1,LORD,0,
+,,,,,,,
+#hegemony_0,,~~B_Faction:hegemony,10,1,LORD,0,
+#hegemony_1,,~~B_Faction:hegemony,10,1,LORD,0,
+#hegemony_2,,~~B_Faction:hegemony,10,1,LORD,0,
+#hegemony_3,,~~B_Faction:hegemony,10,1,LORD,0,
+#hegemony_4,,~~B_Faction:hegemony,10,1,LORD,0,
+#hegemony_5,,~~B_Faction:hegemony,10,1,LORD,0,
+#hegemony_6,,~~B_Faction:hegemony,10,1,LORD,0,
+#hegemony_7,,~~B_Faction:hegemony,10,1,LORD,0,
+#hegemony_8,,~~B_Faction:hegemony,10,1,LORD,0,
+#hegemony_9,,~~B_Faction:hegemony,10,1,LORD,0,
+,,,,,,,
+#tritachyon_a,,~~B_Faction:tritachyon,50,,LORD,0,
+#tritachyon_b,,~~B_Faction:tritachyon,50,,LORD,0,
+#tritachyon_c,,~~B_Faction:tritachyon,50,,LORD,0,
+,,,,,,,
+#sindrian_diktat_a,,~~B_Faction:sindrian_diktat,50,,LORD,0,
+#sindrian_diktat_b,,~~B_Faction:sindrian_diktat,50,,LORD,0,
+#sindrian_diktat_c,,~~B_Faction:sindrian_diktat,50,,LORD,0,
+,,,,,,,
+#luddic_church_a,,~~B_Faction:luddic_church,50,,LORD,0,
+#luddic_church_b,,~~B_Faction:luddic_church,50,,LORD,0,
+#luddic_church_c,,~~B_Faction:luddic_church,50,,LORD,0,
+,,,,,,,
+#persean_league_a,,~~B_Faction:persean_league,50,,LORD,0,
+#persean_league_b,,~~B_Faction:persean_league,50,,LORD,0,
+#persean_league_c,,~~B_Faction:persean_league,50,,LORD,0,

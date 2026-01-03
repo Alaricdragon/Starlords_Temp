@@ -17,6 +17,23 @@ this can be done by the following values:
   * for boolean:
     * "B_R": returns a boolean value if a random number is less then 'd0' should look like: '~~B_R:d0'
       * d0: a value between 0 and 1
+    * "B_NOT": returns !b0. should look like '~~B_NOT:b0'
+      * b0: the inputted boolean you want to invert.
+    * "B_C": acts as a system to allow for conditional input data. should be structured as: '~~B_C:d0:b10:s10:b11'
+      * d0: the number of values held in this function (including conditions). (cannot use linkedobjects)
+      * b10: the fist boolean value you are comparing
+      * s10: is a string value that must be one of 5 possible strings. each string is used to compare the boolean to the right and the left of itself. the Strings, (and there functions) are:
+        * AND  : both booleans must be true to return true
+        * OR   : one boolean must be true to return true
+        * NAND : both booleans must be false to return true
+        * NOR  : one boolean must be false to return true
+        * XOR  : one boolean must be true, and one must be false to return true
+      * b11: the second boolean you are comparing.
+      * examples: '~~B_C:3:true:OR:false' (true). '~~B_C:5:false:OR:true:AND:true' (true). '~~B_C:7:false:OR:ture:AND:true:XOR:true' (false)
+    * "B_Faction": returns true if the linked object's 'faction' is equal to the inputted string. always returns false if the linked object is not a Lord. should look like '~~B_Faction:s0'
+      * s0: the faction ID you want this lord to be.
+    * "B_Culture": returns true if the linked object's 'culture' is equal to the inputted string. always returns false if the linked object is not a Lord. should look like '~~B_Faction:s0'
+      * s0: the faction ID you want this lord to be.
   * for double:
     * "D_R": a random value between 'd0' and 'd1'. should look like: '~~D_Rd0:d1'
       * d0: the min random value
@@ -27,14 +44,14 @@ this can be done by the following values:
       * d2: the target value of this random.
       * d3: the standard deviation of this random (in effect, 64.2% of items are within 1 sd of the target. 27.2% of items are between 1 and 2 sd, and 4.2% of items are between 2 and 3 sd)
     * "D_LR": a list of values were one is selected based on weight. should look like: '~~D_LR:d0:d10:d11'
-      * d0: the number of values this list holds
+      * d0: the number of values this list holds. (cannot use linkedobjects)
       * d10: the 'value' of this item in the list.
       * d11: the 'weight' of this value in the list
       * keep in mind, d10 and d11 can repeat themselves as many times as required.
       * examples: '~~D_LR:4:1:10:2:5' (10/15 1, 5/15 5). '~~D_LR:10:1:10:2:5:3:15:4:20:5:25' (10/85 1, 5/85 2, 15/85 3, 20/85 4, 25/85 5)
   * for String:
     * "S_LR": a list of values were one is selected based on weight. should look like: '~~S_LR:d0:S10:d11'
-      * d0: the number of values this list holds
+      * d0: the number of values this list holds. (cannot use linkedobjects)
       * S10: the 'value' of this item in the list.
       * d11: the 'weight' of this value in the list
       * keep in mind, d10 and d11 can repeat themselves as many times as required.

@@ -39,6 +39,8 @@ public class CsvFilerReader {
     private static void addItemToArray(JSONObject b, HashMap<String,JSONObject> out, HashMap<String,Double> priority){
         String id = b.getString(idString);
         String p = b.getString(loadString);
+        if (id.isEmpty()) return;//prevent loading of 'false' strings.
+        if (id.startsWith("#")) return;
         double finalP;
         if (p.isEmpty()){
             finalP = 0;
