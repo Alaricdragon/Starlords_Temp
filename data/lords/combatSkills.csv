@@ -1,7 +1,14 @@
-id,skillID,Level,is elite,wieght,RequiresLastLevel,condition,type,loadPriority,Notes
-#internal ID of starlord attrubute,the ID of a givin skill,the level of this skill,if this skill is 'elite' or not at this level,,if this skill requires the last level or not,"if this can be applied to a givin ship
+id,skillID,Level,is elite,wieght,condition,type,loadPriority,Notes
+#internal ID of starlord attrubute,the ID of a givin skill,the level of this skill,"if this skill is 'elite' or not at this level
+officers can only have a certen number of 'elite' skills. so this is important.","is the odds of adding this skill to the person over other skills.
+
 linked object:
-Object[] Lord, PersionAPI, ShipCompositionData
+H_SV_CombatSkills: Lord, PersionAPI, ShipCompositionData
+Lord is the lord this officer belongs to.
+PersionAPI is the person getting the skill (lord, officer, or otherwize)
+ShipCompositionData is the data attached to the relevent ship this person is piliting","if this can be applied to a givin ship
+linked object:
+H_SV_CombatSkills: Lord, PersionAPI, ShipCompositionData
 Lord is the lord this officer belongs to.
 PersionAPI is the person getting the skill (lord, officer, or otherwize)
 ShipCompositionData is the data attached to the relevent ship this person is piliting","Lord: skill appyed to lords
@@ -10,24 +17,24 @@ ALL: skills applyed to everyone",,"why does this even need to exsist?
 because normal officers are very suboptimal on random lord fleets. And I want them to at least be a bit scary
 
 also just giving lords more skills is not good difacalty balance?"
-#officers basic,,,,,,,,,
-,,,,,,,,,
-#officer elite,,,,,,,,,
-,,,,,,,,,
-#lords,,,,,,,,,
-Helmsmanship,helmsmanship,2,true,10,false,,LORD,0,
-Combat Endurance,combat_endurance,2,true,10,false,,LORD,0,
-Impact Mitigation,impact_mitigation,2,true,10,false,,LORD,0,
-Damage Control,damage_control,2,true,10,false,,LORD,0,
-Field Modulation,field_modulation,2,true,10,false,,LORD,0,
-Point Defense,point_defense,2,true,10,false,,LORD,0,
-Target Analysis,target_analysis,2,true,10,false,,LORD,0,
-Ballistic Mastery,ballistic_mastery,2,true,10,false,,LORD,0,
-Systems Expertise,systems_expertise,2,true,10,false,,LORD,0,
-Missile Specialization,missile_specialization,2,true,10,false,,LORD,0,
-,,,,,,,,,
-Gunnery Implants,gunnery_implants,2,true,10,false,,LORD,0,
-Energy Weapon Mastery,energy_weapon_mastery,2,true,10,false,,LORD,0,
-,,,,,,,,,
-Ordnance Expertise,ordnance_expert,2,true,10,false,,LORD,0,
-Polarized Armor,polarized_armor,2,true,10,false,,LORD,0,
+#officers basic,,,,,,,,
+,,,,,,,,
+#officer elite,,,,,,,,
+,,,,,,,,
+#lords,,,,,,,,
+Helmsmanship,helmsmanship,2,true,10,,LORD,0,
+Combat Endurance,combat_endurance,2,true,10,,LORD,0,
+Impact Mitigation,impact_mitigation,2,true,10,,LORD,0,
+Damage Control,damage_control,2,true,10,,LORD,0,
+Field Modulation,field_modulation,2,true,10,,LORD,0,
+Point Defense,point_defense,2,true,10,,LORD,0,
+Target Analysis,target_analysis,2,true,10,,LORD,0,
+Ballistic Mastery,ballistic_mastery,2,true,10,,LORD,0,
+Systems Expertise,systems_expertise,2,true,10,,LORD,0,
+Missile Specialization,missile_specialization,2,true,10,,LORD,0,
+,,,,,,,,
+Gunnery Implants,gunnery_implants,2,true,10,,LORD,0,
+Energy Weapon Mastery,energy_weapon_mastery,2,true,10,,LORD,0,
+,,,,,,,,
+Ordnance Expertise,ordnance_expert,2,true,10,,LORD,0,
+Polarized Armor,polarized_armor,2,true,10,,LORD,0,

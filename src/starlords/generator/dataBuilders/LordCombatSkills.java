@@ -18,6 +18,15 @@ public class LordCombatSkills implements LordBaseDataBuilder {
             -something to remember: SV_Values exist. remember that you can modify weight with this as well.
         4:
 
+
+        so... what data can I automate? in terms of 'automation, how far do I wanna go?'
+        like, do I really need ot put the systems inside of here into like.... sub systems?
+        I could do 'has tech level' or 'has defense' or 'number of weapons of type' or 'ammo weapons of type'.
+        maybe also have things like 'armor greater then' and 'size'. things like that...?
+        ...
+        I think I am going to be forced to do so arg.....
+        unless ...
+        no. I am going to be forced to do so here.
    */
     @Override
     public boolean shouldGenerate(Lord lord, JSONObject json) {

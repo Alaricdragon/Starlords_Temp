@@ -3,6 +3,7 @@ package starlords.util.ScriptedValues;
 import com.fs.starfarer.api.Global;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ScriptedValueController {
     //todo: If i ever find myself looking at this going WTF: this is for loading a single string value as many diffrent values, some of wish can be scritps.
@@ -44,7 +45,7 @@ public class ScriptedValueController {
         }
         return nS.toString();
     }
-    public SV_Boolean getNextBoolean(){
+    /*public SV_Boolean getNextBoolean(){
         return (SV_Boolean) getNextStringOrObject(TYPE_BOOLEAN);
     }
     public SV_Double getNextDouble(){
@@ -52,7 +53,7 @@ public class ScriptedValueController {
     }
     public SV_String getNextString(){
         return (SV_String) getNextStringOrObject(TYPE_STRING);
-    }
+    }*/
     public SV_Object getNextObject(){
         return (SV_Object) getNextStringOrObject(TYPE_OBJECT);
     }
@@ -71,6 +72,28 @@ public class ScriptedValueController {
             return getScript(got);
         }
         return getBasicValue(got,type);
+    }
+    private boolean isNextItem(String type){
+        String got = activeString.get(0);
+        switch (type){
+            case TYPE_BOOLEAN:
+                return switch (got) {
+                    case "AND", "OR", "!AND", "!OR", "XOR" -> true;
+                    default -> false;
+                };
+            case TYPE_STRING:
+                return switch (got) {
+                    case "+" -> true;
+                    default -> false;
+                };
+            case TYPE_DOUBLE:
+                return switch (got) {
+                    case "+", "-", "*", "/", "^" -> true;
+                    default -> false;
+                };
+            default:
+                return false;
+        }
     }
     private SV_Base getBasicValue(String script,String type){
         if (script.startsWith("!~")) script = script.replaceFirst("!~","~");
@@ -98,8 +121,7 @@ public class ScriptedValueController {
             case "B_R" -> new SV_B_R();
             case "B_Faction" -> new SV_B_Faction();
             case "B_Culture" -> new SV_B_Culture();
-            case "B_NOT" -> new SV_B_NOT();
-            case "B_C" -> new SV_B_C();
+            case "B_!" -> new SV_B_NOT();
 
             case "D_R" -> new SV_D_R();
             case "D_WR" -> new SV_D_WR();
@@ -122,76 +144,55 @@ public class ScriptedValueController {
         return out;
     }
 
-/*
-    @Deprecated
-    public static ArrayList<Double> getDoublesFromArrayWithScripts(ArrayList<Object> values, Object linkedObject){
-        ArrayList<Double> out = new ArrayList<>();
-        for (Object a : values){
-            Object script = isScript(a);
-            if (script != null){
-                MemCompressed_R_Double_Base b = (MemCompressed_R_Double_Base) script;
-                out.add(b.getRandom(linkedObject));
-                continue;
-            }
-            out.add((Double) a);
+    public SV_Boolean getNextBoolean(){
+        SV_Boolean value = (SV_Boolean) getNextStringOrObject(TYPE_BOOLEAN);
+        ArrayList<String> operators = new ArrayList<>();
+        ArrayList<SV_Boolean> values = new ArrayList<>();
+        //I am using recursion now. what has happened to me?
+        while (isNextItem(TYPE_BOOLEAN)){
+            String got = activeString.get(0);
+            activeString.remove(0);
+            operators.add(got);
+            values.add(getNextBoolean());
         }
-        return out;
-    }
-    @Deprecated
-    public static ArrayList<String> getStringsFromArrayWithScripts(ArrayList<Object> values,Object linkedObject){
-        ArrayList<String> out = new ArrayList<>();
-        for (Object a : values){
-            Object script = isScript(a);
-            if (script != null){
-                MemCompressed_R_String_Base b = (MemCompressed_R_String_Base) script;
-                out.add(b.getRandom(linkedObject));
-                continue;
-            }
-            out.add((String) a);
+        if (!operators.isEmpty()){
+            values.add(0,value);//really hope that works.
+            return new SV_B_Wrapper(values,operators);
         }
-        return out;
+        return value;
     }
-    @Deprecated
-    public static ArrayList<Boolean> getBooleansFromArrayWithScripts(ArrayList<Object> values,Object linkedObject){
-        ArrayList<Boolean> out = new ArrayList<>();
-        for (Object a : values){
-            Object script = isScript(a);
-            if (script != null){
-                MemCompressed_R_Boolean_Base b = (MemCompressed_R_Boolean_Base) script;
-                out.add(b.getRandom(linkedObject));
-                continue;
-            }
-            out.add((Boolean) a);
+    public SV_String getNextString(){
+        SV_String value = (SV_String) getNextStringOrObject(TYPE_STRING);
+        ArrayList<String> operators = new ArrayList<>();
+        ArrayList<SV_String> values = new ArrayList<>();
+        //I am using recursion now. what has happened to me?
+        while (isNextItem(TYPE_BOOLEAN)){
+            String got = activeString.get(0);
+            activeString.remove(0);
+            operators.add(got);
+            values.add(getNextString());
         }
-        return out;
-    }
-   @Deprecated
-    public static double getScriptValueDouble(Object data,Object linkedObject){
-        Object script = isScript(data);
-        if (script != null) return ((MemCompressed_R_Double_Base)script).getRandom(linkedObject);
-        return (Double) data;
-    }
-    @Deprecated
-    public static String getScriptValueString(Object data,Object linkedObject){
-        Object script = isScript(data);
-        if (script != null) return ((MemCompressed_R_String_Base)script).getRandom(linkedObject);
-        return (String) data;
-    }
-    @Deprecated
-    public static boolean getScriptValueBoolean(Object data,Object linkedObject){
-        Object script = isScript(data);
-        if (script != null) return ((MemCompressed_R_Boolean_Base)script).getRandom(linkedObject);
-        return (Boolean) data;
-    }
-    @Deprecated
-    public static Object isScript(Object object){
-        if (object instanceof String){
-            String string = (String) object;
-            if (string != null && string.startsWith("~")) {
-                String[] list = string.split("~");
-                return Global.getSettings().getInstanceOfScript(list[list.length-1]);
-            }
+        if (!operators.isEmpty()){
+            values.add(0,value);//really hope that works.
+            return new SV_S_Wrapper(values,operators);
         }
-        return null;
-    }*/
+        return value;
+    }
+    public SV_Double getNextDouble(){
+        SV_Double value = (SV_Double) getNextStringOrObject(TYPE_DOUBLE);
+        ArrayList<String> operators = new ArrayList<>();
+        ArrayList<SV_Double> values = new ArrayList<>();
+        //I am using recursion now. what has happened to me?
+        while (isNextItem(TYPE_DOUBLE)){
+            String got = activeString.get(0);
+            activeString.remove(0);
+            operators.add(got);
+            values.add(getNextDouble());
+        }
+        if (!operators.isEmpty()){
+            values.add(0,value);//really hope that works.
+            return new SV_D_Wrapper(values,operators);
+        }
+        return value;
+    }
 }

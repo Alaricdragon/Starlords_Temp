@@ -17,7 +17,7 @@ this can be done by the following values:
   * for boolean:
     * "B_R": returns a boolean value if a random number is less then 'd0' should look like: '~~B_R:d0'
       * d0: a value between 0 and 1
-    * "B_NOT": returns !b0. should look like '~~B_NOT:b0'
+    * "B_!": returns !b0. should look like '~~B_!:b0'
       * b0: the inputted boolean you want to invert.
     * "B_C": acts as a system to allow for conditional input data. should be structured as: '~~B_C:d0:b10:s10:b11'
       * d0: the number of values held in this function (including conditions). (cannot use linkedobjects)
@@ -34,6 +34,7 @@ this can be done by the following values:
       * s0: the faction ID you want this lord to be.
     * "B_Culture": returns true if the linked object's 'culture' is equal to the inputted string. always returns false if the linked object is not a Lord. should look like '~~B_Faction:s0'
       * s0: the faction ID you want this lord to be.
+    * "B_S_Manufacture": 
   * for double:
     * "D_R": a random value between 'd0' and 'd1'. should look like: '~~D_Rd0:d1'
       * d0: the min random value
@@ -61,6 +62,26 @@ this can be done by the following values:
       * d1: the 'gender'. set to 0 for any, set to 1 for male, set to 2 for female. rounds down.
   * for object:
 
+
+* operators:
+  * some types have 'operators'. said operators can be placed between two values of the same type. they can also be chained together.
+  * for boolean: (to get a 'true' output)
+    * "AND"   both values must be true. should look like: 'b0:AND:b1'
+    * "OR"    any value must be true. should look like: 'b0:OR:b1'
+    * "!AND"  both value must be false. should look like: 'b0:!AND:b1'
+    * "!OR"   any value must be true. should look like: 'b0:!OR:b1'
+    * "XOR"   one value must be true, and one false. should look like: 'b0:XOR:b1'
+  * for double:
+    * "+"     adds the two values. should look like: 'd0:+:d1'
+    * "-"     substracts the two values. should look like: 'd0:-:d1'
+    * "/"     devides the two values. should look like: 'd0:/:d1'
+    * "*"     multiplys the two values. should look like 'd0:\*:d1'
+    * "^"     runs math.power(d0,d1). should look like 'd0:^:d1'
+  * for string:
+    * "+"     adds two strings together. should look like: 's0:+:s1'
+  * additional context:
+    * operators can be chained. so 'b0:AND:b1:OR:b2:AND:b3' works.
+    * operators cannot be a scripted value. as a resalt, having a rar string of any operator value does not work.
 
 sometimes in CSV files and TheManyReadmes you will find references to 'LinkedObjects'.
 'LinkedObjects' are just references to some relevant object, and can be checked each time a 'script' attempts to computer a value.
