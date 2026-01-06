@@ -4,13 +4,13 @@ requirements:
     3) 'dialog intrupt' structure update.
 
 'vengeance' is a point system simpler to reputation, but, it will lower by 1 each month.
-'debt' is the inverse of 'vengince' it will lower by the same amount.
+'debt' is the inverse of 'vengeance' it will lower by the same amount.
 please note: do to the nature of starlords, a lord will hold 'vengeance' / 'debt' to mutlible lords / the player, so low 'vengeance' and low 'debt' will have a low trigger chance.
-please note: 'debt' is harder to get then 'vengence', so it should have a higher chance of triggering.
+please note: 'debt' is harder to get then 'vengeance', so it should have a higher chance of triggering.
 
 'debt' and 'vengeance' are the same value. negative numbers are 'vengeance' positive values are 'debt'?
 or I keep them separate, and have lords be confused.
-I could also make it so gaiging 'vengence' or 'debt' from certen sorces causing a far faster gain then normal. like if you sat bomb a world, debt is massively reduced.
+I could also make it so gaiging 'vengeance' or 'debt' from center sources causing a far faster gain then normal. like if you sat bomb a world, debt is massively reduced.
 
 attacking a starlords worlds, fleets, tradefleets, or doing things that lower your reputation will generate vengeance.
 adding a starlord in battles, defending hostile lord attacks, or helping a lord with quests will generate 'debt'.
