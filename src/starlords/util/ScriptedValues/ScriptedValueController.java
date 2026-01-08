@@ -122,13 +122,21 @@ public class ScriptedValueController {
             case "B_Faction" -> new SV_B_Faction();
             case "B_Culture" -> new SV_B_Culture();
             case "B_!" -> new SV_B_NOT();
+            case "B_B" -> new SV_B_B();
+            case "B_B2" -> new SV_B_B2();
 
             case "D_R" -> new SV_D_R();
             case "D_WR" -> new SV_D_WR();
             case "D_LR" -> new SV_D_LR();
+            case "D_B" -> new SV_D_B();
+            case "D_B2" -> new SV_D_B2();
+            case "D_S_Weapons" -> new SV_D_S_Weapons();
+            case "D_S_WeaponsOP" -> new SV_D_S_Weapons_OP();
 
             case "S_LR" -> new SV_S_LR();
             case "S_FactionPortrait" -> new SV_S_FactionPortrait();
+            case "S_B" -> new SV_S_B();
+            case "S_B2" -> new SV_S_B2();
 
             default -> null;
         };

@@ -15,19 +15,37 @@ public class H_SV_CombatSkills {
                 -can: boolean. if true, returns value. if false, returns value2
                 -value: returns if can is true
                 -value2 returns if can is false.
+            B_B2: (size,can, value) (why would someone use this? my got tells me it wll be useful.)
+                -size: the number of can and value values.
+                -can: if I can use this value.
+                -value: the value I use.
+
+                -can and value can be repeated. this gets the first 'true' value.
         double:
             D_B: (can, value, value2)
                 -can: boolean. if true, returns value. if false, returns value2
                 -value: returns if can is true
                 -value2 returns if can is false.
+            D_B2: (size,can, value) (why would someone use this? my got tells me it wll be useful.)
+                -size: the number of can and value values.
+                -can: if I can use this value.
+                -value: the value I use.
+
+                -can and value can be repeated. this gets the first 'true' value.
         string:
             S_B: (can, value, value2)
                 -can: boolean. if true, returns value. if false, returns value2
                 -value: returns if can is true
                 -value2 returns if can is false.
+            S_B2: (size,can, value) (why would someone use this? my got tells me it wll be useful.)
+                -size: the number of can and value values.
+                -can: if I can use this value.
+                -value: the value I use.
+
+                -can and value can be repeated. this gets the first 'true' value.
 
     doubles:
-        D_S_Weapons: (inputs: type, size. give number of weapons of this type)
+        (not yet done, still need a few more variables.)D_S_Weapons: (inputs: type, size. give number of weapons of this type)
                      (for use, keep in mind I am going to have operators. so that should help. (like '-' or '+' or '*' or so on.))
             -type:
                 ANY
@@ -40,7 +58,7 @@ public class H_SV_CombatSkills {
                 BALLISTIC
                 MISSILES
 
-        D_S_Weapons_Ammo (inputs:ammowType:buildType,type,size)
+        (done. merged into D_S_Weapons.)D_S_Weapons_Ammo (inputs:ammowType:buildType,type,size)
             -ammoType is:
                 ANY
                 RELOAD              (amount of 'reloading' ammo held)
