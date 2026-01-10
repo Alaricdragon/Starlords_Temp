@@ -32,8 +32,8 @@ this can be done by the following values:
       * examples: '~~B_C:3:true:OR:false' (true). '~~B_C:5:false:OR:true:AND:true' (true). '~~B_C:7:false:OR:ture:AND:true:XOR:true' (false)
     * "B_B": if the first boolean is true, returns the first value. if false, returns the second value. should look like '~~B_B:b0:b1:b2'
       * b0: if this is true, returns b1. if false returns b2
-      * b1: 
-      * b2: 
+      * b1: -
+      * b2: -
     * "B_B2": a list of values were the the first value with a 'true' condition will be selected. should look like '~~B_B2:d0:b10:b11'
       * d0: the number of values this list holds (cannot use linked objects).
       * b10: the condition for returning a given value.
@@ -43,6 +43,12 @@ this can be done by the following values:
       * s0: the faction ID you want this lord to be.
     * "B_Culture": returns true if the linked object's 'culture' is equal to the inputted string. always returns false if the linked object is not a Lord. should look like '~~B_Faction:s0'
       * s0: the faction ID you want this lord to be.
+    * B_S_Size: returns true if the ships size equals the inputted size. should look like '~~B_S_Size:s0'
+      * s0: the ship size you are looking for. can be 'FIGHTER', 'FRIGATE', 'DESTROYER', 'CRUISER', 'CAPITAL_SHIP'
+    * B_S_Manufacturer: returns true if the ships manufacturer is the inputted string. should look like '~~B_S_Manufacturer:s0'
+      * s0: the ship manufacturer you are looking for. examples are 'Low Tech', 'High Tech', 'Midline', 'Pirate' 
+    * B_S_DefenseType: returns true if the ships defense type matches the inputted string. should look like '~~B_S_DefenseType:s0'
+      * s0: the defense type of the ship. can be 'ANY', 'NONE', 'SHIELD_ANY', 'SHIELD_FRONT', 'SHIELD_OMI', 'PHASE'
     * "B_S_Manufacture": 
       * a
   * for double:
@@ -69,20 +75,33 @@ this can be done by the following values:
       * b10: the condition for returning a given value.
       * d11: the value returned from a giving conditions
       * examples: '~~D_B2:4:false:25:true:15' (returns 15 (from second check)). '~~D_B2:6:false:4:true:99:true:125' (returns 99 (from second check)). '~~D_B2:8:false:5:true:-222:true:999:true:1' (returns -222 (from second check))
-    * "D_S_Weapons": gets the number of weapons / fitted mounts of the inputted type and size. only works in instances were a ship variant is part of the linked object  should look like: '~~D_S_Weapons:s0:s1:s2:s3'
+    * "D_S_Weapons": gets the number of weapons / fitted mounts of the inputted type and size. only works in instances were a ship variant is part of the linked object  should look like: '~~D_S_Weapons:s0:s1:s2:s3:s4:s5:d6:s7:d8:s9'
       * s0: if you are looking at the weapon, mount, or both. can be: 'MOUNT', 'WEAPON', 'BOTH'
         * if you are looking at 'both', both the mount and weapon needs to be the same size and type to be added to the count of wepons.
       * s1: the weapon / mount type that is being looked at. can be: 'ENERGY', 'BALLISTIC', 'MISSILES', 'HYBRID', 'SYNERGY', 'COMPOSITE', 'UNIVERSAL', 'ANY_BALLISTIC', 'ANY_MISSILE', 'ANY_ENERGY', 'ANY'. (for mounts only): 'BUILT_IN, 'DECORATIVE', 'LAUNCH_BAY', 'STATION_MODULE', 'SYSTEM'
-      * s2: the size of the weapon / mount that is being looked at. can be: 'SMALL', 'MEDIUM', 'LARGE', 'ANY'
-      * s3: the ammo 'type' of the weapon. can be 'ANY', 'NO_AMMO', 'ANY_AMMO', 'RECHARGE', 'NO_RECHARGE'
-      * example: '~~D_S_Weapons:BOTH:ENERGY:SMALL:NO_RECHARGE' (this would return the number of small energy weapons mounted in small energy mounts on the ship that have recharging ammo)
-    * "D_S_WeaponsOP": gets amount of weapon OP from weapons / fitted mounts of the inputted type and size. only works in instances were a ship variant is part of the linked object  should look like: '~~D_S_WeaponsOP:s0:s1:s2:s3'
-      * s0: if you are looking at the weapon, mount, or both. can be: 'MOUNT', 'WEAPON', 'BOTH'
-        * if you are looking at 'both', both the mount and weapon needs to be the same size and type to be added to the count of wepons.
-      * s1: the weapon / mount type that is being looked at. can be: 'ENERGY', 'BALLISTIC', 'MISSILES', 'HYBRID', 'SYNERGY', 'COMPOSITE', 'UNIVERSAL', 'ANY_BALLISTIC', 'ANY_MISSILE', 'ANY_ENERGY', 'ANY'. (for mounts only): 'BUILT_IN, 'DECORATIVE', 'LAUNCH_BAY', 'STATION_MODULE', 'SYSTEM'
-      * s2: the size of the weapon / mount that is being looked at. can be: 'SMALL', 'MEDIUM', 'LARGE', 'ANY'
-      * s3: the ammo 'type' of the weapon. can be 'ANY', 'NO_AMMO', 'ANY_AMMO', 'RECHARGE', 'NO_RECHARGE'
-      * example: '~~D_S_WeaponsOP:WEAPON:MISSILES:SMALL:ANY_AMMO' (this would return the amount of opp spent on small missile weapons that have ammo mounted on the ship.)
+      * s2: the size of a weapon / mount. can be: 'SMALL', 'MEDIUM', 'LARGE', 'ANY'
+      * s3: the ammo 'type' of a weapon. can be 'ANY', 'NO_AMMO', 'ANY_AMMO', 'RECHARGE', 'NO_RECHARGE'
+      * s4: the projectile 'type' of a weapon. can be 'ANY', 'ANY_BEAM' 'ANY_PROJECTILE', 'BURST_BEAM', 'CONTINUES_BEAM'
+      * s5: the damage 'type' of a weapon. can be 'ANY', 'ENERGY', 'FRAGMENTATION', 'HIGH_EXPLOSIVE', 'KINETIC', 'OTHER'
+      * d6: the number of AI hints that will be added to this list. for each value of this, s7 will need another entry. if set to zero, s7 will not be needed.
+      * s7: a AI hint on the weapon. can be 'ANY', 'PD', 'NOT_PD', 'STRIKE', 'NOT_STRIKE', 'HEATSEEKER', 'NOT_HEATSEEKER'
+      * d8: the 'min range' of a weapon. if set to zero, will ignore this data point.
+      * d9: the 'max range' of a weapon. if set to zero, will ignore this data point.
+      * example: '~~D_S_Weapons:BOTH:ENERGY:SMALL:NO_RECHARGE:ANY:ANY:0:0:0' (this would return the number of small energy weapons mounted in small energy mounts on the ship that have recharging ammo)
+      * example: '~~D_S_Weapons:WEAPON:ANY:ANY:ANY:ANY_BEAM:0:0:700' (gets beam weapons with less then 700 range)
+      * example: '~~D_S_Weapons:WEAPON:ANY:SMALL:ANY:ANY:2:NOT_PD:NOT_STRIKE:0:0' (gets any small not pd, not stirke wepons.)
+    * "D_S_WeaponsOP": gets amount of weapon OP from weapons / fitted mounts of the inputted type and size. only works in instances were a ship variant is part of the linked object  should look like: '~~D_S_WeaponsOP:s0:s1:s2:s3:s4:s5:d6:s7:d8:s9'
+      * the internal data of this function matches 'D_S_Weapons'.
+    * "D_S_WeaponsDamage": gets amount of weapon OP from weapons / fitted mounts of the inputted type and size. only works in instances were a ship variant is part of the linked object  should look like: '~~D_S_WeaponsDamage:s0:s1:s2:s3:s4:s5:d6:s7:d8:s9'
+      * the internal data of this function matches 'D_S_Weapons'.
+      * NOTE: note yet functional.
+    * "D_S_WeaponsRatio": gets amount of weapon / fitted mounts of the inputted type and size divided by the number of all other weapons. only works in instances were a ship variant is part of the linked object  should look like: '~~D_S_Weapons_Ratio:s0:s1:s2:s3:s4:s5:d6:s7:d8:s9'
+      * the internal data of this function matches 'D_S_Weapons'.
+    * "D_S_WeaponsOPRatio": gets amount of weapon OP from weapons / fitted mounts of the inputted type and size divided by all other weapons total op cost. only works in instances were a ship variant is part of the linked object  should look like: '~~D_S_WeaponsOP_Ratio:s0:s1:s2:s3:s4:s5:d6:s7:d8:s9'
+      * the internal data of this function matches 'D_S_Weapons'.
+    * "D_S_WeaponsDamageRatio": gets amount of weapon OP from weapons / fitted mounts of the inputted type and size. only works in instances were a ship variant is part of the linked object  should look like: '~~D_S_WeaponsDamage_Ratio:s0:s1:s2:s3:s4:s5:d6:s7:d8:s9'
+      * the internal data of this function matches 'D_S_Weapons'.
+      * NOTE: note yet functional.
   * for String:
     * "S_LR": a list of values were one is selected based on weight. should look like: '~~S_LR:d0:S10:d11'
       * d0: the number of values this list holds. (cannot use linkedobjects)

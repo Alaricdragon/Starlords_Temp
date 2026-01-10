@@ -3,7 +3,6 @@ package starlords.util.ScriptedValues;
 import com.fs.starfarer.api.Global;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ScriptedValueController {
     //todo: If i ever find myself looking at this going WTF: this is for loading a single string value as many diffrent values, some of wish can be scritps.
@@ -124,6 +123,9 @@ public class ScriptedValueController {
             case "B_!" -> new SV_B_NOT();
             case "B_B" -> new SV_B_B();
             case "B_B2" -> new SV_B_B2();
+            case "B_S_Size" -> new SV_B_S_Size();
+            case "B_S_Manufacturer" -> new SV_B_S_Manufacturer();
+            case "B_S_DefenseType" -> new SV_B_S_DefenseType();
 
             case "D_R" -> new SV_D_R();
             case "D_WR" -> new SV_D_WR();
@@ -132,6 +134,9 @@ public class ScriptedValueController {
             case "D_B2" -> new SV_D_B2();
             case "D_S_Weapons" -> new SV_D_S_Weapons();
             case "D_S_WeaponsOP" -> new SV_D_S_Weapons_OP();
+            //case "D_S_WeaponsDamage" -> new SV_D_S_WeaponsDamage();
+            case "D_S_WeaponsOPRatio" -> new SV_D_S_Weapons_Ratio_OP();
+            //case "D_S_WeaponsDamageRatio" -> I didnt create this class because I am lazy.
 
             case "S_LR" -> new SV_S_LR();
             case "S_FactionPortrait" -> new SV_S_FactionPortrait();
