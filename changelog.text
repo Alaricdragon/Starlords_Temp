@@ -1,3 +1,6 @@
+V0.3.67:
+    fixes:
+        fixed a crash that happened when starlords tried to add a lord mid game and was out of 'faction space' somehow...?
 V0.3.66:
     (thanks lightspeedgold for the following random improvements:)
     improvements:
