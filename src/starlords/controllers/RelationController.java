@@ -52,6 +52,22 @@ public class RelationController extends BaseIntelPlugin {
             a++;
         }
     }
+    private void addFactionToIndex(String... factionID){
+        int added = 0;
+        int startingID = factionIdxMap.size();//first id added.
+        for (String a : factionID) {
+            if (factionIdxMap.containsKey(a)) continue;
+            added++;
+            factionIdxMap.put(a, factionIdxMap.size());
+        }
+        if (added == 0) return;
+
+        int[][] temp = factionRelations;
+        factionRelations = new int[factionIdxMap.size()][lordRelations.length];
+        for (int a = 0; a < startingID; a++) for (int b = 0; b < lordRelations.length; b++){
+            factionRelations[a][b] = temp[a][b];
+        }
+    }
     private static int getIndexOfLord(Lord lord){
         return instance.lordMap.get(lord.getLordAPI().getId());
     }
@@ -80,7 +96,7 @@ public class RelationController extends BaseIntelPlugin {
                 instance.factionRelations[a][b] = tempa[a][b];
             }
         }
-
+        getInstance().addFactionToIndex(lord.getLordAPI().getFaction().getId());
         int factionIdx = instance.factionIdxMap.get(lord.getLordAPI().getFaction().getId());
         instance.factionRelations[factionIdx][getIndexOfLord(lord)] = STARTING_LOYALTY;
         if (DEBUG_MODE) {
