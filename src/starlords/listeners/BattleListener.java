@@ -159,7 +159,7 @@ public class BattleListener extends BaseCampaignEventListener {
 			    + Utils.printLordsWithPrisoners(loserLords) + System.lineSeparator();
 
 	    // take prisoners here
-	    boolean canCapture = !maybeCaptor.isEmpty();
+	    boolean canCapture = !maybeCaptor.isEmpty() || playerWon;
 	    for (Lord defeated : maybeCaptured) {
 		    Random rand = new Random(
 				    defeated.getLordAPI().getId().hashCode() * Global.getSector().getClock().getTimestamp());
