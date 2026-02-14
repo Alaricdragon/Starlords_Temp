@@ -1,3 +1,6 @@
+V0.3.69:
+    changes:
+        made it so lords can -never satbomb-. will return someday, don't worry.
 V0.3.68:
     fixes:
         fixed player being unable to capture lords, unless another lord was on there side of the combat.
