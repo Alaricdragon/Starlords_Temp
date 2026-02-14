@@ -57,7 +57,7 @@ public class TargetUtils {
     private static boolean canRaid_campaign = true;
     private static boolean canTacticalBomb_campaign = true;
     private static boolean canInvade_campaign = true;
-    private static boolean canSatbomb_campaign = true;
+    private static boolean canSatbomb_campaign = false;
 
     @Setter
     private static boolean canPlayerBeAttacked = true;
