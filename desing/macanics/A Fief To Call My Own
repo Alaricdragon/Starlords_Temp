@@ -1,0 +1,30 @@
+requirements:
+    1) upgrades update
+
+so fief. right now they do the following:
+    1: give credits to lords
+    2: act as a place for a lord to upgrade
+    3: let the lord build 'garasons' at the station.
+
+this... is not acceptable. its so simple. this should do -more-.
+possibility's:
+    1: give lords -full complete control- over the fief (like the player has on governorship)
+    2: give the lord 'partial' control of a fief. (they cannot edit and player made buildings, or buildings that a lord did not place there)
+    3: give the lord no real control, but some other bonus.
+    4: build some type of new 'sub market system' that lets the lord build there own improvements (like defenses, or prisions, or spy networks, so on). a type of sub upgrade.
+
+number 2 seems safe, but... number 4 must also be considerd. But I...
+    this is boring. I think for I will leave this for now. A feif to call my own is a lot of work for very little benefit.
+
+restrictions:
+    1: the fief owner is NOT getting the income from the fief (like governship). this is because for player factions, the player should be getting that income.
+       -instead, the fief owner will get some type of 'tax' amount based on the amount of credits generated.
+
+player lords fiefs:
+    when in the player faction, a lord owning a fief could act as a administrator? (still counting for the admin cap) if no dedicated admin is present.
+how it would work:
+    1: the lord_industrys.csv file:
+        this .csv file would state what industry's a giving lord could make, when they could make them, the max number allowed in the sector, conditions to make them and so froth.
+    2: a lords 'preference' settings.
+        basically a script that determines what a lord wants on a giving world. A lord might build things from industrial evolution, or some other system.
+    3: I... I dont think I am ready to look to deeply into this. yet.

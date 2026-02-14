@@ -1,0 +1,61 @@
+requirements:
+    1) AI upgrades update
+    2) dialog update.
+    3) ?PMC update (for better integration)
+    4) ?Salvage update (they are linked by nature)
+
+at present starlords can only use variants. but I want the ability to have abyssal, threat, 'unknown', and other 'strange' wepaons be a part of a lords fleet.
+so this is it.
+
+how it works:
+a giving starlord would hold a list of 'advanced weapons' that they have built / acquired. basically a inventory for a lord. each item would hold the following data.
+    1: the wonder ID.
+    2: a boolean showing if its 'in use' right now. wonders not in use cannot be looted outside of spical events.
+I would also have some type of 'strange_weapon.csv' file that would filter how said weapons act. its data would be:
+    id: the weapon / ship id / item id.
+    type: WEAPON, FIGHTER, SHIP, COMMODITY, SPECIAL_ITEM, OTHER //OTHER is just stored as data. the player cannot acquire it.
+    usage: -link to usage and equipment script-
+    canuse: if a giving lord can use this wonder.
+    loot_from_player: if its possable for lords to loot this wonder from the player fleet (if they kill a player ship and are able to salvage)
+    allowedToLoot: if someone can loot the wonder from someone else. can be:
+        -note: I need to advance my tag system so I can have more then 1 tag.
+        -maybe seperate them by lines
+        PLAYER-LORD     lord can loot this wonder from player
+        LORD-LORD       lord can loot this wonder from another lord
+        LORD-PLAYER     player can loot this wonder from lord
+        ALWAYS          anyone can loot this wonder from anyone
+    loot_chance: the chance of acquisition. if the chance 'fails' no wonder is looted. (between 0 - 1. 1 is 100%, 0 is 0%.)
+    canUse: if a giving lord is allowed to use this wonder.
+    know: if this wonder is known by default. runs when a lord is created.
+    tags: a list of strings showing the 'tags' bound to this wonder. used when calculating how a lord feels about it.
+          -furthermore, the way a lord views a wonder should probably be bound in its own file. its quite important after all.
+    awe: the 'awe' value of this wonder. I might make it so lords will be more likely to try there luck at another lord if they have acsess to this wonder.
+         -farther more, 'awe' is not liner. 'awe' is 'awe^2'. so 1 awe is 1. 2 = 4. 3 = 9.
+         -the reason for this is to devide wonders into 'tiers'. abyssal matter might be 3 'awe'. a radiant might be 10. a tesseract might be 20.
+lord.jsons:
+    a new filed for 'don't allow wonder use by default'
+    allowed wonders (by tags and id)
+    disallowed wonders (by tags and id)
+    wonder acquisition modifier (globaly, tags, and id)
+    overrite scripts (as always) for each wonder.
+
+acquisition:
+    PMC policy lord action:
+        like 'explore the abyss', or 'hunt rearmament'. things like that.
+        (keep in mind: PMC policy's are group actions. they are going together.)
+    lord actions:
+        individual lords might have the knowledge on how to find 'weapons of wonder' and seek to acquire them.
+    sabotage:
+        a lord might send spys to another lords base / fleet or a PMC base to attempt aquisition of a Wonder. this would be really hard and done in multible steps:
+        1: scouting (determine what exists were must be done bit by bit)
+        2: acquisition: doing whatever it is spys do to acquire the Wonder. they would move the wonder to storge at one of your planets / some random storge somewere?
+    if a PMC leader has a wonder, they might give it as a gift / quest reword (based on awe value + credit value).
+        -this is really cool actually. letting a wonder go like that. I keep thinking of the penrose. giving away a supership to another lord to get a hard task done.
+
+known Wonders:
+    when salvaging or finishing combat, how does a lord know if something is a wonder or not? if they have not encountered it before, they simply don't.
+    if they find something that is a wonder, but don't know it, they will:
+        1: take it into there fleet / inventory
+            -this is not the case in instances were multiple lords were battling, and another victor lord 'knows' what the wonder is. instead it will go to that lord (loseing rep and gaining vengence depending on the awe factor. lords will keep this in mind, and if someone else 'passed it over' with a good rep, they might share this information, letting the wonder go to that lord. (at a 'dept' increase))
+        2: place it in storge (wherever they store things)
+        3: a timer will start. when the timer ends, the lord will 'understand' they they have a wonder, and can use it (next time they go to upgrade).

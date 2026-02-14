@@ -1,0 +1,19 @@
+requirements:
+    1) dialog update.
+
+so... duels and contests.
+basically, an expansion on the turnament system? or maybe I should view it differently.
+
+I don't want to complete this right now, but a 'duel' would be a one on one fight or other action between a lord and a lord.
+
+a 'contest' is like a tournament. something between many lords.
+
+'duels' would happen over honor, to clear vengeance, or for fun.
+
+a 'contest' requires some type of gathering, and is then run.
+
+
+duels and contests would have there own CSV file. showing how they work when they are invoked.
+baicly letting systems work smover.
+
+note: this should probably be in structure. this feels more like structure.

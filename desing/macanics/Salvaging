@@ -1,0 +1,28 @@
+requirements:
+    1) upgrade update
+    2) AI improvements
+    3) ?Weapons Of Wonder.
+
+someone brought up the idea of lords 'salvaging' ships from the battlefield.
+its a interesting idea. even if they would just sell them.
+Weapons Of Wonder requirement is because lords of the overlap in systems (a lot of salvage could be 'weapons of wonder').
+
+so what is salvage?
+mostly, its ships. ships salvaged for combat.
+
+lords would salvage ships under the following conditions:
+    1: its a variant the lord uses OR the lord really needs a ship (or its a valid Wonder)
+    2: they have the supply's and fuel to handle the ship repair (and travel)
+       -if a lord does not have enough supplies, they may mothball the ship.
+    3: the ship is of 'high value' and they plan on selling it.
+
+salvaged ships would:
+    a: be mothballed in the fleet.
+    b: be slowly repaired in the fleet, for use in combat.
+
+when would I salvage:
+    a: after battles
+    b: if preforming the AI action salvage
+        an AI action to help clean up all the salvage, generating credits, supplies, and fuel
+        this would target any ship, but prefer known 'wonders'.
+        This AI act would be more commonly done by lords that are very weak and cannot fight (when no good trade is available.)

@@ -2,6 +2,7 @@ requirements:
     1) AI structure upgrade.
     2) dialog structure upgrade.
     3) 'dialog intrupt' structure update.
+    -) maybe integrate 'reputation' into this.
 
 'vengeance' is a point system simpler to reputation, but, it will lower by 1 each month.
 'debt' is the inverse of 'vengeance' it will lower by the same amount.
