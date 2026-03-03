@@ -77,8 +77,16 @@ public class LordFleetFactory extends FleetFactoryV3 {
                     officer.setPersonality(lord.getTemplate().battlePersonality);
                     upskillOfficer(officer, true);
                     Misc.setUnremovable(officer, true);
-                    lord.getLordAPI().getFleet().getFleetData().addOfficer(officer);
-                    ship.setCaptain(officer);
+                    try {
+                        lord.getLordAPI().getFleet().getFleetData().addOfficer(officer);
+                    }catch (Exception e){
+                        Utils.log.info("ERROR: failed to add an officer to lord "+lord.getTemplate().name+"'s fleet. error of: \n"+e);
+                    }
+                    try {
+                        ship.setCaptain(officer);
+                    }catch (Exception e){
+                        Utils.log.info("ERROR: failed to add an officer to a ship in lord "+lord.getTemplate().name+"'s. fleet. error of: \n"+e);
+                    }
                 }
             }
         }

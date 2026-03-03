@@ -303,8 +303,10 @@ public class LordGenerator {
         int[] tempType = new int[typeratio.length];
         int maxLoops = targetShips * 5;
         while(ships.getUnorganizedShips().size() > 0 && output.size() < targetShips && maxLoops > 0){
-            int s = getLowestNumberID(sizeratio,tempSize);
-            int t = getLowestNumberID(typeratio,tempType);
+            int s = getValueFromWeight(sizeratio);//getLowestNumberID(sizeratio,tempSize);
+            s = Math.max(s, 0);
+            int t = getValueFromWeight(typeratio);//getLowestNumberID(typeratio,tempType);
+            t = Math.max(t, 0);
             ShipData ship = ships.getRandomShip(types[t],sizes[s]);
             if (ship == null) {
                 maxLoops--;
@@ -632,6 +634,7 @@ public class LordGenerator {
         return getValueFromWeight(a);//force a crash because I did something wrong and need to fix this.
     }
     private static int getLowestNumberID(int[] list,int[] tempData){
+        //please note: temp data is always blank.
         int out = 0;
         int a2=0;
         while(true) {
