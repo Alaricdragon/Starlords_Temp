@@ -41,7 +41,7 @@ import static starlords.util.Constants.*;
 
 public class Utils {
 
-    private static final Logger log = Global.getLogger(Utils.class);
+    public static final Logger log = Global.getLogger(Utils.class);
 
     private static final float SOMEWHAT_CLOSE_DIST = 1000;
     private static final float CLOSE_DIST = 500;

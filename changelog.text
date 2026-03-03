@@ -1,3 +1,8 @@
+V0.3.70:
+    fixes:
+        fixed a crash related to a fleet not having a valid officer data?
+        (hopefully) fixed a crash involving a permanent freeze on month end? but that might have not been me? am confused.
+        fixed a issue with the lord generator were it really liked fleets to have all ships be the same size (reducing fleet verity.)
 V0.3.69:
     changes:
         made it so lords can -never satbomb-. will return someday, don't worry.
