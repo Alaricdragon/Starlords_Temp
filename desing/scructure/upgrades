@@ -18,5 +18,10 @@ modulizing lord skills.
 adding in systems to make sure that lords respect the amount of Smods that should have (from mods that might add skills), as well as other modifications they might not respect otherwize.
 adding in a system to let lords 'fleet skills' be respected. effectively, modifiers that are automatically added based on skills.
 
+upgrade the fleet and flagship generators.
+for fleet generators, more verity in what we need. This can be done with more generation conditions.
+for flagship pickers, I can increase the veritiy by having additional stats, such as speed, HP, armor, op, so on, then make it so each lord has a random 'weight' for each of said stats.
+    maybe also 'cap' a giving weight for each type of item to like 100 (before multiplyers) so I cant just have the invictus being worth wayyyy to mush weight do to HP?
+    from there, I can simply get random by weight for all possable ships. This should resalt in a mush better spread of flagships, still focusing on the best ships.
 
 all modulized data ponits should be able to be overridin or otherwise modified.
