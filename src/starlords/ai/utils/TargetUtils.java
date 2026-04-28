@@ -66,6 +66,8 @@ public class TargetUtils {
     public static boolean isValidMarket(MarketAPI market){
         if (market == null) return false;
         if (market.isInHyperspace()) return false;
+        if (market.getStarSystem() == null) return false;
+        if (market.getStarSystem().getHyperspaceAnchor() == null) return false;
         //if (market.getPrimaryEntity() == null) return false;//?
         if (!market.isInEconomy()) return false;
         if (market.getSize() <= 2) return false;
