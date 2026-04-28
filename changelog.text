@@ -1,3 +1,6 @@
+V0.3.71:
+    fixes:
+        (hopefully) fixed a crash were a market that exists in hyperspace might cause crashes every month.
 V0.3.70:
     fixes:
         fixed a crash related to a fleet not having a valid officer data?
