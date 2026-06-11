@@ -1,3 +1,6 @@
+V0.3.72:
+    fixed:
+        added crash protection to certain areas to hopefully prevent crashes in rare cases of lord recruitment.
 V0.3.71:
     fixes:
         (hopefully) fixed a crash were a market that exists in hyperspace might cause crashes every month.

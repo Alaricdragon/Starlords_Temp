@@ -340,26 +340,30 @@ public class Lord {
 
     public void setCurrAction(LordAction action) {
         if (isPlayer) return;
-        currAction = action;
-        ModularFleetAIAPI lordAI = (ModularFleetAIAPI) getFleet().getAI();
-        if (!(lordAI.getStrategicModule() instanceof LordStrategicModule)) {
-            // this seems to happen when lords are defeated
-            lordAI.setStrategicModule(new LordStrategicModule(this, lordAI.getStrategicModule()));
-            //LordController.log.info("WARNING: AI WAS RESET: " + getLordAPI().getNameString());
-        }
+        try {
+            currAction = action;
+            ModularFleetAIAPI lordAI = (ModularFleetAIAPI) getFleet().getAI();
+            if (!(lordAI.getStrategicModule() instanceof LordStrategicModule)) {
+                // this seems to happen when lords are defeated
+                lordAI.setStrategicModule(new LordStrategicModule(this, lordAI.getStrategicModule()));
+                //LordController.log.info("WARNING: AI WAS RESET: " + getLordAPI().getNameString());
+            }
 
-        if (action != null) {
-            persistentData.put("currAction", action.toString());
-            ((LordStrategicModule) lordAI.getStrategicModule()).setInTransit(action.toString().contains("TRANSIT"));
-            ((LordStrategicModule) lordAI.getStrategicModule()).setEscort(action == LordAction.CAMPAIGN || action == LordAction.FOLLOW);
-        } else {
-            persistentData.put("currAction", null);
-            ((LordStrategicModule) lordAI.getStrategicModule()).setInTransit(false);
-            ((LordStrategicModule) lordAI.getStrategicModule()).setEscort(false);
-            setTarget(null);
+            if (action != null) {
+                persistentData.put("currAction", action.toString());
+                ((LordStrategicModule) lordAI.getStrategicModule()).setInTransit(action.toString().contains("TRANSIT"));
+                ((LordStrategicModule) lordAI.getStrategicModule()).setEscort(action == LordAction.CAMPAIGN || action == LordAction.FOLLOW);
+            } else {
+                persistentData.put("currAction", null);
+                ((LordStrategicModule) lordAI.getStrategicModule()).setInTransit(false);
+                ((LordStrategicModule) lordAI.getStrategicModule()).setEscort(false);
+                setTarget(null);
+            }
+            setActionComplete(false);
+            setAssignmentStartTime(Global.getSector().getClock().getTimestamp());
+        }catch (Exception e){
+            Utils.log.warn("failed to setCurrAction for lord "+lordAPI.getNameString()+" ("+lordAPI.getId()+")"+". error of: "+e);
         }
-        setActionComplete(false);
-        setAssignmentStartTime(Global.getSector().getClock().getTimestamp());
     }
 
     public void setActionComplete(boolean bool) {
