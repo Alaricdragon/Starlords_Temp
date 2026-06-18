@@ -1,0 +1,28 @@
+how this would work, is each lord would get 'techs', based on some condition.
+each tech would do the following:
+unlock fighters, ships, and weapons with a given tag (like blueprint packages do)
+(hullmods, skills, commander skills, and SIC attributes and skills, and anything else I can think of would all have corresponding 'tech' (this would be desided inside of the hullmod, skills, officer skills, and sic skills files))
+
+aquireing 'tech':
+    for now, tech would be gotten at game start. I will have a csv file were I can chose a given tech to be added to a lord.
+    this calculation would be done for all techs a lord can have acsess to. so if something had a simple 20% chance, 20% of all lords would have acsess.
+    all lords 'techs' would be saved, allowing
+
+useing 'tech':
+    for now, this is simply used for lord generation. lords would randomize there fleets using the blueprints 'tech' has to offer.
+    this data would be saved, so any variants and officer skill layouts a lord creates this way would be used be used for the rest of the game.
+    [basically, a way to make each and every lord feel really interesting to fight, well not feeling like they lack any form of synergy in there fleet (although this will make some 'bad' fleets)]
+
+base 'tech':
+    this refers to the tech inhalant to a given faction.
+    so, basically a lord is giving everything there 'base' faction has for free.
+
+generative 'tech':
+    generative tech. how strange.
+    basically, the possibility of a lord spawning with another factions blueprints.
+    I dont know how I feel about this, but I think it could be a good idea.
+
+spoiler tech:
+    basic spoiler tech (domain exploration, remament) could possably be added as very very 'rare' techs. should still be an option to actavate though.
+    also, maybe add some requirements to a giving lord, so lords that are very anit AI would never use a automated tech, for example.
+    advanced spoiler tech (threat, shroud, omega) will need to wait for weapons of wonder.

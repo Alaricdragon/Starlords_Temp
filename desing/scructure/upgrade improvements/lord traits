@@ -1,0 +1,13 @@
+this is an extension of 'randoms':
+so how this would work, is it would basicly just be a list of... affinitys. (luddic, AI, shruouded, wonders, just, so forth)
+each item here would apply modifiers.
+example:
+    luddic : -AI -eldritch
+    shrouded: +eldritch
+??each lord would get a value for each affinity, random assined (between some value. so shrouded would get -10 to +1. and luddic would get -5 to +5)
+??each affinity would effect the 'random' data limits and values, allowing for more complexity?
+I need to think of this more.
+
+said affinity's would determine the odds of getting things like 'tech', (and latter the odds of doing certain actions).
+the affinity's are just a more 'solid' random category.
+

@@ -1,0 +1,7 @@
+right now, an issue presents itself on larger worlds: the lord generator will take so fucking long, it will upfront crash the game.
+this is a issue.
+so the solution:
+    1: disable politics and all attacks until the lord generator is 'finished'
+    2: save the number of lords to generate for each faction (and there fiefs)
+    3: every day, generate some number of lords, giving a notification as they generate.
+    4: once all lords are generated, reactivate politics and attacks

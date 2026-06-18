@@ -1,0 +1,5 @@
+this is something I have been confused about for a while.
+
+so, an issue I foresee is having full mod combatability. issue being having built in support for hullmods and skills and what have you might be borderline impossible.
+the solution: on basically every csv file, I will have a 'requirements to actavate' varuble. this would use scripted values, and I can simple read the mods in it.
+If this field reads false, the data on the line will never be loaded. ever. basicly preventing any wast (other then on startup)

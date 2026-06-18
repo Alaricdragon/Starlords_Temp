@@ -1,0 +1,11 @@
+right now, when upgrading a fleets hullmods I go through a costly and time consuming calculation to determin what to chose on a ship.
+new solution:
+on lord generation, simply save a few variants. for 's-mod levels'.
+so, basic ships would use one variant.
+a second variant could be generated for the max level of 's-mods' a lord can use. this variant could just be the same (in weapons, fighters, and none smodded hullmods), or it could be completely diffrent for the number of smods it has.
+when upgrading, I can simply calculate the cost of the s-mods and go from there.
+
+on gamemods with infinite max s-mods:
+    in this case, I would save 1 variant for every 3 s-mods added (excluding built in mods, consider them free (added on the first upgrade))
+    also have a setting to handle the max possible amount of smods.
+    also, remove the current 'lord smods' setting, and use the base game max smods for NPCs instead.
