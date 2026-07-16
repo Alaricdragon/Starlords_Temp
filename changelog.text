@@ -1,3 +1,6 @@
+V0.3.73:
+    fixed:
+        maybe fixed factions that are suppose to not have diplomacy having diplomacy again.
 V0.3.72:
     fixed:
         added crash protection to certain areas to hopefully prevent crashes in rare cases of lord recruitment.

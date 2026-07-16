@@ -50,6 +50,8 @@ public class NexerlinUtilitys {
         if (factionConfig.disableDiplomacy) return false;
         if (!factionConfig.playableFaction) return false;
         if (factionConfig.pirateFaction && !NexConfig.allowPirateInvasions) return false;
+        if (factionConfig.diplomacyTraits != null && factionConfig.diplomacyTraits.contains("foreverwar")) return false;
+
         return true;
     }
     public static boolean canBeInvaded(MarketAPI market){
