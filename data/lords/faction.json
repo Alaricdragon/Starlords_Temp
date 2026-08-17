@@ -1,6 +1,12 @@
 {
   "player": {
-
+    "canGivesFiefs": true,
+    "canPreformDiplomacy": true,
+    "canPreformPolicy": true,
+    "canStarlordsJoin": true,
+    "canHaveCampaigns": true,
+    "canAttack": true,
+    "canBeAttacked": true
   },
   "hegemony": {
     "leaderID": "daud",
