@@ -167,9 +167,7 @@ public class BattleListener extends BaseCampaignEventListener {
 		    int captorFreeChance = 0;
 
 		    // if lord still has a couple ships left, destroy them
-		    for (FleetMemberAPI toDestroy : defeated.getFleet().getMembersWithFightersCopy()) {
-			    if (!toDestroy.isFighterWing()) defeated.getFleet().removeFleetMemberWithDestructionFlash(toDestroy);
-		    }
+		    if (defeated.getFleet() != null) for (FleetMemberAPI toDestroy : defeated.getFleet().getMembersWithFightersCopy()) if (!toDestroy.isFighterWing()) defeated.getFleet().removeFleetMemberWithDestructionFlash(toDestroy);
 		    if (LifeAndDeathController.getInstance().attemptToKillStalord(defeated)) {
 			    Global.getSector().getCampaignUI().addMessage(
 					    StringUtil.getString(CATEGORY_UI, "lord_defeated_killed",
