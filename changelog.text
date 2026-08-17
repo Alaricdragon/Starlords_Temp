@@ -1,3 +1,6 @@
+V0.3.75:
+    fixed:
+        maybe fixed a issue were the player faction was automatically set to be unable to interact with some starlord interactions, in some random cases.
 V0.3.74:
     fixed:
         maybe fixed a crash were a lord that lost a battle might destroy the game.
