@@ -1,3 +1,6 @@
+V0.3.74:
+    fixed:
+        maybe fixed a crash were a lord that lost a battle might destroy the game.
 V0.3.73:
     fixed:
         maybe fixed factions that are suppose to not have diplomacy having diplomacy again.
