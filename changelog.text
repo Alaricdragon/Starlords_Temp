@@ -1,3 +1,7 @@
+V0.3.76:
+    fixed:
+        fixed a rare crash on a starlord in the intel menu.
+        fixed active law proposals not being removed if the lord was the target of said proposal.
 V0.3.75:
     fixed:
         maybe fixed a issue were the player faction was automatically set to be unable to interact with some starlord interactions, in some random cases.

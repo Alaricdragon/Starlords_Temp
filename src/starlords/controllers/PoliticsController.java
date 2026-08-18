@@ -112,6 +112,14 @@ public class PoliticsController implements EveryFrameScript {
 
         }
         if (getInstance().factionLawsMap.get(lord.getFaction().getId()).getMarshal() != null && getInstance().factionLawsMap.get(lord.getFaction().getId()).getMarshal().equals(lord.getLordAPI().getId())) getInstance().factionLawsMap.get(lord.getFaction().getId()).setMarshal(null);
+        LawProposal curr = getCurrProposal(lord.getFaction());
+        if (curr != null){
+            if (curr.targetLord.equals(lord.getLordAPI().getId())){
+                curr.kill();
+                getInstance().resolveProposal(curr);
+            }
+
+        }
         /*
         for(Object a : getInstance().factionLawsMap.values().toArray()){
             Lawset laws = (Lawset) a;
@@ -393,7 +401,7 @@ public class PoliticsController implements EveryFrameScript {
         int totalOpposition = votes.two;
         boolean victorySound = true;
         boolean announce = proposal.getFaction().equals(Utils.getRecruitmentFaction());
-        if (totalSupport > totalOpposition) {
+        if (totalSupport > totalOpposition && !proposal.isAlive()) {
             if (announce) {
                 Global.getSector().getCampaignUI().addMessage("The council has passed law: " + proposal.getTitle(),
                         proposal.faction.getBaseUIColor());
@@ -521,8 +529,13 @@ public class PoliticsController implements EveryFrameScript {
         } else {
             // law failed
             if (announce) {
-                Global.getSector().getCampaignUI().addMessage("The council has voted down law: " + proposal.getTitle(),
-                        Color.RED);
+                if (LordController.getLordById(proposal.targetLord) != null) {
+                    Global.getSector().getCampaignUI().addMessage("The council has voted down law: " + proposal.getTitle(),
+                            Color.RED);
+                }else{
+                    Global.getSector().getCampaignUI().addMessage("The target of law " + proposal.getTitle()+" has died",
+                            Color.RED);
+                }
             }
             victorySound = false;
         }

@@ -95,7 +95,12 @@ public class Utils {
 				&& !isSubject && !isMarried && !DEBUG_MODE) {
 			orderStr = "[REDACTED]";
 		} else if (lord.getCurrAction() == LordAction.IMPRISONED) {
-			orderStr = "Imprisoned by " + LordController.getLordOrPlayerById(lord.getCaptor()).getLordAPI().getNameString();
+            Lord capture = LordController.getLordOrPlayerById(lord.getCaptor());
+            if (capture != null) {
+                orderStr = "Imprisoned by " + LordController.getLordOrPlayerById(lord.getCaptor()).getLordAPI().getNameString();
+            }else{
+                orderStr = "[REDACTED]";
+            }
 		} else if (lord.getCurrAction() == LordAction.COMPANION) {
 			orderStr = "Traveling with you";
 		} else if (lord.getCurrAction() == null || !fleet.isAlive()) {

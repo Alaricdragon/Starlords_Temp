@@ -224,7 +224,11 @@ public class LawProposal {
                 }
             case APPOINT_MARSHAL:
                 lord = LordController.getLordOrPlayerById(targetLord);
-                return "Appoint Marshal " + lord.getLordAPI().getNameString();
+                if (lord == null){
+                    return "Appoint Marshal [Error]";
+                }else {
+                    return "Appoint Marshal " + lord.getLordAPI().getNameString();
+                }
             case AWARD_FIEF:
                 lord = LordController.getLordOrPlayerById(targetLord);
                 return "Award Fief to " + lord.getLordAPI().getNameString();
