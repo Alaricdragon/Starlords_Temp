@@ -113,7 +113,7 @@ public class PoliticsController implements EveryFrameScript {
         }
         if (getInstance().factionLawsMap.get(lord.getFaction().getId()).getMarshal() != null && getInstance().factionLawsMap.get(lord.getFaction().getId()).getMarshal().equals(lord.getLordAPI().getId())) getInstance().factionLawsMap.get(lord.getFaction().getId()).setMarshal(null);
         LawProposal curr = getCurrProposal(lord.getFaction());
-        if (curr != null){
+        if (curr != null && curr.targetLord != null){
             if (curr.targetLord.equals(lord.getLordAPI().getId())){
                 curr.kill();
                 getInstance().resolveProposal(curr);
