@@ -1,3 +1,7 @@
+V0.3.78:
+    fixed the player being able to be killed as a starlord, laving only a ghost behind that is still a starlord but dead!
+    fixed incorrect detection of laws failing when it involves the player.
+    fixed some laws failing being writen like someone died for some reason.
 V0.3.77:
     fixed a random crash that would happen when removing a lord that I added last patch.
 V0.3.76:
