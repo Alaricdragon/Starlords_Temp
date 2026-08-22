@@ -231,6 +231,7 @@ public class LawProposal {
                 }
             case AWARD_FIEF:
                 lord = LordController.getLordOrPlayerById(targetLord);
+                if(lord == null) return "Award Fief to "+"null";
                 return "Award Fief to " + lord.getLordAPI().getNameString();
             case DECLARE_WAR:
                 return "Declare war - " + Global.getSector().getFaction(targetFaction).getDisplayName();
@@ -238,6 +239,7 @@ public class LawProposal {
                 return "Sue for peace - " + Global.getSector().getFaction(targetFaction).getDisplayName();
             case REVOKE_FIEF:
                 lord = LordController.getLordOrPlayerById(targetLord);
+                if(lord == null) return "Revoke Fief from "+"null";
                 return "Revoke Fief from " + lord.getLordAPI().getNameString();
             case CHANGE_RANK:
                 lord = LordController.getLordOrPlayerById(targetLord);
@@ -251,6 +253,7 @@ public class LawProposal {
                 return ret;
             case EXILE_LORD:
                 lord = LordController.getLordOrPlayerById(targetLord);
+                if(lord == null) return "Exile "+"null";
                 return "Exile " + lord.getLordAPI().getNameString();
         }
         return "ERROR: No Title";

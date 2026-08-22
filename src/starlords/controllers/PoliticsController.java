@@ -529,7 +529,7 @@ public class PoliticsController implements EveryFrameScript {
         } else {
             // law failed
             if (announce) {
-                if (LordController.getLordById(proposal.targetLord) != null) {
+                if (proposal.targetLord == null || LordController.getLordOrPlayerById(proposal.targetLord) != null) {
                     Global.getSector().getCampaignUI().addMessage("The council has voted down law: " + proposal.getTitle(),
                             Color.RED);
                 }else{
