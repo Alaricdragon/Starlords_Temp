@@ -244,6 +244,8 @@ public class Utils {
     }
 
     public static float estimateMarketDefenses(MarketAPI market) {
+        // null-safe: a market can be detached from the economy, or a caller can pass a market whose primary entity has no market
+        if (market == null) return 0;
         CampaignFleetAPI marketFleet = Misc.getStationFleet(market);
         float stationStrength = 0;
         if (marketFleet != null) {

@@ -355,6 +355,8 @@ public class EventController extends BaseIntelPlugin {
             }
         }
         for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
+            // skip invalid markets (detached from the economy)
+            if (market == null || !market.isInEconomy()) continue;
             if (!TargetUtils.canBeAttackedByLord(lord,market)) continue;
             if (seen.contains(market)) continue;
             int currWeight = getMilitaryOpWeight(lord, market, null, false);
@@ -538,6 +540,8 @@ public class EventController extends BaseIntelPlugin {
     public static int getMilitaryOpWeight(Lord lord, MarketAPI market, LordEvent event, boolean defensive) {
         if (market == null) return 0;
         SectorEntityToken target = market.getPrimaryEntity();
+        // a market's primary entity can lose its market link (e.g. after the entity was removed from the sector); treat such markets as undefended
+        if (target == null || target.getMarket() == null) return 0;
         CampaignFleetAPI lordFleet = lord.getLordAPI().getFleet();
         Lord targetOwner = FiefController.getOwner(target.getMarket());
         // base weights
